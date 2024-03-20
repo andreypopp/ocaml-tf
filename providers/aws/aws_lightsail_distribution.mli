@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -137,3 +137,20 @@ val register :
   origin:origin list ->
   string ->
   t
+
+val make :
+  ?certificate_name:string prop ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?is_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  bundle_id:string prop ->
+  name:string prop ->
+  cache_behavior:cache_behavior list ->
+  cache_behavior_settings:cache_behavior_settings list ->
+  default_cache_behavior:default_cache_behavior list ->
+  origin:origin list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   outbound_caller_config:outbound_caller_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_contacts:float prop ->
+  ?quick_connect_ids:string prop list ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  hours_of_operation_id:string prop ->
+  instance_id:string prop ->
+  name:string prop ->
+  outbound_caller_config:outbound_caller_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type file = {
   content : string prop;  (** The content of the file. *)
@@ -76,46 +74,46 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?language ?test_data ?timeouts
-    ~config_json ~function_app_id ~name ~file __resource_id =
-  let __resource_type = "azurerm_function_app_function" in
-  let __resource =
-    azurerm_function_app_function ?enabled ?id ?language ?test_data
-      ?timeouts ~config_json ~function_app_id ~name ~file ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_function_app_function __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?language ?test_data ?timeouts ~config_json
+    ~function_app_id ~name ~file __id =
+  let __type = "azurerm_function_app_function" in
+  let __attrs =
     ({
-       config_json =
-         Prop.computed __resource_type __resource_id "config_json";
-       config_url =
-         Prop.computed __resource_type __resource_id "config_url";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       function_app_id =
-         Prop.computed __resource_type __resource_id
-           "function_app_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       invocation_url =
-         Prop.computed __resource_type __resource_id "invocation_url";
-       language =
-         Prop.computed __resource_type __resource_id "language";
-       name = Prop.computed __resource_type __resource_id "name";
+       config_json = Prop.computed __type __id "config_json";
+       config_url = Prop.computed __type __id "config_url";
+       enabled = Prop.computed __type __id "enabled";
+       function_app_id = Prop.computed __type __id "function_app_id";
+       id = Prop.computed __type __id "id";
+       invocation_url = Prop.computed __type __id "invocation_url";
+       language = Prop.computed __type __id "language";
+       name = Prop.computed __type __id "name";
        script_root_path_url =
-         Prop.computed __resource_type __resource_id
-           "script_root_path_url";
-       script_url =
-         Prop.computed __resource_type __resource_id "script_url";
+         Prop.computed __type __id "script_root_path_url";
+       script_url = Prop.computed __type __id "script_url";
        secrets_file_url =
-         Prop.computed __resource_type __resource_id
-           "secrets_file_url";
-       test_data =
-         Prop.computed __resource_type __resource_id "test_data";
-       test_data_url =
-         Prop.computed __resource_type __resource_id "test_data_url";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "secrets_file_url";
+       test_data = Prop.computed __type __id "test_data";
+       test_data_url = Prop.computed __type __id "test_data_url";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_function_app_function
+        (azurerm_function_app_function ?enabled ?id ?language
+           ?test_data ?timeouts ~config_json ~function_app_id ~name
+           ~file ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?language ?test_data ?timeouts
+    ~config_json ~function_app_id ~name ~file __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?language ?test_data ?timeouts ~config_json
+      ~function_app_id ~name ~file __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

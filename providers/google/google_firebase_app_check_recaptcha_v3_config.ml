@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -49,33 +47,35 @@ type t = {
   token_ttl : string prop;
 }
 
-let register ?tf_module ?id ?project ?token_ttl ?timeouts ~app_id
-    ~site_secret __resource_id =
-  let __resource_type =
-    "google_firebase_app_check_recaptcha_v3_config"
-  in
-  let __resource =
-    google_firebase_app_check_recaptcha_v3_config ?id ?project
-      ?token_ttl ?timeouts ~app_id ~site_secret ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firebase_app_check_recaptcha_v3_config
-       __resource);
-  let __resource_attributes =
+let make ?id ?project ?token_ttl ?timeouts ~app_id ~site_secret __id
+    =
+  let __type = "google_firebase_app_check_recaptcha_v3_config" in
+  let __attrs =
     ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       site_secret =
-         Prop.computed __resource_type __resource_id "site_secret";
-       site_secret_set =
-         Prop.computed __resource_type __resource_id
-           "site_secret_set";
-       token_ttl =
-         Prop.computed __resource_type __resource_id "token_ttl";
+       app_id = Prop.computed __type __id "app_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       site_secret = Prop.computed __type __id "site_secret";
+       site_secret_set = Prop.computed __type __id "site_secret_set";
+       token_ttl = Prop.computed __type __id "token_ttl";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firebase_app_check_recaptcha_v3_config
+        (google_firebase_app_check_recaptcha_v3_config ?id ?project
+           ?token_ttl ?timeouts ~app_id ~site_secret ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?token_ttl ?timeouts ~app_id
+    ~site_secret __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?token_ttl ?timeouts ~app_id ~site_secret __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

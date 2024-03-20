@@ -1,6 +1,6 @@
 (library
  (name tf_cloudflare)
- (public_name tf.cloudflare)
+ (public_name tf_cloudflare)
  (modes native)
  (flags
   :standard

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,11 @@ val register :
   managed_response_headers:managed_response_headers list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  zone_id:string prop ->
+  managed_request_headers:managed_request_headers list ->
+  managed_response_headers:managed_response_headers list ->
+  string ->
+  t Tf_core.resource

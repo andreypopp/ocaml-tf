@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -30,3 +30,10 @@ val register :
   queue_url:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  policy:string prop ->
+  queue_url:string prop ->
+  string ->
+  t Tf_core.resource

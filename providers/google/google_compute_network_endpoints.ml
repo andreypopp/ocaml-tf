@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_endpoints = {
   instance : string prop option; [@option]
@@ -70,25 +68,34 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?id ?project ?zone ?timeouts
-    ~network_endpoint_group ~network_endpoints __resource_id =
-  let __resource_type = "google_compute_network_endpoints" in
-  let __resource =
-    google_compute_network_endpoints ?id ?project ?zone ?timeouts
-      ~network_endpoint_group ~network_endpoints ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_network_endpoints __resource);
-  let __resource_attributes =
+let make ?id ?project ?zone ?timeouts ~network_endpoint_group
+    ~network_endpoints __id =
+  let __type = "google_compute_network_endpoints" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        network_endpoint_group =
-         Prop.computed __resource_type __resource_id
-           "network_endpoint_group";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       zone = Prop.computed __resource_type __resource_id "zone";
+         Prop.computed __type __id "network_endpoint_group";
+       project = Prop.computed __type __id "project";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_network_endpoints
+        (google_compute_network_endpoints ?id ?project ?zone
+           ?timeouts ~network_endpoint_group ~network_endpoints ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?zone ?timeouts
+    ~network_endpoint_group ~network_endpoints __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?zone ?timeouts ~network_endpoint_group
+      ~network_endpoints __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

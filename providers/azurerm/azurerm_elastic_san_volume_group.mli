@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,16 @@ val register :
   network_rule:network_rule list ->
   string ->
   t
+
+val make :
+  ?encryption_type:string prop ->
+  ?id:string prop ->
+  ?protocol_type:string prop ->
+  ?timeouts:timeouts ->
+  elastic_san_id:string prop ->
+  name:string prop ->
+  encryption:encryption list ->
+  identity:identity list ->
+  network_rule:network_rule list ->
+  string ->
+  t Tf_core.resource

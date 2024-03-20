@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,33 +50,38 @@ type t = {
   synapse_workspace_id : string prop;
 }
 
-let register ?tf_module ?id ?principal_type ?synapse_spark_pool_id
-    ?synapse_workspace_id ?timeouts ~principal_id ~role_name
-    __resource_id =
-  let __resource_type = "azurerm_synapse_role_assignment" in
-  let __resource =
-    azurerm_synapse_role_assignment ?id ?principal_type
-      ?synapse_spark_pool_id ?synapse_workspace_id ?timeouts
-      ~principal_id ~role_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_role_assignment __resource);
-  let __resource_attributes =
+let make ?id ?principal_type ?synapse_spark_pool_id
+    ?synapse_workspace_id ?timeouts ~principal_id ~role_name __id =
+  let __type = "azurerm_synapse_role_assignment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
-       role_name =
-         Prop.computed __resource_type __resource_id "role_name";
+       id = Prop.computed __type __id "id";
+       principal_id = Prop.computed __type __id "principal_id";
+       principal_type = Prop.computed __type __id "principal_type";
+       role_name = Prop.computed __type __id "role_name";
        synapse_spark_pool_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_spark_pool_id";
+         Prop.computed __type __id "synapse_spark_pool_id";
        synapse_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_workspace_id";
+         Prop.computed __type __id "synapse_workspace_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_role_assignment
+        (azurerm_synapse_role_assignment ?id ?principal_type
+           ?synapse_spark_pool_id ?synapse_workspace_id ?timeouts
+           ~principal_id ~role_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?principal_type ?synapse_spark_pool_id
+    ?synapse_workspace_id ?timeouts ~principal_id ~role_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?principal_type ?synapse_spark_pool_id
+      ?synapse_workspace_id ?timeouts ~principal_id ~role_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

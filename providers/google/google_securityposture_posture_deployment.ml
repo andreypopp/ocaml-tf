@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -76,57 +74,54 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~location ~parent
+let make ?description ?id ?timeouts ~location ~parent
     ~posture_deployment_id ~posture_id ~posture_revision_id
-    ~target_resource __resource_id =
-  let __resource_type =
-    "google_securityposture_posture_deployment"
-  in
-  let __resource =
-    google_securityposture_posture_deployment ?description ?id
-      ?timeouts ~location ~parent ~posture_deployment_id ~posture_id
-      ~posture_revision_id ~target_resource ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_securityposture_posture_deployment __resource);
-  let __resource_attributes =
+    ~target_resource __id =
+  let __type = "google_securityposture_posture_deployment" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        desired_posture_id =
-         Prop.computed __resource_type __resource_id
-           "desired_posture_id";
+         Prop.computed __type __id "desired_posture_id";
        desired_posture_revision_id =
-         Prop.computed __resource_type __resource_id
-           "desired_posture_revision_id";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       failure_message =
-         Prop.computed __resource_type __resource_id
-           "failure_message";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+         Prop.computed __type __id "desired_posture_revision_id";
+       etag = Prop.computed __type __id "etag";
+       failure_message = Prop.computed __type __id "failure_message";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
        posture_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "posture_deployment_id";
-       posture_id =
-         Prop.computed __resource_type __resource_id "posture_id";
+         Prop.computed __type __id "posture_deployment_id";
+       posture_id = Prop.computed __type __id "posture_id";
        posture_revision_id =
-         Prop.computed __resource_type __resource_id
-           "posture_revision_id";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
-       target_resource =
-         Prop.computed __resource_type __resource_id
-           "target_resource";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "posture_revision_id";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
+       target_resource = Prop.computed __type __id "target_resource";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_securityposture_posture_deployment
+        (google_securityposture_posture_deployment ?description ?id
+           ?timeouts ~location ~parent ~posture_deployment_id
+           ~posture_id ~posture_revision_id ~target_resource ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~location ~parent
+    ~posture_deployment_id ~posture_id ~posture_revision_id
+    ~target_resource __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~location ~parent
+      ~posture_deployment_id ~posture_id ~posture_revision_id
+      ~target_resource __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

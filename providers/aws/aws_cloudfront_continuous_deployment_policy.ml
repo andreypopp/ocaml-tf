@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type staging_distribution_dns_names = {
   items : string prop list option; [@option]  (** items *)
@@ -85,27 +83,34 @@ type t = {
   last_modified_time : string prop;
 }
 
-let register ?tf_module ~enabled ~staging_distribution_dns_names
-    ~traffic_config __resource_id =
-  let __resource_type =
-    "aws_cloudfront_continuous_deployment_policy"
-  in
-  let __resource =
-    aws_cloudfront_continuous_deployment_policy ~enabled
-      ~staging_distribution_dns_names ~traffic_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_continuous_deployment_policy __resource);
-  let __resource_attributes =
+let make ~enabled ~staging_distribution_dns_names ~traffic_config
+    __id =
+  let __type = "aws_cloudfront_continuous_deployment_policy" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
+       enabled = Prop.computed __type __id "enabled";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
        last_modified_time =
-         Prop.computed __resource_type __resource_id
-           "last_modified_time";
+         Prop.computed __type __id "last_modified_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_continuous_deployment_policy
+        (aws_cloudfront_continuous_deployment_policy ~enabled
+           ~staging_distribution_dns_names ~traffic_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~enabled ~staging_distribution_dns_names
+    ~traffic_config __id =
+  let (r : _ Tf_core.resource) =
+    make ~enabled ~staging_distribution_dns_names ~traffic_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

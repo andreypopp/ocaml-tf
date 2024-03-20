@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,17 @@ val register :
   availability_zone:string prop ->
   string ->
   t
+
+val make :
+  ?asset_id:string prop ->
+  ?auto_placement:string prop ->
+  ?host_recovery:string prop ->
+  ?id:string prop ->
+  ?instance_family:string prop ->
+  ?instance_type:string prop ->
+  ?outpost_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  availability_zone:string prop ->
+  string ->
+  t Tf_core.resource

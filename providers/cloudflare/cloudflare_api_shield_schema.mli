@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,13 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?validation_enabled:bool prop ->
+  name:string prop ->
+  source:string prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

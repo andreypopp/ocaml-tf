@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,59 +71,57 @@ type t = {
   volume_size : float prop;
 }
 
-let register ?tf_module ?description ?encrypted ?id ?kms_key_id
-    ?permanent_restore ?storage_tier ?tags ?tags_all
-    ?temporary_restore_days ?timeouts ~source_region
-    ~source_snapshot_id __resource_id =
-  let __resource_type = "aws_ebs_snapshot_copy" in
-  let __resource =
-    aws_ebs_snapshot_copy ?description ?encrypted ?id ?kms_key_id
-      ?permanent_restore ?storage_tier ?tags ?tags_all
-      ?temporary_restore_days ?timeouts ~source_region
-      ~source_snapshot_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ebs_snapshot_copy __resource);
-  let __resource_attributes =
+let make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
+    ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
+    ~source_region ~source_snapshot_id __id =
+  let __type = "aws_ebs_snapshot_copy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        data_encryption_key_id =
-         Prop.computed __resource_type __resource_id
-           "data_encryption_key_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       owner_alias =
-         Prop.computed __resource_type __resource_id "owner_alias";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
+         Prop.computed __type __id "data_encryption_key_id";
+       description = Prop.computed __type __id "description";
+       encrypted = Prop.computed __type __id "encrypted";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       owner_alias = Prop.computed __type __id "owner_alias";
+       owner_id = Prop.computed __type __id "owner_id";
        permanent_restore =
-         Prop.computed __resource_type __resource_id
-           "permanent_restore";
-       source_region =
-         Prop.computed __resource_type __resource_id "source_region";
+         Prop.computed __type __id "permanent_restore";
+       source_region = Prop.computed __type __id "source_region";
        source_snapshot_id =
-         Prop.computed __resource_type __resource_id
-           "source_snapshot_id";
-       storage_tier =
-         Prop.computed __resource_type __resource_id "storage_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "source_snapshot_id";
+       storage_tier = Prop.computed __type __id "storage_tier";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        temporary_restore_days =
-         Prop.computed __resource_type __resource_id
-           "temporary_restore_days";
-       volume_id =
-         Prop.computed __resource_type __resource_id "volume_id";
-       volume_size =
-         Prop.computed __resource_type __resource_id "volume_size";
+         Prop.computed __type __id "temporary_restore_days";
+       volume_id = Prop.computed __type __id "volume_id";
+       volume_size = Prop.computed __type __id "volume_size";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ebs_snapshot_copy
+        (aws_ebs_snapshot_copy ?description ?encrypted ?id
+           ?kms_key_id ?permanent_restore ?storage_tier ?tags
+           ?tags_all ?temporary_restore_days ?timeouts ~source_region
+           ~source_snapshot_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?encrypted ?id ?kms_key_id
+    ?permanent_restore ?storage_tier ?tags ?tags_all
+    ?temporary_restore_days ?timeouts ~source_region
+    ~source_snapshot_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?encrypted ?id ?kms_key_id ?permanent_restore
+      ?storage_tier ?tags ?tags_all ?temporary_restore_days ?timeouts
+      ~source_region ~source_snapshot_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

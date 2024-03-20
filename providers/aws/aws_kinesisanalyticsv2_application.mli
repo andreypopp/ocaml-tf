@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -495,3 +495,19 @@ val register :
   cloudwatch_logging_options:cloudwatch_logging_options list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?force_stop:bool prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  runtime_environment:string prop ->
+  service_execution_role:string prop ->
+  application_configuration:application_configuration list ->
+  cloudwatch_logging_options:cloudwatch_logging_options list ->
+  string ->
+  t Tf_core.resource

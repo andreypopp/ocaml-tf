@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,25 +36,32 @@ type t = {
   network_manager_id : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~name
-    ~network_manager_id __resource_id =
-  let __resource_type = "azurerm_network_manager_network_group" in
-  let __resource =
-    azurerm_network_manager_network_group ?description ?id ?timeouts
-      ~name ~network_manager_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_manager_network_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~name ~network_manager_id __id =
+  let __type = "azurerm_network_manager_network_group" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        network_manager_id =
-         Prop.computed __resource_type __resource_id
-           "network_manager_id";
+         Prop.computed __type __id "network_manager_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_manager_network_group
+        (azurerm_network_manager_network_group ?description ?id
+           ?timeouts ~name ~network_manager_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~name
+    ~network_manager_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~name ~network_manager_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

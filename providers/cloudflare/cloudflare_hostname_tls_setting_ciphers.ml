@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_hostname_tls_setting_ciphers = {
   hostname : string prop;
@@ -32,29 +30,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?ports ~hostname ~value ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_hostname_tls_setting_ciphers" in
-  let __resource =
-    cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
-      ~value ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_hostname_tls_setting_ciphers __resource);
-  let __resource_attributes =
+let make ?id ?ports ~hostname ~value ~zone_id __id =
+  let __type = "cloudflare_hostname_tls_setting_ciphers" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       ports = Prop.computed __resource_type __resource_id "ports";
-       updated_at =
-         Prop.computed __resource_type __resource_id "updated_at";
-       value = Prop.computed __resource_type __resource_id "value";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       created_at = Prop.computed __type __id "created_at";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       ports = Prop.computed __type __id "ports";
+       updated_at = Prop.computed __type __id "updated_at";
+       value = Prop.computed __type __id "value";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_hostname_tls_setting_ciphers
+        (cloudflare_hostname_tls_setting_ciphers ?id ?ports ~hostname
+           ~value ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ports ~hostname ~value ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ports ~hostname ~value ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

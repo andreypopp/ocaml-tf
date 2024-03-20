@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type accelerators = {
   accelerator_type : string prop;
@@ -183,82 +181,82 @@ type t = {
   zone : string prop;
 }
 
+let make ?dataproc_service_account ?description ?display_name
+    ?enable_rbac ?enable_stackdriver_logging
+    ?enable_stackdriver_monitoring ?id ?labels ?options
+    ?private_instance ?project ?region ?version ?zone ?timeouts ~name
+    ~type_ ~accelerators ~crypto_key_config ~event_publish_config
+    ~network_config __id =
+  let __type = "google_data_fusion_instance" in
+  let __attrs =
+    ({
+       api_endpoint = Prop.computed __type __id "api_endpoint";
+       create_time = Prop.computed __type __id "create_time";
+       dataproc_service_account =
+         Prop.computed __type __id "dataproc_service_account";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       enable_rbac = Prop.computed __type __id "enable_rbac";
+       enable_stackdriver_logging =
+         Prop.computed __type __id "enable_stackdriver_logging";
+       enable_stackdriver_monitoring =
+         Prop.computed __type __id "enable_stackdriver_monitoring";
+       gcs_bucket = Prop.computed __type __id "gcs_bucket";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       options = Prop.computed __type __id "options";
+       p4_service_account =
+         Prop.computed __type __id "p4_service_account";
+       private_instance =
+         Prop.computed __type __id "private_instance";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       service_endpoint =
+         Prop.computed __type __id "service_endpoint";
+       state = Prop.computed __type __id "state";
+       state_message = Prop.computed __type __id "state_message";
+       tenant_project_id =
+         Prop.computed __type __id "tenant_project_id";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       update_time = Prop.computed __type __id "update_time";
+       version = Prop.computed __type __id "version";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_fusion_instance
+        (google_data_fusion_instance ?dataproc_service_account
+           ?description ?display_name ?enable_rbac
+           ?enable_stackdriver_logging ?enable_stackdriver_monitoring
+           ?id ?labels ?options ?private_instance ?project ?region
+           ?version ?zone ?timeouts ~name ~type_ ~accelerators
+           ~crypto_key_config ~event_publish_config ~network_config
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?dataproc_service_account ?description
     ?display_name ?enable_rbac ?enable_stackdriver_logging
     ?enable_stackdriver_monitoring ?id ?labels ?options
     ?private_instance ?project ?region ?version ?zone ?timeouts ~name
     ~type_ ~accelerators ~crypto_key_config ~event_publish_config
-    ~network_config __resource_id =
-  let __resource_type = "google_data_fusion_instance" in
-  let __resource =
-    google_data_fusion_instance ?dataproc_service_account
-      ?description ?display_name ?enable_rbac
-      ?enable_stackdriver_logging ?enable_stackdriver_monitoring ?id
-      ?labels ?options ?private_instance ?project ?region ?version
-      ?zone ?timeouts ~name ~type_ ~accelerators ~crypto_key_config
-      ~event_publish_config ~network_config ()
+    ~network_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?dataproc_service_account ?description ?display_name
+      ?enable_rbac ?enable_stackdriver_logging
+      ?enable_stackdriver_monitoring ?id ?labels ?options
+      ?private_instance ?project ?region ?version ?zone ?timeouts
+      ~name ~type_ ~accelerators ~crypto_key_config
+      ~event_publish_config ~network_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_fusion_instance __resource);
-  let __resource_attributes =
-    ({
-       api_endpoint =
-         Prop.computed __resource_type __resource_id "api_endpoint";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       dataproc_service_account =
-         Prop.computed __resource_type __resource_id
-           "dataproc_service_account";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       enable_rbac =
-         Prop.computed __resource_type __resource_id "enable_rbac";
-       enable_stackdriver_logging =
-         Prop.computed __resource_type __resource_id
-           "enable_stackdriver_logging";
-       enable_stackdriver_monitoring =
-         Prop.computed __resource_type __resource_id
-           "enable_stackdriver_monitoring";
-       gcs_bucket =
-         Prop.computed __resource_type __resource_id "gcs_bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       options =
-         Prop.computed __resource_type __resource_id "options";
-       p4_service_account =
-         Prop.computed __resource_type __resource_id
-           "p4_service_account";
-       private_instance =
-         Prop.computed __resource_type __resource_id
-           "private_instance";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       service_endpoint =
-         Prop.computed __resource_type __resource_id
-           "service_endpoint";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_message =
-         Prop.computed __resource_type __resource_id "state_message";
-       tenant_project_id =
-         Prop.computed __resource_type __resource_id
-           "tenant_project_id";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

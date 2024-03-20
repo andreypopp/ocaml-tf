@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,19 @@ val register :
   script_run_on:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?script_parameters:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  automation_account_id:string prop ->
+  execution_frequency_in_seconds:float prop ->
+  location:string prop ->
+  name:string prop ->
+  script_name:string prop ->
+  script_run_on:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -131,78 +129,81 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
+    ?local_authentication_enabled ?maximum_throughput_units
+    ?minimum_tls_version ?network_rulesets
+    ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
+    ~location ~name ~resource_group_name ~sku ~identity __id =
+  let __type = "azurerm_eventhub_namespace" in
+  let __attrs =
+    ({
+       auto_inflate_enabled =
+         Prop.computed __type __id "auto_inflate_enabled";
+       capacity = Prop.computed __type __id "capacity";
+       dedicated_cluster_id =
+         Prop.computed __type __id "dedicated_cluster_id";
+       default_primary_connection_string =
+         Prop.computed __type __id
+           "default_primary_connection_string";
+       default_primary_connection_string_alias =
+         Prop.computed __type __id
+           "default_primary_connection_string_alias";
+       default_primary_key =
+         Prop.computed __type __id "default_primary_key";
+       default_secondary_connection_string =
+         Prop.computed __type __id
+           "default_secondary_connection_string";
+       default_secondary_connection_string_alias =
+         Prop.computed __type __id
+           "default_secondary_connection_string_alias";
+       default_secondary_key =
+         Prop.computed __type __id "default_secondary_key";
+       id = Prop.computed __type __id "id";
+       local_authentication_enabled =
+         Prop.computed __type __id "local_authentication_enabled";
+       location = Prop.computed __type __id "location";
+       maximum_throughput_units =
+         Prop.computed __type __id "maximum_throughput_units";
+       minimum_tls_version =
+         Prop.computed __type __id "minimum_tls_version";
+       name = Prop.computed __type __id "name";
+       network_rulesets =
+         Prop.computed __type __id "network_rulesets";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventhub_namespace
+        (azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
+           ?dedicated_cluster_id ?id ?local_authentication_enabled
+           ?maximum_throughput_units ?minimum_tls_version
+           ?network_rulesets ?public_network_access_enabled ?tags
+           ?zone_redundant ?timeouts ~location ~name
+           ~resource_group_name ~sku ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_inflate_enabled ?capacity
     ?dedicated_cluster_id ?id ?local_authentication_enabled
     ?maximum_throughput_units ?minimum_tls_version ?network_rulesets
     ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-    ~location ~name ~resource_group_name ~sku ~identity __resource_id
-    =
-  let __resource_type = "azurerm_eventhub_namespace" in
-  let __resource =
-    azurerm_eventhub_namespace ?auto_inflate_enabled ?capacity
-      ?dedicated_cluster_id ?id ?local_authentication_enabled
-      ?maximum_throughput_units ?minimum_tls_version
-      ?network_rulesets ?public_network_access_enabled ?tags
-      ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-      ~sku ~identity ()
+    ~location ~name ~resource_group_name ~sku ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_inflate_enabled ?capacity ?dedicated_cluster_id ?id
+      ?local_authentication_enabled ?maximum_throughput_units
+      ?minimum_tls_version ?network_rulesets
+      ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
+      ~location ~name ~resource_group_name ~sku ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventhub_namespace __resource);
-  let __resource_attributes =
-    ({
-       auto_inflate_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_inflate_enabled";
-       capacity =
-         Prop.computed __resource_type __resource_id "capacity";
-       dedicated_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "dedicated_cluster_id";
-       default_primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "default_primary_connection_string";
-       default_primary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
-           "default_primary_connection_string_alias";
-       default_primary_key =
-         Prop.computed __resource_type __resource_id
-           "default_primary_key";
-       default_secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_connection_string";
-       default_secondary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_connection_string_alias";
-       default_secondary_key =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       maximum_throughput_units =
-         Prop.computed __resource_type __resource_id
-           "maximum_throughput_units";
-       minimum_tls_version =
-         Prop.computed __resource_type __resource_id
-           "minimum_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_rulesets =
-         Prop.computed __resource_type __resource_id
-           "network_rulesets";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

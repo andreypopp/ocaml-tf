@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,18 @@ val register :
   add_on:add_on list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?key_pair_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_data:string prop ->
+  availability_zone:string prop ->
+  blueprint_id:string prop ->
+  bundle_id:string prop ->
+  name:string prop ->
+  add_on:add_on list ->
+  string ->
+  t Tf_core.resource

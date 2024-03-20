@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,15 @@ val register :
   rules:rules list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  metric_name:string prop ->
+  name:string prop ->
+  default_action:default_action list ->
+  logging_configuration:logging_configuration list ->
+  rules:rules list ->
+  string ->
+  t Tf_core.resource

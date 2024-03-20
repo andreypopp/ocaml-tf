@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,58 +83,62 @@ type t = {
   use_managed_identity : bool prop;
 }
 
+let make ?additional_properties ?annotations ?description ?id
+    ?integration_runtime_name ?parameters ?service_principal_id
+    ?service_principal_key ?tenant ?use_managed_identity ?timeouts
+    ~data_factory_id ~kusto_database_name ~kusto_endpoint ~name __id
+    =
+  let __type = "azurerm_data_factory_linked_service_kusto" in
+  let __attrs =
+    ({
+       additional_properties =
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       integration_runtime_name =
+         Prop.computed __type __id "integration_runtime_name";
+       kusto_database_name =
+         Prop.computed __type __id "kusto_database_name";
+       kusto_endpoint = Prop.computed __type __id "kusto_endpoint";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       service_principal_id =
+         Prop.computed __type __id "service_principal_id";
+       service_principal_key =
+         Prop.computed __type __id "service_principal_key";
+       tenant = Prop.computed __type __id "tenant";
+       use_managed_identity =
+         Prop.computed __type __id "use_managed_identity";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_linked_service_kusto
+        (azurerm_data_factory_linked_service_kusto
+           ?additional_properties ?annotations ?description ?id
+           ?integration_runtime_name ?parameters
+           ?service_principal_id ?service_principal_key ?tenant
+           ?use_managed_identity ?timeouts ~data_factory_id
+           ~kusto_database_name ~kusto_endpoint ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?additional_properties ?annotations
     ?description ?id ?integration_runtime_name ?parameters
     ?service_principal_id ?service_principal_key ?tenant
     ?use_managed_identity ?timeouts ~data_factory_id
-    ~kusto_database_name ~kusto_endpoint ~name __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_linked_service_kusto"
+    ~kusto_database_name ~kusto_endpoint ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?description ?id
+      ?integration_runtime_name ?parameters ?service_principal_id
+      ?service_principal_key ?tenant ?use_managed_identity ?timeouts
+      ~data_factory_id ~kusto_database_name ~kusto_endpoint ~name
+      __id
   in
-  let __resource =
-    azurerm_data_factory_linked_service_kusto ?additional_properties
-      ?annotations ?description ?id ?integration_runtime_name
-      ?parameters ?service_principal_id ?service_principal_key
-      ?tenant ?use_managed_identity ?timeouts ~data_factory_id
-      ~kusto_database_name ~kusto_endpoint ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_linked_service_kusto __resource);
-  let __resource_attributes =
-    ({
-       additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_runtime_name =
-         Prop.computed __resource_type __resource_id
-           "integration_runtime_name";
-       kusto_database_name =
-         Prop.computed __resource_type __resource_id
-           "kusto_database_name";
-       kusto_endpoint =
-         Prop.computed __resource_type __resource_id "kusto_endpoint";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       service_principal_id =
-         Prop.computed __resource_type __resource_id
-           "service_principal_id";
-       service_principal_key =
-         Prop.computed __resource_type __resource_id
-           "service_principal_key";
-       tenant = Prop.computed __resource_type __resource_id "tenant";
-       use_managed_identity =
-         Prop.computed __resource_type __resource_id
-           "use_managed_identity";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

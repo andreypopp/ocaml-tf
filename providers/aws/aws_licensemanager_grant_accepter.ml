@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_licensemanager_grant_accepter = {
   grant_arn : string prop;
@@ -29,34 +27,34 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?id ~grant_arn __resource_id =
-  let __resource_type = "aws_licensemanager_grant_accepter" in
-  let __resource =
-    aws_licensemanager_grant_accepter ?id ~grant_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_licensemanager_grant_accepter __resource);
-  let __resource_attributes =
+let make ?id ~grant_arn __id =
+  let __type = "aws_licensemanager_grant_accepter" in
+  let __attrs =
     ({
        allowed_operations =
-         Prop.computed __resource_type __resource_id
-           "allowed_operations";
-       grant_arn =
-         Prop.computed __resource_type __resource_id "grant_arn";
-       home_region =
-         Prop.computed __resource_type __resource_id "home_region";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_arn =
-         Prop.computed __resource_type __resource_id "license_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_arn =
-         Prop.computed __resource_type __resource_id "parent_arn";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
-       status = Prop.computed __resource_type __resource_id "status";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "allowed_operations";
+       grant_arn = Prop.computed __type __id "grant_arn";
+       home_region = Prop.computed __type __id "home_region";
+       id = Prop.computed __type __id "id";
+       license_arn = Prop.computed __type __id "license_arn";
+       name = Prop.computed __type __id "name";
+       parent_arn = Prop.computed __type __id "parent_arn";
+       principal = Prop.computed __type __id "principal";
+       status = Prop.computed __type __id "status";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_licensemanager_grant_accepter
+        (aws_licensemanager_grant_accepter ?id ~grant_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~grant_arn __id =
+  let (r : _ Tf_core.resource) = make ?id ~grant_arn __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

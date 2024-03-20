@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,21 @@ val register :
   origin_port_range:origin_port_range list ->
   string ->
   t
+
+val make :
+  ?argo_smart_routing:bool prop ->
+  ?id:string prop ->
+  ?ip_firewall:bool prop ->
+  ?origin_direct:string prop list ->
+  ?origin_port:float prop ->
+  ?proxy_protocol:string prop ->
+  ?tls:string prop ->
+  ?traffic_type:string prop ->
+  protocol:string prop ->
+  zone_id:string prop ->
+  dns:dns list ->
+  edge_ips:edge_ips list ->
+  origin_dns:origin_dns list ->
+  origin_port_range:origin_port_range list ->
+  string ->
+  t Tf_core.resource

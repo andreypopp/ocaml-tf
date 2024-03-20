@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,43 +62,44 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?project ?threat_exceptions
-    ?timeouts ~location ~name ~network ~severity __resource_id =
-  let __resource_type = "google_cloud_ids_endpoint" in
-  let __resource =
-    google_cloud_ids_endpoint ?description ?id ?project
-      ?threat_exceptions ?timeouts ~location ~name ~network ~severity
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloud_ids_endpoint __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?threat_exceptions ?timeouts
+    ~location ~name ~network ~severity __id =
+  let __type = "google_cloud_ids_endpoint" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        endpoint_forwarding_rule =
-         Prop.computed __resource_type __resource_id
-           "endpoint_forwarding_rule";
-       endpoint_ip =
-         Prop.computed __resource_type __resource_id "endpoint_ip";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
+         Prop.computed __type __id "endpoint_forwarding_rule";
+       endpoint_ip = Prop.computed __type __id "endpoint_ip";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       severity = Prop.computed __type __id "severity";
        threat_exceptions =
-         Prop.computed __resource_type __resource_id
-           "threat_exceptions";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "threat_exceptions";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloud_ids_endpoint
+        (google_cloud_ids_endpoint ?description ?id ?project
+           ?threat_exceptions ?timeouts ~location ~name ~network
+           ~severity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?threat_exceptions
+    ?timeouts ~location ~name ~network ~severity __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?threat_exceptions ?timeouts
+      ~location ~name ~network ~severity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

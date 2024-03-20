@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint__kinesis_stream_config = {
   role_arn : string prop;  (** role_arn *)
@@ -48,24 +46,32 @@ type t = {
   sampling_rate : float prop;
 }
 
-let register ?tf_module ?id ~fields ~name ~sampling_rate ~endpoint
-    __resource_id =
-  let __resource_type = "aws_cloudfront_realtime_log_config" in
-  let __resource =
-    aws_cloudfront_realtime_log_config ?id ~fields ~name
-      ~sampling_rate ~endpoint ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_realtime_log_config __resource);
-  let __resource_attributes =
+let make ?id ~fields ~name ~sampling_rate ~endpoint __id =
+  let __type = "aws_cloudfront_realtime_log_config" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       fields = Prop.computed __resource_type __resource_id "fields";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       sampling_rate =
-         Prop.computed __resource_type __resource_id "sampling_rate";
+       arn = Prop.computed __type __id "arn";
+       fields = Prop.computed __type __id "fields";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       sampling_rate = Prop.computed __type __id "sampling_rate";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_realtime_log_config
+        (aws_cloudfront_realtime_log_config ?id ~fields ~name
+           ~sampling_rate ~endpoint ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~fields ~name ~sampling_rate ~endpoint
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~fields ~name ~sampling_rate ~endpoint __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

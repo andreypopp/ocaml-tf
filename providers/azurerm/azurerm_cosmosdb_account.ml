@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type analytical_storage = {
   schema_type : string prop;  (** schema_type *)
@@ -335,6 +333,122 @@ type t = {
   write_endpoints : string list prop;
 }
 
+let make ?access_key_metadata_writes_enabled
+    ?analytical_storage_enabled ?create_mode ?default_identity_type
+    ?enable_automatic_failover ?enable_free_tier
+    ?enable_multiple_write_locations ?id ?ip_range_filter
+    ?is_virtual_network_filter_enabled ?key_vault_key_id ?kind
+    ?local_authentication_disabled ?minimal_tls_version
+    ?mongo_server_version ?network_acl_bypass_for_azure_services
+    ?network_acl_bypass_ids ?partition_merge_enabled
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~offer_type ~resource_group_name ~analytical_storage ~backup
+    ~capabilities ~capacity ~consistency_policy ~cors_rule
+    ~geo_location ~identity ~restore ~virtual_network_rule __id =
+  let __type = "azurerm_cosmosdb_account" in
+  let __attrs =
+    ({
+       access_key_metadata_writes_enabled =
+         Prop.computed __type __id
+           "access_key_metadata_writes_enabled";
+       analytical_storage_enabled =
+         Prop.computed __type __id "analytical_storage_enabled";
+       connection_strings =
+         Prop.computed __type __id "connection_strings";
+       create_mode = Prop.computed __type __id "create_mode";
+       default_identity_type =
+         Prop.computed __type __id "default_identity_type";
+       enable_automatic_failover =
+         Prop.computed __type __id "enable_automatic_failover";
+       enable_free_tier =
+         Prop.computed __type __id "enable_free_tier";
+       enable_multiple_write_locations =
+         Prop.computed __type __id "enable_multiple_write_locations";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       ip_range_filter = Prop.computed __type __id "ip_range_filter";
+       is_virtual_network_filter_enabled =
+         Prop.computed __type __id
+           "is_virtual_network_filter_enabled";
+       key_vault_key_id =
+         Prop.computed __type __id "key_vault_key_id";
+       kind = Prop.computed __type __id "kind";
+       local_authentication_disabled =
+         Prop.computed __type __id "local_authentication_disabled";
+       location = Prop.computed __type __id "location";
+       minimal_tls_version =
+         Prop.computed __type __id "minimal_tls_version";
+       mongo_server_version =
+         Prop.computed __type __id "mongo_server_version";
+       name = Prop.computed __type __id "name";
+       network_acl_bypass_for_azure_services =
+         Prop.computed __type __id
+           "network_acl_bypass_for_azure_services";
+       network_acl_bypass_ids =
+         Prop.computed __type __id "network_acl_bypass_ids";
+       offer_type = Prop.computed __type __id "offer_type";
+       partition_merge_enabled =
+         Prop.computed __type __id "partition_merge_enabled";
+       primary_key = Prop.computed __type __id "primary_key";
+       primary_mongodb_connection_string =
+         Prop.computed __type __id
+           "primary_mongodb_connection_string";
+       primary_readonly_key =
+         Prop.computed __type __id "primary_readonly_key";
+       primary_readonly_mongodb_connection_string =
+         Prop.computed __type __id
+           "primary_readonly_mongodb_connection_string";
+       primary_readonly_sql_connection_string =
+         Prop.computed __type __id
+           "primary_readonly_sql_connection_string";
+       primary_sql_connection_string =
+         Prop.computed __type __id "primary_sql_connection_string";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       read_endpoints = Prop.computed __type __id "read_endpoints";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       secondary_mongodb_connection_string =
+         Prop.computed __type __id
+           "secondary_mongodb_connection_string";
+       secondary_readonly_key =
+         Prop.computed __type __id "secondary_readonly_key";
+       secondary_readonly_mongodb_connection_string =
+         Prop.computed __type __id
+           "secondary_readonly_mongodb_connection_string";
+       secondary_readonly_sql_connection_string =
+         Prop.computed __type __id
+           "secondary_readonly_sql_connection_string";
+       secondary_sql_connection_string =
+         Prop.computed __type __id "secondary_sql_connection_string";
+       tags = Prop.computed __type __id "tags";
+       write_endpoints = Prop.computed __type __id "write_endpoints";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_account
+        (azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
+           ?analytical_storage_enabled ?create_mode
+           ?default_identity_type ?enable_automatic_failover
+           ?enable_free_tier ?enable_multiple_write_locations ?id
+           ?ip_range_filter ?is_virtual_network_filter_enabled
+           ?key_vault_key_id ?kind ?local_authentication_disabled
+           ?minimal_tls_version ?mongo_server_version
+           ?network_acl_bypass_for_azure_services
+           ?network_acl_bypass_ids ?partition_merge_enabled
+           ?public_network_access_enabled ?tags ?timeouts ~location
+           ~name ~offer_type ~resource_group_name ~analytical_storage
+           ~backup ~capabilities ~capacity ~consistency_policy
+           ~cors_rule ~geo_location ~identity ~restore
+           ~virtual_network_rule ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_key_metadata_writes_enabled
     ?analytical_storage_enabled ?create_mode ?default_identity_type
     ?enable_automatic_failover ?enable_free_tier
@@ -346,11 +460,9 @@ let register ?tf_module ?access_key_metadata_writes_enabled
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
     ~offer_type ~resource_group_name ~analytical_storage ~backup
     ~capabilities ~capacity ~consistency_policy ~cors_rule
-    ~geo_location ~identity ~restore ~virtual_network_rule
-    __resource_id =
-  let __resource_type = "azurerm_cosmosdb_account" in
-  let __resource =
-    azurerm_cosmosdb_account ?access_key_metadata_writes_enabled
+    ~geo_location ~identity ~restore ~virtual_network_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_key_metadata_writes_enabled
       ?analytical_storage_enabled ?create_mode ?default_identity_type
       ?enable_automatic_failover ?enable_free_tier
       ?enable_multiple_write_locations ?id ?ip_range_filter
@@ -361,118 +473,7 @@ let register ?tf_module ?access_key_metadata_writes_enabled
       ?public_network_access_enabled ?tags ?timeouts ~location ~name
       ~offer_type ~resource_group_name ~analytical_storage ~backup
       ~capabilities ~capacity ~consistency_policy ~cors_rule
-      ~geo_location ~identity ~restore ~virtual_network_rule ()
+      ~geo_location ~identity ~restore ~virtual_network_rule __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_account __resource);
-  let __resource_attributes =
-    ({
-       access_key_metadata_writes_enabled =
-         Prop.computed __resource_type __resource_id
-           "access_key_metadata_writes_enabled";
-       analytical_storage_enabled =
-         Prop.computed __resource_type __resource_id
-           "analytical_storage_enabled";
-       connection_strings =
-         Prop.computed __resource_type __resource_id
-           "connection_strings";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       default_identity_type =
-         Prop.computed __resource_type __resource_id
-           "default_identity_type";
-       enable_automatic_failover =
-         Prop.computed __resource_type __resource_id
-           "enable_automatic_failover";
-       enable_free_tier =
-         Prop.computed __resource_type __resource_id
-           "enable_free_tier";
-       enable_multiple_write_locations =
-         Prop.computed __resource_type __resource_id
-           "enable_multiple_write_locations";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_range_filter =
-         Prop.computed __resource_type __resource_id
-           "ip_range_filter";
-       is_virtual_network_filter_enabled =
-         Prop.computed __resource_type __resource_id
-           "is_virtual_network_filter_enabled";
-       key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_key_id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       local_authentication_disabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_disabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       minimal_tls_version =
-         Prop.computed __resource_type __resource_id
-           "minimal_tls_version";
-       mongo_server_version =
-         Prop.computed __resource_type __resource_id
-           "mongo_server_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_acl_bypass_for_azure_services =
-         Prop.computed __resource_type __resource_id
-           "network_acl_bypass_for_azure_services";
-       network_acl_bypass_ids =
-         Prop.computed __resource_type __resource_id
-           "network_acl_bypass_ids";
-       offer_type =
-         Prop.computed __resource_type __resource_id "offer_type";
-       partition_merge_enabled =
-         Prop.computed __resource_type __resource_id
-           "partition_merge_enabled";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
-       primary_mongodb_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_mongodb_connection_string";
-       primary_readonly_key =
-         Prop.computed __resource_type __resource_id
-           "primary_readonly_key";
-       primary_readonly_mongodb_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_readonly_mongodb_connection_string";
-       primary_readonly_sql_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_readonly_sql_connection_string";
-       primary_sql_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_sql_connection_string";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       read_endpoints =
-         Prop.computed __resource_type __resource_id "read_endpoints";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       secondary_mongodb_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_mongodb_connection_string";
-       secondary_readonly_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_readonly_key";
-       secondary_readonly_mongodb_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_readonly_mongodb_connection_string";
-       secondary_readonly_sql_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_readonly_sql_connection_string";
-       secondary_sql_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_sql_connection_string";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       write_endpoints =
-         Prop.computed __resource_type __resource_id
-           "write_endpoints";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

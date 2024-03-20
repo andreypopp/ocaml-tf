@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   pre_provisioning_hook:pre_provisioning_hook list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  name:string prop ->
+  provisioning_role_arn:string prop ->
+  template_body:string prop ->
+  pre_provisioning_hook:pre_provisioning_hook list ->
+  string ->
+  t Tf_core.resource

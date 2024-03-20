@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_error_response = {
   error_caching_min_ttl : float prop option; [@option]
@@ -566,83 +564,82 @@ type t = {
   web_acl_id : string prop;
 }
 
+let make ?aliases ?comment ?continuous_deployment_policy_id
+    ?default_root_object ?http_version ?id ?is_ipv6_enabled
+    ?price_class ?retain_on_delete ?staging ?tags ?tags_all
+    ?wait_for_deployment ?web_acl_id ~enabled ~custom_error_response
+    ~default_cache_behavior ~logging_config ~ordered_cache_behavior
+    ~origin ~origin_group ~restrictions ~viewer_certificate __id =
+  let __type = "aws_cloudfront_distribution" in
+  let __attrs =
+    ({
+       aliases = Prop.computed __type __id "aliases";
+       arn = Prop.computed __type __id "arn";
+       caller_reference =
+         Prop.computed __type __id "caller_reference";
+       comment = Prop.computed __type __id "comment";
+       continuous_deployment_policy_id =
+         Prop.computed __type __id "continuous_deployment_policy_id";
+       default_root_object =
+         Prop.computed __type __id "default_root_object";
+       domain_name = Prop.computed __type __id "domain_name";
+       enabled = Prop.computed __type __id "enabled";
+       etag = Prop.computed __type __id "etag";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       http_version = Prop.computed __type __id "http_version";
+       id = Prop.computed __type __id "id";
+       in_progress_validation_batches =
+         Prop.computed __type __id "in_progress_validation_batches";
+       is_ipv6_enabled = Prop.computed __type __id "is_ipv6_enabled";
+       last_modified_time =
+         Prop.computed __type __id "last_modified_time";
+       price_class = Prop.computed __type __id "price_class";
+       retain_on_delete =
+         Prop.computed __type __id "retain_on_delete";
+       staging = Prop.computed __type __id "staging";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       trusted_key_groups =
+         Prop.computed __type __id "trusted_key_groups";
+       trusted_signers = Prop.computed __type __id "trusted_signers";
+       wait_for_deployment =
+         Prop.computed __type __id "wait_for_deployment";
+       web_acl_id = Prop.computed __type __id "web_acl_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_distribution
+        (aws_cloudfront_distribution ?aliases ?comment
+           ?continuous_deployment_policy_id ?default_root_object
+           ?http_version ?id ?is_ipv6_enabled ?price_class
+           ?retain_on_delete ?staging ?tags ?tags_all
+           ?wait_for_deployment ?web_acl_id ~enabled
+           ~custom_error_response ~default_cache_behavior
+           ~logging_config ~ordered_cache_behavior ~origin
+           ~origin_group ~restrictions ~viewer_certificate ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?aliases ?comment
     ?continuous_deployment_policy_id ?default_root_object
     ?http_version ?id ?is_ipv6_enabled ?price_class ?retain_on_delete
     ?staging ?tags ?tags_all ?wait_for_deployment ?web_acl_id
     ~enabled ~custom_error_response ~default_cache_behavior
     ~logging_config ~ordered_cache_behavior ~origin ~origin_group
-    ~restrictions ~viewer_certificate __resource_id =
-  let __resource_type = "aws_cloudfront_distribution" in
-  let __resource =
-    aws_cloudfront_distribution ?aliases ?comment
-      ?continuous_deployment_policy_id ?default_root_object
-      ?http_version ?id ?is_ipv6_enabled ?price_class
-      ?retain_on_delete ?staging ?tags ?tags_all ?wait_for_deployment
-      ?web_acl_id ~enabled ~custom_error_response
-      ~default_cache_behavior ~logging_config ~ordered_cache_behavior
-      ~origin ~origin_group ~restrictions ~viewer_certificate ()
+    ~restrictions ~viewer_certificate __id =
+  let (r : _ Tf_core.resource) =
+    make ?aliases ?comment ?continuous_deployment_policy_id
+      ?default_root_object ?http_version ?id ?is_ipv6_enabled
+      ?price_class ?retain_on_delete ?staging ?tags ?tags_all
+      ?wait_for_deployment ?web_acl_id ~enabled
+      ~custom_error_response ~default_cache_behavior ~logging_config
+      ~ordered_cache_behavior ~origin ~origin_group ~restrictions
+      ~viewer_certificate __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_distribution __resource);
-  let __resource_attributes =
-    ({
-       aliases =
-         Prop.computed __resource_type __resource_id "aliases";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       caller_reference =
-         Prop.computed __resource_type __resource_id
-           "caller_reference";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       continuous_deployment_policy_id =
-         Prop.computed __resource_type __resource_id
-           "continuous_deployment_policy_id";
-       default_root_object =
-         Prop.computed __resource_type __resource_id
-           "default_root_object";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       http_version =
-         Prop.computed __resource_type __resource_id "http_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       in_progress_validation_batches =
-         Prop.computed __resource_type __resource_id
-           "in_progress_validation_batches";
-       is_ipv6_enabled =
-         Prop.computed __resource_type __resource_id
-           "is_ipv6_enabled";
-       last_modified_time =
-         Prop.computed __resource_type __resource_id
-           "last_modified_time";
-       price_class =
-         Prop.computed __resource_type __resource_id "price_class";
-       retain_on_delete =
-         Prop.computed __resource_type __resource_id
-           "retain_on_delete";
-       staging =
-         Prop.computed __resource_type __resource_id "staging";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       trusted_key_groups =
-         Prop.computed __resource_type __resource_id
-           "trusted_key_groups";
-       trusted_signers =
-         Prop.computed __resource_type __resource_id
-           "trusted_signers";
-       wait_for_deployment =
-         Prop.computed __resource_type __resource_id
-           "wait_for_deployment";
-       web_acl_id =
-         Prop.computed __resource_type __resource_id "web_acl_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

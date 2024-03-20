@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -37,27 +35,32 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~hostname ~region_key ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_regional_hostname" in
-  let __resource =
-    cloudflare_regional_hostname ?id ?timeouts ~hostname ~region_key
-      ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_regional_hostname __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~hostname ~region_key ~zone_id __id =
+  let __type = "cloudflare_regional_hostname" in
+  let __attrs =
     ({
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       region_key =
-         Prop.computed __resource_type __resource_id "region_key";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       created_on = Prop.computed __type __id "created_on";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       region_key = Prop.computed __type __id "region_key";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_regional_hostname
+        (cloudflare_regional_hostname ?id ?timeouts ~hostname
+           ~region_key ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~hostname ~region_key ~zone_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~hostname ~region_key ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

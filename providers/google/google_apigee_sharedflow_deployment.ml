@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,29 +52,35 @@ type t = {
   sharedflow_id : string prop;
 }
 
-let register ?tf_module ?id ?service_account ?timeouts ~environment
-    ~org_id ~revision ~sharedflow_id __resource_id =
-  let __resource_type = "google_apigee_sharedflow_deployment" in
-  let __resource =
-    google_apigee_sharedflow_deployment ?id ?service_account
-      ?timeouts ~environment ~org_id ~revision ~sharedflow_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_sharedflow_deployment __resource);
-  let __resource_attributes =
+let make ?id ?service_account ?timeouts ~environment ~org_id
+    ~revision ~sharedflow_id __id =
+  let __type = "google_apigee_sharedflow_deployment" in
+  let __attrs =
     ({
-       environment =
-         Prop.computed __resource_type __resource_id "environment";
-       id = Prop.computed __resource_type __resource_id "id";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       revision =
-         Prop.computed __resource_type __resource_id "revision";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       sharedflow_id =
-         Prop.computed __resource_type __resource_id "sharedflow_id";
+       environment = Prop.computed __type __id "environment";
+       id = Prop.computed __type __id "id";
+       org_id = Prop.computed __type __id "org_id";
+       revision = Prop.computed __type __id "revision";
+       service_account = Prop.computed __type __id "service_account";
+       sharedflow_id = Prop.computed __type __id "sharedflow_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_sharedflow_deployment
+        (google_apigee_sharedflow_deployment ?id ?service_account
+           ?timeouts ~environment ~org_id ~revision ~sharedflow_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?service_account ?timeouts ~environment
+    ~org_id ~revision ~sharedflow_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?service_account ?timeouts ~environment ~org_id
+      ~revision ~sharedflow_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

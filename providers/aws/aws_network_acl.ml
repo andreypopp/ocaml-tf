@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type egress = {
   action : string prop;  (** action *)
@@ -59,31 +57,38 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?egress ?id ?ingress ?subnet_ids ?tags
-    ?tags_all ~vpc_id __resource_id =
-  let __resource_type = "aws_network_acl" in
-  let __resource =
-    aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all
-      ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_network_acl __resource);
-  let __resource_attributes =
+let make ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all ~vpc_id
+    __id =
+  let __type = "aws_network_acl" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       egress = Prop.computed __resource_type __resource_id "egress";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingress =
-         Prop.computed __resource_type __resource_id "ingress";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       arn = Prop.computed __type __id "arn";
+       egress = Prop.computed __type __id "egress";
+       id = Prop.computed __type __id "id";
+       ingress = Prop.computed __type __id "ingress";
+       owner_id = Prop.computed __type __id "owner_id";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_network_acl
+        (aws_network_acl ?egress ?id ?ingress ?subnet_ids ?tags
+           ?tags_all ~vpc_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?egress ?id ?ingress ?subnet_ids ?tags
+    ?tags_all ~vpc_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?egress ?id ?ingress ?subnet_ids ?tags ?tags_all ~vpc_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

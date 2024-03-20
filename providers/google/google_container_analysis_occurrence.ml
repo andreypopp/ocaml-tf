@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attestation__signatures = {
   public_key_id : string prop;
@@ -111,33 +109,39 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?id ?project ?remediation ?timeouts
-    ~note_name ~resource_uri ~attestation __resource_id =
-  let __resource_type = "google_container_analysis_occurrence" in
-  let __resource =
-    google_container_analysis_occurrence ?id ?project ?remediation
-      ?timeouts ~note_name ~resource_uri ~attestation ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_analysis_occurrence __resource);
-  let __resource_attributes =
+let make ?id ?project ?remediation ?timeouts ~note_name ~resource_uri
+    ~attestation __id =
+  let __type = "google_container_analysis_occurrence" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
-       note_name =
-         Prop.computed __resource_type __resource_id "note_name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       remediation =
-         Prop.computed __resource_type __resource_id "remediation";
-       resource_uri =
-         Prop.computed __resource_type __resource_id "resource_uri";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
+       note_name = Prop.computed __type __id "note_name";
+       project = Prop.computed __type __id "project";
+       remediation = Prop.computed __type __id "remediation";
+       resource_uri = Prop.computed __type __id "resource_uri";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_analysis_occurrence
+        (google_container_analysis_occurrence ?id ?project
+           ?remediation ?timeouts ~note_name ~resource_uri
+           ~attestation ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?remediation ?timeouts
+    ~note_name ~resource_uri ~attestation __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?remediation ?timeouts ~note_name ~resource_uri
+      ~attestation __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

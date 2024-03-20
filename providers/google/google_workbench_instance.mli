@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -173,4 +173,19 @@ val register :
     gce_setup:gce_setup list ->
     string ->
     t
+
+val make :
+    ?desired_state:string prop ->
+    ?disable_proxy_access:bool prop ->
+    ?id:string prop ->
+    ?instance_id:string prop ->
+    ?instance_owners:string  prop list ->
+    ?labels:(string * string  prop) list ->
+    ?project:string prop ->
+    ?timeouts:timeouts ->
+    location:string prop ->
+    name:string prop ->
+    gce_setup:gce_setup list ->
+    string ->
+    t Tf_core.resource
 

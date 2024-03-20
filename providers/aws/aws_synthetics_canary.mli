@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -130,3 +130,27 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?delete_lambda:bool prop ->
+  ?failure_retention_period:float prop ->
+  ?id:string prop ->
+  ?s3_bucket:string prop ->
+  ?s3_key:string prop ->
+  ?s3_version:string prop ->
+  ?start_canary:bool prop ->
+  ?success_retention_period:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?zip_file:string prop ->
+  artifact_s3_location:string prop ->
+  execution_role_arn:string prop ->
+  handler:string prop ->
+  name:string prop ->
+  runtime_version:string prop ->
+  artifact_config:artifact_config list ->
+  run_config:run_config list ->
+  schedule:schedule list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

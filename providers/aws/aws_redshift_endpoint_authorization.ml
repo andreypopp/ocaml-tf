@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshift_endpoint_authorization = {
   account : string prop;  (** account *)
@@ -31,37 +29,39 @@ type t = {
   vpc_ids : string list prop;
 }
 
-let register ?tf_module ?force_delete ?id ?vpc_ids ~account
-    ~cluster_identifier __resource_id =
-  let __resource_type = "aws_redshift_endpoint_authorization" in
-  let __resource =
-    aws_redshift_endpoint_authorization ?force_delete ?id ?vpc_ids
-      ~account ~cluster_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_endpoint_authorization __resource);
-  let __resource_attributes =
+let make ?force_delete ?id ?vpc_ids ~account ~cluster_identifier __id
+    =
+  let __type = "aws_redshift_endpoint_authorization" in
+  let __attrs =
     ({
-       account =
-         Prop.computed __resource_type __resource_id "account";
+       account = Prop.computed __type __id "account";
        allowed_all_vpcs =
-         Prop.computed __resource_type __resource_id
-           "allowed_all_vpcs";
+         Prop.computed __type __id "allowed_all_vpcs";
        cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       endpoint_count =
-         Prop.computed __resource_type __resource_id "endpoint_count";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       grantee =
-         Prop.computed __resource_type __resource_id "grantee";
-       grantor =
-         Prop.computed __resource_type __resource_id "grantor";
-       id = Prop.computed __resource_type __resource_id "id";
-       vpc_ids =
-         Prop.computed __resource_type __resource_id "vpc_ids";
+         Prop.computed __type __id "cluster_identifier";
+       endpoint_count = Prop.computed __type __id "endpoint_count";
+       force_delete = Prop.computed __type __id "force_delete";
+       grantee = Prop.computed __type __id "grantee";
+       grantor = Prop.computed __type __id "grantor";
+       id = Prop.computed __type __id "id";
+       vpc_ids = Prop.computed __type __id "vpc_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_endpoint_authorization
+        (aws_redshift_endpoint_authorization ?force_delete ?id
+           ?vpc_ids ~account ~cluster_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_delete ?id ?vpc_ids ~account
+    ~cluster_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_delete ?id ?vpc_ids ~account ~cluster_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

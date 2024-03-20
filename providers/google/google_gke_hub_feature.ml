@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type fleet_default_member_config__configmanagement__config_sync__git = {
   gcp_service_account_email : string prop option; [@option]
@@ -549,40 +547,43 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?id ?labels ?name ?project ?timeouts
-    ~location ~fleet_default_member_config ~spec __resource_id =
-  let __resource_type = "google_gke_hub_feature" in
-  let __resource =
-    google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
-      ~location ~fleet_default_member_config ~spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_gke_hub_feature __resource);
-  let __resource_attributes =
+let make ?id ?labels ?name ?project ?timeouts ~location
+    ~fleet_default_member_config ~spec __id =
+  let __type = "google_gke_hub_feature" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
+       create_time = Prop.computed __type __id "create_time";
+       delete_time = Prop.computed __type __id "delete_time";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       resource_state =
-         Prop.computed __resource_type __resource_id "resource_state";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       resource_state = Prop.computed __type __id "resource_state";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_gke_hub_feature
+        (google_gke_hub_feature ?id ?labels ?name ?project ?timeouts
+           ~location ~fleet_default_member_config ~spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?name ?project ?timeouts
+    ~location ~fleet_default_member_config ~spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?name ?project ?timeouts ~location
+      ~fleet_default_member_config ~spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

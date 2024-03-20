@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -290,3 +290,32 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?badge_enabled:bool prop ->
+  ?build_timeout:float prop ->
+  ?concurrent_build_limit:float prop ->
+  ?description:string prop ->
+  ?encryption_key:string prop ->
+  ?id:string prop ->
+  ?project_visibility:string prop ->
+  ?queued_timeout:float prop ->
+  ?resource_access_role:string prop ->
+  ?source_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  service_role:string prop ->
+  artifacts:artifacts list ->
+  build_batch_config:build_batch_config list ->
+  cache:cache list ->
+  environment:environment list ->
+  file_system_locations:file_system_locations list ->
+  logs_config:logs_config list ->
+  secondary_artifacts:secondary_artifacts list ->
+  secondary_source_version:secondary_source_version list ->
+  secondary_sources:secondary_sources list ->
+  source:source list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

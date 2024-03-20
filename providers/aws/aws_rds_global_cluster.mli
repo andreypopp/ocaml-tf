@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,17 @@ val register :
   global_cluster_identifier:string prop ->
   string ->
   t
+
+val make :
+  ?database_name:string prop ->
+  ?deletion_protection:bool prop ->
+  ?engine:string prop ->
+  ?engine_version:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?source_db_cluster_identifier:string prop ->
+  ?storage_encrypted:bool prop ->
+  ?timeouts:timeouts ->
+  global_cluster_identifier:string prop ->
+  string ->
+  t Tf_core.resource

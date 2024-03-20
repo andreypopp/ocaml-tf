@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type player_latency_policy = {
   maximum_individual_player_latency_milliseconds : float prop;
@@ -68,37 +66,45 @@ type t = {
   timeout_in_seconds : float prop;
 }
 
-let register ?tf_module ?custom_event_data ?destinations ?id
-    ?notification_target ?tags ?tags_all ?timeout_in_seconds ~name
-    ~player_latency_policy __resource_id =
-  let __resource_type = "aws_gamelift_game_session_queue" in
-  let __resource =
-    aws_gamelift_game_session_queue ?custom_event_data ?destinations
-      ?id ?notification_target ?tags ?tags_all ?timeout_in_seconds
-      ~name ~player_latency_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_gamelift_game_session_queue __resource);
-  let __resource_attributes =
+let make ?custom_event_data ?destinations ?id ?notification_target
+    ?tags ?tags_all ?timeout_in_seconds ~name ~player_latency_policy
+    __id =
+  let __type = "aws_gamelift_game_session_queue" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        custom_event_data =
-         Prop.computed __resource_type __resource_id
-           "custom_event_data";
-       destinations =
-         Prop.computed __resource_type __resource_id "destinations";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "custom_event_data";
+       destinations = Prop.computed __type __id "destinations";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        notification_target =
-         Prop.computed __resource_type __resource_id
-           "notification_target";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "notification_target";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        timeout_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "timeout_in_seconds";
+         Prop.computed __type __id "timeout_in_seconds";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_gamelift_game_session_queue
+        (aws_gamelift_game_session_queue ?custom_event_data
+           ?destinations ?id ?notification_target ?tags ?tags_all
+           ?timeout_in_seconds ~name ~player_latency_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_event_data ?destinations ?id
+    ?notification_target ?tags ?tags_all ?timeout_in_seconds ~name
+    ~player_latency_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_event_data ?destinations ?id ?notification_target
+      ?tags ?tags_all ?timeout_in_seconds ~name
+      ~player_latency_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

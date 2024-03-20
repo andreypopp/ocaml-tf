@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type permission_scope__permissions = {
   create : bool prop option; [@option]  (** create *)
@@ -96,36 +94,44 @@ type t = {
   storage_account_id : string prop;
 }
 
-let register ?tf_module ?home_directory ?id ?ssh_key_enabled
-    ?ssh_password_enabled ?timeouts ~name ~storage_account_id
-    ~permission_scope ~ssh_authorized_key __resource_id =
-  let __resource_type = "azurerm_storage_account_local_user" in
-  let __resource =
-    azurerm_storage_account_local_user ?home_directory ?id
-      ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
-      ~storage_account_id ~permission_scope ~ssh_authorized_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_account_local_user __resource);
-  let __resource_attributes =
+let make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
+    ?timeouts ~name ~storage_account_id ~permission_scope
+    ~ssh_authorized_key __id =
+  let __type = "azurerm_storage_account_local_user" in
+  let __attrs =
     ({
-       home_directory =
-         Prop.computed __resource_type __resource_id "home_directory";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       sid = Prop.computed __resource_type __resource_id "sid";
-       ssh_key_enabled =
-         Prop.computed __resource_type __resource_id
-           "ssh_key_enabled";
+       home_directory = Prop.computed __type __id "home_directory";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       sid = Prop.computed __type __id "sid";
+       ssh_key_enabled = Prop.computed __type __id "ssh_key_enabled";
        ssh_password_enabled =
-         Prop.computed __resource_type __resource_id
-           "ssh_password_enabled";
+         Prop.computed __type __id "ssh_password_enabled";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_account_local_user
+        (azurerm_storage_account_local_user ?home_directory ?id
+           ?ssh_key_enabled ?ssh_password_enabled ?timeouts ~name
+           ~storage_account_id ~permission_scope ~ssh_authorized_key
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?home_directory ?id ?ssh_key_enabled
+    ?ssh_password_enabled ?timeouts ~name ~storage_account_id
+    ~permission_scope ~ssh_authorized_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?home_directory ?id ?ssh_key_enabled ?ssh_password_enabled
+      ?timeouts ~name ~storage_account_id ~permission_scope
+      ~ssh_authorized_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

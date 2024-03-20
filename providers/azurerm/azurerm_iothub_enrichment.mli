@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   value:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  endpoint_names:string prop list ->
+  iothub_name:string prop ->
+  key:string prop ->
+  resource_group_name:string prop ->
+  value:string prop ->
+  string ->
+  t Tf_core.resource

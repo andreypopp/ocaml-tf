@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,13 @@ val register :
   topic:topic list ->
   string ->
   t
+
+val make :
+  ?eventbridge:bool prop ->
+  ?id:string prop ->
+  bucket:string prop ->
+  lambda_function:lambda_function list ->
+  queue:queue list ->
+  topic:topic list ->
+  string ->
+  t Tf_core.resource

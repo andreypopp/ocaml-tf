@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   subscription_id:string prop ->
   string ->
   t
+
+val make :
+  ?failure_percentage:float prop ->
+  ?id:string prop ->
+  ?location_filters:string prop list ->
+  ?parallel_deployments:float prop ->
+  ?policy_definition_id:string prop ->
+  ?policy_definition_reference_id:string prop ->
+  ?resource_count:float prop ->
+  ?resource_discovery_mode:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  policy_assignment_id:string prop ->
+  subscription_id:string prop ->
+  string ->
+  t Tf_core.resource

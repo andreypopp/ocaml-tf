@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,41 +83,44 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?location ?project
-    ?type_ ?timeouts ~domain ~name __resource_id =
-  let __resource_type =
-    "google_certificate_manager_dns_authorization"
-  in
-  let __resource =
-    google_certificate_manager_dns_authorization ?description ?id
-      ?labels ?location ?project ?type_ ?timeouts ~domain ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_certificate_manager_dns_authorization
-       __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?location ?project ?type_ ?timeouts
+    ~domain ~name __id =
+  let __type = "google_certificate_manager_dns_authorization" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        dns_resource_record =
-         Prop.computed __resource_type __resource_id
-           "dns_resource_record";
-       domain = Prop.computed __resource_type __resource_id "domain";
+         Prop.computed __type __id "dns_resource_record";
+       domain = Prop.computed __type __id "domain";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_certificate_manager_dns_authorization
+        (google_certificate_manager_dns_authorization ?description
+           ?id ?labels ?location ?project ?type_ ?timeouts ~domain
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?location ?project
+    ?type_ ?timeouts ~domain ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?location ?project ?type_ ?timeouts
+      ~domain ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

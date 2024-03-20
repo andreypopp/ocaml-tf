@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_zone = {
   account_id : string prop;
@@ -44,37 +42,42 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?id ?jump_start ?paused ?plan ?type_
-    ~account_id ~zone __resource_id =
-  let __resource_type = "cloudflare_zone" in
-  let __resource =
-    cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
-      ~zone ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_zone __resource);
-  let __resource_attributes =
+let make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
+    =
+  let __type = "cloudflare_zone" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       jump_start =
-         Prop.computed __resource_type __resource_id "jump_start";
-       meta = Prop.computed __resource_type __resource_id "meta";
-       name_servers =
-         Prop.computed __resource_type __resource_id "name_servers";
-       paused = Prop.computed __resource_type __resource_id "paused";
-       plan = Prop.computed __resource_type __resource_id "plan";
-       status = Prop.computed __resource_type __resource_id "status";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       jump_start = Prop.computed __type __id "jump_start";
+       meta = Prop.computed __type __id "meta";
+       name_servers = Prop.computed __type __id "name_servers";
+       paused = Prop.computed __type __id "paused";
+       plan = Prop.computed __type __id "plan";
+       status = Prop.computed __type __id "status";
+       type_ = Prop.computed __type __id "type";
        vanity_name_servers =
-         Prop.computed __resource_type __resource_id
-           "vanity_name_servers";
+         Prop.computed __type __id "vanity_name_servers";
        verification_key =
-         Prop.computed __resource_type __resource_id
-           "verification_key";
-       zone = Prop.computed __resource_type __resource_id "zone";
+         Prop.computed __type __id "verification_key";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_zone
+        (cloudflare_zone ?id ?jump_start ?paused ?plan ?type_
+           ~account_id ~zone ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?jump_start ?paused ?plan ?type_
+    ~account_id ~zone __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?jump_start ?paused ?plan ?type_ ~account_id ~zone __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

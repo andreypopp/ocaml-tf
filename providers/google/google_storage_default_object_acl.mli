@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -31,3 +31,10 @@ val register :
   bucket:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?role_entity:string prop list ->
+  bucket:string prop ->
+  string ->
+  t Tf_core.resource

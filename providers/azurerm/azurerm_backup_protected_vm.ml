@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,41 +59,48 @@ type t = {
   source_vm_id : string prop;
 }
 
-let register ?tf_module ?backup_policy_id ?exclude_disk_luns ?id
-    ?include_disk_luns ?protection_state ?source_vm_id ?timeouts
-    ~recovery_vault_name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_backup_protected_vm" in
-  let __resource =
-    azurerm_backup_protected_vm ?backup_policy_id ?exclude_disk_luns
-      ?id ?include_disk_luns ?protection_state ?source_vm_id
-      ?timeouts ~recovery_vault_name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_backup_protected_vm __resource);
-  let __resource_attributes =
+let make ?backup_policy_id ?exclude_disk_luns ?id ?include_disk_luns
+    ?protection_state ?source_vm_id ?timeouts ~recovery_vault_name
+    ~resource_group_name __id =
+  let __type = "azurerm_backup_protected_vm" in
+  let __attrs =
     ({
        backup_policy_id =
-         Prop.computed __resource_type __resource_id
-           "backup_policy_id";
+         Prop.computed __type __id "backup_policy_id";
        exclude_disk_luns =
-         Prop.computed __resource_type __resource_id
-           "exclude_disk_luns";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "exclude_disk_luns";
+       id = Prop.computed __type __id "id";
        include_disk_luns =
-         Prop.computed __resource_type __resource_id
-           "include_disk_luns";
+         Prop.computed __type __id "include_disk_luns";
        protection_state =
-         Prop.computed __resource_type __resource_id
-           "protection_state";
+         Prop.computed __type __id "protection_state";
        recovery_vault_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_vault_name";
+         Prop.computed __type __id "recovery_vault_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       source_vm_id =
-         Prop.computed __resource_type __resource_id "source_vm_id";
+         Prop.computed __type __id "resource_group_name";
+       source_vm_id = Prop.computed __type __id "source_vm_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_backup_protected_vm
+        (azurerm_backup_protected_vm ?backup_policy_id
+           ?exclude_disk_luns ?id ?include_disk_luns
+           ?protection_state ?source_vm_id ?timeouts
+           ~recovery_vault_name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?backup_policy_id ?exclude_disk_luns ?id
+    ?include_disk_luns ?protection_state ?source_vm_id ?timeouts
+    ~recovery_vault_name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?backup_policy_id ?exclude_disk_luns ?id ?include_disk_luns
+      ?protection_state ?source_vm_id ?timeouts ~recovery_vault_name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

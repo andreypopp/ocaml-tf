@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws__access_role = {
   iam_role_id : string prop;
@@ -196,34 +194,41 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?connection_id ?description ?friendly_name
-    ?id ?location ?project ?timeouts ~aws ~azure ~cloud_resource
-    ~cloud_spanner ~cloud_sql ~spark __resource_id =
-  let __resource_type = "google_bigquery_connection" in
-  let __resource =
-    google_bigquery_connection ?connection_id ?description
-      ?friendly_name ?id ?location ?project ?timeouts ~aws ~azure
-      ~cloud_resource ~cloud_spanner ~cloud_sql ~spark ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_connection __resource);
-  let __resource_attributes =
+let make ?connection_id ?description ?friendly_name ?id ?location
+    ?project ?timeouts ~aws ~azure ~cloud_resource ~cloud_spanner
+    ~cloud_sql ~spark __id =
+  let __type = "google_bigquery_connection" in
+  let __attrs =
     ({
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       has_credential =
-         Prop.computed __resource_type __resource_id "has_credential";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       connection_id = Prop.computed __type __id "connection_id";
+       description = Prop.computed __type __id "description";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       has_credential = Prop.computed __type __id "has_credential";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_connection
+        (google_bigquery_connection ?connection_id ?description
+           ?friendly_name ?id ?location ?project ?timeouts ~aws
+           ~azure ~cloud_resource ~cloud_spanner ~cloud_sql ~spark ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?connection_id ?description ?friendly_name
+    ?id ?location ?project ?timeouts ~aws ~azure ~cloud_resource
+    ~cloud_spanner ~cloud_sql ~spark __id =
+  let (r : _ Tf_core.resource) =
+    make ?connection_id ?description ?friendly_name ?id ?location
+      ?project ?timeouts ~aws ~azure ~cloud_resource ~cloud_spanner
+      ~cloud_sql ~spark __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

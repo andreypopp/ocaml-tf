@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_athena_named_query = {
   database : string prop;  (** database *)
@@ -28,27 +26,33 @@ type t = {
   workgroup : string prop;
 }
 
-let register ?tf_module ?description ?id ?workgroup ~database ~name
-    ~query __resource_id =
-  let __resource_type = "aws_athena_named_query" in
-  let __resource =
-    aws_athena_named_query ?description ?id ?workgroup ~database
-      ~name ~query ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_athena_named_query __resource);
-  let __resource_attributes =
+let make ?description ?id ?workgroup ~database ~name ~query __id =
+  let __type = "aws_athena_named_query" in
+  let __attrs =
     ({
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       query = Prop.computed __resource_type __resource_id "query";
-       workgroup =
-         Prop.computed __resource_type __resource_id "workgroup";
+       database = Prop.computed __type __id "database";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       query = Prop.computed __type __id "query";
+       workgroup = Prop.computed __type __id "workgroup";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_athena_named_query
+        (aws_athena_named_query ?description ?id ?workgroup ~database
+           ~name ~query ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?workgroup ~database ~name
+    ~query __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?workgroup ~database ~name ~query __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

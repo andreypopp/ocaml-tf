@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,14 @@ val register :
   secret_data:string prop ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?is_secret_data_base64:bool prop ->
+  ?timeouts:timeouts ->
+  secret:string prop ->
+  secret_data:string prop ->
+  string ->
+  t Tf_core.resource

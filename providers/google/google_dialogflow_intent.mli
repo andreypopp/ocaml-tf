@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,21 @@ val register :
   display_name:string prop ->
   string ->
   t
+
+val make :
+  ?action:string prop ->
+  ?default_response_platforms:string prop list ->
+  ?events:string prop list ->
+  ?id:string prop ->
+  ?input_context_names:string prop list ->
+  ?is_fallback:bool prop ->
+  ?ml_disabled:bool prop ->
+  ?parent_followup_intent_name:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?reset_contexts:bool prop ->
+  ?webhook_state:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  string ->
+  t Tf_core.resource

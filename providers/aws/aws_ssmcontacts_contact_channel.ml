@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delivery_address = {
   simple_address : string prop;  (** simple_address *)
@@ -36,27 +34,34 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ~contact_id ~name ~type_
-    ~delivery_address __resource_id =
-  let __resource_type = "aws_ssmcontacts_contact_channel" in
-  let __resource =
-    aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
-      ~delivery_address ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssmcontacts_contact_channel __resource);
-  let __resource_attributes =
+let make ?id ~contact_id ~name ~type_ ~delivery_address __id =
+  let __type = "aws_ssmcontacts_contact_channel" in
+  let __attrs =
     ({
        activation_status =
-         Prop.computed __resource_type __resource_id
-           "activation_status";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       contact_id =
-         Prop.computed __resource_type __resource_id "contact_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "activation_status";
+       arn = Prop.computed __type __id "arn";
+       contact_id = Prop.computed __type __id "contact_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssmcontacts_contact_channel
+        (aws_ssmcontacts_contact_channel ?id ~contact_id ~name ~type_
+           ~delivery_address ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~contact_id ~name ~type_
+    ~delivery_address __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~contact_id ~name ~type_ ~delivery_address __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

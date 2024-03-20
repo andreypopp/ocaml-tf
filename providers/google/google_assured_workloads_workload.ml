@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type kms_settings = {
   next_rotation_time : string prop;
@@ -172,76 +170,75 @@ type t = {
   violation_notifications_enabled : bool prop;
 }
 
+let make ?billing_account ?enable_sovereign_controls ?id ?labels
+    ?partner ?provisioned_resources_parent
+    ?violation_notifications_enabled ?timeouts ~compliance_regime
+    ~display_name ~location ~organization ~kms_settings
+    ~partner_permissions ~resource_settings __id =
+  let __type = "google_assured_workloads_workload" in
+  let __attrs =
+    ({
+       billing_account = Prop.computed __type __id "billing_account";
+       compliance_regime =
+         Prop.computed __type __id "compliance_regime";
+       compliance_status =
+         Prop.computed __type __id "compliance_status";
+       compliant_but_disallowed_services =
+         Prop.computed __type __id
+           "compliant_but_disallowed_services";
+       create_time = Prop.computed __type __id "create_time";
+       display_name = Prop.computed __type __id "display_name";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       ekm_provisioning_response =
+         Prop.computed __type __id "ekm_provisioning_response";
+       enable_sovereign_controls =
+         Prop.computed __type __id "enable_sovereign_controls";
+       id = Prop.computed __type __id "id";
+       kaj_enrollment_state =
+         Prop.computed __type __id "kaj_enrollment_state";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       organization = Prop.computed __type __id "organization";
+       partner = Prop.computed __type __id "partner";
+       provisioned_resources_parent =
+         Prop.computed __type __id "provisioned_resources_parent";
+       resources = Prop.computed __type __id "resources";
+       saa_enrollment_response =
+         Prop.computed __type __id "saa_enrollment_response";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       violation_notifications_enabled =
+         Prop.computed __type __id "violation_notifications_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_assured_workloads_workload
+        (google_assured_workloads_workload ?billing_account
+           ?enable_sovereign_controls ?id ?labels ?partner
+           ?provisioned_resources_parent
+           ?violation_notifications_enabled ?timeouts
+           ~compliance_regime ~display_name ~location ~organization
+           ~kms_settings ~partner_permissions ~resource_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?billing_account ?enable_sovereign_controls
     ?id ?labels ?partner ?provisioned_resources_parent
     ?violation_notifications_enabled ?timeouts ~compliance_regime
     ~display_name ~location ~organization ~kms_settings
-    ~partner_permissions ~resource_settings __resource_id =
-  let __resource_type = "google_assured_workloads_workload" in
-  let __resource =
-    google_assured_workloads_workload ?billing_account
-      ?enable_sovereign_controls ?id ?labels ?partner
-      ?provisioned_resources_parent ?violation_notifications_enabled
-      ?timeouts ~compliance_regime ~display_name ~location
-      ~organization ~kms_settings ~partner_permissions
-      ~resource_settings ()
+    ~partner_permissions ~resource_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?billing_account ?enable_sovereign_controls ?id ?labels
+      ?partner ?provisioned_resources_parent
+      ?violation_notifications_enabled ?timeouts ~compliance_regime
+      ~display_name ~location ~organization ~kms_settings
+      ~partner_permissions ~resource_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_assured_workloads_workload __resource);
-  let __resource_attributes =
-    ({
-       billing_account =
-         Prop.computed __resource_type __resource_id
-           "billing_account";
-       compliance_regime =
-         Prop.computed __resource_type __resource_id
-           "compliance_regime";
-       compliance_status =
-         Prop.computed __resource_type __resource_id
-           "compliance_status";
-       compliant_but_disallowed_services =
-         Prop.computed __resource_type __resource_id
-           "compliant_but_disallowed_services";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       ekm_provisioning_response =
-         Prop.computed __resource_type __resource_id
-           "ekm_provisioning_response";
-       enable_sovereign_controls =
-         Prop.computed __resource_type __resource_id
-           "enable_sovereign_controls";
-       id = Prop.computed __resource_type __resource_id "id";
-       kaj_enrollment_state =
-         Prop.computed __resource_type __resource_id
-           "kaj_enrollment_state";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       organization =
-         Prop.computed __resource_type __resource_id "organization";
-       partner =
-         Prop.computed __resource_type __resource_id "partner";
-       provisioned_resources_parent =
-         Prop.computed __resource_type __resource_id
-           "provisioned_resources_parent";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
-       saa_enrollment_response =
-         Prop.computed __resource_type __resource_id
-           "saa_enrollment_response";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       violation_notifications_enabled =
-         Prop.computed __resource_type __resource_id
-           "violation_notifications_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

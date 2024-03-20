@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,21 @@ val register :
   ephemeral_block_device:ephemeral_block_device list ->
   string ->
   t
+
+val make :
+  ?deprecation_time:string prop ->
+  ?description:string prop ->
+  ?destination_outpost_arn:string prop ->
+  ?encrypted:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  source_ami_id:string prop ->
+  source_ami_region:string prop ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  string ->
+  t Tf_core.resource

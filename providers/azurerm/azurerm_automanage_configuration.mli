@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -164,3 +164,22 @@ val register :
   backup:backup list ->
   string ->
   t
+
+val make :
+  ?automation_account_enabled:bool prop ->
+  ?boot_diagnostics_enabled:bool prop ->
+  ?defender_for_cloud_enabled:bool prop ->
+  ?guest_configuration_enabled:bool prop ->
+  ?id:string prop ->
+  ?log_analytics_enabled:bool prop ->
+  ?status_change_alert_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  antimalware:antimalware list ->
+  azure_security_baseline:azure_security_baseline list ->
+  backup:backup list ->
+  string ->
+  t Tf_core.resource

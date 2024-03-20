@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,11 @@ val register :
   cdn_frontdoor_route_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_custom_domain_ids:string prop list ->
+  cdn_frontdoor_route_id:string prop ->
+  string ->
+  t Tf_core.resource

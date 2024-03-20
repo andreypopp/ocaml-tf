@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,35 +49,39 @@ type t = {
   single_sign_on_enabled : string prop;
 }
 
-let register ?tf_module ?id ?name ?timeouts ~datadog_monitor_id
-    ~enterprise_application_id ~single_sign_on_enabled __resource_id
-    =
-  let __resource_type =
-    "azurerm_datadog_monitor_sso_configuration"
-  in
-  let __resource =
-    azurerm_datadog_monitor_sso_configuration ?id ?name ?timeouts
-      ~datadog_monitor_id ~enterprise_application_id
-      ~single_sign_on_enabled ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_datadog_monitor_sso_configuration __resource);
-  let __resource_attributes =
+let make ?id ?name ?timeouts ~datadog_monitor_id
+    ~enterprise_application_id ~single_sign_on_enabled __id =
+  let __type = "azurerm_datadog_monitor_sso_configuration" in
+  let __attrs =
     ({
        datadog_monitor_id =
-         Prop.computed __resource_type __resource_id
-           "datadog_monitor_id";
+         Prop.computed __type __id "datadog_monitor_id";
        enterprise_application_id =
-         Prop.computed __resource_type __resource_id
-           "enterprise_application_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       login_url =
-         Prop.computed __resource_type __resource_id "login_url";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enterprise_application_id";
+       id = Prop.computed __type __id "id";
+       login_url = Prop.computed __type __id "login_url";
+       name = Prop.computed __type __id "name";
        single_sign_on_enabled =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_enabled";
+         Prop.computed __type __id "single_sign_on_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_datadog_monitor_sso_configuration
+        (azurerm_datadog_monitor_sso_configuration ?id ?name
+           ?timeouts ~datadog_monitor_id ~enterprise_application_id
+           ~single_sign_on_enabled ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?timeouts ~datadog_monitor_id
+    ~enterprise_application_id ~single_sign_on_enabled __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?timeouts ~datadog_monitor_id
+      ~enterprise_application_id ~single_sign_on_enabled __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

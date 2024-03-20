@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,12 @@ val register :
   organization_configuration:organization_configuration list ->
   string ->
   t
+
+val make :
+  ?auto_enable_standards:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  auto_enable:bool prop ->
+  organization_configuration:organization_configuration list ->
+  string ->
+  t Tf_core.resource

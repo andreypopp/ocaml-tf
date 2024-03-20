@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,12 @@ val register :
   permission_set_arn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  inline_policy:string prop ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  string ->
+  t Tf_core.resource

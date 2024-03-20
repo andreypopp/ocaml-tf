@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filter = {
   local_ip_address : string prop option; [@option]
@@ -112,43 +110,51 @@ type t = {
   virtual_machine_scale_set_id : string prop;
 }
 
-let register ?tf_module ?id ?maximum_bytes_per_packet
-    ?maximum_bytes_per_session ?maximum_capture_duration_in_seconds
-    ?timeouts ~name ~network_watcher_id ~virtual_machine_scale_set_id
-    ~filter ~machine_scope ~storage_location __resource_id =
-  let __resource_type =
-    "azurerm_virtual_machine_scale_set_packet_capture"
-  in
-  let __resource =
-    azurerm_virtual_machine_scale_set_packet_capture ?id
-      ?maximum_bytes_per_packet ?maximum_bytes_per_session
-      ?maximum_capture_duration_in_seconds ?timeouts ~name
-      ~network_watcher_id ~virtual_machine_scale_set_id ~filter
-      ~machine_scope ~storage_location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine_scale_set_packet_capture
-       __resource);
-  let __resource_attributes =
+let make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
+    ?maximum_capture_duration_in_seconds ?timeouts ~name
+    ~network_watcher_id ~virtual_machine_scale_set_id ~filter
+    ~machine_scope ~storage_location __id =
+  let __type = "azurerm_virtual_machine_scale_set_packet_capture" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        maximum_bytes_per_packet =
-         Prop.computed __resource_type __resource_id
-           "maximum_bytes_per_packet";
+         Prop.computed __type __id "maximum_bytes_per_packet";
        maximum_bytes_per_session =
-         Prop.computed __resource_type __resource_id
-           "maximum_bytes_per_session";
+         Prop.computed __type __id "maximum_bytes_per_session";
        maximum_capture_duration_in_seconds =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "maximum_capture_duration_in_seconds";
-       name = Prop.computed __resource_type __resource_id "name";
+       name = Prop.computed __type __id "name";
        network_watcher_id =
-         Prop.computed __resource_type __resource_id
-           "network_watcher_id";
+         Prop.computed __type __id "network_watcher_id";
        virtual_machine_scale_set_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_scale_set_id";
+         Prop.computed __type __id "virtual_machine_scale_set_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine_scale_set_packet_capture
+        (azurerm_virtual_machine_scale_set_packet_capture ?id
+           ?maximum_bytes_per_packet ?maximum_bytes_per_session
+           ?maximum_capture_duration_in_seconds ?timeouts ~name
+           ~network_watcher_id ~virtual_machine_scale_set_id ~filter
+           ~machine_scope ~storage_location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?maximum_bytes_per_packet
+    ?maximum_bytes_per_session ?maximum_capture_duration_in_seconds
+    ?timeouts ~name ~network_watcher_id ~virtual_machine_scale_set_id
+    ~filter ~machine_scope ~storage_location __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?maximum_bytes_per_packet ?maximum_bytes_per_session
+      ?maximum_capture_duration_in_seconds ?timeouts ~name
+      ~network_watcher_id ~virtual_machine_scale_set_id ~filter
+      ~machine_scope ~storage_location __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

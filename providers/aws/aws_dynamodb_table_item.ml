@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dynamodb_table_item = {
   hash_key : string prop;  (** hash_key *)
@@ -26,26 +24,32 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?id ?range_key ~hash_key ~item ~table_name
-    __resource_id =
-  let __resource_type = "aws_dynamodb_table_item" in
-  let __resource =
-    aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
-      ~table_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dynamodb_table_item __resource);
-  let __resource_attributes =
+let make ?id ?range_key ~hash_key ~item ~table_name __id =
+  let __type = "aws_dynamodb_table_item" in
+  let __attrs =
     ({
-       hash_key =
-         Prop.computed __resource_type __resource_id "hash_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       item = Prop.computed __resource_type __resource_id "item";
-       range_key =
-         Prop.computed __resource_type __resource_id "range_key";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+       hash_key = Prop.computed __type __id "hash_key";
+       id = Prop.computed __type __id "id";
+       item = Prop.computed __type __id "item";
+       range_key = Prop.computed __type __id "range_key";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dynamodb_table_item
+        (aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
+           ~table_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?range_key ~hash_key ~item ~table_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?range_key ~hash_key ~item ~table_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

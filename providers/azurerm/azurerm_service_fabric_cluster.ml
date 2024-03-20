@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_active_directory = {
   client_application_id : string prop;  (** client_application_id *)
@@ -398,6 +396,62 @@ type t = {
   vmss_zonal_upgrade_mode : string prop;
 }
 
+let make ?add_on_features ?cluster_code_version ?id
+    ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
+    ?timeouts ~location ~management_endpoint ~name ~reliability_level
+    ~resource_group_name ~upgrade_mode ~vm_image
+    ~azure_active_directory ~certificate ~certificate_common_names
+    ~client_certificate_common_name ~client_certificate_thumbprint
+    ~diagnostics_config ~fabric_settings ~node_type
+    ~reverse_proxy_certificate
+    ~reverse_proxy_certificate_common_names ~upgrade_policy __id =
+  let __type = "azurerm_service_fabric_cluster" in
+  let __attrs =
+    ({
+       add_on_features = Prop.computed __type __id "add_on_features";
+       cluster_code_version =
+         Prop.computed __type __id "cluster_code_version";
+       cluster_endpoint =
+         Prop.computed __type __id "cluster_endpoint";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       management_endpoint =
+         Prop.computed __type __id "management_endpoint";
+       name = Prop.computed __type __id "name";
+       reliability_level =
+         Prop.computed __type __id "reliability_level";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       service_fabric_zonal_upgrade_mode =
+         Prop.computed __type __id
+           "service_fabric_zonal_upgrade_mode";
+       tags = Prop.computed __type __id "tags";
+       upgrade_mode = Prop.computed __type __id "upgrade_mode";
+       vm_image = Prop.computed __type __id "vm_image";
+       vmss_zonal_upgrade_mode =
+         Prop.computed __type __id "vmss_zonal_upgrade_mode";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_service_fabric_cluster
+        (azurerm_service_fabric_cluster ?add_on_features
+           ?cluster_code_version ?id
+           ?service_fabric_zonal_upgrade_mode ?tags
+           ?vmss_zonal_upgrade_mode ?timeouts ~location
+           ~management_endpoint ~name ~reliability_level
+           ~resource_group_name ~upgrade_mode ~vm_image
+           ~azure_active_directory ~certificate
+           ~certificate_common_names ~client_certificate_common_name
+           ~client_certificate_thumbprint ~diagnostics_config
+           ~fabric_settings ~node_type ~reverse_proxy_certificate
+           ~reverse_proxy_certificate_common_names ~upgrade_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?add_on_features ?cluster_code_version ?id
     ?service_fabric_zonal_upgrade_mode ?tags ?vmss_zonal_upgrade_mode
     ?timeouts ~location ~management_endpoint ~name ~reliability_level
@@ -406,59 +460,18 @@ let register ?tf_module ?add_on_features ?cluster_code_version ?id
     ~client_certificate_common_name ~client_certificate_thumbprint
     ~diagnostics_config ~fabric_settings ~node_type
     ~reverse_proxy_certificate
-    ~reverse_proxy_certificate_common_names ~upgrade_policy
-    __resource_id =
-  let __resource_type = "azurerm_service_fabric_cluster" in
-  let __resource =
-    azurerm_service_fabric_cluster ?add_on_features
-      ?cluster_code_version ?id ?service_fabric_zonal_upgrade_mode
-      ?tags ?vmss_zonal_upgrade_mode ?timeouts ~location
+    ~reverse_proxy_certificate_common_names ~upgrade_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?add_on_features ?cluster_code_version ?id
+      ?service_fabric_zonal_upgrade_mode ?tags
+      ?vmss_zonal_upgrade_mode ?timeouts ~location
       ~management_endpoint ~name ~reliability_level
       ~resource_group_name ~upgrade_mode ~vm_image
       ~azure_active_directory ~certificate ~certificate_common_names
       ~client_certificate_common_name ~client_certificate_thumbprint
       ~diagnostics_config ~fabric_settings ~node_type
       ~reverse_proxy_certificate
-      ~reverse_proxy_certificate_common_names ~upgrade_policy ()
+      ~reverse_proxy_certificate_common_names ~upgrade_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_service_fabric_cluster __resource);
-  let __resource_attributes =
-    ({
-       add_on_features =
-         Prop.computed __resource_type __resource_id
-           "add_on_features";
-       cluster_code_version =
-         Prop.computed __resource_type __resource_id
-           "cluster_code_version";
-       cluster_endpoint =
-         Prop.computed __resource_type __resource_id
-           "cluster_endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       management_endpoint =
-         Prop.computed __resource_type __resource_id
-           "management_endpoint";
-       name = Prop.computed __resource_type __resource_id "name";
-       reliability_level =
-         Prop.computed __resource_type __resource_id
-           "reliability_level";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_fabric_zonal_upgrade_mode =
-         Prop.computed __resource_type __resource_id
-           "service_fabric_zonal_upgrade_mode";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       upgrade_mode =
-         Prop.computed __resource_type __resource_id "upgrade_mode";
-       vm_image =
-         Prop.computed __resource_type __resource_id "vm_image";
-       vmss_zonal_upgrade_mode =
-         Prop.computed __resource_type __resource_id
-           "vmss_zonal_upgrade_mode";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

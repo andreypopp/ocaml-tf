@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -179,3 +179,18 @@ val register :
   service_config:service_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  build_config:build_config list ->
+  event_trigger:event_trigger list ->
+  service_config:service_config list ->
+  string ->
+  t Tf_core.resource

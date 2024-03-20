@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type external_mapping = {
   address_space : string prop;  (** address_space *)
@@ -82,34 +80,44 @@ type t = {
   virtual_network_gateway_id : string prop;
 }
 
-let register ?tf_module ?id ?ip_configuration_id ?mode ?type_
-    ?timeouts ~name ~resource_group_name ~virtual_network_gateway_id
-    ~external_mapping ~internal_mapping __resource_id =
-  let __resource_type = "azurerm_virtual_network_gateway_nat_rule" in
-  let __resource =
-    azurerm_virtual_network_gateway_nat_rule ?id ?ip_configuration_id
-      ?mode ?type_ ?timeouts ~name ~resource_group_name
-      ~virtual_network_gateway_id ~external_mapping ~internal_mapping
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_network_gateway_nat_rule __resource);
-  let __resource_attributes =
+let make ?id ?ip_configuration_id ?mode ?type_ ?timeouts ~name
+    ~resource_group_name ~virtual_network_gateway_id
+    ~external_mapping ~internal_mapping __id =
+  let __type = "azurerm_virtual_network_gateway_nat_rule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        ip_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "ip_configuration_id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "ip_configuration_id";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "resource_group_name";
+       type_ = Prop.computed __type __id "type";
        virtual_network_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_gateway_id";
+         Prop.computed __type __id "virtual_network_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_network_gateway_nat_rule
+        (azurerm_virtual_network_gateway_nat_rule ?id
+           ?ip_configuration_id ?mode ?type_ ?timeouts ~name
+           ~resource_group_name ~virtual_network_gateway_id
+           ~external_mapping ~internal_mapping ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_configuration_id ?mode ?type_
+    ?timeouts ~name ~resource_group_name ~virtual_network_gateway_id
+    ~external_mapping ~internal_mapping __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_configuration_id ?mode ?type_ ?timeouts ~name
+      ~resource_group_name ~virtual_network_gateway_id
+      ~external_mapping ~internal_mapping __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

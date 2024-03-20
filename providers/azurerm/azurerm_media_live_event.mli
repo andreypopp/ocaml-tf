@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -144,3 +144,24 @@ val register :
   preview:preview list ->
   string ->
   t
+
+val make :
+  ?auto_start_enabled:bool prop ->
+  ?description:string prop ->
+  ?hostname_prefix:string prop ->
+  ?id:string prop ->
+  ?stream_options:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?transcription_languages:string prop list ->
+  ?use_static_hostname:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  cross_site_access_policy:cross_site_access_policy list ->
+  encoding:encoding list ->
+  input:input list ->
+  preview:preview list ->
+  string ->
+  t Tf_core.resource

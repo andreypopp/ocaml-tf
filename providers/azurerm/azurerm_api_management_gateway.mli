@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,13 @@ val register :
   location_data:location_data list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  name:string prop ->
+  location_data:location_data list ->
+  string ->
+  t Tf_core.resource

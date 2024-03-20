@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,35 +52,38 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~database_name ~mysql_server_id
-    ~name ~password ~spring_cloud_app_id ~username __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_app_mysql_association"
-  in
-  let __resource =
-    azurerm_spring_cloud_app_mysql_association ?id ?timeouts
-      ~database_name ~mysql_server_id ~name ~password
-      ~spring_cloud_app_id ~username ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_app_mysql_association __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~database_name ~mysql_server_id ~name
+    ~password ~spring_cloud_app_id ~username __id =
+  let __type = "azurerm_spring_cloud_app_mysql_association" in
+  let __attrs =
     ({
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       mysql_server_id =
-         Prop.computed __resource_type __resource_id
-           "mysql_server_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+       database_name = Prop.computed __type __id "database_name";
+       id = Prop.computed __type __id "id";
+       mysql_server_id = Prop.computed __type __id "mysql_server_id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        spring_cloud_app_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_app_id";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "spring_cloud_app_id";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_app_mysql_association
+        (azurerm_spring_cloud_app_mysql_association ?id ?timeouts
+           ~database_name ~mysql_server_id ~name ~password
+           ~spring_cloud_app_id ~username ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~database_name ~mysql_server_id
+    ~name ~password ~spring_cloud_app_id ~username __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~database_name ~mysql_server_id ~name
+      ~password ~spring_cloud_app_id ~username __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type feature = {
   name : string prop;  (** name *)
@@ -40,19 +38,28 @@ let azurerm_resource_provider_registration ?id ?timeouts ~name
 
 type t = { id : string prop; name : string prop }
 
-let register ?tf_module ?id ?timeouts ~name ~feature __resource_id =
-  let __resource_type = "azurerm_resource_provider_registration" in
-  let __resource =
-    azurerm_resource_provider_registration ?id ?timeouts ~name
-      ~feature ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_resource_provider_registration __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~feature __id =
+  let __type = "azurerm_resource_provider_registration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_resource_provider_registration
+        (azurerm_resource_provider_registration ?id ?timeouts ~name
+           ~feature ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~feature __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~feature __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,14 @@ val register :
   storage_units:float prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  maps_account_id:string prop ->
+  name:string prop ->
+  storage_units:float prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,17 @@ val register :
   ebs_config:ebs_config list ->
   string ->
   t
+
+val make :
+  ?autoscaling_policy:string prop ->
+  ?bid_price:string prop ->
+  ?configurations_json:string prop ->
+  ?ebs_optimized:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?name:string prop ->
+  cluster_id:string prop ->
+  instance_type:string prop ->
+  ebs_config:ebs_config list ->
+  string ->
+  t Tf_core.resource

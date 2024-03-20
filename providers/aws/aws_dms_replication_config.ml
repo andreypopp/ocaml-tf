@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type compute_config = {
   availability_zone : string prop option; [@option]
@@ -116,55 +114,63 @@ type t = {
   target_endpoint_arn : string prop;
 }
 
+let make ?id ?replication_settings ?resource_identifier
+    ?start_replication ?supplemental_settings ?tags ?tags_all
+    ?timeouts ~replication_config_identifier ~replication_type
+    ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
+    ~compute_config __id =
+  let __type = "aws_dms_replication_config" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       replication_config_identifier =
+         Prop.computed __type __id "replication_config_identifier";
+       replication_settings =
+         Prop.computed __type __id "replication_settings";
+       replication_type =
+         Prop.computed __type __id "replication_type";
+       resource_identifier =
+         Prop.computed __type __id "resource_identifier";
+       source_endpoint_arn =
+         Prop.computed __type __id "source_endpoint_arn";
+       start_replication =
+         Prop.computed __type __id "start_replication";
+       supplemental_settings =
+         Prop.computed __type __id "supplemental_settings";
+       table_mappings = Prop.computed __type __id "table_mappings";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_endpoint_arn =
+         Prop.computed __type __id "target_endpoint_arn";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dms_replication_config
+        (aws_dms_replication_config ?id ?replication_settings
+           ?resource_identifier ?start_replication
+           ?supplemental_settings ?tags ?tags_all ?timeouts
+           ~replication_config_identifier ~replication_type
+           ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
+           ~compute_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?replication_settings
     ?resource_identifier ?start_replication ?supplemental_settings
     ?tags ?tags_all ?timeouts ~replication_config_identifier
     ~replication_type ~source_endpoint_arn ~table_mappings
-    ~target_endpoint_arn ~compute_config __resource_id =
-  let __resource_type = "aws_dms_replication_config" in
-  let __resource =
-    aws_dms_replication_config ?id ?replication_settings
-      ?resource_identifier ?start_replication ?supplemental_settings
-      ?tags ?tags_all ?timeouts ~replication_config_identifier
-      ~replication_type ~source_endpoint_arn ~table_mappings
-      ~target_endpoint_arn ~compute_config ()
+    ~target_endpoint_arn ~compute_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?replication_settings ?resource_identifier
+      ?start_replication ?supplemental_settings ?tags ?tags_all
+      ?timeouts ~replication_config_identifier ~replication_type
+      ~source_endpoint_arn ~table_mappings ~target_endpoint_arn
+      ~compute_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dms_replication_config __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       replication_config_identifier =
-         Prop.computed __resource_type __resource_id
-           "replication_config_identifier";
-       replication_settings =
-         Prop.computed __resource_type __resource_id
-           "replication_settings";
-       replication_type =
-         Prop.computed __resource_type __resource_id
-           "replication_type";
-       resource_identifier =
-         Prop.computed __resource_type __resource_id
-           "resource_identifier";
-       source_endpoint_arn =
-         Prop.computed __resource_type __resource_id
-           "source_endpoint_arn";
-       start_replication =
-         Prop.computed __resource_type __resource_id
-           "start_replication";
-       supplemental_settings =
-         Prop.computed __resource_type __resource_id
-           "supplemental_settings";
-       table_mappings =
-         Prop.computed __resource_type __resource_id "table_mappings";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_endpoint_arn =
-         Prop.computed __resource_type __resource_id
-           "target_endpoint_arn";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

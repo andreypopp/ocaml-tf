@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -222,3 +222,20 @@ val register :
   sms_region_config:sms_region_config list ->
   string ->
   t
+
+val make :
+  ?authorized_domains:string prop list ->
+  ?autodelete_anonymous_users:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  blocking_functions:blocking_functions list ->
+  client:client list ->
+  mfa:mfa list ->
+  monitoring:monitoring list ->
+  multi_tenant:multi_tenant list ->
+  quota:quota list ->
+  sign_in:sign_in list ->
+  sms_region_config:sms_region_config list ->
+  string ->
+  t Tf_core.resource

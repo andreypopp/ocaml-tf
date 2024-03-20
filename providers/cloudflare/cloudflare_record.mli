@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -113,3 +113,20 @@ val register :
   data:data list ->
   string ->
   t
+
+val make :
+  ?allow_overwrite:bool prop ->
+  ?comment:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?proxied:bool prop ->
+  ?tags:string prop list ->
+  ?ttl:float prop ->
+  ?value:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  zone_id:string prop ->
+  data:data list ->
+  string ->
+  t Tf_core.resource

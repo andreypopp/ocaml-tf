@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,16 @@ val register :
   image_scanning_configuration:image_scanning_configuration list ->
   string ->
   t
+
+val make :
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?image_tag_mutability:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  image_scanning_configuration:image_scanning_configuration list ->
+  string ->
+  t Tf_core.resource

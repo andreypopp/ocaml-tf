@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudwatch_configuration__log_streams = {
   batch_count : float prop option; [@option]  (** batch_count *)
@@ -285,6 +283,89 @@ type t = {
   use_ebs_optimized_instances : bool prop;
 }
 
+let make ?auto_assign_elastic_ips ?auto_assign_public_ips
+    ?auto_healing ?custom_configure_recipes ?custom_deploy_recipes
+    ?custom_instance_profile_arn ?custom_json
+    ?custom_security_group_ids ?custom_setup_recipes
+    ?custom_shutdown_recipes ?custom_undeploy_recipes
+    ?drain_elb_on_shutdown ?elastic_load_balancer ?healthcheck_method
+    ?healthcheck_url ?id ?install_updates_on_boot
+    ?instance_shutdown_timeout ?name ?stats_enabled ?stats_url
+    ?stats_user ?system_packages ?tags ?tags_all
+    ?use_ebs_optimized_instances ~stack_id ~stats_password
+    ~cloudwatch_configuration ~ebs_volume ~load_based_auto_scaling
+    __id =
+  let __type = "aws_opsworks_haproxy_layer" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       auto_assign_elastic_ips =
+         Prop.computed __type __id "auto_assign_elastic_ips";
+       auto_assign_public_ips =
+         Prop.computed __type __id "auto_assign_public_ips";
+       auto_healing = Prop.computed __type __id "auto_healing";
+       custom_configure_recipes =
+         Prop.computed __type __id "custom_configure_recipes";
+       custom_deploy_recipes =
+         Prop.computed __type __id "custom_deploy_recipes";
+       custom_instance_profile_arn =
+         Prop.computed __type __id "custom_instance_profile_arn";
+       custom_json = Prop.computed __type __id "custom_json";
+       custom_security_group_ids =
+         Prop.computed __type __id "custom_security_group_ids";
+       custom_setup_recipes =
+         Prop.computed __type __id "custom_setup_recipes";
+       custom_shutdown_recipes =
+         Prop.computed __type __id "custom_shutdown_recipes";
+       custom_undeploy_recipes =
+         Prop.computed __type __id "custom_undeploy_recipes";
+       drain_elb_on_shutdown =
+         Prop.computed __type __id "drain_elb_on_shutdown";
+       elastic_load_balancer =
+         Prop.computed __type __id "elastic_load_balancer";
+       healthcheck_method =
+         Prop.computed __type __id "healthcheck_method";
+       healthcheck_url = Prop.computed __type __id "healthcheck_url";
+       id = Prop.computed __type __id "id";
+       install_updates_on_boot =
+         Prop.computed __type __id "install_updates_on_boot";
+       instance_shutdown_timeout =
+         Prop.computed __type __id "instance_shutdown_timeout";
+       name = Prop.computed __type __id "name";
+       stack_id = Prop.computed __type __id "stack_id";
+       stats_enabled = Prop.computed __type __id "stats_enabled";
+       stats_password = Prop.computed __type __id "stats_password";
+       stats_url = Prop.computed __type __id "stats_url";
+       stats_user = Prop.computed __type __id "stats_user";
+       system_packages = Prop.computed __type __id "system_packages";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       use_ebs_optimized_instances =
+         Prop.computed __type __id "use_ebs_optimized_instances";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_haproxy_layer
+        (aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
+           ?auto_assign_public_ips ?auto_healing
+           ?custom_configure_recipes ?custom_deploy_recipes
+           ?custom_instance_profile_arn ?custom_json
+           ?custom_security_group_ids ?custom_setup_recipes
+           ?custom_shutdown_recipes ?custom_undeploy_recipes
+           ?drain_elb_on_shutdown ?elastic_load_balancer
+           ?healthcheck_method ?healthcheck_url ?id
+           ?install_updates_on_boot ?instance_shutdown_timeout ?name
+           ?stats_enabled ?stats_url ?stats_user ?system_packages
+           ?tags ?tags_all ?use_ebs_optimized_instances ~stack_id
+           ~stats_password ~cloudwatch_configuration ~ebs_volume
+           ~load_based_auto_scaling ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_assign_elastic_ips
     ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
     ?custom_deploy_recipes ?custom_instance_profile_arn ?custom_json
@@ -296,13 +377,12 @@ let register ?tf_module ?auto_assign_elastic_ips
     ?stats_user ?system_packages ?tags ?tags_all
     ?use_ebs_optimized_instances ~stack_id ~stats_password
     ~cloudwatch_configuration ~ebs_volume ~load_based_auto_scaling
-    __resource_id =
-  let __resource_type = "aws_opsworks_haproxy_layer" in
-  let __resource =
-    aws_opsworks_haproxy_layer ?auto_assign_elastic_ips
-      ?auto_assign_public_ips ?auto_healing ?custom_configure_recipes
-      ?custom_deploy_recipes ?custom_instance_profile_arn
-      ?custom_json ?custom_security_group_ids ?custom_setup_recipes
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_assign_elastic_ips ?auto_assign_public_ips
+      ?auto_healing ?custom_configure_recipes ?custom_deploy_recipes
+      ?custom_instance_profile_arn ?custom_json
+      ?custom_security_group_ids ?custom_setup_recipes
       ?custom_shutdown_recipes ?custom_undeploy_recipes
       ?drain_elb_on_shutdown ?elastic_load_balancer
       ?healthcheck_method ?healthcheck_url ?id
@@ -310,84 +390,7 @@ let register ?tf_module ?auto_assign_elastic_ips
       ?stats_enabled ?stats_url ?stats_user ?system_packages ?tags
       ?tags_all ?use_ebs_optimized_instances ~stack_id
       ~stats_password ~cloudwatch_configuration ~ebs_volume
-      ~load_based_auto_scaling ()
+      ~load_based_auto_scaling __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_haproxy_layer __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_assign_elastic_ips =
-         Prop.computed __resource_type __resource_id
-           "auto_assign_elastic_ips";
-       auto_assign_public_ips =
-         Prop.computed __resource_type __resource_id
-           "auto_assign_public_ips";
-       auto_healing =
-         Prop.computed __resource_type __resource_id "auto_healing";
-       custom_configure_recipes =
-         Prop.computed __resource_type __resource_id
-           "custom_configure_recipes";
-       custom_deploy_recipes =
-         Prop.computed __resource_type __resource_id
-           "custom_deploy_recipes";
-       custom_instance_profile_arn =
-         Prop.computed __resource_type __resource_id
-           "custom_instance_profile_arn";
-       custom_json =
-         Prop.computed __resource_type __resource_id "custom_json";
-       custom_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "custom_security_group_ids";
-       custom_setup_recipes =
-         Prop.computed __resource_type __resource_id
-           "custom_setup_recipes";
-       custom_shutdown_recipes =
-         Prop.computed __resource_type __resource_id
-           "custom_shutdown_recipes";
-       custom_undeploy_recipes =
-         Prop.computed __resource_type __resource_id
-           "custom_undeploy_recipes";
-       drain_elb_on_shutdown =
-         Prop.computed __resource_type __resource_id
-           "drain_elb_on_shutdown";
-       elastic_load_balancer =
-         Prop.computed __resource_type __resource_id
-           "elastic_load_balancer";
-       healthcheck_method =
-         Prop.computed __resource_type __resource_id
-           "healthcheck_method";
-       healthcheck_url =
-         Prop.computed __resource_type __resource_id
-           "healthcheck_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       install_updates_on_boot =
-         Prop.computed __resource_type __resource_id
-           "install_updates_on_boot";
-       instance_shutdown_timeout =
-         Prop.computed __resource_type __resource_id
-           "instance_shutdown_timeout";
-       name = Prop.computed __resource_type __resource_id "name";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
-       stats_enabled =
-         Prop.computed __resource_type __resource_id "stats_enabled";
-       stats_password =
-         Prop.computed __resource_type __resource_id "stats_password";
-       stats_url =
-         Prop.computed __resource_type __resource_id "stats_url";
-       stats_user =
-         Prop.computed __resource_type __resource_id "stats_user";
-       system_packages =
-         Prop.computed __resource_type __resource_id
-           "system_packages";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       use_ebs_optimized_instances =
-         Prop.computed __resource_type __resource_id
-           "use_ebs_optimized_instances";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

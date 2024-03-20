@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -170,63 +168,72 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?allowed_authentication_modes ?encryption ?id
+    ?pool_allocation_mode ?public_network_access_enabled
+    ?storage_account_authentication_mode ?storage_account_id
+    ?storage_account_node_identity ?tags ?timeouts ~location ~name
+    ~resource_group_name ~identity ~key_vault_reference
+    ~network_profile __id =
+  let __type = "azurerm_batch_account" in
+  let __attrs =
+    ({
+       account_endpoint =
+         Prop.computed __type __id "account_endpoint";
+       allowed_authentication_modes =
+         Prop.computed __type __id "allowed_authentication_modes";
+       encryption = Prop.computed __type __id "encryption";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       pool_allocation_mode =
+         Prop.computed __type __id "pool_allocation_mode";
+       primary_access_key =
+         Prop.computed __type __id "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secondary_access_key =
+         Prop.computed __type __id "secondary_access_key";
+       storage_account_authentication_mode =
+         Prop.computed __type __id
+           "storage_account_authentication_mode";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+       storage_account_node_identity =
+         Prop.computed __type __id "storage_account_node_identity";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_batch_account
+        (azurerm_batch_account ?allowed_authentication_modes
+           ?encryption ?id ?pool_allocation_mode
+           ?public_network_access_enabled
+           ?storage_account_authentication_mode ?storage_account_id
+           ?storage_account_node_identity ?tags ?timeouts ~location
+           ~name ~resource_group_name ~identity ~key_vault_reference
+           ~network_profile ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allowed_authentication_modes ?encryption ?id
     ?pool_allocation_mode ?public_network_access_enabled
     ?storage_account_authentication_mode ?storage_account_id
     ?storage_account_node_identity ?tags ?timeouts ~location ~name
     ~resource_group_name ~identity ~key_vault_reference
-    ~network_profile __resource_id =
-  let __resource_type = "azurerm_batch_account" in
-  let __resource =
-    azurerm_batch_account ?allowed_authentication_modes ?encryption
-      ?id ?pool_allocation_mode ?public_network_access_enabled
+    ~network_profile __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_authentication_modes ?encryption ?id
+      ?pool_allocation_mode ?public_network_access_enabled
       ?storage_account_authentication_mode ?storage_account_id
       ?storage_account_node_identity ?tags ?timeouts ~location ~name
       ~resource_group_name ~identity ~key_vault_reference
-      ~network_profile ()
+      ~network_profile __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_batch_account __resource);
-  let __resource_attributes =
-    ({
-       account_endpoint =
-         Prop.computed __resource_type __resource_id
-           "account_endpoint";
-       allowed_authentication_modes =
-         Prop.computed __resource_type __resource_id
-           "allowed_authentication_modes";
-       encryption =
-         Prop.computed __resource_type __resource_id "encryption";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       pool_allocation_mode =
-         Prop.computed __resource_type __resource_id
-           "pool_allocation_mode";
-       primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
-       storage_account_authentication_mode =
-         Prop.computed __resource_type __resource_id
-           "storage_account_authentication_mode";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       storage_account_node_identity =
-         Prop.computed __resource_type __resource_id
-           "storage_account_node_identity";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

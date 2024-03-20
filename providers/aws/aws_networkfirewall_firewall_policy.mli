@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -161,3 +161,14 @@ val register :
   firewall_policy:firewall_policy list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  firewall_policy:firewall_policy list ->
+  string ->
+  t Tf_core.resource

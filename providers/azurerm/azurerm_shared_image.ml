@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identifier = {
   offer : string prop;  (** offer *)
@@ -154,6 +152,81 @@ type t = {
   trusted_launch_supported : bool prop;
 }
 
+let make ?accelerated_network_support_enabled ?architecture
+    ?confidential_vm_enabled ?confidential_vm_supported ?description
+    ?disk_types_not_allowed ?end_of_life_date ?eula
+    ?hyper_v_generation ?id ?max_recommended_memory_in_gb
+    ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
+    ?min_recommended_vcpu_count ?privacy_statement_uri
+    ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
+    ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
+    ~os_type ~resource_group_name ~identifier ~purchase_plan __id =
+  let __type = "azurerm_shared_image" in
+  let __attrs =
+    ({
+       accelerated_network_support_enabled =
+         Prop.computed __type __id
+           "accelerated_network_support_enabled";
+       architecture = Prop.computed __type __id "architecture";
+       confidential_vm_enabled =
+         Prop.computed __type __id "confidential_vm_enabled";
+       confidential_vm_supported =
+         Prop.computed __type __id "confidential_vm_supported";
+       description = Prop.computed __type __id "description";
+       disk_types_not_allowed =
+         Prop.computed __type __id "disk_types_not_allowed";
+       end_of_life_date =
+         Prop.computed __type __id "end_of_life_date";
+       eula = Prop.computed __type __id "eula";
+       gallery_name = Prop.computed __type __id "gallery_name";
+       hyper_v_generation =
+         Prop.computed __type __id "hyper_v_generation";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       max_recommended_memory_in_gb =
+         Prop.computed __type __id "max_recommended_memory_in_gb";
+       max_recommended_vcpu_count =
+         Prop.computed __type __id "max_recommended_vcpu_count";
+       min_recommended_memory_in_gb =
+         Prop.computed __type __id "min_recommended_memory_in_gb";
+       min_recommended_vcpu_count =
+         Prop.computed __type __id "min_recommended_vcpu_count";
+       name = Prop.computed __type __id "name";
+       os_type = Prop.computed __type __id "os_type";
+       privacy_statement_uri =
+         Prop.computed __type __id "privacy_statement_uri";
+       release_note_uri =
+         Prop.computed __type __id "release_note_uri";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       specialized = Prop.computed __type __id "specialized";
+       tags = Prop.computed __type __id "tags";
+       trusted_launch_enabled =
+         Prop.computed __type __id "trusted_launch_enabled";
+       trusted_launch_supported =
+         Prop.computed __type __id "trusted_launch_supported";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_shared_image
+        (azurerm_shared_image ?accelerated_network_support_enabled
+           ?architecture ?confidential_vm_enabled
+           ?confidential_vm_supported ?description
+           ?disk_types_not_allowed ?end_of_life_date ?eula
+           ?hyper_v_generation ?id ?max_recommended_memory_in_gb
+           ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
+           ?min_recommended_vcpu_count ?privacy_statement_uri
+           ?release_note_uri ?specialized ?tags
+           ?trusted_launch_enabled ?trusted_launch_supported
+           ?timeouts ~gallery_name ~location ~name ~os_type
+           ~resource_group_name ~identifier ~purchase_plan ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?accelerated_network_support_enabled
     ?architecture ?confidential_vm_enabled ?confidential_vm_supported
     ?description ?disk_types_not_allowed ?end_of_life_date ?eula
@@ -162,87 +235,18 @@ let register ?tf_module ?accelerated_network_support_enabled
     ?min_recommended_vcpu_count ?privacy_statement_uri
     ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
     ?trusted_launch_supported ?timeouts ~gallery_name ~location ~name
-    ~os_type ~resource_group_name ~identifier ~purchase_plan
-    __resource_id =
-  let __resource_type = "azurerm_shared_image" in
-  let __resource =
-    azurerm_shared_image ?accelerated_network_support_enabled
-      ?architecture ?confidential_vm_enabled
-      ?confidential_vm_supported ?description ?disk_types_not_allowed
-      ?end_of_life_date ?eula ?hyper_v_generation ?id
-      ?max_recommended_memory_in_gb ?max_recommended_vcpu_count
-      ?min_recommended_memory_in_gb ?min_recommended_vcpu_count
-      ?privacy_statement_uri ?release_note_uri ?specialized ?tags
-      ?trusted_launch_enabled ?trusted_launch_supported ?timeouts
-      ~gallery_name ~location ~name ~os_type ~resource_group_name
-      ~identifier ~purchase_plan ()
+    ~os_type ~resource_group_name ~identifier ~purchase_plan __id =
+  let (r : _ Tf_core.resource) =
+    make ?accelerated_network_support_enabled ?architecture
+      ?confidential_vm_enabled ?confidential_vm_supported
+      ?description ?disk_types_not_allowed ?end_of_life_date ?eula
+      ?hyper_v_generation ?id ?max_recommended_memory_in_gb
+      ?max_recommended_vcpu_count ?min_recommended_memory_in_gb
+      ?min_recommended_vcpu_count ?privacy_statement_uri
+      ?release_note_uri ?specialized ?tags ?trusted_launch_enabled
+      ?trusted_launch_supported ?timeouts ~gallery_name ~location
+      ~name ~os_type ~resource_group_name ~identifier ~purchase_plan
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_shared_image __resource);
-  let __resource_attributes =
-    ({
-       accelerated_network_support_enabled =
-         Prop.computed __resource_type __resource_id
-           "accelerated_network_support_enabled";
-       architecture =
-         Prop.computed __resource_type __resource_id "architecture";
-       confidential_vm_enabled =
-         Prop.computed __resource_type __resource_id
-           "confidential_vm_enabled";
-       confidential_vm_supported =
-         Prop.computed __resource_type __resource_id
-           "confidential_vm_supported";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disk_types_not_allowed =
-         Prop.computed __resource_type __resource_id
-           "disk_types_not_allowed";
-       end_of_life_date =
-         Prop.computed __resource_type __resource_id
-           "end_of_life_date";
-       eula = Prop.computed __resource_type __resource_id "eula";
-       gallery_name =
-         Prop.computed __resource_type __resource_id "gallery_name";
-       hyper_v_generation =
-         Prop.computed __resource_type __resource_id
-           "hyper_v_generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       max_recommended_memory_in_gb =
-         Prop.computed __resource_type __resource_id
-           "max_recommended_memory_in_gb";
-       max_recommended_vcpu_count =
-         Prop.computed __resource_type __resource_id
-           "max_recommended_vcpu_count";
-       min_recommended_memory_in_gb =
-         Prop.computed __resource_type __resource_id
-           "min_recommended_memory_in_gb";
-       min_recommended_vcpu_count =
-         Prop.computed __resource_type __resource_id
-           "min_recommended_vcpu_count";
-       name = Prop.computed __resource_type __resource_id "name";
-       os_type =
-         Prop.computed __resource_type __resource_id "os_type";
-       privacy_statement_uri =
-         Prop.computed __resource_type __resource_id
-           "privacy_statement_uri";
-       release_note_uri =
-         Prop.computed __resource_type __resource_id
-           "release_note_uri";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       specialized =
-         Prop.computed __resource_type __resource_id "specialized";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       trusted_launch_enabled =
-         Prop.computed __resource_type __resource_id
-           "trusted_launch_enabled";
-       trusted_launch_supported =
-         Prop.computed __resource_type __resource_id
-           "trusted_launch_supported";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,37 +54,44 @@ type t = {
   vault_id : string prop;
 }
 
-let register ?tf_module ?database_credential_key_vault_secret_id ?id
-    ?timeouts ~backup_policy_id ~database_id ~location ~name
-    ~vault_id __resource_id =
-  let __resource_type =
+let make ?database_credential_key_vault_secret_id ?id ?timeouts
+    ~backup_policy_id ~database_id ~location ~name ~vault_id __id =
+  let __type =
     "azurerm_data_protection_backup_instance_postgresql"
   in
-  let __resource =
-    azurerm_data_protection_backup_instance_postgresql
-      ?database_credential_key_vault_secret_id ?id ?timeouts
-      ~backup_policy_id ~database_id ~location ~name ~vault_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_protection_backup_instance_postgresql
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        backup_policy_id =
-         Prop.computed __resource_type __resource_id
-           "backup_policy_id";
+         Prop.computed __type __id "backup_policy_id";
        database_credential_key_vault_secret_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "database_credential_key_vault_secret_id";
-       database_id =
-         Prop.computed __resource_type __resource_id "database_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       vault_id =
-         Prop.computed __resource_type __resource_id "vault_id";
+       database_id = Prop.computed __type __id "database_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       vault_id = Prop.computed __type __id "vault_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_protection_backup_instance_postgresql
+        (azurerm_data_protection_backup_instance_postgresql
+           ?database_credential_key_vault_secret_id ?id ?timeouts
+           ~backup_policy_id ~database_id ~location ~name ~vault_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database_credential_key_vault_secret_id ?id
+    ?timeouts ~backup_policy_id ~database_id ~location ~name
+    ~vault_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?database_credential_key_vault_secret_id ?id ?timeouts
+      ~backup_policy_id ~database_id ~location ~name ~vault_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

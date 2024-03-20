@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,14 @@ val register :
   catalog_github:catalog_github list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  dev_center_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  catalog_adogit:catalog_adogit list ->
+  catalog_github:catalog_github list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,18 @@ val register :
   advanced_event_selector:advanced_event_selector list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?multi_region_enabled:bool prop ->
+  ?organization_enabled:bool prop ->
+  ?retention_period:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?termination_protection_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  advanced_event_selector:advanced_event_selector list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type name_node = {
   hostname : string prop;  (** hostname *)
@@ -94,56 +92,59 @@ type t = {
   uri : string prop;
 }
 
+let make ?authentication_type ?block_size ?id ?kerberos_keytab
+    ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
+    ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
+    ~agent_arns ~name_node ~qop_configuration __id =
+  let __type = "aws_datasync_location_hdfs" in
+  let __attrs =
+    ({
+       agent_arns = Prop.computed __type __id "agent_arns";
+       arn = Prop.computed __type __id "arn";
+       authentication_type =
+         Prop.computed __type __id "authentication_type";
+       block_size = Prop.computed __type __id "block_size";
+       id = Prop.computed __type __id "id";
+       kerberos_keytab = Prop.computed __type __id "kerberos_keytab";
+       kerberos_krb5_conf =
+         Prop.computed __type __id "kerberos_krb5_conf";
+       kerberos_principal =
+         Prop.computed __type __id "kerberos_principal";
+       kms_key_provider_uri =
+         Prop.computed __type __id "kms_key_provider_uri";
+       replication_factor =
+         Prop.computed __type __id "replication_factor";
+       simple_user = Prop.computed __type __id "simple_user";
+       subdirectory = Prop.computed __type __id "subdirectory";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uri = Prop.computed __type __id "uri";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_location_hdfs
+        (aws_datasync_location_hdfs ?authentication_type ?block_size
+           ?id ?kerberos_keytab ?kerberos_krb5_conf
+           ?kerberos_principal ?kms_key_provider_uri
+           ?replication_factor ?simple_user ?subdirectory ?tags
+           ?tags_all ~agent_arns ~name_node ~qop_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authentication_type ?block_size ?id
     ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
     ?kms_key_provider_uri ?replication_factor ?simple_user
     ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
-    ~qop_configuration __resource_id =
-  let __resource_type = "aws_datasync_location_hdfs" in
-  let __resource =
-    aws_datasync_location_hdfs ?authentication_type ?block_size ?id
-      ?kerberos_keytab ?kerberos_krb5_conf ?kerberos_principal
-      ?kms_key_provider_uri ?replication_factor ?simple_user
-      ?subdirectory ?tags ?tags_all ~agent_arns ~name_node
-      ~qop_configuration ()
+    ~qop_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_type ?block_size ?id ?kerberos_keytab
+      ?kerberos_krb5_conf ?kerberos_principal ?kms_key_provider_uri
+      ?replication_factor ?simple_user ?subdirectory ?tags ?tags_all
+      ~agent_arns ~name_node ~qop_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_location_hdfs __resource);
-  let __resource_attributes =
-    ({
-       agent_arns =
-         Prop.computed __resource_type __resource_id "agent_arns";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       block_size =
-         Prop.computed __resource_type __resource_id "block_size";
-       id = Prop.computed __resource_type __resource_id "id";
-       kerberos_keytab =
-         Prop.computed __resource_type __resource_id
-           "kerberos_keytab";
-       kerberos_krb5_conf =
-         Prop.computed __resource_type __resource_id
-           "kerberos_krb5_conf";
-       kerberos_principal =
-         Prop.computed __resource_type __resource_id
-           "kerberos_principal";
-       kms_key_provider_uri =
-         Prop.computed __resource_type __resource_id
-           "kms_key_provider_uri";
-       replication_factor =
-         Prop.computed __resource_type __resource_id
-           "replication_factor";
-       simple_user =
-         Prop.computed __resource_type __resource_id "simple_user";
-       subdirectory =
-         Prop.computed __resource_type __resource_id "subdirectory";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uri = Prop.computed __resource_type __resource_id "uri";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

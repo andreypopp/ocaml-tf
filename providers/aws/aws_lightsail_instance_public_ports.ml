@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type port_info = {
   cidr_list_aliases : string prop list option; [@option]
@@ -41,20 +39,28 @@ let aws_lightsail_instance_public_ports ?id ~instance_name ~port_info
 
 type t = { id : string prop; instance_name : string prop }
 
-let register ?tf_module ?id ~instance_name ~port_info __resource_id =
-  let __resource_type = "aws_lightsail_instance_public_ports" in
-  let __resource =
-    aws_lightsail_instance_public_ports ?id ~instance_name ~port_info
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_instance_public_ports __resource);
-  let __resource_attributes =
+let make ?id ~instance_name ~port_info __id =
+  let __type = "aws_lightsail_instance_public_ports" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_name =
-         Prop.computed __resource_type __resource_id "instance_name";
+       id = Prop.computed __type __id "id";
+       instance_name = Prop.computed __type __id "instance_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_instance_public_ports
+        (aws_lightsail_instance_public_ports ?id ~instance_name
+           ~port_info ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~instance_name ~port_info __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~instance_name ~port_info __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

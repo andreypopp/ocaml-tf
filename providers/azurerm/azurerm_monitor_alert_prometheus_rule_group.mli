@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -98,3 +98,19 @@ val register :
   rule:rule list ->
   string ->
   t
+
+val make :
+  ?cluster_name:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?interval:string prop ->
+  ?rule_group_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
+  rule:rule list ->
+  string ->
+  t Tf_core.resource

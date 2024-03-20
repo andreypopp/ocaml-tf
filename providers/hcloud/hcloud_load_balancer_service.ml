@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type health_check__http = {
   domain : string prop option; [@option]  (** domain *)
@@ -94,33 +92,39 @@ type t = {
   proxyprotocol : bool prop;
 }
 
-let register ?tf_module ?destination_port ?id ?listen_port
-    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
-    __resource_id =
-  let __resource_type = "hcloud_load_balancer_service" in
-  let __resource =
-    hcloud_load_balancer_service ?destination_port ?id ?listen_port
-      ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_load_balancer_service __resource);
-  let __resource_attributes =
+let make ?destination_port ?id ?listen_port ?proxyprotocol
+    ~load_balancer_id ~protocol ~health_check ~http __id =
+  let __type = "hcloud_load_balancer_service" in
+  let __attrs =
     ({
        destination_port =
-         Prop.computed __resource_type __resource_id
-           "destination_port";
-       id = Prop.computed __resource_type __resource_id "id";
-       listen_port =
-         Prop.computed __resource_type __resource_id "listen_port";
+         Prop.computed __type __id "destination_port";
+       id = Prop.computed __type __id "id";
+       listen_port = Prop.computed __type __id "listen_port";
        load_balancer_id =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_id";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       proxyprotocol =
-         Prop.computed __resource_type __resource_id "proxyprotocol";
+         Prop.computed __type __id "load_balancer_id";
+       protocol = Prop.computed __type __id "protocol";
+       proxyprotocol = Prop.computed __type __id "proxyprotocol";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_load_balancer_service
+        (hcloud_load_balancer_service ?destination_port ?id
+           ?listen_port ?proxyprotocol ~load_balancer_id ~protocol
+           ~health_check ~http ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?destination_port ?id ?listen_port
+    ?proxyprotocol ~load_balancer_id ~protocol ~health_check ~http
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?destination_port ?id ?listen_port ?proxyprotocol
+      ~load_balancer_id ~protocol ~health_check ~http __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type deidentify_config__image_transformations__transforms__all_info_types =
   unit
@@ -4065,35 +4063,38 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id ?template_id
-    ?timeouts ~parent ~deidentify_config __resource_id =
-  let __resource_type =
-    "google_data_loss_prevention_deidentify_template"
-  in
-  let __resource =
-    google_data_loss_prevention_deidentify_template ?description
-      ?display_name ?id ?template_id ?timeouts ~parent
-      ~deidentify_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_loss_prevention_deidentify_template
-       __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?template_id ?timeouts
+    ~parent ~deidentify_config __id =
+  let __type = "google_data_loss_prevention_deidentify_template" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       template_id =
-         Prop.computed __resource_type __resource_id "template_id";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       template_id = Prop.computed __type __id "template_id";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_loss_prevention_deidentify_template
+        (google_data_loss_prevention_deidentify_template ?description
+           ?display_name ?id ?template_id ?timeouts ~parent
+           ~deidentify_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id ?template_id
+    ?timeouts ~parent ~deidentify_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?template_id ?timeouts
+      ~parent ~deidentify_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type namespace_junction = {
   access_policy_name : string prop option; [@option]
@@ -75,40 +73,50 @@ type t = {
   write_back_timer_in_seconds : float prop;
 }
 
-let register ?tf_module ?id ?verification_timer_in_seconds
+let make ?id ?verification_timer_in_seconds
     ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
     ~resource_group_name ~target_host_name ~usage_model
-    ~namespace_junction __resource_id =
-  let __resource_type = "azurerm_hpc_cache_nfs_target" in
-  let __resource =
-    azurerm_hpc_cache_nfs_target ?id ?verification_timer_in_seconds
-      ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
-      ~resource_group_name ~target_host_name ~usage_model
-      ~namespace_junction ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_hpc_cache_nfs_target __resource);
-  let __resource_attributes =
+    ~namespace_junction __id =
+  let __type = "azurerm_hpc_cache_nfs_target" in
+  let __attrs =
     ({
-       cache_name =
-         Prop.computed __resource_type __resource_id "cache_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       cache_name = Prop.computed __type __id "cache_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        target_host_name =
-         Prop.computed __resource_type __resource_id
-           "target_host_name";
-       usage_model =
-         Prop.computed __resource_type __resource_id "usage_model";
+         Prop.computed __type __id "target_host_name";
+       usage_model = Prop.computed __type __id "usage_model";
        verification_timer_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "verification_timer_in_seconds";
+         Prop.computed __type __id "verification_timer_in_seconds";
        write_back_timer_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "write_back_timer_in_seconds";
+         Prop.computed __type __id "write_back_timer_in_seconds";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_hpc_cache_nfs_target
+        (azurerm_hpc_cache_nfs_target ?id
+           ?verification_timer_in_seconds
+           ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
+           ~resource_group_name ~target_host_name ~usage_model
+           ~namespace_junction ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?verification_timer_in_seconds
+    ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
+    ~resource_group_name ~target_host_name ~usage_model
+    ~namespace_junction __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?verification_timer_in_seconds
+      ?write_back_timer_in_seconds ?timeouts ~cache_name ~name
+      ~resource_group_name ~target_host_name ~usage_model
+      ~namespace_junction __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

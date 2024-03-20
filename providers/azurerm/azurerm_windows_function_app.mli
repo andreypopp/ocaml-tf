@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -526,3 +526,42 @@ val register :
   storage_account:storage_account list ->
   string ->
   t
+
+val make :
+  ?app_settings:(string * string prop) list ->
+  ?builtin_logging_enabled:bool prop ->
+  ?client_certificate_enabled:bool prop ->
+  ?client_certificate_exclusion_paths:string prop ->
+  ?client_certificate_mode:string prop ->
+  ?content_share_force_disabled:bool prop ->
+  ?daily_memory_time_quota:float prop ->
+  ?enabled:bool prop ->
+  ?ftp_publish_basic_authentication_enabled:bool prop ->
+  ?functions_extension_version:string prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?key_vault_reference_identity_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?storage_account_access_key:string prop ->
+  ?storage_account_name:string prop ->
+  ?storage_key_vault_secret_id:string prop ->
+  ?storage_uses_managed_identity:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_network_subnet_id:string prop ->
+  ?webdeploy_publish_basic_authentication_enabled:bool prop ->
+  ?zip_deploy_file:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  service_plan_id:string prop ->
+  auth_settings:auth_settings list ->
+  auth_settings_v2:auth_settings_v2 list ->
+  backup:backup list ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  site_config:site_config list ->
+  sticky_settings:sticky_settings list ->
+  storage_account:storage_account list ->
+  string ->
+  t Tf_core.resource

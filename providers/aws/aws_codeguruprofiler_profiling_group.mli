@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,11 @@ val register :
   agent_orchestration_config:agent_orchestration_config list ->
   string ->
   t
+
+val make :
+  ?compute_platform:string prop ->
+  ?tags:(string * string prop) list ->
+  name:string prop ->
+  agent_orchestration_config:agent_orchestration_config list ->
+  string ->
+  t Tf_core.resource

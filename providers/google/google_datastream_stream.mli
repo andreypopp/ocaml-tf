@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -573,3 +573,20 @@ val register :
   source_config:source_config list ->
   string ->
   t
+
+val make :
+  ?customer_managed_encryption_key:string prop ->
+  ?desired_state:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  location:string prop ->
+  stream_id:string prop ->
+  backfill_all:backfill_all list ->
+  backfill_none:backfill_none list ->
+  destination_config:destination_config list ->
+  source_config:source_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -96,56 +94,54 @@ type t = {
   user_env_vars : (string * string) list prop;
 }
 
-let register ?tf_module ?call_log_level ?crypto_key_name ?description
-    ?id ?labels ?name ?name_prefix ?project ?region ?service_account
-    ?source_contents ?user_env_vars ?timeouts __resource_id =
-  let __resource_type = "google_workflows_workflow" in
-  let __resource =
-    google_workflows_workflow ?call_log_level ?crypto_key_name
-      ?description ?id ?labels ?name ?name_prefix ?project ?region
-      ?service_account ?source_contents ?user_env_vars ?timeouts ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_workflows_workflow __resource);
-  let __resource_attributes =
+let make ?call_log_level ?crypto_key_name ?description ?id ?labels
+    ?name ?name_prefix ?project ?region ?service_account
+    ?source_contents ?user_env_vars ?timeouts __id =
+  let __type = "google_workflows_workflow" in
+  let __attrs =
     ({
-       call_log_level =
-         Prop.computed __resource_type __resource_id "call_log_level";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       crypto_key_name =
-         Prop.computed __resource_type __resource_id
-           "crypto_key_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       call_log_level = Prop.computed __type __id "call_log_level";
+       create_time = Prop.computed __type __id "create_time";
+       crypto_key_name = Prop.computed __type __id "crypto_key_name";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       revision_id =
-         Prop.computed __resource_type __resource_id "revision_id";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       source_contents =
-         Prop.computed __resource_type __resource_id
-           "source_contents";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       revision_id = Prop.computed __type __id "revision_id";
+       service_account = Prop.computed __type __id "service_account";
+       source_contents = Prop.computed __type __id "source_contents";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       user_env_vars =
-         Prop.computed __resource_type __resource_id "user_env_vars";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
+       user_env_vars = Prop.computed __type __id "user_env_vars";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_workflows_workflow
+        (google_workflows_workflow ?call_log_level ?crypto_key_name
+           ?description ?id ?labels ?name ?name_prefix ?project
+           ?region ?service_account ?source_contents ?user_env_vars
+           ?timeouts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?call_log_level ?crypto_key_name ?description
+    ?id ?labels ?name ?name_prefix ?project ?region ?service_account
+    ?source_contents ?user_env_vars ?timeouts __id =
+  let (r : _ Tf_core.resource) =
+    make ?call_log_level ?crypto_key_name ?description ?id ?labels
+      ?name ?name_prefix ?project ?region ?service_account
+      ?source_contents ?user_env_vars ?timeouts __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

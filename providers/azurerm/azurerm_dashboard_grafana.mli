@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,24 @@ val register :
   smtp:smtp list ->
   string ->
   t
+
+val make :
+  ?api_key_enabled:bool prop ->
+  ?auto_generated_domain_name_label_scope:string prop ->
+  ?deterministic_outbound_ip_enabled:bool prop ->
+  ?grafana_major_version:string prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundancy_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  azure_monitor_workspace_integrations:
+    azure_monitor_workspace_integrations list ->
+  identity:identity list ->
+  smtp:smtp list ->
+  string ->
+  t Tf_core.resource

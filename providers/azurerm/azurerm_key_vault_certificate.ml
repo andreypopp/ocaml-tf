@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type certificate = {
   contents : string prop;  (** contents *)
@@ -208,49 +206,49 @@ type t = {
   versionless_secret_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~key_vault_id ~name
-    ~certificate ~certificate_policy __resource_id =
-  let __resource_type = "azurerm_key_vault_certificate" in
-  let __resource =
-    azurerm_key_vault_certificate ?id ?tags ?timeouts ~key_vault_id
-      ~name ~certificate ~certificate_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault_certificate __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~key_vault_id ~name ~certificate
+    ~certificate_policy __id =
+  let __type = "azurerm_key_vault_certificate" in
+  let __attrs =
     ({
        certificate_attribute =
-         Prop.computed __resource_type __resource_id
-           "certificate_attribute";
+         Prop.computed __type __id "certificate_attribute";
        certificate_data =
-         Prop.computed __resource_type __resource_id
-           "certificate_data";
+         Prop.computed __type __id "certificate_data";
        certificate_data_base64 =
-         Prop.computed __resource_type __resource_id
-           "certificate_data_base64";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "certificate_data_base64";
+       id = Prop.computed __type __id "id";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
+       name = Prop.computed __type __id "name";
        resource_manager_id =
-         Prop.computed __resource_type __resource_id
-           "resource_manager_id";
+         Prop.computed __type __id "resource_manager_id";
        resource_manager_versionless_id =
-         Prop.computed __resource_type __resource_id
-           "resource_manager_versionless_id";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       versionless_id =
-         Prop.computed __resource_type __resource_id "versionless_id";
+         Prop.computed __type __id "resource_manager_versionless_id";
+       secret_id = Prop.computed __type __id "secret_id";
+       tags = Prop.computed __type __id "tags";
+       thumbprint = Prop.computed __type __id "thumbprint";
+       version = Prop.computed __type __id "version";
+       versionless_id = Prop.computed __type __id "versionless_id";
        versionless_secret_id =
-         Prop.computed __resource_type __resource_id
-           "versionless_secret_id";
+         Prop.computed __type __id "versionless_secret_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault_certificate
+        (azurerm_key_vault_certificate ?id ?tags ?timeouts
+           ~key_vault_id ~name ~certificate ~certificate_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~key_vault_id ~name
+    ~certificate ~certificate_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~key_vault_id ~name ~certificate
+      ~certificate_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

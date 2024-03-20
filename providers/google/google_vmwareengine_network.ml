@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,31 +50,38 @@ type t = {
   vpc_networks : vpc_networks list prop;
 }
 
-let register ?tf_module ?description ?id ?project ?timeouts ~location
-    ~name ~type_ __resource_id =
-  let __resource_type = "google_vmwareengine_network" in
-  let __resource =
-    google_vmwareengine_network ?description ?id ?project ?timeouts
-      ~location ~name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vmwareengine_network __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?timeouts ~location ~name ~type_
+    __id =
+  let __type = "google_vmwareengine_network" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       vpc_networks =
-         Prop.computed __resource_type __resource_id "vpc_networks";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
+       uid = Prop.computed __type __id "uid";
+       vpc_networks = Prop.computed __type __id "vpc_networks";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vmwareengine_network
+        (google_vmwareengine_network ?description ?id ?project
+           ?timeouts ~location ~name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?timeouts ~location
+    ~name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?timeouts ~location ~name ~type_
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

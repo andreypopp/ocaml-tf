@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -183,3 +183,15 @@ val register :
   routing_policy:routing_policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?rrdatas:string prop list ->
+  ?ttl:float prop ->
+  managed_zone:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  routing_policy:routing_policy list ->
+  string ->
+  t Tf_core.resource

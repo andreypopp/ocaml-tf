@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,13 @@ val register :
   route_response_key:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?model_selection_expression:string prop ->
+  ?response_models:(string * string prop) list ->
+  api_id:string prop ->
+  route_id:string prop ->
+  route_response_key:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type error_blob_managed_identity = {
   client_id : string prop option; [@option]  (** client_id *)
@@ -152,44 +150,51 @@ type t = {
   virtual_machine_id : string prop;
 }
 
+let make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
+    ?run_as_user ?tags ?timeouts ~location ~name ~virtual_machine_id
+    ~error_blob_managed_identity ~output_blob_managed_identity
+    ~parameter ~protected_parameter ~source __id =
+  let __type = "azurerm_virtual_machine_run_command" in
+  let __attrs =
+    ({
+       error_blob_uri = Prop.computed __type __id "error_blob_uri";
+       id = Prop.computed __type __id "id";
+       instance_view = Prop.computed __type __id "instance_view";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       output_blob_uri = Prop.computed __type __id "output_blob_uri";
+       run_as_password = Prop.computed __type __id "run_as_password";
+       run_as_user = Prop.computed __type __id "run_as_user";
+       tags = Prop.computed __type __id "tags";
+       virtual_machine_id =
+         Prop.computed __type __id "virtual_machine_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine_run_command
+        (azurerm_virtual_machine_run_command ?error_blob_uri ?id
+           ?output_blob_uri ?run_as_password ?run_as_user ?tags
+           ?timeouts ~location ~name ~virtual_machine_id
+           ~error_blob_managed_identity ~output_blob_managed_identity
+           ~parameter ~protected_parameter ~source ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?error_blob_uri ?id ?output_blob_uri
     ?run_as_password ?run_as_user ?tags ?timeouts ~location ~name
     ~virtual_machine_id ~error_blob_managed_identity
     ~output_blob_managed_identity ~parameter ~protected_parameter
-    ~source __resource_id =
-  let __resource_type = "azurerm_virtual_machine_run_command" in
-  let __resource =
-    azurerm_virtual_machine_run_command ?error_blob_uri ?id
-      ?output_blob_uri ?run_as_password ?run_as_user ?tags ?timeouts
-      ~location ~name ~virtual_machine_id
-      ~error_blob_managed_identity ~output_blob_managed_identity
-      ~parameter ~protected_parameter ~source ()
+    ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?error_blob_uri ?id ?output_blob_uri ?run_as_password
+      ?run_as_user ?tags ?timeouts ~location ~name
+      ~virtual_machine_id ~error_blob_managed_identity
+      ~output_blob_managed_identity ~parameter ~protected_parameter
+      ~source __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine_run_command __resource);
-  let __resource_attributes =
-    ({
-       error_blob_uri =
-         Prop.computed __resource_type __resource_id "error_blob_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_view =
-         Prop.computed __resource_type __resource_id "instance_view";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       output_blob_uri =
-         Prop.computed __resource_type __resource_id
-           "output_blob_uri";
-       run_as_password =
-         Prop.computed __resource_type __resource_id
-           "run_as_password";
-       run_as_user =
-         Prop.computed __resource_type __resource_id "run_as_user";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

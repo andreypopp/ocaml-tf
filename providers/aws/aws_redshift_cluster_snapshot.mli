@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,13 @@ val register :
   snapshot_identifier:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?manual_snapshot_retention_period:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  cluster_identifier:string prop ->
+  snapshot_identifier:string prop ->
+  string ->
+  t Tf_core.resource

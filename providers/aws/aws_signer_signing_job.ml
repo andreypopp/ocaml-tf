@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination__s3 = {
   bucket : string prop;  (** bucket *)
@@ -93,54 +91,50 @@ type t = {
   status_reason : string prop;
 }
 
-let register ?tf_module ?id ?ignore_signing_job_failure ~profile_name
-    ~destination ~source __resource_id =
-  let __resource_type = "aws_signer_signing_job" in
-  let __resource =
-    aws_signer_signing_job ?id ?ignore_signing_job_failure
-      ~profile_name ~destination ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_signer_signing_job __resource);
-  let __resource_attributes =
+let make ?id ?ignore_signing_job_failure ~profile_name ~destination
+    ~source __id =
+  let __type = "aws_signer_signing_job" in
+  let __attrs =
     ({
-       completed_at =
-         Prop.computed __resource_type __resource_id "completed_at";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
+       completed_at = Prop.computed __type __id "completed_at";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
        ignore_signing_job_failure =
-         Prop.computed __resource_type __resource_id
-           "ignore_signing_job_failure";
-       job_id = Prop.computed __resource_type __resource_id "job_id";
-       job_invoker =
-         Prop.computed __resource_type __resource_id "job_invoker";
-       job_owner =
-         Prop.computed __resource_type __resource_id "job_owner";
+         Prop.computed __type __id "ignore_signing_job_failure";
+       job_id = Prop.computed __type __id "job_id";
+       job_invoker = Prop.computed __type __id "job_invoker";
+       job_owner = Prop.computed __type __id "job_owner";
        platform_display_name =
-         Prop.computed __resource_type __resource_id
-           "platform_display_name";
-       platform_id =
-         Prop.computed __resource_type __resource_id "platform_id";
-       profile_name =
-         Prop.computed __resource_type __resource_id "profile_name";
-       profile_version =
-         Prop.computed __resource_type __resource_id
-           "profile_version";
-       requested_by =
-         Prop.computed __resource_type __resource_id "requested_by";
+         Prop.computed __type __id "platform_display_name";
+       platform_id = Prop.computed __type __id "platform_id";
+       profile_name = Prop.computed __type __id "profile_name";
+       profile_version = Prop.computed __type __id "profile_version";
+       requested_by = Prop.computed __type __id "requested_by";
        revocation_record =
-         Prop.computed __resource_type __resource_id
-           "revocation_record";
+         Prop.computed __type __id "revocation_record";
        signature_expires_at =
-         Prop.computed __resource_type __resource_id
-           "signature_expires_at";
-       signed_object =
-         Prop.computed __resource_type __resource_id "signed_object";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_reason =
-         Prop.computed __resource_type __resource_id "status_reason";
+         Prop.computed __type __id "signature_expires_at";
+       signed_object = Prop.computed __type __id "signed_object";
+       status = Prop.computed __type __id "status";
+       status_reason = Prop.computed __type __id "status_reason";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_signer_signing_job
+        (aws_signer_signing_job ?id ?ignore_signing_job_failure
+           ~profile_name ~destination ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ignore_signing_job_failure ~profile_name
+    ~destination ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ignore_signing_job_failure ~profile_name ~destination
+      ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

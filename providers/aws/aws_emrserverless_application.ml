@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_start_configuration = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -147,33 +145,46 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?architecture ?id ?tags ?tags_all ~name
-    ~release_label ~type_ ~auto_start_configuration
-    ~auto_stop_configuration ~image_configuration ~initial_capacity
-    ~maximum_capacity ~network_configuration __resource_id =
-  let __resource_type = "aws_emrserverless_application" in
-  let __resource =
-    aws_emrserverless_application ?architecture ?id ?tags ?tags_all
-      ~name ~release_label ~type_ ~auto_start_configuration
-      ~auto_stop_configuration ~image_configuration ~initial_capacity
-      ~maximum_capacity ~network_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emrserverless_application __resource);
-  let __resource_attributes =
+let make ?architecture ?id ?tags ?tags_all ~name ~release_label
+    ~type_ ~auto_start_configuration ~auto_stop_configuration
+    ~image_configuration ~initial_capacity ~maximum_capacity
+    ~network_configuration __id =
+  let __type = "aws_emrserverless_application" in
+  let __attrs =
     ({
-       architecture =
-         Prop.computed __resource_type __resource_id "architecture";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       release_label =
-         Prop.computed __resource_type __resource_id "release_label";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       architecture = Prop.computed __type __id "architecture";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       release_label = Prop.computed __type __id "release_label";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emrserverless_application
+        (aws_emrserverless_application ?architecture ?id ?tags
+           ?tags_all ~name ~release_label ~type_
+           ~auto_start_configuration ~auto_stop_configuration
+           ~image_configuration ~initial_capacity ~maximum_capacity
+           ~network_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?architecture ?id ?tags ?tags_all ~name
+    ~release_label ~type_ ~auto_start_configuration
+    ~auto_stop_configuration ~image_configuration ~initial_capacity
+    ~maximum_capacity ~network_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?architecture ?id ?tags ?tags_all ~name ~release_label
+      ~type_ ~auto_start_configuration ~auto_stop_configuration
+      ~image_configuration ~initial_capacity ~maximum_capacity
+      ~network_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

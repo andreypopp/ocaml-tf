@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,21 @@ val register :
   content_key:content_key list ->
   string ->
   t
+
+val make :
+  ?alternative_media_id:string prop ->
+  ?default_content_key_policy_name:string prop ->
+  ?end_time:string prop ->
+  ?filter_names:string prop list ->
+  ?id:string prop ->
+  ?start_time:string prop ->
+  ?streaming_locator_id:string prop ->
+  ?timeouts:timeouts ->
+  asset_name:string prop ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  streaming_policy_name:string prop ->
+  content_key:content_key list ->
+  string ->
+  t Tf_core.resource

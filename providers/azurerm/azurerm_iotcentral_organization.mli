@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   organization_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?parent_organization_id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  iotcentral_application_id:string prop ->
+  organization_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,14 @@ val register :
   storage_descriptor:storage_descriptor list ->
   string ->
   t
+
+val make :
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  database_name:string prop ->
+  partition_values:string prop list ->
+  table_name:string prop ->
+  storage_descriptor:storage_descriptor list ->
+  string ->
+  t Tf_core.resource

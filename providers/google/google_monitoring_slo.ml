@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type basic_sli__availability = {
   enabled : bool prop option; [@option]
@@ -569,39 +567,45 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?calendar_period ?display_name ?id ?project
+let make ?calendar_period ?display_name ?id ?project
     ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-    ~service ~basic_sli ~request_based_sli ~windows_based_sli
-    __resource_id =
-  let __resource_type = "google_monitoring_slo" in
-  let __resource =
-    google_monitoring_slo ?calendar_period ?display_name ?id ?project
-      ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
-      ~service ~basic_sli ~request_based_sli ~windows_based_sli ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_slo __resource);
-  let __resource_attributes =
+    ~service ~basic_sli ~request_based_sli ~windows_based_sli __id =
+  let __type = "google_monitoring_slo" in
+  let __attrs =
     ({
-       calendar_period =
-         Prop.computed __resource_type __resource_id
-           "calendar_period";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       goal = Prop.computed __resource_type __resource_id "goal";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       calendar_period = Prop.computed __type __id "calendar_period";
+       display_name = Prop.computed __type __id "display_name";
+       goal = Prop.computed __type __id "goal";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        rolling_period_days =
-         Prop.computed __resource_type __resource_id
-           "rolling_period_days";
-       service =
-         Prop.computed __resource_type __resource_id "service";
-       slo_id = Prop.computed __resource_type __resource_id "slo_id";
-       user_labels =
-         Prop.computed __resource_type __resource_id "user_labels";
+         Prop.computed __type __id "rolling_period_days";
+       service = Prop.computed __type __id "service";
+       slo_id = Prop.computed __type __id "slo_id";
+       user_labels = Prop.computed __type __id "user_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_slo
+        (google_monitoring_slo ?calendar_period ?display_name ?id
+           ?project ?rolling_period_days ?slo_id ?user_labels
+           ?timeouts ~goal ~service ~basic_sli ~request_based_sli
+           ~windows_based_sli ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?calendar_period ?display_name ?id ?project
+    ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
+    ~service ~basic_sli ~request_based_sli ~windows_based_sli __id =
+  let (r : _ Tf_core.resource) =
+    make ?calendar_period ?display_name ?id ?project
+      ?rolling_period_days ?slo_id ?user_labels ?timeouts ~goal
+      ~service ~basic_sli ~request_based_sli ~windows_based_sli __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

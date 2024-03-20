@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -352,3 +352,25 @@ val register :
   upgrade_settings:upgrade_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?initial_node_count:float prop ->
+  ?location:string prop ->
+  ?max_pods_per_node:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?node_count:float prop ->
+  ?node_locations:string prop list ->
+  ?project:string prop ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  autoscaling:autoscaling list ->
+  management:management list ->
+  network_config:network_config list ->
+  node_config:node_config list ->
+  placement_policy:placement_policy list ->
+  upgrade_settings:upgrade_settings list ->
+  string ->
+  t Tf_core.resource

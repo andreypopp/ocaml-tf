@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,15 @@ val register :
   trust_password:string prop ->
   string ->
   t
+
+val make :
+  ?conditional_forwarder_ip_addrs:string prop list ->
+  ?delete_associated_conditional_forwarder:bool prop ->
+  ?selective_auth:string prop ->
+  ?trust_type:string prop ->
+  directory_id:string prop ->
+  remote_domain_name:string prop ->
+  trust_direction:string prop ->
+  trust_password:string prop ->
+  string ->
+  t Tf_core.resource

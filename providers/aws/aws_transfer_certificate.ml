@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_transfer_certificate = {
   certificate : string prop;  (** certificate *)
@@ -48,39 +46,42 @@ type t = {
   usage : string prop;
 }
 
-let register ?tf_module ?certificate_chain ?description ?id
-    ?private_key ?tags ?tags_all ~certificate ~usage __resource_id =
-  let __resource_type = "aws_transfer_certificate" in
-  let __resource =
-    aws_transfer_certificate ?certificate_chain ?description ?id
-      ?private_key ?tags ?tags_all ~certificate ~usage ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_certificate __resource);
-  let __resource_attributes =
+let make ?certificate_chain ?description ?id ?private_key ?tags
+    ?tags_all ~certificate ~usage __id =
+  let __type = "aws_transfer_certificate" in
+  let __attrs =
     ({
-       active_date =
-         Prop.computed __resource_type __resource_id "active_date";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
+       active_date = Prop.computed __type __id "active_date";
+       arn = Prop.computed __type __id "arn";
+       certificate = Prop.computed __type __id "certificate";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       certificate_id =
-         Prop.computed __resource_type __resource_id "certificate_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       inactive_date =
-         Prop.computed __resource_type __resource_id "inactive_date";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       usage = Prop.computed __resource_type __resource_id "usage";
+         Prop.computed __type __id "certificate_chain";
+       certificate_id = Prop.computed __type __id "certificate_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       inactive_date = Prop.computed __type __id "inactive_date";
+       private_key = Prop.computed __type __id "private_key";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       usage = Prop.computed __type __id "usage";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_certificate
+        (aws_transfer_certificate ?certificate_chain ?description ?id
+           ?private_key ?tags ?tags_all ~certificate ~usage ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_chain ?description ?id
+    ?private_key ?tags ?tags_all ~certificate ~usage __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_chain ?description ?id ?private_key ?tags
+      ?tags_all ~certificate ~usage __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

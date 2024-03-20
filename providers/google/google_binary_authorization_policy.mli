@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,15 @@ val register :
   default_admission_rule:default_admission_rule list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?global_policy_evaluation_mode:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  admission_whitelist_patterns:admission_whitelist_patterns list ->
+  cluster_admission_rules:cluster_admission_rules list ->
+  default_admission_rule:default_admission_rule list ->
+  string ->
+  t Tf_core.resource

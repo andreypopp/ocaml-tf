@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination__amp = {
   workspace_arn : string prop;  (** workspace_arn *)
@@ -80,29 +78,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?alias ?tags ?timeouts ~scrape_configuration
-    ~destination ~source __resource_id =
-  let __resource_type = "aws_prometheus_scraper" in
-  let __resource =
-    aws_prometheus_scraper ?alias ?tags ?timeouts
-      ~scrape_configuration ~destination ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_prometheus_scraper __resource);
-  let __resource_attributes =
+let make ?alias ?tags ?timeouts ~scrape_configuration ~destination
+    ~source __id =
+  let __type = "aws_prometheus_scraper" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       alias = Prop.computed __type __id "alias";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       role_arn = Prop.computed __type __id "role_arn";
        scrape_configuration =
-         Prop.computed __resource_type __resource_id
-           "scrape_configuration";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "scrape_configuration";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_prometheus_scraper
+        (aws_prometheus_scraper ?alias ?tags ?timeouts
+           ~scrape_configuration ~destination ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alias ?tags ?timeouts ~scrape_configuration
+    ~destination ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias ?tags ?timeouts ~scrape_configuration ~destination
+      ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type execution_controls__ssm_controls = {
   concurrent_execution_rate_percentage : float prop option; [@option]
@@ -93,43 +91,48 @@ type t = {
   target_version : string prop;
 }
 
-let register ?tf_module ?automatic ?id ?maximum_automatic_attempts
-    ?resource_type ?retry_attempt_seconds ?target_version
-    ~config_rule_name ~target_id ~target_type ~execution_controls
-    ~parameter __resource_id =
-  let __resource_type = "aws_config_remediation_configuration" in
-  let __resource =
-    aws_config_remediation_configuration ?automatic ?id
-      ?maximum_automatic_attempts ?resource_type
-      ?retry_attempt_seconds ?target_version ~config_rule_name
-      ~target_id ~target_type ~execution_controls ~parameter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_remediation_configuration __resource);
-  let __resource_attributes =
+let make ?automatic ?id ?maximum_automatic_attempts ?resource_type
+    ?retry_attempt_seconds ?target_version ~config_rule_name
+    ~target_id ~target_type ~execution_controls ~parameter __id =
+  let __type = "aws_config_remediation_configuration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       automatic =
-         Prop.computed __resource_type __resource_id "automatic";
+       arn = Prop.computed __type __id "arn";
+       automatic = Prop.computed __type __id "automatic";
        config_rule_name =
-         Prop.computed __resource_type __resource_id
-           "config_rule_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "config_rule_name";
+       id = Prop.computed __type __id "id";
        maximum_automatic_attempts =
-         Prop.computed __resource_type __resource_id
-           "maximum_automatic_attempts";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
+         Prop.computed __type __id "maximum_automatic_attempts";
+       resource_type = Prop.computed __type __id "resource_type";
        retry_attempt_seconds =
-         Prop.computed __resource_type __resource_id
-           "retry_attempt_seconds";
-       target_id =
-         Prop.computed __resource_type __resource_id "target_id";
-       target_type =
-         Prop.computed __resource_type __resource_id "target_type";
-       target_version =
-         Prop.computed __resource_type __resource_id "target_version";
+         Prop.computed __type __id "retry_attempt_seconds";
+       target_id = Prop.computed __type __id "target_id";
+       target_type = Prop.computed __type __id "target_type";
+       target_version = Prop.computed __type __id "target_version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_remediation_configuration
+        (aws_config_remediation_configuration ?automatic ?id
+           ?maximum_automatic_attempts ?resource_type
+           ?retry_attempt_seconds ?target_version ~config_rule_name
+           ~target_id ~target_type ~execution_controls ~parameter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automatic ?id ?maximum_automatic_attempts
+    ?resource_type ?retry_attempt_seconds ?target_version
+    ~config_rule_name ~target_id ~target_type ~execution_controls
+    ~parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic ?id ?maximum_automatic_attempts ?resource_type
+      ?retry_attempt_seconds ?target_version ~config_rule_name
+      ~target_id ~target_type ~execution_controls ~parameter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

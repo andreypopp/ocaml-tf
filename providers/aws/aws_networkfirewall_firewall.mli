@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -101,3 +101,20 @@ val register :
   subnet_mapping:subnet_mapping list ->
   string ->
   t
+
+val make :
+  ?delete_protection:bool prop ->
+  ?description:string prop ->
+  ?firewall_policy_change_protection:bool prop ->
+  ?id:string prop ->
+  ?subnet_change_protection:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  firewall_policy_arn:string prop ->
+  name:string prop ->
+  vpc_id:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  subnet_mapping:subnet_mapping list ->
+  string ->
+  t Tf_core.resource

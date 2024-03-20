@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,24 @@ val register :
   recommendations_enabled:recommendations_enabled list ->
   string ->
   t
+
+val make :
+  ?disabled_data_sources:string prop list ->
+  ?enabled:bool prop ->
+  ?events_to_export:string prop list ->
+  ?id:string prop ->
+  ?log_analytics_workspace_id:string prop ->
+  ?log_unmasked_ips_enabled:bool prop ->
+  ?query_for_resources:string prop ->
+  ?query_subscription_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  iothub_ids:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  additional_workspace:additional_workspace list ->
+  recommendations_enabled:recommendations_enabled list ->
+  string ->
+  t Tf_core.resource

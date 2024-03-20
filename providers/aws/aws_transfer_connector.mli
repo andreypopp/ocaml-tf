@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,15 @@ val register :
   sftp_config:sftp_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?logging_role:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  access_role:string prop ->
+  url:string prop ->
+  as2_config:as2_config list ->
+  sftp_config:sftp_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_autoscaling_lifecycle_hook = {
   autoscaling_group_name : string prop;
@@ -51,42 +49,48 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?default_result ?heartbeat_timeout ?id
+let make ?default_result ?heartbeat_timeout ?id
     ?notification_metadata ?notification_target_arn ?role_arn
-    ~autoscaling_group_name ~lifecycle_transition ~name __resource_id
-    =
-  let __resource_type = "aws_autoscaling_lifecycle_hook" in
-  let __resource =
-    aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
-      ?id ?notification_metadata ?notification_target_arn ?role_arn
-      ~autoscaling_group_name ~lifecycle_transition ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscaling_lifecycle_hook __resource);
-  let __resource_attributes =
+    ~autoscaling_group_name ~lifecycle_transition ~name __id =
+  let __type = "aws_autoscaling_lifecycle_hook" in
+  let __attrs =
     ({
        autoscaling_group_name =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_group_name";
-       default_result =
-         Prop.computed __resource_type __resource_id "default_result";
+         Prop.computed __type __id "autoscaling_group_name";
+       default_result = Prop.computed __type __id "default_result";
        heartbeat_timeout =
-         Prop.computed __resource_type __resource_id
-           "heartbeat_timeout";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "heartbeat_timeout";
+       id = Prop.computed __type __id "id";
        lifecycle_transition =
-         Prop.computed __resource_type __resource_id
-           "lifecycle_transition";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "lifecycle_transition";
+       name = Prop.computed __type __id "name";
        notification_metadata =
-         Prop.computed __resource_type __resource_id
-           "notification_metadata";
+         Prop.computed __type __id "notification_metadata";
        notification_target_arn =
-         Prop.computed __resource_type __resource_id
-           "notification_target_arn";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+         Prop.computed __type __id "notification_target_arn";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscaling_lifecycle_hook
+        (aws_autoscaling_lifecycle_hook ?default_result
+           ?heartbeat_timeout ?id ?notification_metadata
+           ?notification_target_arn ?role_arn ~autoscaling_group_name
+           ~lifecycle_transition ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_result ?heartbeat_timeout ?id
+    ?notification_metadata ?notification_target_arn ?role_arn
+    ~autoscaling_group_name ~lifecycle_transition ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_result ?heartbeat_timeout ?id
+      ?notification_metadata ?notification_target_arn ?role_arn
+      ~autoscaling_group_name ~lifecycle_transition ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

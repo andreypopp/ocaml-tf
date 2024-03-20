@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,43 +60,49 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?partition_key
-    ?storage_limit_exceeded_behavior ?tags ?timeouts
-    ~data_retention_time ~location ~name ~resource_group_name
-    ~sku_name __resource_id =
-  let __resource_type =
+let make ?id ?partition_key ?storage_limit_exceeded_behavior ?tags
+    ?timeouts ~data_retention_time ~location ~name
+    ~resource_group_name ~sku_name __id =
+  let __type =
     "azurerm_iot_time_series_insights_standard_environment"
   in
-  let __resource =
-    azurerm_iot_time_series_insights_standard_environment ?id
-      ?partition_key ?storage_limit_exceeded_behavior ?tags ?timeouts
-      ~data_retention_time ~location ~name ~resource_group_name
-      ~sku_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iot_time_series_insights_standard_environment
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        data_retention_time =
-         Prop.computed __resource_type __resource_id
-           "data_retention_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_key =
-         Prop.computed __resource_type __resource_id "partition_key";
+         Prop.computed __type __id "data_retention_time";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       partition_key = Prop.computed __type __id "partition_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
        storage_limit_exceeded_behavior =
-         Prop.computed __resource_type __resource_id
-           "storage_limit_exceeded_behavior";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "storage_limit_exceeded_behavior";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iot_time_series_insights_standard_environment
+        (azurerm_iot_time_series_insights_standard_environment ?id
+           ?partition_key ?storage_limit_exceeded_behavior ?tags
+           ?timeouts ~data_retention_time ~location ~name
+           ~resource_group_name ~sku_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?partition_key
+    ?storage_limit_exceeded_behavior ?tags ?timeouts
+    ~data_retention_time ~location ~name ~resource_group_name
+    ~sku_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?partition_key ?storage_limit_exceeded_behavior ?tags
+      ?timeouts ~data_retention_time ~location ~name
+      ~resource_group_name ~sku_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

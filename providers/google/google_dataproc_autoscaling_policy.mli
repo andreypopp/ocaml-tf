@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,15 @@ val register :
   worker_config:worker_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  policy_id:string prop ->
+  basic_algorithm:basic_algorithm list ->
+  secondary_worker_config:secondary_worker_config list ->
+  worker_config:worker_config list ->
+  string ->
+  t Tf_core.resource

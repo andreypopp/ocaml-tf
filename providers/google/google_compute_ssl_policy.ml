@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -84,43 +82,42 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?custom_features ?description ?id
-    ?min_tls_version ?profile ?project ?timeouts ~name __resource_id
-    =
-  let __resource_type = "google_compute_ssl_policy" in
-  let __resource =
-    google_compute_ssl_policy ?custom_features ?description ?id
-      ?min_tls_version ?profile ?project ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_ssl_policy __resource);
-  let __resource_attributes =
+let make ?custom_features ?description ?id ?min_tls_version ?profile
+    ?project ?timeouts ~name __id =
+  let __type = "google_compute_ssl_policy" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       custom_features =
-         Prop.computed __resource_type __resource_id
-           "custom_features";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "creation_timestamp";
+       custom_features = Prop.computed __type __id "custom_features";
+       description = Prop.computed __type __id "description";
        enabled_features =
-         Prop.computed __resource_type __resource_id
-           "enabled_features";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       min_tls_version =
-         Prop.computed __resource_type __resource_id
-           "min_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       profile =
-         Prop.computed __resource_type __resource_id "profile";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "enabled_features";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       min_tls_version = Prop.computed __type __id "min_tls_version";
+       name = Prop.computed __type __id "name";
+       profile = Prop.computed __type __id "profile";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_ssl_policy
+        (google_compute_ssl_policy ?custom_features ?description ?id
+           ?min_tls_version ?profile ?project ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_features ?description ?id
+    ?min_tls_version ?profile ?project ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_features ?description ?id ?min_tls_version ?profile
+      ?project ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

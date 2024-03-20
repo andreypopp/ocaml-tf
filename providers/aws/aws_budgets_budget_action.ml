@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action_threshold = {
   action_threshold_type : string prop;  (** action_threshold_type *)
@@ -135,40 +133,47 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?timeouts ~action_type
-    ~approval_model ~budget_name ~execution_role_arn
-    ~notification_type ~action_threshold ~definition ~subscriber
-    __resource_id =
-  let __resource_type = "aws_budgets_budget_action" in
-  let __resource =
-    aws_budgets_budget_action ?account_id ?id ?timeouts ~action_type
-      ~approval_model ~budget_name ~execution_role_arn
-      ~notification_type ~action_threshold ~definition ~subscriber ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_budgets_budget_action __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?timeouts ~action_type ~approval_model
+    ~budget_name ~execution_role_arn ~notification_type
+    ~action_threshold ~definition ~subscriber __id =
+  let __type = "aws_budgets_budget_action" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       action_id =
-         Prop.computed __resource_type __resource_id "action_id";
-       action_type =
-         Prop.computed __resource_type __resource_id "action_type";
-       approval_model =
-         Prop.computed __resource_type __resource_id "approval_model";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       budget_name =
-         Prop.computed __resource_type __resource_id "budget_name";
+       account_id = Prop.computed __type __id "account_id";
+       action_id = Prop.computed __type __id "action_id";
+       action_type = Prop.computed __type __id "action_type";
+       approval_model = Prop.computed __type __id "approval_model";
+       arn = Prop.computed __type __id "arn";
+       budget_name = Prop.computed __type __id "budget_name";
        execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "execution_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "execution_role_arn";
+       id = Prop.computed __type __id "id";
        notification_type =
-         Prop.computed __resource_type __resource_id
-           "notification_type";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "notification_type";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_budgets_budget_action
+        (aws_budgets_budget_action ?account_id ?id ?timeouts
+           ~action_type ~approval_model ~budget_name
+           ~execution_role_arn ~notification_type ~action_threshold
+           ~definition ~subscriber ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?timeouts ~action_type
+    ~approval_model ~budget_name ~execution_role_arn
+    ~notification_type ~action_threshold ~definition ~subscriber __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?timeouts ~action_type ~approval_model
+      ~budget_name ~execution_role_arn ~notification_type
+      ~action_threshold ~definition ~subscriber __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

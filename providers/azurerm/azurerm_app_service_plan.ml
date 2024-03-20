@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sku = {
   capacity : float prop option; [@option]  (** capacity *)
@@ -85,49 +83,55 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let register ?tf_module ?app_service_environment_id ?id ?is_xenon
-    ?kind ?maximum_elastic_worker_count ?per_site_scaling ?reserved
-    ?tags ?zone_redundant ?timeouts ~location ~name
-    ~resource_group_name ~sku __resource_id =
-  let __resource_type = "azurerm_app_service_plan" in
-  let __resource =
-    azurerm_app_service_plan ?app_service_environment_id ?id
-      ?is_xenon ?kind ?maximum_elastic_worker_count ?per_site_scaling
-      ?reserved ?tags ?zone_redundant ?timeouts ~location ~name
-      ~resource_group_name ~sku ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_plan __resource);
-  let __resource_attributes =
+let make ?app_service_environment_id ?id ?is_xenon ?kind
+    ?maximum_elastic_worker_count ?per_site_scaling ?reserved ?tags
+    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
+    ~sku __id =
+  let __type = "azurerm_app_service_plan" in
+  let __attrs =
     ({
        app_service_environment_id =
-         Prop.computed __resource_type __resource_id
-           "app_service_environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_xenon =
-         Prop.computed __resource_type __resource_id "is_xenon";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "app_service_environment_id";
+       id = Prop.computed __type __id "id";
+       is_xenon = Prop.computed __type __id "is_xenon";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
        maximum_elastic_worker_count =
-         Prop.computed __resource_type __resource_id
-           "maximum_elastic_worker_count";
+         Prop.computed __type __id "maximum_elastic_worker_count";
        maximum_number_of_workers =
-         Prop.computed __resource_type __resource_id
-           "maximum_number_of_workers";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "maximum_number_of_workers";
+       name = Prop.computed __type __id "name";
        per_site_scaling =
-         Prop.computed __resource_type __resource_id
-           "per_site_scaling";
-       reserved =
-         Prop.computed __resource_type __resource_id "reserved";
+         Prop.computed __type __id "per_site_scaling";
+       reserved = Prop.computed __type __id "reserved";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_plan
+        (azurerm_app_service_plan ?app_service_environment_id ?id
+           ?is_xenon ?kind ?maximum_elastic_worker_count
+           ?per_site_scaling ?reserved ?tags ?zone_redundant
+           ?timeouts ~location ~name ~resource_group_name ~sku ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?app_service_environment_id ?id ?is_xenon
+    ?kind ?maximum_elastic_worker_count ?per_site_scaling ?reserved
+    ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~sku __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_service_environment_id ?id ?is_xenon ?kind
+      ?maximum_elastic_worker_count ?per_site_scaling ?reserved ?tags
+      ?zone_redundant ?timeouts ~location ~name ~resource_group_name
+      ~sku __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

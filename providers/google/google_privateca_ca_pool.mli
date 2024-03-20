@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -241,3 +241,16 @@ val register :
   publishing_options:publishing_options list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  tier:string prop ->
+  issuance_policy:issuance_policy list ->
+  publishing_options:publishing_options list ->
+  string ->
+  t Tf_core.resource

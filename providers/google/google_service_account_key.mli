@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,14 @@ val register :
   service_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?keepers:(string * string prop) list ->
+  ?key_algorithm:string prop ->
+  ?private_key_type:string prop ->
+  ?public_key_data:string prop ->
+  ?public_key_type:string prop ->
+  service_account_id:string prop ->
+  string ->
+  t Tf_core.resource

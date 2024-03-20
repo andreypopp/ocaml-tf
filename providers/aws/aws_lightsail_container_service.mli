@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,17 @@ val register :
   public_domain_names:public_domain_names list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?is_disabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  power:string prop ->
+  scale:float prop ->
+  private_registry_access:private_registry_access list ->
+  public_domain_names:public_domain_names list ->
+  string ->
+  t Tf_core.resource

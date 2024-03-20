@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   virtual_network_name:string prop ->
   string ->
   t
+
+val make :
+  ?allow_forwarded_traffic:bool prop ->
+  ?allow_gateway_transit:bool prop ->
+  ?allow_virtual_network_access:bool prop ->
+  ?id:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?use_remote_gateways:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  remote_virtual_network_id:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_name:string prop ->
+  string ->
+  t Tf_core.resource

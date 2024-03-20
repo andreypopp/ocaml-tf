@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_configuration = {
   key_id : string prop option; [@option]  (** key_id *)
@@ -226,28 +224,37 @@ type t = {
   update_token : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~encryption_configuration ~firewall_policy __resource_id =
-  let __resource_type = "aws_networkfirewall_firewall_policy" in
-  let __resource =
-    aws_networkfirewall_firewall_policy ?description ?id ?tags
-      ?tags_all ~name ~encryption_configuration ~firewall_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkfirewall_firewall_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~name
+    ~encryption_configuration ~firewall_policy __id =
+  let __type = "aws_networkfirewall_firewall_policy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       update_token =
-         Prop.computed __resource_type __resource_id "update_token";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       update_token = Prop.computed __type __id "update_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkfirewall_firewall_policy
+        (aws_networkfirewall_firewall_policy ?description ?id ?tags
+           ?tags_all ~name ~encryption_configuration ~firewall_policy
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~encryption_configuration ~firewall_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~name
+      ~encryption_configuration ~firewall_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

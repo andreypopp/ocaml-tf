@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list;  (** identity_ids *)
@@ -270,6 +268,98 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?auto_pause_delay_in_minutes ?collation ?create_mode
+    ?creation_source_database_id ?elastic_pool_id ?enclave_type
+    ?geo_backup_enabled ?id ?ledger_enabled ?license_type
+    ?maintenance_configuration_name ?max_size_gb ?min_capacity
+    ?read_replica_count ?read_scale ?recover_database_id
+    ?recovery_point_id ?restore_dropped_database_id
+    ?restore_long_term_retention_backup_id ?restore_point_in_time
+    ?sample_name ?sku_name ?storage_account_type ?tags
+    ?transparent_data_encryption_enabled
+    ?transparent_data_encryption_key_automatic_rotation_enabled
+    ?transparent_data_encryption_key_vault_key_id ?zone_redundant
+    ?timeouts ~name ~server_id ~identity ~import
+    ~long_term_retention_policy ~short_term_retention_policy
+    ~threat_detection_policy __id =
+  let __type = "azurerm_mssql_database" in
+  let __attrs =
+    ({
+       auto_pause_delay_in_minutes =
+         Prop.computed __type __id "auto_pause_delay_in_minutes";
+       collation = Prop.computed __type __id "collation";
+       create_mode = Prop.computed __type __id "create_mode";
+       creation_source_database_id =
+         Prop.computed __type __id "creation_source_database_id";
+       elastic_pool_id = Prop.computed __type __id "elastic_pool_id";
+       enclave_type = Prop.computed __type __id "enclave_type";
+       geo_backup_enabled =
+         Prop.computed __type __id "geo_backup_enabled";
+       id = Prop.computed __type __id "id";
+       ledger_enabled = Prop.computed __type __id "ledger_enabled";
+       license_type = Prop.computed __type __id "license_type";
+       maintenance_configuration_name =
+         Prop.computed __type __id "maintenance_configuration_name";
+       max_size_gb = Prop.computed __type __id "max_size_gb";
+       min_capacity = Prop.computed __type __id "min_capacity";
+       name = Prop.computed __type __id "name";
+       read_replica_count =
+         Prop.computed __type __id "read_replica_count";
+       read_scale = Prop.computed __type __id "read_scale";
+       recover_database_id =
+         Prop.computed __type __id "recover_database_id";
+       recovery_point_id =
+         Prop.computed __type __id "recovery_point_id";
+       restore_dropped_database_id =
+         Prop.computed __type __id "restore_dropped_database_id";
+       restore_long_term_retention_backup_id =
+         Prop.computed __type __id
+           "restore_long_term_retention_backup_id";
+       restore_point_in_time =
+         Prop.computed __type __id "restore_point_in_time";
+       sample_name = Prop.computed __type __id "sample_name";
+       server_id = Prop.computed __type __id "server_id";
+       sku_name = Prop.computed __type __id "sku_name";
+       storage_account_type =
+         Prop.computed __type __id "storage_account_type";
+       tags = Prop.computed __type __id "tags";
+       transparent_data_encryption_enabled =
+         Prop.computed __type __id
+           "transparent_data_encryption_enabled";
+       transparent_data_encryption_key_automatic_rotation_enabled =
+         Prop.computed __type __id
+           "transparent_data_encryption_key_automatic_rotation_enabled";
+       transparent_data_encryption_key_vault_key_id =
+         Prop.computed __type __id
+           "transparent_data_encryption_key_vault_key_id";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_database
+        (azurerm_mssql_database ?auto_pause_delay_in_minutes
+           ?collation ?create_mode ?creation_source_database_id
+           ?elastic_pool_id ?enclave_type ?geo_backup_enabled ?id
+           ?ledger_enabled ?license_type
+           ?maintenance_configuration_name ?max_size_gb ?min_capacity
+           ?read_replica_count ?read_scale ?recover_database_id
+           ?recovery_point_id ?restore_dropped_database_id
+           ?restore_long_term_retention_backup_id
+           ?restore_point_in_time ?sample_name ?sku_name
+           ?storage_account_type ?tags
+           ?transparent_data_encryption_enabled
+           ?transparent_data_encryption_key_automatic_rotation_enabled
+           ?transparent_data_encryption_key_vault_key_id
+           ?zone_redundant ?timeouts ~name ~server_id ~identity
+           ~import ~long_term_retention_policy
+           ~short_term_retention_policy ~threat_detection_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_pause_delay_in_minutes ?collation
     ?create_mode ?creation_source_database_id ?elastic_pool_id
     ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
@@ -284,16 +374,14 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
     ?transparent_data_encryption_key_vault_key_id ?zone_redundant
     ?timeouts ~name ~server_id ~identity ~import
     ~long_term_retention_policy ~short_term_retention_policy
-    ~threat_detection_policy __resource_id =
-  let __resource_type = "azurerm_mssql_database" in
-  let __resource =
-    azurerm_mssql_database ?auto_pause_delay_in_minutes ?collation
-      ?create_mode ?creation_source_database_id ?elastic_pool_id
-      ?enclave_type ?geo_backup_enabled ?id ?ledger_enabled
-      ?license_type ?maintenance_configuration_name ?max_size_gb
-      ?min_capacity ?read_replica_count ?read_scale
-      ?recover_database_id ?recovery_point_id
-      ?restore_dropped_database_id
+    ~threat_detection_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_pause_delay_in_minutes ?collation ?create_mode
+      ?creation_source_database_id ?elastic_pool_id ?enclave_type
+      ?geo_backup_enabled ?id ?ledger_enabled ?license_type
+      ?maintenance_configuration_name ?max_size_gb ?min_capacity
+      ?read_replica_count ?read_scale ?recover_database_id
+      ?recovery_point_id ?restore_dropped_database_id
       ?restore_long_term_retention_backup_id ?restore_point_in_time
       ?sample_name ?sku_name ?storage_account_type ?tags
       ?transparent_data_encryption_enabled
@@ -301,85 +389,7 @@ let register ?tf_module ?auto_pause_delay_in_minutes ?collation
       ?transparent_data_encryption_key_vault_key_id ?zone_redundant
       ?timeouts ~name ~server_id ~identity ~import
       ~long_term_retention_policy ~short_term_retention_policy
-      ~threat_detection_policy ()
+      ~threat_detection_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_database __resource);
-  let __resource_attributes =
-    ({
-       auto_pause_delay_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "auto_pause_delay_in_minutes";
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       creation_source_database_id =
-         Prop.computed __resource_type __resource_id
-           "creation_source_database_id";
-       elastic_pool_id =
-         Prop.computed __resource_type __resource_id
-           "elastic_pool_id";
-       enclave_type =
-         Prop.computed __resource_type __resource_id "enclave_type";
-       geo_backup_enabled =
-         Prop.computed __resource_type __resource_id
-           "geo_backup_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       ledger_enabled =
-         Prop.computed __resource_type __resource_id "ledger_enabled";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       maintenance_configuration_name =
-         Prop.computed __resource_type __resource_id
-           "maintenance_configuration_name";
-       max_size_gb =
-         Prop.computed __resource_type __resource_id "max_size_gb";
-       min_capacity =
-         Prop.computed __resource_type __resource_id "min_capacity";
-       name = Prop.computed __resource_type __resource_id "name";
-       read_replica_count =
-         Prop.computed __resource_type __resource_id
-           "read_replica_count";
-       read_scale =
-         Prop.computed __resource_type __resource_id "read_scale";
-       recover_database_id =
-         Prop.computed __resource_type __resource_id
-           "recover_database_id";
-       recovery_point_id =
-         Prop.computed __resource_type __resource_id
-           "recovery_point_id";
-       restore_dropped_database_id =
-         Prop.computed __resource_type __resource_id
-           "restore_dropped_database_id";
-       restore_long_term_retention_backup_id =
-         Prop.computed __resource_type __resource_id
-           "restore_long_term_retention_backup_id";
-       restore_point_in_time =
-         Prop.computed __resource_type __resource_id
-           "restore_point_in_time";
-       sample_name =
-         Prop.computed __resource_type __resource_id "sample_name";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       storage_account_type =
-         Prop.computed __resource_type __resource_id
-           "storage_account_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       transparent_data_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "transparent_data_encryption_enabled";
-       transparent_data_encryption_key_automatic_rotation_enabled =
-         Prop.computed __resource_type __resource_id
-           "transparent_data_encryption_key_automatic_rotation_enabled";
-       transparent_data_encryption_key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "transparent_data_encryption_key_vault_key_id";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,4 +35,12 @@ val register :
     template_version_number:float prop ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    alias_name:string prop ->
+    template_id:string prop ->
+    template_version_number:float prop ->
+    string ->
+    t Tf_core.resource
 

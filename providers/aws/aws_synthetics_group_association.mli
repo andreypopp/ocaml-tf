@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -33,3 +33,10 @@ val register :
   group_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  canary_arn:string prop ->
+  group_name:string prop ->
+  string ->
+  t Tf_core.resource

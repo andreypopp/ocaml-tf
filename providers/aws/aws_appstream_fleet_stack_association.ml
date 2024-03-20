@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appstream_fleet_stack_association = {
   fleet_name : string prop;  (** fleet_name *)
@@ -22,22 +20,29 @@ type t = {
   stack_name : string prop;
 }
 
-let register ?tf_module ?id ~fleet_name ~stack_name __resource_id =
-  let __resource_type = "aws_appstream_fleet_stack_association" in
-  let __resource =
-    aws_appstream_fleet_stack_association ?id ~fleet_name ~stack_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_fleet_stack_association __resource);
-  let __resource_attributes =
+let make ?id ~fleet_name ~stack_name __id =
+  let __type = "aws_appstream_fleet_stack_association" in
+  let __attrs =
     ({
-       fleet_name =
-         Prop.computed __resource_type __resource_id "fleet_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       stack_name =
-         Prop.computed __resource_type __resource_id "stack_name";
+       fleet_name = Prop.computed __type __id "fleet_name";
+       id = Prop.computed __type __id "id";
+       stack_name = Prop.computed __type __id "stack_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_fleet_stack_association
+        (aws_appstream_fleet_stack_association ?id ~fleet_name
+           ~stack_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~fleet_name ~stack_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~fleet_name ~stack_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

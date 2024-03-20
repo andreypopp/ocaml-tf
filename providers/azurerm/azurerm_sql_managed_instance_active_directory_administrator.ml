@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,39 +54,46 @@ type t = {
   tenant_id : string prop;
 }
 
-let register ?tf_module ?azuread_authentication_only ?id ?timeouts
-    ~login ~managed_instance_name ~object_id ~resource_group_name
-    ~tenant_id __resource_id =
-  let __resource_type =
+let make ?azuread_authentication_only ?id ?timeouts ~login
+    ~managed_instance_name ~object_id ~resource_group_name ~tenant_id
+    __id =
+  let __type =
     "azurerm_sql_managed_instance_active_directory_administrator"
   in
-  let __resource =
-    azurerm_sql_managed_instance_active_directory_administrator
-      ?azuread_authentication_only ?id ?timeouts ~login
-      ~managed_instance_name ~object_id ~resource_group_name
-      ~tenant_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_managed_instance_active_directory_administrator
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        azuread_authentication_only =
-         Prop.computed __resource_type __resource_id
-           "azuread_authentication_only";
-       id = Prop.computed __resource_type __resource_id "id";
-       login = Prop.computed __resource_type __resource_id "login";
+         Prop.computed __type __id "azuread_authentication_only";
+       id = Prop.computed __type __id "id";
+       login = Prop.computed __type __id "login";
        managed_instance_name =
-         Prop.computed __resource_type __resource_id
-           "managed_instance_name";
-       object_id =
-         Prop.computed __resource_type __resource_id "object_id";
+         Prop.computed __type __id "managed_instance_name";
+       object_id = Prop.computed __type __id "object_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
+         Prop.computed __type __id "resource_group_name";
+       tenant_id = Prop.computed __type __id "tenant_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_managed_instance_active_directory_administrator
+        (azurerm_sql_managed_instance_active_directory_administrator
+           ?azuread_authentication_only ?id ?timeouts ~login
+           ~managed_instance_name ~object_id ~resource_group_name
+           ~tenant_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?azuread_authentication_only ?id ?timeouts
+    ~login ~managed_instance_name ~object_id ~resource_group_name
+    ~tenant_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?azuread_authentication_only ?id ?timeouts ~login
+      ~managed_instance_name ~object_id ~resource_group_name
+      ~tenant_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

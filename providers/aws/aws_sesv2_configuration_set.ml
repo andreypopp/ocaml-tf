@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delivery_options = {
   sending_pool_name : string prop option; [@option]
@@ -132,30 +130,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~configuration_set_name
+let make ?id ?tags ?tags_all ~configuration_set_name
     ~delivery_options ~reputation_options ~sending_options
-    ~suppression_options ~tracking_options ~vdm_options __resource_id
-    =
-  let __resource_type = "aws_sesv2_configuration_set" in
-  let __resource =
-    aws_sesv2_configuration_set ?id ?tags ?tags_all
-      ~configuration_set_name ~delivery_options ~reputation_options
-      ~sending_options ~suppression_options ~tracking_options
-      ~vdm_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_configuration_set __resource);
-  let __resource_attributes =
+    ~suppression_options ~tracking_options ~vdm_options __id =
+  let __type = "aws_sesv2_configuration_set" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        configuration_set_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_set_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "configuration_set_name";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_configuration_set
+        (aws_sesv2_configuration_set ?id ?tags ?tags_all
+           ~configuration_set_name ~delivery_options
+           ~reputation_options ~sending_options ~suppression_options
+           ~tracking_options ~vdm_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~configuration_set_name
+    ~delivery_options ~reputation_options ~sending_options
+    ~suppression_options ~tracking_options ~vdm_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~configuration_set_name
+      ~delivery_options ~reputation_options ~sending_options
+      ~suppression_options ~tracking_options ~vdm_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type license_resource = {
   amount : string prop option; [@option]
@@ -123,48 +121,48 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?auto_renew ?category ?description ?id
-    ?project ?region ?type_ ?timeouts ~name ~plan ~license_resource
-    ~resources __resource_id =
-  let __resource_type = "google_compute_region_commitment" in
-  let __resource =
-    google_compute_region_commitment ?auto_renew ?category
-      ?description ?id ?project ?region ?type_ ?timeouts ~name ~plan
-      ~license_resource ~resources ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_commitment __resource);
-  let __resource_attributes =
+let make ?auto_renew ?category ?description ?id ?project ?region
+    ?type_ ?timeouts ~name ~plan ~license_resource ~resources __id =
+  let __type = "google_compute_region_commitment" in
+  let __attrs =
     ({
-       auto_renew =
-         Prop.computed __resource_type __resource_id "auto_renew";
-       category =
-         Prop.computed __resource_type __resource_id "category";
-       commitment_id =
-         Prop.computed __resource_type __resource_id "commitment_id";
+       auto_renew = Prop.computed __type __id "auto_renew";
+       category = Prop.computed __type __id "category";
+       commitment_id = Prop.computed __type __id "commitment_id";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       end_timestamp =
-         Prop.computed __resource_type __resource_id "end_timestamp";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       plan = Prop.computed __resource_type __resource_id "plan";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       start_timestamp =
-         Prop.computed __resource_type __resource_id
-           "start_timestamp";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_message =
-         Prop.computed __resource_type __resource_id "status_message";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       end_timestamp = Prop.computed __type __id "end_timestamp";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       plan = Prop.computed __type __id "plan";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       start_timestamp = Prop.computed __type __id "start_timestamp";
+       status = Prop.computed __type __id "status";
+       status_message = Prop.computed __type __id "status_message";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_commitment
+        (google_compute_region_commitment ?auto_renew ?category
+           ?description ?id ?project ?region ?type_ ?timeouts ~name
+           ~plan ~license_resource ~resources ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_renew ?category ?description ?id
+    ?project ?region ?type_ ?timeouts ~name ~plan ~license_resource
+    ~resources __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_renew ?category ?description ?id ?project ?region
+      ?type_ ?timeouts ~name ~plan ~license_resource ~resources __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

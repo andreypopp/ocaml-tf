@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -154,3 +154,17 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?enable_network_isolation:bool prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  execution_role_arn:string prop ->
+  container:container list ->
+  inference_execution_config:inference_execution_config list ->
+  primary_container:primary_container list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

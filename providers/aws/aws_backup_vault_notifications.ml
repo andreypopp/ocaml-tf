@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_backup_vault_notifications = {
   backup_vault_events : string prop list;  (** backup_vault_events *)
@@ -26,30 +24,37 @@ type t = {
   sns_topic_arn : string prop;
 }
 
-let register ?tf_module ?id ~backup_vault_events ~backup_vault_name
-    ~sns_topic_arn __resource_id =
-  let __resource_type = "aws_backup_vault_notifications" in
-  let __resource =
-    aws_backup_vault_notifications ?id ~backup_vault_events
-      ~backup_vault_name ~sns_topic_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_backup_vault_notifications __resource);
-  let __resource_attributes =
+let make ?id ~backup_vault_events ~backup_vault_name ~sns_topic_arn
+    __id =
+  let __type = "aws_backup_vault_notifications" in
+  let __attrs =
     ({
        backup_vault_arn =
-         Prop.computed __resource_type __resource_id
-           "backup_vault_arn";
+         Prop.computed __type __id "backup_vault_arn";
        backup_vault_events =
-         Prop.computed __resource_type __resource_id
-           "backup_vault_events";
+         Prop.computed __type __id "backup_vault_events";
        backup_vault_name =
-         Prop.computed __resource_type __resource_id
-           "backup_vault_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       sns_topic_arn =
-         Prop.computed __resource_type __resource_id "sns_topic_arn";
+         Prop.computed __type __id "backup_vault_name";
+       id = Prop.computed __type __id "id";
+       sns_topic_arn = Prop.computed __type __id "sns_topic_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_backup_vault_notifications
+        (aws_backup_vault_notifications ?id ~backup_vault_events
+           ~backup_vault_name ~sns_topic_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~backup_vault_events ~backup_vault_name
+    ~sns_topic_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~backup_vault_events ~backup_vault_name ~sns_topic_arn
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

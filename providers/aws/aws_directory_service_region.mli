@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,15 @@ val register :
   vpc_settings:vpc_settings list ->
   string ->
   t
+
+val make :
+  ?desired_number_of_domain_controllers:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  directory_id:string prop ->
+  region_name:string prop ->
+  vpc_settings:vpc_settings list ->
+  string ->
+  t Tf_core.resource

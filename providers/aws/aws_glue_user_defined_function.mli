@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   resource_uris:resource_uris list ->
   string ->
   t
+
+val make :
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  class_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  owner_name:string prop ->
+  owner_type:string prop ->
+  resource_uris:resource_uris list ->
+  string ->
+  t Tf_core.resource

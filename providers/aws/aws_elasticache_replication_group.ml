@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_delivery_configuration = {
   destination : string prop;  (** destination *)
@@ -205,6 +203,120 @@ type t = {
   user_group_ids : string list prop;
 }
 
+let make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
+    ?auth_token_update_strategy ?auto_minor_version_upgrade
+    ?automatic_failover_enabled ?data_tiering_enabled ?description
+    ?engine ?engine_version ?final_snapshot_identifier
+    ?global_replication_group_id ?id ?ip_discovery ?kms_key_id
+    ?maintenance_window ?multi_az_enabled ?network_type ?node_type
+    ?notification_topic_arn ?num_cache_clusters ?num_node_groups
+    ?parameter_group_name ?port ?preferred_cache_cluster_azs
+    ?replicas_per_node_group ?security_group_ids
+    ?security_group_names ?snapshot_arns ?snapshot_name
+    ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
+    ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
+    ?timeouts ~replication_group_id ~log_delivery_configuration __id
+    =
+  let __type = "aws_elasticache_replication_group" in
+  let __attrs =
+    ({
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       at_rest_encryption_enabled =
+         Prop.computed __type __id "at_rest_encryption_enabled";
+       auth_token = Prop.computed __type __id "auth_token";
+       auth_token_update_strategy =
+         Prop.computed __type __id "auth_token_update_strategy";
+       auto_minor_version_upgrade =
+         Prop.computed __type __id "auto_minor_version_upgrade";
+       automatic_failover_enabled =
+         Prop.computed __type __id "automatic_failover_enabled";
+       cluster_enabled = Prop.computed __type __id "cluster_enabled";
+       configuration_endpoint_address =
+         Prop.computed __type __id "configuration_endpoint_address";
+       data_tiering_enabled =
+         Prop.computed __type __id "data_tiering_enabled";
+       description = Prop.computed __type __id "description";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       engine_version_actual =
+         Prop.computed __type __id "engine_version_actual";
+       final_snapshot_identifier =
+         Prop.computed __type __id "final_snapshot_identifier";
+       global_replication_group_id =
+         Prop.computed __type __id "global_replication_group_id";
+       id = Prop.computed __type __id "id";
+       ip_discovery = Prop.computed __type __id "ip_discovery";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       maintenance_window =
+         Prop.computed __type __id "maintenance_window";
+       member_clusters = Prop.computed __type __id "member_clusters";
+       multi_az_enabled =
+         Prop.computed __type __id "multi_az_enabled";
+       network_type = Prop.computed __type __id "network_type";
+       node_type = Prop.computed __type __id "node_type";
+       notification_topic_arn =
+         Prop.computed __type __id "notification_topic_arn";
+       num_cache_clusters =
+         Prop.computed __type __id "num_cache_clusters";
+       num_node_groups = Prop.computed __type __id "num_node_groups";
+       parameter_group_name =
+         Prop.computed __type __id "parameter_group_name";
+       port = Prop.computed __type __id "port";
+       preferred_cache_cluster_azs =
+         Prop.computed __type __id "preferred_cache_cluster_azs";
+       primary_endpoint_address =
+         Prop.computed __type __id "primary_endpoint_address";
+       reader_endpoint_address =
+         Prop.computed __type __id "reader_endpoint_address";
+       replicas_per_node_group =
+         Prop.computed __type __id "replicas_per_node_group";
+       replication_group_id =
+         Prop.computed __type __id "replication_group_id";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       security_group_names =
+         Prop.computed __type __id "security_group_names";
+       snapshot_arns = Prop.computed __type __id "snapshot_arns";
+       snapshot_name = Prop.computed __type __id "snapshot_name";
+       snapshot_retention_limit =
+         Prop.computed __type __id "snapshot_retention_limit";
+       snapshot_window = Prop.computed __type __id "snapshot_window";
+       subnet_group_name =
+         Prop.computed __type __id "subnet_group_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transit_encryption_enabled =
+         Prop.computed __type __id "transit_encryption_enabled";
+       user_group_ids = Prop.computed __type __id "user_group_ids";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_replication_group
+        (aws_elasticache_replication_group ?apply_immediately
+           ?at_rest_encryption_enabled ?auth_token
+           ?auth_token_update_strategy ?auto_minor_version_upgrade
+           ?automatic_failover_enabled ?data_tiering_enabled
+           ?description ?engine ?engine_version
+           ?final_snapshot_identifier ?global_replication_group_id
+           ?id ?ip_discovery ?kms_key_id ?maintenance_window
+           ?multi_az_enabled ?network_type ?node_type
+           ?notification_topic_arn ?num_cache_clusters
+           ?num_node_groups ?parameter_group_name ?port
+           ?preferred_cache_cluster_azs ?replicas_per_node_group
+           ?security_group_ids ?security_group_names ?snapshot_arns
+           ?snapshot_name ?snapshot_retention_limit ?snapshot_window
+           ?subnet_group_name ?tags ?tags_all
+           ?transit_encryption_enabled ?user_group_ids ?timeouts
+           ~replication_group_id ~log_delivery_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_immediately
     ?at_rest_encryption_enabled ?auth_token
     ?auth_token_update_strategy ?auto_minor_version_upgrade
@@ -218,12 +330,10 @@ let register ?tf_module ?apply_immediately
     ?security_group_names ?snapshot_arns ?snapshot_name
     ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
     ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-    ?timeouts ~replication_group_id ~log_delivery_configuration
-    __resource_id =
-  let __resource_type = "aws_elasticache_replication_group" in
-  let __resource =
-    aws_elasticache_replication_group ?apply_immediately
-      ?at_rest_encryption_enabled ?auth_token
+    ?timeouts ~replication_group_id ~log_delivery_configuration __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?apply_immediately ?at_rest_encryption_enabled ?auth_token
       ?auth_token_update_strategy ?auto_minor_version_upgrade
       ?automatic_failover_enabled ?data_tiering_enabled ?description
       ?engine ?engine_version ?final_snapshot_identifier
@@ -235,127 +345,8 @@ let register ?tf_module ?apply_immediately
       ?security_group_names ?snapshot_arns ?snapshot_name
       ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
       ?tags ?tags_all ?transit_encryption_enabled ?user_group_ids
-      ?timeouts ~replication_group_id ~log_delivery_configuration ()
+      ?timeouts ~replication_group_id ~log_delivery_configuration
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_replication_group __resource);
-  let __resource_attributes =
-    ({
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       at_rest_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "at_rest_encryption_enabled";
-       auth_token =
-         Prop.computed __resource_type __resource_id "auth_token";
-       auth_token_update_strategy =
-         Prop.computed __resource_type __resource_id
-           "auth_token_update_strategy";
-       auto_minor_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "auto_minor_version_upgrade";
-       automatic_failover_enabled =
-         Prop.computed __resource_type __resource_id
-           "automatic_failover_enabled";
-       cluster_enabled =
-         Prop.computed __resource_type __resource_id
-           "cluster_enabled";
-       configuration_endpoint_address =
-         Prop.computed __resource_type __resource_id
-           "configuration_endpoint_address";
-       data_tiering_enabled =
-         Prop.computed __resource_type __resource_id
-           "data_tiering_enabled";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       engine_version_actual =
-         Prop.computed __resource_type __resource_id
-           "engine_version_actual";
-       final_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "final_snapshot_identifier";
-       global_replication_group_id =
-         Prop.computed __resource_type __resource_id
-           "global_replication_group_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_discovery =
-         Prop.computed __resource_type __resource_id "ip_discovery";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "maintenance_window";
-       member_clusters =
-         Prop.computed __resource_type __resource_id
-           "member_clusters";
-       multi_az_enabled =
-         Prop.computed __resource_type __resource_id
-           "multi_az_enabled";
-       network_type =
-         Prop.computed __resource_type __resource_id "network_type";
-       node_type =
-         Prop.computed __resource_type __resource_id "node_type";
-       notification_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "notification_topic_arn";
-       num_cache_clusters =
-         Prop.computed __resource_type __resource_id
-           "num_cache_clusters";
-       num_node_groups =
-         Prop.computed __resource_type __resource_id
-           "num_node_groups";
-       parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "parameter_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       preferred_cache_cluster_azs =
-         Prop.computed __resource_type __resource_id
-           "preferred_cache_cluster_azs";
-       primary_endpoint_address =
-         Prop.computed __resource_type __resource_id
-           "primary_endpoint_address";
-       reader_endpoint_address =
-         Prop.computed __resource_type __resource_id
-           "reader_endpoint_address";
-       replicas_per_node_group =
-         Prop.computed __resource_type __resource_id
-           "replicas_per_node_group";
-       replication_group_id =
-         Prop.computed __resource_type __resource_id
-           "replication_group_id";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       security_group_names =
-         Prop.computed __resource_type __resource_id
-           "security_group_names";
-       snapshot_arns =
-         Prop.computed __resource_type __resource_id "snapshot_arns";
-       snapshot_name =
-         Prop.computed __resource_type __resource_id "snapshot_name";
-       snapshot_retention_limit =
-         Prop.computed __resource_type __resource_id
-           "snapshot_retention_limit";
-       snapshot_window =
-         Prop.computed __resource_type __resource_id
-           "snapshot_window";
-       subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "subnet_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transit_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_enabled";
-       user_group_ids =
-         Prop.computed __resource_type __resource_id "user_group_ids";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

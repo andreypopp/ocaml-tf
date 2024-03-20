@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type contact = {
   email : string prop;  (** email *)
@@ -42,21 +40,28 @@ let azurerm_key_vault_certificate_contacts ?id ?timeouts
 
 type t = { id : string prop; key_vault_id : string prop }
 
-let register ?tf_module ?id ?timeouts ~key_vault_id ~contact
-    __resource_id =
-  let __resource_type = "azurerm_key_vault_certificate_contacts" in
-  let __resource =
-    azurerm_key_vault_certificate_contacts ?id ?timeouts
-      ~key_vault_id ~contact ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault_certificate_contacts __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~key_vault_id ~contact __id =
+  let __type = "azurerm_key_vault_certificate_contacts" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
+       id = Prop.computed __type __id "id";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault_certificate_contacts
+        (azurerm_key_vault_certificate_contacts ?id ?timeouts
+           ~key_vault_id ~contact ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~key_vault_id ~contact __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~key_vault_id ~contact __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

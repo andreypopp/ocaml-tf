@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,14 @@ val register :
   strategy:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?partition_count:float prop ->
+  ?spread_level:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  strategy:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_machine_features = {
   enable_nested_virtualization : bool prop option; [@option]
@@ -531,6 +529,79 @@ type t = {
   zone : string prop;
 }
 
+let make ?allow_stopping_for_update ?can_ip_forward
+    ?deletion_protection ?description ?desired_status ?enable_display
+    ?guest_accelerator ?hostname ?id ?labels ?metadata
+    ?metadata_startup_script ?min_cpu_platform ?project
+    ?resource_policies ?tags ?zone ?timeouts ~machine_type ~name
+    ~advanced_machine_features ~attached_disk ~boot_disk
+    ~confidential_instance_config ~network_interface
+    ~network_performance_config ~params ~reservation_affinity
+    ~scheduling ~scratch_disk ~service_account
+    ~shielded_instance_config __id =
+  let __type = "google_compute_instance" in
+  let __attrs =
+    ({
+       allow_stopping_for_update =
+         Prop.computed __type __id "allow_stopping_for_update";
+       can_ip_forward = Prop.computed __type __id "can_ip_forward";
+       cpu_platform = Prop.computed __type __id "cpu_platform";
+       current_status = Prop.computed __type __id "current_status";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       description = Prop.computed __type __id "description";
+       desired_status = Prop.computed __type __id "desired_status";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       enable_display = Prop.computed __type __id "enable_display";
+       guest_accelerator =
+         Prop.computed __type __id "guest_accelerator";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       machine_type = Prop.computed __type __id "machine_type";
+       metadata = Prop.computed __type __id "metadata";
+       metadata_fingerprint =
+         Prop.computed __type __id "metadata_fingerprint";
+       metadata_startup_script =
+         Prop.computed __type __id "metadata_startup_script";
+       min_cpu_platform =
+         Prop.computed __type __id "min_cpu_platform";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       resource_policies =
+         Prop.computed __type __id "resource_policies";
+       self_link = Prop.computed __type __id "self_link";
+       tags = Prop.computed __type __id "tags";
+       tags_fingerprint =
+         Prop.computed __type __id "tags_fingerprint";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_instance
+        (google_compute_instance ?allow_stopping_for_update
+           ?can_ip_forward ?deletion_protection ?description
+           ?desired_status ?enable_display ?guest_accelerator
+           ?hostname ?id ?labels ?metadata ?metadata_startup_script
+           ?min_cpu_platform ?project ?resource_policies ?tags ?zone
+           ?timeouts ~machine_type ~name ~advanced_machine_features
+           ~attached_disk ~boot_disk ~confidential_instance_config
+           ~network_interface ~network_performance_config ~params
+           ~reservation_affinity ~scheduling ~scratch_disk
+           ~service_account ~shielded_instance_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_stopping_for_update ?can_ip_forward
     ?deletion_protection ?description ?desired_status ?enable_display
     ?guest_accelerator ?hostname ?id ?labels ?metadata
@@ -540,87 +611,18 @@ let register ?tf_module ?allow_stopping_for_update ?can_ip_forward
     ~confidential_instance_config ~network_interface
     ~network_performance_config ~params ~reservation_affinity
     ~scheduling ~scratch_disk ~service_account
-    ~shielded_instance_config __resource_id =
-  let __resource_type = "google_compute_instance" in
-  let __resource =
-    google_compute_instance ?allow_stopping_for_update
-      ?can_ip_forward ?deletion_protection ?description
-      ?desired_status ?enable_display ?guest_accelerator ?hostname
-      ?id ?labels ?metadata ?metadata_startup_script
-      ?min_cpu_platform ?project ?resource_policies ?tags ?zone
-      ?timeouts ~machine_type ~name ~advanced_machine_features
-      ~attached_disk ~boot_disk ~confidential_instance_config
-      ~network_interface ~network_performance_config ~params
-      ~reservation_affinity ~scheduling ~scratch_disk
-      ~service_account ~shielded_instance_config ()
+    ~shielded_instance_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_stopping_for_update ?can_ip_forward
+      ?deletion_protection ?description ?desired_status
+      ?enable_display ?guest_accelerator ?hostname ?id ?labels
+      ?metadata ?metadata_startup_script ?min_cpu_platform ?project
+      ?resource_policies ?tags ?zone ?timeouts ~machine_type ~name
+      ~advanced_machine_features ~attached_disk ~boot_disk
+      ~confidential_instance_config ~network_interface
+      ~network_performance_config ~params ~reservation_affinity
+      ~scheduling ~scratch_disk ~service_account
+      ~shielded_instance_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_instance __resource);
-  let __resource_attributes =
-    ({
-       allow_stopping_for_update =
-         Prop.computed __resource_type __resource_id
-           "allow_stopping_for_update";
-       can_ip_forward =
-         Prop.computed __resource_type __resource_id "can_ip_forward";
-       cpu_platform =
-         Prop.computed __resource_type __resource_id "cpu_platform";
-       current_status =
-         Prop.computed __resource_type __resource_id "current_status";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       desired_status =
-         Prop.computed __resource_type __resource_id "desired_status";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       enable_display =
-         Prop.computed __resource_type __resource_id "enable_display";
-       guest_accelerator =
-         Prop.computed __resource_type __resource_id
-           "guest_accelerator";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       machine_type =
-         Prop.computed __resource_type __resource_id "machine_type";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       metadata_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "metadata_fingerprint";
-       metadata_startup_script =
-         Prop.computed __resource_type __resource_id
-           "metadata_startup_script";
-       min_cpu_platform =
-         Prop.computed __resource_type __resource_id
-           "min_cpu_platform";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       resource_policies =
-         Prop.computed __resource_type __resource_id
-           "resource_policies";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "tags_fingerprint";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delivery_rule__cache_expiration_action = {
   behavior : string prop;  (** behavior *)
@@ -594,62 +592,69 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?content_types_to_compress ?id ?is_compression_enabled
+    ?is_http_allowed ?is_https_allowed ?optimization_type
+    ?origin_host_header ?origin_path ?probe_path
+    ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
+    ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
+    ~global_delivery_rule ~origin __id =
+  let __type = "azurerm_cdn_endpoint" in
+  let __attrs =
+    ({
+       content_types_to_compress =
+         Prop.computed __type __id "content_types_to_compress";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       is_compression_enabled =
+         Prop.computed __type __id "is_compression_enabled";
+       is_http_allowed = Prop.computed __type __id "is_http_allowed";
+       is_https_allowed =
+         Prop.computed __type __id "is_https_allowed";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       optimization_type =
+         Prop.computed __type __id "optimization_type";
+       origin_host_header =
+         Prop.computed __type __id "origin_host_header";
+       origin_path = Prop.computed __type __id "origin_path";
+       probe_path = Prop.computed __type __id "probe_path";
+       profile_name = Prop.computed __type __id "profile_name";
+       querystring_caching_behaviour =
+         Prop.computed __type __id "querystring_caching_behaviour";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_endpoint
+        (azurerm_cdn_endpoint ?content_types_to_compress ?id
+           ?is_compression_enabled ?is_http_allowed ?is_https_allowed
+           ?optimization_type ?origin_host_header ?origin_path
+           ?probe_path ?querystring_caching_behaviour ?tags ?timeouts
+           ~location ~name ~profile_name ~resource_group_name
+           ~delivery_rule ~geo_filter ~global_delivery_rule ~origin
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?content_types_to_compress ?id
     ?is_compression_enabled ?is_http_allowed ?is_https_allowed
     ?optimization_type ?origin_host_header ?origin_path ?probe_path
     ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
     ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-    ~global_delivery_rule ~origin __resource_id =
-  let __resource_type = "azurerm_cdn_endpoint" in
-  let __resource =
-    azurerm_cdn_endpoint ?content_types_to_compress ?id
-      ?is_compression_enabled ?is_http_allowed ?is_https_allowed
-      ?optimization_type ?origin_host_header ?origin_path ?probe_path
+    ~global_delivery_rule ~origin __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_types_to_compress ?id ?is_compression_enabled
+      ?is_http_allowed ?is_https_allowed ?optimization_type
+      ?origin_host_header ?origin_path ?probe_path
       ?querystring_caching_behaviour ?tags ?timeouts ~location ~name
       ~profile_name ~resource_group_name ~delivery_rule ~geo_filter
-      ~global_delivery_rule ~origin ()
+      ~global_delivery_rule ~origin __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_endpoint __resource);
-  let __resource_attributes =
-    ({
-       content_types_to_compress =
-         Prop.computed __resource_type __resource_id
-           "content_types_to_compress";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_compression_enabled =
-         Prop.computed __resource_type __resource_id
-           "is_compression_enabled";
-       is_http_allowed =
-         Prop.computed __resource_type __resource_id
-           "is_http_allowed";
-       is_https_allowed =
-         Prop.computed __resource_type __resource_id
-           "is_https_allowed";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       optimization_type =
-         Prop.computed __resource_type __resource_id
-           "optimization_type";
-       origin_host_header =
-         Prop.computed __resource_type __resource_id
-           "origin_host_header";
-       origin_path =
-         Prop.computed __resource_type __resource_id "origin_path";
-       probe_path =
-         Prop.computed __resource_type __resource_id "probe_path";
-       profile_name =
-         Prop.computed __resource_type __resource_id "profile_name";
-       querystring_caching_behaviour =
-         Prop.computed __resource_type __resource_id
-           "querystring_caching_behaviour";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

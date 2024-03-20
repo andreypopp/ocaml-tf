@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type accepter = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
@@ -75,37 +73,41 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
-let register ?tf_module ?auto_accept ?id ?tags ?tags_all ?timeouts
-    ~vpc_peering_connection_id ~accepter ~requester __resource_id =
-  let __resource_type = "aws_vpc_peering_connection_accepter" in
-  let __resource =
-    aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
-      ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
-      ~requester ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_peering_connection_accepter __resource);
-  let __resource_attributes =
+let make ?auto_accept ?id ?tags ?tags_all ?timeouts
+    ~vpc_peering_connection_id ~accepter ~requester __id =
+  let __type = "aws_vpc_peering_connection_accepter" in
+  let __attrs =
     ({
-       accept_status =
-         Prop.computed __resource_type __resource_id "accept_status";
-       auto_accept =
-         Prop.computed __resource_type __resource_id "auto_accept";
-       id = Prop.computed __resource_type __resource_id "id";
-       peer_owner_id =
-         Prop.computed __resource_type __resource_id "peer_owner_id";
-       peer_region =
-         Prop.computed __resource_type __resource_id "peer_region";
-       peer_vpc_id =
-         Prop.computed __resource_type __resource_id "peer_vpc_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       accept_status = Prop.computed __type __id "accept_status";
+       auto_accept = Prop.computed __type __id "auto_accept";
+       id = Prop.computed __type __id "id";
+       peer_owner_id = Prop.computed __type __id "peer_owner_id";
+       peer_region = Prop.computed __type __id "peer_region";
+       peer_vpc_id = Prop.computed __type __id "peer_vpc_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
        vpc_peering_connection_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_peering_connection_id";
+         Prop.computed __type __id "vpc_peering_connection_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_peering_connection_accepter
+        (aws_vpc_peering_connection_accepter ?auto_accept ?id ?tags
+           ?tags_all ?timeouts ~vpc_peering_connection_id ~accepter
+           ~requester ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_accept ?id ?tags ?tags_all ?timeouts
+    ~vpc_peering_connection_id ~accepter ~requester __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_accept ?id ?tags ?tags_all ?timeouts
+      ~vpc_peering_connection_id ~accepter ~requester __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

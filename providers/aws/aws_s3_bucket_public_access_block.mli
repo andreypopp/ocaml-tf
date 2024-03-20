@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,13 @@ val register :
   bucket:string prop ->
   string ->
   t
+
+val make :
+  ?block_public_acls:bool prop ->
+  ?block_public_policy:bool prop ->
+  ?id:string prop ->
+  ?ignore_public_acls:bool prop ->
+  ?restrict_public_buckets:bool prop ->
+  bucket:string prop ->
+  string ->
+  t Tf_core.resource

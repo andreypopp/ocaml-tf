@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,3 +35,9 @@ val register :
   validation_settings:validation_settings list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  validation_settings:validation_settings list ->
+  string ->
+  t Tf_core.resource

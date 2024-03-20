@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type automatic_update = {
   authentication_type : string prop option; [@option]
@@ -78,47 +76,61 @@ type t = {
   resource_group_name : string prop;
 }
 
+let make ?id ?timeouts ~name ~recovery_fabric_name
+    ~recovery_replication_policy_id
+    ~recovery_source_protection_container_name
+    ~recovery_target_protection_container_id ~recovery_vault_name
+    ~resource_group_name ~automatic_update __id =
+  let __type =
+    "azurerm_site_recovery_protection_container_mapping"
+  in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       recovery_fabric_name =
+         Prop.computed __type __id "recovery_fabric_name";
+       recovery_replication_policy_id =
+         Prop.computed __type __id "recovery_replication_policy_id";
+       recovery_source_protection_container_name =
+         Prop.computed __type __id
+           "recovery_source_protection_container_name";
+       recovery_target_protection_container_id =
+         Prop.computed __type __id
+           "recovery_target_protection_container_id";
+       recovery_vault_name =
+         Prop.computed __type __id "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_site_recovery_protection_container_mapping
+        (azurerm_site_recovery_protection_container_mapping ?id
+           ?timeouts ~name ~recovery_fabric_name
+           ~recovery_replication_policy_id
+           ~recovery_source_protection_container_name
+           ~recovery_target_protection_container_id
+           ~recovery_vault_name ~resource_group_name
+           ~automatic_update ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?timeouts ~name ~recovery_fabric_name
     ~recovery_replication_policy_id
     ~recovery_source_protection_container_name
     ~recovery_target_protection_container_id ~recovery_vault_name
-    ~resource_group_name ~automatic_update __resource_id =
-  let __resource_type =
-    "azurerm_site_recovery_protection_container_mapping"
-  in
-  let __resource =
-    azurerm_site_recovery_protection_container_mapping ?id ?timeouts
-      ~name ~recovery_fabric_name ~recovery_replication_policy_id
+    ~resource_group_name ~automatic_update __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~recovery_fabric_name
+      ~recovery_replication_policy_id
       ~recovery_source_protection_container_name
       ~recovery_target_protection_container_id ~recovery_vault_name
-      ~resource_group_name ~automatic_update ()
+      ~resource_group_name ~automatic_update __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_site_recovery_protection_container_mapping
-       __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       recovery_fabric_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_fabric_name";
-       recovery_replication_policy_id =
-         Prop.computed __resource_type __resource_id
-           "recovery_replication_policy_id";
-       recovery_source_protection_container_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_source_protection_container_name";
-       recovery_target_protection_container_id =
-         Prop.computed __resource_type __resource_id
-           "recovery_target_protection_container_id";
-       recovery_vault_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_vault_name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

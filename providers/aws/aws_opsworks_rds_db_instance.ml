@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_opsworks_rds_db_instance = {
   db_password : string prop;  (** db_password *)
@@ -27,28 +25,35 @@ type t = {
   stack_id : string prop;
 }
 
-let register ?tf_module ?id ~db_password ~db_user
-    ~rds_db_instance_arn ~stack_id __resource_id =
-  let __resource_type = "aws_opsworks_rds_db_instance" in
-  let __resource =
-    aws_opsworks_rds_db_instance ?id ~db_password ~db_user
-      ~rds_db_instance_arn ~stack_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_rds_db_instance __resource);
-  let __resource_attributes =
+let make ?id ~db_password ~db_user ~rds_db_instance_arn ~stack_id
+    __id =
+  let __type = "aws_opsworks_rds_db_instance" in
+  let __attrs =
     ({
-       db_password =
-         Prop.computed __resource_type __resource_id "db_password";
-       db_user =
-         Prop.computed __resource_type __resource_id "db_user";
-       id = Prop.computed __resource_type __resource_id "id";
+       db_password = Prop.computed __type __id "db_password";
+       db_user = Prop.computed __type __id "db_user";
+       id = Prop.computed __type __id "id";
        rds_db_instance_arn =
-         Prop.computed __resource_type __resource_id
-           "rds_db_instance_arn";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
+         Prop.computed __type __id "rds_db_instance_arn";
+       stack_id = Prop.computed __type __id "stack_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_rds_db_instance
+        (aws_opsworks_rds_db_instance ?id ~db_password ~db_user
+           ~rds_db_instance_arn ~stack_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~db_password ~db_user
+    ~rds_db_instance_arn ~stack_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~db_password ~db_user ~rds_db_instance_arn ~stack_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,17 @@ val register :
   trust_type:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?selective_authentication:bool prop ->
+  ?timeouts:timeouts ->
+  domain:string prop ->
+  target_dns_ip_addresses:string prop list ->
+  target_domain_name:string prop ->
+  trust_direction:string prop ->
+  trust_handshake_secret:string prop ->
+  trust_type:string prop ->
+  string ->
+  t Tf_core.resource

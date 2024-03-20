@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,13 @@ val register :
   organization:string prop ->
   string ->
   t
+
+val make :
+  ?disable_default_sink:bool prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?storage_location:string prop ->
+  ?timeouts:timeouts ->
+  organization:string prop ->
+  string ->
+  t Tf_core.resource

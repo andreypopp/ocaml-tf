@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,14 @@ val register :
   rest_api_id:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?stage_description:string prop ->
+  ?stage_name:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?variables:(string * string prop) list ->
+  rest_api_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_db_instance_role_association = {
   db_instance_identifier : string prop;
@@ -25,26 +23,32 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?id ~db_instance_identifier ~feature_name
-    ~role_arn __resource_id =
-  let __resource_type = "aws_db_instance_role_association" in
-  let __resource =
-    aws_db_instance_role_association ?id ~db_instance_identifier
-      ~feature_name ~role_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_instance_role_association __resource);
-  let __resource_attributes =
+let make ?id ~db_instance_identifier ~feature_name ~role_arn __id =
+  let __type = "aws_db_instance_role_association" in
+  let __attrs =
     ({
        db_instance_identifier =
-         Prop.computed __resource_type __resource_id
-           "db_instance_identifier";
-       feature_name =
-         Prop.computed __resource_type __resource_id "feature_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+         Prop.computed __type __id "db_instance_identifier";
+       feature_name = Prop.computed __type __id "feature_name";
+       id = Prop.computed __type __id "id";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_instance_role_association
+        (aws_db_instance_role_association ?id ~db_instance_identifier
+           ~feature_name ~role_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~db_instance_identifier ~feature_name
+    ~role_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~db_instance_identifier ~feature_name ~role_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,21 @@ val register :
   encryption:encryption list ->
   string ->
   t
+
+val make :
+  ?bgp_community:string prop ->
+  ?dns_servers:string prop list ->
+  ?edge_zone:string prop ->
+  ?flow_timeout_in_minutes:float prop ->
+  ?id:string prop ->
+  ?subnet:subnet list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  address_space:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  ddos_protection_plan:ddos_protection_plan list ->
+  encryption:encryption list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_database_replica = {
   cluster_id : string prop;  (** cluster_id *)
@@ -53,44 +51,48 @@ type t = {
   uuid : string prop;
 }
 
-let register ?tf_module ?id ?private_network_uuid ?region ?size
-    ?storage_size_mib ?tags ~cluster_id ~name __resource_id =
-  let __resource_type = "digitalocean_database_replica" in
-  let __resource =
-    digitalocean_database_replica ?id ?private_network_uuid ?region
-      ?size ?storage_size_mib ?tags ~cluster_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_replica __resource);
-  let __resource_attributes =
+let make ?id ?private_network_uuid ?region ?size ?storage_size_mib
+    ?tags ~cluster_id ~name __id =
+  let __type = "digitalocean_database_replica" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       port = Prop.computed __resource_type __resource_id "port";
-       private_host =
-         Prop.computed __resource_type __resource_id "private_host";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       database = Prop.computed __type __id "database";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       port = Prop.computed __type __id "port";
+       private_host = Prop.computed __type __id "private_host";
        private_network_uuid =
-         Prop.computed __resource_type __resource_id
-           "private_network_uuid";
-       private_uri =
-         Prop.computed __resource_type __resource_id "private_uri";
-       region = Prop.computed __resource_type __resource_id "region";
-       size = Prop.computed __resource_type __resource_id "size";
+         Prop.computed __type __id "private_network_uuid";
+       private_uri = Prop.computed __type __id "private_uri";
+       region = Prop.computed __type __id "region";
+       size = Prop.computed __type __id "size";
        storage_size_mib =
-         Prop.computed __resource_type __resource_id
-           "storage_size_mib";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       user = Prop.computed __resource_type __resource_id "user";
-       uuid = Prop.computed __resource_type __resource_id "uuid";
+         Prop.computed __type __id "storage_size_mib";
+       tags = Prop.computed __type __id "tags";
+       uri = Prop.computed __type __id "uri";
+       user = Prop.computed __type __id "user";
+       uuid = Prop.computed __type __id "uuid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_replica
+        (digitalocean_database_replica ?id ?private_network_uuid
+           ?region ?size ?storage_size_mib ?tags ~cluster_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?private_network_uuid ?region ?size
+    ?storage_size_mib ?tags ~cluster_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?private_network_uuid ?region ?size ?storage_size_mib
+      ?tags ~cluster_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

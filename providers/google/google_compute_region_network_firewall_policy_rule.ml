@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type match__layer4_configs = {
   ip_protocol : string prop;
@@ -165,52 +163,55 @@ type t = {
   target_service_accounts : string list prop;
 }
 
-let register ?tf_module ?description ?disabled ?enable_logging ?id
-    ?project ?region ?rule_name ?target_service_accounts ?timeouts
-    ~action ~direction ~firewall_policy ~priority ~match_
-    ~target_secure_tags __resource_id =
-  let __resource_type =
+let make ?description ?disabled ?enable_logging ?id ?project ?region
+    ?rule_name ?target_service_accounts ?timeouts ~action ~direction
+    ~firewall_policy ~priority ~match_ ~target_secure_tags __id =
+  let __type =
     "google_compute_region_network_firewall_policy_rule"
   in
-  let __resource =
-    google_compute_region_network_firewall_policy_rule ?description
-      ?disabled ?enable_logging ?id ?project ?region ?rule_name
-      ?target_service_accounts ?timeouts ~action ~direction
-      ~firewall_policy ~priority ~match_ ~target_secure_tags ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_network_firewall_policy_rule
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       direction =
-         Prop.computed __resource_type __resource_id "direction";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       enable_logging =
-         Prop.computed __resource_type __resource_id "enable_logging";
-       firewall_policy =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       rule_name =
-         Prop.computed __resource_type __resource_id "rule_name";
+       action = Prop.computed __type __id "action";
+       description = Prop.computed __type __id "description";
+       direction = Prop.computed __type __id "direction";
+       disabled = Prop.computed __type __id "disabled";
+       enable_logging = Prop.computed __type __id "enable_logging";
+       firewall_policy = Prop.computed __type __id "firewall_policy";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       rule_name = Prop.computed __type __id "rule_name";
        rule_tuple_count =
-         Prop.computed __resource_type __resource_id
-           "rule_tuple_count";
+         Prop.computed __type __id "rule_tuple_count";
        target_service_accounts =
-         Prop.computed __resource_type __resource_id
-           "target_service_accounts";
+         Prop.computed __type __id "target_service_accounts";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_network_firewall_policy_rule
+        (google_compute_region_network_firewall_policy_rule
+           ?description ?disabled ?enable_logging ?id ?project
+           ?region ?rule_name ?target_service_accounts ?timeouts
+           ~action ~direction ~firewall_policy ~priority ~match_
+           ~target_secure_tags ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?disabled ?enable_logging ?id
+    ?project ?region ?rule_name ?target_service_accounts ?timeouts
+    ~action ~direction ~firewall_policy ~priority ~match_
+    ~target_secure_tags __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disabled ?enable_logging ?id ?project ?region
+      ?rule_name ?target_service_accounts ?timeouts ~action
+      ~direction ~firewall_policy ~priority ~match_
+      ~target_secure_tags __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

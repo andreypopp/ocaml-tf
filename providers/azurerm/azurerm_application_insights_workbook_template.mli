@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,18 @@ val register :
   galleries:galleries list ->
   string ->
   t
+
+val make :
+  ?author:string prop ->
+  ?id:string prop ->
+  ?localized:string prop ->
+  ?priority:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  template_data:string prop ->
+  galleries:galleries list ->
+  string ->
+  t Tf_core.resource

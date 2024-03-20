@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,36 +61,39 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?purpose ?purpose_data
-    ?timeouts ~parent ~short_name __resource_id =
-  let __resource_type = "google_tags_tag_key" in
-  let __resource =
-    google_tags_tag_key ?description ?id ?purpose ?purpose_data
-      ?timeouts ~parent ~short_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_tags_tag_key __resource);
-  let __resource_attributes =
+let make ?description ?id ?purpose ?purpose_data ?timeouts ~parent
+    ~short_name __id =
+  let __type = "google_tags_tag_key" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespaced_name =
-         Prop.computed __resource_type __resource_id
-           "namespaced_name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       purpose_data =
-         Prop.computed __resource_type __resource_id "purpose_data";
-       short_name =
-         Prop.computed __resource_type __resource_id "short_name";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespaced_name = Prop.computed __type __id "namespaced_name";
+       parent = Prop.computed __type __id "parent";
+       purpose = Prop.computed __type __id "purpose";
+       purpose_data = Prop.computed __type __id "purpose_data";
+       short_name = Prop.computed __type __id "short_name";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_tags_tag_key
+        (google_tags_tag_key ?description ?id ?purpose ?purpose_data
+           ?timeouts ~parent ~short_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?purpose ?purpose_data
+    ?timeouts ~parent ~short_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?purpose ?purpose_data ?timeouts ~parent
+      ~short_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

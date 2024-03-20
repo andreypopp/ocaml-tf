@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type matching__auto_merging__conflict_resolution = {
   conflict_resolving_model : string prop;
@@ -235,38 +233,46 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?dead_letter_queue_url
-    ?default_encryption_key ?id ?tags ?tags_all
-    ~default_expiration_days ~domain_name ~matching
-    ~rule_based_matching __resource_id =
-  let __resource_type = "aws_customerprofiles_domain" in
-  let __resource =
-    aws_customerprofiles_domain ?dead_letter_queue_url
-      ?default_encryption_key ?id ?tags ?tags_all
-      ~default_expiration_days ~domain_name ~matching
-      ~rule_based_matching ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_customerprofiles_domain __resource);
-  let __resource_attributes =
+let make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
+    ?tags_all ~default_expiration_days ~domain_name ~matching
+    ~rule_based_matching __id =
+  let __type = "aws_customerprofiles_domain" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        dead_letter_queue_url =
-         Prop.computed __resource_type __resource_id
-           "dead_letter_queue_url";
+         Prop.computed __type __id "dead_letter_queue_url";
        default_encryption_key =
-         Prop.computed __resource_type __resource_id
-           "default_encryption_key";
+         Prop.computed __type __id "default_encryption_key";
        default_expiration_days =
-         Prop.computed __resource_type __resource_id
-           "default_expiration_days";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "default_expiration_days";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_customerprofiles_domain
+        (aws_customerprofiles_domain ?dead_letter_queue_url
+           ?default_encryption_key ?id ?tags ?tags_all
+           ~default_expiration_days ~domain_name ~matching
+           ~rule_based_matching ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?dead_letter_queue_url
+    ?default_encryption_key ?id ?tags ?tags_all
+    ~default_expiration_days ~domain_name ~matching
+    ~rule_based_matching __id =
+  let (r : _ Tf_core.resource) =
+    make ?dead_letter_queue_url ?default_encryption_key ?id ?tags
+      ?tags_all ~default_expiration_days ~domain_name ~matching
+      ~rule_based_matching __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

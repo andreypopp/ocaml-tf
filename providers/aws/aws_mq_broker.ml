@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration = {
   id : string prop option; [@option]  (** id *)
@@ -217,6 +215,65 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?apply_immediately ?authentication_strategy
+    ?auto_minor_version_upgrade ?data_replication_mode
+    ?data_replication_primary_broker_arn ?deployment_mode ?id
+    ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
+    ?tags ?tags_all ?timeouts ~broker_name ~engine_type
+    ~engine_version ~host_instance_type ~configuration
+    ~encryption_options ~ldap_server_metadata ~logs
+    ~maintenance_window_start_time ~user __id =
+  let __type = "aws_mq_broker" in
+  let __attrs =
+    ({
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       authentication_strategy =
+         Prop.computed __type __id "authentication_strategy";
+       auto_minor_version_upgrade =
+         Prop.computed __type __id "auto_minor_version_upgrade";
+       broker_name = Prop.computed __type __id "broker_name";
+       data_replication_mode =
+         Prop.computed __type __id "data_replication_mode";
+       data_replication_primary_broker_arn =
+         Prop.computed __type __id
+           "data_replication_primary_broker_arn";
+       deployment_mode = Prop.computed __type __id "deployment_mode";
+       engine_type = Prop.computed __type __id "engine_type";
+       engine_version = Prop.computed __type __id "engine_version";
+       host_instance_type =
+         Prop.computed __type __id "host_instance_type";
+       id = Prop.computed __type __id "id";
+       instances = Prop.computed __type __id "instances";
+       pending_data_replication_mode =
+         Prop.computed __type __id "pending_data_replication_mode";
+       publicly_accessible =
+         Prop.computed __type __id "publicly_accessible";
+       security_groups = Prop.computed __type __id "security_groups";
+       storage_type = Prop.computed __type __id "storage_type";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_mq_broker
+        (aws_mq_broker ?apply_immediately ?authentication_strategy
+           ?auto_minor_version_upgrade ?data_replication_mode
+           ?data_replication_primary_broker_arn ?deployment_mode ?id
+           ?publicly_accessible ?security_groups ?storage_type
+           ?subnet_ids ?tags ?tags_all ?timeouts ~broker_name
+           ~engine_type ~engine_version ~host_instance_type
+           ~configuration ~encryption_options ~ldap_server_metadata
+           ~logs ~maintenance_window_start_time ~user ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_immediately ?authentication_strategy
     ?auto_minor_version_upgrade ?data_replication_mode
     ?data_replication_primary_broker_arn ?deployment_mode ?id
@@ -224,70 +281,16 @@ let register ?tf_module ?apply_immediately ?authentication_strategy
     ?tags ?tags_all ?timeouts ~broker_name ~engine_type
     ~engine_version ~host_instance_type ~configuration
     ~encryption_options ~ldap_server_metadata ~logs
-    ~maintenance_window_start_time ~user __resource_id =
-  let __resource_type = "aws_mq_broker" in
-  let __resource =
-    aws_mq_broker ?apply_immediately ?authentication_strategy
+    ~maintenance_window_start_time ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_immediately ?authentication_strategy
       ?auto_minor_version_upgrade ?data_replication_mode
       ?data_replication_primary_broker_arn ?deployment_mode ?id
       ?publicly_accessible ?security_groups ?storage_type ?subnet_ids
       ?tags ?tags_all ?timeouts ~broker_name ~engine_type
       ~engine_version ~host_instance_type ~configuration
       ~encryption_options ~ldap_server_metadata ~logs
-      ~maintenance_window_start_time ~user ()
+      ~maintenance_window_start_time ~user __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_mq_broker __resource);
-  let __resource_attributes =
-    ({
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication_strategy =
-         Prop.computed __resource_type __resource_id
-           "authentication_strategy";
-       auto_minor_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "auto_minor_version_upgrade";
-       broker_name =
-         Prop.computed __resource_type __resource_id "broker_name";
-       data_replication_mode =
-         Prop.computed __resource_type __resource_id
-           "data_replication_mode";
-       data_replication_primary_broker_arn =
-         Prop.computed __resource_type __resource_id
-           "data_replication_primary_broker_arn";
-       deployment_mode =
-         Prop.computed __resource_type __resource_id
-           "deployment_mode";
-       engine_type =
-         Prop.computed __resource_type __resource_id "engine_type";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       host_instance_type =
-         Prop.computed __resource_type __resource_id
-           "host_instance_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       instances =
-         Prop.computed __resource_type __resource_id "instances";
-       pending_data_replication_mode =
-         Prop.computed __resource_type __resource_id
-           "pending_data_replication_mode";
-       publicly_accessible =
-         Prop.computed __resource_type __resource_id
-           "publicly_accessible";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

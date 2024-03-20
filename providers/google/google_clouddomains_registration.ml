@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type contact_settings__admin_contact__postal_address = {
   address_lines : string prop list option; [@option]
@@ -383,53 +381,54 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?contact_notices ?domain_notices ?id ?labels
-    ?project ?timeouts ~domain_name ~location ~contact_settings
-    ~dns_settings ~management_settings ~yearly_price __resource_id =
-  let __resource_type = "google_clouddomains_registration" in
-  let __resource =
-    google_clouddomains_registration ?contact_notices ?domain_notices
-      ?id ?labels ?project ?timeouts ~domain_name ~location
-      ~contact_settings ~dns_settings ~management_settings
-      ~yearly_price ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_clouddomains_registration __resource);
-  let __resource_attributes =
+let make ?contact_notices ?domain_notices ?id ?labels ?project
+    ?timeouts ~domain_name ~location ~contact_settings ~dns_settings
+    ~management_settings ~yearly_price __id =
+  let __type = "google_clouddomains_registration" in
+  let __attrs =
     ({
-       contact_notices =
-         Prop.computed __resource_type __resource_id
-           "contact_notices";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       domain_notices =
-         Prop.computed __resource_type __resource_id "domain_notices";
+       contact_notices = Prop.computed __type __id "contact_notices";
+       create_time = Prop.computed __type __id "create_time";
+       domain_name = Prop.computed __type __id "domain_name";
+       domain_notices = Prop.computed __type __id "domain_notices";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       issues = Prop.computed __resource_type __resource_id "issues";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "effective_labels";
+       expire_time = Prop.computed __type __id "expire_time";
+       id = Prop.computed __type __id "id";
+       issues = Prop.computed __type __id "issues";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        register_failure_reason =
-         Prop.computed __resource_type __resource_id
-           "register_failure_reason";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "register_failure_reason";
+       state = Prop.computed __type __id "state";
        supported_privacy =
-         Prop.computed __resource_type __resource_id
-           "supported_privacy";
+         Prop.computed __type __id "supported_privacy";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_clouddomains_registration
+        (google_clouddomains_registration ?contact_notices
+           ?domain_notices ?id ?labels ?project ?timeouts
+           ~domain_name ~location ~contact_settings ~dns_settings
+           ~management_settings ~yearly_price ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?contact_notices ?domain_notices ?id ?labels
+    ?project ?timeouts ~domain_name ~location ~contact_settings
+    ~dns_settings ~management_settings ~yearly_price __id =
+  let (r : _ Tf_core.resource) =
+    make ?contact_notices ?domain_notices ?id ?labels ?project
+      ?timeouts ~domain_name ~location ~contact_settings
+      ~dns_settings ~management_settings ~yearly_price __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,35 +50,38 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~export_custom_routes
-    ~import_custom_routes ~network ~peering __resource_id =
-  let __resource_type =
-    "google_compute_network_peering_routes_config"
-  in
-  let __resource =
-    google_compute_network_peering_routes_config ?id ?project
-      ?timeouts ~export_custom_routes ~import_custom_routes ~network
-      ~peering ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_network_peering_routes_config
-       __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~export_custom_routes
+    ~import_custom_routes ~network ~peering __id =
+  let __type = "google_compute_network_peering_routes_config" in
+  let __attrs =
     ({
        export_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "export_custom_routes";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "export_custom_routes";
+       id = Prop.computed __type __id "id";
        import_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "import_custom_routes";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       peering =
-         Prop.computed __resource_type __resource_id "peering";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "import_custom_routes";
+       network = Prop.computed __type __id "network";
+       peering = Prop.computed __type __id "peering";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_network_peering_routes_config
+        (google_compute_network_peering_routes_config ?id ?project
+           ?timeouts ~export_custom_routes ~import_custom_routes
+           ~network ~peering ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~export_custom_routes
+    ~import_custom_routes ~network ~peering __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~export_custom_routes
+      ~import_custom_routes ~network ~peering __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

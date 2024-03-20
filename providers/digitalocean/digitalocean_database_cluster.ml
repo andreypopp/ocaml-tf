@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backup_restore = {
   backup_created_at : string prop option; [@option]
@@ -107,58 +105,62 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?eviction_policy ?id ?private_network_uuid
-    ?project_id ?sql_mode ?storage_size_mib ?tags ?version ?timeouts
-    ~engine ~name ~node_count ~region ~size ~backup_restore
-    ~maintenance_window __resource_id =
-  let __resource_type = "digitalocean_database_cluster" in
-  let __resource =
-    digitalocean_database_cluster ?eviction_policy ?id
-      ?private_network_uuid ?project_id ?sql_mode ?storage_size_mib
-      ?tags ?version ?timeouts ~engine ~name ~node_count ~region
-      ~size ~backup_restore ~maintenance_window ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_cluster __resource);
-  let __resource_attributes =
+let make ?eviction_policy ?id ?private_network_uuid ?project_id
+    ?sql_mode ?storage_size_mib ?tags ?version ?timeouts ~engine
+    ~name ~node_count ~region ~size ~backup_restore
+    ~maintenance_window __id =
+  let __type = "digitalocean_database_cluster" in
+  let __attrs =
     ({
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       eviction_policy =
-         Prop.computed __resource_type __resource_id
-           "eviction_policy";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       port = Prop.computed __resource_type __resource_id "port";
-       private_host =
-         Prop.computed __resource_type __resource_id "private_host";
+       database = Prop.computed __type __id "database";
+       engine = Prop.computed __type __id "engine";
+       eviction_policy = Prop.computed __type __id "eviction_policy";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       password = Prop.computed __type __id "password";
+       port = Prop.computed __type __id "port";
+       private_host = Prop.computed __type __id "private_host";
        private_network_uuid =
-         Prop.computed __resource_type __resource_id
-           "private_network_uuid";
-       private_uri =
-         Prop.computed __resource_type __resource_id "private_uri";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       region = Prop.computed __resource_type __resource_id "region";
-       size = Prop.computed __resource_type __resource_id "size";
-       sql_mode =
-         Prop.computed __resource_type __resource_id "sql_mode";
+         Prop.computed __type __id "private_network_uuid";
+       private_uri = Prop.computed __type __id "private_uri";
+       project_id = Prop.computed __type __id "project_id";
+       region = Prop.computed __type __id "region";
+       size = Prop.computed __type __id "size";
+       sql_mode = Prop.computed __type __id "sql_mode";
        storage_size_mib =
-         Prop.computed __resource_type __resource_id
-           "storage_size_mib";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       urn = Prop.computed __resource_type __resource_id "urn";
-       user = Prop.computed __resource_type __resource_id "user";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "storage_size_mib";
+       tags = Prop.computed __type __id "tags";
+       uri = Prop.computed __type __id "uri";
+       urn = Prop.computed __type __id "urn";
+       user = Prop.computed __type __id "user";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_cluster
+        (digitalocean_database_cluster ?eviction_policy ?id
+           ?private_network_uuid ?project_id ?sql_mode
+           ?storage_size_mib ?tags ?version ?timeouts ~engine ~name
+           ~node_count ~region ~size ~backup_restore
+           ~maintenance_window ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?eviction_policy ?id ?private_network_uuid
+    ?project_id ?sql_mode ?storage_size_mib ?tags ?version ?timeouts
+    ~engine ~name ~node_count ~region ~size ~backup_restore
+    ~maintenance_window __id =
+  let (r : _ Tf_core.resource) =
+    make ?eviction_policy ?id ?private_network_uuid ?project_id
+      ?sql_mode ?storage_size_mib ?tags ?version ?timeouts ~engine
+      ~name ~node_count ~region ~size ~backup_restore
+      ~maintenance_window __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

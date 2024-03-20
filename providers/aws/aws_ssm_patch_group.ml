@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssm_patch_group = {
   baseline_id : string prop;  (** baseline_id *)
@@ -22,21 +20,28 @@ type t = {
   patch_group : string prop;
 }
 
-let register ?tf_module ?id ~baseline_id ~patch_group __resource_id =
-  let __resource_type = "aws_ssm_patch_group" in
-  let __resource =
-    aws_ssm_patch_group ?id ~baseline_id ~patch_group ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_patch_group __resource);
-  let __resource_attributes =
+let make ?id ~baseline_id ~patch_group __id =
+  let __type = "aws_ssm_patch_group" in
+  let __attrs =
     ({
-       baseline_id =
-         Prop.computed __resource_type __resource_id "baseline_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       patch_group =
-         Prop.computed __resource_type __resource_id "patch_group";
+       baseline_id = Prop.computed __type __id "baseline_id";
+       id = Prop.computed __type __id "id";
+       patch_group = Prop.computed __type __id "patch_group";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_patch_group
+        (aws_ssm_patch_group ?id ~baseline_id ~patch_group ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~baseline_id ~patch_group __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~baseline_id ~patch_group __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

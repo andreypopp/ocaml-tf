@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_database_db = {
   cluster_id : string prop;  (** cluster_id *)
@@ -22,20 +20,26 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ~cluster_id ~name __resource_id =
-  let __resource_type = "digitalocean_database_db" in
-  let __resource =
-    digitalocean_database_db ?id ~cluster_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_db __resource);
-  let __resource_attributes =
+let make ?id ~cluster_id ~name __id =
+  let __type = "digitalocean_database_db" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_db
+        (digitalocean_database_db ?id ~cluster_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cluster_id ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ~cluster_id ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

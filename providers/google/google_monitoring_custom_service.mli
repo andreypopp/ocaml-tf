@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,14 @@ val register :
   telemetry:telemetry list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?service_id:string prop ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  telemetry:telemetry list ->
+  string ->
+  t Tf_core.resource

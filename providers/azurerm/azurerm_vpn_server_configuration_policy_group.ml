@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy = {
   name : string prop;  (** name *)
@@ -60,31 +58,36 @@ type t = {
   vpn_server_configuration_id : string prop;
 }
 
-let register ?tf_module ?id ?is_default ?priority ?timeouts ~name
-    ~vpn_server_configuration_id ~policy __resource_id =
-  let __resource_type =
-    "azurerm_vpn_server_configuration_policy_group"
-  in
-  let __resource =
-    azurerm_vpn_server_configuration_policy_group ?id ?is_default
-      ?priority ?timeouts ~name ~vpn_server_configuration_id ~policy
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_vpn_server_configuration_policy_group
-       __resource);
-  let __resource_attributes =
+let make ?id ?is_default ?priority ?timeouts ~name
+    ~vpn_server_configuration_id ~policy __id =
+  let __type = "azurerm_vpn_server_configuration_policy_group" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       is_default =
-         Prop.computed __resource_type __resource_id "is_default";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+       id = Prop.computed __type __id "id";
+       is_default = Prop.computed __type __id "is_default";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        vpn_server_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "vpn_server_configuration_id";
+         Prop.computed __type __id "vpn_server_configuration_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_vpn_server_configuration_policy_group
+        (azurerm_vpn_server_configuration_policy_group ?id
+           ?is_default ?priority ?timeouts ~name
+           ~vpn_server_configuration_id ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_default ?priority ?timeouts ~name
+    ~vpn_server_configuration_id ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_default ?priority ?timeouts ~name
+      ~vpn_server_configuration_id ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

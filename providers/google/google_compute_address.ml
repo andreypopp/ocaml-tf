@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -137,64 +135,62 @@ type t = {
   users : string list prop;
 }
 
-let register ?tf_module ?address ?address_type ?description ?id
-    ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
-    ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
-    ~name __resource_id =
-  let __resource_type = "google_compute_address" in
-  let __resource =
-    google_compute_address ?address ?address_type ?description ?id
-      ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
-      ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_address __resource);
-  let __resource_attributes =
+let make ?address ?address_type ?description ?id ?ip_version
+    ?ipv6_endpoint_type ?labels ?network ?network_tier ?prefix_length
+    ?project ?purpose ?region ?subnetwork ?timeouts ~name __id =
+  let __type = "google_compute_address" in
+  let __attrs =
     ({
-       address =
-         Prop.computed __resource_type __resource_id "address";
-       address_type =
-         Prop.computed __resource_type __resource_id "address_type";
+       address = Prop.computed __type __id "address";
+       address_type = Prop.computed __type __id "address_type";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_version =
-         Prop.computed __resource_type __resource_id "ip_version";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       ip_version = Prop.computed __type __id "ip_version";
        ipv6_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "ipv6_endpoint_type";
+         Prop.computed __type __id "ipv6_endpoint_type";
        label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       network_tier =
-         Prop.computed __resource_type __resource_id "network_tier";
-       prefix_length =
-         Prop.computed __resource_type __resource_id "prefix_length";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       network_tier = Prop.computed __type __id "network_tier";
+       prefix_length = Prop.computed __type __id "prefix_length";
+       project = Prop.computed __type __id "project";
+       purpose = Prop.computed __type __id "purpose";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       subnetwork = Prop.computed __type __id "subnetwork";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       users = Prop.computed __resource_type __resource_id "users";
+         Prop.computed __type __id "terraform_labels";
+       users = Prop.computed __type __id "users";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_address
+        (google_compute_address ?address ?address_type ?description
+           ?id ?ip_version ?ipv6_endpoint_type ?labels ?network
+           ?network_tier ?prefix_length ?project ?purpose ?region
+           ?subnetwork ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?address ?address_type ?description ?id
+    ?ip_version ?ipv6_endpoint_type ?labels ?network ?network_tier
+    ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?address ?address_type ?description ?id ?ip_version
+      ?ipv6_endpoint_type ?labels ?network ?network_tier
+      ?prefix_length ?project ?purpose ?region ?subnetwork ?timeouts
+      ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

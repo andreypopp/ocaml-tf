@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -173,3 +173,39 @@ val register :
   source_repository:source_repository list ->
   string ->
   t
+
+val make :
+  ?available_memory_mb:float prop ->
+  ?build_environment_variables:(string * string prop) list ->
+  ?build_worker_pool:string prop ->
+  ?description:string prop ->
+  ?docker_registry:string prop ->
+  ?docker_repository:string prop ->
+  ?entry_point:string prop ->
+  ?environment_variables:(string * string prop) list ->
+  ?https_trigger_security_level:string prop ->
+  ?https_trigger_url:string prop ->
+  ?id:string prop ->
+  ?ingress_settings:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_instances:float prop ->
+  ?min_instances:float prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?service_account_email:string prop ->
+  ?source_archive_bucket:string prop ->
+  ?source_archive_object:string prop ->
+  ?timeout:float prop ->
+  ?trigger_http:bool prop ->
+  ?vpc_connector:string prop ->
+  ?vpc_connector_egress_settings:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  runtime:string prop ->
+  event_trigger:event_trigger list ->
+  secret_environment_variables:secret_environment_variables list ->
+  secret_volumes:secret_volumes list ->
+  source_repository:source_repository list ->
+  string ->
+  t Tf_core.resource

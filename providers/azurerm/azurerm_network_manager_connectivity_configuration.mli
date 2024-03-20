@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,17 @@ val register :
   hub:hub list ->
   string ->
   t
+
+val make :
+  ?delete_existing_peering_enabled:bool prop ->
+  ?description:string prop ->
+  ?global_mesh_enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  connectivity_topology:string prop ->
+  name:string prop ->
+  network_manager_id:string prop ->
+  applies_to_group:applies_to_group list ->
+  hub:hub list ->
+  string ->
+  t Tf_core.resource

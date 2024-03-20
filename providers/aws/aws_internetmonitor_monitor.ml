@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type health_events_config = {
   availability_score_threshold : float prop option; [@option]
@@ -90,38 +88,47 @@ type t = {
   traffic_percentage_to_monitor : float prop;
 }
 
-let register ?tf_module ?id ?max_city_networks_to_monitor ?resources
-    ?status ?tags ?tags_all ?traffic_percentage_to_monitor
-    ~monitor_name ~health_events_config
-    ~internet_measurements_log_delivery __resource_id =
-  let __resource_type = "aws_internetmonitor_monitor" in
-  let __resource =
-    aws_internetmonitor_monitor ?id ?max_city_networks_to_monitor
-      ?resources ?status ?tags ?tags_all
-      ?traffic_percentage_to_monitor ~monitor_name
-      ~health_events_config ~internet_measurements_log_delivery ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_internetmonitor_monitor __resource);
-  let __resource_attributes =
+let make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
+    ?tags_all ?traffic_percentage_to_monitor ~monitor_name
+    ~health_events_config ~internet_measurements_log_delivery __id =
+  let __type = "aws_internetmonitor_monitor" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        max_city_networks_to_monitor =
-         Prop.computed __resource_type __resource_id
-           "max_city_networks_to_monitor";
-       monitor_name =
-         Prop.computed __resource_type __resource_id "monitor_name";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "max_city_networks_to_monitor";
+       monitor_name = Prop.computed __type __id "monitor_name";
+       resources = Prop.computed __type __id "resources";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        traffic_percentage_to_monitor =
-         Prop.computed __resource_type __resource_id
-           "traffic_percentage_to_monitor";
+         Prop.computed __type __id "traffic_percentage_to_monitor";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_internetmonitor_monitor
+        (aws_internetmonitor_monitor ?id
+           ?max_city_networks_to_monitor ?resources ?status ?tags
+           ?tags_all ?traffic_percentage_to_monitor ~monitor_name
+           ~health_events_config ~internet_measurements_log_delivery
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?max_city_networks_to_monitor ?resources
+    ?status ?tags ?tags_all ?traffic_percentage_to_monitor
+    ~monitor_name ~health_events_config
+    ~internet_measurements_log_delivery __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?max_city_networks_to_monitor ?resources ?status ?tags
+      ?tags_all ?traffic_percentage_to_monitor ~monitor_name
+      ~health_events_config ~internet_measurements_log_delivery __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

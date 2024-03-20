@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_worklink_website_certificate_authority_association = {
   certificate : string prop;  (** certificate *)
@@ -26,30 +24,34 @@ type t = {
   website_ca_id : string prop;
 }
 
-let register ?tf_module ?display_name ?id ~certificate ~fleet_arn
-    __resource_id =
-  let __resource_type =
+let make ?display_name ?id ~certificate ~fleet_arn __id =
+  let __type =
     "aws_worklink_website_certificate_authority_association"
   in
-  let __resource =
-    aws_worklink_website_certificate_authority_association
-      ?display_name ?id ~certificate ~fleet_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_worklink_website_certificate_authority_association
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       fleet_arn =
-         Prop.computed __resource_type __resource_id "fleet_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       website_ca_id =
-         Prop.computed __resource_type __resource_id "website_ca_id";
+       certificate = Prop.computed __type __id "certificate";
+       display_name = Prop.computed __type __id "display_name";
+       fleet_arn = Prop.computed __type __id "fleet_arn";
+       id = Prop.computed __type __id "id";
+       website_ca_id = Prop.computed __type __id "website_ca_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_worklink_website_certificate_authority_association
+        (aws_worklink_website_certificate_authority_association
+           ?display_name ?id ~certificate ~fleet_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ~certificate ~fleet_arn
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ~certificate ~fleet_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

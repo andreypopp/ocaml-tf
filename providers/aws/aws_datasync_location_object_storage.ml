@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_datasync_location_object_storage = {
   access_key : string prop option; [@option]  (** access_key *)
@@ -60,48 +58,49 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?access_key ?id ?secret_key
-    ?server_certificate ?server_port ?server_protocol ?subdirectory
-    ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname
-    __resource_id =
-  let __resource_type = "aws_datasync_location_object_storage" in
-  let __resource =
-    aws_datasync_location_object_storage ?access_key ?id ?secret_key
-      ?server_certificate ?server_port ?server_protocol ?subdirectory
-      ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_location_object_storage __resource);
-  let __resource_attributes =
+let make ?access_key ?id ?secret_key ?server_certificate ?server_port
+    ?server_protocol ?subdirectory ?tags ?tags_all ~agent_arns
+    ~bucket_name ~server_hostname __id =
+  let __type = "aws_datasync_location_object_storage" in
+  let __attrs =
     ({
-       access_key =
-         Prop.computed __resource_type __resource_id "access_key";
-       agent_arns =
-         Prop.computed __resource_type __resource_id "agent_arns";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       secret_key =
-         Prop.computed __resource_type __resource_id "secret_key";
+       access_key = Prop.computed __type __id "access_key";
+       agent_arns = Prop.computed __type __id "agent_arns";
+       arn = Prop.computed __type __id "arn";
+       bucket_name = Prop.computed __type __id "bucket_name";
+       id = Prop.computed __type __id "id";
+       secret_key = Prop.computed __type __id "secret_key";
        server_certificate =
-         Prop.computed __resource_type __resource_id
-           "server_certificate";
-       server_hostname =
-         Prop.computed __resource_type __resource_id
-           "server_hostname";
-       server_port =
-         Prop.computed __resource_type __resource_id "server_port";
-       server_protocol =
-         Prop.computed __resource_type __resource_id
-           "server_protocol";
-       subdirectory =
-         Prop.computed __resource_type __resource_id "subdirectory";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uri = Prop.computed __resource_type __resource_id "uri";
+         Prop.computed __type __id "server_certificate";
+       server_hostname = Prop.computed __type __id "server_hostname";
+       server_port = Prop.computed __type __id "server_port";
+       server_protocol = Prop.computed __type __id "server_protocol";
+       subdirectory = Prop.computed __type __id "subdirectory";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_location_object_storage
+        (aws_datasync_location_object_storage ?access_key ?id
+           ?secret_key ?server_certificate ?server_port
+           ?server_protocol ?subdirectory ?tags ?tags_all ~agent_arns
+           ~bucket_name ~server_hostname ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_key ?id ?secret_key
+    ?server_certificate ?server_port ?server_protocol ?subdirectory
+    ?tags ?tags_all ~agent_arns ~bucket_name ~server_hostname __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_key ?id ?secret_key ?server_certificate ?server_port
+      ?server_protocol ?subdirectory ?tags ?tags_all ~agent_arns
+      ~bucket_name ~server_hostname __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -82,46 +80,49 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?ca_certificate ?client_certificate
-    ?client_key ?dump_file_path ?id ?password ?port ?project ?region
-    ?username ?timeouts ~database_version ~host ~name __resource_id =
-  let __resource_type =
-    "google_sql_source_representation_instance"
-  in
-  let __resource =
-    google_sql_source_representation_instance ?ca_certificate
-      ?client_certificate ?client_key ?dump_file_path ?id ?password
-      ?port ?project ?region ?username ?timeouts ~database_version
-      ~host ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sql_source_representation_instance __resource);
-  let __resource_attributes =
+let make ?ca_certificate ?client_certificate ?client_key
+    ?dump_file_path ?id ?password ?port ?project ?region ?username
+    ?timeouts ~database_version ~host ~name __id =
+  let __type = "google_sql_source_representation_instance" in
+  let __attrs =
     ({
-       ca_certificate =
-         Prop.computed __resource_type __resource_id "ca_certificate";
+       ca_certificate = Prop.computed __type __id "ca_certificate";
        client_certificate =
-         Prop.computed __resource_type __resource_id
-           "client_certificate";
-       client_key =
-         Prop.computed __resource_type __resource_id "client_key";
+         Prop.computed __type __id "client_certificate";
+       client_key = Prop.computed __type __id "client_key";
        database_version =
-         Prop.computed __resource_type __resource_id
-           "database_version";
-       dump_file_path =
-         Prop.computed __resource_type __resource_id "dump_file_path";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "database_version";
+       dump_file_path = Prop.computed __type __id "dump_file_path";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sql_source_representation_instance
+        (google_sql_source_representation_instance ?ca_certificate
+           ?client_certificate ?client_key ?dump_file_path ?id
+           ?password ?port ?project ?region ?username ?timeouts
+           ~database_version ~host ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?ca_certificate ?client_certificate
+    ?client_key ?dump_file_path ?id ?password ?port ?project ?region
+    ?username ?timeouts ~database_version ~host ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?ca_certificate ?client_certificate ?client_key
+      ?dump_file_path ?id ?password ?port ?project ?region ?username
+      ?timeouts ~database_version ~host ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

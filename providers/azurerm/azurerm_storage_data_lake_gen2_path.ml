@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ace = {
   id : string prop option; [@option]  (** id *)
@@ -67,30 +65,38 @@ type t = {
   storage_account_id : string prop;
 }
 
-let register ?tf_module ?group ?id ?owner ?timeouts ~filesystem_name
-    ~path ~resource ~storage_account_id ~ace __resource_id =
-  let __resource_type = "azurerm_storage_data_lake_gen2_path" in
-  let __resource =
-    azurerm_storage_data_lake_gen2_path ?group ?id ?owner ?timeouts
-      ~filesystem_name ~path ~resource ~storage_account_id ~ace ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_data_lake_gen2_path __resource);
-  let __resource_attributes =
+let make ?group ?id ?owner ?timeouts ~filesystem_name ~path ~resource
+    ~storage_account_id ~ace __id =
+  let __type = "azurerm_storage_data_lake_gen2_path" in
+  let __attrs =
     ({
-       filesystem_name =
-         Prop.computed __resource_type __resource_id
-           "filesystem_name";
-       group = Prop.computed __resource_type __resource_id "group";
-       id = Prop.computed __resource_type __resource_id "id";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       path = Prop.computed __resource_type __resource_id "path";
-       resource =
-         Prop.computed __resource_type __resource_id "resource";
+       filesystem_name = Prop.computed __type __id "filesystem_name";
+       group = Prop.computed __type __id "group";
+       id = Prop.computed __type __id "id";
+       owner = Prop.computed __type __id "owner";
+       path = Prop.computed __type __id "path";
+       resource = Prop.computed __type __id "resource";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_data_lake_gen2_path
+        (azurerm_storage_data_lake_gen2_path ?group ?id ?owner
+           ?timeouts ~filesystem_name ~path ~resource
+           ~storage_account_id ~ace ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?group ?id ?owner ?timeouts ~filesystem_name
+    ~path ~resource ~storage_account_id ~ace __id =
+  let (r : _ Tf_core.resource) =
+    make ?group ?id ?owner ?timeouts ~filesystem_name ~path ~resource
+      ~storage_account_id ~ace __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

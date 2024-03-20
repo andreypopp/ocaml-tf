@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type actions__notification_property = {
   notify_delay_after : float prop option; [@option]
@@ -144,40 +142,47 @@ type t = {
   workflow_name : string prop;
 }
 
-let register ?tf_module ?description ?enabled ?id ?schedule
-    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
-    ~type_ ~actions ~event_batching_condition ~predicate
-    __resource_id =
-  let __resource_type = "aws_glue_trigger" in
-  let __resource =
-    aws_glue_trigger ?description ?enabled ?id ?schedule
-      ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts
-      ~name ~type_ ~actions ~event_batching_condition ~predicate ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_trigger __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
+    ?tags_all ?workflow_name ?timeouts ~name ~type_ ~actions
+    ~event_batching_condition ~predicate __id =
+  let __type = "aws_glue_trigger" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       schedule = Prop.computed __type __id "schedule";
        start_on_creation =
-         Prop.computed __resource_type __resource_id
-           "start_on_creation";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       workflow_name =
-         Prop.computed __resource_type __resource_id "workflow_name";
+         Prop.computed __type __id "start_on_creation";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       workflow_name = Prop.computed __type __id "workflow_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_trigger
+        (aws_glue_trigger ?description ?enabled ?id ?schedule
+           ?start_on_creation ?tags ?tags_all ?workflow_name
+           ?timeouts ~name ~type_ ~actions ~event_batching_condition
+           ~predicate ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?id ?schedule
+    ?start_on_creation ?tags ?tags_all ?workflow_name ?timeouts ~name
+    ~type_ ~actions ~event_batching_condition ~predicate __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?id ?schedule ?start_on_creation ?tags
+      ?tags_all ?workflow_name ?timeouts ~name ~type_ ~actions
+      ~event_batching_condition ~predicate __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

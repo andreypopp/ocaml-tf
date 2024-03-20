@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -152,6 +150,72 @@ type t = {
   version : string prop;
 }
 
+let make ?administrator_login ?administrator_login_password
+    ?auto_grow_enabled ?backup_retention_days ?create_mode
+    ?creation_source_server_id ?geo_redundant_backup_enabled ?id
+    ?infrastructure_encryption_enabled ?public_network_access_enabled
+    ?restore_point_in_time ?ssl_minimal_tls_version_enforced
+    ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
+    ~sku_name ~ssl_enforcement_enabled ~version ~identity
+    ~threat_detection_policy __id =
+  let __type = "azurerm_postgresql_server" in
+  let __attrs =
+    ({
+       administrator_login =
+         Prop.computed __type __id "administrator_login";
+       administrator_login_password =
+         Prop.computed __type __id "administrator_login_password";
+       auto_grow_enabled =
+         Prop.computed __type __id "auto_grow_enabled";
+       backup_retention_days =
+         Prop.computed __type __id "backup_retention_days";
+       create_mode = Prop.computed __type __id "create_mode";
+       creation_source_server_id =
+         Prop.computed __type __id "creation_source_server_id";
+       fqdn = Prop.computed __type __id "fqdn";
+       geo_redundant_backup_enabled =
+         Prop.computed __type __id "geo_redundant_backup_enabled";
+       id = Prop.computed __type __id "id";
+       infrastructure_encryption_enabled =
+         Prop.computed __type __id
+           "infrastructure_encryption_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       restore_point_in_time =
+         Prop.computed __type __id "restore_point_in_time";
+       sku_name = Prop.computed __type __id "sku_name";
+       ssl_enforcement_enabled =
+         Prop.computed __type __id "ssl_enforcement_enabled";
+       ssl_minimal_tls_version_enforced =
+         Prop.computed __type __id "ssl_minimal_tls_version_enforced";
+       storage_mb = Prop.computed __type __id "storage_mb";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_postgresql_server
+        (azurerm_postgresql_server ?administrator_login
+           ?administrator_login_password ?auto_grow_enabled
+           ?backup_retention_days ?create_mode
+           ?creation_source_server_id ?geo_redundant_backup_enabled
+           ?id ?infrastructure_encryption_enabled
+           ?public_network_access_enabled ?restore_point_in_time
+           ?ssl_minimal_tls_version_enforced ?storage_mb ?tags
+           ?timeouts ~location ~name ~resource_group_name ~sku_name
+           ~ssl_enforcement_enabled ~version ~identity
+           ~threat_detection_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?administrator_login
     ?administrator_login_password ?auto_grow_enabled
     ?backup_retention_days ?create_mode ?creation_source_server_id
@@ -160,75 +224,17 @@ let register ?tf_module ?administrator_login
     ?restore_point_in_time ?ssl_minimal_tls_version_enforced
     ?storage_mb ?tags ?timeouts ~location ~name ~resource_group_name
     ~sku_name ~ssl_enforcement_enabled ~version ~identity
-    ~threat_detection_policy __resource_id =
-  let __resource_type = "azurerm_postgresql_server" in
-  let __resource =
-    azurerm_postgresql_server ?administrator_login
-      ?administrator_login_password ?auto_grow_enabled
-      ?backup_retention_days ?create_mode ?creation_source_server_id
-      ?geo_redundant_backup_enabled ?id
+    ~threat_detection_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?administrator_login ?administrator_login_password
+      ?auto_grow_enabled ?backup_retention_days ?create_mode
+      ?creation_source_server_id ?geo_redundant_backup_enabled ?id
       ?infrastructure_encryption_enabled
       ?public_network_access_enabled ?restore_point_in_time
       ?ssl_minimal_tls_version_enforced ?storage_mb ?tags ?timeouts
       ~location ~name ~resource_group_name ~sku_name
       ~ssl_enforcement_enabled ~version ~identity
-      ~threat_detection_policy ()
+      ~threat_detection_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_postgresql_server __resource);
-  let __resource_attributes =
-    ({
-       administrator_login =
-         Prop.computed __resource_type __resource_id
-           "administrator_login";
-       administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_login_password";
-       auto_grow_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_grow_enabled";
-       backup_retention_days =
-         Prop.computed __resource_type __resource_id
-           "backup_retention_days";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       creation_source_server_id =
-         Prop.computed __resource_type __resource_id
-           "creation_source_server_id";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       geo_redundant_backup_enabled =
-         Prop.computed __resource_type __resource_id
-           "geo_redundant_backup_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       infrastructure_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_encryption_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       restore_point_in_time =
-         Prop.computed __resource_type __resource_id
-           "restore_point_in_time";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       ssl_enforcement_enabled =
-         Prop.computed __resource_type __resource_id
-           "ssl_enforcement_enabled";
-       ssl_minimal_tls_version_enforced =
-         Prop.computed __resource_type __resource_id
-           "ssl_minimal_tls_version_enforced";
-       storage_mb =
-         Prop.computed __resource_type __resource_id "storage_mb";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

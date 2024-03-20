@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   volume_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?quota_target:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  quota_size_in_kib:float prop ->
+  quota_type:string prop ->
+  volume_id:string prop ->
+  string ->
+  t Tf_core.resource

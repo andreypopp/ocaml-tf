@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action__parameter = {
   key : string prop;  (** key *)
@@ -185,28 +183,36 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~description
-    ~role_arn ~action ~log_configuration ~stop_condition ~target
-    __resource_id =
-  let __resource_type = "aws_fis_experiment_template" in
-  let __resource =
-    aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
-      ~description ~role_arn ~action ~log_configuration
-      ~stop_condition ~target ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fis_experiment_template __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~description ~role_arn ~action
+    ~log_configuration ~stop_condition ~target __id =
+  let __type = "aws_fis_experiment_template" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fis_experiment_template
+        (aws_fis_experiment_template ?id ?tags ?tags_all ?timeouts
+           ~description ~role_arn ~action ~log_configuration
+           ~stop_condition ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~description
+    ~role_arn ~action ~log_configuration ~stop_condition ~target __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~description ~role_arn ~action
+      ~log_configuration ~stop_condition ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule__inherited_value = {
   dimension_key : string prop option; [@option]  (** dimension_key *)
@@ -302,34 +300,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?default_value ?effective_start ?id ?tags
-    ?tags_all ~name ~rule_version ~rule ~split_charge_rule
-    __resource_id =
-  let __resource_type = "aws_ce_cost_category" in
-  let __resource =
-    aws_ce_cost_category ?default_value ?effective_start ?id ?tags
-      ?tags_all ~name ~rule_version ~rule ~split_charge_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ce_cost_category __resource);
-  let __resource_attributes =
+let make ?default_value ?effective_start ?id ?tags ?tags_all ~name
+    ~rule_version ~rule ~split_charge_rule __id =
+  let __type = "aws_ce_cost_category" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       default_value =
-         Prop.computed __resource_type __resource_id "default_value";
-       effective_end =
-         Prop.computed __resource_type __resource_id "effective_end";
-       effective_start =
-         Prop.computed __resource_type __resource_id
-           "effective_start";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       rule_version =
-         Prop.computed __resource_type __resource_id "rule_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       default_value = Prop.computed __type __id "default_value";
+       effective_end = Prop.computed __type __id "effective_end";
+       effective_start = Prop.computed __type __id "effective_start";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       rule_version = Prop.computed __type __id "rule_version";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ce_cost_category
+        (aws_ce_cost_category ?default_value ?effective_start ?id
+           ?tags ?tags_all ~name ~rule_version ~rule
+           ~split_charge_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_value ?effective_start ?id ?tags
+    ?tags_all ~name ~rule_version ~rule ~split_charge_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_value ?effective_start ?id ?tags ?tags_all ~name
+      ~rule_version ~rule ~split_charge_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

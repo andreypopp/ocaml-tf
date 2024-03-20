@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type multiple_values_setting = {
   allow_multiple_values : bool prop option; [@option]
@@ -1202,36 +1200,43 @@ type t = {
   slot_type_id : string prop;
 }
 
-let register ?tf_module ?description ?slot_type_id ?timeouts ~bot_id
-    ~bot_version ~intent_id ~locale_id ~name ~multiple_values_setting
-    ~obfuscation_setting ~value_elicitation_setting __resource_id =
-  let __resource_type = "aws_lexv2models_slot" in
-  let __resource =
-    aws_lexv2models_slot ?description ?slot_type_id ?timeouts ~bot_id
-      ~bot_version ~intent_id ~locale_id ~name
-      ~multiple_values_setting ~obfuscation_setting
-      ~value_elicitation_setting ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lexv2models_slot __resource);
-  let __resource_attributes =
+let make ?description ?slot_type_id ?timeouts ~bot_id ~bot_version
+    ~intent_id ~locale_id ~name ~multiple_values_setting
+    ~obfuscation_setting ~value_elicitation_setting __id =
+  let __type = "aws_lexv2models_slot" in
+  let __attrs =
     ({
-       bot_id = Prop.computed __resource_type __resource_id "bot_id";
-       bot_version =
-         Prop.computed __resource_type __resource_id "bot_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       intent_id =
-         Prop.computed __resource_type __resource_id "intent_id";
-       locale_id =
-         Prop.computed __resource_type __resource_id "locale_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       slot_id =
-         Prop.computed __resource_type __resource_id "slot_id";
-       slot_type_id =
-         Prop.computed __resource_type __resource_id "slot_type_id";
+       bot_id = Prop.computed __type __id "bot_id";
+       bot_version = Prop.computed __type __id "bot_version";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       intent_id = Prop.computed __type __id "intent_id";
+       locale_id = Prop.computed __type __id "locale_id";
+       name = Prop.computed __type __id "name";
+       slot_id = Prop.computed __type __id "slot_id";
+       slot_type_id = Prop.computed __type __id "slot_type_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lexv2models_slot
+        (aws_lexv2models_slot ?description ?slot_type_id ?timeouts
+           ~bot_id ~bot_version ~intent_id ~locale_id ~name
+           ~multiple_values_setting ~obfuscation_setting
+           ~value_elicitation_setting ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?slot_type_id ?timeouts ~bot_id
+    ~bot_version ~intent_id ~locale_id ~name ~multiple_values_setting
+    ~obfuscation_setting ~value_elicitation_setting __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?slot_type_id ?timeouts ~bot_id ~bot_version
+      ~intent_id ~locale_id ~name ~multiple_values_setting
+      ~obfuscation_setting ~value_elicitation_setting __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

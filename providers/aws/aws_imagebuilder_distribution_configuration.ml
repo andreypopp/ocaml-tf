@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type distribution__ami_distribution_configuration__launch_permission = {
   organization_arns : string prop list option; [@option]
@@ -212,32 +210,35 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~name
-    ~distribution __resource_id =
-  let __resource_type =
-    "aws_imagebuilder_distribution_configuration"
-  in
-  let __resource =
-    aws_imagebuilder_distribution_configuration ?description ?id
-      ?tags ?tags_all ~name ~distribution ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_distribution_configuration __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~name ~distribution __id =
+  let __type = "aws_imagebuilder_distribution_configuration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       date_updated =
-         Prop.computed __resource_type __resource_id "date_updated";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       date_created = Prop.computed __type __id "date_created";
+       date_updated = Prop.computed __type __id "date_updated";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_distribution_configuration
+        (aws_imagebuilder_distribution_configuration ?description ?id
+           ?tags ?tags_all ~name ~distribution ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ~name
+    ~distribution __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~name ~distribution __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

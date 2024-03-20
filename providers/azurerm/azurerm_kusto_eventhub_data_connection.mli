@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,23 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?compression:string prop ->
+  ?data_format:string prop ->
+  ?database_routing_type:string prop ->
+  ?event_system_properties:string prop list ->
+  ?id:string prop ->
+  ?identity_id:string prop ->
+  ?mapping_rule_name:string prop ->
+  ?table_name:string prop ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  consumer_group:string prop ->
+  database_name:string prop ->
+  eventhub_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

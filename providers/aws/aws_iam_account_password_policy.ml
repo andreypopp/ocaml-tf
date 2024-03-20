@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_account_password_policy = {
   allow_users_to_change_password : bool prop option; [@option]
@@ -59,54 +57,60 @@ type t = {
   require_uppercase_characters : bool prop;
 }
 
+let make ?allow_users_to_change_password ?hard_expiry ?id
+    ?max_password_age ?minimum_password_length
+    ?password_reuse_prevention ?require_lowercase_characters
+    ?require_numbers ?require_symbols ?require_uppercase_characters
+    __id =
+  let __type = "aws_iam_account_password_policy" in
+  let __attrs =
+    ({
+       allow_users_to_change_password =
+         Prop.computed __type __id "allow_users_to_change_password";
+       expire_passwords =
+         Prop.computed __type __id "expire_passwords";
+       hard_expiry = Prop.computed __type __id "hard_expiry";
+       id = Prop.computed __type __id "id";
+       max_password_age =
+         Prop.computed __type __id "max_password_age";
+       minimum_password_length =
+         Prop.computed __type __id "minimum_password_length";
+       password_reuse_prevention =
+         Prop.computed __type __id "password_reuse_prevention";
+       require_lowercase_characters =
+         Prop.computed __type __id "require_lowercase_characters";
+       require_numbers = Prop.computed __type __id "require_numbers";
+       require_symbols = Prop.computed __type __id "require_symbols";
+       require_uppercase_characters =
+         Prop.computed __type __id "require_uppercase_characters";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_account_password_policy
+        (aws_iam_account_password_policy
+           ?allow_users_to_change_password ?hard_expiry ?id
+           ?max_password_age ?minimum_password_length
+           ?password_reuse_prevention ?require_lowercase_characters
+           ?require_numbers ?require_symbols
+           ?require_uppercase_characters ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_users_to_change_password ?hard_expiry
     ?id ?max_password_age ?minimum_password_length
     ?password_reuse_prevention ?require_lowercase_characters
     ?require_numbers ?require_symbols ?require_uppercase_characters
-    __resource_id =
-  let __resource_type = "aws_iam_account_password_policy" in
-  let __resource =
-    aws_iam_account_password_policy ?allow_users_to_change_password
-      ?hard_expiry ?id ?max_password_age ?minimum_password_length
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_users_to_change_password ?hard_expiry ?id
+      ?max_password_age ?minimum_password_length
       ?password_reuse_prevention ?require_lowercase_characters
       ?require_numbers ?require_symbols ?require_uppercase_characters
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_account_password_policy __resource);
-  let __resource_attributes =
-    ({
-       allow_users_to_change_password =
-         Prop.computed __resource_type __resource_id
-           "allow_users_to_change_password";
-       expire_passwords =
-         Prop.computed __resource_type __resource_id
-           "expire_passwords";
-       hard_expiry =
-         Prop.computed __resource_type __resource_id "hard_expiry";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_password_age =
-         Prop.computed __resource_type __resource_id
-           "max_password_age";
-       minimum_password_length =
-         Prop.computed __resource_type __resource_id
-           "minimum_password_length";
-       password_reuse_prevention =
-         Prop.computed __resource_type __resource_id
-           "password_reuse_prevention";
-       require_lowercase_characters =
-         Prop.computed __resource_type __resource_id
-           "require_lowercase_characters";
-       require_numbers =
-         Prop.computed __resource_type __resource_id
-           "require_numbers";
-       require_symbols =
-         Prop.computed __resource_type __resource_id
-           "require_symbols";
-       require_uppercase_characters =
-         Prop.computed __resource_type __resource_id
-           "require_uppercase_characters";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

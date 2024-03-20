@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type kinesis_configuration = {
   aggregation_enabled : bool prop option; [@option]
@@ -70,37 +68,44 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?exclusive_end_time ?id ?tags ?tags_all
-    ?timeouts ~inclusive_start_time ~ledger_name ~role_arn
-    ~stream_name ~kinesis_configuration __resource_id =
-  let __resource_type = "aws_qldb_stream" in
-  let __resource =
-    aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
-      ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
-      ~kinesis_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_qldb_stream __resource);
-  let __resource_attributes =
+let make ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
+    ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
+    ~kinesis_configuration __id =
+  let __type = "aws_qldb_stream" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        exclusive_end_time =
-         Prop.computed __resource_type __resource_id
-           "exclusive_end_time";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "exclusive_end_time";
+       id = Prop.computed __type __id "id";
        inclusive_start_time =
-         Prop.computed __resource_type __resource_id
-           "inclusive_start_time";
-       ledger_name =
-         Prop.computed __resource_type __resource_id "ledger_name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       stream_name =
-         Prop.computed __resource_type __resource_id "stream_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "inclusive_start_time";
+       ledger_name = Prop.computed __type __id "ledger_name";
+       role_arn = Prop.computed __type __id "role_arn";
+       stream_name = Prop.computed __type __id "stream_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_qldb_stream
+        (aws_qldb_stream ?exclusive_end_time ?id ?tags ?tags_all
+           ?timeouts ~inclusive_start_time ~ledger_name ~role_arn
+           ~stream_name ~kinesis_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?exclusive_end_time ?id ?tags ?tags_all
+    ?timeouts ~inclusive_start_time ~ledger_name ~role_arn
+    ~stream_name ~kinesis_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?exclusive_end_time ?id ?tags ?tags_all ?timeouts
+      ~inclusive_start_time ~ledger_name ~role_arn ~stream_name
+      ~kinesis_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

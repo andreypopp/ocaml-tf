@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,21 @@ val register :
   parameters:parameters list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?max_capacity:float prop ->
+  ?max_retries:float prop ->
+  ?number_of_workers:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeout:float prop ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  input_record_tables:input_record_tables list ->
+  parameters:parameters list ->
+  string ->
+  t Tf_core.resource

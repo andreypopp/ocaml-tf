@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -111,3 +111,16 @@ val register :
   output_config:output_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  flow_definition_name:string prop ->
+  role_arn:string prop ->
+  human_loop_activation_config:human_loop_activation_config list ->
+  human_loop_config:human_loop_config list ->
+  human_loop_request_source:human_loop_request_source list ->
+  output_config:output_config list ->
+  string ->
+  t Tf_core.resource

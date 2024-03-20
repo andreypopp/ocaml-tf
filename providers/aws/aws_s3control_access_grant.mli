@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,15 @@ val register :
   grantee:grantee list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?s3_prefix_type:string prop ->
+  ?tags:(string * string prop) list ->
+  access_grants_location_id:string prop ->
+  permission:string prop ->
+  access_grants_location_configuration:
+    access_grants_location_configuration list ->
+  grantee:grantee list ->
+  string ->
+  t Tf_core.resource

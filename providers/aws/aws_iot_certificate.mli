@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,12 @@ val register :
   active:bool prop ->
   string ->
   t
+
+val make :
+  ?ca_pem:string prop ->
+  ?certificate_pem:string prop ->
+  ?csr:string prop ->
+  ?id:string prop ->
+  active:bool prop ->
+  string ->
+  t Tf_core.resource

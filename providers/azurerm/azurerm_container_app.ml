@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dapr = {
   app_id : string prop;  (** The Dapr Application Identifier. *)
@@ -607,50 +605,56 @@ type t = {
   workload_profile_name : string prop;
 }
 
-let register ?tf_module ?id ?tags ?workload_profile_name ?timeouts
+let make ?id ?tags ?workload_profile_name ?timeouts
     ~container_app_environment_id ~name ~resource_group_name
     ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-    ~template __resource_id =
-  let __resource_type = "azurerm_container_app" in
-  let __resource =
-    azurerm_container_app ?id ?tags ?workload_profile_name ?timeouts
-      ~container_app_environment_id ~name ~resource_group_name
-      ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
-      ~template ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_app __resource);
-  let __resource_attributes =
+    ~template __id =
+  let __type = "azurerm_container_app" in
+  let __attrs =
     ({
        container_app_environment_id =
-         Prop.computed __resource_type __resource_id
-           "container_app_environment_id";
+         Prop.computed __type __id "container_app_environment_id";
        custom_domain_verification_id =
-         Prop.computed __resource_type __resource_id
-           "custom_domain_verification_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "custom_domain_verification_id";
+       id = Prop.computed __type __id "id";
        latest_revision_fqdn =
-         Prop.computed __resource_type __resource_id
-           "latest_revision_fqdn";
+         Prop.computed __type __id "latest_revision_fqdn";
        latest_revision_name =
-         Prop.computed __resource_type __resource_id
-           "latest_revision_name";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "latest_revision_name";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_addresses";
+         Prop.computed __type __id "outbound_ip_addresses";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       revision_mode =
-         Prop.computed __resource_type __resource_id "revision_mode";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       revision_mode = Prop.computed __type __id "revision_mode";
+       tags = Prop.computed __type __id "tags";
        workload_profile_name =
-         Prop.computed __resource_type __resource_id
-           "workload_profile_name";
+         Prop.computed __type __id "workload_profile_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_app
+        (azurerm_container_app ?id ?tags ?workload_profile_name
+           ?timeouts ~container_app_environment_id ~name
+           ~resource_group_name ~revision_mode ~dapr ~identity
+           ~ingress ~registry ~secret ~template ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?workload_profile_name ?timeouts
+    ~container_app_environment_id ~name ~resource_group_name
+    ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
+    ~template __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?workload_profile_name ?timeouts
+      ~container_app_environment_id ~name ~resource_group_name
+      ~revision_mode ~dapr ~identity ~ingress ~registry ~secret
+      ~template __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

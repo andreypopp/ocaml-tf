@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -140,3 +140,30 @@ val register :
   schema_column:schema_column list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?column_delimiter:string prop ->
+  ?compression_codec:string prop ->
+  ?compression_level:string prop ->
+  ?description:string prop ->
+  ?encoding:string prop ->
+  ?escape_character:string prop ->
+  ?first_row_as_header:bool prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?null_value:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?quote_character:string prop ->
+  ?row_delimiter:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  azure_blob_fs_location:azure_blob_fs_location list ->
+  azure_blob_storage_location:azure_blob_storage_location list ->
+  http_server_location:http_server_location list ->
+  schema_column:schema_column list ->
+  string ->
+  t Tf_core.resource

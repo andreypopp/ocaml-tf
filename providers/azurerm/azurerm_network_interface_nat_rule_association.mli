@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   network_interface_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  ip_configuration_name:string prop ->
+  nat_rule_id:string prop ->
+  network_interface_id:string prop ->
+  string ->
+  t Tf_core.resource

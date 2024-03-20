@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type nat_ip_configuration = {
   name : string prop;  (** name *)
@@ -95,46 +93,56 @@ type t = {
   visibility_subscription_ids : string list prop;
 }
 
+let make ?auto_approval_subscription_ids ?enable_proxy_protocol
+    ?fqdns ?id ?tags ?visibility_subscription_ids ?timeouts
+    ~load_balancer_frontend_ip_configuration_ids ~location ~name
+    ~resource_group_name ~nat_ip_configuration __id =
+  let __type = "azurerm_private_link_service" in
+  let __attrs =
+    ({
+       alias = Prop.computed __type __id "alias";
+       auto_approval_subscription_ids =
+         Prop.computed __type __id "auto_approval_subscription_ids";
+       enable_proxy_protocol =
+         Prop.computed __type __id "enable_proxy_protocol";
+       fqdns = Prop.computed __type __id "fqdns";
+       id = Prop.computed __type __id "id";
+       load_balancer_frontend_ip_configuration_ids =
+         Prop.computed __type __id
+           "load_balancer_frontend_ip_configuration_ids";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       visibility_subscription_ids =
+         Prop.computed __type __id "visibility_subscription_ids";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_link_service
+        (azurerm_private_link_service ?auto_approval_subscription_ids
+           ?enable_proxy_protocol ?fqdns ?id ?tags
+           ?visibility_subscription_ids ?timeouts
+           ~load_balancer_frontend_ip_configuration_ids ~location
+           ~name ~resource_group_name ~nat_ip_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_approval_subscription_ids
     ?enable_proxy_protocol ?fqdns ?id ?tags
     ?visibility_subscription_ids ?timeouts
     ~load_balancer_frontend_ip_configuration_ids ~location ~name
-    ~resource_group_name ~nat_ip_configuration __resource_id =
-  let __resource_type = "azurerm_private_link_service" in
-  let __resource =
-    azurerm_private_link_service ?auto_approval_subscription_ids
-      ?enable_proxy_protocol ?fqdns ?id ?tags
-      ?visibility_subscription_ids ?timeouts
+    ~resource_group_name ~nat_ip_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_approval_subscription_ids ?enable_proxy_protocol
+      ?fqdns ?id ?tags ?visibility_subscription_ids ?timeouts
       ~load_balancer_frontend_ip_configuration_ids ~location ~name
-      ~resource_group_name ~nat_ip_configuration ()
+      ~resource_group_name ~nat_ip_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_link_service __resource);
-  let __resource_attributes =
-    ({
-       alias = Prop.computed __resource_type __resource_id "alias";
-       auto_approval_subscription_ids =
-         Prop.computed __resource_type __resource_id
-           "auto_approval_subscription_ids";
-       enable_proxy_protocol =
-         Prop.computed __resource_type __resource_id
-           "enable_proxy_protocol";
-       fqdns = Prop.computed __resource_type __resource_id "fqdns";
-       id = Prop.computed __resource_type __resource_id "id";
-       load_balancer_frontend_ip_configuration_ids =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_frontend_ip_configuration_ids";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       visibility_subscription_ids =
-         Prop.computed __resource_type __resource_id
-           "visibility_subscription_ids";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

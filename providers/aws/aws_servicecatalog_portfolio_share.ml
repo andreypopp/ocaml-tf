@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,40 +60,45 @@ type t = {
   wait_for_acceptance : bool prop;
 }
 
-let register ?tf_module ?accept_language ?id ?share_principals
-    ?share_tag_options ?wait_for_acceptance ?timeouts ~portfolio_id
-    ~principal_id ~type_ __resource_id =
-  let __resource_type = "aws_servicecatalog_portfolio_share" in
-  let __resource =
-    aws_servicecatalog_portfolio_share ?accept_language ?id
-      ?share_principals ?share_tag_options ?wait_for_acceptance
-      ?timeouts ~portfolio_id ~principal_id ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicecatalog_portfolio_share __resource);
-  let __resource_attributes =
+let make ?accept_language ?id ?share_principals ?share_tag_options
+    ?wait_for_acceptance ?timeouts ~portfolio_id ~principal_id ~type_
+    __id =
+  let __type = "aws_servicecatalog_portfolio_share" in
+  let __attrs =
     ({
-       accept_language =
-         Prop.computed __resource_type __resource_id
-           "accept_language";
-       accepted =
-         Prop.computed __resource_type __resource_id "accepted";
-       id = Prop.computed __resource_type __resource_id "id";
-       portfolio_id =
-         Prop.computed __resource_type __resource_id "portfolio_id";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
+       accept_language = Prop.computed __type __id "accept_language";
+       accepted = Prop.computed __type __id "accepted";
+       id = Prop.computed __type __id "id";
+       portfolio_id = Prop.computed __type __id "portfolio_id";
+       principal_id = Prop.computed __type __id "principal_id";
        share_principals =
-         Prop.computed __resource_type __resource_id
-           "share_principals";
+         Prop.computed __type __id "share_principals";
        share_tag_options =
-         Prop.computed __resource_type __resource_id
-           "share_tag_options";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "share_tag_options";
+       type_ = Prop.computed __type __id "type";
        wait_for_acceptance =
-         Prop.computed __resource_type __resource_id
-           "wait_for_acceptance";
+         Prop.computed __type __id "wait_for_acceptance";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicecatalog_portfolio_share
+        (aws_servicecatalog_portfolio_share ?accept_language ?id
+           ?share_principals ?share_tag_options ?wait_for_acceptance
+           ?timeouts ~portfolio_id ~principal_id ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accept_language ?id ?share_principals
+    ?share_tag_options ?wait_for_acceptance ?timeouts ~portfolio_id
+    ~principal_id ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?accept_language ?id ?share_principals ?share_tag_options
+      ?wait_for_acceptance ?timeouts ~portfolio_id ~principal_id
+      ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

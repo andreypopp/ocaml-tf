@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -68,44 +66,50 @@ type t = {
   storage_encrypted : bool prop;
 }
 
-let register ?tf_module ?deletion_protection ?engine ?engine_version
-    ?id ?source_db_cluster_identifier ?storage_encrypted ?timeouts
-    ~global_cluster_identifier __resource_id =
-  let __resource_type = "aws_neptune_global_cluster" in
-  let __resource =
-    aws_neptune_global_cluster ?deletion_protection ?engine
-      ?engine_version ?id ?source_db_cluster_identifier
-      ?storage_encrypted ?timeouts ~global_cluster_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_neptune_global_cluster __resource);
-  let __resource_attributes =
+let make ?deletion_protection ?engine ?engine_version ?id
+    ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ~global_cluster_identifier __id =
+  let __type = "aws_neptune_global_cluster" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
+         Prop.computed __type __id "deletion_protection";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
        global_cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "global_cluster_identifier";
+         Prop.computed __type __id "global_cluster_identifier";
        global_cluster_members =
-         Prop.computed __resource_type __resource_id
-           "global_cluster_members";
+         Prop.computed __type __id "global_cluster_members";
        global_cluster_resource_id =
-         Prop.computed __resource_type __resource_id
-           "global_cluster_resource_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "global_cluster_resource_id";
+       id = Prop.computed __type __id "id";
        source_db_cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "source_db_cluster_identifier";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "source_db_cluster_identifier";
+       status = Prop.computed __type __id "status";
        storage_encrypted =
-         Prop.computed __resource_type __resource_id
-           "storage_encrypted";
+         Prop.computed __type __id "storage_encrypted";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_neptune_global_cluster
+        (aws_neptune_global_cluster ?deletion_protection ?engine
+           ?engine_version ?id ?source_db_cluster_identifier
+           ?storage_encrypted ?timeouts ~global_cluster_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deletion_protection ?engine ?engine_version
+    ?id ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+    ~global_cluster_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_protection ?engine ?engine_version ?id
+      ?source_db_cluster_identifier ?storage_encrypted ?timeouts
+      ~global_cluster_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

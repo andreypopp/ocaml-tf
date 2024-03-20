@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,15 @@ val register :
   quiet_time:quiet_time list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  campaign_hook:campaign_hook list ->
+  limits:limits list ->
+  quiet_time:quiet_time list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -80,37 +78,40 @@ type t = {
   service_name : string prop;
 }
 
-let register ?tf_module ?grpc_config ?id ?openapi_config ?project
-    ?protoc_output_base64 ?timeouts ~service_name __resource_id =
-  let __resource_type = "google_endpoints_service" in
-  let __resource =
-    google_endpoints_service ?grpc_config ?id ?openapi_config
-      ?project ?protoc_output_base64 ?timeouts ~service_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_endpoints_service __resource);
-  let __resource_attributes =
+let make ?grpc_config ?id ?openapi_config ?project
+    ?protoc_output_base64 ?timeouts ~service_name __id =
+  let __type = "google_endpoints_service" in
+  let __attrs =
     ({
-       apis = Prop.computed __resource_type __resource_id "apis";
-       config_id =
-         Prop.computed __resource_type __resource_id "config_id";
-       dns_address =
-         Prop.computed __resource_type __resource_id "dns_address";
-       endpoints =
-         Prop.computed __resource_type __resource_id "endpoints";
-       grpc_config =
-         Prop.computed __resource_type __resource_id "grpc_config";
-       id = Prop.computed __resource_type __resource_id "id";
-       openapi_config =
-         Prop.computed __resource_type __resource_id "openapi_config";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       apis = Prop.computed __type __id "apis";
+       config_id = Prop.computed __type __id "config_id";
+       dns_address = Prop.computed __type __id "dns_address";
+       endpoints = Prop.computed __type __id "endpoints";
+       grpc_config = Prop.computed __type __id "grpc_config";
+       id = Prop.computed __type __id "id";
+       openapi_config = Prop.computed __type __id "openapi_config";
+       project = Prop.computed __type __id "project";
        protoc_output_base64 =
-         Prop.computed __resource_type __resource_id
-           "protoc_output_base64";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
+         Prop.computed __type __id "protoc_output_base64";
+       service_name = Prop.computed __type __id "service_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_endpoints_service
+        (google_endpoints_service ?grpc_config ?id ?openapi_config
+           ?project ?protoc_output_base64 ?timeouts ~service_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?grpc_config ?id ?openapi_config ?project
+    ?protoc_output_base64 ?timeouts ~service_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?grpc_config ?id ?openapi_config ?project
+      ?protoc_output_base64 ?timeouts ~service_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

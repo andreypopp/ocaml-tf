@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -122,3 +122,22 @@ val register :
   unique_key:unique_key list ->
   string ->
   t
+
+val make :
+  ?analytical_storage_ttl:float prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?partition_key_version:float prop ->
+  ?throughput:float prop ->
+  ?timeouts:timeouts ->
+  account_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  partition_key_path:string prop ->
+  resource_group_name:string prop ->
+  autoscale_settings:autoscale_settings list ->
+  conflict_resolution_policy:conflict_resolution_policy list ->
+  index_policy:index_policy list ->
+  unique_key:unique_key list ->
+  string ->
+  t Tf_core.resource

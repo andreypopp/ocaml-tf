@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,72 +83,73 @@ type t = {
   transit_encryption_enabled : bool prop;
 }
 
+let make ?automatic_failover_enabled ?cache_node_type ?engine_version
+    ?global_replication_group_description ?id ?num_node_groups
+    ?parameter_group_name ?timeouts
+    ~global_replication_group_id_suffix ~primary_replication_group_id
+    __id =
+  let __type = "aws_elasticache_global_replication_group" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       at_rest_encryption_enabled =
+         Prop.computed __type __id "at_rest_encryption_enabled";
+       auth_token_enabled =
+         Prop.computed __type __id "auth_token_enabled";
+       automatic_failover_enabled =
+         Prop.computed __type __id "automatic_failover_enabled";
+       cache_node_type = Prop.computed __type __id "cache_node_type";
+       cluster_enabled = Prop.computed __type __id "cluster_enabled";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       engine_version_actual =
+         Prop.computed __type __id "engine_version_actual";
+       global_node_groups =
+         Prop.computed __type __id "global_node_groups";
+       global_replication_group_description =
+         Prop.computed __type __id
+           "global_replication_group_description";
+       global_replication_group_id =
+         Prop.computed __type __id "global_replication_group_id";
+       global_replication_group_id_suffix =
+         Prop.computed __type __id
+           "global_replication_group_id_suffix";
+       id = Prop.computed __type __id "id";
+       num_node_groups = Prop.computed __type __id "num_node_groups";
+       parameter_group_name =
+         Prop.computed __type __id "parameter_group_name";
+       primary_replication_group_id =
+         Prop.computed __type __id "primary_replication_group_id";
+       transit_encryption_enabled =
+         Prop.computed __type __id "transit_encryption_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_global_replication_group
+        (aws_elasticache_global_replication_group
+           ?automatic_failover_enabled ?cache_node_type
+           ?engine_version ?global_replication_group_description ?id
+           ?num_node_groups ?parameter_group_name ?timeouts
+           ~global_replication_group_id_suffix
+           ~primary_replication_group_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?automatic_failover_enabled ?cache_node_type
     ?engine_version ?global_replication_group_description ?id
     ?num_node_groups ?parameter_group_name ?timeouts
     ~global_replication_group_id_suffix ~primary_replication_group_id
-    __resource_id =
-  let __resource_type = "aws_elasticache_global_replication_group" in
-  let __resource =
-    aws_elasticache_global_replication_group
-      ?automatic_failover_enabled ?cache_node_type ?engine_version
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_failover_enabled ?cache_node_type ?engine_version
       ?global_replication_group_description ?id ?num_node_groups
       ?parameter_group_name ?timeouts
       ~global_replication_group_id_suffix
-      ~primary_replication_group_id ()
+      ~primary_replication_group_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_global_replication_group __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       at_rest_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "at_rest_encryption_enabled";
-       auth_token_enabled =
-         Prop.computed __resource_type __resource_id
-           "auth_token_enabled";
-       automatic_failover_enabled =
-         Prop.computed __resource_type __resource_id
-           "automatic_failover_enabled";
-       cache_node_type =
-         Prop.computed __resource_type __resource_id
-           "cache_node_type";
-       cluster_enabled =
-         Prop.computed __resource_type __resource_id
-           "cluster_enabled";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       engine_version_actual =
-         Prop.computed __resource_type __resource_id
-           "engine_version_actual";
-       global_node_groups =
-         Prop.computed __resource_type __resource_id
-           "global_node_groups";
-       global_replication_group_description =
-         Prop.computed __resource_type __resource_id
-           "global_replication_group_description";
-       global_replication_group_id =
-         Prop.computed __resource_type __resource_id
-           "global_replication_group_id";
-       global_replication_group_id_suffix =
-         Prop.computed __resource_type __resource_id
-           "global_replication_group_id_suffix";
-       id = Prop.computed __resource_type __resource_id "id";
-       num_node_groups =
-         Prop.computed __resource_type __resource_id
-           "num_node_groups";
-       parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "parameter_group_name";
-       primary_replication_group_id =
-         Prop.computed __resource_type __resource_id
-           "primary_replication_group_id";
-       transit_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

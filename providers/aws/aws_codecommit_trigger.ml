@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type trigger = {
   branches : string prop list option; [@option]  (** branches *)
@@ -36,23 +34,29 @@ type t = {
   repository_name : string prop;
 }
 
-let register ?tf_module ?id ~repository_name ~trigger __resource_id =
-  let __resource_type = "aws_codecommit_trigger" in
-  let __resource =
-    aws_codecommit_trigger ?id ~repository_name ~trigger ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codecommit_trigger __resource);
-  let __resource_attributes =
+let make ?id ~repository_name ~trigger __id =
+  let __type = "aws_codecommit_trigger" in
+  let __attrs =
     ({
        configuration_id =
-         Prop.computed __resource_type __resource_id
-           "configuration_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       repository_name =
-         Prop.computed __resource_type __resource_id
-           "repository_name";
+         Prop.computed __type __id "configuration_id";
+       id = Prop.computed __type __id "id";
+       repository_name = Prop.computed __type __id "repository_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codecommit_trigger
+        (aws_codecommit_trigger ?id ~repository_name ~trigger ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~repository_name ~trigger __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~repository_name ~trigger __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

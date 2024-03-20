@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpclattice_access_log_subscription = {
   destination_arn : string prop;  (** destination_arn *)
@@ -30,31 +28,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~destination_arn
-    ~resource_identifier __resource_id =
-  let __resource_type = "aws_vpclattice_access_log_subscription" in
-  let __resource =
-    aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
-      ~destination_arn ~resource_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_access_log_subscription __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~destination_arn ~resource_identifier
+    __id =
+  let __type = "aws_vpclattice_access_log_subscription" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       destination_arn =
-         Prop.computed __resource_type __resource_id
-           "destination_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
+       arn = Prop.computed __type __id "arn";
+       destination_arn = Prop.computed __type __id "destination_arn";
+       id = Prop.computed __type __id "id";
+       resource_arn = Prop.computed __type __id "resource_arn";
        resource_identifier =
-         Prop.computed __resource_type __resource_id
-           "resource_identifier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "resource_identifier";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_access_log_subscription
+        (aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
+           ~destination_arn ~resource_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~destination_arn
+    ~resource_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~destination_arn ~resource_identifier
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

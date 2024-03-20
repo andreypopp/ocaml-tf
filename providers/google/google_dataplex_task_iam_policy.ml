@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_dataplex_task_iam_policy = {
   id : string prop option; [@option]  (** id *)
@@ -29,29 +27,34 @@ type t = {
   task_id : string prop;
 }
 
-let register ?tf_module ?id ?location ?project ~lake ~policy_data
-    ~task_id __resource_id =
-  let __resource_type = "google_dataplex_task_iam_policy" in
-  let __resource =
-    google_dataplex_task_iam_policy ?id ?location ?project ~lake
-      ~policy_data ~task_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dataplex_task_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ?location ?project ~lake ~policy_data ~task_id __id =
+  let __type = "google_dataplex_task_iam_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       lake = Prop.computed __resource_type __resource_id "lake";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       task_id =
-         Prop.computed __resource_type __resource_id "task_id";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       lake = Prop.computed __type __id "lake";
+       location = Prop.computed __type __id "location";
+       policy_data = Prop.computed __type __id "policy_data";
+       project = Prop.computed __type __id "project";
+       task_id = Prop.computed __type __id "task_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dataplex_task_iam_policy
+        (google_dataplex_task_iam_policy ?id ?location ?project ~lake
+           ~policy_data ~task_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?location ?project ~lake ~policy_data
+    ~task_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?location ?project ~lake ~policy_data ~task_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

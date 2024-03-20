@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parameter = {
   name : string prop;  (** name *)
@@ -52,29 +50,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?name ?name_prefix ?tags
-    ?tags_all ~family ~parameter __resource_id =
-  let __resource_type = "aws_memorydb_parameter_group" in
-  let __resource =
-    aws_memorydb_parameter_group ?description ?id ?name ?name_prefix
-      ?tags ?tags_all ~family ~parameter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_memorydb_parameter_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?name ?name_prefix ?tags ?tags_all ~family
+    ~parameter __id =
+  let __type = "aws_memorydb_parameter_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       family = Prop.computed __resource_type __resource_id "family";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       family = Prop.computed __type __id "family";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_memorydb_parameter_group
+        (aws_memorydb_parameter_group ?description ?id ?name
+           ?name_prefix ?tags ?tags_all ~family ~parameter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?name ?name_prefix ?tags
+    ?tags_all ~family ~parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?name ?name_prefix ?tags ?tags_all ~family
+      ~parameter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

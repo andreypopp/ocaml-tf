@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,14 @@ val register :
   scope:scope list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  framework_id:string prop ->
+  name:string prop ->
+  roles:roles list ->
+  assessment_reports_destination:assessment_reports_destination list ->
+  scope:scope list ->
+  string ->
+  t Tf_core.resource

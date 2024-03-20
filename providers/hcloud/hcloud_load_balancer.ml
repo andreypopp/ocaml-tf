@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type algorithm = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
@@ -68,38 +66,43 @@ type t = {
   network_zone : string prop;
 }
 
-let register ?tf_module ?delete_protection ?id ?labels ?location
-    ?network_zone ~load_balancer_type ~name ~algorithm ~target
-    __resource_id =
-  let __resource_type = "hcloud_load_balancer" in
-  let __resource =
-    hcloud_load_balancer ?delete_protection ?id ?labels ?location
-      ?network_zone ~load_balancer_type ~name ~algorithm ~target ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_load_balancer __resource);
-  let __resource_attributes =
+let make ?delete_protection ?id ?labels ?location ?network_zone
+    ~load_balancer_type ~name ~algorithm ~target __id =
+  let __type = "hcloud_load_balancer" in
+  let __attrs =
     ({
        delete_protection =
-         Prop.computed __resource_type __resource_id
-           "delete_protection";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv4 = Prop.computed __resource_type __resource_id "ipv4";
-       ipv6 = Prop.computed __resource_type __resource_id "ipv6";
-       labels = Prop.computed __resource_type __resource_id "labels";
+         Prop.computed __type __id "delete_protection";
+       id = Prop.computed __type __id "id";
+       ipv4 = Prop.computed __type __id "ipv4";
+       ipv6 = Prop.computed __type __id "ipv6";
+       labels = Prop.computed __type __id "labels";
        load_balancer_type =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_id =
-         Prop.computed __resource_type __resource_id "network_id";
-       network_ip =
-         Prop.computed __resource_type __resource_id "network_ip";
-       network_zone =
-         Prop.computed __resource_type __resource_id "network_zone";
+         Prop.computed __type __id "load_balancer_type";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network_id = Prop.computed __type __id "network_id";
+       network_ip = Prop.computed __type __id "network_ip";
+       network_zone = Prop.computed __type __id "network_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_load_balancer
+        (hcloud_load_balancer ?delete_protection ?id ?labels
+           ?location ?network_zone ~load_balancer_type ~name
+           ~algorithm ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_protection ?id ?labels ?location
+    ?network_zone ~load_balancer_type ~name ~algorithm ~target __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_protection ?id ?labels ?location ?network_zone
+      ~load_balancer_type ~name ~algorithm ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

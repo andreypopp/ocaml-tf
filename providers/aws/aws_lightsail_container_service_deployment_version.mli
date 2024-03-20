@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,12 @@ val register :
   public_endpoint:public_endpoint list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  service_name:string prop ->
+  container:container list ->
+  public_endpoint:public_endpoint list ->
+  string ->
+  t Tf_core.resource

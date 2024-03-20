@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -181,3 +181,24 @@ val register :
   user_token_configurations:user_token_configurations list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_context_policy:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  role_arn:string prop ->
+  capacity_units:capacity_units list ->
+  document_metadata_configuration_updates:
+    document_metadata_configuration_updates list ->
+  server_side_encryption_configuration:
+    server_side_encryption_configuration list ->
+  user_group_resolution_configuration:
+    user_group_resolution_configuration list ->
+  user_token_configurations:user_token_configurations list ->
+  string ->
+  t Tf_core.resource

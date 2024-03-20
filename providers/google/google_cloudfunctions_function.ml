@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_trigger__failure_policy = {
   retry : bool prop;
@@ -243,6 +241,88 @@ type t = {
   vpc_connector_egress_settings : string prop;
 }
 
+let make ?available_memory_mb ?build_environment_variables
+    ?build_worker_pool ?description ?docker_registry
+    ?docker_repository ?entry_point ?environment_variables
+    ?https_trigger_security_level ?https_trigger_url ?id
+    ?ingress_settings ?kms_key_name ?labels ?max_instances
+    ?min_instances ?project ?region ?service_account_email
+    ?source_archive_bucket ?source_archive_object ?timeout
+    ?trigger_http ?vpc_connector ?vpc_connector_egress_settings
+    ?timeouts ~name ~runtime ~event_trigger
+    ~secret_environment_variables ~secret_volumes ~source_repository
+    __id =
+  let __type = "google_cloudfunctions_function" in
+  let __attrs =
+    ({
+       available_memory_mb =
+         Prop.computed __type __id "available_memory_mb";
+       build_environment_variables =
+         Prop.computed __type __id "build_environment_variables";
+       build_worker_pool =
+         Prop.computed __type __id "build_worker_pool";
+       description = Prop.computed __type __id "description";
+       docker_registry = Prop.computed __type __id "docker_registry";
+       docker_repository =
+         Prop.computed __type __id "docker_repository";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       entry_point = Prop.computed __type __id "entry_point";
+       environment_variables =
+         Prop.computed __type __id "environment_variables";
+       https_trigger_security_level =
+         Prop.computed __type __id "https_trigger_security_level";
+       https_trigger_url =
+         Prop.computed __type __id "https_trigger_url";
+       id = Prop.computed __type __id "id";
+       ingress_settings =
+         Prop.computed __type __id "ingress_settings";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
+       labels = Prop.computed __type __id "labels";
+       max_instances = Prop.computed __type __id "max_instances";
+       min_instances = Prop.computed __type __id "min_instances";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       runtime = Prop.computed __type __id "runtime";
+       service_account_email =
+         Prop.computed __type __id "service_account_email";
+       source_archive_bucket =
+         Prop.computed __type __id "source_archive_bucket";
+       source_archive_object =
+         Prop.computed __type __id "source_archive_object";
+       status = Prop.computed __type __id "status";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       timeout = Prop.computed __type __id "timeout";
+       trigger_http = Prop.computed __type __id "trigger_http";
+       version_id = Prop.computed __type __id "version_id";
+       vpc_connector = Prop.computed __type __id "vpc_connector";
+       vpc_connector_egress_settings =
+         Prop.computed __type __id "vpc_connector_egress_settings";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloudfunctions_function
+        (google_cloudfunctions_function ?available_memory_mb
+           ?build_environment_variables ?build_worker_pool
+           ?description ?docker_registry ?docker_repository
+           ?entry_point ?environment_variables
+           ?https_trigger_security_level ?https_trigger_url ?id
+           ?ingress_settings ?kms_key_name ?labels ?max_instances
+           ?min_instances ?project ?region ?service_account_email
+           ?source_archive_bucket ?source_archive_object ?timeout
+           ?trigger_http ?vpc_connector
+           ?vpc_connector_egress_settings ?timeouts ~name ~runtime
+           ~event_trigger ~secret_environment_variables
+           ~secret_volumes ~source_repository ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?available_memory_mb
     ?build_environment_variables ?build_worker_pool ?description
     ?docker_registry ?docker_repository ?entry_point
@@ -253,98 +333,19 @@ let register ?tf_module ?available_memory_mb
     ?source_archive_object ?timeout ?trigger_http ?vpc_connector
     ?vpc_connector_egress_settings ?timeouts ~name ~runtime
     ~event_trigger ~secret_environment_variables ~secret_volumes
-    ~source_repository __resource_id =
-  let __resource_type = "google_cloudfunctions_function" in
-  let __resource =
-    google_cloudfunctions_function ?available_memory_mb
-      ?build_environment_variables ?build_worker_pool ?description
-      ?docker_registry ?docker_repository ?entry_point
-      ?environment_variables ?https_trigger_security_level
-      ?https_trigger_url ?id ?ingress_settings ?kms_key_name ?labels
-      ?max_instances ?min_instances ?project ?region
-      ?service_account_email ?source_archive_bucket
-      ?source_archive_object ?timeout ?trigger_http ?vpc_connector
-      ?vpc_connector_egress_settings ?timeouts ~name ~runtime
-      ~event_trigger ~secret_environment_variables ~secret_volumes
-      ~source_repository ()
+    ~source_repository __id =
+  let (r : _ Tf_core.resource) =
+    make ?available_memory_mb ?build_environment_variables
+      ?build_worker_pool ?description ?docker_registry
+      ?docker_repository ?entry_point ?environment_variables
+      ?https_trigger_security_level ?https_trigger_url ?id
+      ?ingress_settings ?kms_key_name ?labels ?max_instances
+      ?min_instances ?project ?region ?service_account_email
+      ?source_archive_bucket ?source_archive_object ?timeout
+      ?trigger_http ?vpc_connector ?vpc_connector_egress_settings
+      ?timeouts ~name ~runtime ~event_trigger
+      ~secret_environment_variables ~secret_volumes
+      ~source_repository __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloudfunctions_function __resource);
-  let __resource_attributes =
-    ({
-       available_memory_mb =
-         Prop.computed __resource_type __resource_id
-           "available_memory_mb";
-       build_environment_variables =
-         Prop.computed __resource_type __resource_id
-           "build_environment_variables";
-       build_worker_pool =
-         Prop.computed __resource_type __resource_id
-           "build_worker_pool";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       docker_registry =
-         Prop.computed __resource_type __resource_id
-           "docker_registry";
-       docker_repository =
-         Prop.computed __resource_type __resource_id
-           "docker_repository";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       entry_point =
-         Prop.computed __resource_type __resource_id "entry_point";
-       environment_variables =
-         Prop.computed __resource_type __resource_id
-           "environment_variables";
-       https_trigger_security_level =
-         Prop.computed __resource_type __resource_id
-           "https_trigger_security_level";
-       https_trigger_url =
-         Prop.computed __resource_type __resource_id
-           "https_trigger_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingress_settings =
-         Prop.computed __resource_type __resource_id
-           "ingress_settings";
-       kms_key_name =
-         Prop.computed __resource_type __resource_id "kms_key_name";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       max_instances =
-         Prop.computed __resource_type __resource_id "max_instances";
-       min_instances =
-         Prop.computed __resource_type __resource_id "min_instances";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       runtime =
-         Prop.computed __resource_type __resource_id "runtime";
-       service_account_email =
-         Prop.computed __resource_type __resource_id
-           "service_account_email";
-       source_archive_bucket =
-         Prop.computed __resource_type __resource_id
-           "source_archive_bucket";
-       source_archive_object =
-         Prop.computed __resource_type __resource_id
-           "source_archive_object";
-       status = Prop.computed __resource_type __resource_id "status";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       trigger_http =
-         Prop.computed __resource_type __resource_id "trigger_http";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-       vpc_connector =
-         Prop.computed __resource_type __resource_id "vpc_connector";
-       vpc_connector_egress_settings =
-         Prop.computed __resource_type __resource_id
-           "vpc_connector_egress_settings";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,13 @@ val register :
   auto_install:bool prop ->
   string ->
   t
+
+val make :
+  ?host:string prop ->
+  ?id:string prop ->
+  ?zone_tag:string prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  auto_install:bool prop ->
+  string ->
+  t Tf_core.resource

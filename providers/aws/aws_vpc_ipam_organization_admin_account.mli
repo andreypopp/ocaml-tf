@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -32,3 +32,9 @@ val register :
   delegated_admin_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  delegated_admin_account_id:string prop ->
+  string ->
+  t Tf_core.resource

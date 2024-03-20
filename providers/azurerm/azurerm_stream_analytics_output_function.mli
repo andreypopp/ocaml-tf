@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   stream_analytics_job_name:string prop ->
   string ->
   t
+
+val make :
+  ?batch_max_count:float prop ->
+  ?batch_max_in_bytes:float prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_key:string prop ->
+  function_app:string prop ->
+  function_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  stream_analytics_job_name:string prop ->
+  string ->
+  t Tf_core.resource

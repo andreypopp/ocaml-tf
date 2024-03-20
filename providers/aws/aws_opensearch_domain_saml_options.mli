@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,11 @@ val register :
   saml_options:saml_options list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  saml_options:saml_options list ->
+  string ->
+  t Tf_core.resource

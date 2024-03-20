@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,39 +61,46 @@ type t = {
   token_user_principal_name : string prop;
 }
 
-let register ?tf_module ?id ?token_user_display_name
-    ?token_user_principal_name ?timeouts ~dataset ~group_id
-    ~group_name ~name ~stream_analytics_job_id ~table __resource_id =
-  let __resource_type = "azurerm_stream_analytics_output_powerbi" in
-  let __resource =
-    azurerm_stream_analytics_output_powerbi ?id
-      ?token_user_display_name ?token_user_principal_name ?timeouts
-      ~dataset ~group_id ~group_name ~name ~stream_analytics_job_id
-      ~table ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_powerbi __resource);
-  let __resource_attributes =
+let make ?id ?token_user_display_name ?token_user_principal_name
+    ?timeouts ~dataset ~group_id ~group_name ~name
+    ~stream_analytics_job_id ~table __id =
+  let __type = "azurerm_stream_analytics_output_powerbi" in
+  let __attrs =
     ({
-       dataset =
-         Prop.computed __resource_type __resource_id "dataset";
-       group_id =
-         Prop.computed __resource_type __resource_id "group_id";
-       group_name =
-         Prop.computed __resource_type __resource_id "group_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       dataset = Prop.computed __type __id "dataset";
+       group_id = Prop.computed __type __id "group_id";
+       group_name = Prop.computed __type __id "group_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        stream_analytics_job_id =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_id";
-       table = Prop.computed __resource_type __resource_id "table";
+         Prop.computed __type __id "stream_analytics_job_id";
+       table = Prop.computed __type __id "table";
        token_user_display_name =
-         Prop.computed __resource_type __resource_id
-           "token_user_display_name";
+         Prop.computed __type __id "token_user_display_name";
        token_user_principal_name =
-         Prop.computed __resource_type __resource_id
-           "token_user_principal_name";
+         Prop.computed __type __id "token_user_principal_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_powerbi
+        (azurerm_stream_analytics_output_powerbi ?id
+           ?token_user_display_name ?token_user_principal_name
+           ?timeouts ~dataset ~group_id ~group_name ~name
+           ~stream_analytics_job_id ~table ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?token_user_display_name
+    ?token_user_principal_name ?timeouts ~dataset ~group_id
+    ~group_name ~name ~stream_analytics_job_id ~table __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?token_user_display_name ?token_user_principal_name
+      ?timeouts ~dataset ~group_id ~group_name ~name
+      ~stream_analytics_job_id ~table __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

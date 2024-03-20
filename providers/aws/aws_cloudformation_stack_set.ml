@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_deployment = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -133,53 +131,58 @@ type t = {
   template_url : string prop;
 }
 
+let make ?administration_role_arn ?call_as ?capabilities ?description
+    ?execution_role_name ?id ?parameters ?permission_model ?tags
+    ?tags_all ?template_body ?template_url ?timeouts ~name
+    ~auto_deployment ~managed_execution ~operation_preferences __id =
+  let __type = "aws_cloudformation_stack_set" in
+  let __attrs =
+    ({
+       administration_role_arn =
+         Prop.computed __type __id "administration_role_arn";
+       arn = Prop.computed __type __id "arn";
+       call_as = Prop.computed __type __id "call_as";
+       capabilities = Prop.computed __type __id "capabilities";
+       description = Prop.computed __type __id "description";
+       execution_role_name =
+         Prop.computed __type __id "execution_role_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       permission_model =
+         Prop.computed __type __id "permission_model";
+       stack_set_id = Prop.computed __type __id "stack_set_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       template_body = Prop.computed __type __id "template_body";
+       template_url = Prop.computed __type __id "template_url";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudformation_stack_set
+        (aws_cloudformation_stack_set ?administration_role_arn
+           ?call_as ?capabilities ?description ?execution_role_name
+           ?id ?parameters ?permission_model ?tags ?tags_all
+           ?template_body ?template_url ?timeouts ~name
+           ~auto_deployment ~managed_execution ~operation_preferences
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?administration_role_arn ?call_as
     ?capabilities ?description ?execution_role_name ?id ?parameters
     ?permission_model ?tags ?tags_all ?template_body ?template_url
     ?timeouts ~name ~auto_deployment ~managed_execution
-    ~operation_preferences __resource_id =
-  let __resource_type = "aws_cloudformation_stack_set" in
-  let __resource =
-    aws_cloudformation_stack_set ?administration_role_arn ?call_as
-      ?capabilities ?description ?execution_role_name ?id ?parameters
-      ?permission_model ?tags ?tags_all ?template_body ?template_url
-      ?timeouts ~name ~auto_deployment ~managed_execution
-      ~operation_preferences ()
+    ~operation_preferences __id =
+  let (r : _ Tf_core.resource) =
+    make ?administration_role_arn ?call_as ?capabilities ?description
+      ?execution_role_name ?id ?parameters ?permission_model ?tags
+      ?tags_all ?template_body ?template_url ?timeouts ~name
+      ~auto_deployment ~managed_execution ~operation_preferences __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudformation_stack_set __resource);
-  let __resource_attributes =
-    ({
-       administration_role_arn =
-         Prop.computed __resource_type __resource_id
-           "administration_role_arn";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       call_as =
-         Prop.computed __resource_type __resource_id "call_as";
-       capabilities =
-         Prop.computed __resource_type __resource_id "capabilities";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       execution_role_name =
-         Prop.computed __resource_type __resource_id
-           "execution_role_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       permission_model =
-         Prop.computed __resource_type __resource_id
-           "permission_model";
-       stack_set_id =
-         Prop.computed __resource_type __resource_id "stack_set_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       template_body =
-         Prop.computed __resource_type __resource_id "template_body";
-       template_url =
-         Prop.computed __resource_type __resource_id "template_url";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

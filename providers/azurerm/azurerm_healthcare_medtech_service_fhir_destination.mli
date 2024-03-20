@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  destination_fhir_mapping_json:string prop ->
+  destination_fhir_service_id:string prop ->
+  destination_identity_resolution_type:string prop ->
+  location:string prop ->
+  medtech_service_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

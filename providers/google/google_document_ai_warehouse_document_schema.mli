@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -219,3 +219,14 @@ val register :
   property_definitions:property_definitions list ->
   string ->
   t
+
+val make :
+  ?document_is_folder:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  location:string prop ->
+  project_number:string prop ->
+  property_definitions:property_definitions list ->
+  string ->
+  t Tf_core.resource

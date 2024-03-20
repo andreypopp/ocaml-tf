@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_scaling_policy__target_tracking_configuration = {
   target_value : float prop;  (** target_value *)
@@ -120,48 +118,54 @@ type t = {
   vpc_subnets : string list prop;
 }
 
-let register ?tf_module ?balancing_strategy
-    ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
-    ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
-    ~auto_scaling_policy ~instance_definition ~launch_template
-    __resource_id =
-  let __resource_type = "aws_gamelift_game_server_group" in
-  let __resource =
-    aws_gamelift_game_server_group ?balancing_strategy
-      ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
-      ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
-      ~auto_scaling_policy ~instance_definition ~launch_template ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_gamelift_game_server_group __resource);
-  let __resource_attributes =
+let make ?balancing_strategy ?game_server_protection_policy ?id ?tags
+    ?tags_all ?vpc_subnets ?timeouts ~game_server_group_name
+    ~max_size ~min_size ~role_arn ~auto_scaling_policy
+    ~instance_definition ~launch_template __id =
+  let __type = "aws_gamelift_game_server_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        auto_scaling_group_arn =
-         Prop.computed __resource_type __resource_id
-           "auto_scaling_group_arn";
+         Prop.computed __type __id "auto_scaling_group_arn";
        balancing_strategy =
-         Prop.computed __resource_type __resource_id
-           "balancing_strategy";
+         Prop.computed __type __id "balancing_strategy";
        game_server_group_name =
-         Prop.computed __resource_type __resource_id
-           "game_server_group_name";
+         Prop.computed __type __id "game_server_group_name";
        game_server_protection_policy =
-         Prop.computed __resource_type __resource_id
-           "game_server_protection_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_size =
-         Prop.computed __resource_type __resource_id "max_size";
-       min_size =
-         Prop.computed __resource_type __resource_id "min_size";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_subnets =
-         Prop.computed __resource_type __resource_id "vpc_subnets";
+         Prop.computed __type __id "game_server_protection_policy";
+       id = Prop.computed __type __id "id";
+       max_size = Prop.computed __type __id "max_size";
+       min_size = Prop.computed __type __id "min_size";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_subnets = Prop.computed __type __id "vpc_subnets";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_gamelift_game_server_group
+        (aws_gamelift_game_server_group ?balancing_strategy
+           ?game_server_protection_policy ?id ?tags ?tags_all
+           ?vpc_subnets ?timeouts ~game_server_group_name ~max_size
+           ~min_size ~role_arn ~auto_scaling_policy
+           ~instance_definition ~launch_template ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?balancing_strategy
+    ?game_server_protection_policy ?id ?tags ?tags_all ?vpc_subnets
+    ?timeouts ~game_server_group_name ~max_size ~min_size ~role_arn
+    ~auto_scaling_policy ~instance_definition ~launch_template __id =
+  let (r : _ Tf_core.resource) =
+    make ?balancing_strategy ?game_server_protection_policy ?id ?tags
+      ?tags_all ?vpc_subnets ?timeouts ~game_server_group_name
+      ~max_size ~min_size ~role_arn ~auto_scaling_policy
+      ~instance_definition ~launch_template __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

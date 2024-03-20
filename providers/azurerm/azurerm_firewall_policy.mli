@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -178,3 +178,26 @@ val register :
   tls_certificate:tls_certificate list ->
   string ->
   t
+
+val make :
+  ?auto_learn_private_ranges_enabled:bool prop ->
+  ?base_policy_id:string prop ->
+  ?id:string prop ->
+  ?private_ip_ranges:string prop list ->
+  ?sku:string prop ->
+  ?sql_redirect_allowed:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?threat_intelligence_mode:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  dns:dns list ->
+  explicit_proxy:explicit_proxy list ->
+  identity:identity list ->
+  insights:insights list ->
+  intrusion_detection:intrusion_detection list ->
+  threat_intelligence_allowlist:threat_intelligence_allowlist list ->
+  tls_certificate:tls_certificate list ->
+  string ->
+  t Tf_core.resource

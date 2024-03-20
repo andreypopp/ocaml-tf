@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_config = {
   kms_key_name : string prop option; [@option]
@@ -117,70 +115,62 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?description ?display_name ?id
-    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
-    ~location ~encryption_config __resource_id =
-  let __resource_type = "google_alloydb_backup" in
-  let __resource =
-    google_alloydb_backup ?annotations ?description ?display_name ?id
-      ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
-      ~location ~encryption_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_alloydb_backup __resource);
-  let __resource_attributes =
+let make ?annotations ?description ?display_name ?id ?labels ?project
+    ?type_ ?timeouts ~backup_id ~cluster_name ~location
+    ~encryption_config __id =
+  let __type = "google_alloydb_backup" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       backup_id =
-         Prop.computed __resource_type __resource_id "backup_id";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       cluster_uid =
-         Prop.computed __resource_type __resource_id "cluster_uid";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       annotations = Prop.computed __type __id "annotations";
+       backup_id = Prop.computed __type __id "backup_id";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       cluster_uid = Prop.computed __type __id "cluster_uid";
+       create_time = Prop.computed __type __id "create_time";
+       delete_time = Prop.computed __type __id "delete_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
+         Prop.computed __type __id "effective_annotations";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       encryption_info =
-         Prop.computed __resource_type __resource_id
-           "encryption_info";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       expiry_quantity =
-         Prop.computed __resource_type __resource_id
-           "expiry_quantity";
-       expiry_time =
-         Prop.computed __resource_type __resource_id "expiry_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       size_bytes =
-         Prop.computed __resource_type __resource_id "size_bytes";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       encryption_info = Prop.computed __type __id "encryption_info";
+       etag = Prop.computed __type __id "etag";
+       expiry_quantity = Prop.computed __type __id "expiry_quantity";
+       expiry_time = Prop.computed __type __id "expiry_time";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       size_bytes = Prop.computed __type __id "size_bytes";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_alloydb_backup
+        (google_alloydb_backup ?annotations ?description
+           ?display_name ?id ?labels ?project ?type_ ?timeouts
+           ~backup_id ~cluster_name ~location ~encryption_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?description ?display_name ?id
+    ?labels ?project ?type_ ?timeouts ~backup_id ~cluster_name
+    ~location ~encryption_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?description ?display_name ?id ?labels ?project
+      ?type_ ?timeouts ~backup_id ~cluster_name ~location
+      ~encryption_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

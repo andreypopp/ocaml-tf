@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_configuration = {
   encryption_type : string prop option; [@option]
@@ -77,35 +75,43 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?force_delete ?id ?image_tag_mutability ?tags
-    ?tags_all ?timeouts ~name ~encryption_configuration
-    ~image_scanning_configuration __resource_id =
-  let __resource_type = "aws_ecr_repository" in
-  let __resource =
-    aws_ecr_repository ?force_delete ?id ?image_tag_mutability ?tags
-      ?tags_all ?timeouts ~name ~encryption_configuration
-      ~image_scanning_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecr_repository __resource);
-  let __resource_attributes =
+let make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
+    ?timeouts ~name ~encryption_configuration
+    ~image_scanning_configuration __id =
+  let __type = "aws_ecr_repository" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       force_delete = Prop.computed __type __id "force_delete";
+       id = Prop.computed __type __id "id";
        image_tag_mutability =
-         Prop.computed __resource_type __resource_id
-           "image_tag_mutability";
-       name = Prop.computed __resource_type __resource_id "name";
-       registry_id =
-         Prop.computed __resource_type __resource_id "registry_id";
-       repository_url =
-         Prop.computed __resource_type __resource_id "repository_url";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "image_tag_mutability";
+       name = Prop.computed __type __id "name";
+       registry_id = Prop.computed __type __id "registry_id";
+       repository_url = Prop.computed __type __id "repository_url";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecr_repository
+        (aws_ecr_repository ?force_delete ?id ?image_tag_mutability
+           ?tags ?tags_all ?timeouts ~name ~encryption_configuration
+           ~image_scanning_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_delete ?id ?image_tag_mutability ?tags
+    ?tags_all ?timeouts ~name ~encryption_configuration
+    ~image_scanning_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_delete ?id ?image_tag_mutability ?tags ?tags_all
+      ?timeouts ~name ~encryption_configuration
+      ~image_scanning_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

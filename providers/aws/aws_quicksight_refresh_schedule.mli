@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,4 +61,12 @@ val register :
     schedule:schedule list ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    data_set_id:string prop ->
+    schedule_id:string prop ->
+    schedule:schedule list ->
+    string ->
+    t Tf_core.resource
 

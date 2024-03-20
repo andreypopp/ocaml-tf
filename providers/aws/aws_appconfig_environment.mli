@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,12 @@ val register :
   monitor:monitor list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  application_id:string prop ->
+  name:string prop ->
+  monitor:monitor list ->
+  string ->
+  t Tf_core.resource

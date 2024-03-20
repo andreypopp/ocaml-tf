@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type service_directory_registrations = {
   namespace : string prop option; [@option]
@@ -362,6 +360,85 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
+let make ?all_ports ?allow_global_access ?allow_psc_global_access
+    ?backend_service ?description ?id ?ip_address ?ip_protocol
+    ?ip_version ?is_mirroring_collector ?labels
+    ?load_balancing_scheme ?network ?network_tier
+    ?no_automate_dns_zone ?port_range ?ports ?project
+    ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
+    ?subnetwork ?target ?timeouts ~name
+    ~service_directory_registrations __id =
+  let __type = "google_compute_forwarding_rule" in
+  let __attrs =
+    ({
+       all_ports = Prop.computed __type __id "all_ports";
+       allow_global_access =
+         Prop.computed __type __id "allow_global_access";
+       allow_psc_global_access =
+         Prop.computed __type __id "allow_psc_global_access";
+       backend_service = Prop.computed __type __id "backend_service";
+       base_forwarding_rule =
+         Prop.computed __type __id "base_forwarding_rule";
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       ip_protocol = Prop.computed __type __id "ip_protocol";
+       ip_version = Prop.computed __type __id "ip_version";
+       is_mirroring_collector =
+         Prop.computed __type __id "is_mirroring_collector";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       load_balancing_scheme =
+         Prop.computed __type __id "load_balancing_scheme";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       network_tier = Prop.computed __type __id "network_tier";
+       no_automate_dns_zone =
+         Prop.computed __type __id "no_automate_dns_zone";
+       port_range = Prop.computed __type __id "port_range";
+       ports = Prop.computed __type __id "ports";
+       project = Prop.computed __type __id "project";
+       psc_connection_id =
+         Prop.computed __type __id "psc_connection_id";
+       psc_connection_status =
+         Prop.computed __type __id "psc_connection_status";
+       recreate_closed_psc =
+         Prop.computed __type __id "recreate_closed_psc";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       service_label = Prop.computed __type __id "service_label";
+       service_name = Prop.computed __type __id "service_name";
+       source_ip_ranges =
+         Prop.computed __type __id "source_ip_ranges";
+       subnetwork = Prop.computed __type __id "subnetwork";
+       target = Prop.computed __type __id "target";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_forwarding_rule
+        (google_compute_forwarding_rule ?all_ports
+           ?allow_global_access ?allow_psc_global_access
+           ?backend_service ?description ?id ?ip_address ?ip_protocol
+           ?ip_version ?is_mirroring_collector ?labels
+           ?load_balancing_scheme ?network ?network_tier
+           ?no_automate_dns_zone ?port_range ?ports ?project
+           ?recreate_closed_psc ?region ?service_label
+           ?source_ip_ranges ?subnetwork ?target ?timeouts ~name
+           ~service_directory_registrations ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?all_ports ?allow_global_access
     ?allow_psc_global_access ?backend_service ?description ?id
     ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
@@ -369,100 +446,16 @@ let register ?tf_module ?all_ports ?allow_global_access
     ?no_automate_dns_zone ?port_range ?ports ?project
     ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
     ?subnetwork ?target ?timeouts ~name
-    ~service_directory_registrations __resource_id =
-  let __resource_type = "google_compute_forwarding_rule" in
-  let __resource =
-    google_compute_forwarding_rule ?all_ports ?allow_global_access
-      ?allow_psc_global_access ?backend_service ?description ?id
-      ?ip_address ?ip_protocol ?ip_version ?is_mirroring_collector
-      ?labels ?load_balancing_scheme ?network ?network_tier
+    ~service_directory_registrations __id =
+  let (r : _ Tf_core.resource) =
+    make ?all_ports ?allow_global_access ?allow_psc_global_access
+      ?backend_service ?description ?id ?ip_address ?ip_protocol
+      ?ip_version ?is_mirroring_collector ?labels
+      ?load_balancing_scheme ?network ?network_tier
       ?no_automate_dns_zone ?port_range ?ports ?project
       ?recreate_closed_psc ?region ?service_label ?source_ip_ranges
       ?subnetwork ?target ?timeouts ~name
-      ~service_directory_registrations ()
+      ~service_directory_registrations __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_forwarding_rule __resource);
-  let __resource_attributes =
-    ({
-       all_ports =
-         Prop.computed __resource_type __resource_id "all_ports";
-       allow_global_access =
-         Prop.computed __resource_type __resource_id
-           "allow_global_access";
-       allow_psc_global_access =
-         Prop.computed __resource_type __resource_id
-           "allow_psc_global_access";
-       backend_service =
-         Prop.computed __resource_type __resource_id
-           "backend_service";
-       base_forwarding_rule =
-         Prop.computed __resource_type __resource_id
-           "base_forwarding_rule";
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       ip_protocol =
-         Prop.computed __resource_type __resource_id "ip_protocol";
-       ip_version =
-         Prop.computed __resource_type __resource_id "ip_version";
-       is_mirroring_collector =
-         Prop.computed __resource_type __resource_id
-           "is_mirroring_collector";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       load_balancing_scheme =
-         Prop.computed __resource_type __resource_id
-           "load_balancing_scheme";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       network_tier =
-         Prop.computed __resource_type __resource_id "network_tier";
-       no_automate_dns_zone =
-         Prop.computed __resource_type __resource_id
-           "no_automate_dns_zone";
-       port_range =
-         Prop.computed __resource_type __resource_id "port_range";
-       ports = Prop.computed __resource_type __resource_id "ports";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       psc_connection_id =
-         Prop.computed __resource_type __resource_id
-           "psc_connection_id";
-       psc_connection_status =
-         Prop.computed __resource_type __resource_id
-           "psc_connection_status";
-       recreate_closed_psc =
-         Prop.computed __resource_type __resource_id
-           "recreate_closed_psc";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       service_label =
-         Prop.computed __resource_type __resource_id "service_label";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       source_ip_ranges =
-         Prop.computed __resource_type __resource_id
-           "source_ip_ranges";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
-       target = Prop.computed __resource_type __resource_id "target";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

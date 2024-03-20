@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backend_request__data_masking__headers = {
   mode : string prop;  (** mode *)
@@ -266,54 +264,63 @@ type t = {
   verbosity : string prop;
 }
 
+let make ?always_log_errors ?http_correlation_protocol ?id
+    ?log_client_ip ?operation_name_format ?sampling_percentage
+    ?verbosity ?timeouts ~api_management_logger_id
+    ~api_management_name ~identifier ~resource_group_name
+    ~backend_request ~backend_response ~frontend_request
+    ~frontend_response __id =
+  let __type = "azurerm_api_management_diagnostic" in
+  let __attrs =
+    ({
+       always_log_errors =
+         Prop.computed __type __id "always_log_errors";
+       api_management_logger_id =
+         Prop.computed __type __id "api_management_logger_id";
+       api_management_name =
+         Prop.computed __type __id "api_management_name";
+       http_correlation_protocol =
+         Prop.computed __type __id "http_correlation_protocol";
+       id = Prop.computed __type __id "id";
+       identifier = Prop.computed __type __id "identifier";
+       log_client_ip = Prop.computed __type __id "log_client_ip";
+       operation_name_format =
+         Prop.computed __type __id "operation_name_format";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sampling_percentage =
+         Prop.computed __type __id "sampling_percentage";
+       verbosity = Prop.computed __type __id "verbosity";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_diagnostic
+        (azurerm_api_management_diagnostic ?always_log_errors
+           ?http_correlation_protocol ?id ?log_client_ip
+           ?operation_name_format ?sampling_percentage ?verbosity
+           ?timeouts ~api_management_logger_id ~api_management_name
+           ~identifier ~resource_group_name ~backend_request
+           ~backend_response ~frontend_request ~frontend_response ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?always_log_errors ?http_correlation_protocol
     ?id ?log_client_ip ?operation_name_format ?sampling_percentage
     ?verbosity ?timeouts ~api_management_logger_id
     ~api_management_name ~identifier ~resource_group_name
     ~backend_request ~backend_response ~frontend_request
-    ~frontend_response __resource_id =
-  let __resource_type = "azurerm_api_management_diagnostic" in
-  let __resource =
-    azurerm_api_management_diagnostic ?always_log_errors
-      ?http_correlation_protocol ?id ?log_client_ip
-      ?operation_name_format ?sampling_percentage ?verbosity
-      ?timeouts ~api_management_logger_id ~api_management_name
-      ~identifier ~resource_group_name ~backend_request
-      ~backend_response ~frontend_request ~frontend_response ()
+    ~frontend_response __id =
+  let (r : _ Tf_core.resource) =
+    make ?always_log_errors ?http_correlation_protocol ?id
+      ?log_client_ip ?operation_name_format ?sampling_percentage
+      ?verbosity ?timeouts ~api_management_logger_id
+      ~api_management_name ~identifier ~resource_group_name
+      ~backend_request ~backend_response ~frontend_request
+      ~frontend_response __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_diagnostic __resource);
-  let __resource_attributes =
-    ({
-       always_log_errors =
-         Prop.computed __resource_type __resource_id
-           "always_log_errors";
-       api_management_logger_id =
-         Prop.computed __resource_type __resource_id
-           "api_management_logger_id";
-       api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       http_correlation_protocol =
-         Prop.computed __resource_type __resource_id
-           "http_correlation_protocol";
-       id = Prop.computed __resource_type __resource_id "id";
-       identifier =
-         Prop.computed __resource_type __resource_id "identifier";
-       log_client_ip =
-         Prop.computed __resource_type __resource_id "log_client_ip";
-       operation_name_format =
-         Prop.computed __resource_type __resource_id
-           "operation_name_format";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sampling_percentage =
-         Prop.computed __resource_type __resource_id
-           "sampling_percentage";
-       verbosity =
-         Prop.computed __resource_type __resource_id "verbosity";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

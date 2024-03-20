@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscaling_config__autoscaling_limits = {
   max_nodes : float prop option; [@option]
@@ -160,42 +158,48 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?force_destroy ?id ?labels ?name ?num_nodes
+let make ?force_destroy ?id ?labels ?name ?num_nodes
     ?processing_units ?project ?timeouts ~config ~display_name
-    ~autoscaling_config __resource_id =
-  let __resource_type = "google_spanner_instance" in
-  let __resource =
-    google_spanner_instance ?force_destroy ?id ?labels ?name
-      ?num_nodes ?processing_units ?project ?timeouts ~config
-      ~display_name ~autoscaling_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_spanner_instance __resource);
-  let __resource_attributes =
+    ~autoscaling_config __id =
+  let __type = "google_spanner_instance" in
+  let __attrs =
     ({
-       config = Prop.computed __resource_type __resource_id "config";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       config = Prop.computed __type __id "config";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       num_nodes =
-         Prop.computed __resource_type __resource_id "num_nodes";
+         Prop.computed __type __id "effective_labels";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       num_nodes = Prop.computed __type __id "num_nodes";
        processing_units =
-         Prop.computed __resource_type __resource_id
-           "processing_units";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "processing_units";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_spanner_instance
+        (google_spanner_instance ?force_destroy ?id ?labels ?name
+           ?num_nodes ?processing_units ?project ?timeouts ~config
+           ~display_name ~autoscaling_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_destroy ?id ?labels ?name ?num_nodes
+    ?processing_units ?project ?timeouts ~config ~display_name
+    ~autoscaling_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_destroy ?id ?labels ?name ?num_nodes
+      ?processing_units ?project ?timeouts ~config ~display_name
+      ~autoscaling_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

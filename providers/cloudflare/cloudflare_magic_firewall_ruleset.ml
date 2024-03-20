@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_magic_firewall_ruleset = {
   account_id : string prop;
@@ -29,25 +27,32 @@ type t = {
   rules : (string * string) list list prop;
 }
 
-let register ?tf_module ?description ?id ?rules ~account_id ~name
-    __resource_id =
-  let __resource_type = "cloudflare_magic_firewall_ruleset" in
-  let __resource =
-    cloudflare_magic_firewall_ruleset ?description ?id ?rules
-      ~account_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_magic_firewall_ruleset __resource);
-  let __resource_attributes =
+let make ?description ?id ?rules ~account_id ~name __id =
+  let __type = "cloudflare_magic_firewall_ruleset" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       rules = Prop.computed __resource_type __resource_id "rules";
+       account_id = Prop.computed __type __id "account_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       rules = Prop.computed __type __id "rules";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_magic_firewall_ruleset
+        (cloudflare_magic_firewall_ruleset ?description ?id ?rules
+           ~account_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?rules ~account_id ~name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?rules ~account_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

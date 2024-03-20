@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -195,3 +195,29 @@ val register :
   site_config:site_config list ->
   string ->
   t
+
+val make :
+  ?app_settings:(string * string prop) list ->
+  ?bundle_version:string prop ->
+  ?client_affinity_enabled:bool prop ->
+  ?client_certificate_mode:string prop ->
+  ?enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?storage_account_share_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?use_extension_bundle:bool prop ->
+  ?version:string prop ->
+  ?virtual_network_subnet_id:string prop ->
+  ?timeouts:timeouts ->
+  app_service_plan_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_access_key:string prop ->
+  storage_account_name:string prop ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  site_config:site_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type audio = {
   audio_packing_mode : string prop option; [@option]
@@ -181,31 +179,42 @@ type t = {
   video_codec_options : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?name ?type_
-    ?video_codec_options ~container ~audio ~audio_codec_options
-    ~thumbnails ~video ~video_watermarks __resource_id =
-  let __resource_type = "aws_elastictranscoder_preset" in
-  let __resource =
-    aws_elastictranscoder_preset ?description ?id ?name ?type_
-      ?video_codec_options ~container ~audio ~audio_codec_options
-      ~thumbnails ~video ~video_watermarks ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elastictranscoder_preset __resource);
-  let __resource_attributes =
+let make ?description ?id ?name ?type_ ?video_codec_options
+    ~container ~audio ~audio_codec_options ~thumbnails ~video
+    ~video_watermarks __id =
+  let __type = "aws_elastictranscoder_preset" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       container =
-         Prop.computed __resource_type __resource_id "container";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       container = Prop.computed __type __id "container";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
        video_codec_options =
-         Prop.computed __resource_type __resource_id
-           "video_codec_options";
+         Prop.computed __type __id "video_codec_options";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elastictranscoder_preset
+        (aws_elastictranscoder_preset ?description ?id ?name ?type_
+           ?video_codec_options ~container ~audio
+           ~audio_codec_options ~thumbnails ~video ~video_watermarks
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?name ?type_
+    ?video_codec_options ~container ~audio ~audio_codec_options
+    ~thumbnails ~video ~video_watermarks __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?name ?type_ ?video_codec_options
+      ~container ~audio ~audio_codec_options ~thumbnails ~video
+      ~video_watermarks __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

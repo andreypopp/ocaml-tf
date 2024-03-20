@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type container_image = {
   repository : string prop;
@@ -92,35 +90,40 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id
-    ?post_startup_script ?project ?timeouts ~location ~name
-    ~container_image ~vm_image __resource_id =
-  let __resource_type = "google_notebooks_environment" in
-  let __resource =
-    google_notebooks_environment ?description ?display_name ?id
-      ?post_startup_script ?project ?timeouts ~location ~name
-      ~container_image ~vm_image ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_notebooks_environment __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?post_startup_script ?project
+    ?timeouts ~location ~name ~container_image ~vm_image __id =
+  let __type = "google_notebooks_environment" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        post_startup_script =
-         Prop.computed __resource_type __resource_id
-           "post_startup_script";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "post_startup_script";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_notebooks_environment
+        (google_notebooks_environment ?description ?display_name ?id
+           ?post_startup_script ?project ?timeouts ~location ~name
+           ~container_image ~vm_image ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id
+    ?post_startup_script ?project ?timeouts ~location ~name
+    ~container_image ~vm_image __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?post_startup_script ?project
+      ?timeouts ~location ~name ~container_image ~vm_image __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -121,50 +119,56 @@ type t = {
   vm_size : string prop;
 }
 
+let make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
+    ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
+    ~location ~machine_learning_workspace_id ~name ~vm_priority
+    ~vm_size ~identity ~scale_settings ~ssh __id =
+  let __type = "azurerm_machine_learning_compute_cluster" in
+  let __attrs =
+    ({
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       local_auth_enabled =
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       machine_learning_workspace_id =
+         Prop.computed __type __id "machine_learning_workspace_id";
+       name = Prop.computed __type __id "name";
+       node_public_ip_enabled =
+         Prop.computed __type __id "node_public_ip_enabled";
+       ssh_public_access_enabled =
+         Prop.computed __type __id "ssh_public_access_enabled";
+       subnet_resource_id =
+         Prop.computed __type __id "subnet_resource_id";
+       tags = Prop.computed __type __id "tags";
+       vm_priority = Prop.computed __type __id "vm_priority";
+       vm_size = Prop.computed __type __id "vm_size";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_machine_learning_compute_cluster
+        (azurerm_machine_learning_compute_cluster ?description ?id
+           ?local_auth_enabled ?node_public_ip_enabled
+           ?ssh_public_access_enabled ?subnet_resource_id ?tags
+           ?timeouts ~location ~machine_learning_workspace_id ~name
+           ~vm_priority ~vm_size ~identity ~scale_settings ~ssh ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?local_auth_enabled
     ?node_public_ip_enabled ?ssh_public_access_enabled
     ?subnet_resource_id ?tags ?timeouts ~location
     ~machine_learning_workspace_id ~name ~vm_priority ~vm_size
-    ~identity ~scale_settings ~ssh __resource_id =
-  let __resource_type = "azurerm_machine_learning_compute_cluster" in
-  let __resource =
-    azurerm_machine_learning_compute_cluster ?description ?id
-      ?local_auth_enabled ?node_public_ip_enabled
+    ~identity ~scale_settings ~ssh __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?local_auth_enabled ?node_public_ip_enabled
       ?ssh_public_access_enabled ?subnet_resource_id ?tags ?timeouts
       ~location ~machine_learning_workspace_id ~name ~vm_priority
-      ~vm_size ~identity ~scale_settings ~ssh ()
+      ~vm_size ~identity ~scale_settings ~ssh __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_machine_learning_compute_cluster __resource);
-  let __resource_attributes =
-    ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       machine_learning_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "machine_learning_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_public_ip_enabled =
-         Prop.computed __resource_type __resource_id
-           "node_public_ip_enabled";
-       ssh_public_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "ssh_public_access_enabled";
-       subnet_resource_id =
-         Prop.computed __resource_type __resource_id
-           "subnet_resource_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       vm_priority =
-         Prop.computed __resource_type __resource_id "vm_priority";
-       vm_size =
-         Prop.computed __resource_type __resource_id "vm_size";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type property_definitions__date_time_type_options = unit
 [@@deriving yojson_of]
@@ -325,34 +323,38 @@ type t = {
   project_number : string prop;
 }
 
-let register ?tf_module ?document_is_folder ?id ?timeouts
-    ~display_name ~location ~project_number ~property_definitions
-    __resource_id =
-  let __resource_type =
-    "google_document_ai_warehouse_document_schema"
-  in
-  let __resource =
-    google_document_ai_warehouse_document_schema ?document_is_folder
-      ?id ?timeouts ~display_name ~location ~project_number
-      ~property_definitions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_document_ai_warehouse_document_schema
-       __resource);
-  let __resource_attributes =
+let make ?document_is_folder ?id ?timeouts ~display_name ~location
+    ~project_number ~property_definitions __id =
+  let __type = "google_document_ai_warehouse_document_schema" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       display_name = Prop.computed __type __id "display_name";
        document_is_folder =
-         Prop.computed __resource_type __resource_id
-           "document_is_folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project_number =
-         Prop.computed __resource_type __resource_id "project_number";
+         Prop.computed __type __id "document_is_folder";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project_number = Prop.computed __type __id "project_number";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_document_ai_warehouse_document_schema
+        (google_document_ai_warehouse_document_schema
+           ?document_is_folder ?id ?timeouts ~display_name ~location
+           ~project_number ~property_definitions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?document_is_folder ?id ?timeouts
+    ~display_name ~location ~project_number ~property_definitions
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?document_is_folder ?id ?timeouts ~display_name ~location
+      ~project_number ~property_definitions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

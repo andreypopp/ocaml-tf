@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,20 @@ val register :
   link2:link2 list ->
   string ->
   t
+
+val make :
+  ?billing_type:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  bandwidth_in_gbps:float prop ->
+  encapsulation:string prop ->
+  location:string prop ->
+  name:string prop ->
+  peering_location:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  link1:link1 list ->
+  link2:link2 list ->
+  string ->
+  t Tf_core.resource

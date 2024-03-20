@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type pipeline = {
   name : string prop;  (** name *)
@@ -113,52 +111,52 @@ type t = {
   start_time : string prop;
 }
 
-let register ?tf_module ?activated ?additional_properties
-    ?annotations ?delay ?description ?end_time ?id ?max_concurrency
-    ?timeouts ~data_factory_id ~frequency ~interval ~name ~start_time
-    ~pipeline ~retry ~trigger_dependency __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_trigger_tumbling_window"
-  in
-  let __resource =
-    azurerm_data_factory_trigger_tumbling_window ?activated
-      ?additional_properties ?annotations ?delay ?description
-      ?end_time ?id ?max_concurrency ?timeouts ~data_factory_id
-      ~frequency ~interval ~name ~start_time ~pipeline ~retry
-      ~trigger_dependency ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_trigger_tumbling_window
-       __resource);
-  let __resource_attributes =
+let make ?activated ?additional_properties ?annotations ?delay
+    ?description ?end_time ?id ?max_concurrency ?timeouts
+    ~data_factory_id ~frequency ~interval ~name ~start_time ~pipeline
+    ~retry ~trigger_dependency __id =
+  let __type = "azurerm_data_factory_trigger_tumbling_window" in
+  let __attrs =
     ({
-       activated =
-         Prop.computed __resource_type __resource_id "activated";
+       activated = Prop.computed __type __id "activated";
        additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       delay = Prop.computed __resource_type __resource_id "delay";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       max_concurrency =
-         Prop.computed __resource_type __resource_id
-           "max_concurrency";
-       name = Prop.computed __resource_type __resource_id "name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       delay = Prop.computed __type __id "delay";
+       description = Prop.computed __type __id "description";
+       end_time = Prop.computed __type __id "end_time";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       max_concurrency = Prop.computed __type __id "max_concurrency";
+       name = Prop.computed __type __id "name";
+       start_time = Prop.computed __type __id "start_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_trigger_tumbling_window
+        (azurerm_data_factory_trigger_tumbling_window ?activated
+           ?additional_properties ?annotations ?delay ?description
+           ?end_time ?id ?max_concurrency ?timeouts ~data_factory_id
+           ~frequency ~interval ~name ~start_time ~pipeline ~retry
+           ~trigger_dependency ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?activated ?additional_properties
+    ?annotations ?delay ?description ?end_time ?id ?max_concurrency
+    ?timeouts ~data_factory_id ~frequency ~interval ~name ~start_time
+    ~pipeline ~retry ~trigger_dependency __id =
+  let (r : _ Tf_core.resource) =
+    make ?activated ?additional_properties ?annotations ?delay
+      ?description ?end_time ?id ?max_concurrency ?timeouts
+      ~data_factory_id ~frequency ~interval ~name ~start_time
+      ~pipeline ~retry ~trigger_dependency __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

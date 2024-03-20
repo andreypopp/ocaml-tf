@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azuread_administrator = {
   azuread_authentication_only : bool prop option; [@option]
@@ -123,69 +121,81 @@ type t = {
   version : string prop;
 }
 
+let make ?administrator_login ?administrator_login_password
+    ?connection_policy ?id ?minimum_tls_version
+    ?outbound_network_restriction_enabled
+    ?primary_user_assigned_identity_id ?public_network_access_enabled
+    ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
+    ~location ~name ~resource_group_name ~version
+    ~azuread_administrator ~identity __id =
+  let __type = "azurerm_mssql_server" in
+  let __attrs =
+    ({
+       administrator_login =
+         Prop.computed __type __id "administrator_login";
+       administrator_login_password =
+         Prop.computed __type __id "administrator_login_password";
+       connection_policy =
+         Prop.computed __type __id "connection_policy";
+       fully_qualified_domain_name =
+         Prop.computed __type __id "fully_qualified_domain_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       minimum_tls_version =
+         Prop.computed __type __id "minimum_tls_version";
+       name = Prop.computed __type __id "name";
+       outbound_network_restriction_enabled =
+         Prop.computed __type __id
+           "outbound_network_restriction_enabled";
+       primary_user_assigned_identity_id =
+         Prop.computed __type __id
+           "primary_user_assigned_identity_id";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       restorable_dropped_database_ids =
+         Prop.computed __type __id "restorable_dropped_database_ids";
+       tags = Prop.computed __type __id "tags";
+       transparent_data_encryption_key_vault_key_id =
+         Prop.computed __type __id
+           "transparent_data_encryption_key_vault_key_id";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_server
+        (azurerm_mssql_server ?administrator_login
+           ?administrator_login_password ?connection_policy ?id
+           ?minimum_tls_version ?outbound_network_restriction_enabled
+           ?primary_user_assigned_identity_id
+           ?public_network_access_enabled ?tags
+           ?transparent_data_encryption_key_vault_key_id ?timeouts
+           ~location ~name ~resource_group_name ~version
+           ~azuread_administrator ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?administrator_login
     ?administrator_login_password ?connection_policy ?id
     ?minimum_tls_version ?outbound_network_restriction_enabled
     ?primary_user_assigned_identity_id ?public_network_access_enabled
     ?tags ?transparent_data_encryption_key_vault_key_id ?timeouts
     ~location ~name ~resource_group_name ~version
-    ~azuread_administrator ~identity __resource_id =
-  let __resource_type = "azurerm_mssql_server" in
-  let __resource =
-    azurerm_mssql_server ?administrator_login
-      ?administrator_login_password ?connection_policy ?id
-      ?minimum_tls_version ?outbound_network_restriction_enabled
+    ~azuread_administrator ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?administrator_login ?administrator_login_password
+      ?connection_policy ?id ?minimum_tls_version
+      ?outbound_network_restriction_enabled
       ?primary_user_assigned_identity_id
       ?public_network_access_enabled ?tags
       ?transparent_data_encryption_key_vault_key_id ?timeouts
       ~location ~name ~resource_group_name ~version
-      ~azuread_administrator ~identity ()
+      ~azuread_administrator ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_server __resource);
-  let __resource_attributes =
-    ({
-       administrator_login =
-         Prop.computed __resource_type __resource_id
-           "administrator_login";
-       administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_login_password";
-       connection_policy =
-         Prop.computed __resource_type __resource_id
-           "connection_policy";
-       fully_qualified_domain_name =
-         Prop.computed __resource_type __resource_id
-           "fully_qualified_domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       minimum_tls_version =
-         Prop.computed __resource_type __resource_id
-           "minimum_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_network_restriction_enabled =
-         Prop.computed __resource_type __resource_id
-           "outbound_network_restriction_enabled";
-       primary_user_assigned_identity_id =
-         Prop.computed __resource_type __resource_id
-           "primary_user_assigned_identity_id";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       restorable_dropped_database_ids =
-         Prop.computed __resource_type __resource_id
-           "restorable_dropped_database_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       transparent_data_encryption_key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "transparent_data_encryption_key_vault_key_id";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

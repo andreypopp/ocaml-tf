@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -169,3 +169,31 @@ val register :
   persistence_config:persistence_config list ->
   string ->
   t
+
+val make :
+  ?alternative_location_id:string prop ->
+  ?auth_enabled:bool prop ->
+  ?authorized_network:string prop ->
+  ?connect_mode:string prop ->
+  ?customer_managed_key:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location_id:string prop ->
+  ?project:string prop ->
+  ?read_replicas_mode:string prop ->
+  ?redis_configs:(string * string prop) list ->
+  ?redis_version:string prop ->
+  ?region:string prop ->
+  ?replica_count:float prop ->
+  ?reserved_ip_range:string prop ->
+  ?secondary_ip_range:string prop ->
+  ?tier:string prop ->
+  ?transit_encryption_mode:string prop ->
+  ?timeouts:timeouts ->
+  memory_size_gb:float prop ->
+  name:string prop ->
+  maintenance_policy:maintenance_policy list ->
+  persistence_config:persistence_config list ->
+  string ->
+  t Tf_core.resource

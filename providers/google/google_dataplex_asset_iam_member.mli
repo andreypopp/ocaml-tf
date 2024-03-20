@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,16 @@ val register :
   condition:condition list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  asset:string prop ->
+  dataplex_zone:string prop ->
+  lake:string prop ->
+  member:string prop ->
+  role:string prop ->
+  condition:condition list ->
+  string ->
+  t Tf_core.resource

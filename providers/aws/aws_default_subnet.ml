@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -99,6 +97,74 @@ type t = {
   vpc_id : string prop;
 }
 
+let make ?assign_ipv6_address_on_creation ?customer_owned_ipv4_pool
+    ?enable_dns64 ?enable_resource_name_dns_a_record_on_launch
+    ?enable_resource_name_dns_aaaa_record_on_launch ?force_destroy
+    ?id ?ipv6_cidr_block ?ipv6_native
+    ?map_customer_owned_ip_on_launch ?map_public_ip_on_launch
+    ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
+    ~availability_zone __id =
+  let __type = "aws_default_subnet" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       assign_ipv6_address_on_creation =
+         Prop.computed __type __id "assign_ipv6_address_on_creation";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       availability_zone_id =
+         Prop.computed __type __id "availability_zone_id";
+       cidr_block = Prop.computed __type __id "cidr_block";
+       customer_owned_ipv4_pool =
+         Prop.computed __type __id "customer_owned_ipv4_pool";
+       enable_dns64 = Prop.computed __type __id "enable_dns64";
+       enable_lni_at_device_index =
+         Prop.computed __type __id "enable_lni_at_device_index";
+       enable_resource_name_dns_a_record_on_launch =
+         Prop.computed __type __id
+           "enable_resource_name_dns_a_record_on_launch";
+       enable_resource_name_dns_aaaa_record_on_launch =
+         Prop.computed __type __id
+           "enable_resource_name_dns_aaaa_record_on_launch";
+       existing_default_subnet =
+         Prop.computed __type __id "existing_default_subnet";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       ipv6_cidr_block = Prop.computed __type __id "ipv6_cidr_block";
+       ipv6_cidr_block_association_id =
+         Prop.computed __type __id "ipv6_cidr_block_association_id";
+       ipv6_native = Prop.computed __type __id "ipv6_native";
+       map_customer_owned_ip_on_launch =
+         Prop.computed __type __id "map_customer_owned_ip_on_launch";
+       map_public_ip_on_launch =
+         Prop.computed __type __id "map_public_ip_on_launch";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       owner_id = Prop.computed __type __id "owner_id";
+       private_dns_hostname_type_on_launch =
+         Prop.computed __type __id
+           "private_dns_hostname_type_on_launch";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_default_subnet
+        (aws_default_subnet ?assign_ipv6_address_on_creation
+           ?customer_owned_ipv4_pool ?enable_dns64
+           ?enable_resource_name_dns_a_record_on_launch
+           ?enable_resource_name_dns_aaaa_record_on_launch
+           ?force_destroy ?id ?ipv6_cidr_block ?ipv6_native
+           ?map_customer_owned_ip_on_launch ?map_public_ip_on_launch
+           ?private_dns_hostname_type_on_launch ?tags ?tags_all
+           ?timeouts ~availability_zone ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?assign_ipv6_address_on_creation
     ?customer_owned_ipv4_pool ?enable_dns64
     ?enable_resource_name_dns_a_record_on_launch
@@ -106,80 +172,15 @@ let register ?tf_module ?assign_ipv6_address_on_creation
     ?id ?ipv6_cidr_block ?ipv6_native
     ?map_customer_owned_ip_on_launch ?map_public_ip_on_launch
     ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
-    ~availability_zone __resource_id =
-  let __resource_type = "aws_default_subnet" in
-  let __resource =
-    aws_default_subnet ?assign_ipv6_address_on_creation
-      ?customer_owned_ipv4_pool ?enable_dns64
-      ?enable_resource_name_dns_a_record_on_launch
+    ~availability_zone __id =
+  let (r : _ Tf_core.resource) =
+    make ?assign_ipv6_address_on_creation ?customer_owned_ipv4_pool
+      ?enable_dns64 ?enable_resource_name_dns_a_record_on_launch
       ?enable_resource_name_dns_aaaa_record_on_launch ?force_destroy
       ?id ?ipv6_cidr_block ?ipv6_native
       ?map_customer_owned_ip_on_launch ?map_public_ip_on_launch
       ?private_dns_hostname_type_on_launch ?tags ?tags_all ?timeouts
-      ~availability_zone ()
+      ~availability_zone __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_default_subnet __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       assign_ipv6_address_on_creation =
-         Prop.computed __resource_type __resource_id
-           "assign_ipv6_address_on_creation";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       availability_zone_id =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_id";
-       cidr_block =
-         Prop.computed __resource_type __resource_id "cidr_block";
-       customer_owned_ipv4_pool =
-         Prop.computed __resource_type __resource_id
-           "customer_owned_ipv4_pool";
-       enable_dns64 =
-         Prop.computed __resource_type __resource_id "enable_dns64";
-       enable_lni_at_device_index =
-         Prop.computed __resource_type __resource_id
-           "enable_lni_at_device_index";
-       enable_resource_name_dns_a_record_on_launch =
-         Prop.computed __resource_type __resource_id
-           "enable_resource_name_dns_a_record_on_launch";
-       enable_resource_name_dns_aaaa_record_on_launch =
-         Prop.computed __resource_type __resource_id
-           "enable_resource_name_dns_aaaa_record_on_launch";
-       existing_default_subnet =
-         Prop.computed __resource_type __resource_id
-           "existing_default_subnet";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv6_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "ipv6_cidr_block";
-       ipv6_cidr_block_association_id =
-         Prop.computed __resource_type __resource_id
-           "ipv6_cidr_block_association_id";
-       ipv6_native =
-         Prop.computed __resource_type __resource_id "ipv6_native";
-       map_customer_owned_ip_on_launch =
-         Prop.computed __resource_type __resource_id
-           "map_customer_owned_ip_on_launch";
-       map_public_ip_on_launch =
-         Prop.computed __resource_type __resource_id
-           "map_public_ip_on_launch";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       private_dns_hostname_type_on_launch =
-         Prop.computed __resource_type __resource_id
-           "private_dns_hostname_type_on_launch";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

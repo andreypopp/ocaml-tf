@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_spot_datafeed_subscription = {
   bucket : string prop;  (** bucket *)
@@ -22,19 +20,26 @@ type t = {
   prefix : string prop;
 }
 
-let register ?tf_module ?id ?prefix ~bucket __resource_id =
-  let __resource_type = "aws_spot_datafeed_subscription" in
-  let __resource =
-    aws_spot_datafeed_subscription ?id ?prefix ~bucket ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_spot_datafeed_subscription __resource);
-  let __resource_attributes =
+let make ?id ?prefix ~bucket __id =
+  let __type = "aws_spot_datafeed_subscription" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       prefix = Prop.computed __resource_type __resource_id "prefix";
+       bucket = Prop.computed __type __id "bucket";
+       id = Prop.computed __type __id "id";
+       prefix = Prop.computed __type __id "prefix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_spot_datafeed_subscription
+        (aws_spot_datafeed_subscription ?id ?prefix ~bucket ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?prefix ~bucket __id =
+  let (r : _ Tf_core.resource) = make ?id ?prefix ~bucket __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

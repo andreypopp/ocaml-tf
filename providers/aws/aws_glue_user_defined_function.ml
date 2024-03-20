@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type resource_uris = {
   resource_type : string prop;  (** resource_type *)
@@ -53,33 +51,39 @@ type t = {
   owner_type : string prop;
 }
 
-let register ?tf_module ?catalog_id ?id ~class_name ~database_name
-    ~name ~owner_name ~owner_type ~resource_uris __resource_id =
-  let __resource_type = "aws_glue_user_defined_function" in
-  let __resource =
-    aws_glue_user_defined_function ?catalog_id ?id ~class_name
-      ~database_name ~name ~owner_name ~owner_type ~resource_uris ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_user_defined_function __resource);
-  let __resource_attributes =
+let make ?catalog_id ?id ~class_name ~database_name ~name ~owner_name
+    ~owner_type ~resource_uris __id =
+  let __type = "aws_glue_user_defined_function" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       catalog_id =
-         Prop.computed __resource_type __resource_id "catalog_id";
-       class_name =
-         Prop.computed __resource_type __resource_id "class_name";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner_name =
-         Prop.computed __resource_type __resource_id "owner_name";
-       owner_type =
-         Prop.computed __resource_type __resource_id "owner_type";
+       arn = Prop.computed __type __id "arn";
+       catalog_id = Prop.computed __type __id "catalog_id";
+       class_name = Prop.computed __type __id "class_name";
+       create_time = Prop.computed __type __id "create_time";
+       database_name = Prop.computed __type __id "database_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       owner_name = Prop.computed __type __id "owner_name";
+       owner_type = Prop.computed __type __id "owner_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_user_defined_function
+        (aws_glue_user_defined_function ?catalog_id ?id ~class_name
+           ~database_name ~name ~owner_name ~owner_type
+           ~resource_uris ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?catalog_id ?id ~class_name ~database_name
+    ~name ~owner_name ~owner_type ~resource_uris __id =
+  let (r : _ Tf_core.resource) =
+    make ?catalog_id ?id ~class_name ~database_name ~name ~owner_name
+      ~owner_type ~resource_uris __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

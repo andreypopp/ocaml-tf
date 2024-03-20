@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscaling = {
   max_node_count : float prop;
@@ -251,47 +249,50 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?annotations ?id ?project ?timeouts ~cluster
-    ~location ~name ~subnet_id ~version ~autoscaling ~config
-    ~management ~max_pods_constraint ~update_settings __resource_id =
-  let __resource_type = "google_container_aws_node_pool" in
-  let __resource =
-    google_container_aws_node_pool ?annotations ?id ?project
-      ?timeouts ~cluster ~location ~name ~subnet_id ~version
-      ~autoscaling ~config ~management ~max_pods_constraint
-      ~update_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_aws_node_pool __resource);
-  let __resource_attributes =
+let make ?annotations ?id ?project ?timeouts ~cluster ~location ~name
+    ~subnet_id ~version ~autoscaling ~config ~management
+    ~max_pods_constraint ~update_settings __id =
+  let __type = "google_container_aws_node_pool" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       annotations = Prop.computed __type __id "annotations";
+       cluster = Prop.computed __type __id "cluster";
+       create_time = Prop.computed __type __id "create_time";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "effective_annotations";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_aws_node_pool
+        (google_container_aws_node_pool ?annotations ?id ?project
+           ?timeouts ~cluster ~location ~name ~subnet_id ~version
+           ~autoscaling ~config ~management ~max_pods_constraint
+           ~update_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?id ?project ?timeouts ~cluster
+    ~location ~name ~subnet_id ~version ~autoscaling ~config
+    ~management ~max_pods_constraint ~update_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?id ?project ?timeouts ~cluster ~location ~name
+      ~subnet_id ~version ~autoscaling ~config ~management
+      ~max_pods_constraint ~update_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

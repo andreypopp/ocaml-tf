@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,12 @@ val register :
   user:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?password_length:float prop ->
+  ?password_reset_required:bool prop ->
+  ?pgp_key:string prop ->
+  user:string prop ->
+  string ->
+  t Tf_core.resource

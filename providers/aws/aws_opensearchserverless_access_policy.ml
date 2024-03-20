@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_opensearchserverless_access_policy = {
   description : string prop option; [@option]  (** description *)
@@ -26,26 +24,32 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ~name ~policy ~type_
-    __resource_id =
-  let __resource_type = "aws_opensearchserverless_access_policy" in
-  let __resource =
-    aws_opensearchserverless_access_policy ?description ~name ~policy
-      ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opensearchserverless_access_policy __resource);
-  let __resource_attributes =
+let make ?description ~name ~policy ~type_ __id =
+  let __type = "aws_opensearchserverless_access_policy" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       policy_version =
-         Prop.computed __resource_type __resource_id "policy_version";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       policy = Prop.computed __type __id "policy";
+       policy_version = Prop.computed __type __id "policy_version";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opensearchserverless_access_policy
+        (aws_opensearchserverless_access_policy ?description ~name
+           ~policy ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ~name ~policy ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ~name ~policy ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

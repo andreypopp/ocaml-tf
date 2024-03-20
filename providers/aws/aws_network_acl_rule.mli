@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,19 @@ val register :
   rule_number:float prop ->
   string ->
   t
+
+val make :
+  ?cidr_block:string prop ->
+  ?egress:bool prop ->
+  ?from_port:float prop ->
+  ?icmp_code:float prop ->
+  ?icmp_type:float prop ->
+  ?id:string prop ->
+  ?ipv6_cidr_block:string prop ->
+  ?to_port:float prop ->
+  network_acl_id:string prop ->
+  protocol:string prop ->
+  rule_action:string prop ->
+  rule_number:float prop ->
+  string ->
+  t Tf_core.resource

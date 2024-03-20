@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type pipeline = {
   name : string prop;  (** name *)
@@ -115,48 +113,52 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?activated ?annotations ?description
-    ?end_time ?frequency ?id ?interval ?pipeline_name
-    ?pipeline_parameters ?start_time ?time_zone ?timeouts
-    ~data_factory_id ~name ~pipeline ~schedule __resource_id =
-  let __resource_type = "azurerm_data_factory_trigger_schedule" in
-  let __resource =
-    azurerm_data_factory_trigger_schedule ?activated ?annotations
-      ?description ?end_time ?frequency ?id ?interval ?pipeline_name
-      ?pipeline_parameters ?start_time ?time_zone ?timeouts
-      ~data_factory_id ~name ~pipeline ~schedule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_trigger_schedule __resource);
-  let __resource_attributes =
+let make ?activated ?annotations ?description ?end_time ?frequency
+    ?id ?interval ?pipeline_name ?pipeline_parameters ?start_time
+    ?time_zone ?timeouts ~data_factory_id ~name ~pipeline ~schedule
+    __id =
+  let __type = "azurerm_data_factory_trigger_schedule" in
+  let __attrs =
     ({
-       activated =
-         Prop.computed __resource_type __resource_id "activated";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       name = Prop.computed __resource_type __resource_id "name";
-       pipeline_name =
-         Prop.computed __resource_type __resource_id "pipeline_name";
+       activated = Prop.computed __type __id "activated";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       end_time = Prop.computed __type __id "end_time";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       name = Prop.computed __type __id "name";
+       pipeline_name = Prop.computed __type __id "pipeline_name";
        pipeline_parameters =
-         Prop.computed __resource_type __resource_id
-           "pipeline_parameters";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+         Prop.computed __type __id "pipeline_parameters";
+       start_time = Prop.computed __type __id "start_time";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_trigger_schedule
+        (azurerm_data_factory_trigger_schedule ?activated
+           ?annotations ?description ?end_time ?frequency ?id
+           ?interval ?pipeline_name ?pipeline_parameters ?start_time
+           ?time_zone ?timeouts ~data_factory_id ~name ~pipeline
+           ~schedule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?activated ?annotations ?description
+    ?end_time ?frequency ?id ?interval ?pipeline_name
+    ?pipeline_parameters ?start_time ?time_zone ?timeouts
+    ~data_factory_id ~name ~pipeline ~schedule __id =
+  let (r : _ Tf_core.resource) =
+    make ?activated ?annotations ?description ?end_time ?frequency
+      ?id ?interval ?pipeline_name ?pipeline_parameters ?start_time
+      ?time_zone ?timeouts ~data_factory_id ~name ~pipeline ~schedule
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

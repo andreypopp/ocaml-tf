@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_transit_gateway_route_table = {
   id : string prop option; [@option]  (** id *)
@@ -28,32 +26,37 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~transit_gateway_id
-    __resource_id =
-  let __resource_type = "aws_ec2_transit_gateway_route_table" in
-  let __resource =
-    aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
-      ~transit_gateway_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_transit_gateway_route_table __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~transit_gateway_id __id =
+  let __type = "aws_ec2_transit_gateway_route_table" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        default_association_route_table =
-         Prop.computed __resource_type __resource_id
-           "default_association_route_table";
+         Prop.computed __type __id "default_association_route_table";
        default_propagation_route_table =
-         Prop.computed __resource_type __resource_id
-           "default_propagation_route_table";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "default_propagation_route_table";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        transit_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_id";
+         Prop.computed __type __id "transit_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_transit_gateway_route_table
+        (aws_ec2_transit_gateway_route_table ?id ?tags ?tags_all
+           ~transit_gateway_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~transit_gateway_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~transit_gateway_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

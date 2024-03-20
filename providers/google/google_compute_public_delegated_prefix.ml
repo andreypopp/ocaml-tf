@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,36 +64,40 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?description ?id ?is_live_migration ?project
-    ?timeouts ~ip_cidr_range ~name ~parent_prefix ~region
-    __resource_id =
-  let __resource_type = "google_compute_public_delegated_prefix" in
-  let __resource =
-    google_compute_public_delegated_prefix ?description ?id
-      ?is_live_migration ?project ?timeouts ~ip_cidr_range ~name
-      ~parent_prefix ~region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_public_delegated_prefix __resource);
-  let __resource_attributes =
+let make ?description ?id ?is_live_migration ?project ?timeouts
+    ~ip_cidr_range ~name ~parent_prefix ~region __id =
+  let __type = "google_compute_public_delegated_prefix" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_cidr_range =
-         Prop.computed __resource_type __resource_id "ip_cidr_range";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ip_cidr_range = Prop.computed __type __id "ip_cidr_range";
        is_live_migration =
-         Prop.computed __resource_type __resource_id
-           "is_live_migration";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_prefix =
-         Prop.computed __resource_type __resource_id "parent_prefix";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "is_live_migration";
+       name = Prop.computed __type __id "name";
+       parent_prefix = Prop.computed __type __id "parent_prefix";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_public_delegated_prefix
+        (google_compute_public_delegated_prefix ?description ?id
+           ?is_live_migration ?project ?timeouts ~ip_cidr_range ~name
+           ~parent_prefix ~region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?is_live_migration ?project
+    ?timeouts ~ip_cidr_range ~name ~parent_prefix ~region __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?is_live_migration ?project ?timeouts
+      ~ip_cidr_range ~name ~parent_prefix ~region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

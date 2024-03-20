@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type response_parameters = {
   mappings : (string * string prop) list;  (** mappings *)
@@ -112,76 +110,78 @@ type t = {
   timeout_milliseconds : float prop;
 }
 
+let make ?connection_id ?connection_type ?content_handling_strategy
+    ?credentials_arn ?description ?id ?integration_method
+    ?integration_subtype ?integration_uri ?passthrough_behavior
+    ?payload_format_version ?request_parameters ?request_templates
+    ?template_selection_expression ?timeout_milliseconds ~api_id
+    ~integration_type ~response_parameters ~tls_config __id =
+  let __type = "aws_apigatewayv2_integration" in
+  let __attrs =
+    ({
+       api_id = Prop.computed __type __id "api_id";
+       connection_id = Prop.computed __type __id "connection_id";
+       connection_type = Prop.computed __type __id "connection_type";
+       content_handling_strategy =
+         Prop.computed __type __id "content_handling_strategy";
+       credentials_arn = Prop.computed __type __id "credentials_arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       integration_method =
+         Prop.computed __type __id "integration_method";
+       integration_response_selection_expression =
+         Prop.computed __type __id
+           "integration_response_selection_expression";
+       integration_subtype =
+         Prop.computed __type __id "integration_subtype";
+       integration_type =
+         Prop.computed __type __id "integration_type";
+       integration_uri = Prop.computed __type __id "integration_uri";
+       passthrough_behavior =
+         Prop.computed __type __id "passthrough_behavior";
+       payload_format_version =
+         Prop.computed __type __id "payload_format_version";
+       request_parameters =
+         Prop.computed __type __id "request_parameters";
+       request_templates =
+         Prop.computed __type __id "request_templates";
+       template_selection_expression =
+         Prop.computed __type __id "template_selection_expression";
+       timeout_milliseconds =
+         Prop.computed __type __id "timeout_milliseconds";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_integration
+        (aws_apigatewayv2_integration ?connection_id ?connection_type
+           ?content_handling_strategy ?credentials_arn ?description
+           ?id ?integration_method ?integration_subtype
+           ?integration_uri ?passthrough_behavior
+           ?payload_format_version ?request_parameters
+           ?request_templates ?template_selection_expression
+           ?timeout_milliseconds ~api_id ~integration_type
+           ~response_parameters ~tls_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?connection_id ?connection_type
     ?content_handling_strategy ?credentials_arn ?description ?id
     ?integration_method ?integration_subtype ?integration_uri
     ?passthrough_behavior ?payload_format_version ?request_parameters
     ?request_templates ?template_selection_expression
     ?timeout_milliseconds ~api_id ~integration_type
-    ~response_parameters ~tls_config __resource_id =
-  let __resource_type = "aws_apigatewayv2_integration" in
-  let __resource =
-    aws_apigatewayv2_integration ?connection_id ?connection_type
-      ?content_handling_strategy ?credentials_arn ?description ?id
-      ?integration_method ?integration_subtype ?integration_uri
-      ?passthrough_behavior ?payload_format_version
-      ?request_parameters ?request_templates
+    ~response_parameters ~tls_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?connection_id ?connection_type ?content_handling_strategy
+      ?credentials_arn ?description ?id ?integration_method
+      ?integration_subtype ?integration_uri ?passthrough_behavior
+      ?payload_format_version ?request_parameters ?request_templates
       ?template_selection_expression ?timeout_milliseconds ~api_id
-      ~integration_type ~response_parameters ~tls_config ()
+      ~integration_type ~response_parameters ~tls_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_integration __resource);
-  let __resource_attributes =
-    ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
-       connection_type =
-         Prop.computed __resource_type __resource_id
-           "connection_type";
-       content_handling_strategy =
-         Prop.computed __resource_type __resource_id
-           "content_handling_strategy";
-       credentials_arn =
-         Prop.computed __resource_type __resource_id
-           "credentials_arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_method =
-         Prop.computed __resource_type __resource_id
-           "integration_method";
-       integration_response_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "integration_response_selection_expression";
-       integration_subtype =
-         Prop.computed __resource_type __resource_id
-           "integration_subtype";
-       integration_type =
-         Prop.computed __resource_type __resource_id
-           "integration_type";
-       integration_uri =
-         Prop.computed __resource_type __resource_id
-           "integration_uri";
-       passthrough_behavior =
-         Prop.computed __resource_type __resource_id
-           "passthrough_behavior";
-       payload_format_version =
-         Prop.computed __resource_type __resource_id
-           "payload_format_version";
-       request_parameters =
-         Prop.computed __resource_type __resource_id
-           "request_parameters";
-       request_templates =
-         Prop.computed __resource_type __resource_id
-           "request_templates";
-       template_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "template_selection_expression";
-       timeout_milliseconds =
-         Prop.computed __resource_type __resource_id
-           "timeout_milliseconds";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

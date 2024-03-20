@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,19 @@ val register :
   layer_name:string prop ->
   string ->
   t
+
+val make :
+  ?compatible_architectures:string prop list ->
+  ?compatible_runtimes:string prop list ->
+  ?description:string prop ->
+  ?filename:string prop ->
+  ?id:string prop ->
+  ?license_info:string prop ->
+  ?s3_bucket:string prop ->
+  ?s3_key:string prop ->
+  ?s3_object_version:string prop ->
+  ?skip_destroy:bool prop ->
+  ?source_code_hash:string prop ->
+  layer_name:string prop ->
+  string ->
+  t Tf_core.resource

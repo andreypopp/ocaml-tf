@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -311,3 +311,18 @@ val register :
   rollout:rollout list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  patch_deployment_id:string prop ->
+  instance_filter:instance_filter list ->
+  one_time_schedule:one_time_schedule list ->
+  patch_config:patch_config list ->
+  recurring_schedule:recurring_schedule list ->
+  rollout:rollout list ->
+  string ->
+  t Tf_core.resource

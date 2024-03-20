@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,18 @@ val register :
   subscriber:subscriber list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  action_type:string prop ->
+  approval_model:string prop ->
+  budget_name:string prop ->
+  execution_role_arn:string prop ->
+  notification_type:string prop ->
+  action_threshold:action_threshold list ->
+  definition:definition list ->
+  subscriber:subscriber list ->
+  string ->
+  t Tf_core.resource

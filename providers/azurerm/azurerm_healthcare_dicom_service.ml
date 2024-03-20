@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -79,36 +77,41 @@ type t = {
   workspace_id : string prop;
 }
 
-let register ?tf_module ?id ?public_network_access_enabled ?tags
-    ?timeouts ~location ~name ~workspace_id ~identity __resource_id =
-  let __resource_type = "azurerm_healthcare_dicom_service" in
-  let __resource =
-    azurerm_healthcare_dicom_service ?id
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~workspace_id ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_healthcare_dicom_service __resource);
-  let __resource_attributes =
+let make ?id ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~workspace_id ~identity __id =
+  let __type = "azurerm_healthcare_dicom_service" in
+  let __attrs =
     ({
-       authentication =
-         Prop.computed __resource_type __resource_id "authentication";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       authentication = Prop.computed __type __id "authentication";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        private_endpoint =
-         Prop.computed __resource_type __resource_id
-           "private_endpoint";
+         Prop.computed __type __id "private_endpoint";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       service_url =
-         Prop.computed __resource_type __resource_id "service_url";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
+         Prop.computed __type __id "public_network_access_enabled";
+       service_url = Prop.computed __type __id "service_url";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_healthcare_dicom_service
+        (azurerm_healthcare_dicom_service ?id
+           ?public_network_access_enabled ?tags ?timeouts ~location
+           ~name ~workspace_id ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?public_network_access_enabled ?tags
+    ?timeouts ~location ~name ~workspace_id ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?public_network_access_enabled ?tags ?timeouts ~location
+      ~name ~workspace_id ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

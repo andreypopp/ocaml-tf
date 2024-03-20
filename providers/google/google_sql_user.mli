@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,17 @@ val register :
   password_policy:password_policy list ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?host:string prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  password_policy:password_policy list ->
+  string ->
+  t Tf_core.resource

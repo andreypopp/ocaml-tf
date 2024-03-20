@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,29 +46,36 @@ type t = {
   server_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~charset ~collation ~name
-    ~resource_group_name ~server_name __resource_id =
-  let __resource_type = "azurerm_mysql_database" in
-  let __resource =
-    azurerm_mysql_database ?id ?timeouts ~charset ~collation ~name
-      ~resource_group_name ~server_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mysql_database __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~charset ~collation ~name ~resource_group_name
+    ~server_name __id =
+  let __type = "azurerm_mysql_database" in
+  let __attrs =
     ({
-       charset =
-         Prop.computed __resource_type __resource_id "charset";
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       charset = Prop.computed __type __id "charset";
+       collation = Prop.computed __type __id "collation";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
+         Prop.computed __type __id "resource_group_name";
+       server_name = Prop.computed __type __id "server_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mysql_database
+        (azurerm_mysql_database ?id ?timeouts ~charset ~collation
+           ~name ~resource_group_name ~server_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~charset ~collation ~name
+    ~resource_group_name ~server_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~charset ~collation ~name ~resource_group_name
+      ~server_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

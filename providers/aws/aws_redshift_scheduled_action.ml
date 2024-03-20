@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target_action__pause_cluster = {
   cluster_identifier : string prop;  (** cluster_identifier *)
@@ -98,32 +96,38 @@ type t = {
   start_time : string prop;
 }
 
-let register ?tf_module ?description ?enable ?end_time ?id
-    ?start_time ~iam_role ~name ~schedule ~target_action
-    __resource_id =
-  let __resource_type = "aws_redshift_scheduled_action" in
-  let __resource =
-    aws_redshift_scheduled_action ?description ?enable ?end_time ?id
-      ?start_time ~iam_role ~name ~schedule ~target_action ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_scheduled_action __resource);
-  let __resource_attributes =
+let make ?description ?enable ?end_time ?id ?start_time ~iam_role
+    ~name ~schedule ~target_action __id =
+  let __type = "aws_redshift_scheduled_action" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable = Prop.computed __resource_type __resource_id "enable";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       iam_role =
-         Prop.computed __resource_type __resource_id "iam_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
+       description = Prop.computed __type __id "description";
+       enable = Prop.computed __type __id "enable";
+       end_time = Prop.computed __type __id "end_time";
+       iam_role = Prop.computed __type __id "iam_role";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       schedule = Prop.computed __type __id "schedule";
+       start_time = Prop.computed __type __id "start_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_scheduled_action
+        (aws_redshift_scheduled_action ?description ?enable ?end_time
+           ?id ?start_time ~iam_role ~name ~schedule ~target_action
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enable ?end_time ?id
+    ?start_time ~iam_role ~name ~schedule ~target_action __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enable ?end_time ?id ?start_time ~iam_role
+      ~name ~schedule ~target_action __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iot_thing_principal_attachment = {
   id : string prop option; [@option]  (** id *)
@@ -22,20 +20,26 @@ type t = {
   thing : string prop;
 }
 
-let register ?tf_module ?id ~principal ~thing __resource_id =
-  let __resource_type = "aws_iot_thing_principal_attachment" in
-  let __resource =
-    aws_iot_thing_principal_attachment ?id ~principal ~thing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_thing_principal_attachment __resource);
-  let __resource_attributes =
+let make ?id ~principal ~thing __id =
+  let __type = "aws_iot_thing_principal_attachment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
-       thing = Prop.computed __resource_type __resource_id "thing";
+       id = Prop.computed __type __id "id";
+       principal = Prop.computed __type __id "principal";
+       thing = Prop.computed __type __id "thing";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_thing_principal_attachment
+        (aws_iot_thing_principal_attachment ?id ~principal ~thing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~principal ~thing __id =
+  let (r : _ Tf_core.resource) = make ?id ~principal ~thing __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

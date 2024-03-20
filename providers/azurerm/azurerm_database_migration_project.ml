@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,36 +54,40 @@ type t = {
   target_platform : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~service_name ~source_platform
-    ~target_platform __resource_id =
-  let __resource_type = "azurerm_database_migration_project" in
-  let __resource =
-    azurerm_database_migration_project ?id ?tags ?timeouts ~location
-      ~name ~resource_group_name ~service_name ~source_platform
-      ~target_platform ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_database_migration_project __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~service_name ~source_platform ~target_platform __id =
+  let __type = "azurerm_database_migration_project" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       source_platform =
-         Prop.computed __resource_type __resource_id
-           "source_platform";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       target_platform =
-         Prop.computed __resource_type __resource_id
-           "target_platform";
+         Prop.computed __type __id "resource_group_name";
+       service_name = Prop.computed __type __id "service_name";
+       source_platform = Prop.computed __type __id "source_platform";
+       tags = Prop.computed __type __id "tags";
+       target_platform = Prop.computed __type __id "target_platform";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_database_migration_project
+        (azurerm_database_migration_project ?id ?tags ?timeouts
+           ~location ~name ~resource_group_name ~service_name
+           ~source_platform ~target_platform ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~service_name ~source_platform
+    ~target_platform __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+      ~service_name ~source_platform ~target_platform __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

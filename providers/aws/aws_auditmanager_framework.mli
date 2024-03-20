@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,12 @@ val register :
   control_sets:control_sets list ->
   string ->
   t
+
+val make :
+  ?compliance_type:string prop ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  name:string prop ->
+  control_sets:control_sets list ->
+  string ->
+  t Tf_core.resource

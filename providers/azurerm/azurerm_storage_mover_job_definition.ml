@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,41 +64,45 @@ type t = {
   target_sub_path : string prop;
 }
 
-let register ?tf_module ?agent_name ?description ?id ?source_sub_path
+let make ?agent_name ?description ?id ?source_sub_path
     ?target_sub_path ?timeouts ~copy_mode ~name ~source_name
-    ~storage_mover_project_id ~target_name __resource_id =
-  let __resource_type = "azurerm_storage_mover_job_definition" in
-  let __resource =
-    azurerm_storage_mover_job_definition ?agent_name ?description ?id
-      ?source_sub_path ?target_sub_path ?timeouts ~copy_mode ~name
-      ~source_name ~storage_mover_project_id ~target_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_mover_job_definition __resource);
-  let __resource_attributes =
+    ~storage_mover_project_id ~target_name __id =
+  let __type = "azurerm_storage_mover_job_definition" in
+  let __attrs =
     ({
-       agent_name =
-         Prop.computed __resource_type __resource_id "agent_name";
-       copy_mode =
-         Prop.computed __resource_type __resource_id "copy_mode";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       source_name =
-         Prop.computed __resource_type __resource_id "source_name";
-       source_sub_path =
-         Prop.computed __resource_type __resource_id
-           "source_sub_path";
+       agent_name = Prop.computed __type __id "agent_name";
+       copy_mode = Prop.computed __type __id "copy_mode";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       source_name = Prop.computed __type __id "source_name";
+       source_sub_path = Prop.computed __type __id "source_sub_path";
        storage_mover_project_id =
-         Prop.computed __resource_type __resource_id
-           "storage_mover_project_id";
-       target_name =
-         Prop.computed __resource_type __resource_id "target_name";
-       target_sub_path =
-         Prop.computed __resource_type __resource_id
-           "target_sub_path";
+         Prop.computed __type __id "storage_mover_project_id";
+       target_name = Prop.computed __type __id "target_name";
+       target_sub_path = Prop.computed __type __id "target_sub_path";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_mover_job_definition
+        (azurerm_storage_mover_job_definition ?agent_name
+           ?description ?id ?source_sub_path ?target_sub_path
+           ?timeouts ~copy_mode ~name ~source_name
+           ~storage_mover_project_id ~target_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?agent_name ?description ?id ?source_sub_path
+    ?target_sub_path ?timeouts ~copy_mode ~name ~source_name
+    ~storage_mover_project_id ~target_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_name ?description ?id ?source_sub_path
+      ?target_sub_path ?timeouts ~copy_mode ~name ~source_name
+      ~storage_mover_project_id ~target_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

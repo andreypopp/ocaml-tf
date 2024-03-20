@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_scaling_configuration = {
   auto_scaling_metric : string prop;  (** auto_scaling_metric *)
@@ -251,64 +249,74 @@ type t = {
   type_ : string prop;
 }
 
+let make ?availability_zone_id ?command_line_arguments ?description
+    ?execution_role ?id ?initialization_script ?tags ?tags_all
+    ?timeouts ~az_mode ~environment_id ~name ~release_label ~type_
+    ~auto_scaling_configuration ~cache_storage_configurations
+    ~capacity_configuration ~code ~database
+    ~savedown_storage_configuration ~scaling_group_configuration
+    ~tickerplant_log_configuration ~vpc_configuration __id =
+  let __type = "aws_finspace_kx_cluster" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       availability_zone_id =
+         Prop.computed __type __id "availability_zone_id";
+       az_mode = Prop.computed __type __id "az_mode";
+       command_line_arguments =
+         Prop.computed __type __id "command_line_arguments";
+       created_timestamp =
+         Prop.computed __type __id "created_timestamp";
+       description = Prop.computed __type __id "description";
+       environment_id = Prop.computed __type __id "environment_id";
+       execution_role = Prop.computed __type __id "execution_role";
+       id = Prop.computed __type __id "id";
+       initialization_script =
+         Prop.computed __type __id "initialization_script";
+       last_modified_timestamp =
+         Prop.computed __type __id "last_modified_timestamp";
+       name = Prop.computed __type __id "name";
+       release_label = Prop.computed __type __id "release_label";
+       status = Prop.computed __type __id "status";
+       status_reason = Prop.computed __type __id "status_reason";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_finspace_kx_cluster
+        (aws_finspace_kx_cluster ?availability_zone_id
+           ?command_line_arguments ?description ?execution_role ?id
+           ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
+           ~environment_id ~name ~release_label ~type_
+           ~auto_scaling_configuration ~cache_storage_configurations
+           ~capacity_configuration ~code ~database
+           ~savedown_storage_configuration
+           ~scaling_group_configuration
+           ~tickerplant_log_configuration ~vpc_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?availability_zone_id ?command_line_arguments
     ?description ?execution_role ?id ?initialization_script ?tags
     ?tags_all ?timeouts ~az_mode ~environment_id ~name ~release_label
     ~type_ ~auto_scaling_configuration ~cache_storage_configurations
     ~capacity_configuration ~code ~database
     ~savedown_storage_configuration ~scaling_group_configuration
-    ~tickerplant_log_configuration ~vpc_configuration __resource_id =
-  let __resource_type = "aws_finspace_kx_cluster" in
-  let __resource =
-    aws_finspace_kx_cluster ?availability_zone_id
-      ?command_line_arguments ?description ?execution_role ?id
-      ?initialization_script ?tags ?tags_all ?timeouts ~az_mode
-      ~environment_id ~name ~release_label ~type_
+    ~tickerplant_log_configuration ~vpc_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?availability_zone_id ?command_line_arguments ?description
+      ?execution_role ?id ?initialization_script ?tags ?tags_all
+      ?timeouts ~az_mode ~environment_id ~name ~release_label ~type_
       ~auto_scaling_configuration ~cache_storage_configurations
       ~capacity_configuration ~code ~database
       ~savedown_storage_configuration ~scaling_group_configuration
-      ~tickerplant_log_configuration ~vpc_configuration ()
+      ~tickerplant_log_configuration ~vpc_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_finspace_kx_cluster __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       availability_zone_id =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_id";
-       az_mode =
-         Prop.computed __resource_type __resource_id "az_mode";
-       command_line_arguments =
-         Prop.computed __resource_type __resource_id
-           "command_line_arguments";
-       created_timestamp =
-         Prop.computed __resource_type __resource_id
-           "created_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
-       execution_role =
-         Prop.computed __resource_type __resource_id "execution_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       initialization_script =
-         Prop.computed __resource_type __resource_id
-           "initialization_script";
-       last_modified_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_modified_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
-       release_label =
-         Prop.computed __resource_type __resource_id "release_label";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_reason =
-         Prop.computed __resource_type __resource_id "status_reason";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

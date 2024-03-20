@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type routing__propagated_route_table = {
   labels : string prop list option; [@option]  (** labels *)
@@ -105,30 +103,37 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let register ?tf_module ?id ?internet_security_enabled ?timeouts
-    ~name ~remote_virtual_network_id ~virtual_hub_id ~routing
-    __resource_id =
-  let __resource_type = "azurerm_virtual_hub_connection" in
-  let __resource =
-    azurerm_virtual_hub_connection ?id ?internet_security_enabled
-      ?timeouts ~name ~remote_virtual_network_id ~virtual_hub_id
-      ~routing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_hub_connection __resource);
-  let __resource_attributes =
+let make ?id ?internet_security_enabled ?timeouts ~name
+    ~remote_virtual_network_id ~virtual_hub_id ~routing __id =
+  let __type = "azurerm_virtual_hub_connection" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        internet_security_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_security_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "internet_security_enabled";
+       name = Prop.computed __type __id "name";
        remote_virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "remote_virtual_network_id";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+         Prop.computed __type __id "remote_virtual_network_id";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_hub_connection
+        (azurerm_virtual_hub_connection ?id
+           ?internet_security_enabled ?timeouts ~name
+           ~remote_virtual_network_id ~virtual_hub_id ~routing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?internet_security_enabled ?timeouts
+    ~name ~remote_virtual_network_id ~virtual_hub_id ~routing __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?internet_security_enabled ?timeouts ~name
+      ~remote_virtual_network_id ~virtual_hub_id ~routing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

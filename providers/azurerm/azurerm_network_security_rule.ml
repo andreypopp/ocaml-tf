@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -109,6 +107,71 @@ type t = {
   source_port_ranges : string list prop;
 }
 
+let make ?description ?destination_address_prefix
+    ?destination_address_prefixes
+    ?destination_application_security_group_ids
+    ?destination_port_range ?destination_port_ranges ?id
+    ?source_address_prefix ?source_address_prefixes
+    ?source_application_security_group_ids ?source_port_range
+    ?source_port_ranges ?timeouts ~access ~direction ~name
+    ~network_security_group_name ~priority ~protocol
+    ~resource_group_name __id =
+  let __type = "azurerm_network_security_rule" in
+  let __attrs =
+    ({
+       access = Prop.computed __type __id "access";
+       description = Prop.computed __type __id "description";
+       destination_address_prefix =
+         Prop.computed __type __id "destination_address_prefix";
+       destination_address_prefixes =
+         Prop.computed __type __id "destination_address_prefixes";
+       destination_application_security_group_ids =
+         Prop.computed __type __id
+           "destination_application_security_group_ids";
+       destination_port_range =
+         Prop.computed __type __id "destination_port_range";
+       destination_port_ranges =
+         Prop.computed __type __id "destination_port_ranges";
+       direction = Prop.computed __type __id "direction";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       network_security_group_name =
+         Prop.computed __type __id "network_security_group_name";
+       priority = Prop.computed __type __id "priority";
+       protocol = Prop.computed __type __id "protocol";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       source_address_prefix =
+         Prop.computed __type __id "source_address_prefix";
+       source_address_prefixes =
+         Prop.computed __type __id "source_address_prefixes";
+       source_application_security_group_ids =
+         Prop.computed __type __id
+           "source_application_security_group_ids";
+       source_port_range =
+         Prop.computed __type __id "source_port_range";
+       source_port_ranges =
+         Prop.computed __type __id "source_port_ranges";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_security_rule
+        (azurerm_network_security_rule ?description
+           ?destination_address_prefix ?destination_address_prefixes
+           ?destination_application_security_group_ids
+           ?destination_port_range ?destination_port_ranges ?id
+           ?source_address_prefix ?source_address_prefixes
+           ?source_application_security_group_ids ?source_port_range
+           ?source_port_ranges ?timeouts ~access ~direction ~name
+           ~network_security_group_name ~priority ~protocol
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?destination_address_prefix
     ?destination_address_prefixes
     ?destination_application_security_group_ids
@@ -117,71 +180,17 @@ let register ?tf_module ?description ?destination_address_prefix
     ?source_application_security_group_ids ?source_port_range
     ?source_port_ranges ?timeouts ~access ~direction ~name
     ~network_security_group_name ~priority ~protocol
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_network_security_rule" in
-  let __resource =
-    azurerm_network_security_rule ?description
-      ?destination_address_prefix ?destination_address_prefixes
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?destination_address_prefix
+      ?destination_address_prefixes
       ?destination_application_security_group_ids
       ?destination_port_range ?destination_port_ranges ?id
       ?source_address_prefix ?source_address_prefixes
       ?source_application_security_group_ids ?source_port_range
       ?source_port_ranges ?timeouts ~access ~direction ~name
       ~network_security_group_name ~priority ~protocol
-      ~resource_group_name ()
+      ~resource_group_name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_security_rule __resource);
-  let __resource_attributes =
-    ({
-       access = Prop.computed __resource_type __resource_id "access";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       destination_address_prefix =
-         Prop.computed __resource_type __resource_id
-           "destination_address_prefix";
-       destination_address_prefixes =
-         Prop.computed __resource_type __resource_id
-           "destination_address_prefixes";
-       destination_application_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "destination_application_security_group_ids";
-       destination_port_range =
-         Prop.computed __resource_type __resource_id
-           "destination_port_range";
-       destination_port_ranges =
-         Prop.computed __resource_type __resource_id
-           "destination_port_ranges";
-       direction =
-         Prop.computed __resource_type __resource_id "direction";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_security_group_name =
-         Prop.computed __resource_type __resource_id
-           "network_security_group_name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       source_address_prefix =
-         Prop.computed __resource_type __resource_id
-           "source_address_prefix";
-       source_address_prefixes =
-         Prop.computed __resource_type __resource_id
-           "source_address_prefixes";
-       source_application_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "source_application_security_group_ids";
-       source_port_range =
-         Prop.computed __resource_type __resource_id
-           "source_port_range";
-       source_port_ranges =
-         Prop.computed __resource_type __resource_id
-           "source_port_ranges";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

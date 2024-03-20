@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   state:string prop ->
   string ->
   t
+
+val make :
+  ?disabled_alerts:string prop list ->
+  ?email_account_admins:bool prop ->
+  ?email_addresses:string prop list ->
+  ?id:string prop ->
+  ?retention_days:float prop ->
+  ?storage_account_access_key:string prop ->
+  ?storage_endpoint:string prop ->
+  ?timeouts:timeouts ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  state:string prop ->
+  string ->
+  t Tf_core.resource

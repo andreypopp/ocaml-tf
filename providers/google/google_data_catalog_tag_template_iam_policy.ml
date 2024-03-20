@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_data_catalog_tag_template_iam_policy = {
   id : string prop option; [@option]  (** id *)
@@ -28,29 +26,33 @@ type t = {
   tag_template : string prop;
 }
 
-let register ?tf_module ?id ?project ?region ~policy_data
-    ~tag_template __resource_id =
-  let __resource_type =
-    "google_data_catalog_tag_template_iam_policy"
-  in
-  let __resource =
-    google_data_catalog_tag_template_iam_policy ?id ?project ?region
-      ~policy_data ~tag_template ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_catalog_tag_template_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ?project ?region ~policy_data ~tag_template __id =
+  let __type = "google_data_catalog_tag_template_iam_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       tag_template =
-         Prop.computed __resource_type __resource_id "tag_template";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       policy_data = Prop.computed __type __id "policy_data";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       tag_template = Prop.computed __type __id "tag_template";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_catalog_tag_template_iam_policy
+        (google_data_catalog_tag_template_iam_policy ?id ?project
+           ?region ~policy_data ~tag_template ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?region ~policy_data
+    ~tag_template __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?region ~policy_data ~tag_template __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

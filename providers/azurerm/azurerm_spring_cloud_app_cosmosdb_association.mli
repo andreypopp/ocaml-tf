@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   spring_cloud_app_id:string prop ->
   string ->
   t
+
+val make :
+  ?cosmosdb_cassandra_keyspace_name:string prop ->
+  ?cosmosdb_gremlin_database_name:string prop ->
+  ?cosmosdb_gremlin_graph_name:string prop ->
+  ?cosmosdb_mongo_database_name:string prop ->
+  ?cosmosdb_sql_database_name:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  api_type:string prop ->
+  cosmosdb_access_key:string prop ->
+  cosmosdb_account_id:string prop ->
+  name:string prop ->
+  spring_cloud_app_id:string prop ->
+  string ->
+  t Tf_core.resource

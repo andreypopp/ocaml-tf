@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type option__option_settings = {
   name : string prop;  (** name *)
@@ -93,36 +91,44 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?name ?name_prefix
-    ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
-    ~major_engine_version ~option_ __resource_id =
-  let __resource_type = "aws_db_option_group" in
-  let __resource =
-    aws_db_option_group ?id ?name ?name_prefix
-      ?option_group_description ?tags ?tags_all ?timeouts
-      ~engine_name ~major_engine_version ~option_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_option_group __resource);
-  let __resource_attributes =
+let make ?id ?name ?name_prefix ?option_group_description ?tags
+    ?tags_all ?timeouts ~engine_name ~major_engine_version ~option_
+    __id =
+  let __type = "aws_db_option_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       engine_name =
-         Prop.computed __resource_type __resource_id "engine_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       engine_name = Prop.computed __type __id "engine_name";
+       id = Prop.computed __type __id "id";
        major_engine_version =
-         Prop.computed __resource_type __resource_id
-           "major_engine_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
+         Prop.computed __type __id "major_engine_version";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
        option_group_description =
-         Prop.computed __resource_type __resource_id
-           "option_group_description";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "option_group_description";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_option_group
+        (aws_db_option_group ?id ?name ?name_prefix
+           ?option_group_description ?tags ?tags_all ?timeouts
+           ~engine_name ~major_engine_version ~option_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?name_prefix
+    ?option_group_description ?tags ?tags_all ?timeouts ~engine_name
+    ~major_engine_version ~option_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?name_prefix ?option_group_description ?tags
+      ?tags_all ?timeouts ~engine_name ~major_engine_version ~option_
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

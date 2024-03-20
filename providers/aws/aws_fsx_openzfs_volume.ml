@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type nfs_exports__client_configurations = {
   clients : string prop;  (** clients *)
@@ -131,57 +129,63 @@ type t = {
   volume_type : string prop;
 }
 
+let make ?copy_tags_to_snapshots ?data_compression_type
+    ?delete_volume_options ?id ?read_only ?record_size_kib
+    ?storage_capacity_quota_gib ?storage_capacity_reservation_gib
+    ?tags ?tags_all ?volume_type ?timeouts ~name ~parent_volume_id
+    ~nfs_exports ~origin_snapshot ~user_and_group_quotas __id =
+  let __type = "aws_fsx_openzfs_volume" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       copy_tags_to_snapshots =
+         Prop.computed __type __id "copy_tags_to_snapshots";
+       data_compression_type =
+         Prop.computed __type __id "data_compression_type";
+       delete_volume_options =
+         Prop.computed __type __id "delete_volume_options";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent_volume_id =
+         Prop.computed __type __id "parent_volume_id";
+       read_only = Prop.computed __type __id "read_only";
+       record_size_kib = Prop.computed __type __id "record_size_kib";
+       storage_capacity_quota_gib =
+         Prop.computed __type __id "storage_capacity_quota_gib";
+       storage_capacity_reservation_gib =
+         Prop.computed __type __id "storage_capacity_reservation_gib";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       volume_type = Prop.computed __type __id "volume_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_openzfs_volume
+        (aws_fsx_openzfs_volume ?copy_tags_to_snapshots
+           ?data_compression_type ?delete_volume_options ?id
+           ?read_only ?record_size_kib ?storage_capacity_quota_gib
+           ?storage_capacity_reservation_gib ?tags ?tags_all
+           ?volume_type ?timeouts ~name ~parent_volume_id
+           ~nfs_exports ~origin_snapshot ~user_and_group_quotas ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?copy_tags_to_snapshots
     ?data_compression_type ?delete_volume_options ?id ?read_only
     ?record_size_kib ?storage_capacity_quota_gib
     ?storage_capacity_reservation_gib ?tags ?tags_all ?volume_type
     ?timeouts ~name ~parent_volume_id ~nfs_exports ~origin_snapshot
-    ~user_and_group_quotas __resource_id =
-  let __resource_type = "aws_fsx_openzfs_volume" in
-  let __resource =
-    aws_fsx_openzfs_volume ?copy_tags_to_snapshots
-      ?data_compression_type ?delete_volume_options ?id ?read_only
-      ?record_size_kib ?storage_capacity_quota_gib
-      ?storage_capacity_reservation_gib ?tags ?tags_all ?volume_type
-      ?timeouts ~name ~parent_volume_id ~nfs_exports ~origin_snapshot
-      ~user_and_group_quotas ()
+    ~user_and_group_quotas __id =
+  let (r : _ Tf_core.resource) =
+    make ?copy_tags_to_snapshots ?data_compression_type
+      ?delete_volume_options ?id ?read_only ?record_size_kib
+      ?storage_capacity_quota_gib ?storage_capacity_reservation_gib
+      ?tags ?tags_all ?volume_type ?timeouts ~name ~parent_volume_id
+      ~nfs_exports ~origin_snapshot ~user_and_group_quotas __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_openzfs_volume __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       copy_tags_to_snapshots =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_snapshots";
-       data_compression_type =
-         Prop.computed __resource_type __resource_id
-           "data_compression_type";
-       delete_volume_options =
-         Prop.computed __resource_type __resource_id
-           "delete_volume_options";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_volume_id =
-         Prop.computed __resource_type __resource_id
-           "parent_volume_id";
-       read_only =
-         Prop.computed __resource_type __resource_id "read_only";
-       record_size_kib =
-         Prop.computed __resource_type __resource_id
-           "record_size_kib";
-       storage_capacity_quota_gib =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity_quota_gib";
-       storage_capacity_reservation_gib =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity_reservation_gib";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       volume_type =
-         Prop.computed __resource_type __resource_id "volume_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

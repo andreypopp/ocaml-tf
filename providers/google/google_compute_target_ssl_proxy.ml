@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -81,46 +79,47 @@ type t = {
   ssl_policy : string prop;
 }
 
-let register ?tf_module ?certificate_map ?description ?id ?project
-    ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
-    ~backend_service ~name __resource_id =
-  let __resource_type = "google_compute_target_ssl_proxy" in
-  let __resource =
-    google_compute_target_ssl_proxy ?certificate_map ?description ?id
-      ?project ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
-      ~backend_service ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_target_ssl_proxy __resource);
-  let __resource_attributes =
+let make ?certificate_map ?description ?id ?project ?proxy_header
+    ?ssl_certificates ?ssl_policy ?timeouts ~backend_service ~name
+    __id =
+  let __type = "google_compute_target_ssl_proxy" in
+  let __attrs =
     ({
-       backend_service =
-         Prop.computed __resource_type __resource_id
-           "backend_service";
-       certificate_map =
-         Prop.computed __resource_type __resource_id
-           "certificate_map";
+       backend_service = Prop.computed __type __id "backend_service";
+       certificate_map = Prop.computed __type __id "certificate_map";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       proxy_header =
-         Prop.computed __resource_type __resource_id "proxy_header";
-       proxy_id =
-         Prop.computed __resource_type __resource_id "proxy_id";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       proxy_header = Prop.computed __type __id "proxy_header";
+       proxy_id = Prop.computed __type __id "proxy_id";
+       self_link = Prop.computed __type __id "self_link";
        ssl_certificates =
-         Prop.computed __resource_type __resource_id
-           "ssl_certificates";
-       ssl_policy =
-         Prop.computed __resource_type __resource_id "ssl_policy";
+         Prop.computed __type __id "ssl_certificates";
+       ssl_policy = Prop.computed __type __id "ssl_policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_target_ssl_proxy
+        (google_compute_target_ssl_proxy ?certificate_map
+           ?description ?id ?project ?proxy_header ?ssl_certificates
+           ?ssl_policy ?timeouts ~backend_service ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_map ?description ?id ?project
+    ?proxy_header ?ssl_certificates ?ssl_policy ?timeouts
+    ~backend_service ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_map ?description ?id ?project ?proxy_header
+      ?ssl_certificates ?ssl_policy ?timeouts ~backend_service ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

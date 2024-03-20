@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,11 @@ val register :
   ?id:string prop ->
   string ->
   t
+
+val make :
+  ?aws_service_access_principals:string prop list ->
+  ?enabled_policy_types:string prop list ->
+  ?feature_set:string prop ->
+  ?id:string prop ->
+  string ->
+  t Tf_core.resource

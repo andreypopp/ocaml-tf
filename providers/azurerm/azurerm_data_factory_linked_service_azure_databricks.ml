@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type instance_pool = {
   cluster_version : string prop;  (** cluster_version *)
@@ -157,55 +155,60 @@ type t = {
   parameters : (string * string) list prop;
 }
 
+let make ?access_token ?additional_properties ?annotations
+    ?description ?existing_cluster_id ?id ?integration_runtime_name
+    ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
+    ~data_factory_id ~name ~instance_pool ~key_vault_password
+    ~new_cluster_config __id =
+  let __type =
+    "azurerm_data_factory_linked_service_azure_databricks"
+  in
+  let __attrs =
+    ({
+       access_token = Prop.computed __type __id "access_token";
+       adb_domain = Prop.computed __type __id "adb_domain";
+       additional_properties =
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       existing_cluster_id =
+         Prop.computed __type __id "existing_cluster_id";
+       id = Prop.computed __type __id "id";
+       integration_runtime_name =
+         Prop.computed __type __id "integration_runtime_name";
+       msi_work_space_resource_id =
+         Prop.computed __type __id "msi_work_space_resource_id";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_linked_service_azure_databricks
+        (azurerm_data_factory_linked_service_azure_databricks
+           ?access_token ?additional_properties ?annotations
+           ?description ?existing_cluster_id ?id
+           ?integration_runtime_name ?msi_work_space_resource_id
+           ?parameters ?timeouts ~adb_domain ~data_factory_id ~name
+           ~instance_pool ~key_vault_password ~new_cluster_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_token ?additional_properties
     ?annotations ?description ?existing_cluster_id ?id
     ?integration_runtime_name ?msi_work_space_resource_id ?parameters
     ?timeouts ~adb_domain ~data_factory_id ~name ~instance_pool
-    ~key_vault_password ~new_cluster_config __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_linked_service_azure_databricks"
-  in
-  let __resource =
-    azurerm_data_factory_linked_service_azure_databricks
-      ?access_token ?additional_properties ?annotations ?description
-      ?existing_cluster_id ?id ?integration_runtime_name
+    ~key_vault_password ~new_cluster_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_token ?additional_properties ?annotations
+      ?description ?existing_cluster_id ?id ?integration_runtime_name
       ?msi_work_space_resource_id ?parameters ?timeouts ~adb_domain
       ~data_factory_id ~name ~instance_pool ~key_vault_password
-      ~new_cluster_config ()
+      ~new_cluster_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_linked_service_azure_databricks
-       __resource);
-  let __resource_attributes =
-    ({
-       access_token =
-         Prop.computed __resource_type __resource_id "access_token";
-       adb_domain =
-         Prop.computed __resource_type __resource_id "adb_domain";
-       additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       existing_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "existing_cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_runtime_name =
-         Prop.computed __resource_type __resource_id
-           "integration_runtime_name";
-       msi_work_space_resource_id =
-         Prop.computed __resource_type __resource_id
-           "msi_work_space_resource_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,40 +71,45 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?items ?labels ?parent
-    ?timeouts ~capacity ~location ~name ~type_ __resource_id =
-  let __resource_type = "google_network_security_address_group" in
-  let __resource =
-    google_network_security_address_group ?description ?id ?items
-      ?labels ?parent ?timeouts ~capacity ~location ~name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_security_address_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?items ?labels ?parent ?timeouts ~capacity
+    ~location ~name ~type_ __id =
+  let __type = "google_network_security_address_group" in
+  let __attrs =
     ({
-       capacity =
-         Prop.computed __resource_type __resource_id "capacity";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       capacity = Prop.computed __type __id "capacity";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       items = Prop.computed __resource_type __resource_id "items";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       items = Prop.computed __type __id "items";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_security_address_group
+        (google_network_security_address_group ?description ?id
+           ?items ?labels ?parent ?timeouts ~capacity ~location ~name
+           ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?items ?labels ?parent
+    ?timeouts ~capacity ~location ~name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?items ?labels ?parent ?timeouts ~capacity
+      ~location ~name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

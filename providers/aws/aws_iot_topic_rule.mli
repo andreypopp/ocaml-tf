@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -552,3 +552,35 @@ val register :
   timestream:timestream list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  enabled:bool prop ->
+  name:string prop ->
+  sql:string prop ->
+  sql_version:string prop ->
+  cloudwatch_alarm:cloudwatch_alarm list ->
+  cloudwatch_logs:cloudwatch_logs list ->
+  cloudwatch_metric:cloudwatch_metric list ->
+  dynamodb:dynamodb list ->
+  dynamodbv2:dynamodbv2 list ->
+  elasticsearch:elasticsearch list ->
+  error_action:error_action list ->
+  firehose:firehose list ->
+  http:http list ->
+  iot_analytics:iot_analytics list ->
+  iot_events:iot_events list ->
+  kafka:kafka list ->
+  kinesis:kinesis list ->
+  lambda:lambda list ->
+  republish:republish list ->
+  s3:s3 list ->
+  sns:sns list ->
+  sqs:sqs list ->
+  step_functions:step_functions list ->
+  timestream:timestream list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_acmpca_permission = {
   actions : string prop list;  (** actions *)
@@ -36,29 +34,36 @@ type t = {
   source_account : string prop;
 }
 
-let register ?tf_module ?id ?source_account ~actions
-    ~certificate_authority_arn ~principal __resource_id =
-  let __resource_type = "aws_acmpca_permission" in
-  let __resource =
-    aws_acmpca_permission ?id ?source_account ~actions
-      ~certificate_authority_arn ~principal ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acmpca_permission __resource);
-  let __resource_attributes =
+let make ?id ?source_account ~actions ~certificate_authority_arn
+    ~principal __id =
+  let __type = "aws_acmpca_permission" in
+  let __attrs =
     ({
-       actions =
-         Prop.computed __resource_type __resource_id "actions";
+       actions = Prop.computed __type __id "actions";
        certificate_authority_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
-       source_account =
-         Prop.computed __resource_type __resource_id "source_account";
+         Prop.computed __type __id "certificate_authority_arn";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       principal = Prop.computed __type __id "principal";
+       source_account = Prop.computed __type __id "source_account";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acmpca_permission
+        (aws_acmpca_permission ?id ?source_account ~actions
+           ~certificate_authority_arn ~principal ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?source_account ~actions
+    ~certificate_authority_arn ~principal __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?source_account ~actions ~certificate_authority_arn
+      ~principal __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

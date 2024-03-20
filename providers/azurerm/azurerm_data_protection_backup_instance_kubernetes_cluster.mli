@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,16 @@ val register :
   backup_datasource_parameters:backup_datasource_parameters list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  backup_policy_id:string prop ->
+  kubernetes_cluster_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  snapshot_resource_group_name:string prop ->
+  vault_id:string prop ->
+  backup_datasource_parameters:backup_datasource_parameters list ->
+  string ->
+  t Tf_core.resource

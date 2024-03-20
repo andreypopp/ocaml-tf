@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ebs_config = {
   iops : float prop option; [@option]  (** iops *)
@@ -67,42 +65,47 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?autoscaling_policy ?bid_price
-    ?configurations_json ?ebs_optimized ?id ?instance_count ?name
-    ~cluster_id ~instance_type ~ebs_config __resource_id =
-  let __resource_type = "aws_emr_instance_group" in
-  let __resource =
-    aws_emr_instance_group ?autoscaling_policy ?bid_price
-      ?configurations_json ?ebs_optimized ?id ?instance_count ?name
-      ~cluster_id ~instance_type ~ebs_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_instance_group __resource);
-  let __resource_attributes =
+let make ?autoscaling_policy ?bid_price ?configurations_json
+    ?ebs_optimized ?id ?instance_count ?name ~cluster_id
+    ~instance_type ~ebs_config __id =
+  let __type = "aws_emr_instance_group" in
+  let __attrs =
     ({
        autoscaling_policy =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_policy";
-       bid_price =
-         Prop.computed __resource_type __resource_id "bid_price";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
+         Prop.computed __type __id "autoscaling_policy";
+       bid_price = Prop.computed __type __id "bid_price";
+       cluster_id = Prop.computed __type __id "cluster_id";
        configurations_json =
-         Prop.computed __resource_type __resource_id
-           "configurations_json";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "configurations_json";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       instance_type = Prop.computed __type __id "instance_type";
+       name = Prop.computed __type __id "name";
        running_instance_count =
-         Prop.computed __resource_type __resource_id
-           "running_instance_count";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "running_instance_count";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_instance_group
+        (aws_emr_instance_group ?autoscaling_policy ?bid_price
+           ?configurations_json ?ebs_optimized ?id ?instance_count
+           ?name ~cluster_id ~instance_type ~ebs_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?autoscaling_policy ?bid_price
+    ?configurations_json ?ebs_optimized ?id ?instance_count ?name
+    ~cluster_id ~instance_type ~ebs_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?autoscaling_policy ?bid_price ?configurations_json
+      ?ebs_optimized ?id ?instance_count ?name ~cluster_id
+      ~instance_type ~ebs_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

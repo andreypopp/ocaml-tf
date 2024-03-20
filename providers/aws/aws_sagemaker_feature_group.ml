@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type feature_definition = {
   feature_name : string prop option; [@option]  (** feature_name *)
@@ -152,40 +150,50 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all
-    ~event_time_feature_name ~feature_group_name
-    ~record_identifier_feature_name ~role_arn ~feature_definition
-    ~offline_store_config ~online_store_config __resource_id =
-  let __resource_type = "aws_sagemaker_feature_group" in
-  let __resource =
-    aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
-      ~event_time_feature_name ~feature_group_name
-      ~record_identifier_feature_name ~role_arn ~feature_definition
-      ~offline_store_config ~online_store_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_feature_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~event_time_feature_name
+    ~feature_group_name ~record_identifier_feature_name ~role_arn
+    ~feature_definition ~offline_store_config ~online_store_config
+    __id =
+  let __type = "aws_sagemaker_feature_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        event_time_feature_name =
-         Prop.computed __resource_type __resource_id
-           "event_time_feature_name";
+         Prop.computed __type __id "event_time_feature_name";
        feature_group_name =
-         Prop.computed __resource_type __resource_id
-           "feature_group_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "feature_group_name";
+       id = Prop.computed __type __id "id";
        record_identifier_feature_name =
-         Prop.computed __resource_type __resource_id
-           "record_identifier_feature_name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "record_identifier_feature_name";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_feature_group
+        (aws_sagemaker_feature_group ?description ?id ?tags ?tags_all
+           ~event_time_feature_name ~feature_group_name
+           ~record_identifier_feature_name ~role_arn
+           ~feature_definition ~offline_store_config
+           ~online_store_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ~event_time_feature_name ~feature_group_name
+    ~record_identifier_feature_name ~role_arn ~feature_definition
+    ~offline_store_config ~online_store_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~event_time_feature_name
+      ~feature_group_name ~record_identifier_feature_name ~role_arn
+      ~feature_definition ~offline_store_config ~online_store_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

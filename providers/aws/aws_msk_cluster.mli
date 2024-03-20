@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -281,3 +281,22 @@ val register :
   open_monitoring:open_monitoring list ->
   string ->
   t
+
+val make :
+  ?enhanced_monitoring:string prop ->
+  ?id:string prop ->
+  ?storage_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  kafka_version:string prop ->
+  number_of_broker_nodes:float prop ->
+  broker_node_group_info:broker_node_group_info list ->
+  client_authentication:client_authentication list ->
+  configuration_info:configuration_info list ->
+  encryption_info:encryption_info list ->
+  logging_info:logging_info list ->
+  open_monitoring:open_monitoring list ->
+  string ->
+  t Tf_core.resource

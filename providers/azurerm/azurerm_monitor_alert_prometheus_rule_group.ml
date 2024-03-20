@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule__action = {
   action_group_id : string prop;  (** action_group_id *)
@@ -122,40 +120,46 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?cluster_name ?description ?id ?interval
-    ?rule_group_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~scopes ~rule __resource_id =
-  let __resource_type =
-    "azurerm_monitor_alert_prometheus_rule_group"
-  in
-  let __resource =
-    azurerm_monitor_alert_prometheus_rule_group ?cluster_name
-      ?description ?id ?interval ?rule_group_enabled ?tags ?timeouts
-      ~location ~name ~resource_group_name ~scopes ~rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_alert_prometheus_rule_group __resource);
-  let __resource_attributes =
+let make ?cluster_name ?description ?id ?interval ?rule_group_enabled
+    ?tags ?timeouts ~location ~name ~resource_group_name ~scopes
+    ~rule __id =
+  let __type = "azurerm_monitor_alert_prometheus_rule_group" in
+  let __attrs =
     ({
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        rule_group_enabled =
-         Prop.computed __resource_type __resource_id
-           "rule_group_enabled";
-       scopes = Prop.computed __resource_type __resource_id "scopes";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "rule_group_enabled";
+       scopes = Prop.computed __type __id "scopes";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_alert_prometheus_rule_group
+        (azurerm_monitor_alert_prometheus_rule_group ?cluster_name
+           ?description ?id ?interval ?rule_group_enabled ?tags
+           ?timeouts ~location ~name ~resource_group_name ~scopes
+           ~rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cluster_name ?description ?id ?interval
+    ?rule_group_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~scopes ~rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?cluster_name ?description ?id ?interval ?rule_group_enabled
+      ?tags ?timeouts ~location ~name ~resource_group_name ~scopes
+      ~rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

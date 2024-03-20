@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type voice_connector = {
   cdr_bucket : string prop option; [@option]  (** cdr_bucket *)
@@ -25,14 +23,19 @@ let aws_chimesdkvoice_global_settings ?id ~voice_connector () :
 
 type t = { id : string prop }
 
-let register ?tf_module ?id ~voice_connector __resource_id =
-  let __resource_type = "aws_chimesdkvoice_global_settings" in
-  let __resource =
-    aws_chimesdkvoice_global_settings ?id ~voice_connector ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chimesdkvoice_global_settings __resource);
-  let __resource_attributes =
-    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
-  in
-  __resource_attributes
+let make ?id ~voice_connector __id =
+  let __type = "aws_chimesdkvoice_global_settings" in
+  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chimesdkvoice_global_settings
+        (aws_chimesdkvoice_global_settings ?id ~voice_connector ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~voice_connector __id =
+  let (r : _ Tf_core.resource) = make ?id ~voice_connector __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

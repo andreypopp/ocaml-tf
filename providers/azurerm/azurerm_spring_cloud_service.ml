@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config_server_git_setting__http_basic_auth = {
   password : string prop;  (** password *)
@@ -288,62 +286,70 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?build_agent_pool_size ?id
+    ?log_stream_public_endpoint_enabled ?managed_environment_id
+    ?service_registry_enabled ?sku_name ?sku_tier ?tags
+    ?zone_redundant ?timeouts ~location ~name ~resource_group_name
+    ~config_server_git_setting ~container_registry
+    ~default_build_service ~marketplace ~network ~trace __id =
+  let __type = "azurerm_spring_cloud_service" in
+  let __attrs =
+    ({
+       build_agent_pool_size =
+         Prop.computed __type __id "build_agent_pool_size";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       log_stream_public_endpoint_enabled =
+         Prop.computed __type __id
+           "log_stream_public_endpoint_enabled";
+       managed_environment_id =
+         Prop.computed __type __id "managed_environment_id";
+       name = Prop.computed __type __id "name";
+       outbound_public_ip_addresses =
+         Prop.computed __type __id "outbound_public_ip_addresses";
+       required_network_traffic_rules =
+         Prop.computed __type __id "required_network_traffic_rules";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       service_registry_enabled =
+         Prop.computed __type __id "service_registry_enabled";
+       service_registry_id =
+         Prop.computed __type __id "service_registry_id";
+       sku_name = Prop.computed __type __id "sku_name";
+       sku_tier = Prop.computed __type __id "sku_tier";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_service
+        (azurerm_spring_cloud_service ?build_agent_pool_size ?id
+           ?log_stream_public_endpoint_enabled
+           ?managed_environment_id ?service_registry_enabled
+           ?sku_name ?sku_tier ?tags ?zone_redundant ?timeouts
+           ~location ~name ~resource_group_name
+           ~config_server_git_setting ~container_registry
+           ~default_build_service ~marketplace ~network ~trace ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?build_agent_pool_size ?id
     ?log_stream_public_endpoint_enabled ?managed_environment_id
     ?service_registry_enabled ?sku_name ?sku_tier ?tags
     ?zone_redundant ?timeouts ~location ~name ~resource_group_name
     ~config_server_git_setting ~container_registry
-    ~default_build_service ~marketplace ~network ~trace __resource_id
-    =
-  let __resource_type = "azurerm_spring_cloud_service" in
-  let __resource =
-    azurerm_spring_cloud_service ?build_agent_pool_size ?id
+    ~default_build_service ~marketplace ~network ~trace __id =
+  let (r : _ Tf_core.resource) =
+    make ?build_agent_pool_size ?id
       ?log_stream_public_endpoint_enabled ?managed_environment_id
       ?service_registry_enabled ?sku_name ?sku_tier ?tags
       ?zone_redundant ?timeouts ~location ~name ~resource_group_name
       ~config_server_git_setting ~container_registry
-      ~default_build_service ~marketplace ~network ~trace ()
+      ~default_build_service ~marketplace ~network ~trace __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_service __resource);
-  let __resource_attributes =
-    ({
-       build_agent_pool_size =
-         Prop.computed __resource_type __resource_id
-           "build_agent_pool_size";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       log_stream_public_endpoint_enabled =
-         Prop.computed __resource_type __resource_id
-           "log_stream_public_endpoint_enabled";
-       managed_environment_id =
-         Prop.computed __resource_type __resource_id
-           "managed_environment_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_public_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "outbound_public_ip_addresses";
-       required_network_traffic_rules =
-         Prop.computed __resource_type __resource_id
-           "required_network_traffic_rules";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_registry_enabled =
-         Prop.computed __resource_type __resource_id
-           "service_registry_enabled";
-       service_registry_id =
-         Prop.computed __resource_type __resource_id
-           "service_registry_id";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       sku_tier =
-         Prop.computed __resource_type __resource_id "sku_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type table_data__column_wildcard = {
   excluded_column_names : string prop list option; [@option]
@@ -82,14 +80,19 @@ let aws_lakeformation_data_cells_filter ?timeouts ~table_data () :
 
 type t = { id : string prop }
 
-let register ?tf_module ?timeouts ~table_data __resource_id =
-  let __resource_type = "aws_lakeformation_data_cells_filter" in
-  let __resource =
-    aws_lakeformation_data_cells_filter ?timeouts ~table_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lakeformation_data_cells_filter __resource);
-  let __resource_attributes =
-    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
-  in
-  __resource_attributes
+let make ?timeouts ~table_data __id =
+  let __type = "aws_lakeformation_data_cells_filter" in
+  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lakeformation_data_cells_filter
+        (aws_lakeformation_data_cells_filter ?timeouts ~table_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~table_data __id =
+  let (r : _ Tf_core.resource) = make ?timeouts ~table_data __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

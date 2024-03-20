@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,19 @@ val register :
   index:index list ->
   string ->
   t
+
+val make :
+  ?analytical_storage_ttl:float prop ->
+  ?default_ttl_seconds:float prop ->
+  ?id:string prop ->
+  ?shard_key:string prop ->
+  ?throughput:float prop ->
+  ?timeouts:timeouts ->
+  account_name:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  autoscale_settings:autoscale_settings list ->
+  index:index list ->
+  string ->
+  t Tf_core.resource

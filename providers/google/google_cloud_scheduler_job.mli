@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -137,3 +137,21 @@ val register :
   retry_config:retry_config list ->
   string ->
   t
+
+val make :
+  ?attempt_deadline:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?paused:bool prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?schedule:string prop ->
+  ?time_zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  app_engine_http_target:app_engine_http_target list ->
+  http_target:http_target list ->
+  pubsub_target:pubsub_target list ->
+  retry_config:retry_config list ->
+  string ->
+  t Tf_core.resource

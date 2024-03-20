@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,21 @@ val register :
   destination_volume_parameters:destination_volume_parameters list ->
   string ->
   t
+
+val make :
+  ?delete_destination_volume:bool prop ->
+  ?description:string prop ->
+  ?force_stopping:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?replication_enabled:bool prop ->
+  ?wait_for_mirror:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  replication_schedule:string prop ->
+  volume_name:string prop ->
+  destination_volume_parameters:destination_volume_parameters list ->
+  string ->
+  t Tf_core.resource

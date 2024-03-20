@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -86,3 +86,16 @@ val register :
   ssh_authorized_key:ssh_authorized_key list ->
   string ->
   t
+
+val make :
+  ?home_directory:string prop ->
+  ?id:string prop ->
+  ?ssh_key_enabled:bool prop ->
+  ?ssh_password_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  permission_scope:permission_scope list ->
+  ssh_authorized_key:ssh_authorized_key list ->
+  string ->
+  t Tf_core.resource

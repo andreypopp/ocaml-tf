@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type enrolled_services = {
   cloud_product : string prop;
@@ -86,40 +84,44 @@ type t = {
   project_id : string prop;
 }
 
-let register ?tf_module ?active_key_version ?id ?notification_emails
-    ?project ?timeouts ~project_id ~enrolled_services __resource_id =
-  let __resource_type = "google_project_access_approval_settings" in
-  let __resource =
-    google_project_access_approval_settings ?active_key_version ?id
-      ?notification_emails ?project ?timeouts ~project_id
-      ~enrolled_services ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_project_access_approval_settings __resource);
-  let __resource_attributes =
+let make ?active_key_version ?id ?notification_emails ?project
+    ?timeouts ~project_id ~enrolled_services __id =
+  let __type = "google_project_access_approval_settings" in
+  let __attrs =
     ({
        active_key_version =
-         Prop.computed __resource_type __resource_id
-           "active_key_version";
+         Prop.computed __type __id "active_key_version";
        ancestor_has_active_key_version =
-         Prop.computed __resource_type __resource_id
-           "ancestor_has_active_key_version";
+         Prop.computed __type __id "ancestor_has_active_key_version";
        enrolled_ancestor =
-         Prop.computed __resource_type __resource_id
-           "enrolled_ancestor";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "enrolled_ancestor";
+       id = Prop.computed __type __id "id";
        invalid_key_version =
-         Prop.computed __resource_type __resource_id
-           "invalid_key_version";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "invalid_key_version";
+       name = Prop.computed __type __id "name";
        notification_emails =
-         Prop.computed __resource_type __resource_id
-           "notification_emails";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
+         Prop.computed __type __id "notification_emails";
+       project = Prop.computed __type __id "project";
+       project_id = Prop.computed __type __id "project_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_project_access_approval_settings
+        (google_project_access_approval_settings ?active_key_version
+           ?id ?notification_emails ?project ?timeouts ~project_id
+           ~enrolled_services ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?active_key_version ?id ?notification_emails
+    ?project ?timeouts ~project_id ~enrolled_services __id =
+  let (r : _ Tf_core.resource) =
+    make ?active_key_version ?id ?notification_emails ?project
+      ?timeouts ~project_id ~enrolled_services __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

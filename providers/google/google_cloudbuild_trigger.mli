@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -416,3 +416,33 @@ val register :
   webhook_config:webhook_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?filename:string prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?ignored_files:string prop list ->
+  ?include_build_logs:string prop ->
+  ?included_files:string prop list ->
+  ?location:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?service_account:string prop ->
+  ?substitutions:(string * string prop) list ->
+  ?tags:string prop list ->
+  ?timeouts:timeouts ->
+  approval_config:approval_config list ->
+  bitbucket_server_trigger_config:
+    bitbucket_server_trigger_config list ->
+  build:build list ->
+  git_file_source:git_file_source list ->
+  github:github list ->
+  pubsub_config:pubsub_config list ->
+  repository_event_config:repository_event_config list ->
+  source_to_build:source_to_build list ->
+  trigger_template:trigger_template list ->
+  webhook_config:webhook_config list ->
+  string ->
+  t Tf_core.resource

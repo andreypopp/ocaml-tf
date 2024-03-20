@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type scheduled_agent_updates__schedule = {
   day_of_week : string prop;  (** day_of_week *)
@@ -118,63 +116,70 @@ type t = {
   vm_template : string prop;
 }
 
+let make ?custom_rdp_properties ?description ?friendly_name ?id
+    ?maximum_sessions_allowed ?personal_desktop_assignment_type
+    ?preferred_app_group_type ?start_vm_on_connect ?tags
+    ?validate_environment ?vm_template ?timeouts ~load_balancer_type
+    ~location ~name ~resource_group_name ~type_
+    ~scheduled_agent_updates __id =
+  let __type = "azurerm_virtual_desktop_host_pool" in
+  let __attrs =
+    ({
+       custom_rdp_properties =
+         Prop.computed __type __id "custom_rdp_properties";
+       description = Prop.computed __type __id "description";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       id = Prop.computed __type __id "id";
+       load_balancer_type =
+         Prop.computed __type __id "load_balancer_type";
+       location = Prop.computed __type __id "location";
+       maximum_sessions_allowed =
+         Prop.computed __type __id "maximum_sessions_allowed";
+       name = Prop.computed __type __id "name";
+       personal_desktop_assignment_type =
+         Prop.computed __type __id "personal_desktop_assignment_type";
+       preferred_app_group_type =
+         Prop.computed __type __id "preferred_app_group_type";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       start_vm_on_connect =
+         Prop.computed __type __id "start_vm_on_connect";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       validate_environment =
+         Prop.computed __type __id "validate_environment";
+       vm_template = Prop.computed __type __id "vm_template";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_desktop_host_pool
+        (azurerm_virtual_desktop_host_pool ?custom_rdp_properties
+           ?description ?friendly_name ?id ?maximum_sessions_allowed
+           ?personal_desktop_assignment_type
+           ?preferred_app_group_type ?start_vm_on_connect ?tags
+           ?validate_environment ?vm_template ?timeouts
+           ~load_balancer_type ~location ~name ~resource_group_name
+           ~type_ ~scheduled_agent_updates ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?custom_rdp_properties ?description
     ?friendly_name ?id ?maximum_sessions_allowed
     ?personal_desktop_assignment_type ?preferred_app_group_type
     ?start_vm_on_connect ?tags ?validate_environment ?vm_template
     ?timeouts ~load_balancer_type ~location ~name
-    ~resource_group_name ~type_ ~scheduled_agent_updates
-    __resource_id =
-  let __resource_type = "azurerm_virtual_desktop_host_pool" in
-  let __resource =
-    azurerm_virtual_desktop_host_pool ?custom_rdp_properties
-      ?description ?friendly_name ?id ?maximum_sessions_allowed
-      ?personal_desktop_assignment_type ?preferred_app_group_type
-      ?start_vm_on_connect ?tags ?validate_environment ?vm_template
-      ?timeouts ~load_balancer_type ~location ~name
-      ~resource_group_name ~type_ ~scheduled_agent_updates ()
+    ~resource_group_name ~type_ ~scheduled_agent_updates __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_rdp_properties ?description ?friendly_name ?id
+      ?maximum_sessions_allowed ?personal_desktop_assignment_type
+      ?preferred_app_group_type ?start_vm_on_connect ?tags
+      ?validate_environment ?vm_template ?timeouts
+      ~load_balancer_type ~location ~name ~resource_group_name ~type_
+      ~scheduled_agent_updates __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_desktop_host_pool __resource);
-  let __resource_attributes =
-    ({
-       custom_rdp_properties =
-         Prop.computed __resource_type __resource_id
-           "custom_rdp_properties";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       load_balancer_type =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       maximum_sessions_allowed =
-         Prop.computed __resource_type __resource_id
-           "maximum_sessions_allowed";
-       name = Prop.computed __resource_type __resource_id "name";
-       personal_desktop_assignment_type =
-         Prop.computed __resource_type __resource_id
-           "personal_desktop_assignment_type";
-       preferred_app_group_type =
-         Prop.computed __resource_type __resource_id
-           "preferred_app_group_type";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       start_vm_on_connect =
-         Prop.computed __resource_type __resource_id
-           "start_vm_on_connect";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       validate_environment =
-         Prop.computed __resource_type __resource_id
-           "validate_environment";
-       vm_template =
-         Prop.computed __resource_type __resource_id "vm_template";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

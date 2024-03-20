@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,17 @@ val register :
   acceptance_required:bool prop ->
   string ->
   t
+
+val make :
+  ?allowed_principals:string prop list ->
+  ?gateway_load_balancer_arns:string prop list ->
+  ?id:string prop ->
+  ?network_load_balancer_arns:string prop list ->
+  ?private_dns_name:string prop ->
+  ?supported_ip_address_types:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  acceptance_required:bool prop ->
+  string ->
+  t Tf_core.resource

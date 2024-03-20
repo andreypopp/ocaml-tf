@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -222,3 +222,32 @@ val register :
   vpn_client_configuration:vpn_client_configuration list ->
   string ->
   t
+
+val make :
+  ?active_active:bool prop ->
+  ?bgp_route_translation_for_nat_enabled:bool prop ->
+  ?default_local_network_gateway_id:string prop ->
+  ?dns_forwarding_enabled:bool prop ->
+  ?edge_zone:string prop ->
+  ?enable_bgp:bool prop ->
+  ?generation:string prop ->
+  ?id:string prop ->
+  ?ip_sec_replay_protection_enabled:bool prop ->
+  ?private_ip_address_enabled:bool prop ->
+  ?remote_vnet_traffic_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_wan_traffic_enabled:bool prop ->
+  ?vpn_type:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  type_:string prop ->
+  bgp_settings:bgp_settings list ->
+  custom_route:custom_route list ->
+  ip_configuration:ip_configuration list ->
+  policy_group:policy_group list ->
+  vpn_client_configuration:vpn_client_configuration list ->
+  string ->
+  t Tf_core.resource

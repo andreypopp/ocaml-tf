@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -39,25 +37,32 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?managed_by ?tags ?timeouts ~location
-    ~name __resource_id =
-  let __resource_type = "azurerm_resource_group" in
-  let __resource =
-    azurerm_resource_group ?id ?managed_by ?tags ?timeouts ~location
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_resource_group __resource);
-  let __resource_attributes =
+let make ?id ?managed_by ?tags ?timeouts ~location ~name __id =
+  let __type = "azurerm_resource_group" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_by =
-         Prop.computed __resource_type __resource_id "managed_by";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       managed_by = Prop.computed __type __id "managed_by";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_resource_group
+        (azurerm_resource_group ?id ?managed_by ?tags ?timeouts
+           ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?managed_by ?tags ?timeouts ~location
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?managed_by ?tags ?timeouts ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

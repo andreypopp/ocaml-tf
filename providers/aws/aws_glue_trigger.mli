@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -116,3 +116,21 @@ val register :
   predicate:predicate list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?schedule:string prop ->
+  ?start_on_creation:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?workflow_name:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  actions:actions list ->
+  event_batching_condition:event_batching_condition list ->
+  predicate:predicate list ->
+  string ->
+  t Tf_core.resource

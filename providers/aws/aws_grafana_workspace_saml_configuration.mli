@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,22 @@ val register :
   workspace_id:string prop ->
   string ->
   t
+
+val make :
+  ?admin_role_values:string prop list ->
+  ?allowed_organizations:string prop list ->
+  ?email_assertion:string prop ->
+  ?groups_assertion:string prop ->
+  ?id:string prop ->
+  ?idp_metadata_url:string prop ->
+  ?idp_metadata_xml:string prop ->
+  ?login_assertion:string prop ->
+  ?login_validity_duration:float prop ->
+  ?name_assertion:string prop ->
+  ?org_assertion:string prop ->
+  ?role_assertion:string prop ->
+  ?timeouts:timeouts ->
+  editor_role_values:string prop list ->
+  workspace_id:string prop ->
+  string ->
+  t Tf_core.resource

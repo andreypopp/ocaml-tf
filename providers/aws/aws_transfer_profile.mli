@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,13 @@ val register :
   profile_type:string prop ->
   string ->
   t
+
+val make :
+  ?certificate_ids:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  as2_id:string prop ->
+  profile_type:string prop ->
+  string ->
+  t Tf_core.resource

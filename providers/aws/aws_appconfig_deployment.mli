@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,17 @@ val register :
   environment_id:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  application_id:string prop ->
+  configuration_profile_id:string prop ->
+  configuration_version:string prop ->
+  deployment_strategy_id:string prop ->
+  environment_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,19 @@ val register :
   source_ip_ranges:source_ip_ranges list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  destination_ports:string prop list ->
+  ip_protocol:string prop ->
+  name:string prop ->
+  parent:string prop ->
+  priority:float prop ->
+  source_ports:string prop list ->
+  destination_ip_ranges:destination_ip_ranges list ->
+  source_ip_ranges:source_ip_ranges list ->
+  string ->
+  t Tf_core.resource

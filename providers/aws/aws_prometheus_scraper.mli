@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,13 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?alias:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  scrape_configuration:string prop ->
+  destination:destination list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

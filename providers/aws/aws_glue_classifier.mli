@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,13 @@ val register :
   xml_classifier:xml_classifier list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  csv_classifier:csv_classifier list ->
+  grok_classifier:grok_classifier list ->
+  json_classifier:json_classifier list ->
+  xml_classifier:xml_classifier list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -72,51 +70,53 @@ type t = {
   severity_filter : string list prop;
 }
 
-let register ?tf_module ?alert_rule_template_guid ?description
+let make ?alert_rule_template_guid ?description
     ?display_name_exclude_filter ?display_name_filter ?enabled ?id
     ?timeouts ~display_name ~log_analytics_workspace_id ~name
-    ~product_filter ~severity_filter __resource_id =
-  let __resource_type =
-    "azurerm_sentinel_alert_rule_ms_security_incident"
-  in
-  let __resource =
-    azurerm_sentinel_alert_rule_ms_security_incident
-      ?alert_rule_template_guid ?description
-      ?display_name_exclude_filter ?display_name_filter ?enabled ?id
-      ?timeouts ~display_name ~log_analytics_workspace_id ~name
-      ~product_filter ~severity_filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_alert_rule_ms_security_incident
-       __resource);
-  let __resource_attributes =
+    ~product_filter ~severity_filter __id =
+  let __type = "azurerm_sentinel_alert_rule_ms_security_incident" in
+  let __attrs =
     ({
        alert_rule_template_guid =
-         Prop.computed __resource_type __resource_id
-           "alert_rule_template_guid";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "alert_rule_template_guid";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        display_name_exclude_filter =
-         Prop.computed __resource_type __resource_id
-           "display_name_exclude_filter";
+         Prop.computed __type __id "display_name_exclude_filter";
        display_name_filter =
-         Prop.computed __resource_type __resource_id
-           "display_name_filter";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "display_name_filter";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       product_filter =
-         Prop.computed __resource_type __resource_id "product_filter";
-       severity_filter =
-         Prop.computed __resource_type __resource_id
-           "severity_filter";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
+       product_filter = Prop.computed __type __id "product_filter";
+       severity_filter = Prop.computed __type __id "severity_filter";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_alert_rule_ms_security_incident
+        (azurerm_sentinel_alert_rule_ms_security_incident
+           ?alert_rule_template_guid ?description
+           ?display_name_exclude_filter ?display_name_filter ?enabled
+           ?id ?timeouts ~display_name ~log_analytics_workspace_id
+           ~name ~product_filter ~severity_filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alert_rule_template_guid ?description
+    ?display_name_exclude_filter ?display_name_filter ?enabled ?id
+    ?timeouts ~display_name ~log_analytics_workspace_id ~name
+    ~product_filter ~severity_filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?alert_rule_template_guid ?description
+      ?display_name_exclude_filter ?display_name_filter ?enabled ?id
+      ?timeouts ~display_name ~log_analytics_workspace_id ~name
+      ~product_filter ~severity_filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_address = {
   ip : string prop option; [@option]  (** ip *)
@@ -71,38 +69,43 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?name ?protocols ?resolver_endpoint_type
-    ?tags ?tags_all ?timeouts ~direction ~security_group_ids
-    ~ip_address __resource_id =
-  let __resource_type = "aws_route53_resolver_endpoint" in
-  let __resource =
-    aws_route53_resolver_endpoint ?id ?name ?protocols
-      ?resolver_endpoint_type ?tags ?tags_all ?timeouts ~direction
-      ~security_group_ids ~ip_address ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_resolver_endpoint __resource);
-  let __resource_attributes =
+let make ?id ?name ?protocols ?resolver_endpoint_type ?tags ?tags_all
+    ?timeouts ~direction ~security_group_ids ~ip_address __id =
+  let __type = "aws_route53_resolver_endpoint" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       direction =
-         Prop.computed __resource_type __resource_id "direction";
-       host_vpc_id =
-         Prop.computed __resource_type __resource_id "host_vpc_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       protocols =
-         Prop.computed __resource_type __resource_id "protocols";
+       arn = Prop.computed __type __id "arn";
+       direction = Prop.computed __type __id "direction";
+       host_vpc_id = Prop.computed __type __id "host_vpc_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       protocols = Prop.computed __type __id "protocols";
        resolver_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "resolver_endpoint_type";
+         Prop.computed __type __id "resolver_endpoint_type";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "security_group_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_resolver_endpoint
+        (aws_route53_resolver_endpoint ?id ?name ?protocols
+           ?resolver_endpoint_type ?tags ?tags_all ?timeouts
+           ~direction ~security_group_ids ~ip_address ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?protocols ?resolver_endpoint_type
+    ?tags ?tags_all ?timeouts ~direction ~security_group_ids
+    ~ip_address __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?protocols ?resolver_endpoint_type ?tags ?tags_all
+      ?timeouts ~direction ~security_group_ids ~ip_address __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

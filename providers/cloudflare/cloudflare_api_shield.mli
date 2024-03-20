@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,10 @@ val register :
   auth_id_characteristics:auth_id_characteristics list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  zone_id:string prop ->
+  auth_id_characteristics:auth_id_characteristics list ->
+  string ->
+  t Tf_core.resource

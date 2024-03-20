@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,17 @@ val register :
   default_action:default_action list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?port:float prop ->
+  ?service_arn:string prop ->
+  ?service_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  protocol:string prop ->
+  default_action:default_action list ->
+  string ->
+  t Tf_core.resource

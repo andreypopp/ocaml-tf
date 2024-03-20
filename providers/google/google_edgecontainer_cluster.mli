@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -202,3 +202,24 @@ val register :
   system_addons_config:system_addons_config list ->
   string ->
   t
+
+val make :
+  ?default_max_pods_per_node:float prop ->
+  ?external_load_balancer_ipv4_address_pools:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?release_channel:string prop ->
+  ?target_version:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  authorization:authorization list ->
+  control_plane:control_plane list ->
+  control_plane_encryption:control_plane_encryption list ->
+  fleet:fleet list ->
+  maintenance_policy:maintenance_policy list ->
+  networking:networking list ->
+  system_addons_config:system_addons_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]  (** description *)
@@ -40,25 +38,33 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?id ~env_id ~members ~org_id ~role ~condition
-    __resource_id =
-  let __resource_type = "google_apigee_environment_iam_binding" in
-  let __resource =
-    google_apigee_environment_iam_binding ?id ~env_id ~members
-      ~org_id ~role ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_environment_iam_binding __resource);
-  let __resource_attributes =
+let make ?id ~env_id ~members ~org_id ~role ~condition __id =
+  let __type = "google_apigee_environment_iam_binding" in
+  let __attrs =
     ({
-       env_id = Prop.computed __resource_type __resource_id "env_id";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       members =
-         Prop.computed __resource_type __resource_id "members";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       role = Prop.computed __resource_type __resource_id "role";
+       env_id = Prop.computed __type __id "env_id";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       members = Prop.computed __type __id "members";
+       org_id = Prop.computed __type __id "org_id";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_environment_iam_binding
+        (google_apigee_environment_iam_binding ?id ~env_id ~members
+           ~org_id ~role ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~env_id ~members ~org_id ~role ~condition
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~env_id ~members ~org_id ~role ~condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

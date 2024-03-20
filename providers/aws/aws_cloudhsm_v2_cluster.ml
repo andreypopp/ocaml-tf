@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,40 +65,43 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ?source_backup_identifier ?tags ?tags_all
-    ?timeouts ~hsm_type ~subnet_ids __resource_id =
-  let __resource_type = "aws_cloudhsm_v2_cluster" in
-  let __resource =
-    aws_cloudhsm_v2_cluster ?id ?source_backup_identifier ?tags
-      ?tags_all ?timeouts ~hsm_type ~subnet_ids ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudhsm_v2_cluster __resource);
-  let __resource_attributes =
+let make ?id ?source_backup_identifier ?tags ?tags_all ?timeouts
+    ~hsm_type ~subnet_ids __id =
+  let __type = "aws_cloudhsm_v2_cluster" in
+  let __attrs =
     ({
        cluster_certificates =
-         Prop.computed __resource_type __resource_id
-           "cluster_certificates";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       cluster_state =
-         Prop.computed __resource_type __resource_id "cluster_state";
-       hsm_type =
-         Prop.computed __resource_type __resource_id "hsm_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "cluster_certificates";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       cluster_state = Prop.computed __type __id "cluster_state";
+       hsm_type = Prop.computed __type __id "hsm_type";
+       id = Prop.computed __type __id "id";
        security_group_id =
-         Prop.computed __resource_type __resource_id
-           "security_group_id";
+         Prop.computed __type __id "security_group_id";
        source_backup_identifier =
-         Prop.computed __resource_type __resource_id
-           "source_backup_identifier";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "source_backup_identifier";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudhsm_v2_cluster
+        (aws_cloudhsm_v2_cluster ?id ?source_backup_identifier ?tags
+           ?tags_all ?timeouts ~hsm_type ~subnet_ids ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?source_backup_identifier ?tags ?tags_all
+    ?timeouts ~hsm_type ~subnet_ids __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?source_backup_identifier ?tags ?tags_all ?timeouts
+      ~hsm_type ~subnet_ids __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

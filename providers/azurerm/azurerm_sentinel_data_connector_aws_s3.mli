@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   sqs_urls:string prop list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  aws_role_arn:string prop ->
+  destination_table:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  sqs_urls:string prop list ->
+  string ->
+  t Tf_core.resource

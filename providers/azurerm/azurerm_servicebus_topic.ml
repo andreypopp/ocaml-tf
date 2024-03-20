@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -87,60 +85,70 @@ type t = {
   support_ordering : bool prop;
 }
 
+let make ?auto_delete_on_idle ?default_message_ttl
+    ?duplicate_detection_history_time_window
+    ?enable_batched_operations ?enable_express ?enable_partitioning
+    ?id ?max_message_size_in_kilobytes ?max_size_in_megabytes
+    ?requires_duplicate_detection ?status ?support_ordering ?timeouts
+    ~name ~namespace_id __id =
+  let __type = "azurerm_servicebus_topic" in
+  let __attrs =
+    ({
+       auto_delete_on_idle =
+         Prop.computed __type __id "auto_delete_on_idle";
+       default_message_ttl =
+         Prop.computed __type __id "default_message_ttl";
+       duplicate_detection_history_time_window =
+         Prop.computed __type __id
+           "duplicate_detection_history_time_window";
+       enable_batched_operations =
+         Prop.computed __type __id "enable_batched_operations";
+       enable_express = Prop.computed __type __id "enable_express";
+       enable_partitioning =
+         Prop.computed __type __id "enable_partitioning";
+       id = Prop.computed __type __id "id";
+       max_message_size_in_kilobytes =
+         Prop.computed __type __id "max_message_size_in_kilobytes";
+       max_size_in_megabytes =
+         Prop.computed __type __id "max_size_in_megabytes";
+       name = Prop.computed __type __id "name";
+       namespace_id = Prop.computed __type __id "namespace_id";
+       requires_duplicate_detection =
+         Prop.computed __type __id "requires_duplicate_detection";
+       status = Prop.computed __type __id "status";
+       support_ordering =
+         Prop.computed __type __id "support_ordering";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_topic
+        (azurerm_servicebus_topic ?auto_delete_on_idle
+           ?default_message_ttl
+           ?duplicate_detection_history_time_window
+           ?enable_batched_operations ?enable_express
+           ?enable_partitioning ?id ?max_message_size_in_kilobytes
+           ?max_size_in_megabytes ?requires_duplicate_detection
+           ?status ?support_ordering ?timeouts ~name ~namespace_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_delete_on_idle ?default_message_ttl
     ?duplicate_detection_history_time_window
     ?enable_batched_operations ?enable_express ?enable_partitioning
     ?id ?max_message_size_in_kilobytes ?max_size_in_megabytes
     ?requires_duplicate_detection ?status ?support_ordering ?timeouts
-    ~name ~namespace_id __resource_id =
-  let __resource_type = "azurerm_servicebus_topic" in
-  let __resource =
-    azurerm_servicebus_topic ?auto_delete_on_idle
-      ?default_message_ttl ?duplicate_detection_history_time_window
+    ~name ~namespace_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_delete_on_idle ?default_message_ttl
+      ?duplicate_detection_history_time_window
       ?enable_batched_operations ?enable_express ?enable_partitioning
       ?id ?max_message_size_in_kilobytes ?max_size_in_megabytes
       ?requires_duplicate_detection ?status ?support_ordering
-      ?timeouts ~name ~namespace_id ()
+      ?timeouts ~name ~namespace_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_topic __resource);
-  let __resource_attributes =
-    ({
-       auto_delete_on_idle =
-         Prop.computed __resource_type __resource_id
-           "auto_delete_on_idle";
-       default_message_ttl =
-         Prop.computed __resource_type __resource_id
-           "default_message_ttl";
-       duplicate_detection_history_time_window =
-         Prop.computed __resource_type __resource_id
-           "duplicate_detection_history_time_window";
-       enable_batched_operations =
-         Prop.computed __resource_type __resource_id
-           "enable_batched_operations";
-       enable_express =
-         Prop.computed __resource_type __resource_id "enable_express";
-       enable_partitioning =
-         Prop.computed __resource_type __resource_id
-           "enable_partitioning";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_message_size_in_kilobytes =
-         Prop.computed __resource_type __resource_id
-           "max_message_size_in_kilobytes";
-       max_size_in_megabytes =
-         Prop.computed __resource_type __resource_id
-           "max_size_in_megabytes";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_id =
-         Prop.computed __resource_type __resource_id "namespace_id";
-       requires_duplicate_detection =
-         Prop.computed __resource_type __resource_id
-           "requires_duplicate_detection";
-       status = Prop.computed __resource_type __resource_id "status";
-       support_ordering =
-         Prop.computed __resource_type __resource_id
-           "support_ordering";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

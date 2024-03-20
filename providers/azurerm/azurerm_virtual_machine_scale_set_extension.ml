@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type protected_settings_from_key_vault = {
   secret_url : string prop;  (** secret_url *)
@@ -96,60 +94,67 @@ type t = {
   virtual_machine_scale_set_id : string prop;
 }
 
+let make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
+    ?failure_suppression_enabled ?force_update_tag ?id
+    ?protected_settings ?provision_after_extensions ?settings
+    ?timeouts ~name ~publisher ~type_ ~type_handler_version
+    ~virtual_machine_scale_set_id ~protected_settings_from_key_vault
+    __id =
+  let __type = "azurerm_virtual_machine_scale_set_extension" in
+  let __attrs =
+    ({
+       auto_upgrade_minor_version =
+         Prop.computed __type __id "auto_upgrade_minor_version";
+       automatic_upgrade_enabled =
+         Prop.computed __type __id "automatic_upgrade_enabled";
+       failure_suppression_enabled =
+         Prop.computed __type __id "failure_suppression_enabled";
+       force_update_tag =
+         Prop.computed __type __id "force_update_tag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       protected_settings =
+         Prop.computed __type __id "protected_settings";
+       provision_after_extensions =
+         Prop.computed __type __id "provision_after_extensions";
+       publisher = Prop.computed __type __id "publisher";
+       settings = Prop.computed __type __id "settings";
+       type_ = Prop.computed __type __id "type";
+       type_handler_version =
+         Prop.computed __type __id "type_handler_version";
+       virtual_machine_scale_set_id =
+         Prop.computed __type __id "virtual_machine_scale_set_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine_scale_set_extension
+        (azurerm_virtual_machine_scale_set_extension
+           ?auto_upgrade_minor_version ?automatic_upgrade_enabled
+           ?failure_suppression_enabled ?force_update_tag ?id
+           ?protected_settings ?provision_after_extensions ?settings
+           ?timeouts ~name ~publisher ~type_ ~type_handler_version
+           ~virtual_machine_scale_set_id
+           ~protected_settings_from_key_vault ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_upgrade_minor_version
     ?automatic_upgrade_enabled ?failure_suppression_enabled
     ?force_update_tag ?id ?protected_settings
     ?provision_after_extensions ?settings ?timeouts ~name ~publisher
     ~type_ ~type_handler_version ~virtual_machine_scale_set_id
-    ~protected_settings_from_key_vault __resource_id =
-  let __resource_type =
-    "azurerm_virtual_machine_scale_set_extension"
-  in
-  let __resource =
-    azurerm_virtual_machine_scale_set_extension
-      ?auto_upgrade_minor_version ?automatic_upgrade_enabled
+    ~protected_settings_from_key_vault __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_upgrade_minor_version ?automatic_upgrade_enabled
       ?failure_suppression_enabled ?force_update_tag ?id
       ?protected_settings ?provision_after_extensions ?settings
       ?timeouts ~name ~publisher ~type_ ~type_handler_version
       ~virtual_machine_scale_set_id
-      ~protected_settings_from_key_vault ()
+      ~protected_settings_from_key_vault __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine_scale_set_extension __resource);
-  let __resource_attributes =
-    ({
-       auto_upgrade_minor_version =
-         Prop.computed __resource_type __resource_id
-           "auto_upgrade_minor_version";
-       automatic_upgrade_enabled =
-         Prop.computed __resource_type __resource_id
-           "automatic_upgrade_enabled";
-       failure_suppression_enabled =
-         Prop.computed __resource_type __resource_id
-           "failure_suppression_enabled";
-       force_update_tag =
-         Prop.computed __resource_type __resource_id
-           "force_update_tag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       protected_settings =
-         Prop.computed __resource_type __resource_id
-           "protected_settings";
-       provision_after_extensions =
-         Prop.computed __resource_type __resource_id
-           "provision_after_extensions";
-       publisher =
-         Prop.computed __resource_type __resource_id "publisher";
-       settings =
-         Prop.computed __resource_type __resource_id "settings";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       type_handler_version =
-         Prop.computed __resource_type __resource_id
-           "type_handler_version";
-       virtual_machine_scale_set_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_scale_set_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

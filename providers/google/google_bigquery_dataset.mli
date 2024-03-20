@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -143,3 +143,25 @@ val register :
     default_encryption_configuration list ->
   string ->
   t
+
+val make :
+  ?default_collation:string prop ->
+  ?default_partition_expiration_ms:float prop ->
+  ?default_table_expiration_ms:float prop ->
+  ?delete_contents_on_destroy:bool prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?is_case_insensitive:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?max_time_travel_hours:string prop ->
+  ?project:string prop ->
+  ?storage_billing_model:string prop ->
+  ?timeouts:timeouts ->
+  dataset_id:string prop ->
+  access:access list ->
+  default_encryption_configuration:
+    default_encryption_configuration list ->
+  string ->
+  t Tf_core.resource

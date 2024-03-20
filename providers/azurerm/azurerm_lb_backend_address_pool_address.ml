@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,36 +61,46 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let register ?tf_module ?backend_address_ip_configuration_id ?id
-    ?ip_address ?virtual_network_id ?timeouts
-    ~backend_address_pool_id ~name __resource_id =
-  let __resource_type = "azurerm_lb_backend_address_pool_address" in
-  let __resource =
-    azurerm_lb_backend_address_pool_address
-      ?backend_address_ip_configuration_id ?id ?ip_address
-      ?virtual_network_id ?timeouts ~backend_address_pool_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lb_backend_address_pool_address __resource);
-  let __resource_attributes =
+let make ?backend_address_ip_configuration_id ?id ?ip_address
+    ?virtual_network_id ?timeouts ~backend_address_pool_id ~name __id
+    =
+  let __type = "azurerm_lb_backend_address_pool_address" in
+  let __attrs =
     ({
        backend_address_ip_configuration_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "backend_address_ip_configuration_id";
        backend_address_pool_id =
-         Prop.computed __resource_type __resource_id
-           "backend_address_pool_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "backend_address_pool_id";
+       id = Prop.computed __type __id "id";
        inbound_nat_rule_port_mapping =
-         Prop.computed __resource_type __resource_id
-           "inbound_nat_rule_port_mapping";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "inbound_nat_rule_port_mapping";
+       ip_address = Prop.computed __type __id "ip_address";
+       name = Prop.computed __type __id "name";
        virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_id";
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lb_backend_address_pool_address
+        (azurerm_lb_backend_address_pool_address
+           ?backend_address_ip_configuration_id ?id ?ip_address
+           ?virtual_network_id ?timeouts ~backend_address_pool_id
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?backend_address_ip_configuration_id ?id
+    ?ip_address ?virtual_network_id ?timeouts
+    ~backend_address_pool_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?backend_address_ip_configuration_id ?id ?ip_address
+      ?virtual_network_id ?timeouts ~backend_address_pool_id ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

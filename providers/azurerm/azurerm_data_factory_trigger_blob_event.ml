@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type pipeline = {
   name : string prop;  (** name *)
@@ -88,50 +86,55 @@ type t = {
   storage_account_id : string prop;
 }
 
-let register ?tf_module ?activated ?additional_properties
-    ?annotations ?blob_path_begins_with ?blob_path_ends_with
-    ?description ?id ?ignore_empty_blobs ?timeouts ~data_factory_id
-    ~events ~name ~storage_account_id ~pipeline __resource_id =
-  let __resource_type = "azurerm_data_factory_trigger_blob_event" in
-  let __resource =
-    azurerm_data_factory_trigger_blob_event ?activated
-      ?additional_properties ?annotations ?blob_path_begins_with
-      ?blob_path_ends_with ?description ?id ?ignore_empty_blobs
-      ?timeouts ~data_factory_id ~events ~name ~storage_account_id
-      ~pipeline ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_trigger_blob_event __resource);
-  let __resource_attributes =
+let make ?activated ?additional_properties ?annotations
+    ?blob_path_begins_with ?blob_path_ends_with ?description ?id
+    ?ignore_empty_blobs ?timeouts ~data_factory_id ~events ~name
+    ~storage_account_id ~pipeline __id =
+  let __type = "azurerm_data_factory_trigger_blob_event" in
+  let __attrs =
     ({
-       activated =
-         Prop.computed __resource_type __resource_id "activated";
+       activated = Prop.computed __type __id "activated";
        additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
        blob_path_begins_with =
-         Prop.computed __resource_type __resource_id
-           "blob_path_begins_with";
+         Prop.computed __type __id "blob_path_begins_with";
        blob_path_ends_with =
-         Prop.computed __resource_type __resource_id
-           "blob_path_ends_with";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       events = Prop.computed __resource_type __resource_id "events";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "blob_path_ends_with";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       events = Prop.computed __type __id "events";
+       id = Prop.computed __type __id "id";
        ignore_empty_blobs =
-         Prop.computed __resource_type __resource_id
-           "ignore_empty_blobs";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "ignore_empty_blobs";
+       name = Prop.computed __type __id "name";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_trigger_blob_event
+        (azurerm_data_factory_trigger_blob_event ?activated
+           ?additional_properties ?annotations ?blob_path_begins_with
+           ?blob_path_ends_with ?description ?id ?ignore_empty_blobs
+           ?timeouts ~data_factory_id ~events ~name
+           ~storage_account_id ~pipeline ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?activated ?additional_properties
+    ?annotations ?blob_path_begins_with ?blob_path_ends_with
+    ?description ?id ?ignore_empty_blobs ?timeouts ~data_factory_id
+    ~events ~name ~storage_account_id ~pipeline __id =
+  let (r : _ Tf_core.resource) =
+    make ?activated ?additional_properties ?annotations
+      ?blob_path_begins_with ?blob_path_ends_with ?description ?id
+      ?ignore_empty_blobs ?timeouts ~data_factory_id ~events ~name
+      ~storage_account_id ~pipeline __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

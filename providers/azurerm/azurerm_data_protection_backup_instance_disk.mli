@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   vault_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  backup_policy_id:string prop ->
+  disk_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  snapshot_resource_group_name:string prop ->
+  vault_id:string prop ->
+  string ->
+  t Tf_core.resource

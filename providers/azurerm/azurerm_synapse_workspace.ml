@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_devops_repo = {
   account_name : string prop;  (** account_name *)
@@ -205,6 +203,77 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
+    ?data_exfiltration_protection_enabled ?id
+    ?linking_allowed_for_aad_tenant_ids ?managed_resource_group_name
+    ?managed_virtual_network_enabled ?public_network_access_enabled
+    ?purview_id ?sql_aad_admin ?sql_administrator_login
+    ?sql_administrator_login_password ?sql_identity_control_enabled
+    ?tags ?timeouts ~location ~name ~resource_group_name
+    ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
+    ~customer_managed_key ~github_repo ~identity __id =
+  let __type = "azurerm_synapse_workspace" in
+  let __attrs =
+    ({
+       aad_admin = Prop.computed __type __id "aad_admin";
+       azuread_authentication_only =
+         Prop.computed __type __id "azuread_authentication_only";
+       compute_subnet_id =
+         Prop.computed __type __id "compute_subnet_id";
+       connectivity_endpoints =
+         Prop.computed __type __id "connectivity_endpoints";
+       data_exfiltration_protection_enabled =
+         Prop.computed __type __id
+           "data_exfiltration_protection_enabled";
+       id = Prop.computed __type __id "id";
+       linking_allowed_for_aad_tenant_ids =
+         Prop.computed __type __id
+           "linking_allowed_for_aad_tenant_ids";
+       location = Prop.computed __type __id "location";
+       managed_resource_group_name =
+         Prop.computed __type __id "managed_resource_group_name";
+       managed_virtual_network_enabled =
+         Prop.computed __type __id "managed_virtual_network_enabled";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       purview_id = Prop.computed __type __id "purview_id";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sql_aad_admin = Prop.computed __type __id "sql_aad_admin";
+       sql_administrator_login =
+         Prop.computed __type __id "sql_administrator_login";
+       sql_administrator_login_password =
+         Prop.computed __type __id "sql_administrator_login_password";
+       sql_identity_control_enabled =
+         Prop.computed __type __id "sql_identity_control_enabled";
+       storage_data_lake_gen2_filesystem_id =
+         Prop.computed __type __id
+           "storage_data_lake_gen2_filesystem_id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_workspace
+        (azurerm_synapse_workspace ?aad_admin
+           ?azuread_authentication_only ?compute_subnet_id
+           ?data_exfiltration_protection_enabled ?id
+           ?linking_allowed_for_aad_tenant_ids
+           ?managed_resource_group_name
+           ?managed_virtual_network_enabled
+           ?public_network_access_enabled ?purview_id ?sql_aad_admin
+           ?sql_administrator_login ?sql_administrator_login_password
+           ?sql_identity_control_enabled ?tags ?timeouts ~location
+           ~name ~resource_group_name
+           ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
+           ~customer_managed_key ~github_repo ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?aad_admin ?azuread_authentication_only
     ?compute_subnet_id ?data_exfiltration_protection_enabled ?id
     ?linking_allowed_for_aad_tenant_ids ?managed_resource_group_name
@@ -213,11 +282,10 @@ let register ?tf_module ?aad_admin ?azuread_authentication_only
     ?sql_administrator_login_password ?sql_identity_control_enabled
     ?tags ?timeouts ~location ~name ~resource_group_name
     ~storage_data_lake_gen2_filesystem_id ~azure_devops_repo
-    ~customer_managed_key ~github_repo ~identity __resource_id =
-  let __resource_type = "azurerm_synapse_workspace" in
-  let __resource =
-    azurerm_synapse_workspace ?aad_admin ?azuread_authentication_only
-      ?compute_subnet_id ?data_exfiltration_protection_enabled ?id
+    ~customer_managed_key ~github_repo ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?aad_admin ?azuread_authentication_only ?compute_subnet_id
+      ?data_exfiltration_protection_enabled ?id
       ?linking_allowed_for_aad_tenant_ids
       ?managed_resource_group_name ?managed_virtual_network_enabled
       ?public_network_access_enabled ?purview_id ?sql_aad_admin
@@ -225,63 +293,7 @@ let register ?tf_module ?aad_admin ?azuread_authentication_only
       ?sql_identity_control_enabled ?tags ?timeouts ~location ~name
       ~resource_group_name ~storage_data_lake_gen2_filesystem_id
       ~azure_devops_repo ~customer_managed_key ~github_repo ~identity
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_workspace __resource);
-  let __resource_attributes =
-    ({
-       aad_admin =
-         Prop.computed __resource_type __resource_id "aad_admin";
-       azuread_authentication_only =
-         Prop.computed __resource_type __resource_id
-           "azuread_authentication_only";
-       compute_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "compute_subnet_id";
-       connectivity_endpoints =
-         Prop.computed __resource_type __resource_id
-           "connectivity_endpoints";
-       data_exfiltration_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "data_exfiltration_protection_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       linking_allowed_for_aad_tenant_ids =
-         Prop.computed __resource_type __resource_id
-           "linking_allowed_for_aad_tenant_ids";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group_name";
-       managed_virtual_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "managed_virtual_network_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       purview_id =
-         Prop.computed __resource_type __resource_id "purview_id";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sql_aad_admin =
-         Prop.computed __resource_type __resource_id "sql_aad_admin";
-       sql_administrator_login =
-         Prop.computed __resource_type __resource_id
-           "sql_administrator_login";
-       sql_administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "sql_administrator_login_password";
-       sql_identity_control_enabled =
-         Prop.computed __resource_type __resource_id
-           "sql_identity_control_enabled";
-       storage_data_lake_gen2_filesystem_id =
-         Prop.computed __resource_type __resource_id
-           "storage_data_lake_gen2_filesystem_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

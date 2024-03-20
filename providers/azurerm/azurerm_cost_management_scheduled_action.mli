@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,23 @@ val register :
   view_id:string prop ->
   string ->
   t
+
+val make :
+  ?day_of_month:float prop ->
+  ?days_of_week:string prop list ->
+  ?hour_of_day:float prop ->
+  ?id:string prop ->
+  ?message:string prop ->
+  ?weeks_of_month:string prop list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  email_address_sender:string prop ->
+  email_addresses:string prop list ->
+  email_subject:string prop ->
+  end_date:string prop ->
+  frequency:string prop ->
+  name:string prop ->
+  start_date:string prop ->
+  view_id:string prop ->
+  string ->
+  t Tf_core.resource

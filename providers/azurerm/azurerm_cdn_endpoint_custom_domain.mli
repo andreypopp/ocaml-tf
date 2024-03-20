@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,14 @@ val register :
   user_managed_https:user_managed_https list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_endpoint_id:string prop ->
+  host_name:string prop ->
+  name:string prop ->
+  cdn_managed_https:cdn_managed_https list ->
+  user_managed_https:user_managed_https list ->
+  string ->
+  t Tf_core.resource

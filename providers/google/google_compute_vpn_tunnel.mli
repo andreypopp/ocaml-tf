@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,26 @@ val register :
   shared_secret:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ike_version:float prop ->
+  ?labels:(string * string prop) list ->
+  ?local_traffic_selector:string prop list ->
+  ?peer_external_gateway:string prop ->
+  ?peer_external_gateway_interface:float prop ->
+  ?peer_gcp_gateway:string prop ->
+  ?peer_ip:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?remote_traffic_selector:string prop list ->
+  ?router:string prop ->
+  ?target_vpn_gateway:string prop ->
+  ?vpn_gateway:string prop ->
+  ?vpn_gateway_interface:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  shared_secret:string prop ->
+  string ->
+  t Tf_core.resource

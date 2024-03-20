@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -294,3 +294,27 @@ val register :
   target_capacity_specification:target_capacity_specification list ->
   string ->
   t
+
+val make :
+  ?context:string prop ->
+  ?excess_capacity_termination_policy:string prop ->
+  ?fleet_state:string prop ->
+  ?fulfilled_capacity:float prop ->
+  ?fulfilled_on_demand_capacity:float prop ->
+  ?id:string prop ->
+  ?replace_unhealthy_instances:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?terminate_instances:bool prop ->
+  ?terminate_instances_with_expiration:bool prop ->
+  ?type_:string prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
+  ?timeouts:timeouts ->
+  fleet_instance_set:fleet_instance_set list ->
+  launch_template_config:launch_template_config list ->
+  on_demand_options:on_demand_options list ->
+  spot_options:spot_options list ->
+  target_capacity_specification:target_capacity_specification list ->
+  string ->
+  t Tf_core.resource

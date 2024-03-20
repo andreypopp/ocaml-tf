@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   setting:setting list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?environment_id:string prop ->
+  ?id:string prop ->
+  ?solution_stack_name:string prop ->
+  application:string prop ->
+  name:string prop ->
+  setting:setting list ->
+  string ->
+  t Tf_core.resource

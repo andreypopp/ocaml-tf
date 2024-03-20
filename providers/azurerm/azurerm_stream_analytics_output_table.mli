@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   table:string prop ->
   string ->
   t
+
+val make :
+  ?columns_to_remove:string prop list ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  batch_size:float prop ->
+  name:string prop ->
+  partition_key:string prop ->
+  resource_group_name:string prop ->
+  row_key:string prop ->
+  storage_account_key:string prop ->
+  storage_account_name:string prop ->
+  stream_analytics_job_name:string prop ->
+  table:string prop ->
+  string ->
+  t Tf_core.resource

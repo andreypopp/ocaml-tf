@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type verified_access_trust_providers = {
   description : string prop;  (** description *)
@@ -43,34 +41,37 @@ type t = {
     verified_access_trust_providers list prop;
 }
 
-let register ?tf_module ?description ?fips_enabled ?id ?tags
-    ?tags_all __resource_id =
-  let __resource_type = "aws_verifiedaccess_instance" in
-  let __resource =
-    aws_verifiedaccess_instance ?description ?fips_enabled ?id ?tags
-      ?tags_all ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedaccess_instance __resource);
-  let __resource_attributes =
+let make ?description ?fips_enabled ?id ?tags ?tags_all __id =
+  let __type = "aws_verifiedaccess_instance" in
+  let __attrs =
     ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       fips_enabled =
-         Prop.computed __resource_type __resource_id "fips_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       creation_time = Prop.computed __type __id "creation_time";
+       description = Prop.computed __type __id "description";
+       fips_enabled = Prop.computed __type __id "fips_enabled";
+       id = Prop.computed __type __id "id";
        last_updated_time =
-         Prop.computed __resource_type __resource_id
-           "last_updated_time";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_updated_time";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        verified_access_trust_providers =
-         Prop.computed __resource_type __resource_id
-           "verified_access_trust_providers";
+         Prop.computed __type __id "verified_access_trust_providers";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedaccess_instance
+        (aws_verifiedaccess_instance ?description ?fips_enabled ?id
+           ?tags ?tags_all ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?fips_enabled ?id ?tags
+    ?tags_all __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?fips_enabled ?id ?tags ?tags_all __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

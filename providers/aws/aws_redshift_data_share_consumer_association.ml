@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshift_data_share_consumer_association = {
   allow_writes : bool prop option; [@option]  (** allow_writes *)
@@ -39,39 +37,39 @@ type t = {
   producer_arn : string prop;
 }
 
-let register ?tf_module ?allow_writes ?associate_entire_account
-    ?consumer_arn ?consumer_region ~data_share_arn __resource_id =
-  let __resource_type =
-    "aws_redshift_data_share_consumer_association"
-  in
-  let __resource =
-    aws_redshift_data_share_consumer_association ?allow_writes
-      ?associate_entire_account ?consumer_arn ?consumer_region
-      ~data_share_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_data_share_consumer_association
-       __resource);
-  let __resource_attributes =
+let make ?allow_writes ?associate_entire_account ?consumer_arn
+    ?consumer_region ~data_share_arn __id =
+  let __type = "aws_redshift_data_share_consumer_association" in
+  let __attrs =
     ({
-       allow_writes =
-         Prop.computed __resource_type __resource_id "allow_writes";
+       allow_writes = Prop.computed __type __id "allow_writes";
        associate_entire_account =
-         Prop.computed __resource_type __resource_id
-           "associate_entire_account";
-       consumer_arn =
-         Prop.computed __resource_type __resource_id "consumer_arn";
-       consumer_region =
-         Prop.computed __resource_type __resource_id
-           "consumer_region";
-       data_share_arn =
-         Prop.computed __resource_type __resource_id "data_share_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       managed_by =
-         Prop.computed __resource_type __resource_id "managed_by";
-       producer_arn =
-         Prop.computed __resource_type __resource_id "producer_arn";
+         Prop.computed __type __id "associate_entire_account";
+       consumer_arn = Prop.computed __type __id "consumer_arn";
+       consumer_region = Prop.computed __type __id "consumer_region";
+       data_share_arn = Prop.computed __type __id "data_share_arn";
+       id = Prop.computed __type __id "id";
+       managed_by = Prop.computed __type __id "managed_by";
+       producer_arn = Prop.computed __type __id "producer_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_data_share_consumer_association
+        (aws_redshift_data_share_consumer_association ?allow_writes
+           ?associate_entire_account ?consumer_arn ?consumer_region
+           ~data_share_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_writes ?associate_entire_account
+    ?consumer_arn ?consumer_region ~data_share_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_writes ?associate_entire_account ?consumer_arn
+      ?consumer_region ~data_share_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

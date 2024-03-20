@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type abort_statement__message = {
   content : string prop;  (** content *)
@@ -143,64 +141,68 @@ type t = {
   voice_id : string prop;
 }
 
+let make ?create_version ?description ?detect_sentiment
+    ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
+    ?locale ?nlu_intent_confidence_threshold ?process_behavior
+    ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+    ~clarification_prompt ~intent __id =
+  let __type = "aws_lex_bot" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       checksum = Prop.computed __type __id "checksum";
+       child_directed = Prop.computed __type __id "child_directed";
+       create_version = Prop.computed __type __id "create_version";
+       created_date = Prop.computed __type __id "created_date";
+       description = Prop.computed __type __id "description";
+       detect_sentiment =
+         Prop.computed __type __id "detect_sentiment";
+       enable_model_improvements =
+         Prop.computed __type __id "enable_model_improvements";
+       failure_reason = Prop.computed __type __id "failure_reason";
+       id = Prop.computed __type __id "id";
+       idle_session_ttl_in_seconds =
+         Prop.computed __type __id "idle_session_ttl_in_seconds";
+       last_updated_date =
+         Prop.computed __type __id "last_updated_date";
+       locale = Prop.computed __type __id "locale";
+       name = Prop.computed __type __id "name";
+       nlu_intent_confidence_threshold =
+         Prop.computed __type __id "nlu_intent_confidence_threshold";
+       process_behavior =
+         Prop.computed __type __id "process_behavior";
+       status = Prop.computed __type __id "status";
+       version = Prop.computed __type __id "version";
+       voice_id = Prop.computed __type __id "voice_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lex_bot
+        (aws_lex_bot ?create_version ?description ?detect_sentiment
+           ?enable_model_improvements ?id
+           ?idle_session_ttl_in_seconds ?locale
+           ?nlu_intent_confidence_threshold ?process_behavior
+           ?voice_id ?timeouts ~child_directed ~name ~abort_statement
+           ~clarification_prompt ~intent ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?create_version ?description
     ?detect_sentiment ?enable_model_improvements ?id
     ?idle_session_ttl_in_seconds ?locale
     ?nlu_intent_confidence_threshold ?process_behavior ?voice_id
     ?timeouts ~child_directed ~name ~abort_statement
-    ~clarification_prompt ~intent __resource_id =
-  let __resource_type = "aws_lex_bot" in
-  let __resource =
-    aws_lex_bot ?create_version ?description ?detect_sentiment
+    ~clarification_prompt ~intent __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_version ?description ?detect_sentiment
       ?enable_model_improvements ?id ?idle_session_ttl_in_seconds
       ?locale ?nlu_intent_confidence_threshold ?process_behavior
       ?voice_id ?timeouts ~child_directed ~name ~abort_statement
-      ~clarification_prompt ~intent ()
+      ~clarification_prompt ~intent __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lex_bot __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       checksum =
-         Prop.computed __resource_type __resource_id "checksum";
-       child_directed =
-         Prop.computed __resource_type __resource_id "child_directed";
-       create_version =
-         Prop.computed __resource_type __resource_id "create_version";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       detect_sentiment =
-         Prop.computed __resource_type __resource_id
-           "detect_sentiment";
-       enable_model_improvements =
-         Prop.computed __resource_type __resource_id
-           "enable_model_improvements";
-       failure_reason =
-         Prop.computed __resource_type __resource_id "failure_reason";
-       id = Prop.computed __resource_type __resource_id "id";
-       idle_session_ttl_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "idle_session_ttl_in_seconds";
-       last_updated_date =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date";
-       locale = Prop.computed __resource_type __resource_id "locale";
-       name = Prop.computed __resource_type __resource_id "name";
-       nlu_intent_confidence_threshold =
-         Prop.computed __resource_type __resource_id
-           "nlu_intent_confidence_threshold";
-       process_behavior =
-         Prop.computed __resource_type __resource_id
-           "process_behavior";
-       status = Prop.computed __resource_type __resource_id "status";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       voice_id =
-         Prop.computed __resource_type __resource_id "voice_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

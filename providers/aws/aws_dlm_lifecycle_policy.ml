@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy_details__action__cross_region_copy__encryption_configuration = {
   cmk_arn : string prop option; [@option]  (** cmk_arn *)
@@ -315,29 +313,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?state ?tags ?tags_all ~description
-    ~execution_role_arn ~policy_details __resource_id =
-  let __resource_type = "aws_dlm_lifecycle_policy" in
-  let __resource =
-    aws_dlm_lifecycle_policy ?id ?state ?tags ?tags_all ~description
-      ~execution_role_arn ~policy_details ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dlm_lifecycle_policy __resource);
-  let __resource_attributes =
+let make ?id ?state ?tags ?tags_all ~description ~execution_role_arn
+    ~policy_details __id =
+  let __type = "aws_dlm_lifecycle_policy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "execution_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "execution_role_arn";
+       id = Prop.computed __type __id "id";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dlm_lifecycle_policy
+        (aws_dlm_lifecycle_policy ?id ?state ?tags ?tags_all
+           ~description ~execution_role_arn ~policy_details ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?state ?tags ?tags_all ~description
+    ~execution_role_arn ~policy_details __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?state ?tags ?tags_all ~description ~execution_role_arn
+      ~policy_details __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

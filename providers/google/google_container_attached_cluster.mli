@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -158,3 +158,24 @@ val register :
   proxy_config:proxy_config list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?deletion_policy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  distribution:string prop ->
+  location:string prop ->
+  name:string prop ->
+  platform_version:string prop ->
+  authorization:authorization list ->
+  binary_authorization:binary_authorization list ->
+  fleet:fleet list ->
+  logging_config:logging_config list ->
+  monitoring_config:monitoring_config list ->
+  oidc_config:oidc_config list ->
+  proxy_config:proxy_config list ->
+  string ->
+  t Tf_core.resource

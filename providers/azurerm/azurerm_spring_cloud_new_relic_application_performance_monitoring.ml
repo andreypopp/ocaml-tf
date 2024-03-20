@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -83,57 +81,61 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
+let make ?agent_enabled ?app_server_port ?audit_mode_enabled
+    ?auto_app_naming_enabled ?auto_transaction_naming_enabled
+    ?custom_tracing_enabled ?globally_enabled ?id ?labels ?timeouts
+    ~app_name ~license_key ~name ~spring_cloud_service_id __id =
+  let __type =
+    "azurerm_spring_cloud_new_relic_application_performance_monitoring"
+  in
+  let __attrs =
+    ({
+       agent_enabled = Prop.computed __type __id "agent_enabled";
+       app_name = Prop.computed __type __id "app_name";
+       app_server_port = Prop.computed __type __id "app_server_port";
+       audit_mode_enabled =
+         Prop.computed __type __id "audit_mode_enabled";
+       auto_app_naming_enabled =
+         Prop.computed __type __id "auto_app_naming_enabled";
+       auto_transaction_naming_enabled =
+         Prop.computed __type __id "auto_transaction_naming_enabled";
+       custom_tracing_enabled =
+         Prop.computed __type __id "custom_tracing_enabled";
+       globally_enabled =
+         Prop.computed __type __id "globally_enabled";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       license_key = Prop.computed __type __id "license_key";
+       name = Prop.computed __type __id "name";
+       spring_cloud_service_id =
+         Prop.computed __type __id "spring_cloud_service_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring
+        (azurerm_spring_cloud_new_relic_application_performance_monitoring
+           ?agent_enabled ?app_server_port ?audit_mode_enabled
+           ?auto_app_naming_enabled ?auto_transaction_naming_enabled
+           ?custom_tracing_enabled ?globally_enabled ?id ?labels
+           ?timeouts ~app_name ~license_key ~name
+           ~spring_cloud_service_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?agent_enabled ?app_server_port
     ?audit_mode_enabled ?auto_app_naming_enabled
     ?auto_transaction_naming_enabled ?custom_tracing_enabled
     ?globally_enabled ?id ?labels ?timeouts ~app_name ~license_key
-    ~name ~spring_cloud_service_id __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_new_relic_application_performance_monitoring"
-  in
-  let __resource =
-    azurerm_spring_cloud_new_relic_application_performance_monitoring
-      ?agent_enabled ?app_server_port ?audit_mode_enabled
+    ~name ~spring_cloud_service_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_enabled ?app_server_port ?audit_mode_enabled
       ?auto_app_naming_enabled ?auto_transaction_naming_enabled
       ?custom_tracing_enabled ?globally_enabled ?id ?labels ?timeouts
-      ~app_name ~license_key ~name ~spring_cloud_service_id ()
+      ~app_name ~license_key ~name ~spring_cloud_service_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring
-       __resource);
-  let __resource_attributes =
-    ({
-       agent_enabled =
-         Prop.computed __resource_type __resource_id "agent_enabled";
-       app_name =
-         Prop.computed __resource_type __resource_id "app_name";
-       app_server_port =
-         Prop.computed __resource_type __resource_id
-           "app_server_port";
-       audit_mode_enabled =
-         Prop.computed __resource_type __resource_id
-           "audit_mode_enabled";
-       auto_app_naming_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_app_naming_enabled";
-       auto_transaction_naming_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_transaction_naming_enabled";
-       custom_tracing_enabled =
-         Prop.computed __resource_type __resource_id
-           "custom_tracing_enabled";
-       globally_enabled =
-         Prop.computed __resource_type __resource_id
-           "globally_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       license_key =
-         Prop.computed __resource_type __resource_id "license_key";
-       name = Prop.computed __resource_type __resource_id "name";
-       spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

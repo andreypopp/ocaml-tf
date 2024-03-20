@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,13 @@ val register :
   studio_lifecycle_config_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  studio_lifecycle_config_app_type:string prop ->
+  studio_lifecycle_config_content:string prop ->
+  studio_lifecycle_config_name:string prop ->
+  string ->
+  t Tf_core.resource

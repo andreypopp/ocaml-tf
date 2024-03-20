@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -41,29 +39,36 @@ type t = {
   target_iqn : string prop;
 }
 
-let register ?tf_module ?id ?target_iqn ?timeouts ~acl_mode
-    ~disks_pool_id ~name __resource_id =
-  let __resource_type = "azurerm_disk_pool_iscsi_target" in
-  let __resource =
-    azurerm_disk_pool_iscsi_target ?id ?target_iqn ?timeouts
-      ~acl_mode ~disks_pool_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_disk_pool_iscsi_target __resource);
-  let __resource_attributes =
+let make ?id ?target_iqn ?timeouts ~acl_mode ~disks_pool_id ~name
+    __id =
+  let __type = "azurerm_disk_pool_iscsi_target" in
+  let __attrs =
     ({
-       acl_mode =
-         Prop.computed __resource_type __resource_id "acl_mode";
-       disks_pool_id =
-         Prop.computed __resource_type __resource_id "disks_pool_id";
-       endpoints =
-         Prop.computed __resource_type __resource_id "endpoints";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
-       target_iqn =
-         Prop.computed __resource_type __resource_id "target_iqn";
+       acl_mode = Prop.computed __type __id "acl_mode";
+       disks_pool_id = Prop.computed __type __id "disks_pool_id";
+       endpoints = Prop.computed __type __id "endpoints";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
+       target_iqn = Prop.computed __type __id "target_iqn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_disk_pool_iscsi_target
+        (azurerm_disk_pool_iscsi_target ?id ?target_iqn ?timeouts
+           ~acl_mode ~disks_pool_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?target_iqn ?timeouts ~acl_mode
+    ~disks_pool_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?target_iqn ?timeouts ~acl_mode ~disks_pool_id ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

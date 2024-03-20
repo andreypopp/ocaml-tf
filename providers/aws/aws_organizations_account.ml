@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_organizations_account = {
   close_on_deletion : bool prop option; [@option]
@@ -57,48 +55,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?close_on_deletion ?create_govcloud
+let make ?close_on_deletion ?create_govcloud
     ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
-    ?tags_all ~email ~name __resource_id =
-  let __resource_type = "aws_organizations_account" in
-  let __resource =
-    aws_organizations_account ?close_on_deletion ?create_govcloud
-      ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
-      ?tags_all ~email ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_organizations_account __resource);
-  let __resource_attributes =
+    ?tags_all ~email ~name __id =
+  let __type = "aws_organizations_account" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        close_on_deletion =
-         Prop.computed __resource_type __resource_id
-           "close_on_deletion";
-       create_govcloud =
-         Prop.computed __resource_type __resource_id
-           "create_govcloud";
-       email = Prop.computed __resource_type __resource_id "email";
-       govcloud_id =
-         Prop.computed __resource_type __resource_id "govcloud_id";
+         Prop.computed __type __id "close_on_deletion";
+       create_govcloud = Prop.computed __type __id "create_govcloud";
+       email = Prop.computed __type __id "email";
+       govcloud_id = Prop.computed __type __id "govcloud_id";
        iam_user_access_to_billing =
-         Prop.computed __resource_type __resource_id
-           "iam_user_access_to_billing";
-       id = Prop.computed __resource_type __resource_id "id";
-       joined_method =
-         Prop.computed __resource_type __resource_id "joined_method";
+         Prop.computed __type __id "iam_user_access_to_billing";
+       id = Prop.computed __type __id "id";
+       joined_method = Prop.computed __type __id "joined_method";
        joined_timestamp =
-         Prop.computed __resource_type __resource_id
-           "joined_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_id =
-         Prop.computed __resource_type __resource_id "parent_id";
-       role_name =
-         Prop.computed __resource_type __resource_id "role_name";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "joined_timestamp";
+       name = Prop.computed __type __id "name";
+       parent_id = Prop.computed __type __id "parent_id";
+       role_name = Prop.computed __type __id "role_name";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_organizations_account
+        (aws_organizations_account ?close_on_deletion
+           ?create_govcloud ?iam_user_access_to_billing ?id
+           ?parent_id ?role_name ?tags ?tags_all ~email ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?close_on_deletion ?create_govcloud
+    ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
+    ?tags_all ~email ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?close_on_deletion ?create_govcloud
+      ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags
+      ?tags_all ~email ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

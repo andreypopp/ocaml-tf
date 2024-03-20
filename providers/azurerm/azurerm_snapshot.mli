@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -94,3 +94,20 @@ val register :
   encryption_settings:encryption_settings list ->
   string ->
   t
+
+val make :
+  ?disk_size_gb:float prop ->
+  ?id:string prop ->
+  ?incremental_enabled:bool prop ->
+  ?source_resource_id:string prop ->
+  ?source_uri:string prop ->
+  ?storage_account_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  create_option:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  encryption_settings:encryption_settings list ->
+  string ->
+  t Tf_core.resource

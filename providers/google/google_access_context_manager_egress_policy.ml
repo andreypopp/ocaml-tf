@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -35,26 +33,31 @@ type t = {
   resource : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~egress_policy_name ~resource
-    __resource_id =
-  let __resource_type =
-    "google_access_context_manager_egress_policy"
-  in
-  let __resource =
-    google_access_context_manager_egress_policy ?id ?timeouts
-      ~egress_policy_name ~resource ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_egress_policy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~egress_policy_name ~resource __id =
+  let __type = "google_access_context_manager_egress_policy" in
+  let __attrs =
     ({
        egress_policy_name =
-         Prop.computed __resource_type __resource_id
-           "egress_policy_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       resource =
-         Prop.computed __resource_type __resource_id "resource";
+         Prop.computed __type __id "egress_policy_name";
+       id = Prop.computed __type __id "id";
+       resource = Prop.computed __type __id "resource";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_egress_policy
+        (google_access_context_manager_egress_policy ?id ?timeouts
+           ~egress_policy_name ~resource ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~egress_policy_name ~resource
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~egress_policy_name ~resource __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

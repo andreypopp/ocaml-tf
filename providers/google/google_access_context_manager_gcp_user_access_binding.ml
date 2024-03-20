@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -41,30 +39,36 @@ type t = {
   organization_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~access_levels ~group_key
-    ~organization_id __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~access_levels ~group_key ~organization_id
+    __id =
+  let __type =
     "google_access_context_manager_gcp_user_access_binding"
   in
-  let __resource =
-    google_access_context_manager_gcp_user_access_binding ?id
-      ?timeouts ~access_levels ~group_key ~organization_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_gcp_user_access_binding
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       access_levels =
-         Prop.computed __resource_type __resource_id "access_levels";
-       group_key =
-         Prop.computed __resource_type __resource_id "group_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       organization_id =
-         Prop.computed __resource_type __resource_id
-           "organization_id";
+       access_levels = Prop.computed __type __id "access_levels";
+       group_key = Prop.computed __type __id "group_key";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       organization_id = Prop.computed __type __id "organization_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_gcp_user_access_binding
+        (google_access_context_manager_gcp_user_access_binding ?id
+           ?timeouts ~access_levels ~group_key ~organization_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~access_levels ~group_key
+    ~organization_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~access_levels ~group_key ~organization_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

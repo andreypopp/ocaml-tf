@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type arguments = {
   argument_kind : string prop option; [@option]
@@ -196,56 +194,57 @@ type t = {
   routine_type : string prop;
 }
 
+let make ?description ?determinism_level ?id ?imported_libraries
+    ?language ?project ?return_table_type ?return_type ?timeouts
+    ~dataset_id ~definition_body ~routine_id ~routine_type ~arguments
+    ~remote_function_options ~spark_options __id =
+  let __type = "google_bigquery_routine" in
+  let __attrs =
+    ({
+       creation_time = Prop.computed __type __id "creation_time";
+       dataset_id = Prop.computed __type __id "dataset_id";
+       definition_body = Prop.computed __type __id "definition_body";
+       description = Prop.computed __type __id "description";
+       determinism_level =
+         Prop.computed __type __id "determinism_level";
+       id = Prop.computed __type __id "id";
+       imported_libraries =
+         Prop.computed __type __id "imported_libraries";
+       language = Prop.computed __type __id "language";
+       last_modified_time =
+         Prop.computed __type __id "last_modified_time";
+       project = Prop.computed __type __id "project";
+       return_table_type =
+         Prop.computed __type __id "return_table_type";
+       return_type = Prop.computed __type __id "return_type";
+       routine_id = Prop.computed __type __id "routine_id";
+       routine_type = Prop.computed __type __id "routine_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_routine
+        (google_bigquery_routine ?description ?determinism_level ?id
+           ?imported_libraries ?language ?project ?return_table_type
+           ?return_type ?timeouts ~dataset_id ~definition_body
+           ~routine_id ~routine_type ~arguments
+           ~remote_function_options ~spark_options ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?determinism_level ?id
     ?imported_libraries ?language ?project ?return_table_type
     ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
     ~routine_type ~arguments ~remote_function_options ~spark_options
-    __resource_id =
-  let __resource_type = "google_bigquery_routine" in
-  let __resource =
-    google_bigquery_routine ?description ?determinism_level ?id
-      ?imported_libraries ?language ?project ?return_table_type
-      ?return_type ?timeouts ~dataset_id ~definition_body ~routine_id
-      ~routine_type ~arguments ~remote_function_options
-      ~spark_options ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?determinism_level ?id ?imported_libraries
+      ?language ?project ?return_table_type ?return_type ?timeouts
+      ~dataset_id ~definition_body ~routine_id ~routine_type
+      ~arguments ~remote_function_options ~spark_options __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_routine __resource);
-  let __resource_attributes =
-    ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       dataset_id =
-         Prop.computed __resource_type __resource_id "dataset_id";
-       definition_body =
-         Prop.computed __resource_type __resource_id
-           "definition_body";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       determinism_level =
-         Prop.computed __resource_type __resource_id
-           "determinism_level";
-       id = Prop.computed __resource_type __resource_id "id";
-       imported_libraries =
-         Prop.computed __resource_type __resource_id
-           "imported_libraries";
-       language =
-         Prop.computed __resource_type __resource_id "language";
-       last_modified_time =
-         Prop.computed __resource_type __resource_id
-           "last_modified_time";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       return_table_type =
-         Prop.computed __resource_type __resource_id
-           "return_table_type";
-       return_type =
-         Prop.computed __resource_type __resource_id "return_type";
-       routine_id =
-         Prop.computed __resource_type __resource_id "routine_id";
-       routine_type =
-         Prop.computed __resource_type __resource_id "routine_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

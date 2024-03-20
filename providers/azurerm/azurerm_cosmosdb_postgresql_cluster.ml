@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type maintenance_window = {
   day_of_week : float prop option; [@option]  (** day_of_week *)
@@ -136,6 +134,80 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?administrator_login_password ?citus_version
+    ?coordinator_public_ip_access_enabled ?coordinator_server_edition
+    ?coordinator_storage_quota_in_mb ?coordinator_vcore_count
+    ?ha_enabled ?id ?node_public_ip_access_enabled
+    ?node_server_edition ?node_storage_quota_in_mb ?node_vcores
+    ?point_in_time_in_utc ?preferred_primary_zone
+    ?shards_on_coordinator_enabled ?source_location
+    ?source_resource_id ?sql_version ?tags ?timeouts ~location ~name
+    ~node_count ~resource_group_name ~maintenance_window __id =
+  let __type = "azurerm_cosmosdb_postgresql_cluster" in
+  let __attrs =
+    ({
+       administrator_login_password =
+         Prop.computed __type __id "administrator_login_password";
+       citus_version = Prop.computed __type __id "citus_version";
+       coordinator_public_ip_access_enabled =
+         Prop.computed __type __id
+           "coordinator_public_ip_access_enabled";
+       coordinator_server_edition =
+         Prop.computed __type __id "coordinator_server_edition";
+       coordinator_storage_quota_in_mb =
+         Prop.computed __type __id "coordinator_storage_quota_in_mb";
+       coordinator_vcore_count =
+         Prop.computed __type __id "coordinator_vcore_count";
+       earliest_restore_time =
+         Prop.computed __type __id "earliest_restore_time";
+       ha_enabled = Prop.computed __type __id "ha_enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       node_public_ip_access_enabled =
+         Prop.computed __type __id "node_public_ip_access_enabled";
+       node_server_edition =
+         Prop.computed __type __id "node_server_edition";
+       node_storage_quota_in_mb =
+         Prop.computed __type __id "node_storage_quota_in_mb";
+       node_vcores = Prop.computed __type __id "node_vcores";
+       point_in_time_in_utc =
+         Prop.computed __type __id "point_in_time_in_utc";
+       preferred_primary_zone =
+         Prop.computed __type __id "preferred_primary_zone";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       shards_on_coordinator_enabled =
+         Prop.computed __type __id "shards_on_coordinator_enabled";
+       source_location = Prop.computed __type __id "source_location";
+       source_resource_id =
+         Prop.computed __type __id "source_resource_id";
+       sql_version = Prop.computed __type __id "sql_version";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_postgresql_cluster
+        (azurerm_cosmosdb_postgresql_cluster
+           ?administrator_login_password ?citus_version
+           ?coordinator_public_ip_access_enabled
+           ?coordinator_server_edition
+           ?coordinator_storage_quota_in_mb ?coordinator_vcore_count
+           ?ha_enabled ?id ?node_public_ip_access_enabled
+           ?node_server_edition ?node_storage_quota_in_mb
+           ?node_vcores ?point_in_time_in_utc ?preferred_primary_zone
+           ?shards_on_coordinator_enabled ?source_location
+           ?source_resource_id ?sql_version ?tags ?timeouts ~location
+           ~name ~node_count ~resource_group_name ~maintenance_window
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?administrator_login_password ?citus_version
     ?coordinator_public_ip_access_enabled ?coordinator_server_edition
     ?coordinator_storage_quota_in_mb ?coordinator_vcore_count
@@ -144,12 +216,10 @@ let register ?tf_module ?administrator_login_password ?citus_version
     ?point_in_time_in_utc ?preferred_primary_zone
     ?shards_on_coordinator_enabled ?source_location
     ?source_resource_id ?sql_version ?tags ?timeouts ~location ~name
-    ~node_count ~resource_group_name ~maintenance_window
-    __resource_id =
-  let __resource_type = "azurerm_cosmosdb_postgresql_cluster" in
-  let __resource =
-    azurerm_cosmosdb_postgresql_cluster ?administrator_login_password
-      ?citus_version ?coordinator_public_ip_access_enabled
+    ~node_count ~resource_group_name ~maintenance_window __id =
+  let (r : _ Tf_core.resource) =
+    make ?administrator_login_password ?citus_version
+      ?coordinator_public_ip_access_enabled
       ?coordinator_server_edition ?coordinator_storage_quota_in_mb
       ?coordinator_vcore_count ?ha_enabled ?id
       ?node_public_ip_access_enabled ?node_server_edition
@@ -157,73 +227,7 @@ let register ?tf_module ?administrator_login_password ?citus_version
       ?preferred_primary_zone ?shards_on_coordinator_enabled
       ?source_location ?source_resource_id ?sql_version ?tags
       ?timeouts ~location ~name ~node_count ~resource_group_name
-      ~maintenance_window ()
+      ~maintenance_window __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_postgresql_cluster __resource);
-  let __resource_attributes =
-    ({
-       administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_login_password";
-       citus_version =
-         Prop.computed __resource_type __resource_id "citus_version";
-       coordinator_public_ip_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "coordinator_public_ip_access_enabled";
-       coordinator_server_edition =
-         Prop.computed __resource_type __resource_id
-           "coordinator_server_edition";
-       coordinator_storage_quota_in_mb =
-         Prop.computed __resource_type __resource_id
-           "coordinator_storage_quota_in_mb";
-       coordinator_vcore_count =
-         Prop.computed __resource_type __resource_id
-           "coordinator_vcore_count";
-       earliest_restore_time =
-         Prop.computed __resource_type __resource_id
-           "earliest_restore_time";
-       ha_enabled =
-         Prop.computed __resource_type __resource_id "ha_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       node_public_ip_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "node_public_ip_access_enabled";
-       node_server_edition =
-         Prop.computed __resource_type __resource_id
-           "node_server_edition";
-       node_storage_quota_in_mb =
-         Prop.computed __resource_type __resource_id
-           "node_storage_quota_in_mb";
-       node_vcores =
-         Prop.computed __resource_type __resource_id "node_vcores";
-       point_in_time_in_utc =
-         Prop.computed __resource_type __resource_id
-           "point_in_time_in_utc";
-       preferred_primary_zone =
-         Prop.computed __resource_type __resource_id
-           "preferred_primary_zone";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       shards_on_coordinator_enabled =
-         Prop.computed __resource_type __resource_id
-           "shards_on_coordinator_enabled";
-       source_location =
-         Prop.computed __resource_type __resource_id
-           "source_location";
-       source_resource_id =
-         Prop.computed __resource_type __resource_id
-           "source_resource_id";
-       sql_version =
-         Prop.computed __resource_type __resource_id "sql_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

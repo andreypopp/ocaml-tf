@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -92,43 +90,44 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?address ?address_type ?description ?id
-    ?ip_version ?network ?prefix_length ?project ?purpose ?timeouts
-    ~name __resource_id =
-  let __resource_type = "google_compute_global_address" in
-  let __resource =
-    google_compute_global_address ?address ?address_type ?description
-      ?id ?ip_version ?network ?prefix_length ?project ?purpose
-      ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_global_address __resource);
-  let __resource_attributes =
+let make ?address ?address_type ?description ?id ?ip_version ?network
+    ?prefix_length ?project ?purpose ?timeouts ~name __id =
+  let __type = "google_compute_global_address" in
+  let __attrs =
     ({
-       address =
-         Prop.computed __resource_type __resource_id "address";
-       address_type =
-         Prop.computed __resource_type __resource_id "address_type";
+       address = Prop.computed __type __id "address";
+       address_type = Prop.computed __type __id "address_type";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_version =
-         Prop.computed __resource_type __resource_id "ip_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       prefix_length =
-         Prop.computed __resource_type __resource_id "prefix_length";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ip_version = Prop.computed __type __id "ip_version";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       prefix_length = Prop.computed __type __id "prefix_length";
+       project = Prop.computed __type __id "project";
+       purpose = Prop.computed __type __id "purpose";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_global_address
+        (google_compute_global_address ?address ?address_type
+           ?description ?id ?ip_version ?network ?prefix_length
+           ?project ?purpose ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?address ?address_type ?description ?id
+    ?ip_version ?network ?prefix_length ?project ?purpose ?timeouts
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?address ?address_type ?description ?id ?ip_version ?network
+      ?prefix_length ?project ?purpose ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type customer_managed_key = {
   identity_id : string prop;  (** identity_id *)
@@ -150,63 +148,70 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?capacity ?id ?local_auth_enabled ?minimum_tls_version
+    ?premium_messaging_partitions ?public_network_access_enabled
+    ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~sku ~customer_managed_key ~identity
+    ~network_rule_set __id =
+  let __type = "azurerm_servicebus_namespace" in
+  let __attrs =
+    ({
+       capacity = Prop.computed __type __id "capacity";
+       default_primary_connection_string =
+         Prop.computed __type __id
+           "default_primary_connection_string";
+       default_primary_key =
+         Prop.computed __type __id "default_primary_key";
+       default_secondary_connection_string =
+         Prop.computed __type __id
+           "default_secondary_connection_string";
+       default_secondary_key =
+         Prop.computed __type __id "default_secondary_key";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       local_auth_enabled =
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       minimum_tls_version =
+         Prop.computed __type __id "minimum_tls_version";
+       name = Prop.computed __type __id "name";
+       premium_messaging_partitions =
+         Prop.computed __type __id "premium_messaging_partitions";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_namespace
+        (azurerm_servicebus_namespace ?capacity ?id
+           ?local_auth_enabled ?minimum_tls_version
+           ?premium_messaging_partitions
+           ?public_network_access_enabled ?tags ?zone_redundant
+           ?timeouts ~location ~name ~resource_group_name ~sku
+           ~customer_managed_key ~identity ~network_rule_set ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?capacity ?id ?local_auth_enabled
     ?minimum_tls_version ?premium_messaging_partitions
     ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
     ~location ~name ~resource_group_name ~sku ~customer_managed_key
-    ~identity ~network_rule_set __resource_id =
-  let __resource_type = "azurerm_servicebus_namespace" in
-  let __resource =
-    azurerm_servicebus_namespace ?capacity ?id ?local_auth_enabled
-      ?minimum_tls_version ?premium_messaging_partitions
-      ?public_network_access_enabled ?tags ?zone_redundant ?timeouts
-      ~location ~name ~resource_group_name ~sku ~customer_managed_key
-      ~identity ~network_rule_set ()
+    ~identity ~network_rule_set __id =
+  let (r : _ Tf_core.resource) =
+    make ?capacity ?id ?local_auth_enabled ?minimum_tls_version
+      ?premium_messaging_partitions ?public_network_access_enabled
+      ?tags ?zone_redundant ?timeouts ~location ~name
+      ~resource_group_name ~sku ~customer_managed_key ~identity
+      ~network_rule_set __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_namespace __resource);
-  let __resource_attributes =
-    ({
-       capacity =
-         Prop.computed __resource_type __resource_id "capacity";
-       default_primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "default_primary_connection_string";
-       default_primary_key =
-         Prop.computed __resource_type __resource_id
-           "default_primary_key";
-       default_secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_connection_string";
-       default_secondary_key =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_key";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       minimum_tls_version =
-         Prop.computed __resource_type __resource_id
-           "minimum_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       premium_messaging_partitions =
-         Prop.computed __resource_type __resource_id
-           "premium_messaging_partitions";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

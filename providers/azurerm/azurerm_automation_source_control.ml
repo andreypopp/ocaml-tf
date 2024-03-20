@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type security = {
   refresh_token : string prop option; [@option]  (** refresh_token *)
@@ -78,42 +76,50 @@ type t = {
   source_control_type : string prop;
 }
 
-let register ?tf_module ?automatic_sync ?branch ?description ?id
+let make ?automatic_sync ?branch ?description ?id
     ?publish_runbook_enabled ?timeouts ~automation_account_id
     ~folder_path ~name ~repository_url ~source_control_type ~security
-    __resource_id =
-  let __resource_type = "azurerm_automation_source_control" in
-  let __resource =
-    azurerm_automation_source_control ?automatic_sync ?branch
-      ?description ?id ?publish_runbook_enabled ?timeouts
-      ~automation_account_id ~folder_path ~name ~repository_url
-      ~source_control_type ~security ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_source_control __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "azurerm_automation_source_control" in
+  let __attrs =
     ({
-       automatic_sync =
-         Prop.computed __resource_type __resource_id "automatic_sync";
+       automatic_sync = Prop.computed __type __id "automatic_sync";
        automation_account_id =
-         Prop.computed __resource_type __resource_id
-           "automation_account_id";
-       branch = Prop.computed __resource_type __resource_id "branch";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       folder_path =
-         Prop.computed __resource_type __resource_id "folder_path";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automation_account_id";
+       branch = Prop.computed __type __id "branch";
+       description = Prop.computed __type __id "description";
+       folder_path = Prop.computed __type __id "folder_path";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        publish_runbook_enabled =
-         Prop.computed __resource_type __resource_id
-           "publish_runbook_enabled";
-       repository_url =
-         Prop.computed __resource_type __resource_id "repository_url";
+         Prop.computed __type __id "publish_runbook_enabled";
+       repository_url = Prop.computed __type __id "repository_url";
        source_control_type =
-         Prop.computed __resource_type __resource_id
-           "source_control_type";
+         Prop.computed __type __id "source_control_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_source_control
+        (azurerm_automation_source_control ?automatic_sync ?branch
+           ?description ?id ?publish_runbook_enabled ?timeouts
+           ~automation_account_id ~folder_path ~name ~repository_url
+           ~source_control_type ~security ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automatic_sync ?branch ?description ?id
+    ?publish_runbook_enabled ?timeouts ~automation_account_id
+    ~folder_path ~name ~repository_url ~source_control_type ~security
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_sync ?branch ?description ?id
+      ?publish_runbook_enabled ?timeouts ~automation_account_id
+      ~folder_path ~name ~repository_url ~source_control_type
+      ~security __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

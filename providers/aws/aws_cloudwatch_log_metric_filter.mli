@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,12 @@ val register :
   metric_transformation:metric_transformation list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  log_group_name:string prop ->
+  name:string prop ->
+  pattern:string prop ->
+  metric_transformation:metric_transformation list ->
+  string ->
+  t Tf_core.resource

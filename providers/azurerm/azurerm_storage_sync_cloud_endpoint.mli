@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,14 @@ val register :
   storage_sync_group_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?storage_account_tenant_id:string prop ->
+  ?timeouts:timeouts ->
+  file_share_name:string prop ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  storage_sync_group_id:string prop ->
+  string ->
+  t Tf_core.resource

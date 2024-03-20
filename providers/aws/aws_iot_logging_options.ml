@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iot_logging_options = {
   default_log_level : string prop;  (** default_log_level *)
@@ -25,27 +23,33 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?disable_all_logs ?id ~default_log_level
-    ~role_arn __resource_id =
-  let __resource_type = "aws_iot_logging_options" in
-  let __resource =
-    aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
-      ~role_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_logging_options __resource);
-  let __resource_attributes =
+let make ?disable_all_logs ?id ~default_log_level ~role_arn __id =
+  let __type = "aws_iot_logging_options" in
+  let __attrs =
     ({
        default_log_level =
-         Prop.computed __resource_type __resource_id
-           "default_log_level";
+         Prop.computed __type __id "default_log_level";
        disable_all_logs =
-         Prop.computed __resource_type __resource_id
-           "disable_all_logs";
-       id = Prop.computed __resource_type __resource_id "id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+         Prop.computed __type __id "disable_all_logs";
+       id = Prop.computed __type __id "id";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_logging_options
+        (aws_iot_logging_options ?disable_all_logs ?id
+           ~default_log_level ~role_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disable_all_logs ?id ~default_log_level
+    ~role_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?disable_all_logs ?id ~default_log_level ~role_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -242,3 +242,32 @@ val register :
   outlier_detection:outlier_detection list ->
   string ->
   t
+
+val make :
+  ?affinity_cookie_ttl_sec:float prop ->
+  ?connection_draining_timeout_sec:float prop ->
+  ?description:string prop ->
+  ?enable_cdn:bool prop ->
+  ?health_checks:string prop list ->
+  ?id:string prop ->
+  ?load_balancing_scheme:string prop ->
+  ?locality_lb_policy:string prop ->
+  ?network:string prop ->
+  ?port_name:string prop ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?region:string prop ->
+  ?session_affinity:string prop ->
+  ?timeout_sec:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  backend:backend list ->
+  cdn_policy:cdn_policy list ->
+  circuit_breakers:circuit_breakers list ->
+  consistent_hash:consistent_hash list ->
+  failover_policy:failover_policy list ->
+  iap:iap list ->
+  log_config:log_config list ->
+  outlier_detection:outlier_detection list ->
+  string ->
+  t Tf_core.resource

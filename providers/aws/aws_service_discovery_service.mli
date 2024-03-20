@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,18 @@ val register :
   health_check_custom_config:health_check_custom_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?namespace_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  name:string prop ->
+  dns_config:dns_config list ->
+  health_check_config:health_check_config list ->
+  health_check_custom_config:health_check_custom_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create: string  prop option; [@option] (** create *)
@@ -36,15 +34,22 @@ type t = {
   web_acl_arn: string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~resource_arn ~web_acl_arn __resource_id =
-  let __resource_type = "aws_wafv2_web_acl_association" in
-  let __resource = aws_wafv2_web_acl_association ?id ?timeouts ~resource_arn ~web_acl_arn () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_wafv2_web_acl_association __resource);
-  let __resource_attributes = ({
-    id = Prop.computed __resource_type __resource_id "id";
-    resource_arn = Prop.computed __resource_type __resource_id "resource_arn";
-    web_acl_arn = Prop.computed __resource_type __resource_id "web_acl_arn";
+let make ?id ?timeouts ~resource_arn ~web_acl_arn __id =
+  let __type = "aws_wafv2_web_acl_association" in
+  let __attrs = ({
+    id = Prop.computed __type __id "id";
+    resource_arn = Prop.computed __type __id "resource_arn";
+    web_acl_arn = Prop.computed __type __id "web_acl_arn";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_wafv2_web_acl_association (aws_wafv2_web_acl_association ?id ?timeouts ~resource_arn ~web_acl_arn ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?id ?timeouts ~resource_arn ~web_acl_arn __id =
+  let (r : _ Tf_core.resource) = make ?id ?timeouts ~resource_arn ~web_acl_arn __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_host = {
   asset_id : string prop option; [@option]  (** asset_id *)
@@ -53,43 +51,46 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?asset_id ?auto_placement ?host_recovery ?id
+let make ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-    ~availability_zone __resource_id =
-  let __resource_type = "aws_ec2_host" in
-  let __resource =
-    aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
-      ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
-      ~availability_zone ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_host __resource);
-  let __resource_attributes =
+    ~availability_zone __id =
+  let __type = "aws_ec2_host" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       asset_id =
-         Prop.computed __resource_type __resource_id "asset_id";
-       auto_placement =
-         Prop.computed __resource_type __resource_id "auto_placement";
+       arn = Prop.computed __type __id "arn";
+       asset_id = Prop.computed __type __id "asset_id";
+       auto_placement = Prop.computed __type __id "auto_placement";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       host_recovery =
-         Prop.computed __resource_type __resource_id "host_recovery";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_family =
-         Prop.computed __resource_type __resource_id
-           "instance_family";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "availability_zone";
+       host_recovery = Prop.computed __type __id "host_recovery";
+       id = Prop.computed __type __id "id";
+       instance_family = Prop.computed __type __id "instance_family";
+       instance_type = Prop.computed __type __id "instance_type";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       owner_id = Prop.computed __type __id "owner_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_host
+        (aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
+           ?instance_family ?instance_type ?outpost_arn ?tags
+           ?tags_all ~availability_zone ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?asset_id ?auto_placement ?host_recovery ?id
+    ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
+    ~availability_zone __id =
+  let (r : _ Tf_core.resource) =
+    make ?asset_id ?auto_placement ?host_recovery ?id
+      ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all
+      ~availability_zone __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

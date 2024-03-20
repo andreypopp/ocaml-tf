@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -40,29 +38,34 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?tags ?timeouts ~connection_string
-    __resource_id =
-  let __resource_type = "aws_workspaces_connection_alias" in
-  let __resource =
-    aws_workspaces_connection_alias ?tags ?timeouts
-      ~connection_string ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_workspaces_connection_alias __resource);
-  let __resource_attributes =
+let make ?tags ?timeouts ~connection_string __id =
+  let __type = "aws_workspaces_connection_alias" in
+  let __attrs =
     ({
        connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "connection_string";
+       id = Prop.computed __type __id "id";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "owner_account_id";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_workspaces_connection_alias
+        (aws_workspaces_connection_alias ?tags ?timeouts
+           ~connection_string ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?tags ?timeouts ~connection_string __id =
+  let (r : _ Tf_core.resource) =
+    make ?tags ?timeouts ~connection_string __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

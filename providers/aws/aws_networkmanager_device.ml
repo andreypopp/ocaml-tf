@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_location = {
   subnet_arn : string prop option; [@option]  (** subnet_arn *)
@@ -89,37 +87,45 @@ type t = {
   vendor : string prop;
 }
 
-let register ?tf_module ?description ?id ?model ?serial_number
-    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
-    ~global_network_id ~aws_location ~location __resource_id =
-  let __resource_type = "aws_networkmanager_device" in
-  let __resource =
-    aws_networkmanager_device ?description ?id ?model ?serial_number
-      ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
-      ~global_network_id ~aws_location ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_device __resource);
-  let __resource_attributes =
+let make ?description ?id ?model ?serial_number ?site_id ?tags
+    ?tags_all ?type_ ?vendor ?timeouts ~global_network_id
+    ~aws_location ~location __id =
+  let __type = "aws_networkmanager_device" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        global_network_id =
-         Prop.computed __resource_type __resource_id
-           "global_network_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       model = Prop.computed __resource_type __resource_id "model";
-       serial_number =
-         Prop.computed __resource_type __resource_id "serial_number";
-       site_id =
-         Prop.computed __resource_type __resource_id "site_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       vendor = Prop.computed __resource_type __resource_id "vendor";
+         Prop.computed __type __id "global_network_id";
+       id = Prop.computed __type __id "id";
+       model = Prop.computed __type __id "model";
+       serial_number = Prop.computed __type __id "serial_number";
+       site_id = Prop.computed __type __id "site_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       vendor = Prop.computed __type __id "vendor";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_device
+        (aws_networkmanager_device ?description ?id ?model
+           ?serial_number ?site_id ?tags ?tags_all ?type_ ?vendor
+           ?timeouts ~global_network_id ~aws_location ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?model ?serial_number
+    ?site_id ?tags ?tags_all ?type_ ?vendor ?timeouts
+    ~global_network_id ~aws_location ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?model ?serial_number ?site_id ?tags
+      ?tags_all ?type_ ?vendor ?timeouts ~global_network_id
+      ~aws_location ~location __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

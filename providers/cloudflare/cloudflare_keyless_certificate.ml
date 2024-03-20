@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_keyless_certificate = {
   bundle_method : string prop option; [@option]
@@ -49,31 +47,38 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?bundle_method ?enabled ?id ?name ?port
-    ~certificate ~host ~zone_id __resource_id =
-  let __resource_type = "cloudflare_keyless_certificate" in
-  let __resource =
-    cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
-      ?port ~certificate ~host ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_keyless_certificate __resource);
-  let __resource_attributes =
+let make ?bundle_method ?enabled ?id ?name ?port ~certificate ~host
+    ~zone_id __id =
+  let __type = "cloudflare_keyless_certificate" in
+  let __attrs =
     ({
-       bundle_method =
-         Prop.computed __resource_type __resource_id "bundle_method";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
-       status = Prop.computed __resource_type __resource_id "status";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       bundle_method = Prop.computed __type __id "bundle_method";
+       certificate = Prop.computed __type __id "certificate";
+       enabled = Prop.computed __type __id "enabled";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
+       status = Prop.computed __type __id "status";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_keyless_certificate
+        (cloudflare_keyless_certificate ?bundle_method ?enabled ?id
+           ?name ?port ~certificate ~host ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bundle_method ?enabled ?id ?name ?port
+    ~certificate ~host ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?bundle_method ?enabled ?id ?name ?port ~certificate ~host
+      ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

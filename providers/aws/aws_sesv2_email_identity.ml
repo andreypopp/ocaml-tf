@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dkim_signing_attributes = {
   domain_signing_private_key : string prop option; [@option]
@@ -60,33 +58,39 @@ type t = {
   verified_for_sending_status : bool prop;
 }
 
-let register ?tf_module ?configuration_set_name ?id ?tags ?tags_all
-    ~email_identity ~dkim_signing_attributes __resource_id =
-  let __resource_type = "aws_sesv2_email_identity" in
-  let __resource =
-    aws_sesv2_email_identity ?configuration_set_name ?id ?tags
-      ?tags_all ~email_identity ~dkim_signing_attributes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_email_identity __resource);
-  let __resource_attributes =
+let make ?configuration_set_name ?id ?tags ?tags_all ~email_identity
+    ~dkim_signing_attributes __id =
+  let __type = "aws_sesv2_email_identity" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        configuration_set_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_set_name";
-       email_identity =
-         Prop.computed __resource_type __resource_id "email_identity";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_type =
-         Prop.computed __resource_type __resource_id "identity_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "configuration_set_name";
+       email_identity = Prop.computed __type __id "email_identity";
+       id = Prop.computed __type __id "id";
+       identity_type = Prop.computed __type __id "identity_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        verified_for_sending_status =
-         Prop.computed __resource_type __resource_id
-           "verified_for_sending_status";
+         Prop.computed __type __id "verified_for_sending_status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_email_identity
+        (aws_sesv2_email_identity ?configuration_set_name ?id ?tags
+           ?tags_all ~email_identity ~dkim_signing_attributes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?configuration_set_name ?id ?tags ?tags_all
+    ~email_identity ~dkim_signing_attributes __id =
+  let (r : _ Tf_core.resource) =
+    make ?configuration_set_name ?id ?tags ?tags_all ~email_identity
+      ~dkim_signing_attributes __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

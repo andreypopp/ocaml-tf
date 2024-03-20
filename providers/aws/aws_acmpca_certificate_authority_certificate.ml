@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_acmpca_certificate_authority_certificate = {
   certificate : string prop;  (** certificate *)
@@ -27,30 +25,36 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?certificate_chain ?id ~certificate
-    ~certificate_authority_arn __resource_id =
-  let __resource_type =
-    "aws_acmpca_certificate_authority_certificate"
-  in
-  let __resource =
-    aws_acmpca_certificate_authority_certificate ?certificate_chain
-      ?id ~certificate ~certificate_authority_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acmpca_certificate_authority_certificate
-       __resource);
-  let __resource_attributes =
+let make ?certificate_chain ?id ~certificate
+    ~certificate_authority_arn __id =
+  let __type = "aws_acmpca_certificate_authority_certificate" in
+  let __attrs =
     ({
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
+       certificate = Prop.computed __type __id "certificate";
        certificate_authority_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority_arn";
+         Prop.computed __type __id "certificate_authority_arn";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "certificate_chain";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acmpca_certificate_authority_certificate
+        (aws_acmpca_certificate_authority_certificate
+           ?certificate_chain ?id ~certificate
+           ~certificate_authority_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_chain ?id ~certificate
+    ~certificate_authority_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_chain ?id ~certificate
+      ~certificate_authority_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

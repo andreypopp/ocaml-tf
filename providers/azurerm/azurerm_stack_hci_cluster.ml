@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -68,43 +66,46 @@ type t = {
   tenant_id : string prop;
 }
 
-let register ?tf_module ?automanage_configuration_id ?id ?tags
-    ?tenant_id ?timeouts ~client_id ~location ~name
-    ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_stack_hci_cluster" in
-  let __resource =
-    azurerm_stack_hci_cluster ?automanage_configuration_id ?id ?tags
-      ?tenant_id ?timeouts ~client_id ~location ~name
-      ~resource_group_name ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stack_hci_cluster __resource);
-  let __resource_attributes =
+let make ?automanage_configuration_id ?id ?tags ?tenant_id ?timeouts
+    ~client_id ~location ~name ~resource_group_name ~identity __id =
+  let __type = "azurerm_stack_hci_cluster" in
+  let __attrs =
     ({
        automanage_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "automanage_configuration_id";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       cloud_id =
-         Prop.computed __resource_type __resource_id "cloud_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automanage_configuration_id";
+       client_id = Prop.computed __type __id "client_id";
+       cloud_id = Prop.computed __type __id "cloud_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        resource_provider_object_id =
-         Prop.computed __resource_type __resource_id
-           "resource_provider_object_id";
+         Prop.computed __type __id "resource_provider_object_id";
        service_endpoint =
-         Prop.computed __resource_type __resource_id
-           "service_endpoint";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
+         Prop.computed __type __id "service_endpoint";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stack_hci_cluster
+        (azurerm_stack_hci_cluster ?automanage_configuration_id ?id
+           ?tags ?tenant_id ?timeouts ~client_id ~location ~name
+           ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automanage_configuration_id ?id ?tags
+    ?tenant_id ?timeouts ~client_id ~location ~name
+    ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?automanage_configuration_id ?id ?tags ?tenant_id ?timeouts
+      ~client_id ~location ~name ~resource_group_name ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

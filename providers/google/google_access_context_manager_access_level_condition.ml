@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type device_policy__os_constraints = {
   minimum_version : string prop option; [@option]
@@ -158,37 +156,44 @@ type t = {
   required_access_levels : string list prop;
 }
 
-let register ?tf_module ?id ?ip_subnetworks ?members ?negate ?regions
+let make ?id ?ip_subnetworks ?members ?negate ?regions
     ?required_access_levels ?timeouts ~access_level ~device_policy
-    ~vpc_network_sources __resource_id =
-  let __resource_type =
+    ~vpc_network_sources __id =
+  let __type =
     "google_access_context_manager_access_level_condition"
   in
-  let __resource =
-    google_access_context_manager_access_level_condition ?id
-      ?ip_subnetworks ?members ?negate ?regions
-      ?required_access_levels ?timeouts ~access_level ~device_policy
-      ~vpc_network_sources ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_access_level_condition
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       access_level =
-         Prop.computed __resource_type __resource_id "access_level";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_subnetworks =
-         Prop.computed __resource_type __resource_id "ip_subnetworks";
-       members =
-         Prop.computed __resource_type __resource_id "members";
-       negate = Prop.computed __resource_type __resource_id "negate";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
+       access_level = Prop.computed __type __id "access_level";
+       id = Prop.computed __type __id "id";
+       ip_subnetworks = Prop.computed __type __id "ip_subnetworks";
+       members = Prop.computed __type __id "members";
+       negate = Prop.computed __type __id "negate";
+       regions = Prop.computed __type __id "regions";
        required_access_levels =
-         Prop.computed __resource_type __resource_id
-           "required_access_levels";
+         Prop.computed __type __id "required_access_levels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_access_level_condition
+        (google_access_context_manager_access_level_condition ?id
+           ?ip_subnetworks ?members ?negate ?regions
+           ?required_access_levels ?timeouts ~access_level
+           ~device_policy ~vpc_network_sources ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_subnetworks ?members ?negate ?regions
+    ?required_access_levels ?timeouts ~access_level ~device_policy
+    ~vpc_network_sources __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_subnetworks ?members ?negate ?regions
+      ?required_access_levels ?timeouts ~access_level ~device_policy
+      ~vpc_network_sources __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

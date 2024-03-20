@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -162,3 +162,20 @@ val register :
   task_invocation_parameters:task_invocation_parameters list ->
   string ->
   t
+
+val make :
+  ?cutoff_behavior:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?max_concurrency:string prop ->
+  ?max_errors:string prop ->
+  ?name:string prop ->
+  ?priority:float prop ->
+  ?service_role_arn:string prop ->
+  task_arn:string prop ->
+  task_type:string prop ->
+  window_id:string prop ->
+  targets:targets list ->
+  task_invocation_parameters:task_invocation_parameters list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,16 @@ val register :
   priority:float prop ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?colo_names:string prop list ->
+  ?colo_regions:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?weight:float prop ->
+  nexthop:string prop ->
+  prefix:string prop ->
+  priority:float prop ->
+  string ->
+  t Tf_core.resource

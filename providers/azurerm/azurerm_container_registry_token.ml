@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,32 +49,39 @@ type t = {
   scope_map_id : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?timeouts
-    ~container_registry_name ~name ~resource_group_name ~scope_map_id
-    __resource_id =
-  let __resource_type = "azurerm_container_registry_token" in
-  let __resource =
-    azurerm_container_registry_token ?enabled ?id ?timeouts
-      ~container_registry_name ~name ~resource_group_name
-      ~scope_map_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry_token __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?timeouts ~container_registry_name ~name
+    ~resource_group_name ~scope_map_id __id =
+  let __type = "azurerm_container_registry_token" in
+  let __attrs =
     ({
        container_registry_name =
-         Prop.computed __resource_type __resource_id
-           "container_registry_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "container_registry_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scope_map_id =
-         Prop.computed __resource_type __resource_id "scope_map_id";
+         Prop.computed __type __id "resource_group_name";
+       scope_map_id = Prop.computed __type __id "scope_map_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry_token
+        (azurerm_container_registry_token ?enabled ?id ?timeouts
+           ~container_registry_name ~name ~resource_group_name
+           ~scope_map_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?timeouts
+    ~container_registry_name ~name ~resource_group_name ~scope_map_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?timeouts ~container_registry_name ~name
+      ~resource_group_name ~scope_map_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

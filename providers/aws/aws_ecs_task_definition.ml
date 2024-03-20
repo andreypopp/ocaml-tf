@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ephemeral_storage = {
   size_in_gib : float prop;  (** size_in_gib *)
@@ -248,60 +246,67 @@ type t = {
   track_latest : bool prop;
 }
 
+let make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
+    ?pid_mode ?requires_compatibilities ?skip_destroy ?tags ?tags_all
+    ?task_role_arn ?track_latest ~container_definitions ~family
+    ~ephemeral_storage ~inference_accelerator ~placement_constraints
+    ~proxy_configuration ~runtime_platform ~volume __id =
+  let __type = "aws_ecs_task_definition" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       arn_without_revision =
+         Prop.computed __type __id "arn_without_revision";
+       container_definitions =
+         Prop.computed __type __id "container_definitions";
+       cpu = Prop.computed __type __id "cpu";
+       execution_role_arn =
+         Prop.computed __type __id "execution_role_arn";
+       family = Prop.computed __type __id "family";
+       id = Prop.computed __type __id "id";
+       ipc_mode = Prop.computed __type __id "ipc_mode";
+       memory = Prop.computed __type __id "memory";
+       network_mode = Prop.computed __type __id "network_mode";
+       pid_mode = Prop.computed __type __id "pid_mode";
+       requires_compatibilities =
+         Prop.computed __type __id "requires_compatibilities";
+       revision = Prop.computed __type __id "revision";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       task_role_arn = Prop.computed __type __id "task_role_arn";
+       track_latest = Prop.computed __type __id "track_latest";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecs_task_definition
+        (aws_ecs_task_definition ?cpu ?execution_role_arn ?id
+           ?ipc_mode ?memory ?network_mode ?pid_mode
+           ?requires_compatibilities ?skip_destroy ?tags ?tags_all
+           ?task_role_arn ?track_latest ~container_definitions
+           ~family ~ephemeral_storage ~inference_accelerator
+           ~placement_constraints ~proxy_configuration
+           ~runtime_platform ~volume ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cpu ?execution_role_arn ?id ?ipc_mode
     ?memory ?network_mode ?pid_mode ?requires_compatibilities
     ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
     ~container_definitions ~family ~ephemeral_storage
     ~inference_accelerator ~placement_constraints
-    ~proxy_configuration ~runtime_platform ~volume __resource_id =
-  let __resource_type = "aws_ecs_task_definition" in
-  let __resource =
-    aws_ecs_task_definition ?cpu ?execution_role_arn ?id ?ipc_mode
-      ?memory ?network_mode ?pid_mode ?requires_compatibilities
-      ?skip_destroy ?tags ?tags_all ?task_role_arn ?track_latest
-      ~container_definitions ~family ~ephemeral_storage
-      ~inference_accelerator ~placement_constraints
-      ~proxy_configuration ~runtime_platform ~volume ()
+    ~proxy_configuration ~runtime_platform ~volume __id =
+  let (r : _ Tf_core.resource) =
+    make ?cpu ?execution_role_arn ?id ?ipc_mode ?memory ?network_mode
+      ?pid_mode ?requires_compatibilities ?skip_destroy ?tags
+      ?tags_all ?task_role_arn ?track_latest ~container_definitions
+      ~family ~ephemeral_storage ~inference_accelerator
+      ~placement_constraints ~proxy_configuration ~runtime_platform
+      ~volume __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecs_task_definition __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       arn_without_revision =
-         Prop.computed __resource_type __resource_id
-           "arn_without_revision";
-       container_definitions =
-         Prop.computed __resource_type __resource_id
-           "container_definitions";
-       cpu = Prop.computed __resource_type __resource_id "cpu";
-       execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "execution_role_arn";
-       family = Prop.computed __resource_type __resource_id "family";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipc_mode =
-         Prop.computed __resource_type __resource_id "ipc_mode";
-       memory = Prop.computed __resource_type __resource_id "memory";
-       network_mode =
-         Prop.computed __resource_type __resource_id "network_mode";
-       pid_mode =
-         Prop.computed __resource_type __resource_id "pid_mode";
-       requires_compatibilities =
-         Prop.computed __resource_type __resource_id
-           "requires_compatibilities";
-       revision =
-         Prop.computed __resource_type __resource_id "revision";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       task_role_arn =
-         Prop.computed __resource_type __resource_id "task_role_arn";
-       track_latest =
-         Prop.computed __resource_type __resource_id "track_latest";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -221,3 +221,21 @@ val register :
   slot:slot list ->
   string ->
   t
+
+val make :
+  ?create_version:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parent_intent_signature:string prop ->
+  ?sample_utterances:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  conclusion_statement:conclusion_statement list ->
+  confirmation_prompt:confirmation_prompt list ->
+  dialog_code_hook:dialog_code_hook list ->
+  follow_up_prompt:follow_up_prompt list ->
+  fulfillment_activity:fulfillment_activity list ->
+  rejection_statement:rejection_statement list ->
+  slot:slot list ->
+  string ->
+  t Tf_core.resource

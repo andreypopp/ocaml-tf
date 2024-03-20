@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,15 @@ val register :
   remote_domain_info:remote_domain_info list ->
   string ->
   t
+
+val make :
+  ?accept_connection:bool prop ->
+  ?connection_mode:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  connection_alias:string prop ->
+  connection_properties:connection_properties list ->
+  local_domain_info:local_domain_info list ->
+  remote_domain_info:remote_domain_info list ->
+  string ->
+  t Tf_core.resource

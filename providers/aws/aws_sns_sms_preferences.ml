@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sns_sms_preferences = {
   default_sender_id : string prop option; [@option]
@@ -47,41 +45,51 @@ type t = {
   usage_report_s3_bucket : string prop;
 }
 
-let register ?tf_module ?default_sender_id ?default_sms_type
+let make ?default_sender_id ?default_sms_type
     ?delivery_status_iam_role_arn
     ?delivery_status_success_sampling_rate ?id ?monthly_spend_limit
-    ?usage_report_s3_bucket __resource_id =
-  let __resource_type = "aws_sns_sms_preferences" in
-  let __resource =
-    aws_sns_sms_preferences ?default_sender_id ?default_sms_type
-      ?delivery_status_iam_role_arn
-      ?delivery_status_success_sampling_rate ?id ?monthly_spend_limit
-      ?usage_report_s3_bucket ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sns_sms_preferences __resource);
-  let __resource_attributes =
+    ?usage_report_s3_bucket __id =
+  let __type = "aws_sns_sms_preferences" in
+  let __attrs =
     ({
        default_sender_id =
-         Prop.computed __resource_type __resource_id
-           "default_sender_id";
+         Prop.computed __type __id "default_sender_id";
        default_sms_type =
-         Prop.computed __resource_type __resource_id
-           "default_sms_type";
+         Prop.computed __type __id "default_sms_type";
        delivery_status_iam_role_arn =
-         Prop.computed __resource_type __resource_id
-           "delivery_status_iam_role_arn";
+         Prop.computed __type __id "delivery_status_iam_role_arn";
        delivery_status_success_sampling_rate =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "delivery_status_success_sampling_rate";
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        monthly_spend_limit =
-         Prop.computed __resource_type __resource_id
-           "monthly_spend_limit";
+         Prop.computed __type __id "monthly_spend_limit";
        usage_report_s3_bucket =
-         Prop.computed __resource_type __resource_id
-           "usage_report_s3_bucket";
+         Prop.computed __type __id "usage_report_s3_bucket";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sns_sms_preferences
+        (aws_sns_sms_preferences ?default_sender_id ?default_sms_type
+           ?delivery_status_iam_role_arn
+           ?delivery_status_success_sampling_rate ?id
+           ?monthly_spend_limit ?usage_report_s3_bucket ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_sender_id ?default_sms_type
+    ?delivery_status_iam_role_arn
+    ?delivery_status_success_sampling_rate ?id ?monthly_spend_limit
+    ?usage_report_s3_bucket __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_sender_id ?default_sms_type
+      ?delivery_status_iam_role_arn
+      ?delivery_status_success_sampling_rate ?id ?monthly_spend_limit
+      ?usage_report_s3_bucket __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

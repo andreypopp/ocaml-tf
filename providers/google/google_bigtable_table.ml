@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type column_family = {
   family : string prop;  (** The name of the column family. *)
@@ -65,34 +63,40 @@ type t = {
   split_keys : string list prop;
 }
 
-let register ?tf_module ?change_stream_retention ?deletion_protection
-    ?id ?project ?split_keys ?timeouts ~instance_name ~name
-    ~column_family __resource_id =
-  let __resource_type = "google_bigtable_table" in
-  let __resource =
-    google_bigtable_table ?change_stream_retention
-      ?deletion_protection ?id ?project ?split_keys ?timeouts
-      ~instance_name ~name ~column_family ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigtable_table __resource);
-  let __resource_attributes =
+let make ?change_stream_retention ?deletion_protection ?id ?project
+    ?split_keys ?timeouts ~instance_name ~name ~column_family __id =
+  let __type = "google_bigtable_table" in
+  let __attrs =
     ({
        change_stream_retention =
-         Prop.computed __resource_type __resource_id
-           "change_stream_retention";
+         Prop.computed __type __id "change_stream_retention";
        deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_name =
-         Prop.computed __resource_type __resource_id "instance_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       split_keys =
-         Prop.computed __resource_type __resource_id "split_keys";
+         Prop.computed __type __id "deletion_protection";
+       id = Prop.computed __type __id "id";
+       instance_name = Prop.computed __type __id "instance_name";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       split_keys = Prop.computed __type __id "split_keys";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigtable_table
+        (google_bigtable_table ?change_stream_retention
+           ?deletion_protection ?id ?project ?split_keys ?timeouts
+           ~instance_name ~name ~column_family ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?change_stream_retention ?deletion_protection
+    ?id ?project ?split_keys ?timeouts ~instance_name ~name
+    ~column_family __id =
+  let (r : _ Tf_core.resource) =
+    make ?change_stream_retention ?deletion_protection ?id ?project
+      ?split_keys ?timeouts ~instance_name ~name ~column_family __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

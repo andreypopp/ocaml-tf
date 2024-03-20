@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,21 @@ val register :
   tls:tls list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?resource_id:string prop ->
+  ?title:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  name:string prop ->
+  protocol:string prop ->
+  resource_group_name:string prop ->
+  url:string prop ->
+  credentials:credentials list ->
+  proxy:proxy list ->
+  service_fabric_cluster:service_fabric_cluster list ->
+  tls:tls list ->
+  string ->
+  t Tf_core.resource

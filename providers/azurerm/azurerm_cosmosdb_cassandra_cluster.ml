@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -95,59 +93,67 @@ type t = {
   version : string prop;
 }
 
+let make ?authentication_method ?client_certificate_pems
+    ?external_gossip_certificate_pems
+    ?external_seed_node_ip_addresses ?hours_between_backups ?id
+    ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
+    ~delegated_management_subnet_id ~location ~name
+    ~resource_group_name ~identity __id =
+  let __type = "azurerm_cosmosdb_cassandra_cluster" in
+  let __attrs =
+    ({
+       authentication_method =
+         Prop.computed __type __id "authentication_method";
+       client_certificate_pems =
+         Prop.computed __type __id "client_certificate_pems";
+       default_admin_password =
+         Prop.computed __type __id "default_admin_password";
+       delegated_management_subnet_id =
+         Prop.computed __type __id "delegated_management_subnet_id";
+       external_gossip_certificate_pems =
+         Prop.computed __type __id "external_gossip_certificate_pems";
+       external_seed_node_ip_addresses =
+         Prop.computed __type __id "external_seed_node_ip_addresses";
+       hours_between_backups =
+         Prop.computed __type __id "hours_between_backups";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       repair_enabled = Prop.computed __type __id "repair_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_cassandra_cluster
+        (azurerm_cosmosdb_cassandra_cluster ?authentication_method
+           ?client_certificate_pems ?external_gossip_certificate_pems
+           ?external_seed_node_ip_addresses ?hours_between_backups
+           ?id ?repair_enabled ?tags ?version ?timeouts
+           ~default_admin_password ~delegated_management_subnet_id
+           ~location ~name ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authentication_method
     ?client_certificate_pems ?external_gossip_certificate_pems
     ?external_seed_node_ip_addresses ?hours_between_backups ?id
     ?repair_enabled ?tags ?version ?timeouts ~default_admin_password
     ~delegated_management_subnet_id ~location ~name
-    ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_cosmosdb_cassandra_cluster" in
-  let __resource =
-    azurerm_cosmosdb_cassandra_cluster ?authentication_method
-      ?client_certificate_pems ?external_gossip_certificate_pems
+    ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_method ?client_certificate_pems
+      ?external_gossip_certificate_pems
       ?external_seed_node_ip_addresses ?hours_between_backups ?id
       ?repair_enabled ?tags ?version ?timeouts
       ~default_admin_password ~delegated_management_subnet_id
-      ~location ~name ~resource_group_name ~identity ()
+      ~location ~name ~resource_group_name ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_cassandra_cluster __resource);
-  let __resource_attributes =
-    ({
-       authentication_method =
-         Prop.computed __resource_type __resource_id
-           "authentication_method";
-       client_certificate_pems =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_pems";
-       default_admin_password =
-         Prop.computed __resource_type __resource_id
-           "default_admin_password";
-       delegated_management_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_management_subnet_id";
-       external_gossip_certificate_pems =
-         Prop.computed __resource_type __resource_id
-           "external_gossip_certificate_pems";
-       external_seed_node_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "external_seed_node_ip_addresses";
-       hours_between_backups =
-         Prop.computed __resource_type __resource_id
-           "hours_between_backups";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       repair_enabled =
-         Prop.computed __resource_type __resource_id "repair_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

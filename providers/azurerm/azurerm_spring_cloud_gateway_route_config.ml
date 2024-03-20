@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type open_api = { uri : string prop option [@option]  (** uri *) }
 [@@deriving yojson_of]
@@ -101,40 +99,45 @@ type t = {
   sso_validation_enabled : bool prop;
 }
 
-let register ?tf_module ?filters ?id ?predicates ?protocol
-    ?spring_cloud_app_id ?sso_validation_enabled ?timeouts ~name
-    ~spring_cloud_gateway_id ~open_api ~route __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_gateway_route_config"
-  in
-  let __resource =
-    azurerm_spring_cloud_gateway_route_config ?filters ?id
-      ?predicates ?protocol ?spring_cloud_app_id
-      ?sso_validation_enabled ?timeouts ~name
-      ~spring_cloud_gateway_id ~open_api ~route ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_gateway_route_config __resource);
-  let __resource_attributes =
+let make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
+    ?sso_validation_enabled ?timeouts ~name ~spring_cloud_gateway_id
+    ~open_api ~route __id =
+  let __type = "azurerm_spring_cloud_gateway_route_config" in
+  let __attrs =
     ({
-       filters =
-         Prop.computed __resource_type __resource_id "filters";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       predicates =
-         Prop.computed __resource_type __resource_id "predicates";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+       filters = Prop.computed __type __id "filters";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       predicates = Prop.computed __type __id "predicates";
+       protocol = Prop.computed __type __id "protocol";
        spring_cloud_app_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_app_id";
+         Prop.computed __type __id "spring_cloud_app_id";
        spring_cloud_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_gateway_id";
+         Prop.computed __type __id "spring_cloud_gateway_id";
        sso_validation_enabled =
-         Prop.computed __resource_type __resource_id
-           "sso_validation_enabled";
+         Prop.computed __type __id "sso_validation_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_gateway_route_config
+        (azurerm_spring_cloud_gateway_route_config ?filters ?id
+           ?predicates ?protocol ?spring_cloud_app_id
+           ?sso_validation_enabled ?timeouts ~name
+           ~spring_cloud_gateway_id ~open_api ~route ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?filters ?id ?predicates ?protocol
+    ?spring_cloud_app_id ?sso_validation_enabled ?timeouts ~name
+    ~spring_cloud_gateway_id ~open_api ~route __id =
+  let (r : _ Tf_core.resource) =
+    make ?filters ?id ?predicates ?protocol ?spring_cloud_app_id
+      ?sso_validation_enabled ?timeouts ~name
+      ~spring_cloud_gateway_id ~open_api ~route __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

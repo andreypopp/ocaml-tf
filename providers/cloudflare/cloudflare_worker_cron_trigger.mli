@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   script_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  account_id:string prop ->
+  schedules:string prop list ->
+  script_name:string prop ->
+  string ->
+  t Tf_core.resource

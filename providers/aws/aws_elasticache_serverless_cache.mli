@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,21 @@ val register :
   cache_usage_limits:cache_usage_limits list ->
   string ->
   t
+
+val make :
+  ?daily_snapshot_time:string prop ->
+  ?description:string prop ->
+  ?kms_key_id:string prop ->
+  ?major_engine_version:string prop ->
+  ?security_group_ids:string prop list ->
+  ?snapshot_arns_to_restore:string prop list ->
+  ?snapshot_retention_limit:float prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?user_group_id:string prop ->
+  ?timeouts:timeouts ->
+  engine:string prop ->
+  name:string prop ->
+  cache_usage_limits:cache_usage_limits list ->
+  string ->
+  t Tf_core.resource

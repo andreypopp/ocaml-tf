@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -132,3 +132,17 @@ val register :
   time_period:time_period list ->
   string ->
   t
+
+val make :
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?time_grain:string prop ->
+  ?timeouts:timeouts ->
+  amount:float prop ->
+  name:string prop ->
+  subscription_id:string prop ->
+  filter:filter list ->
+  notification:notification list ->
+  time_period:time_period list ->
+  string ->
+  t Tf_core.resource

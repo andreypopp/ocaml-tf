@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,15 @@ val register :
   voice_settings:voice_settings list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  n_lu_intent_confidence_threshold:float prop ->
+  voice_settings:voice_settings list ->
+  string ->
+  t Tf_core.resource

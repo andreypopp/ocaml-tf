@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,15 @@ val register :
   source_arn:string prop ->
   string ->
   t
+
+val make :
+  ?export_only:string prop list ->
+  ?s3_prefix:string prop ->
+  ?timeouts:timeouts ->
+  export_task_identifier:string prop ->
+  iam_role_arn:string prop ->
+  kms_key_id:string prop ->
+  s3_bucket_name:string prop ->
+  source_arn:string prop ->
+  string ->
+  t Tf_core.resource

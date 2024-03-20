@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type georeplications = {
   location : string prop;  (** location *)
@@ -174,76 +172,81 @@ type t = {
   zone_redundancy_enabled : bool prop;
 }
 
+let make ?admin_enabled ?anonymous_pull_enabled
+    ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
+    ?network_rule_bypass_option ?network_rule_set
+    ?public_network_access_enabled ?quarantine_policy_enabled
+    ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
+    ?timeouts ~location ~name ~resource_group_name ~sku
+    ~georeplications ~identity __id =
+  let __type = "azurerm_container_registry" in
+  let __attrs =
+    ({
+       admin_enabled = Prop.computed __type __id "admin_enabled";
+       admin_password = Prop.computed __type __id "admin_password";
+       admin_username = Prop.computed __type __id "admin_username";
+       anonymous_pull_enabled =
+         Prop.computed __type __id "anonymous_pull_enabled";
+       data_endpoint_enabled =
+         Prop.computed __type __id "data_endpoint_enabled";
+       encryption = Prop.computed __type __id "encryption";
+       export_policy_enabled =
+         Prop.computed __type __id "export_policy_enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       login_server = Prop.computed __type __id "login_server";
+       name = Prop.computed __type __id "name";
+       network_rule_bypass_option =
+         Prop.computed __type __id "network_rule_bypass_option";
+       network_rule_set =
+         Prop.computed __type __id "network_rule_set";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       quarantine_policy_enabled =
+         Prop.computed __type __id "quarantine_policy_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       retention_policy =
+         Prop.computed __type __id "retention_policy";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       trust_policy = Prop.computed __type __id "trust_policy";
+       zone_redundancy_enabled =
+         Prop.computed __type __id "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry
+        (azurerm_container_registry ?admin_enabled
+           ?anonymous_pull_enabled ?data_endpoint_enabled ?encryption
+           ?export_policy_enabled ?id ?network_rule_bypass_option
+           ?network_rule_set ?public_network_access_enabled
+           ?quarantine_policy_enabled ?retention_policy ?tags
+           ?trust_policy ?zone_redundancy_enabled ?timeouts ~location
+           ~name ~resource_group_name ~sku ~georeplications ~identity
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?admin_enabled ?anonymous_pull_enabled
     ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
     ?network_rule_bypass_option ?network_rule_set
     ?public_network_access_enabled ?quarantine_policy_enabled
     ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
     ?timeouts ~location ~name ~resource_group_name ~sku
-    ~georeplications ~identity __resource_id =
-  let __resource_type = "azurerm_container_registry" in
-  let __resource =
-    azurerm_container_registry ?admin_enabled ?anonymous_pull_enabled
+    ~georeplications ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_enabled ?anonymous_pull_enabled
       ?data_endpoint_enabled ?encryption ?export_policy_enabled ?id
       ?network_rule_bypass_option ?network_rule_set
       ?public_network_access_enabled ?quarantine_policy_enabled
       ?retention_policy ?tags ?trust_policy ?zone_redundancy_enabled
       ?timeouts ~location ~name ~resource_group_name ~sku
-      ~georeplications ~identity ()
+      ~georeplications ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry __resource);
-  let __resource_attributes =
-    ({
-       admin_enabled =
-         Prop.computed __resource_type __resource_id "admin_enabled";
-       admin_password =
-         Prop.computed __resource_type __resource_id "admin_password";
-       admin_username =
-         Prop.computed __resource_type __resource_id "admin_username";
-       anonymous_pull_enabled =
-         Prop.computed __resource_type __resource_id
-           "anonymous_pull_enabled";
-       data_endpoint_enabled =
-         Prop.computed __resource_type __resource_id
-           "data_endpoint_enabled";
-       encryption =
-         Prop.computed __resource_type __resource_id "encryption";
-       export_policy_enabled =
-         Prop.computed __resource_type __resource_id
-           "export_policy_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       login_server =
-         Prop.computed __resource_type __resource_id "login_server";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_rule_bypass_option =
-         Prop.computed __resource_type __resource_id
-           "network_rule_bypass_option";
-       network_rule_set =
-         Prop.computed __resource_type __resource_id
-           "network_rule_set";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       quarantine_policy_enabled =
-         Prop.computed __resource_type __resource_id
-           "quarantine_policy_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retention_policy =
-         Prop.computed __resource_type __resource_id
-           "retention_policy";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       trust_policy =
-         Prop.computed __resource_type __resource_id "trust_policy";
-       zone_redundancy_enabled =
-         Prop.computed __resource_type __resource_id
-           "zone_redundancy_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

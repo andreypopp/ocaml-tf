@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sink__dataset = {
   name : string prop;  (** name *)
@@ -286,33 +284,41 @@ type t = {
   script_lines : string list prop;
 }
 
-let register ?tf_module ?annotations ?description ?folder ?id ?script
-    ?script_lines ?timeouts ~data_factory_id ~name ~sink ~source
-    ~transformation __resource_id =
-  let __resource_type = "azurerm_data_factory_data_flow" in
-  let __resource =
-    azurerm_data_factory_data_flow ?annotations ?description ?folder
-      ?id ?script ?script_lines ?timeouts ~data_factory_id ~name
-      ~sink ~source ~transformation ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_data_flow __resource);
-  let __resource_attributes =
+let make ?annotations ?description ?folder ?id ?script ?script_lines
+    ?timeouts ~data_factory_id ~name ~sink ~source ~transformation
+    __id =
+  let __type = "azurerm_data_factory_data_flow" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       script = Prop.computed __resource_type __resource_id "script";
-       script_lines =
-         Prop.computed __resource_type __resource_id "script_lines";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       script = Prop.computed __type __id "script";
+       script_lines = Prop.computed __type __id "script_lines";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_data_flow
+        (azurerm_data_factory_data_flow ?annotations ?description
+           ?folder ?id ?script ?script_lines ?timeouts
+           ~data_factory_id ~name ~sink ~source ~transformation ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?description ?folder ?id ?script
+    ?script_lines ?timeouts ~data_factory_id ~name ~sink ~source
+    ~transformation __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?description ?folder ?id ?script ?script_lines
+      ?timeouts ~data_factory_id ~name ~sink ~source ~transformation
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

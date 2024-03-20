@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type options = {
   certificate_transparency_logging_preference : string prop option;
@@ -115,73 +113,69 @@ type t = {
   validation_method : string prop;
 }
 
-let register ?tf_module ?certificate_authority_arn ?certificate_body
+let make ?certificate_authority_arn ?certificate_body
     ?certificate_chain ?domain_name ?early_renewal_duration ?id
     ?key_algorithm ?private_key ?subject_alternative_names ?tags
-    ?tags_all ?validation_method ~options ~validation_option
-    __resource_id =
-  let __resource_type = "aws_acm_certificate" in
-  let __resource =
-    aws_acm_certificate ?certificate_authority_arn ?certificate_body
-      ?certificate_chain ?domain_name ?early_renewal_duration ?id
-      ?key_algorithm ?private_key ?subject_alternative_names ?tags
-      ?tags_all ?validation_method ~options ~validation_option ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acm_certificate __resource);
-  let __resource_attributes =
+    ?tags_all ?validation_method ~options ~validation_option __id =
+  let __type = "aws_acm_certificate" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        certificate_authority_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority_arn";
+         Prop.computed __type __id "certificate_authority_arn";
        certificate_body =
-         Prop.computed __resource_type __resource_id
-           "certificate_body";
+         Prop.computed __type __id "certificate_body";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
+         Prop.computed __type __id "certificate_chain";
+       domain_name = Prop.computed __type __id "domain_name";
        domain_validation_options =
-         Prop.computed __resource_type __resource_id
-           "domain_validation_options";
+         Prop.computed __type __id "domain_validation_options";
        early_renewal_duration =
-         Prop.computed __resource_type __resource_id
-           "early_renewal_duration";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_algorithm =
-         Prop.computed __resource_type __resource_id "key_algorithm";
-       not_after =
-         Prop.computed __resource_type __resource_id "not_after";
-       not_before =
-         Prop.computed __resource_type __resource_id "not_before";
-       pending_renewal =
-         Prop.computed __resource_type __resource_id
-           "pending_renewal";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
+         Prop.computed __type __id "early_renewal_duration";
+       id = Prop.computed __type __id "id";
+       key_algorithm = Prop.computed __type __id "key_algorithm";
+       not_after = Prop.computed __type __id "not_after";
+       not_before = Prop.computed __type __id "not_before";
+       pending_renewal = Prop.computed __type __id "pending_renewal";
+       private_key = Prop.computed __type __id "private_key";
        renewal_eligibility =
-         Prop.computed __resource_type __resource_id
-           "renewal_eligibility";
-       renewal_summary =
-         Prop.computed __resource_type __resource_id
-           "renewal_summary";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "renewal_eligibility";
+       renewal_summary = Prop.computed __type __id "renewal_summary";
+       status = Prop.computed __type __id "status";
        subject_alternative_names =
-         Prop.computed __resource_type __resource_id
-           "subject_alternative_names";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "subject_alternative_names";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
        validation_emails =
-         Prop.computed __resource_type __resource_id
-           "validation_emails";
+         Prop.computed __type __id "validation_emails";
        validation_method =
-         Prop.computed __resource_type __resource_id
-           "validation_method";
+         Prop.computed __type __id "validation_method";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acm_certificate
+        (aws_acm_certificate ?certificate_authority_arn
+           ?certificate_body ?certificate_chain ?domain_name
+           ?early_renewal_duration ?id ?key_algorithm ?private_key
+           ?subject_alternative_names ?tags ?tags_all
+           ?validation_method ~options ~validation_option ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_authority_arn ?certificate_body
+    ?certificate_chain ?domain_name ?early_renewal_duration ?id
+    ?key_algorithm ?private_key ?subject_alternative_names ?tags
+    ?tags_all ?validation_method ~options ~validation_option __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_authority_arn ?certificate_body
+      ?certificate_chain ?domain_name ?early_renewal_duration ?id
+      ?key_algorithm ?private_key ?subject_alternative_names ?tags
+      ?tags_all ?validation_method ~options ~validation_option __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

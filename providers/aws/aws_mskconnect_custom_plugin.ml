@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type location__s3 = {
   bucket_arn : string prop;  (** bucket_arn *)
@@ -55,29 +53,36 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~content_type
-    ~name ~location __resource_id =
-  let __resource_type = "aws_mskconnect_custom_plugin" in
-  let __resource =
-    aws_mskconnect_custom_plugin ?description ?id ?timeouts
-      ~content_type ~name ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_mskconnect_custom_plugin __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~content_type ~name ~location
+    __id =
+  let __type = "aws_mskconnect_custom_plugin" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       latest_revision =
-         Prop.computed __resource_type __resource_id
-           "latest_revision";
-       name = Prop.computed __resource_type __resource_id "name";
-       state = Prop.computed __resource_type __resource_id "state";
+       arn = Prop.computed __type __id "arn";
+       content_type = Prop.computed __type __id "content_type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       latest_revision = Prop.computed __type __id "latest_revision";
+       name = Prop.computed __type __id "name";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_mskconnect_custom_plugin
+        (aws_mskconnect_custom_plugin ?description ?id ?timeouts
+           ~content_type ~name ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~content_type
+    ~name ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~content_type ~name ~location
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

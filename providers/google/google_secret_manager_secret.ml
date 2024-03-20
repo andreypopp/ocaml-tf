@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type replication__auto__customer_managed_encryption = {
   kms_key_name : string prop;
@@ -214,46 +212,49 @@ type t = {
   version_aliases : (string * string) list prop;
 }
 
-let register ?tf_module ?annotations ?expire_time ?id ?labels
-    ?project ?ttl ?version_aliases ?timeouts ~secret_id ~replication
-    ~rotation ~topics __resource_id =
-  let __resource_type = "google_secret_manager_secret" in
-  let __resource =
-    google_secret_manager_secret ?annotations ?expire_time ?id
-      ?labels ?project ?ttl ?version_aliases ?timeouts ~secret_id
-      ~replication ~rotation ~topics ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_secret_manager_secret __resource);
-  let __resource_attributes =
+let make ?annotations ?expire_time ?id ?labels ?project ?ttl
+    ?version_aliases ?timeouts ~secret_id ~replication ~rotation
+    ~topics __id =
+  let __type = "google_secret_manager_secret" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       annotations = Prop.computed __type __id "annotations";
+       create_time = Prop.computed __type __id "create_time";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
+         Prop.computed __type __id "effective_annotations";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
+         Prop.computed __type __id "effective_labels";
+       expire_time = Prop.computed __type __id "expire_time";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       secret_id = Prop.computed __type __id "secret_id";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       version_aliases =
-         Prop.computed __resource_type __resource_id
-           "version_aliases";
+         Prop.computed __type __id "terraform_labels";
+       ttl = Prop.computed __type __id "ttl";
+       version_aliases = Prop.computed __type __id "version_aliases";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_secret_manager_secret
+        (google_secret_manager_secret ?annotations ?expire_time ?id
+           ?labels ?project ?ttl ?version_aliases ?timeouts
+           ~secret_id ~replication ~rotation ~topics ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?expire_time ?id ?labels
+    ?project ?ttl ?version_aliases ?timeouts ~secret_id ~replication
+    ~rotation ~topics __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?expire_time ?id ?labels ?project ?ttl
+      ?version_aliases ?timeouts ~secret_id ~replication ~rotation
+      ~topics __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

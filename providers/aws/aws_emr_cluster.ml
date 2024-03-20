@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_termination_policy = {
   idle_timeout : float prop option; [@option]  (** idle_timeout *)
@@ -578,6 +576,85 @@ type t = {
   visible_to_all_users : bool prop;
 }
 
+let make ?additional_info ?applications ?autoscaling_role
+    ?configurations ?configurations_json ?custom_ami_id
+    ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
+    ?list_steps_states ?log_encryption_kms_key_id ?log_uri
+    ?placement_group_config ?scale_down_behavior
+    ?security_configuration ?step ?step_concurrency_level ?tags
+    ?tags_all ?termination_protection ?visible_to_all_users ~name
+    ~release_label ~service_role ~auto_termination_policy
+    ~bootstrap_action ~core_instance_fleet ~core_instance_group
+    ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
+    ~master_instance_group __id =
+  let __type = "aws_emr_cluster" in
+  let __attrs =
+    ({
+       additional_info = Prop.computed __type __id "additional_info";
+       applications = Prop.computed __type __id "applications";
+       arn = Prop.computed __type __id "arn";
+       autoscaling_role =
+         Prop.computed __type __id "autoscaling_role";
+       cluster_state = Prop.computed __type __id "cluster_state";
+       configurations = Prop.computed __type __id "configurations";
+       configurations_json =
+         Prop.computed __type __id "configurations_json";
+       custom_ami_id = Prop.computed __type __id "custom_ami_id";
+       ebs_root_volume_size =
+         Prop.computed __type __id "ebs_root_volume_size";
+       id = Prop.computed __type __id "id";
+       keep_job_flow_alive_when_no_steps =
+         Prop.computed __type __id
+           "keep_job_flow_alive_when_no_steps";
+       list_steps_states =
+         Prop.computed __type __id "list_steps_states";
+       log_encryption_kms_key_id =
+         Prop.computed __type __id "log_encryption_kms_key_id";
+       log_uri = Prop.computed __type __id "log_uri";
+       master_public_dns =
+         Prop.computed __type __id "master_public_dns";
+       name = Prop.computed __type __id "name";
+       placement_group_config =
+         Prop.computed __type __id "placement_group_config";
+       release_label = Prop.computed __type __id "release_label";
+       scale_down_behavior =
+         Prop.computed __type __id "scale_down_behavior";
+       security_configuration =
+         Prop.computed __type __id "security_configuration";
+       service_role = Prop.computed __type __id "service_role";
+       step = Prop.computed __type __id "step";
+       step_concurrency_level =
+         Prop.computed __type __id "step_concurrency_level";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       termination_protection =
+         Prop.computed __type __id "termination_protection";
+       visible_to_all_users =
+         Prop.computed __type __id "visible_to_all_users";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_cluster
+        (aws_emr_cluster ?additional_info ?applications
+           ?autoscaling_role ?configurations ?configurations_json
+           ?custom_ami_id ?ebs_root_volume_size ?id
+           ?keep_job_flow_alive_when_no_steps ?list_steps_states
+           ?log_encryption_kms_key_id ?log_uri
+           ?placement_group_config ?scale_down_behavior
+           ?security_configuration ?step ?step_concurrency_level
+           ?tags ?tags_all ?termination_protection
+           ?visible_to_all_users ~name ~release_label ~service_role
+           ~auto_termination_policy ~bootstrap_action
+           ~core_instance_fleet ~core_instance_group ~ec2_attributes
+           ~kerberos_attributes ~master_instance_fleet
+           ~master_instance_group ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?additional_info ?applications
     ?autoscaling_role ?configurations ?configurations_json
     ?custom_ami_id ?ebs_root_volume_size ?id
@@ -588,10 +665,9 @@ let register ?tf_module ?additional_info ?applications
     ?visible_to_all_users ~name ~release_label ~service_role
     ~auto_termination_policy ~bootstrap_action ~core_instance_fleet
     ~core_instance_group ~ec2_attributes ~kerberos_attributes
-    ~master_instance_fleet ~master_instance_group __resource_id =
-  let __resource_type = "aws_emr_cluster" in
-  let __resource =
-    aws_emr_cluster ?additional_info ?applications ?autoscaling_role
+    ~master_instance_fleet ~master_instance_group __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_info ?applications ?autoscaling_role
       ?configurations ?configurations_json ?custom_ami_id
       ?ebs_root_volume_size ?id ?keep_job_flow_alive_when_no_steps
       ?list_steps_states ?log_encryption_kms_key_id ?log_uri
@@ -601,76 +677,7 @@ let register ?tf_module ?additional_info ?applications
       ~release_label ~service_role ~auto_termination_policy
       ~bootstrap_action ~core_instance_fleet ~core_instance_group
       ~ec2_attributes ~kerberos_attributes ~master_instance_fleet
-      ~master_instance_group ()
+      ~master_instance_group __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_cluster __resource);
-  let __resource_attributes =
-    ({
-       additional_info =
-         Prop.computed __resource_type __resource_id
-           "additional_info";
-       applications =
-         Prop.computed __resource_type __resource_id "applications";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       autoscaling_role =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_role";
-       cluster_state =
-         Prop.computed __resource_type __resource_id "cluster_state";
-       configurations =
-         Prop.computed __resource_type __resource_id "configurations";
-       configurations_json =
-         Prop.computed __resource_type __resource_id
-           "configurations_json";
-       custom_ami_id =
-         Prop.computed __resource_type __resource_id "custom_ami_id";
-       ebs_root_volume_size =
-         Prop.computed __resource_type __resource_id
-           "ebs_root_volume_size";
-       id = Prop.computed __resource_type __resource_id "id";
-       keep_job_flow_alive_when_no_steps =
-         Prop.computed __resource_type __resource_id
-           "keep_job_flow_alive_when_no_steps";
-       list_steps_states =
-         Prop.computed __resource_type __resource_id
-           "list_steps_states";
-       log_encryption_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "log_encryption_kms_key_id";
-       log_uri =
-         Prop.computed __resource_type __resource_id "log_uri";
-       master_public_dns =
-         Prop.computed __resource_type __resource_id
-           "master_public_dns";
-       name = Prop.computed __resource_type __resource_id "name";
-       placement_group_config =
-         Prop.computed __resource_type __resource_id
-           "placement_group_config";
-       release_label =
-         Prop.computed __resource_type __resource_id "release_label";
-       scale_down_behavior =
-         Prop.computed __resource_type __resource_id
-           "scale_down_behavior";
-       security_configuration =
-         Prop.computed __resource_type __resource_id
-           "security_configuration";
-       service_role =
-         Prop.computed __resource_type __resource_id "service_role";
-       step = Prop.computed __resource_type __resource_id "step";
-       step_concurrency_level =
-         Prop.computed __resource_type __resource_id
-           "step_concurrency_level";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       termination_protection =
-         Prop.computed __resource_type __resource_id
-           "termination_protection";
-       visible_to_all_users =
-         Prop.computed __resource_type __resource_id
-           "visible_to_all_users";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dataset__aggregation = {
   column_name : string prop;  (** column_name *)
@@ -121,37 +119,41 @@ type t = {
   timeframe : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~accumulated ~chart_type
-    ~display_name ~name ~report_type ~subscription_id ~timeframe
-    ~dataset ~kpi ~pivot __resource_id =
-  let __resource_type =
-    "azurerm_subscription_cost_management_view"
-  in
-  let __resource =
-    azurerm_subscription_cost_management_view ?id ?timeouts
-      ~accumulated ~chart_type ~display_name ~name ~report_type
-      ~subscription_id ~timeframe ~dataset ~kpi ~pivot ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_subscription_cost_management_view __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~accumulated ~chart_type ~display_name ~name
+    ~report_type ~subscription_id ~timeframe ~dataset ~kpi ~pivot
+    __id =
+  let __type = "azurerm_subscription_cost_management_view" in
+  let __attrs =
     ({
-       accumulated =
-         Prop.computed __resource_type __resource_id "accumulated";
-       chart_type =
-         Prop.computed __resource_type __resource_id "chart_type";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       report_type =
-         Prop.computed __resource_type __resource_id "report_type";
-       subscription_id =
-         Prop.computed __resource_type __resource_id
-           "subscription_id";
-       timeframe =
-         Prop.computed __resource_type __resource_id "timeframe";
+       accumulated = Prop.computed __type __id "accumulated";
+       chart_type = Prop.computed __type __id "chart_type";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       report_type = Prop.computed __type __id "report_type";
+       subscription_id = Prop.computed __type __id "subscription_id";
+       timeframe = Prop.computed __type __id "timeframe";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_subscription_cost_management_view
+        (azurerm_subscription_cost_management_view ?id ?timeouts
+           ~accumulated ~chart_type ~display_name ~name ~report_type
+           ~subscription_id ~timeframe ~dataset ~kpi ~pivot ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~accumulated ~chart_type
+    ~display_name ~name ~report_type ~subscription_id ~timeframe
+    ~dataset ~kpi ~pivot __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~accumulated ~chart_type ~display_name ~name
+      ~report_type ~subscription_id ~timeframe ~dataset ~kpi ~pivot
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,13 @@ val register :
   transit_gateway_connect_peer_arn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?link_id:string prop ->
+  ?timeouts:timeouts ->
+  device_id:string prop ->
+  global_network_id:string prop ->
+  transit_gateway_connect_peer_arn:string prop ->
+  string ->
+  t Tf_core.resource

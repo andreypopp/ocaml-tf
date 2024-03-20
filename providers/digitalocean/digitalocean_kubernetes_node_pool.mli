@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,19 @@ val register :
   taint:taint list ->
   string ->
   t
+
+val make :
+  ?auto_scale:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_nodes:float prop ->
+  ?min_nodes:float prop ->
+  ?node_count:float prop ->
+  ?tags:string prop list ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  name:string prop ->
+  size:string prop ->
+  taint:taint list ->
+  string ->
+  t Tf_core.resource

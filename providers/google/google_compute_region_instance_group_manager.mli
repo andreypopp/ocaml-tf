@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -206,3 +206,30 @@ val register :
   version:version list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?distribution_policy_target_shape:string prop ->
+  ?distribution_policy_zones:string prop list ->
+  ?id:string prop ->
+  ?list_managed_instances_results:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?target_pools:string prop list ->
+  ?target_size:float prop ->
+  ?wait_for_instances:bool prop ->
+  ?wait_for_instances_status:string prop ->
+  ?timeouts:timeouts ->
+  base_instance_name:string prop ->
+  name:string prop ->
+  all_instances_config:all_instances_config list ->
+  auto_healing_policies:auto_healing_policies list ->
+  instance_lifecycle_policy:instance_lifecycle_policy list ->
+  named_port:named_port list ->
+  stateful_disk:stateful_disk list ->
+  stateful_external_ip:stateful_external_ip list ->
+  stateful_internal_ip:stateful_internal_ip list ->
+  update_policy:update_policy list ->
+  version:version list ->
+  string ->
+  t Tf_core.resource

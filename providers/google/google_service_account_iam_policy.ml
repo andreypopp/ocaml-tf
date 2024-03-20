@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_service_account_iam_policy = {
   id : string prop option; [@option]  (** id *)
@@ -23,25 +21,31 @@ type t = {
   service_account_id : string prop;
 }
 
-let register ?tf_module ?id ~policy_data ~service_account_id
-    __resource_id =
-  let __resource_type = "google_service_account_iam_policy" in
-  let __resource =
-    google_service_account_iam_policy ?id ~policy_data
-      ~service_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_service_account_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ~policy_data ~service_account_id __id =
+  let __type = "google_service_account_iam_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       policy_data = Prop.computed __type __id "policy_data";
        service_account_id =
-         Prop.computed __resource_type __resource_id
-           "service_account_id";
+         Prop.computed __type __id "service_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_service_account_iam_policy
+        (google_service_account_iam_policy ?id ~policy_data
+           ~service_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~policy_data ~service_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~policy_data ~service_account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   global_table_arn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?point_in_time_recovery:bool prop ->
+  ?table_class_override:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  global_table_arn:string prop ->
+  string ->
+  t Tf_core.resource

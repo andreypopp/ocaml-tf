@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   hostname:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ssl_state:string prop ->
+  ?thumbprint:string prop ->
+  ?timeouts:timeouts ->
+  app_service_slot_id:string prop ->
+  hostname:string prop ->
+  string ->
+  t Tf_core.resource

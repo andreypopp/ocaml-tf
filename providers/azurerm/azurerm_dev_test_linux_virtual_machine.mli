@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,26 @@ val register :
   inbound_nat_rule:inbound_nat_rule list ->
   string ->
   t
+
+val make :
+  ?allow_claim:bool prop ->
+  ?disallow_public_ip_address:bool prop ->
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?password:string prop ->
+  ?ssh_key:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  lab_name:string prop ->
+  lab_subnet_name:string prop ->
+  lab_virtual_network_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  size:string prop ->
+  storage_type:string prop ->
+  username:string prop ->
+  gallery_image_reference:gallery_image_reference list ->
+  inbound_nat_rule:inbound_nat_rule list ->
+  string ->
+  t Tf_core.resource

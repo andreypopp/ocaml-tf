@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,14 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?backend_address_ip_configuration_id:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?virtual_network_id:string prop ->
+  ?timeouts:timeouts ->
+  backend_address_pool_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

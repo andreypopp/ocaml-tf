@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,18 @@ val register :
   static_ip_configuration:static_ip_configuration list ->
   string ->
   t
+
+val make :
+  ?device_type:string prop ->
+  ?id:string prop ->
+  ?sim_policy_id:string prop ->
+  ?timeouts:timeouts ->
+  authentication_key:string prop ->
+  integrated_circuit_card_identifier:string prop ->
+  international_mobile_subscriber_identity:string prop ->
+  mobile_network_sim_group_id:string prop ->
+  name:string prop ->
+  operator_key_code:string prop ->
+  static_ip_configuration:static_ip_configuration list ->
+  string ->
+  t Tf_core.resource

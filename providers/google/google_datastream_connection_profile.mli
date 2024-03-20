@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -136,3 +136,21 @@ val register :
   private_connectivity:private_connectivity list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  connection_profile_id:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  bigquery_profile:bigquery_profile list ->
+  forward_ssh_connectivity:forward_ssh_connectivity list ->
+  gcs_profile:gcs_profile list ->
+  mysql_profile:mysql_profile list ->
+  oracle_profile:oracle_profile list ->
+  postgresql_profile:postgresql_profile list ->
+  private_connectivity:private_connectivity list ->
+  string ->
+  t Tf_core.resource

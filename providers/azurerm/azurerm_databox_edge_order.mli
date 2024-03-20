@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -103,3 +103,13 @@ val register :
   shipment_address:shipment_address list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  device_name:string prop ->
+  resource_group_name:string prop ->
+  contact:contact list ->
+  shipment_address:shipment_address list ->
+  string ->
+  t Tf_core.resource

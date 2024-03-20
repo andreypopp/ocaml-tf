@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type private_endpoint = {
   allowed_request_types : string prop list option; [@option]
@@ -73,23 +71,32 @@ type t = {
   web_pubsub_id : string prop;
 }
 
-let register ?tf_module ?default_action ?id ?timeouts ~web_pubsub_id
-    ~private_endpoint ~public_network __resource_id =
-  let __resource_type = "azurerm_web_pubsub_network_acl" in
-  let __resource =
-    azurerm_web_pubsub_network_acl ?default_action ?id ?timeouts
-      ~web_pubsub_id ~private_endpoint ~public_network ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_web_pubsub_network_acl __resource);
-  let __resource_attributes =
+let make ?default_action ?id ?timeouts ~web_pubsub_id
+    ~private_endpoint ~public_network __id =
+  let __type = "azurerm_web_pubsub_network_acl" in
+  let __attrs =
     ({
-       default_action =
-         Prop.computed __resource_type __resource_id "default_action";
-       id = Prop.computed __resource_type __resource_id "id";
-       web_pubsub_id =
-         Prop.computed __resource_type __resource_id "web_pubsub_id";
+       default_action = Prop.computed __type __id "default_action";
+       id = Prop.computed __type __id "id";
+       web_pubsub_id = Prop.computed __type __id "web_pubsub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_web_pubsub_network_acl
+        (azurerm_web_pubsub_network_acl ?default_action ?id ?timeouts
+           ~web_pubsub_id ~private_endpoint ~public_network ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_action ?id ?timeouts ~web_pubsub_id
+    ~private_endpoint ~public_network __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_action ?id ?timeouts ~web_pubsub_id
+      ~private_endpoint ~public_network __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

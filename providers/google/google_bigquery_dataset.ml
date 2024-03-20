@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access__dataset__dataset = {
   dataset_id : string prop;
@@ -295,73 +293,76 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
+let make ?default_collation ?default_partition_expiration_ms
+    ?default_table_expiration_ms ?delete_contents_on_destroy
+    ?description ?friendly_name ?id ?is_case_insensitive ?labels
+    ?location ?max_time_travel_hours ?project ?storage_billing_model
+    ?timeouts ~dataset_id ~access ~default_encryption_configuration
+    __id =
+  let __type = "google_bigquery_dataset" in
+  let __attrs =
+    ({
+       creation_time = Prop.computed __type __id "creation_time";
+       dataset_id = Prop.computed __type __id "dataset_id";
+       default_collation =
+         Prop.computed __type __id "default_collation";
+       default_partition_expiration_ms =
+         Prop.computed __type __id "default_partition_expiration_ms";
+       default_table_expiration_ms =
+         Prop.computed __type __id "default_table_expiration_ms";
+       delete_contents_on_destroy =
+         Prop.computed __type __id "delete_contents_on_destroy";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       etag = Prop.computed __type __id "etag";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       id = Prop.computed __type __id "id";
+       is_case_insensitive =
+         Prop.computed __type __id "is_case_insensitive";
+       labels = Prop.computed __type __id "labels";
+       last_modified_time =
+         Prop.computed __type __id "last_modified_time";
+       location = Prop.computed __type __id "location";
+       max_time_travel_hours =
+         Prop.computed __type __id "max_time_travel_hours";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       storage_billing_model =
+         Prop.computed __type __id "storage_billing_model";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_dataset
+        (google_bigquery_dataset ?default_collation
+           ?default_partition_expiration_ms
+           ?default_table_expiration_ms ?delete_contents_on_destroy
+           ?description ?friendly_name ?id ?is_case_insensitive
+           ?labels ?location ?max_time_travel_hours ?project
+           ?storage_billing_model ?timeouts ~dataset_id ~access
+           ~default_encryption_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?default_collation
     ?default_partition_expiration_ms ?default_table_expiration_ms
     ?delete_contents_on_destroy ?description ?friendly_name ?id
     ?is_case_insensitive ?labels ?location ?max_time_travel_hours
     ?project ?storage_billing_model ?timeouts ~dataset_id ~access
-    ~default_encryption_configuration __resource_id =
-  let __resource_type = "google_bigquery_dataset" in
-  let __resource =
-    google_bigquery_dataset ?default_collation
-      ?default_partition_expiration_ms ?default_table_expiration_ms
-      ?delete_contents_on_destroy ?description ?friendly_name ?id
-      ?is_case_insensitive ?labels ?location ?max_time_travel_hours
-      ?project ?storage_billing_model ?timeouts ~dataset_id ~access
-      ~default_encryption_configuration ()
+    ~default_encryption_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_collation ?default_partition_expiration_ms
+      ?default_table_expiration_ms ?delete_contents_on_destroy
+      ?description ?friendly_name ?id ?is_case_insensitive ?labels
+      ?location ?max_time_travel_hours ?project
+      ?storage_billing_model ?timeouts ~dataset_id ~access
+      ~default_encryption_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_dataset __resource);
-  let __resource_attributes =
-    ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       dataset_id =
-         Prop.computed __resource_type __resource_id "dataset_id";
-       default_collation =
-         Prop.computed __resource_type __resource_id
-           "default_collation";
-       default_partition_expiration_ms =
-         Prop.computed __resource_type __resource_id
-           "default_partition_expiration_ms";
-       default_table_expiration_ms =
-         Prop.computed __resource_type __resource_id
-           "default_table_expiration_ms";
-       delete_contents_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "delete_contents_on_destroy";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_case_insensitive =
-         Prop.computed __resource_type __resource_id
-           "is_case_insensitive";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       last_modified_time =
-         Prop.computed __resource_type __resource_id
-           "last_modified_time";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       max_time_travel_hours =
-         Prop.computed __resource_type __resource_id
-           "max_time_travel_hours";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       storage_billing_model =
-         Prop.computed __resource_type __resource_id
-           "storage_billing_model";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

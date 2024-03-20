@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -180,3 +180,23 @@ val register :
   target_table:target_table list ->
   string ->
   t
+
+val make :
+  ?catalog_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?owner:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?retention:float prop ->
+  ?table_type:string prop ->
+  ?view_expanded_text:string prop ->
+  ?view_original_text:string prop ->
+  database_name:string prop ->
+  name:string prop ->
+  open_table_format_input:open_table_format_input list ->
+  partition_index:partition_index list ->
+  partition_keys:partition_keys list ->
+  storage_descriptor:storage_descriptor list ->
+  target_table:target_table list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type managed = {
   domains : string prop list;
@@ -77,37 +75,42 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?certificate_id ?description ?id ?name
-    ?project ?type_ ?timeouts ~managed __resource_id =
-  let __resource_type = "google_compute_managed_ssl_certificate" in
-  let __resource =
-    google_compute_managed_ssl_certificate ?certificate_id
-      ?description ?id ?name ?project ?type_ ?timeouts ~managed ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_managed_ssl_certificate __resource);
-  let __resource_attributes =
+let make ?certificate_id ?description ?id ?name ?project ?type_
+    ?timeouts ~managed __id =
+  let __type = "google_compute_managed_ssl_certificate" in
+  let __attrs =
     ({
-       certificate_id =
-         Prop.computed __resource_type __resource_id "certificate_id";
+       certificate_id = Prop.computed __type __id "certificate_id";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       expire_time = Prop.computed __type __id "expire_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
        subject_alternative_names =
-         Prop.computed __resource_type __resource_id
-           "subject_alternative_names";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "subject_alternative_names";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_managed_ssl_certificate
+        (google_compute_managed_ssl_certificate ?certificate_id
+           ?description ?id ?name ?project ?type_ ?timeouts ~managed
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_id ?description ?id ?name
+    ?project ?type_ ?timeouts ~managed __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_id ?description ?id ?name ?project ?type_
+      ?timeouts ~managed __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

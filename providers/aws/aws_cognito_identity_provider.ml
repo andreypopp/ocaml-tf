@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cognito_identity_provider = {
   attribute_mapping : (string * string prop) list option; [@option]
@@ -42,36 +40,40 @@ type t = {
   user_pool_id : string prop;
 }
 
-let register ?tf_module ?attribute_mapping ?id ?idp_identifiers
-    ~provider_details ~provider_name ~provider_type ~user_pool_id
-    __resource_id =
-  let __resource_type = "aws_cognito_identity_provider" in
-  let __resource =
-    aws_cognito_identity_provider ?attribute_mapping ?id
-      ?idp_identifiers ~provider_details ~provider_name
-      ~provider_type ~user_pool_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_identity_provider __resource);
-  let __resource_attributes =
+let make ?attribute_mapping ?id ?idp_identifiers ~provider_details
+    ~provider_name ~provider_type ~user_pool_id __id =
+  let __type = "aws_cognito_identity_provider" in
+  let __attrs =
     ({
        attribute_mapping =
-         Prop.computed __resource_type __resource_id
-           "attribute_mapping";
-       id = Prop.computed __resource_type __resource_id "id";
-       idp_identifiers =
-         Prop.computed __resource_type __resource_id
-           "idp_identifiers";
+         Prop.computed __type __id "attribute_mapping";
+       id = Prop.computed __type __id "id";
+       idp_identifiers = Prop.computed __type __id "idp_identifiers";
        provider_details =
-         Prop.computed __resource_type __resource_id
-           "provider_details";
-       provider_name =
-         Prop.computed __resource_type __resource_id "provider_name";
-       provider_type =
-         Prop.computed __resource_type __resource_id "provider_type";
-       user_pool_id =
-         Prop.computed __resource_type __resource_id "user_pool_id";
+         Prop.computed __type __id "provider_details";
+       provider_name = Prop.computed __type __id "provider_name";
+       provider_type = Prop.computed __type __id "provider_type";
+       user_pool_id = Prop.computed __type __id "user_pool_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_identity_provider
+        (aws_cognito_identity_provider ?attribute_mapping ?id
+           ?idp_identifiers ~provider_details ~provider_name
+           ~provider_type ~user_pool_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?attribute_mapping ?id ?idp_identifiers
+    ~provider_details ~provider_name ~provider_type ~user_pool_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?attribute_mapping ?id ?idp_identifiers ~provider_details
+      ~provider_name ~provider_type ~user_pool_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backup__hourly = {
   interval : float prop;  (** interval *)
@@ -128,32 +126,42 @@ type t = {
   timezone : string prop;
 }
 
-let register ?tf_module ?id ?timezone ?timeouts ~name
-    ~recovery_vault_name ~resource_group_name ~backup
-    ~retention_daily ~retention_monthly ~retention_weekly
-    ~retention_yearly __resource_id =
-  let __resource_type = "azurerm_backup_policy_file_share" in
-  let __resource =
-    azurerm_backup_policy_file_share ?id ?timezone ?timeouts ~name
-      ~recovery_vault_name ~resource_group_name ~backup
-      ~retention_daily ~retention_monthly ~retention_weekly
-      ~retention_yearly ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_backup_policy_file_share __resource);
-  let __resource_attributes =
+let make ?id ?timezone ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~backup ~retention_daily ~retention_monthly
+    ~retention_weekly ~retention_yearly __id =
+  let __type = "azurerm_backup_policy_file_share" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        recovery_vault_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_vault_name";
+         Prop.computed __type __id "recovery_vault_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       timezone =
-         Prop.computed __resource_type __resource_id "timezone";
+         Prop.computed __type __id "resource_group_name";
+       timezone = Prop.computed __type __id "timezone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_backup_policy_file_share
+        (azurerm_backup_policy_file_share ?id ?timezone ?timeouts
+           ~name ~recovery_vault_name ~resource_group_name ~backup
+           ~retention_daily ~retention_monthly ~retention_weekly
+           ~retention_yearly ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timezone ?timeouts ~name
+    ~recovery_vault_name ~resource_group_name ~backup
+    ~retention_daily ~retention_monthly ~retention_weekly
+    ~retention_yearly __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timezone ?timeouts ~name ~recovery_vault_name
+      ~resource_group_name ~backup ~retention_daily
+      ~retention_monthly ~retention_weekly ~retention_yearly __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

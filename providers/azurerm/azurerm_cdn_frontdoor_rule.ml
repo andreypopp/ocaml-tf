@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type actions__request_header_action = {
   header_action : string prop;  (** header_action *)
@@ -535,31 +533,40 @@ type t = {
   order : float prop;
 }
 
-let register ?tf_module ?behavior_on_match ?id ?timeouts
-    ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions
-    __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_rule" in
-  let __resource =
-    azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
-      ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_rule __resource);
-  let __resource_attributes =
+let make ?behavior_on_match ?id ?timeouts ~cdn_frontdoor_rule_set_id
+    ~name ~order ~actions ~conditions __id =
+  let __type = "azurerm_cdn_frontdoor_rule" in
+  let __attrs =
     ({
        behavior_on_match =
-         Prop.computed __resource_type __resource_id
-           "behavior_on_match";
+         Prop.computed __type __id "behavior_on_match";
        cdn_frontdoor_rule_set_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_rule_set_id";
+         Prop.computed __type __id "cdn_frontdoor_rule_set_id";
        cdn_frontdoor_rule_set_name =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_rule_set_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       order = Prop.computed __resource_type __resource_id "order";
+         Prop.computed __type __id "cdn_frontdoor_rule_set_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       order = Prop.computed __type __id "order";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_rule
+        (azurerm_cdn_frontdoor_rule ?behavior_on_match ?id ?timeouts
+           ~cdn_frontdoor_rule_set_id ~name ~order ~actions
+           ~conditions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?behavior_on_match ?id ?timeouts
+    ~cdn_frontdoor_rule_set_id ~name ~order ~actions ~conditions __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?behavior_on_match ?id ?timeouts ~cdn_frontdoor_rule_set_id
+      ~name ~order ~actions ~conditions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

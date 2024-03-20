@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_quicksight_user = {
   aws_account_id: string  prop option; [@option] (** aws_account_id *)
@@ -43,22 +41,29 @@ type t = {
   user_role: string prop;
 }
 
-let register ?tf_module ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role __resource_id =
-  let __resource_type = "aws_quicksight_user" in
-  let __resource = aws_quicksight_user ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_user __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    email = Prop.computed __resource_type __resource_id "email";
-    iam_arn = Prop.computed __resource_type __resource_id "iam_arn";
-    id = Prop.computed __resource_type __resource_id "id";
-    identity_type = Prop.computed __resource_type __resource_id "identity_type";
-    namespace = Prop.computed __resource_type __resource_id "namespace";
-    session_name = Prop.computed __resource_type __resource_id "session_name";
-    user_name = Prop.computed __resource_type __resource_id "user_name";
-    user_role = Prop.computed __resource_type __resource_id "user_role";
+let make ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role __id =
+  let __type = "aws_quicksight_user" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    email = Prop.computed __type __id "email";
+    iam_arn = Prop.computed __type __id "iam_arn";
+    id = Prop.computed __type __id "id";
+    identity_type = Prop.computed __type __id "identity_type";
+    namespace = Prop.computed __type __id "namespace";
+    session_name = Prop.computed __type __id "session_name";
+    user_name = Prop.computed __type __id "user_name";
+    user_role = Prop.computed __type __id "user_role";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_user (aws_quicksight_user ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?iam_arn ?id ?namespace ?session_name ?user_name ~email ~identity_type ~user_role __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

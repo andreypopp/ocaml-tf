@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action__authenticate_cognito = {
   authentication_request_extra_params :
@@ -274,27 +272,35 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?priority ?tags ?tags_all ~listener_arn
-    ~action ~condition __resource_id =
-  let __resource_type = "aws_alb_listener_rule" in
-  let __resource =
-    aws_alb_listener_rule ?id ?priority ?tags ?tags_all ~listener_arn
-      ~action ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_alb_listener_rule __resource);
-  let __resource_attributes =
+let make ?id ?priority ?tags ?tags_all ~listener_arn ~action
+    ~condition __id =
+  let __type = "aws_alb_listener_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       listener_arn =
-         Prop.computed __resource_type __resource_id "listener_arn";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       listener_arn = Prop.computed __type __id "listener_arn";
+       priority = Prop.computed __type __id "priority";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_alb_listener_rule
+        (aws_alb_listener_rule ?id ?priority ?tags ?tags_all
+           ~listener_arn ~action ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?priority ?tags ?tags_all ~listener_arn
+    ~action ~condition __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?priority ?tags ?tags_all ~listener_arn ~action
+      ~condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

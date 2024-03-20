@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type finding_criteria__criterion = {
   eq : string prop list option; [@option]  (** eq *)
@@ -72,31 +70,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?name ?name_prefix ?position
-    ?tags ?tags_all ~action ~finding_criteria __resource_id =
-  let __resource_type = "aws_macie2_findings_filter" in
-  let __resource =
-    aws_macie2_findings_filter ?description ?id ?name ?name_prefix
-      ?position ?tags ?tags_all ~action ~finding_criteria ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_macie2_findings_filter __resource);
-  let __resource_attributes =
+let make ?description ?id ?name ?name_prefix ?position ?tags
+    ?tags_all ~action ~finding_criteria __id =
+  let __type = "aws_macie2_findings_filter" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       position =
-         Prop.computed __resource_type __resource_id "position";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       action = Prop.computed __type __id "action";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       position = Prop.computed __type __id "position";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_macie2_findings_filter
+        (aws_macie2_findings_filter ?description ?id ?name
+           ?name_prefix ?position ?tags ?tags_all ~action
+           ~finding_criteria ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?name ?name_prefix ?position
+    ?tags ?tags_all ~action ~finding_criteria __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?name ?name_prefix ?position ?tags
+      ?tags_all ~action ~finding_criteria __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

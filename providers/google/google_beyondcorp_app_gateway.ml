@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -75,40 +73,45 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?display_name ?host_type ?id ?labels ?project
-    ?region ?type_ ?timeouts ~name __resource_id =
-  let __resource_type = "google_beyondcorp_app_gateway" in
-  let __resource =
-    google_beyondcorp_app_gateway ?display_name ?host_type ?id
-      ?labels ?project ?region ?type_ ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_beyondcorp_app_gateway __resource);
-  let __resource_attributes =
+let make ?display_name ?host_type ?id ?labels ?project ?region ?type_
+    ?timeouts ~name __id =
+  let __type = "google_beyondcorp_app_gateway" in
+  let __attrs =
     ({
        allocated_connections =
-         Prop.computed __resource_type __resource_id
-           "allocated_connections";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "allocated_connections";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       host_type =
-         Prop.computed __resource_type __resource_id "host_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       host_type = Prop.computed __type __id "host_type";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uri = Prop.computed __resource_type __resource_id "uri";
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_beyondcorp_app_gateway
+        (google_beyondcorp_app_gateway ?display_name ?host_type ?id
+           ?labels ?project ?region ?type_ ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?host_type ?id ?labels ?project
+    ?region ?type_ ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?host_type ?id ?labels ?project ?region ?type_
+      ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudwatch_destination = {
   default_value : string prop;  (** default_value *)
@@ -71,30 +69,41 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?enabled ?id ~configuration_set_name
-    ~matching_types ~name ~cloudwatch_destination
-    ~kinesis_destination ~sns_destination __resource_id =
-  let __resource_type = "aws_ses_event_destination" in
-  let __resource =
-    aws_ses_event_destination ?enabled ?id ~configuration_set_name
-      ~matching_types ~name ~cloudwatch_destination
-      ~kinesis_destination ~sns_destination ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ses_event_destination __resource);
-  let __resource_attributes =
+let make ?enabled ?id ~configuration_set_name ~matching_types ~name
+    ~cloudwatch_destination ~kinesis_destination ~sns_destination
+    __id =
+  let __type = "aws_ses_event_destination" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        configuration_set_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_set_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       matching_types =
-         Prop.computed __resource_type __resource_id "matching_types";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "configuration_set_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       matching_types = Prop.computed __type __id "matching_types";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ses_event_destination
+        (aws_ses_event_destination ?enabled ?id
+           ~configuration_set_name ~matching_types ~name
+           ~cloudwatch_destination ~kinesis_destination
+           ~sns_destination ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ~configuration_set_name
+    ~matching_types ~name ~cloudwatch_destination
+    ~kinesis_destination ~sns_destination __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ~configuration_set_name ~matching_types ~name
+      ~cloudwatch_destination ~kinesis_destination ~sns_destination
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

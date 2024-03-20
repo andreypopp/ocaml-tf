@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -161,6 +159,69 @@ type t = {
   zones : string list prop;
 }
 
+let make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
+    ?disk_encryption_enabled ?double_encryption_enabled ?engine ?id
+    ?language_extensions ?outbound_network_access_restricted
+    ?public_ip_type ?public_network_access_enabled ?purge_enabled
+    ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
+    ?zones ?timeouts ~location ~name ~resource_group_name ~identity
+    ~optimized_auto_scale ~sku ~virtual_network_configuration __id =
+  let __type = "azurerm_kusto_cluster" in
+  let __attrs =
+    ({
+       allowed_fqdns = Prop.computed __type __id "allowed_fqdns";
+       allowed_ip_ranges =
+         Prop.computed __type __id "allowed_ip_ranges";
+       auto_stop_enabled =
+         Prop.computed __type __id "auto_stop_enabled";
+       data_ingestion_uri =
+         Prop.computed __type __id "data_ingestion_uri";
+       disk_encryption_enabled =
+         Prop.computed __type __id "disk_encryption_enabled";
+       double_encryption_enabled =
+         Prop.computed __type __id "double_encryption_enabled";
+       engine = Prop.computed __type __id "engine";
+       id = Prop.computed __type __id "id";
+       language_extensions =
+         Prop.computed __type __id "language_extensions";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       outbound_network_access_restricted =
+         Prop.computed __type __id
+           "outbound_network_access_restricted";
+       public_ip_type = Prop.computed __type __id "public_ip_type";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       purge_enabled = Prop.computed __type __id "purge_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       streaming_ingestion_enabled =
+         Prop.computed __type __id "streaming_ingestion_enabled";
+       tags = Prop.computed __type __id "tags";
+       trusted_external_tenants =
+         Prop.computed __type __id "trusted_external_tenants";
+       uri = Prop.computed __type __id "uri";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_cluster
+        (azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
+           ?auto_stop_enabled ?disk_encryption_enabled
+           ?double_encryption_enabled ?engine ?id
+           ?language_extensions ?outbound_network_access_restricted
+           ?public_ip_type ?public_network_access_enabled
+           ?purge_enabled ?streaming_ingestion_enabled ?tags
+           ?trusted_external_tenants ?zones ?timeouts ~location ~name
+           ~resource_group_name ~identity ~optimized_auto_scale ~sku
+           ~virtual_network_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allowed_fqdns ?allowed_ip_ranges
     ?auto_stop_enabled ?disk_encryption_enabled
     ?double_encryption_enabled ?engine ?id ?language_extensions
@@ -168,71 +229,15 @@ let register ?tf_module ?allowed_fqdns ?allowed_ip_ranges
     ?public_network_access_enabled ?purge_enabled
     ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
     ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-    ~optimized_auto_scale ~sku ~virtual_network_configuration
-    __resource_id =
-  let __resource_type = "azurerm_kusto_cluster" in
-  let __resource =
-    azurerm_kusto_cluster ?allowed_fqdns ?allowed_ip_ranges
-      ?auto_stop_enabled ?disk_encryption_enabled
-      ?double_encryption_enabled ?engine ?id ?language_extensions
-      ?outbound_network_access_restricted ?public_ip_type
-      ?public_network_access_enabled ?purge_enabled
+    ~optimized_auto_scale ~sku ~virtual_network_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_fqdns ?allowed_ip_ranges ?auto_stop_enabled
+      ?disk_encryption_enabled ?double_encryption_enabled ?engine ?id
+      ?language_extensions ?outbound_network_access_restricted
+      ?public_ip_type ?public_network_access_enabled ?purge_enabled
       ?streaming_ingestion_enabled ?tags ?trusted_external_tenants
       ?zones ?timeouts ~location ~name ~resource_group_name ~identity
-      ~optimized_auto_scale ~sku ~virtual_network_configuration ()
+      ~optimized_auto_scale ~sku ~virtual_network_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_cluster __resource);
-  let __resource_attributes =
-    ({
-       allowed_fqdns =
-         Prop.computed __resource_type __resource_id "allowed_fqdns";
-       allowed_ip_ranges =
-         Prop.computed __resource_type __resource_id
-           "allowed_ip_ranges";
-       auto_stop_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_stop_enabled";
-       data_ingestion_uri =
-         Prop.computed __resource_type __resource_id
-           "data_ingestion_uri";
-       disk_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "disk_encryption_enabled";
-       double_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "double_encryption_enabled";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_extensions =
-         Prop.computed __resource_type __resource_id
-           "language_extensions";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_network_access_restricted =
-         Prop.computed __resource_type __resource_id
-           "outbound_network_access_restricted";
-       public_ip_type =
-         Prop.computed __resource_type __resource_id "public_ip_type";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       purge_enabled =
-         Prop.computed __resource_type __resource_id "purge_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       streaming_ingestion_enabled =
-         Prop.computed __resource_type __resource_id
-           "streaming_ingestion_enabled";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       trusted_external_tenants =
-         Prop.computed __resource_type __resource_id
-           "trusted_external_tenants";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_configuration = {
   audience : string prop option; [@option]  (** audience *)
@@ -112,45 +110,58 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?access_policy_object_ids
+    ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
+    ?kind ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~authentication_configuration
+    ~cors_configuration __id =
+  let __type = "azurerm_healthcare_service" in
+  let __attrs =
+    ({
+       access_policy_object_ids =
+         Prop.computed __type __id "access_policy_object_ids";
+       cosmosdb_key_vault_key_versionless_id =
+         Prop.computed __type __id
+           "cosmosdb_key_vault_key_versionless_id";
+       cosmosdb_throughput =
+         Prop.computed __type __id "cosmosdb_throughput";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_healthcare_service
+        (azurerm_healthcare_service ?access_policy_object_ids
+           ?cosmosdb_key_vault_key_versionless_id
+           ?cosmosdb_throughput ?id ?kind
+           ?public_network_access_enabled ?tags ?timeouts ~location
+           ~name ~resource_group_name ~authentication_configuration
+           ~cors_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_policy_object_ids
     ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
     ?kind ?public_network_access_enabled ?tags ?timeouts ~location
     ~name ~resource_group_name ~authentication_configuration
-    ~cors_configuration __resource_id =
-  let __resource_type = "azurerm_healthcare_service" in
-  let __resource =
-    azurerm_healthcare_service ?access_policy_object_ids
+    ~cors_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_policy_object_ids
       ?cosmosdb_key_vault_key_versionless_id ?cosmosdb_throughput ?id
       ?kind ?public_network_access_enabled ?tags ?timeouts ~location
       ~name ~resource_group_name ~authentication_configuration
-      ~cors_configuration ()
+      ~cors_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_healthcare_service __resource);
-  let __resource_attributes =
-    ({
-       access_policy_object_ids =
-         Prop.computed __resource_type __resource_id
-           "access_policy_object_ids";
-       cosmosdb_key_vault_key_versionless_id =
-         Prop.computed __resource_type __resource_id
-           "cosmosdb_key_vault_key_versionless_id";
-       cosmosdb_throughput =
-         Prop.computed __resource_type __resource_id
-           "cosmosdb_throughput";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

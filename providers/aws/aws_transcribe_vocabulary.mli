@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,15 @@ val register :
   vocabulary_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?phrases:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vocabulary_file_uri:string prop ->
+  ?timeouts:timeouts ->
+  language_code:string prop ->
+  vocabulary_name:string prop ->
+  string ->
+  t Tf_core.resource

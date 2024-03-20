@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type named_port = {
   name : string prop;
@@ -72,32 +70,38 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?description ?id ?instances ?network ?project
-    ?zone ?timeouts ~name ~named_port __resource_id =
-  let __resource_type = "google_compute_instance_group" in
-  let __resource =
-    google_compute_instance_group ?description ?id ?instances
-      ?network ?project ?zone ?timeouts ~name ~named_port ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_instance_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?instances ?network ?project ?zone
+    ?timeouts ~name ~named_port __id =
+  let __type = "google_compute_instance_group" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       instances =
-         Prop.computed __resource_type __resource_id "instances";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       size = Prop.computed __resource_type __resource_id "size";
-       zone = Prop.computed __resource_type __resource_id "zone";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       instances = Prop.computed __type __id "instances";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       size = Prop.computed __type __id "size";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_instance_group
+        (google_compute_instance_group ?description ?id ?instances
+           ?network ?project ?zone ?timeouts ~name ~named_port ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?instances ?network ?project
+    ?zone ?timeouts ~name ~named_port __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?instances ?network ?project ?zone
+      ?timeouts ~name ~named_port __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

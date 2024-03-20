@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -315,3 +315,17 @@ val register :
   rule_group:rule_group list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?rules:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  capacity:float prop ->
+  name:string prop ->
+  type_:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  rule_group:rule_group list ->
+  string ->
+  t Tf_core.resource

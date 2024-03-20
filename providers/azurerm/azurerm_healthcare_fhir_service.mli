@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,22 @@ val register :
   oci_artifact:oci_artifact list ->
   string ->
   t
+
+val make :
+  ?access_policy_object_ids:string prop list ->
+  ?configuration_export_storage_account_name:string prop ->
+  ?container_registry_login_server_url:string prop list ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  workspace_id:string prop ->
+  authentication:authentication list ->
+  cors:cors list ->
+  identity:identity list ->
+  oci_artifact:oci_artifact list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -77,52 +75,55 @@ type t = {
   secondary_key : string prop;
 }
 
-let register ?tf_module ?authentication_type ?id ?identity_id
-    ?partition_key_name ?partition_key_template ?primary_key
-    ?secondary_key ?timeouts ~container_name ~database_name
-    ~endpoint_uri ~iothub_id ~name ~resource_group_name __resource_id
-    =
-  let __resource_type = "azurerm_iothub_endpoint_cosmosdb_account" in
-  let __resource =
-    azurerm_iothub_endpoint_cosmosdb_account ?authentication_type ?id
-      ?identity_id ?partition_key_name ?partition_key_template
-      ?primary_key ?secondary_key ?timeouts ~container_name
-      ~database_name ~endpoint_uri ~iothub_id ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_endpoint_cosmosdb_account __resource);
-  let __resource_attributes =
+let make ?authentication_type ?id ?identity_id ?partition_key_name
+    ?partition_key_template ?primary_key ?secondary_key ?timeouts
+    ~container_name ~database_name ~endpoint_uri ~iothub_id ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_iothub_endpoint_cosmosdb_account" in
+  let __attrs =
     ({
        authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       container_name =
-         Prop.computed __resource_type __resource_id "container_name";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       endpoint_uri =
-         Prop.computed __resource_type __resource_id "endpoint_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_id =
-         Prop.computed __resource_type __resource_id "identity_id";
-       iothub_id =
-         Prop.computed __resource_type __resource_id "iothub_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "authentication_type";
+       container_name = Prop.computed __type __id "container_name";
+       database_name = Prop.computed __type __id "database_name";
+       endpoint_uri = Prop.computed __type __id "endpoint_uri";
+       id = Prop.computed __type __id "id";
+       identity_id = Prop.computed __type __id "identity_id";
+       iothub_id = Prop.computed __type __id "iothub_id";
+       name = Prop.computed __type __id "name";
        partition_key_name =
-         Prop.computed __resource_type __resource_id
-           "partition_key_name";
+         Prop.computed __type __id "partition_key_name";
        partition_key_template =
-         Prop.computed __resource_type __resource_id
-           "partition_key_template";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
+         Prop.computed __type __id "partition_key_template";
+       primary_key = Prop.computed __type __id "primary_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
+         Prop.computed __type __id "resource_group_name";
+       secondary_key = Prop.computed __type __id "secondary_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_endpoint_cosmosdb_account
+        (azurerm_iothub_endpoint_cosmosdb_account
+           ?authentication_type ?id ?identity_id ?partition_key_name
+           ?partition_key_template ?primary_key ?secondary_key
+           ?timeouts ~container_name ~database_name ~endpoint_uri
+           ~iothub_id ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authentication_type ?id ?identity_id
+    ?partition_key_name ?partition_key_template ?primary_key
+    ?secondary_key ?timeouts ~container_name ~database_name
+    ~endpoint_uri ~iothub_id ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_type ?id ?identity_id ?partition_key_name
+      ?partition_key_template ?primary_key ?secondary_key ?timeouts
+      ~container_name ~database_name ~endpoint_uri ~iothub_id ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

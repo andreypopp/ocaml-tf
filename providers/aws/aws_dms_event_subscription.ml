@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,37 +58,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?enabled ?id ?source_ids ?tags ?tags_all
-    ?timeouts ~event_categories ~name ~sns_topic_arn ~source_type
-    __resource_id =
-  let __resource_type = "aws_dms_event_subscription" in
-  let __resource =
-    aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
-      ?tags_all ?timeouts ~event_categories ~name ~sns_topic_arn
-      ~source_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dms_event_subscription __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?source_ids ?tags ?tags_all ?timeouts
+    ~event_categories ~name ~sns_topic_arn ~source_type __id =
+  let __type = "aws_dms_event_subscription" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+       arn = Prop.computed __type __id "arn";
+       enabled = Prop.computed __type __id "enabled";
        event_categories =
-         Prop.computed __resource_type __resource_id
-           "event_categories";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       sns_topic_arn =
-         Prop.computed __resource_type __resource_id "sns_topic_arn";
-       source_ids =
-         Prop.computed __resource_type __resource_id "source_ids";
-       source_type =
-         Prop.computed __resource_type __resource_id "source_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "event_categories";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       sns_topic_arn = Prop.computed __type __id "sns_topic_arn";
+       source_ids = Prop.computed __type __id "source_ids";
+       source_type = Prop.computed __type __id "source_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dms_event_subscription
+        (aws_dms_event_subscription ?enabled ?id ?source_ids ?tags
+           ?tags_all ?timeouts ~event_categories ~name ~sns_topic_arn
+           ~source_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?source_ids ?tags ?tags_all
+    ?timeouts ~event_categories ~name ~sns_topic_arn ~source_type
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?source_ids ?tags ?tags_all ?timeouts
+      ~event_categories ~name ~sns_topic_arn ~source_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

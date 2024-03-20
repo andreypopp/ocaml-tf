@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = { name : string prop  (** The name of the node *) }
 [@@deriving yojson_of]
@@ -41,22 +39,30 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?field_manager ?force ?id ~metadata ~taint
-    __resource_id =
-  let __resource_type = "kubernetes_node_taint" in
-  let __resource =
-    kubernetes_node_taint ?field_manager ?force ?id ~metadata ~taint
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_node_taint __resource);
-  let __resource_attributes =
+let make ?field_manager ?force ?id ~metadata ~taint __id =
+  let __type = "kubernetes_node_taint" in
+  let __attrs =
     ({
-       field_manager =
-         Prop.computed __resource_type __resource_id "field_manager";
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
+       field_manager = Prop.computed __type __id "field_manager";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_node_taint
+        (kubernetes_node_taint ?field_manager ?force ?id ~metadata
+           ~taint ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?field_manager ?force ?id ~metadata ~taint
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?field_manager ?force ?id ~metadata ~taint __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

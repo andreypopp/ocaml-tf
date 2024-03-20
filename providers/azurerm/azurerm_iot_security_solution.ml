@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_workspace = {
   data_types : string prop list;  (** data_types *)
@@ -159,58 +157,64 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?disabled_data_sources ?enabled ?events_to_export ?id
+    ?log_analytics_workspace_id ?log_unmasked_ips_enabled
+    ?query_for_resources ?query_subscription_ids ?tags ?timeouts
+    ~display_name ~iothub_ids ~location ~name ~resource_group_name
+    ~additional_workspace ~recommendations_enabled __id =
+  let __type = "azurerm_iot_security_solution" in
+  let __attrs =
+    ({
+       disabled_data_sources =
+         Prop.computed __type __id "disabled_data_sources";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       events_to_export =
+         Prop.computed __type __id "events_to_export";
+       id = Prop.computed __type __id "id";
+       iothub_ids = Prop.computed __type __id "iothub_ids";
+       location = Prop.computed __type __id "location";
+       log_analytics_workspace_id =
+         Prop.computed __type __id "log_analytics_workspace_id";
+       log_unmasked_ips_enabled =
+         Prop.computed __type __id "log_unmasked_ips_enabled";
+       name = Prop.computed __type __id "name";
+       query_for_resources =
+         Prop.computed __type __id "query_for_resources";
+       query_subscription_ids =
+         Prop.computed __type __id "query_subscription_ids";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iot_security_solution
+        (azurerm_iot_security_solution ?disabled_data_sources
+           ?enabled ?events_to_export ?id ?log_analytics_workspace_id
+           ?log_unmasked_ips_enabled ?query_for_resources
+           ?query_subscription_ids ?tags ?timeouts ~display_name
+           ~iothub_ids ~location ~name ~resource_group_name
+           ~additional_workspace ~recommendations_enabled ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?disabled_data_sources ?enabled
     ?events_to_export ?id ?log_analytics_workspace_id
     ?log_unmasked_ips_enabled ?query_for_resources
     ?query_subscription_ids ?tags ?timeouts ~display_name ~iothub_ids
     ~location ~name ~resource_group_name ~additional_workspace
-    ~recommendations_enabled __resource_id =
-  let __resource_type = "azurerm_iot_security_solution" in
-  let __resource =
-    azurerm_iot_security_solution ?disabled_data_sources ?enabled
-      ?events_to_export ?id ?log_analytics_workspace_id
-      ?log_unmasked_ips_enabled ?query_for_resources
-      ?query_subscription_ids ?tags ?timeouts ~display_name
-      ~iothub_ids ~location ~name ~resource_group_name
-      ~additional_workspace ~recommendations_enabled ()
+    ~recommendations_enabled __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled_data_sources ?enabled ?events_to_export ?id
+      ?log_analytics_workspace_id ?log_unmasked_ips_enabled
+      ?query_for_resources ?query_subscription_ids ?tags ?timeouts
+      ~display_name ~iothub_ids ~location ~name ~resource_group_name
+      ~additional_workspace ~recommendations_enabled __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iot_security_solution __resource);
-  let __resource_attributes =
-    ({
-       disabled_data_sources =
-         Prop.computed __resource_type __resource_id
-           "disabled_data_sources";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       events_to_export =
-         Prop.computed __resource_type __resource_id
-           "events_to_export";
-       id = Prop.computed __resource_type __resource_id "id";
-       iothub_ids =
-         Prop.computed __resource_type __resource_id "iothub_ids";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       log_unmasked_ips_enabled =
-         Prop.computed __resource_type __resource_id
-           "log_unmasked_ips_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       query_for_resources =
-         Prop.computed __resource_type __resource_id
-           "query_for_resources";
-       query_subscription_ids =
-         Prop.computed __resource_type __resource_id
-           "query_subscription_ids";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

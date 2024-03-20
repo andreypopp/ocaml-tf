@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,16 @@ val register :
   acl:acl list ->
   string ->
   t
+
+val make :
+  ?access_tier:string prop ->
+  ?enabled_protocol:string prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  quota:float prop ->
+  storage_account_name:string prop ->
+  acl:acl list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,18 @@ val register :
   route:route list ->
   string ->
   t
+
+val make :
+  ?filters:string prop list ->
+  ?id:string prop ->
+  ?predicates:string prop list ->
+  ?protocol:string prop ->
+  ?spring_cloud_app_id:string prop ->
+  ?sso_validation_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_gateway_id:string prop ->
+  open_api:open_api list ->
+  route:route list ->
+  string ->
+  t Tf_core.resource

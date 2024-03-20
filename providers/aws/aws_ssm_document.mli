@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,18 @@ val register :
   attachments_source:attachments_source list ->
   string ->
   t
+
+val make :
+  ?document_format:string prop ->
+  ?id:string prop ->
+  ?permissions:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_type:string prop ->
+  ?version_name:string prop ->
+  content:string prop ->
+  document_type:string prop ->
+  name:string prop ->
+  attachments_source:attachments_source list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -33,27 +31,33 @@ type t = {
   updated_at : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~account_id __resource_id =
-  let __resource_type = "aws_inspector2_member_association" in
-  let __resource =
-    aws_inspector2_member_association ?id ?timeouts ~account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_inspector2_member_association __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~account_id __id =
+  let __type = "aws_inspector2_member_association" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        delegated_admin_account_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_admin_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "delegated_admin_account_id";
+       id = Prop.computed __type __id "id";
        relationship_status =
-         Prop.computed __resource_type __resource_id
-           "relationship_status";
-       updated_at =
-         Prop.computed __resource_type __resource_id "updated_at";
+         Prop.computed __type __id "relationship_status";
+       updated_at = Prop.computed __type __id "updated_at";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_inspector2_member_association
+        (aws_inspector2_member_association ?id ?timeouts ~account_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

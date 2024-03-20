@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,17 @@ val register :
   mount_options:mount_options list ->
   string ->
   t
+
+val make :
+  ?domain:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
+  password:string prop ->
+  server_hostname:string prop ->
+  subdirectory:string prop ->
+  user:string prop ->
+  mount_options:mount_options list ->
+  string ->
+  t Tf_core.resource

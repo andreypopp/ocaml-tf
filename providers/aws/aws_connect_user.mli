@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,19 @@ val register :
   phone_config:phone_config list ->
   string ->
   t
+
+val make :
+  ?directory_user_id:string prop ->
+  ?hierarchy_group_id:string prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_id:string prop ->
+  name:string prop ->
+  routing_profile_id:string prop ->
+  security_profile_ids:string prop list ->
+  identity_info:identity_info list ->
+  phone_config:phone_config list ->
+  string ->
+  t Tf_core.resource

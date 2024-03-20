@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_rule__match_condition = {
   match_values : string prop list;  (** match_values *)
@@ -196,44 +194,54 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?custom_block_response_body
+let make ?custom_block_response_body
     ?custom_block_response_status_code ?enabled ?id ?mode
     ?redirect_url ?tags ?timeouts ~name ~resource_group_name
-    ~custom_rule ~managed_rule __resource_id =
-  let __resource_type = "azurerm_frontdoor_firewall_policy" in
-  let __resource =
-    azurerm_frontdoor_firewall_policy ?custom_block_response_body
-      ?custom_block_response_status_code ?enabled ?id ?mode
-      ?redirect_url ?tags ?timeouts ~name ~resource_group_name
-      ~custom_rule ~managed_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_frontdoor_firewall_policy __resource);
-  let __resource_attributes =
+    ~custom_rule ~managed_rule __id =
+  let __type = "azurerm_frontdoor_firewall_policy" in
+  let __attrs =
     ({
        custom_block_response_body =
-         Prop.computed __resource_type __resource_id
-           "custom_block_response_body";
+         Prop.computed __type __id "custom_block_response_body";
        custom_block_response_status_code =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "custom_block_response_status_code";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+       enabled = Prop.computed __type __id "enabled";
        frontend_endpoint_ids =
-         Prop.computed __resource_type __resource_id
-           "frontend_endpoint_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
-       redirect_url =
-         Prop.computed __resource_type __resource_id "redirect_url";
+         Prop.computed __type __id "frontend_endpoint_ids";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
+       redirect_url = Prop.computed __type __id "redirect_url";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_frontdoor_firewall_policy
+        (azurerm_frontdoor_firewall_policy
+           ?custom_block_response_body
+           ?custom_block_response_status_code ?enabled ?id ?mode
+           ?redirect_url ?tags ?timeouts ~name ~resource_group_name
+           ~custom_rule ~managed_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_block_response_body
+    ?custom_block_response_status_code ?enabled ?id ?mode
+    ?redirect_url ?tags ?timeouts ~name ~resource_group_name
+    ~custom_rule ~managed_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_block_response_body
+      ?custom_block_response_status_code ?enabled ?id ?mode
+      ?redirect_url ?tags ?timeouts ~name ~resource_group_name
+      ~custom_rule ~managed_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

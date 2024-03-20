@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,10 @@ val register :
   traffic_config:traffic_config list ->
   string ->
   t
+
+val make :
+  enabled:bool prop ->
+  staging_distribution_dns_names:staging_distribution_dns_names list ->
+  traffic_config:traffic_config list ->
+  string ->
+  t Tf_core.resource

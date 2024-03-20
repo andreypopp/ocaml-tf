@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -40,29 +38,33 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~backend_bucket
-    ~key_value ~name __resource_id =
-  let __resource_type =
-    "google_compute_backend_bucket_signed_url_key"
-  in
-  let __resource =
-    google_compute_backend_bucket_signed_url_key ?id ?project
-      ?timeouts ~backend_bucket ~key_value ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_backend_bucket_signed_url_key
-       __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~backend_bucket ~key_value ~name __id
+    =
+  let __type = "google_compute_backend_bucket_signed_url_key" in
+  let __attrs =
     ({
-       backend_bucket =
-         Prop.computed __resource_type __resource_id "backend_bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_value =
-         Prop.computed __resource_type __resource_id "key_value";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       backend_bucket = Prop.computed __type __id "backend_bucket";
+       id = Prop.computed __type __id "id";
+       key_value = Prop.computed __type __id "key_value";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_backend_bucket_signed_url_key
+        (google_compute_backend_bucket_signed_url_key ?id ?project
+           ?timeouts ~backend_bucket ~key_value ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~backend_bucket
+    ~key_value ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~backend_bucket ~key_value ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

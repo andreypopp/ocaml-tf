@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,20 @@ val register :
   task_report_config:task_report_config list ->
   string ->
   t
+
+val make :
+  ?cloudwatch_log_group_arn:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  destination_location_arn:string prop ->
+  source_location_arn:string prop ->
+  excludes:excludes list ->
+  includes:includes list ->
+  options:options list ->
+  schedule:schedule list ->
+  task_report_config:task_report_config list ->
+  string ->
+  t Tf_core.resource

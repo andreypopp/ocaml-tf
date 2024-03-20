@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_quicksight_template_alias = {
   alias_name: string prop;  (** alias_name *)
@@ -29,18 +27,25 @@ type t = {
   template_version_number: float prop;
 }
 
-let register ?tf_module ?aws_account_id ~alias_name ~template_id ~template_version_number __resource_id =
-  let __resource_type = "aws_quicksight_template_alias" in
-  let __resource = aws_quicksight_template_alias ?aws_account_id ~alias_name ~template_id ~template_version_number () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_template_alias __resource);
-  let __resource_attributes = ({
-    alias_name = Prop.computed __resource_type __resource_id "alias_name";
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    id = Prop.computed __resource_type __resource_id "id";
-    template_id = Prop.computed __resource_type __resource_id "template_id";
-    template_version_number = Prop.computed __resource_type __resource_id "template_version_number";
+let make ?aws_account_id ~alias_name ~template_id ~template_version_number __id =
+  let __type = "aws_quicksight_template_alias" in
+  let __attrs = ({
+    alias_name = Prop.computed __type __id "alias_name";
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    id = Prop.computed __type __id "id";
+    template_id = Prop.computed __type __id "template_id";
+    template_version_number = Prop.computed __type __id "template_version_number";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_template_alias (aws_quicksight_template_alias ?aws_account_id ~alias_name ~template_id ~template_version_number ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ~alias_name ~template_id ~template_version_number __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ~alias_name ~template_id ~template_version_number __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

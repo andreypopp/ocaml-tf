@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,29 +51,36 @@ type t = {
   ruleset_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~account_id ~host ~inclusive
-    ~is_paused ~paths ~ruleset_id __resource_id =
-  let __resource_type = "cloudflare_web_analytics_rule" in
-  let __resource =
-    cloudflare_web_analytics_rule ?id ?timeouts ~account_id ~host
-      ~inclusive ~is_paused ~paths ~ruleset_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_web_analytics_rule __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~account_id ~host ~inclusive ~is_paused ~paths
+    ~ruleset_id __id =
+  let __type = "cloudflare_web_analytics_rule" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       inclusive =
-         Prop.computed __resource_type __resource_id "inclusive";
-       is_paused =
-         Prop.computed __resource_type __resource_id "is_paused";
-       paths = Prop.computed __resource_type __resource_id "paths";
-       ruleset_id =
-         Prop.computed __resource_type __resource_id "ruleset_id";
+       account_id = Prop.computed __type __id "account_id";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       inclusive = Prop.computed __type __id "inclusive";
+       is_paused = Prop.computed __type __id "is_paused";
+       paths = Prop.computed __type __id "paths";
+       ruleset_id = Prop.computed __type __id "ruleset_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_web_analytics_rule
+        (cloudflare_web_analytics_rule ?id ?timeouts ~account_id
+           ~host ~inclusive ~is_paused ~paths ~ruleset_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~account_id ~host ~inclusive
+    ~is_paused ~paths ~ruleset_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~account_id ~host ~inclusive ~is_paused ~paths
+      ~ruleset_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

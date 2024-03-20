@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type node_type_configs = {
   custom_core_count : float prop option; [@option]
@@ -59,25 +57,33 @@ type t = {
   uid : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~parent
-    ~node_type_configs __resource_id =
-  let __resource_type = "google_vmwareengine_cluster" in
-  let __resource =
-    google_vmwareengine_cluster ?id ?timeouts ~name ~parent
-      ~node_type_configs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vmwareengine_cluster __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~parent ~node_type_configs __id =
+  let __type = "google_vmwareengine_cluster" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       management =
-         Prop.computed __resource_type __resource_id "management";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       state = Prop.computed __resource_type __resource_id "state";
-       uid = Prop.computed __resource_type __resource_id "uid";
+       id = Prop.computed __type __id "id";
+       management = Prop.computed __type __id "management";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       state = Prop.computed __type __id "state";
+       uid = Prop.computed __type __id "uid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vmwareengine_cluster
+        (google_vmwareengine_cluster ?id ?timeouts ~name ~parent
+           ~node_type_configs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~parent
+    ~node_type_configs __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~parent ~node_type_configs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

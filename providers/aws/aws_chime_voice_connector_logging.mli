@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   voice_connector_id:string prop ->
   string ->
   t
+
+val make :
+  ?enable_media_metric_logs:bool prop ->
+  ?enable_sip_logs:bool prop ->
+  ?id:string prop ->
+  voice_connector_id:string prop ->
+  string ->
+  t Tf_core.resource

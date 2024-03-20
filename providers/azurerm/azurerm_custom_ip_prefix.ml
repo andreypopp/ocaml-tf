@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -75,48 +73,57 @@ type t = {
   zones : string list prop;
 }
 
-let register ?tf_module ?commissioning_enabled ?id
-    ?internet_advertising_disabled ?parent_custom_ip_prefix_id
-    ?roa_validity_end_date ?tags ?wan_validation_signed_message
-    ?zones ?timeouts ~cidr ~location ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_custom_ip_prefix" in
-  let __resource =
-    azurerm_custom_ip_prefix ?commissioning_enabled ?id
-      ?internet_advertising_disabled ?parent_custom_ip_prefix_id
-      ?roa_validity_end_date ?tags ?wan_validation_signed_message
-      ?zones ?timeouts ~cidr ~location ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_custom_ip_prefix __resource);
-  let __resource_attributes =
+let make ?commissioning_enabled ?id ?internet_advertising_disabled
+    ?parent_custom_ip_prefix_id ?roa_validity_end_date ?tags
+    ?wan_validation_signed_message ?zones ?timeouts ~cidr ~location
+    ~name ~resource_group_name __id =
+  let __type = "azurerm_custom_ip_prefix" in
+  let __attrs =
     ({
-       cidr = Prop.computed __resource_type __resource_id "cidr";
+       cidr = Prop.computed __type __id "cidr";
        commissioning_enabled =
-         Prop.computed __resource_type __resource_id
-           "commissioning_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "commissioning_enabled";
+       id = Prop.computed __type __id "id";
        internet_advertising_disabled =
-         Prop.computed __resource_type __resource_id
-           "internet_advertising_disabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "internet_advertising_disabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        parent_custom_ip_prefix_id =
-         Prop.computed __resource_type __resource_id
-           "parent_custom_ip_prefix_id";
+         Prop.computed __type __id "parent_custom_ip_prefix_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        roa_validity_end_date =
-         Prop.computed __resource_type __resource_id
-           "roa_validity_end_date";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "roa_validity_end_date";
+       tags = Prop.computed __type __id "tags";
        wan_validation_signed_message =
-         Prop.computed __resource_type __resource_id
-           "wan_validation_signed_message";
-       zones = Prop.computed __resource_type __resource_id "zones";
+         Prop.computed __type __id "wan_validation_signed_message";
+       zones = Prop.computed __type __id "zones";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_custom_ip_prefix
+        (azurerm_custom_ip_prefix ?commissioning_enabled ?id
+           ?internet_advertising_disabled ?parent_custom_ip_prefix_id
+           ?roa_validity_end_date ?tags
+           ?wan_validation_signed_message ?zones ?timeouts ~cidr
+           ~location ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?commissioning_enabled ?id
+    ?internet_advertising_disabled ?parent_custom_ip_prefix_id
+    ?roa_validity_end_date ?tags ?wan_validation_signed_message
+    ?zones ?timeouts ~cidr ~location ~name ~resource_group_name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?commissioning_enabled ?id ?internet_advertising_disabled
+      ?parent_custom_ip_prefix_id ?roa_validity_end_date ?tags
+      ?wan_validation_signed_message ?zones ?timeouts ~cidr ~location
+      ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

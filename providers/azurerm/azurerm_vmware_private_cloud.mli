@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,19 @@ val register :
   management_cluster:management_cluster list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?internet_connection_enabled:bool prop ->
+  ?nsxt_password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vcenter_password:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network_subnet_cidr:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  management_cluster:management_cluster list ->
+  string ->
+  t Tf_core.resource

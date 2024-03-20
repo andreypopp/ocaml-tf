@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,31 +62,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?desired_number_of_domain_controllers ?id
-    ?tags ?tags_all ?timeouts ~directory_id ~region_name
-    ~vpc_settings __resource_id =
-  let __resource_type = "aws_directory_service_region" in
-  let __resource =
-    aws_directory_service_region
-      ?desired_number_of_domain_controllers ?id ?tags ?tags_all
-      ?timeouts ~directory_id ~region_name ~vpc_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_directory_service_region __resource);
-  let __resource_attributes =
+let make ?desired_number_of_domain_controllers ?id ?tags ?tags_all
+    ?timeouts ~directory_id ~region_name ~vpc_settings __id =
+  let __type = "aws_directory_service_region" in
+  let __attrs =
     ({
        desired_number_of_domain_controllers =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "desired_number_of_domain_controllers";
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       region_name =
-         Prop.computed __resource_type __resource_id "region_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       directory_id = Prop.computed __type __id "directory_id";
+       id = Prop.computed __type __id "id";
+       region_name = Prop.computed __type __id "region_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_directory_service_region
+        (aws_directory_service_region
+           ?desired_number_of_domain_controllers ?id ?tags ?tags_all
+           ?timeouts ~directory_id ~region_name ~vpc_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?desired_number_of_domain_controllers ?id
+    ?tags ?tags_all ?timeouts ~directory_id ~region_name
+    ~vpc_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?desired_number_of_domain_controllers ?id ?tags ?tags_all
+      ?timeouts ~directory_id ~region_name ~vpc_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

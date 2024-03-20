@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type plan = {
   name : string prop;  (** name *)
@@ -85,44 +83,50 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?application_definition_id ?id
-    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
-    ~managed_resource_group_name ~name ~resource_group_name ~plan
-    __resource_id =
-  let __resource_type = "azurerm_managed_application" in
-  let __resource =
-    azurerm_managed_application ?application_definition_id ?id
-      ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
-      ~managed_resource_group_name ~name ~resource_group_name ~plan
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_managed_application __resource);
-  let __resource_attributes =
+let make ?application_definition_id ?id ?parameter_values ?parameters
+    ?tags ?timeouts ~kind ~location ~managed_resource_group_name
+    ~name ~resource_group_name ~plan __id =
+  let __type = "azurerm_managed_application" in
+  let __attrs =
     ({
        application_definition_id =
-         Prop.computed __resource_type __resource_id
-           "application_definition_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "application_definition_id";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
        managed_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       outputs =
-         Prop.computed __resource_type __resource_id "outputs";
+         Prop.computed __type __id "managed_resource_group_name";
+       name = Prop.computed __type __id "name";
+       outputs = Prop.computed __type __id "outputs";
        parameter_values =
-         Prop.computed __resource_type __resource_id
-           "parameter_values";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+         Prop.computed __type __id "parameter_values";
+       parameters = Prop.computed __type __id "parameters";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_managed_application
+        (azurerm_managed_application ?application_definition_id ?id
+           ?parameter_values ?parameters ?tags ?timeouts ~kind
+           ~location ~managed_resource_group_name ~name
+           ~resource_group_name ~plan ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?application_definition_id ?id
+    ?parameter_values ?parameters ?tags ?timeouts ~kind ~location
+    ~managed_resource_group_name ~name ~resource_group_name ~plan
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?application_definition_id ?id ?parameter_values ?parameters
+      ?tags ?timeouts ~kind ~location ~managed_resource_group_name
+      ~name ~resource_group_name ~plan __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

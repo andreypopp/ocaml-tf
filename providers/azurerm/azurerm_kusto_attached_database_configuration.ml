@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sharing = {
   external_tables_to_exclude : string prop list option; [@option]
@@ -91,44 +89,48 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?default_principal_modification_kind ?id
-    ?timeouts ~cluster_name ~cluster_resource_id ~database_name
-    ~location ~name ~resource_group_name ~sharing __resource_id =
-  let __resource_type =
-    "azurerm_kusto_attached_database_configuration"
-  in
-  let __resource =
-    azurerm_kusto_attached_database_configuration
-      ?default_principal_modification_kind ?id ?timeouts
-      ~cluster_name ~cluster_resource_id ~database_name ~location
-      ~name ~resource_group_name ~sharing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_attached_database_configuration
-       __resource);
-  let __resource_attributes =
+let make ?default_principal_modification_kind ?id ?timeouts
+    ~cluster_name ~cluster_resource_id ~database_name ~location ~name
+    ~resource_group_name ~sharing __id =
+  let __type = "azurerm_kusto_attached_database_configuration" in
+  let __attrs =
     ({
        attached_database_names =
-         Prop.computed __resource_type __resource_id
-           "attached_database_names";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
+         Prop.computed __type __id "attached_database_names";
+       cluster_name = Prop.computed __type __id "cluster_name";
        cluster_resource_id =
-         Prop.computed __resource_type __resource_id
-           "cluster_resource_id";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
+         Prop.computed __type __id "cluster_resource_id";
+       database_name = Prop.computed __type __id "database_name";
        default_principal_modification_kind =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "default_principal_modification_kind";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_attached_database_configuration
+        (azurerm_kusto_attached_database_configuration
+           ?default_principal_modification_kind ?id ?timeouts
+           ~cluster_name ~cluster_resource_id ~database_name
+           ~location ~name ~resource_group_name ~sharing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_principal_modification_kind ?id
+    ?timeouts ~cluster_name ~cluster_resource_id ~database_name
+    ~location ~name ~resource_group_name ~sharing __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_principal_modification_kind ?id ?timeouts
+      ~cluster_name ~cluster_resource_id ~database_name ~location
+      ~name ~resource_group_name ~sharing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

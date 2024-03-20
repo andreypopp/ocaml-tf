@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,13 @@ val register :
   workgroup_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?owner_account:string prop ->
+  ?vpc_security_group_ids:string prop list ->
+  endpoint_name:string prop ->
+  subnet_ids:string prop list ->
+  workgroup_name:string prop ->
+  string ->
+  t Tf_core.resource

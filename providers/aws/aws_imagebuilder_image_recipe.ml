@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type block_device_mapping__ebs = {
   delete_on_termination : string prop option; [@option]
@@ -130,45 +128,49 @@ type t = {
   working_directory : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all
-    ?user_data_base64 ?working_directory ~name ~parent_image ~version
-    ~block_device_mapping ~component ~systems_manager_agent
-    __resource_id =
-  let __resource_type = "aws_imagebuilder_image_recipe" in
-  let __resource =
-    aws_imagebuilder_image_recipe ?description ?id ?tags ?tags_all
-      ?user_data_base64 ?working_directory ~name ~parent_image
-      ~version ~block_device_mapping ~component
-      ~systems_manager_agent ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_image_recipe __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ?user_data_base64
+    ?working_directory ~name ~parent_image ~version
+    ~block_device_mapping ~component ~systems_manager_agent __id =
+  let __type = "aws_imagebuilder_image_recipe" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       parent_image =
-         Prop.computed __resource_type __resource_id "parent_image";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       date_created = Prop.computed __type __id "date_created";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       owner = Prop.computed __type __id "owner";
+       parent_image = Prop.computed __type __id "parent_image";
+       platform = Prop.computed __type __id "platform";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        user_data_base64 =
-         Prop.computed __resource_type __resource_id
-           "user_data_base64";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "user_data_base64";
+       version = Prop.computed __type __id "version";
        working_directory =
-         Prop.computed __resource_type __resource_id
-           "working_directory";
+         Prop.computed __type __id "working_directory";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_image_recipe
+        (aws_imagebuilder_image_recipe ?description ?id ?tags
+           ?tags_all ?user_data_base64 ?working_directory ~name
+           ~parent_image ~version ~block_device_mapping ~component
+           ~systems_manager_agent ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ?user_data_base64 ?working_directory ~name ~parent_image ~version
+    ~block_device_mapping ~component ~systems_manager_agent __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ?user_data_base64
+      ?working_directory ~name ~parent_image ~version
+      ~block_device_mapping ~component ~systems_manager_agent __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

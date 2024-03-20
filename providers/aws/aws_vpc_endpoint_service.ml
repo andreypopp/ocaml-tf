@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -82,62 +80,65 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?allowed_principals
-    ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
-    ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
-    ?timeouts ~acceptance_required __resource_id =
-  let __resource_type = "aws_vpc_endpoint_service" in
-  let __resource =
-    aws_vpc_endpoint_service ?allowed_principals
-      ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
-      ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
-      ?timeouts ~acceptance_required ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_endpoint_service __resource);
-  let __resource_attributes =
+let make ?allowed_principals ?gateway_load_balancer_arns ?id
+    ?network_load_balancer_arns ?private_dns_name
+    ?supported_ip_address_types ?tags ?tags_all ?timeouts
+    ~acceptance_required __id =
+  let __type = "aws_vpc_endpoint_service" in
+  let __attrs =
     ({
        acceptance_required =
-         Prop.computed __resource_type __resource_id
-           "acceptance_required";
+         Prop.computed __type __id "acceptance_required";
        allowed_principals =
-         Prop.computed __resource_type __resource_id
-           "allowed_principals";
-       arn = Prop.computed __resource_type __resource_id "arn";
+         Prop.computed __type __id "allowed_principals";
+       arn = Prop.computed __type __id "arn";
        availability_zones =
-         Prop.computed __resource_type __resource_id
-           "availability_zones";
+         Prop.computed __type __id "availability_zones";
        base_endpoint_dns_names =
-         Prop.computed __resource_type __resource_id
-           "base_endpoint_dns_names";
+         Prop.computed __type __id "base_endpoint_dns_names";
        gateway_load_balancer_arns =
-         Prop.computed __resource_type __resource_id
-           "gateway_load_balancer_arns";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "gateway_load_balancer_arns";
+       id = Prop.computed __type __id "id";
        manages_vpc_endpoints =
-         Prop.computed __resource_type __resource_id
-           "manages_vpc_endpoints";
+         Prop.computed __type __id "manages_vpc_endpoints";
        network_load_balancer_arns =
-         Prop.computed __resource_type __resource_id
-           "network_load_balancer_arns";
+         Prop.computed __type __id "network_load_balancer_arns";
        private_dns_name =
-         Prop.computed __resource_type __resource_id
-           "private_dns_name";
+         Prop.computed __type __id "private_dns_name";
        private_dns_name_configuration =
-         Prop.computed __resource_type __resource_id
-           "private_dns_name_configuration";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       service_type =
-         Prop.computed __resource_type __resource_id "service_type";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "private_dns_name_configuration";
+       service_name = Prop.computed __type __id "service_name";
+       service_type = Prop.computed __type __id "service_type";
+       state = Prop.computed __type __id "state";
        supported_ip_address_types =
-         Prop.computed __resource_type __resource_id
-           "supported_ip_address_types";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "supported_ip_address_types";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_endpoint_service
+        (aws_vpc_endpoint_service ?allowed_principals
+           ?gateway_load_balancer_arns ?id
+           ?network_load_balancer_arns ?private_dns_name
+           ?supported_ip_address_types ?tags ?tags_all ?timeouts
+           ~acceptance_required ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allowed_principals
+    ?gateway_load_balancer_arns ?id ?network_load_balancer_arns
+    ?private_dns_name ?supported_ip_address_types ?tags ?tags_all
+    ?timeouts ~acceptance_required __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_principals ?gateway_load_balancer_arns ?id
+      ?network_load_balancer_arns ?private_dns_name
+      ?supported_ip_address_types ?tags ?tags_all ?timeouts
+      ~acceptance_required __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

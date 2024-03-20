@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,15 @@ val register :
   event_subscription:event_subscription list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  duration:float prop ->
+  name:string prop ->
+  rules_package_arns:string prop list ->
+  target_arn:string prop ->
+  event_subscription:event_subscription list ->
+  string ->
+  t Tf_core.resource

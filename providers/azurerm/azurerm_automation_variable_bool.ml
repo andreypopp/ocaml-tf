@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,33 +52,39 @@ type t = {
   value : bool prop;
 }
 
-let register ?tf_module ?description ?encrypted ?id ?value ?timeouts
-    ~automation_account_name ~name ~resource_group_name __resource_id
-    =
-  let __resource_type = "azurerm_automation_variable_bool" in
-  let __resource =
-    azurerm_automation_variable_bool ?description ?encrypted ?id
-      ?value ?timeouts ~automation_account_name ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_variable_bool __resource);
-  let __resource_attributes =
+let make ?description ?encrypted ?id ?value ?timeouts
+    ~automation_account_name ~name ~resource_group_name __id =
+  let __type = "azurerm_automation_variable_bool" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automation_account_name";
+       description = Prop.computed __type __id "description";
+       encrypted = Prop.computed __type __id "encrypted";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "resource_group_name";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_variable_bool
+        (azurerm_automation_variable_bool ?description ?encrypted ?id
+           ?value ?timeouts ~automation_account_name ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?encrypted ?id ?value ?timeouts
+    ~automation_account_name ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?encrypted ?id ?value ?timeouts
+      ~automation_account_name ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

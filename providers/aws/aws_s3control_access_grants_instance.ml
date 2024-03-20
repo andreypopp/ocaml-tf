@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_s3control_access_grants_instance = {
   account_id : string prop option; [@option]  (** account_id *)
@@ -29,36 +27,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?account_id ?identity_center_arn ?tags
-    __resource_id =
-  let __resource_type = "aws_s3control_access_grants_instance" in
-  let __resource =
-    aws_s3control_access_grants_instance ?account_id
-      ?identity_center_arn ?tags ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3control_access_grants_instance __resource);
-  let __resource_attributes =
+let make ?account_id ?identity_center_arn ?tags __id =
+  let __type = "aws_s3control_access_grants_instance" in
+  let __attrs =
     ({
        access_grants_instance_arn =
-         Prop.computed __resource_type __resource_id
-           "access_grants_instance_arn";
+         Prop.computed __type __id "access_grants_instance_arn";
        access_grants_instance_id =
-         Prop.computed __resource_type __resource_id
-           "access_grants_instance_id";
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "access_grants_instance_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
        identity_center_application_arn =
-         Prop.computed __resource_type __resource_id
-           "identity_center_application_arn";
+         Prop.computed __type __id "identity_center_application_arn";
        identity_center_arn =
-         Prop.computed __resource_type __resource_id
-           "identity_center_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "identity_center_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3control_access_grants_instance
+        (aws_s3control_access_grants_instance ?account_id
+           ?identity_center_arn ?tags ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?identity_center_arn ?tags __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?identity_center_arn ?tags __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

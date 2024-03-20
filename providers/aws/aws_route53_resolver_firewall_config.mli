@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -32,3 +32,10 @@ val register :
   resource_id:string prop ->
   string ->
   t
+
+val make :
+  ?firewall_fail_open:string prop ->
+  ?id:string prop ->
+  resource_id:string prop ->
+  string ->
+  t Tf_core.resource

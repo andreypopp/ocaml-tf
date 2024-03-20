@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -911,3 +911,27 @@ val register :
   splunk_configuration:splunk_configuration list ->
   string ->
   t
+
+val make :
+  ?arn:string prop ->
+  ?destination_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version_id:string prop ->
+  ?timeouts:timeouts ->
+  destination:string prop ->
+  name:string prop ->
+  elasticsearch_configuration:elasticsearch_configuration list ->
+  extended_s3_configuration:extended_s3_configuration list ->
+  http_endpoint_configuration:http_endpoint_configuration list ->
+  kinesis_source_configuration:kinesis_source_configuration list ->
+  msk_source_configuration:msk_source_configuration list ->
+  opensearch_configuration:opensearch_configuration list ->
+  opensearchserverless_configuration:
+    opensearchserverless_configuration list ->
+  redshift_configuration:redshift_configuration list ->
+  server_side_encryption:server_side_encryption list ->
+  splunk_configuration:splunk_configuration list ->
+  string ->
+  t Tf_core.resource

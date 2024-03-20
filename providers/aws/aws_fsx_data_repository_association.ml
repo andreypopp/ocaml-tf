@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type s3__auto_export_policy = {
   events : string prop list option; [@option]  (** events *)
@@ -96,46 +94,54 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?batch_import_meta_data_on_create
-    ?delete_data_in_filesystem ?id ?imported_file_chunk_size ?tags
-    ?tags_all ?timeouts ~data_repository_path ~file_system_id
-    ~file_system_path ~s3 __resource_id =
-  let __resource_type = "aws_fsx_data_repository_association" in
-  let __resource =
-    aws_fsx_data_repository_association
-      ?batch_import_meta_data_on_create ?delete_data_in_filesystem
-      ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
-      ~data_repository_path ~file_system_id ~file_system_path ~s3 ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_data_repository_association __resource);
-  let __resource_attributes =
+let make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
+    ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
+    ~data_repository_path ~file_system_id ~file_system_path ~s3 __id
+    =
+  let __type = "aws_fsx_data_repository_association" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
+       arn = Prop.computed __type __id "arn";
+       association_id = Prop.computed __type __id "association_id";
        batch_import_meta_data_on_create =
-         Prop.computed __resource_type __resource_id
-           "batch_import_meta_data_on_create";
+         Prop.computed __type __id "batch_import_meta_data_on_create";
        data_repository_path =
-         Prop.computed __resource_type __resource_id
-           "data_repository_path";
+         Prop.computed __type __id "data_repository_path";
        delete_data_in_filesystem =
-         Prop.computed __resource_type __resource_id
-           "delete_data_in_filesystem";
-       file_system_id =
-         Prop.computed __resource_type __resource_id "file_system_id";
+         Prop.computed __type __id "delete_data_in_filesystem";
+       file_system_id = Prop.computed __type __id "file_system_id";
        file_system_path =
-         Prop.computed __resource_type __resource_id
-           "file_system_path";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "file_system_path";
+       id = Prop.computed __type __id "id";
        imported_file_chunk_size =
-         Prop.computed __resource_type __resource_id
-           "imported_file_chunk_size";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "imported_file_chunk_size";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_data_repository_association
+        (aws_fsx_data_repository_association
+           ?batch_import_meta_data_on_create
+           ?delete_data_in_filesystem ?id ?imported_file_chunk_size
+           ?tags ?tags_all ?timeouts ~data_repository_path
+           ~file_system_id ~file_system_path ~s3 ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?batch_import_meta_data_on_create
+    ?delete_data_in_filesystem ?id ?imported_file_chunk_size ?tags
+    ?tags_all ?timeouts ~data_repository_path ~file_system_id
+    ~file_system_path ~s3 __id =
+  let (r : _ Tf_core.resource) =
+    make ?batch_import_meta_data_on_create ?delete_data_in_filesystem
+      ?id ?imported_file_chunk_size ?tags ?tags_all ?timeouts
+      ~data_repository_path ~file_system_id ~file_system_path ~s3
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

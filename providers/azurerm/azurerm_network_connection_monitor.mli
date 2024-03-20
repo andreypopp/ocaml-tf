@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -161,3 +161,18 @@ val register :
   test_group:test_group list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?notes:string prop ->
+  ?output_workspace_resource_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network_watcher_id:string prop ->
+  endpoint:endpoint list ->
+  test_configuration:test_configuration list ->
+  test_group:test_group list ->
+  string ->
+  t Tf_core.resource

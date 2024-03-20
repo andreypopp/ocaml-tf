@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,22 @@ val register :
     network_address_port_translation list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_equipment_address_pool_prefixes:string prop list ->
+  ?user_equipment_static_address_pool_prefixes:string prop list ->
+  ?user_plane_access_ipv4_address:string prop ->
+  ?user_plane_access_ipv4_gateway:string prop ->
+  ?user_plane_access_ipv4_subnet:string prop ->
+  ?user_plane_access_name:string prop ->
+  ?timeouts:timeouts ->
+  dns_addresses:string prop list ->
+  location:string prop ->
+  mobile_network_data_network_name:string prop ->
+  mobile_network_packet_core_data_plane_id:string prop ->
+  network_address_port_translation:
+    network_address_port_translation list ->
+  string ->
+  t Tf_core.resource

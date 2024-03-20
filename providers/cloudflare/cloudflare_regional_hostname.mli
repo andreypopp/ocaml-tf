@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,12 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  hostname:string prop ->
+  region_key:string prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,17 @@ val register :
   sharing:sharing list ->
   string ->
   t
+
+val make :
+  ?default_principal_modification_kind:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  cluster_resource_id:string prop ->
+  database_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sharing:sharing list ->
+  string ->
+  t Tf_core.resource

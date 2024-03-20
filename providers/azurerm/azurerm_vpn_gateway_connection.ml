@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type routing__propagated_route_table = {
   labels : string prop list option; [@option]  (** labels *)
@@ -193,30 +191,41 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
-let register ?tf_module ?id ?internet_security_enabled ?timeouts
-    ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
-    ~traffic_selector_policy ~vpn_link __resource_id =
-  let __resource_type = "azurerm_vpn_gateway_connection" in
-  let __resource =
-    azurerm_vpn_gateway_connection ?id ?internet_security_enabled
-      ?timeouts ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
-      ~traffic_selector_policy ~vpn_link ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_vpn_gateway_connection __resource);
-  let __resource_attributes =
+let make ?id ?internet_security_enabled ?timeouts ~name
+    ~remote_vpn_site_id ~vpn_gateway_id ~routing
+    ~traffic_selector_policy ~vpn_link __id =
+  let __type = "azurerm_vpn_gateway_connection" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        internet_security_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_security_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "internet_security_enabled";
+       name = Prop.computed __type __id "name";
        remote_vpn_site_id =
-         Prop.computed __resource_type __resource_id
-           "remote_vpn_site_id";
-       vpn_gateway_id =
-         Prop.computed __resource_type __resource_id "vpn_gateway_id";
+         Prop.computed __type __id "remote_vpn_site_id";
+       vpn_gateway_id = Prop.computed __type __id "vpn_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_vpn_gateway_connection
+        (azurerm_vpn_gateway_connection ?id
+           ?internet_security_enabled ?timeouts ~name
+           ~remote_vpn_site_id ~vpn_gateway_id ~routing
+           ~traffic_selector_policy ~vpn_link ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?internet_security_enabled ?timeouts
+    ~name ~remote_vpn_site_id ~vpn_gateway_id ~routing
+    ~traffic_selector_policy ~vpn_link __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?internet_security_enabled ?timeouts ~name
+      ~remote_vpn_site_id ~vpn_gateway_id ~routing
+      ~traffic_selector_policy ~vpn_link __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

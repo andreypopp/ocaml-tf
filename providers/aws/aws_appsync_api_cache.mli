@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,14 @@ val register :
   type_:string prop ->
   string ->
   t
+
+val make :
+  ?at_rest_encryption_enabled:bool prop ->
+  ?id:string prop ->
+  ?transit_encryption_enabled:bool prop ->
+  api_caching_behavior:string prop ->
+  api_id:string prop ->
+  ttl:float prop ->
+  type_:string prop ->
+  string ->
+  t Tf_core.resource

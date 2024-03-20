@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,10 @@ val register :
   sql_injection_match_tuples:sql_injection_match_tuples list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  sql_injection_match_tuples:sql_injection_match_tuples list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,14 @@ val register :
   ?public_ip:string prop ->
   string ->
   t
+
+val make :
+  ?allocation_id:string prop ->
+  ?allow_reassociation:bool prop ->
+  ?id:string prop ->
+  ?instance_id:string prop ->
+  ?network_interface_id:string prop ->
+  ?private_ip_address:string prop ->
+  ?public_ip:string prop ->
+  string ->
+  t Tf_core.resource

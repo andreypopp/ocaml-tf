@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_schemas_schema = {
   content : string prop;  (** content *)
@@ -46,38 +44,42 @@ type t = {
   version_created_date : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~content
-    ~name ~registry_name ~type_ __resource_id =
-  let __resource_type = "aws_schemas_schema" in
-  let __resource =
-    aws_schemas_schema ?description ?id ?tags ?tags_all ~content
-      ~name ~registry_name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_schemas_schema __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~content ~name
+    ~registry_name ~type_ __id =
+  let __type = "aws_schemas_schema" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_modified =
-         Prop.computed __resource_type __resource_id "last_modified";
-       name = Prop.computed __resource_type __resource_id "name";
-       registry_name =
-         Prop.computed __resource_type __resource_id "registry_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       arn = Prop.computed __type __id "arn";
+       content = Prop.computed __type __id "content";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       last_modified = Prop.computed __type __id "last_modified";
+       name = Prop.computed __type __id "name";
+       registry_name = Prop.computed __type __id "registry_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       version = Prop.computed __type __id "version";
        version_created_date =
-         Prop.computed __resource_type __resource_id
-           "version_created_date";
+         Prop.computed __type __id "version_created_date";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_schemas_schema
+        (aws_schemas_schema ?description ?id ?tags ?tags_all ~content
+           ~name ~registry_name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ~content
+    ~name ~registry_name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~content ~name
+      ~registry_name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

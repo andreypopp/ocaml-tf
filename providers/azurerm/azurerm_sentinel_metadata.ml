@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type author = {
   email : string prop option; [@option]  (** email *)
@@ -148,65 +146,70 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?content_schema_version ?custom_version ?dependency
+    ?first_publish_date ?icon_id ?id ?last_publish_date
+    ?preview_images ?preview_images_dark ?providers
+    ?threat_analysis_tactics ?threat_analysis_techniques ?version
+    ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
+    ~author ~category ~source ~support __id =
+  let __type = "azurerm_sentinel_metadata" in
+  let __attrs =
+    ({
+       content_id = Prop.computed __type __id "content_id";
+       content_schema_version =
+         Prop.computed __type __id "content_schema_version";
+       custom_version = Prop.computed __type __id "custom_version";
+       dependency = Prop.computed __type __id "dependency";
+       first_publish_date =
+         Prop.computed __type __id "first_publish_date";
+       icon_id = Prop.computed __type __id "icon_id";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       last_publish_date =
+         Prop.computed __type __id "last_publish_date";
+       name = Prop.computed __type __id "name";
+       parent_id = Prop.computed __type __id "parent_id";
+       preview_images = Prop.computed __type __id "preview_images";
+       preview_images_dark =
+         Prop.computed __type __id "preview_images_dark";
+       providers = Prop.computed __type __id "providers";
+       threat_analysis_tactics =
+         Prop.computed __type __id "threat_analysis_tactics";
+       threat_analysis_techniques =
+         Prop.computed __type __id "threat_analysis_techniques";
+       version = Prop.computed __type __id "version";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_metadata
+        (azurerm_sentinel_metadata ?content_schema_version
+           ?custom_version ?dependency ?first_publish_date ?icon_id
+           ?id ?last_publish_date ?preview_images
+           ?preview_images_dark ?providers ?threat_analysis_tactics
+           ?threat_analysis_techniques ?version ?timeouts ~content_id
+           ~kind ~name ~parent_id ~workspace_id ~author ~category
+           ~source ~support ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?content_schema_version ?custom_version
     ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
     ?preview_images ?preview_images_dark ?providers
     ?threat_analysis_tactics ?threat_analysis_techniques ?version
     ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-    ~author ~category ~source ~support __resource_id =
-  let __resource_type = "azurerm_sentinel_metadata" in
-  let __resource =
-    azurerm_sentinel_metadata ?content_schema_version ?custom_version
-      ?dependency ?first_publish_date ?icon_id ?id ?last_publish_date
+    ~author ~category ~source ~support __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_schema_version ?custom_version ?dependency
+      ?first_publish_date ?icon_id ?id ?last_publish_date
       ?preview_images ?preview_images_dark ?providers
       ?threat_analysis_tactics ?threat_analysis_techniques ?version
       ?timeouts ~content_id ~kind ~name ~parent_id ~workspace_id
-      ~author ~category ~source ~support ()
+      ~author ~category ~source ~support __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_metadata __resource);
-  let __resource_attributes =
-    ({
-       content_id =
-         Prop.computed __resource_type __resource_id "content_id";
-       content_schema_version =
-         Prop.computed __resource_type __resource_id
-           "content_schema_version";
-       custom_version =
-         Prop.computed __resource_type __resource_id "custom_version";
-       dependency =
-         Prop.computed __resource_type __resource_id "dependency";
-       first_publish_date =
-         Prop.computed __resource_type __resource_id
-           "first_publish_date";
-       icon_id =
-         Prop.computed __resource_type __resource_id "icon_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       last_publish_date =
-         Prop.computed __resource_type __resource_id
-           "last_publish_date";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_id =
-         Prop.computed __resource_type __resource_id "parent_id";
-       preview_images =
-         Prop.computed __resource_type __resource_id "preview_images";
-       preview_images_dark =
-         Prop.computed __resource_type __resource_id
-           "preview_images_dark";
-       providers =
-         Prop.computed __resource_type __resource_id "providers";
-       threat_analysis_tactics =
-         Prop.computed __resource_type __resource_id
-           "threat_analysis_tactics";
-       threat_analysis_techniques =
-         Prop.computed __resource_type __resource_id
-           "threat_analysis_techniques";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

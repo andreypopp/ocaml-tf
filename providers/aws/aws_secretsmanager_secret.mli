@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,18 @@ val register :
   replica:replica list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?force_overwrite_replica_secret:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?policy:string prop ->
+  ?recovery_window_in_days:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  replica:replica list ->
+  string ->
+  t Tf_core.resource

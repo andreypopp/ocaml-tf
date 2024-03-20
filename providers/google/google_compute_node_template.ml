@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type node_type_flexibility = {
   cpus : string prop option; [@option]
@@ -104,40 +102,47 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?cpu_overcommit_type ?description ?id ?name
+let make ?cpu_overcommit_type ?description ?id ?name
     ?node_affinity_labels ?node_type ?project ?region ?timeouts
-    ~node_type_flexibility ~server_binding __resource_id =
-  let __resource_type = "google_compute_node_template" in
-  let __resource =
-    google_compute_node_template ?cpu_overcommit_type ?description
-      ?id ?name ?node_affinity_labels ?node_type ?project ?region
-      ?timeouts ~node_type_flexibility ~server_binding ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_node_template __resource);
-  let __resource_attributes =
+    ~node_type_flexibility ~server_binding __id =
+  let __type = "google_compute_node_template" in
+  let __attrs =
     ({
        cpu_overcommit_type =
-         Prop.computed __resource_type __resource_id
-           "cpu_overcommit_type";
+         Prop.computed __type __id "cpu_overcommit_type";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        node_affinity_labels =
-         Prop.computed __resource_type __resource_id
-           "node_affinity_labels";
-       node_type =
-         Prop.computed __resource_type __resource_id "node_type";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "node_affinity_labels";
+       node_type = Prop.computed __type __id "node_type";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_node_template
+        (google_compute_node_template ?cpu_overcommit_type
+           ?description ?id ?name ?node_affinity_labels ?node_type
+           ?project ?region ?timeouts ~node_type_flexibility
+           ~server_binding ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cpu_overcommit_type ?description ?id ?name
+    ?node_affinity_labels ?node_type ?project ?region ?timeouts
+    ~node_type_flexibility ~server_binding __id =
+  let (r : _ Tf_core.resource) =
+    make ?cpu_overcommit_type ?description ?id ?name
+      ?node_affinity_labels ?node_type ?project ?region ?timeouts
+      ~node_type_flexibility ~server_binding __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

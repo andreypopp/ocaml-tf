@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -282,3 +282,18 @@ val register :
   reference_data_sources:reference_data_sources list ->
   string ->
   t
+
+val make :
+  ?code:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?start_application:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  cloudwatch_logging_options:cloudwatch_logging_options list ->
+  inputs:inputs list ->
+  outputs:outputs list ->
+  reference_data_sources:reference_data_sources list ->
+  string ->
+  t Tf_core.resource

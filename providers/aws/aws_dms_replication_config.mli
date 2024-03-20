@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,21 @@ val register :
   compute_config:compute_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?replication_settings:string prop ->
+  ?resource_identifier:string prop ->
+  ?start_replication:bool prop ->
+  ?supplemental_settings:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  replication_config_identifier:string prop ->
+  replication_type:string prop ->
+  source_endpoint_arn:string prop ->
+  table_mappings:string prop ->
+  target_endpoint_arn:string prop ->
+  compute_config:compute_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,32 +46,36 @@ type t = {
   source_portfolio_id : string prop;
 }
 
-let register ?tf_module ?accept_language ?id ?source_portfolio_id
-    ?timeouts ~portfolio_id ~product_id __resource_id =
-  let __resource_type =
-    "aws_servicecatalog_product_portfolio_association"
-  in
-  let __resource =
-    aws_servicecatalog_product_portfolio_association ?accept_language
-      ?id ?source_portfolio_id ?timeouts ~portfolio_id ~product_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicecatalog_product_portfolio_association
-       __resource);
-  let __resource_attributes =
+let make ?accept_language ?id ?source_portfolio_id ?timeouts
+    ~portfolio_id ~product_id __id =
+  let __type = "aws_servicecatalog_product_portfolio_association" in
+  let __attrs =
     ({
-       accept_language =
-         Prop.computed __resource_type __resource_id
-           "accept_language";
-       id = Prop.computed __resource_type __resource_id "id";
-       portfolio_id =
-         Prop.computed __resource_type __resource_id "portfolio_id";
-       product_id =
-         Prop.computed __resource_type __resource_id "product_id";
+       accept_language = Prop.computed __type __id "accept_language";
+       id = Prop.computed __type __id "id";
+       portfolio_id = Prop.computed __type __id "portfolio_id";
+       product_id = Prop.computed __type __id "product_id";
        source_portfolio_id =
-         Prop.computed __resource_type __resource_id
-           "source_portfolio_id";
+         Prop.computed __type __id "source_portfolio_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicecatalog_product_portfolio_association
+        (aws_servicecatalog_product_portfolio_association
+           ?accept_language ?id ?source_portfolio_id ?timeouts
+           ~portfolio_id ~product_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accept_language ?id ?source_portfolio_id
+    ?timeouts ~portfolio_id ~product_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?accept_language ?id ?source_portfolio_id ?timeouts
+      ~portfolio_id ~product_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

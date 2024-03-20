@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_configuration = {
   key_id : string prop option; [@option]  (** key_id *)
@@ -114,49 +112,57 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?delete_protection ?description
+let make ?delete_protection ?description
     ?firewall_policy_change_protection ?id ?subnet_change_protection
     ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
-    ~encryption_configuration ~subnet_mapping __resource_id =
-  let __resource_type = "aws_networkfirewall_firewall" in
-  let __resource =
-    aws_networkfirewall_firewall ?delete_protection ?description
-      ?firewall_policy_change_protection ?id
-      ?subnet_change_protection ?tags ?tags_all ?timeouts
-      ~firewall_policy_arn ~name ~vpc_id ~encryption_configuration
-      ~subnet_mapping ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkfirewall_firewall __resource);
-  let __resource_attributes =
+    ~encryption_configuration ~subnet_mapping __id =
+  let __type = "aws_networkfirewall_firewall" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        delete_protection =
-         Prop.computed __resource_type __resource_id
-           "delete_protection";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "delete_protection";
+       description = Prop.computed __type __id "description";
        firewall_policy_arn =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy_arn";
+         Prop.computed __type __id "firewall_policy_arn";
        firewall_policy_change_protection =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "firewall_policy_change_protection";
-       firewall_status =
-         Prop.computed __resource_type __resource_id
-           "firewall_status";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       firewall_status = Prop.computed __type __id "firewall_status";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        subnet_change_protection =
-         Prop.computed __resource_type __resource_id
-           "subnet_change_protection";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       update_token =
-         Prop.computed __resource_type __resource_id "update_token";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "subnet_change_protection";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       update_token = Prop.computed __type __id "update_token";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkfirewall_firewall
+        (aws_networkfirewall_firewall ?delete_protection ?description
+           ?firewall_policy_change_protection ?id
+           ?subnet_change_protection ?tags ?tags_all ?timeouts
+           ~firewall_policy_arn ~name ~vpc_id
+           ~encryption_configuration ~subnet_mapping ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_protection ?description
+    ?firewall_policy_change_protection ?id ?subnet_change_protection
+    ?tags ?tags_all ?timeouts ~firewall_policy_arn ~name ~vpc_id
+    ~encryption_configuration ~subnet_mapping __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_protection ?description
+      ?firewall_policy_change_protection ?id
+      ?subnet_change_protection ?tags ?tags_all ?timeouts
+      ~firewall_policy_arn ~name ~vpc_id ~encryption_configuration
+      ~subnet_mapping __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

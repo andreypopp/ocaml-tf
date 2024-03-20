@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,16 @@ val register :
   transit_gateway_attachment_id:string prop ->
   string ->
   t
+
+val make :
+  ?bgp_asn:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?transit_gateway_address:string prop ->
+  ?timeouts:timeouts ->
+  inside_cidr_blocks:string prop list ->
+  peer_address:string prop ->
+  transit_gateway_attachment_id:string prop ->
+  string ->
+  t Tf_core.resource

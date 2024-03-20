@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -144,3 +144,20 @@ val register :
   relational_database_config:relational_database_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?service_role_arn:string prop ->
+  api_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  dynamodb_config:dynamodb_config list ->
+  elasticsearch_config:elasticsearch_config list ->
+  event_bridge_config:event_bridge_config list ->
+  http_config:http_config list ->
+  lambda_config:lambda_config list ->
+  opensearchservice_config:opensearchservice_config list ->
+  relational_database_config:relational_database_config list ->
+  string ->
+  t Tf_core.resource

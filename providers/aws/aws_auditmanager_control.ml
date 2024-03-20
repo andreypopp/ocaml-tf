@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type control_mapping_sources__source_keyword = {
   keyword_input_type : string prop;  (** keyword_input_type *)
@@ -84,38 +82,44 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?action_plan_instructions ?action_plan_title
-    ?description ?tags ?testing_information ~name
-    ~control_mapping_sources __resource_id =
-  let __resource_type = "aws_auditmanager_control" in
-  let __resource =
-    aws_auditmanager_control ?action_plan_instructions
-      ?action_plan_title ?description ?tags ?testing_information
-      ~name ~control_mapping_sources ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_auditmanager_control __resource);
-  let __resource_attributes =
+let make ?action_plan_instructions ?action_plan_title ?description
+    ?tags ?testing_information ~name ~control_mapping_sources __id =
+  let __type = "aws_auditmanager_control" in
+  let __attrs =
     ({
        action_plan_instructions =
-         Prop.computed __resource_type __resource_id
-           "action_plan_instructions";
+         Prop.computed __type __id "action_plan_instructions";
        action_plan_title =
-         Prop.computed __resource_type __resource_id
-           "action_plan_title";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "action_plan_title";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        testing_information =
-         Prop.computed __resource_type __resource_id
-           "testing_information";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "testing_information";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_auditmanager_control
+        (aws_auditmanager_control ?action_plan_instructions
+           ?action_plan_title ?description ?tags ?testing_information
+           ~name ~control_mapping_sources ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?action_plan_instructions ?action_plan_title
+    ?description ?tags ?testing_information ~name
+    ~control_mapping_sources __id =
+  let (r : _ Tf_core.resource) =
+    make ?action_plan_instructions ?action_plan_title ?description
+      ?tags ?testing_information ~name ~control_mapping_sources __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_routes = {
   host : string prop;
@@ -117,68 +115,72 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?cookie_suffix ?custom_page_html ?default_template_language
+    ?description ?disable_session_renewal ?id ?json_response_enabled
+    ?path ?queue_all ?queueing_method ?queueing_status_code
+    ?session_duration ?suspended ?timeouts ~host ~name
+    ~new_users_per_minute ~total_active_users ~zone_id
+    ~additional_routes __id =
+  let __type = "cloudflare_waiting_room" in
+  let __attrs =
+    ({
+       cookie_suffix = Prop.computed __type __id "cookie_suffix";
+       custom_page_html =
+         Prop.computed __type __id "custom_page_html";
+       default_template_language =
+         Prop.computed __type __id "default_template_language";
+       description = Prop.computed __type __id "description";
+       disable_session_renewal =
+         Prop.computed __type __id "disable_session_renewal";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       json_response_enabled =
+         Prop.computed __type __id "json_response_enabled";
+       name = Prop.computed __type __id "name";
+       new_users_per_minute =
+         Prop.computed __type __id "new_users_per_minute";
+       path = Prop.computed __type __id "path";
+       queue_all = Prop.computed __type __id "queue_all";
+       queueing_method = Prop.computed __type __id "queueing_method";
+       queueing_status_code =
+         Prop.computed __type __id "queueing_status_code";
+       session_duration =
+         Prop.computed __type __id "session_duration";
+       suspended = Prop.computed __type __id "suspended";
+       total_active_users =
+         Prop.computed __type __id "total_active_users";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_waiting_room
+        (cloudflare_waiting_room ?cookie_suffix ?custom_page_html
+           ?default_template_language ?description
+           ?disable_session_renewal ?id ?json_response_enabled ?path
+           ?queue_all ?queueing_method ?queueing_status_code
+           ?session_duration ?suspended ?timeouts ~host ~name
+           ~new_users_per_minute ~total_active_users ~zone_id
+           ~additional_routes ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cookie_suffix ?custom_page_html
     ?default_template_language ?description ?disable_session_renewal
     ?id ?json_response_enabled ?path ?queue_all ?queueing_method
     ?queueing_status_code ?session_duration ?suspended ?timeouts
     ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
-    ~additional_routes __resource_id =
-  let __resource_type = "cloudflare_waiting_room" in
-  let __resource =
-    cloudflare_waiting_room ?cookie_suffix ?custom_page_html
-      ?default_template_language ?description
-      ?disable_session_renewal ?id ?json_response_enabled ?path
-      ?queue_all ?queueing_method ?queueing_status_code
-      ?session_duration ?suspended ?timeouts ~host ~name
-      ~new_users_per_minute ~total_active_users ~zone_id
-      ~additional_routes ()
+    ~additional_routes __id =
+  let (r : _ Tf_core.resource) =
+    make ?cookie_suffix ?custom_page_html ?default_template_language
+      ?description ?disable_session_renewal ?id
+      ?json_response_enabled ?path ?queue_all ?queueing_method
+      ?queueing_status_code ?session_duration ?suspended ?timeouts
+      ~host ~name ~new_users_per_minute ~total_active_users ~zone_id
+      ~additional_routes __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_waiting_room __resource);
-  let __resource_attributes =
-    ({
-       cookie_suffix =
-         Prop.computed __resource_type __resource_id "cookie_suffix";
-       custom_page_html =
-         Prop.computed __resource_type __resource_id
-           "custom_page_html";
-       default_template_language =
-         Prop.computed __resource_type __resource_id
-           "default_template_language";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disable_session_renewal =
-         Prop.computed __resource_type __resource_id
-           "disable_session_renewal";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       json_response_enabled =
-         Prop.computed __resource_type __resource_id
-           "json_response_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       new_users_per_minute =
-         Prop.computed __resource_type __resource_id
-           "new_users_per_minute";
-       path = Prop.computed __resource_type __resource_id "path";
-       queue_all =
-         Prop.computed __resource_type __resource_id "queue_all";
-       queueing_method =
-         Prop.computed __resource_type __resource_id
-           "queueing_method";
-       queueing_status_code =
-         Prop.computed __resource_type __resource_id
-           "queueing_status_code";
-       session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       suspended =
-         Prop.computed __resource_type __resource_id "suspended";
-       total_active_users =
-         Prop.computed __resource_type __resource_id
-           "total_active_users";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

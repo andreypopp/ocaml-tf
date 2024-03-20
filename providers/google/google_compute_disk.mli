@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -140,3 +140,29 @@ val register :
   source_snapshot_encryption_key:source_snapshot_encryption_key list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enable_confidential_compute:bool prop ->
+  ?id:string prop ->
+  ?image:string prop ->
+  ?labels:(string * string prop) list ->
+  ?licenses:string prop list ->
+  ?physical_block_size_bytes:float prop ->
+  ?project:string prop ->
+  ?provisioned_iops:float prop ->
+  ?provisioned_throughput:float prop ->
+  ?size:float prop ->
+  ?snapshot:string prop ->
+  ?source_disk:string prop ->
+  ?type_:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  async_primary_disk:async_primary_disk list ->
+  disk_encryption_key:disk_encryption_key list ->
+  guest_os_features:guest_os_features list ->
+  source_image_encryption_key:source_image_encryption_key list ->
+  source_snapshot_encryption_key:source_snapshot_encryption_key list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?group:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  kubernetes_cluster_id:string prop ->
+  kubernetes_fleet_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

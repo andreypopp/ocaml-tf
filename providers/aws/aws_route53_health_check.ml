@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_health_check = {
   child_health_threshold : float prop option; [@option]
@@ -105,80 +103,84 @@ type t = {
   type_ : string prop;
 }
 
+let make ?child_health_threshold ?child_healthchecks
+    ?cloudwatch_alarm_name ?cloudwatch_alarm_region ?disabled
+    ?enable_sni ?failure_threshold ?fqdn ?id
+    ?insufficient_data_health_status ?invert_healthcheck ?ip_address
+    ?measure_latency ?port ?reference_name ?regions ?request_interval
+    ?resource_path ?routing_control_arn ?search_string ?tags
+    ?tags_all ~type_ __id =
+  let __type = "aws_route53_health_check" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       child_health_threshold =
+         Prop.computed __type __id "child_health_threshold";
+       child_healthchecks =
+         Prop.computed __type __id "child_healthchecks";
+       cloudwatch_alarm_name =
+         Prop.computed __type __id "cloudwatch_alarm_name";
+       cloudwatch_alarm_region =
+         Prop.computed __type __id "cloudwatch_alarm_region";
+       disabled = Prop.computed __type __id "disabled";
+       enable_sni = Prop.computed __type __id "enable_sni";
+       failure_threshold =
+         Prop.computed __type __id "failure_threshold";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       insufficient_data_health_status =
+         Prop.computed __type __id "insufficient_data_health_status";
+       invert_healthcheck =
+         Prop.computed __type __id "invert_healthcheck";
+       ip_address = Prop.computed __type __id "ip_address";
+       measure_latency = Prop.computed __type __id "measure_latency";
+       port = Prop.computed __type __id "port";
+       reference_name = Prop.computed __type __id "reference_name";
+       regions = Prop.computed __type __id "regions";
+       request_interval =
+         Prop.computed __type __id "request_interval";
+       resource_path = Prop.computed __type __id "resource_path";
+       routing_control_arn =
+         Prop.computed __type __id "routing_control_arn";
+       search_string = Prop.computed __type __id "search_string";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_health_check
+        (aws_route53_health_check ?child_health_threshold
+           ?child_healthchecks ?cloudwatch_alarm_name
+           ?cloudwatch_alarm_region ?disabled ?enable_sni
+           ?failure_threshold ?fqdn ?id
+           ?insufficient_data_health_status ?invert_healthcheck
+           ?ip_address ?measure_latency ?port ?reference_name
+           ?regions ?request_interval ?resource_path
+           ?routing_control_arn ?search_string ?tags ?tags_all ~type_
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?child_health_threshold ?child_healthchecks
     ?cloudwatch_alarm_name ?cloudwatch_alarm_region ?disabled
     ?enable_sni ?failure_threshold ?fqdn ?id
     ?insufficient_data_health_status ?invert_healthcheck ?ip_address
     ?measure_latency ?port ?reference_name ?regions ?request_interval
     ?resource_path ?routing_control_arn ?search_string ?tags
-    ?tags_all ~type_ __resource_id =
-  let __resource_type = "aws_route53_health_check" in
-  let __resource =
-    aws_route53_health_check ?child_health_threshold
-      ?child_healthchecks ?cloudwatch_alarm_name
-      ?cloudwatch_alarm_region ?disabled ?enable_sni
-      ?failure_threshold ?fqdn ?id ?insufficient_data_health_status
-      ?invert_healthcheck ?ip_address ?measure_latency ?port
-      ?reference_name ?regions ?request_interval ?resource_path
-      ?routing_control_arn ?search_string ?tags ?tags_all ~type_ ()
+    ?tags_all ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?child_health_threshold ?child_healthchecks
+      ?cloudwatch_alarm_name ?cloudwatch_alarm_region ?disabled
+      ?enable_sni ?failure_threshold ?fqdn ?id
+      ?insufficient_data_health_status ?invert_healthcheck
+      ?ip_address ?measure_latency ?port ?reference_name ?regions
+      ?request_interval ?resource_path ?routing_control_arn
+      ?search_string ?tags ?tags_all ~type_ __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_health_check __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       child_health_threshold =
-         Prop.computed __resource_type __resource_id
-           "child_health_threshold";
-       child_healthchecks =
-         Prop.computed __resource_type __resource_id
-           "child_healthchecks";
-       cloudwatch_alarm_name =
-         Prop.computed __resource_type __resource_id
-           "cloudwatch_alarm_name";
-       cloudwatch_alarm_region =
-         Prop.computed __resource_type __resource_id
-           "cloudwatch_alarm_region";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       enable_sni =
-         Prop.computed __resource_type __resource_id "enable_sni";
-       failure_threshold =
-         Prop.computed __resource_type __resource_id
-           "failure_threshold";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       insufficient_data_health_status =
-         Prop.computed __resource_type __resource_id
-           "insufficient_data_health_status";
-       invert_healthcheck =
-         Prop.computed __resource_type __resource_id
-           "invert_healthcheck";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       measure_latency =
-         Prop.computed __resource_type __resource_id
-           "measure_latency";
-       port = Prop.computed __resource_type __resource_id "port";
-       reference_name =
-         Prop.computed __resource_type __resource_id "reference_name";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
-       request_interval =
-         Prop.computed __resource_type __resource_id
-           "request_interval";
-       resource_path =
-         Prop.computed __resource_type __resource_id "resource_path";
-       routing_control_arn =
-         Prop.computed __resource_type __resource_id
-           "routing_control_arn";
-       search_string =
-         Prop.computed __resource_type __resource_id "search_string";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type read_write_endpoint_failover_policy = {
   grace_minutes : float prop option; [@option]  (** grace_minutes *)
@@ -77,41 +75,49 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?id
-    ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
-    ~managed_instance_id ~name ~partner_managed_instance_id
-    ~read_write_endpoint_failover_policy __resource_id =
-  let __resource_type =
-    "azurerm_mssql_managed_instance_failover_group"
-  in
-  let __resource =
-    azurerm_mssql_managed_instance_failover_group ?id
-      ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
-      ~managed_instance_id ~name ~partner_managed_instance_id
-      ~read_write_endpoint_failover_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_managed_instance_failover_group
-       __resource);
-  let __resource_attributes =
+let make ?id ?readonly_endpoint_failover_policy_enabled ?timeouts
+    ~location ~managed_instance_id ~name ~partner_managed_instance_id
+    ~read_write_endpoint_failover_policy __id =
+  let __type = "azurerm_mssql_managed_instance_failover_group" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        managed_instance_id =
-         Prop.computed __resource_type __resource_id
-           "managed_instance_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "managed_instance_id";
+       name = Prop.computed __type __id "name";
        partner_managed_instance_id =
-         Prop.computed __resource_type __resource_id
-           "partner_managed_instance_id";
-       partner_region =
-         Prop.computed __resource_type __resource_id "partner_region";
+         Prop.computed __type __id "partner_managed_instance_id";
+       partner_region = Prop.computed __type __id "partner_region";
        readonly_endpoint_failover_policy_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "readonly_endpoint_failover_policy_enabled";
-       role = Prop.computed __resource_type __resource_id "role";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_managed_instance_failover_group
+        (azurerm_mssql_managed_instance_failover_group ?id
+           ?readonly_endpoint_failover_policy_enabled ?timeouts
+           ~location ~managed_instance_id ~name
+           ~partner_managed_instance_id
+           ~read_write_endpoint_failover_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id
+    ?readonly_endpoint_failover_policy_enabled ?timeouts ~location
+    ~managed_instance_id ~name ~partner_managed_instance_id
+    ~read_write_endpoint_failover_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?readonly_endpoint_failover_policy_enabled ?timeouts
+      ~location ~managed_instance_id ~name
+      ~partner_managed_instance_id
+      ~read_write_endpoint_failover_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

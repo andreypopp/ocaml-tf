@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,15 @@ val register :
   spacecraft_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  contact_profile_id:string prop ->
+  ground_station_name:string prop ->
+  name:string prop ->
+  reservation_end_time:string prop ->
+  reservation_start_time:string prop ->
+  spacecraft_id:string prop ->
+  string ->
+  t Tf_core.resource

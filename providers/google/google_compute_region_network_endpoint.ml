@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,30 +56,38 @@ type t = {
   region_network_endpoint_group : string prop;
 }
 
-let register ?tf_module ?fqdn ?id ?ip_address ?project ?region
-    ?timeouts ~port ~region_network_endpoint_group __resource_id =
-  let __resource_type = "google_compute_region_network_endpoint" in
-  let __resource =
-    google_compute_region_network_endpoint ?fqdn ?id ?ip_address
-      ?project ?region ?timeouts ~port ~region_network_endpoint_group
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_network_endpoint __resource);
-  let __resource_attributes =
+let make ?fqdn ?id ?ip_address ?project ?region ?timeouts ~port
+    ~region_network_endpoint_group __id =
+  let __type = "google_compute_region_network_endpoint" in
+  let __attrs =
     ({
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        region_network_endpoint_group =
-         Prop.computed __resource_type __resource_id
-           "region_network_endpoint_group";
+         Prop.computed __type __id "region_network_endpoint_group";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_network_endpoint
+        (google_compute_region_network_endpoint ?fqdn ?id ?ip_address
+           ?project ?region ?timeouts ~port
+           ~region_network_endpoint_group ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?fqdn ?id ?ip_address ?project ?region
+    ?timeouts ~port ~region_network_endpoint_group __id =
+  let (r : _ Tf_core.resource) =
+    make ?fqdn ?id ?ip_address ?project ?region ?timeouts ~port
+      ~region_network_endpoint_group __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,24 +34,32 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?id ?state ?timeouts ~policy
-    ~resource_identifier __resource_id =
-  let __resource_type = "aws_vpclattice_auth_policy" in
-  let __resource =
-    aws_vpclattice_auth_policy ?id ?state ?timeouts ~policy
-      ~resource_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_auth_policy __resource);
-  let __resource_attributes =
+let make ?id ?state ?timeouts ~policy ~resource_identifier __id =
+  let __type = "aws_vpclattice_auth_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
        resource_identifier =
-         Prop.computed __resource_type __resource_id
-           "resource_identifier";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "resource_identifier";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_auth_policy
+        (aws_vpclattice_auth_policy ?id ?state ?timeouts ~policy
+           ~resource_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?state ?timeouts ~policy
+    ~resource_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?state ?timeouts ~policy ~resource_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

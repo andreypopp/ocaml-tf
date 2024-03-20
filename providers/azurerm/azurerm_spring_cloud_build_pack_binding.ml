@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type launch = {
   properties : (string * string prop) list option; [@option]
@@ -58,25 +56,34 @@ type t = {
   spring_cloud_builder_id : string prop;
 }
 
-let register ?tf_module ?binding_type ?id ?timeouts ~name
-    ~spring_cloud_builder_id ~launch __resource_id =
-  let __resource_type = "azurerm_spring_cloud_build_pack_binding" in
-  let __resource =
-    azurerm_spring_cloud_build_pack_binding ?binding_type ?id
-      ?timeouts ~name ~spring_cloud_builder_id ~launch ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_build_pack_binding __resource);
-  let __resource_attributes =
+let make ?binding_type ?id ?timeouts ~name ~spring_cloud_builder_id
+    ~launch __id =
+  let __type = "azurerm_spring_cloud_build_pack_binding" in
+  let __attrs =
     ({
-       binding_type =
-         Prop.computed __resource_type __resource_id "binding_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       binding_type = Prop.computed __type __id "binding_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        spring_cloud_builder_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_builder_id";
+         Prop.computed __type __id "spring_cloud_builder_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_build_pack_binding
+        (azurerm_spring_cloud_build_pack_binding ?binding_type ?id
+           ?timeouts ~name ~spring_cloud_builder_id ~launch ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?binding_type ?id ?timeouts ~name
+    ~spring_cloud_builder_id ~launch __id =
+  let (r : _ Tf_core.resource) =
+    make ?binding_type ?id ?timeouts ~name ~spring_cloud_builder_id
+      ~launch __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

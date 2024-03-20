@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,13 @@ val register :
   root_directory:root_directory list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  file_system_id:string prop ->
+  posix_user:posix_user list ->
+  root_directory:root_directory list ->
+  string ->
+  t Tf_core.resource

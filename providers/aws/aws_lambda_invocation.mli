@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,14 @@ val register :
   input:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?lifecycle_scope:string prop ->
+  ?qualifier:string prop ->
+  ?terraform_key:string prop ->
+  ?triggers:(string * string prop) list ->
+  function_name:string prop ->
+  input:string prop ->
+  string ->
+  t Tf_core.resource

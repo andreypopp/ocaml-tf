@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_settings__audio_export_gcs_destination = {
   uri : string prop option; [@option]
@@ -204,57 +202,64 @@ type t = {
   time_zone : string prop;
 }
 
+let make ?avatar_uri ?description ?enable_spell_correction
+    ?enable_stackdriver_logging ?id ?project ?security_settings
+    ?supported_language_codes ?timeouts ~default_language_code
+    ~display_name ~location ~time_zone ~advanced_settings
+    ~git_integration_settings ~speech_to_text_settings
+    ~text_to_speech_settings __id =
+  let __type = "google_dialogflow_cx_agent" in
+  let __attrs =
+    ({
+       avatar_uri = Prop.computed __type __id "avatar_uri";
+       default_language_code =
+         Prop.computed __type __id "default_language_code";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enable_spell_correction =
+         Prop.computed __type __id "enable_spell_correction";
+       enable_stackdriver_logging =
+         Prop.computed __type __id "enable_stackdriver_logging";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       security_settings =
+         Prop.computed __type __id "security_settings";
+       start_flow = Prop.computed __type __id "start_flow";
+       supported_language_codes =
+         Prop.computed __type __id "supported_language_codes";
+       time_zone = Prop.computed __type __id "time_zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_agent
+        (google_dialogflow_cx_agent ?avatar_uri ?description
+           ?enable_spell_correction ?enable_stackdriver_logging ?id
+           ?project ?security_settings ?supported_language_codes
+           ?timeouts ~default_language_code ~display_name ~location
+           ~time_zone ~advanced_settings ~git_integration_settings
+           ~speech_to_text_settings ~text_to_speech_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?avatar_uri ?description
     ?enable_spell_correction ?enable_stackdriver_logging ?id ?project
     ?security_settings ?supported_language_codes ?timeouts
     ~default_language_code ~display_name ~location ~time_zone
     ~advanced_settings ~git_integration_settings
-    ~speech_to_text_settings ~text_to_speech_settings __resource_id =
-  let __resource_type = "google_dialogflow_cx_agent" in
-  let __resource =
-    google_dialogflow_cx_agent ?avatar_uri ?description
-      ?enable_spell_correction ?enable_stackdriver_logging ?id
-      ?project ?security_settings ?supported_language_codes ?timeouts
-      ~default_language_code ~display_name ~location ~time_zone
-      ~advanced_settings ~git_integration_settings
-      ~speech_to_text_settings ~text_to_speech_settings ()
+    ~speech_to_text_settings ~text_to_speech_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?avatar_uri ?description ?enable_spell_correction
+      ?enable_stackdriver_logging ?id ?project ?security_settings
+      ?supported_language_codes ?timeouts ~default_language_code
+      ~display_name ~location ~time_zone ~advanced_settings
+      ~git_integration_settings ~speech_to_text_settings
+      ~text_to_speech_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_agent __resource);
-  let __resource_attributes =
-    ({
-       avatar_uri =
-         Prop.computed __resource_type __resource_id "avatar_uri";
-       default_language_code =
-         Prop.computed __resource_type __resource_id
-           "default_language_code";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enable_spell_correction =
-         Prop.computed __resource_type __resource_id
-           "enable_spell_correction";
-       enable_stackdriver_logging =
-         Prop.computed __resource_type __resource_id
-           "enable_stackdriver_logging";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       security_settings =
-         Prop.computed __resource_type __resource_id
-           "security_settings";
-       start_flow =
-         Prop.computed __resource_type __resource_id "start_flow";
-       supported_language_codes =
-         Prop.computed __resource_type __resource_id
-           "supported_language_codes";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_scc_source_iam_policy = {
   id : string prop option; [@option]  (** id *)
@@ -25,25 +23,31 @@ type t = {
   source : string prop;
 }
 
-let register ?tf_module ?id ~organization ~policy_data ~source
-    __resource_id =
-  let __resource_type = "google_scc_source_iam_policy" in
-  let __resource =
-    google_scc_source_iam_policy ?id ~organization ~policy_data
-      ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_scc_source_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ~organization ~policy_data ~source __id =
+  let __type = "google_scc_source_iam_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       organization =
-         Prop.computed __resource_type __resource_id "organization";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
-       source = Prop.computed __resource_type __resource_id "source";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       organization = Prop.computed __type __id "organization";
+       policy_data = Prop.computed __type __id "policy_data";
+       source = Prop.computed __type __id "source";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_scc_source_iam_policy
+        (google_scc_source_iam_policy ?id ~organization ~policy_data
+           ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~organization ~policy_data ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~organization ~policy_data ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_subscription = {
   event : string prop;  (** event *)
@@ -53,32 +51,39 @@ type t = {
   target_arn : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~duration ~name
-    ~rules_package_arns ~target_arn ~event_subscription __resource_id
-    =
-  let __resource_type = "aws_inspector_assessment_template" in
-  let __resource =
-    aws_inspector_assessment_template ?id ?tags ?tags_all ~duration
-      ~name ~rules_package_arns ~target_arn ~event_subscription ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_inspector_assessment_template __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~duration ~name ~rules_package_arns
+    ~target_arn ~event_subscription __id =
+  let __type = "aws_inspector_assessment_template" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       duration =
-         Prop.computed __resource_type __resource_id "duration";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       duration = Prop.computed __type __id "duration";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        rules_package_arns =
-         Prop.computed __resource_type __resource_id
-           "rules_package_arns";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_arn =
-         Prop.computed __resource_type __resource_id "target_arn";
+         Prop.computed __type __id "rules_package_arns";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_arn = Prop.computed __type __id "target_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_inspector_assessment_template
+        (aws_inspector_assessment_template ?id ?tags ?tags_all
+           ~duration ~name ~rules_package_arns ~target_arn
+           ~event_subscription ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~duration ~name
+    ~rules_package_arns ~target_arn ~event_subscription __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~duration ~name ~rules_package_arns
+      ~target_arn ~event_subscription __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

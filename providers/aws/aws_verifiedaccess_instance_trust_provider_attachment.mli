@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -31,3 +31,10 @@ val register :
   verifiedaccess_trust_provider_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  verifiedaccess_instance_id:string prop ->
+  verifiedaccess_trust_provider_id:string prop ->
+  string ->
+  t Tf_core.resource

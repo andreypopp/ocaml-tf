@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -118,3 +118,27 @@ val register :
   listener:listener list ->
   string ->
   t
+
+val make :
+  ?availability_zones:string prop list ->
+  ?connection_draining:bool prop ->
+  ?connection_draining_timeout:float prop ->
+  ?cross_zone_load_balancing:bool prop ->
+  ?desync_mitigation_mode:string prop ->
+  ?id:string prop ->
+  ?idle_timeout:float prop ->
+  ?instances:string prop list ->
+  ?internal:bool prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?security_groups:string prop list ->
+  ?source_security_group:string prop ->
+  ?subnets:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  access_logs:access_logs list ->
+  health_check:health_check list ->
+  listener:listener list ->
+  string ->
+  t Tf_core.resource

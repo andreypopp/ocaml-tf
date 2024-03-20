@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -120,3 +120,25 @@ val register :
     stack_set_provisioning_preferences list ->
   string ->
   t
+
+val make :
+  ?accept_language:string prop ->
+  ?id:string prop ->
+  ?ignore_errors:bool prop ->
+  ?notification_arns:string prop list ->
+  ?path_id:string prop ->
+  ?path_name:string prop ->
+  ?product_id:string prop ->
+  ?product_name:string prop ->
+  ?provisioning_artifact_id:string prop ->
+  ?provisioning_artifact_name:string prop ->
+  ?retain_physical_resources:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  provisioning_parameters:provisioning_parameters list ->
+  stack_set_provisioning_preferences:
+    stack_set_provisioning_preferences list ->
+  string ->
+  t Tf_core.resource

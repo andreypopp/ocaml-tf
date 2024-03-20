@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type app_engine = {
   service : string prop option; [@option]
@@ -163,44 +161,47 @@ type t = {
   subnetwork : string prop;
 }
 
-let register ?tf_module ?description ?id ?network
-    ?network_endpoint_type ?project ?psc_target_service ?subnetwork
-    ?timeouts ~name ~region ~app_engine ~cloud_function ~cloud_run
-    __resource_id =
-  let __resource_type =
-    "google_compute_region_network_endpoint_group"
-  in
-  let __resource =
-    google_compute_region_network_endpoint_group ?description ?id
-      ?network ?network_endpoint_type ?project ?psc_target_service
-      ?subnetwork ?timeouts ~name ~region ~app_engine ~cloud_function
-      ~cloud_run ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_network_endpoint_group
-       __resource);
-  let __resource_attributes =
+let make ?description ?id ?network ?network_endpoint_type ?project
+    ?psc_target_service ?subnetwork ?timeouts ~name ~region
+    ~app_engine ~cloud_function ~cloud_run __id =
+  let __type = "google_compute_region_network_endpoint_group" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
        network_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "network_endpoint_type";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "network_endpoint_type";
+       project = Prop.computed __type __id "project";
        psc_target_service =
-         Prop.computed __resource_type __resource_id
-           "psc_target_service";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
+         Prop.computed __type __id "psc_target_service";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       subnetwork = Prop.computed __type __id "subnetwork";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_network_endpoint_group
+        (google_compute_region_network_endpoint_group ?description
+           ?id ?network ?network_endpoint_type ?project
+           ?psc_target_service ?subnetwork ?timeouts ~name ~region
+           ~app_engine ~cloud_function ~cloud_run ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?network
+    ?network_endpoint_type ?project ?psc_target_service ?subnetwork
+    ?timeouts ~name ~region ~app_engine ~cloud_function ~cloud_run
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?network ?network_endpoint_type ?project
+      ?psc_target_service ?subnetwork ?timeouts ~name ~region
+      ~app_engine ~cloud_function ~cloud_run __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

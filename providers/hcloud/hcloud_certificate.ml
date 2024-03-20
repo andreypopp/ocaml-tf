@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_certificate = {
   certificate : string prop;  (** certificate *)
@@ -33,37 +31,39 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?labels ~certificate ~name ~private_key
-    __resource_id =
-  let __resource_type = "hcloud_certificate" in
-  let __resource =
-    hcloud_certificate ?id ?labels ~certificate ~name ~private_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_certificate __resource);
-  let __resource_attributes =
+let make ?id ?labels ~certificate ~name ~private_key __id =
+  let __type = "hcloud_certificate" in
+  let __attrs =
     ({
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       domain_names =
-         Prop.computed __resource_type __resource_id "domain_names";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_valid_after =
-         Prop.computed __resource_type __resource_id
-           "not_valid_after";
+       certificate = Prop.computed __type __id "certificate";
+       created = Prop.computed __type __id "created";
+       domain_names = Prop.computed __type __id "domain_names";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       not_valid_after = Prop.computed __type __id "not_valid_after";
        not_valid_before =
-         Prop.computed __resource_type __resource_id
-           "not_valid_before";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "not_valid_before";
+       private_key = Prop.computed __type __id "private_key";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_certificate
+        (hcloud_certificate ?id ?labels ~certificate ~name
+           ~private_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ~certificate ~name ~private_key
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ~certificate ~name ~private_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

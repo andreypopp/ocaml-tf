@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpc_endpoint_connection_accepter = {
   id : string prop option; [@option]  (** id *)
@@ -25,28 +23,33 @@ type t = {
   vpc_endpoint_state : string prop;
 }
 
-let register ?tf_module ?id ~vpc_endpoint_id ~vpc_endpoint_service_id
-    __resource_id =
-  let __resource_type = "aws_vpc_endpoint_connection_accepter" in
-  let __resource =
-    aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
-      ~vpc_endpoint_service_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_endpoint_connection_accepter __resource);
-  let __resource_attributes =
+let make ?id ~vpc_endpoint_id ~vpc_endpoint_service_id __id =
+  let __type = "aws_vpc_endpoint_connection_accepter" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       vpc_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_id";
+       id = Prop.computed __type __id "id";
+       vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";
        vpc_endpoint_service_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_service_id";
+         Prop.computed __type __id "vpc_endpoint_service_id";
        vpc_endpoint_state =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_state";
+         Prop.computed __type __id "vpc_endpoint_state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_endpoint_connection_accepter
+        (aws_vpc_endpoint_connection_accepter ?id ~vpc_endpoint_id
+           ~vpc_endpoint_service_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~vpc_endpoint_id ~vpc_endpoint_service_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~vpc_endpoint_id ~vpc_endpoint_service_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type schedule__expiration = {
   duration_days : float prop option; [@option]
@@ -87,29 +85,37 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?id ?justification ?timeouts ~principal_id
-    ~role_definition_id ~scope ~schedule ~ticket __resource_id =
-  let __resource_type = "azurerm_pim_eligible_role_assignment" in
-  let __resource =
-    azurerm_pim_eligible_role_assignment ?id ?justification ?timeouts
-      ~principal_id ~role_definition_id ~scope ~schedule ~ticket ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_pim_eligible_role_assignment __resource);
-  let __resource_attributes =
+let make ?id ?justification ?timeouts ~principal_id
+    ~role_definition_id ~scope ~schedule ~ticket __id =
+  let __type = "azurerm_pim_eligible_role_assignment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       justification =
-         Prop.computed __resource_type __resource_id "justification";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
+       id = Prop.computed __type __id "id";
+       justification = Prop.computed __type __id "justification";
+       principal_id = Prop.computed __type __id "principal_id";
+       principal_type = Prop.computed __type __id "principal_type";
        role_definition_id =
-         Prop.computed __resource_type __resource_id
-           "role_definition_id";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "role_definition_id";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_pim_eligible_role_assignment
+        (azurerm_pim_eligible_role_assignment ?id ?justification
+           ?timeouts ~principal_id ~role_definition_id ~scope
+           ~schedule ~ticket ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?justification ?timeouts ~principal_id
+    ~role_definition_id ~scope ~schedule ~ticket __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?justification ?timeouts ~principal_id
+      ~role_definition_id ~scope ~schedule ~ticket __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,15 @@ val register :
   private_config:private_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  instance_id:string prop ->
+  location:string prop ->
+  private_config:private_config list ->
+  string ->
+  t Tf_core.resource

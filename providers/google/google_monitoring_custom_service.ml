@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type telemetry = {
   resource_name : string prop option; [@option]
@@ -69,28 +67,35 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?display_name ?id ?project ?service_id
-    ?user_labels ?timeouts ~telemetry __resource_id =
-  let __resource_type = "google_monitoring_custom_service" in
-  let __resource =
-    google_monitoring_custom_service ?display_name ?id ?project
-      ?service_id ?user_labels ?timeouts ~telemetry ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_custom_service __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?project ?service_id ?user_labels
+    ?timeouts ~telemetry __id =
+  let __type = "google_monitoring_custom_service" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service_id =
-         Prop.computed __resource_type __resource_id "service_id";
-       user_labels =
-         Prop.computed __resource_type __resource_id "user_labels";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       service_id = Prop.computed __type __id "service_id";
+       user_labels = Prop.computed __type __id "user_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_custom_service
+        (google_monitoring_custom_service ?display_name ?id ?project
+           ?service_id ?user_labels ?timeouts ~telemetry ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?project ?service_id
+    ?user_labels ?timeouts ~telemetry __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?project ?service_id ?user_labels
+      ?timeouts ~telemetry __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,14 @@ val register :
   voice_connector_id:string prop ->
   string ->
   t
+
+val make :
+  ?cps_limit:float prop ->
+  ?default_phone_number:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  calling_regions:string prop list ->
+  cidr_allow_list:string prop list ->
+  voice_connector_id:string prop ->
+  string ->
+  t Tf_core.resource

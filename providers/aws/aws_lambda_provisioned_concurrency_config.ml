@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,31 +43,37 @@ type t = {
   skip_destroy : bool prop;
 }
 
-let register ?tf_module ?id ?skip_destroy ?timeouts ~function_name
-    ~provisioned_concurrent_executions ~qualifier __resource_id =
-  let __resource_type =
-    "aws_lambda_provisioned_concurrency_config"
-  in
-  let __resource =
-    aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
-      ?timeouts ~function_name ~provisioned_concurrent_executions
-      ~qualifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_provisioned_concurrency_config __resource);
-  let __resource_attributes =
+let make ?id ?skip_destroy ?timeouts ~function_name
+    ~provisioned_concurrent_executions ~qualifier __id =
+  let __type = "aws_lambda_provisioned_concurrency_config" in
+  let __attrs =
     ({
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       function_name = Prop.computed __type __id "function_name";
+       id = Prop.computed __type __id "id";
        provisioned_concurrent_executions =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "provisioned_concurrent_executions";
-       qualifier =
-         Prop.computed __resource_type __resource_id "qualifier";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
+       qualifier = Prop.computed __type __id "qualifier";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_provisioned_concurrency_config
+        (aws_lambda_provisioned_concurrency_config ?id ?skip_destroy
+           ?timeouts ~function_name
+           ~provisioned_concurrent_executions ~qualifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?skip_destroy ?timeouts ~function_name
+    ~provisioned_concurrent_executions ~qualifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?skip_destroy ?timeouts ~function_name
+      ~provisioned_concurrent_executions ~qualifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

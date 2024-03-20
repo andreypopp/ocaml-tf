@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_imagebuilder_component = {
   change_description : string prop option; [@option]
@@ -66,50 +64,54 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?change_description ?data ?description ?id
-    ?kms_key_id ?skip_destroy ?supported_os_versions ?tags ?tags_all
-    ?uri ~name ~platform ~version __resource_id =
-  let __resource_type = "aws_imagebuilder_component" in
-  let __resource =
-    aws_imagebuilder_component ?change_description ?data ?description
-      ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags
-      ?tags_all ?uri ~name ~platform ~version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_component __resource);
-  let __resource_attributes =
+let make ?change_description ?data ?description ?id ?kms_key_id
+    ?skip_destroy ?supported_os_versions ?tags ?tags_all ?uri ~name
+    ~platform ~version __id =
+  let __type = "aws_imagebuilder_component" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        change_description =
-         Prop.computed __resource_type __resource_id
-           "change_description";
-       data = Prop.computed __resource_type __resource_id "data";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
+         Prop.computed __type __id "change_description";
+       data = Prop.computed __type __id "data";
+       date_created = Prop.computed __type __id "date_created";
+       description = Prop.computed __type __id "description";
+       encrypted = Prop.computed __type __id "encrypted";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
+       owner = Prop.computed __type __id "owner";
+       platform = Prop.computed __type __id "platform";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
        supported_os_versions =
-         Prop.computed __resource_type __resource_id
-           "supported_os_versions";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "supported_os_versions";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       uri = Prop.computed __type __id "uri";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_component
+        (aws_imagebuilder_component ?change_description ?data
+           ?description ?id ?kms_key_id ?skip_destroy
+           ?supported_os_versions ?tags ?tags_all ?uri ~name
+           ~platform ~version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?change_description ?data ?description ?id
+    ?kms_key_id ?skip_destroy ?supported_os_versions ?tags ?tags_all
+    ?uri ~name ~platform ~version __id =
+  let (r : _ Tf_core.resource) =
+    make ?change_description ?data ?description ?id ?kms_key_id
+      ?skip_destroy ?supported_os_versions ?tags ?tags_all ?uri ~name
+      ~platform ~version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

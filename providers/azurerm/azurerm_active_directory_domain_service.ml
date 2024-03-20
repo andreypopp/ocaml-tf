@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type initial_replica_set = {
   subnet_id : string prop;  (** subnet_id *)
@@ -152,50 +150,54 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?domain_configuration_type
-    ?filtered_sync_enabled ?id ?tags ?timeouts ~domain_name ~location
-    ~name ~resource_group_name ~sku ~initial_replica_set
-    ~notifications ~secure_ldap ~security __resource_id =
-  let __resource_type = "azurerm_active_directory_domain_service" in
-  let __resource =
-    azurerm_active_directory_domain_service
-      ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
-      ?timeouts ~domain_name ~location ~name ~resource_group_name
-      ~sku ~initial_replica_set ~notifications ~secure_ldap ~security
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_active_directory_domain_service __resource);
-  let __resource_attributes =
+let make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
+    ?timeouts ~domain_name ~location ~name ~resource_group_name ~sku
+    ~initial_replica_set ~notifications ~secure_ldap ~security __id =
+  let __type = "azurerm_active_directory_domain_service" in
+  let __attrs =
     ({
-       deployment_id =
-         Prop.computed __resource_type __resource_id "deployment_id";
+       deployment_id = Prop.computed __type __id "deployment_id";
        domain_configuration_type =
-         Prop.computed __resource_type __resource_id
-           "domain_configuration_type";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
+         Prop.computed __type __id "domain_configuration_type";
+       domain_name = Prop.computed __type __id "domain_name";
        filtered_sync_enabled =
-         Prop.computed __resource_type __resource_id
-           "filtered_sync_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "filtered_sync_enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       sync_owner =
-         Prop.computed __resource_type __resource_id "sync_owner";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "resource_group_name";
+       resource_id = Prop.computed __type __id "resource_id";
+       sku = Prop.computed __type __id "sku";
+       sync_owner = Prop.computed __type __id "sync_owner";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_active_directory_domain_service
+        (azurerm_active_directory_domain_service
+           ?domain_configuration_type ?filtered_sync_enabled ?id
+           ?tags ?timeouts ~domain_name ~location ~name
+           ~resource_group_name ~sku ~initial_replica_set
+           ~notifications ~secure_ldap ~security ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?domain_configuration_type
+    ?filtered_sync_enabled ?id ?tags ?timeouts ~domain_name ~location
+    ~name ~resource_group_name ~sku ~initial_replica_set
+    ~notifications ~secure_ldap ~security __id =
+  let (r : _ Tf_core.resource) =
+    make ?domain_configuration_type ?filtered_sync_enabled ?id ?tags
+      ?timeouts ~domain_name ~location ~name ~resource_group_name
+      ~sku ~initial_replica_set ~notifications ~secure_ldap ~security
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

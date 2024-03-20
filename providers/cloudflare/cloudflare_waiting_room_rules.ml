@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rules = {
   action : string prop;
@@ -41,24 +39,29 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ~waiting_room_id ~zone_id ~rules
-    __resource_id =
-  let __resource_type = "cloudflare_waiting_room_rules" in
-  let __resource =
-    cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
-      ~rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_waiting_room_rules __resource);
-  let __resource_attributes =
+let make ?id ~waiting_room_id ~zone_id ~rules __id =
+  let __type = "cloudflare_waiting_room_rules" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       waiting_room_id =
-         Prop.computed __resource_type __resource_id
-           "waiting_room_id";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       id = Prop.computed __type __id "id";
+       waiting_room_id = Prop.computed __type __id "waiting_room_id";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_waiting_room_rules
+        (cloudflare_waiting_room_rules ?id ~waiting_room_id ~zone_id
+           ~rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~waiting_room_id ~zone_id ~rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~waiting_room_id ~zone_id ~rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

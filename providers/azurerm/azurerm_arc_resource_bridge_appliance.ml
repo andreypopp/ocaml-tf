@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -67,35 +65,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?public_key_base64 ?tags ?timeouts
-    ~distro ~infrastructure_provider ~location ~name
-    ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_arc_resource_bridge_appliance" in
-  let __resource =
-    azurerm_arc_resource_bridge_appliance ?id ?public_key_base64
-      ?tags ?timeouts ~distro ~infrastructure_provider ~location
-      ~name ~resource_group_name ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_arc_resource_bridge_appliance __resource);
-  let __resource_attributes =
+let make ?id ?public_key_base64 ?tags ?timeouts ~distro
+    ~infrastructure_provider ~location ~name ~resource_group_name
+    ~identity __id =
+  let __type = "azurerm_arc_resource_bridge_appliance" in
+  let __attrs =
     ({
-       distro = Prop.computed __resource_type __resource_id "distro";
-       id = Prop.computed __resource_type __resource_id "id";
+       distro = Prop.computed __type __id "distro";
+       id = Prop.computed __type __id "id";
        infrastructure_provider =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_provider";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "infrastructure_provider";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        public_key_base64 =
-         Prop.computed __resource_type __resource_id
-           "public_key_base64";
+         Prop.computed __type __id "public_key_base64";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_arc_resource_bridge_appliance
+        (azurerm_arc_resource_bridge_appliance ?id ?public_key_base64
+           ?tags ?timeouts ~distro ~infrastructure_provider ~location
+           ~name ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?public_key_base64 ?tags ?timeouts
+    ~distro ~infrastructure_provider ~location ~name
+    ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?public_key_base64 ?tags ?timeouts ~distro
+      ~infrastructure_provider ~location ~name ~resource_group_name
+      ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

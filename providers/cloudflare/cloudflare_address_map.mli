@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,14 @@ val register :
   memberships:memberships list ->
   string ->
   t
+
+val make :
+  ?default_sni:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  enabled:bool prop ->
+  ips:ips list ->
+  memberships:memberships list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -65,41 +63,46 @@ type t = {
   vpc_endpoint_id : string prop;
 }
 
-let register ?tf_module ?activation_key ?id ?ip_address ?name
-    ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
-    ?tags_all ?vpc_endpoint_id ?timeouts __resource_id =
-  let __resource_type = "aws_datasync_agent" in
-  let __resource =
-    aws_datasync_agent ?activation_key ?id ?ip_address ?name
-      ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
-      ?tags_all ?vpc_endpoint_id ?timeouts ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_agent __resource);
-  let __resource_attributes =
+let make ?activation_key ?id ?ip_address ?name ?private_link_endpoint
+    ?security_group_arns ?subnet_arns ?tags ?tags_all
+    ?vpc_endpoint_id ?timeouts __id =
+  let __type = "aws_datasync_agent" in
+  let __attrs =
     ({
-       activation_key =
-         Prop.computed __resource_type __resource_id "activation_key";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       name = Prop.computed __resource_type __resource_id "name";
+       activation_key = Prop.computed __type __id "activation_key";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       name = Prop.computed __type __id "name";
        private_link_endpoint =
-         Prop.computed __resource_type __resource_id
-           "private_link_endpoint";
+         Prop.computed __type __id "private_link_endpoint";
        security_group_arns =
-         Prop.computed __resource_type __resource_id
-           "security_group_arns";
-       subnet_arns =
-         Prop.computed __resource_type __resource_id "subnet_arns";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_id";
+         Prop.computed __type __id "security_group_arns";
+       subnet_arns = Prop.computed __type __id "subnet_arns";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_agent
+        (aws_datasync_agent ?activation_key ?id ?ip_address ?name
+           ?private_link_endpoint ?security_group_arns ?subnet_arns
+           ?tags ?tags_all ?vpc_endpoint_id ?timeouts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?activation_key ?id ?ip_address ?name
+    ?private_link_endpoint ?security_group_arns ?subnet_arns ?tags
+    ?tags_all ?vpc_endpoint_id ?timeouts __id =
+  let (r : _ Tf_core.resource) =
+    make ?activation_key ?id ?ip_address ?name ?private_link_endpoint
+      ?security_group_arns ?subnet_arns ?tags ?tags_all
+      ?vpc_endpoint_id ?timeouts __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssm_maintenance_window = {
   allow_unassociated_targets : bool prop option; [@option]
@@ -65,49 +63,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?allow_unassociated_targets ?description
-    ?enabled ?end_date ?id ?schedule_offset ?schedule_timezone
-    ?start_date ?tags ?tags_all ~cutoff ~duration ~name ~schedule
-    __resource_id =
-  let __resource_type = "aws_ssm_maintenance_window" in
-  let __resource =
-    aws_ssm_maintenance_window ?allow_unassociated_targets
-      ?description ?enabled ?end_date ?id ?schedule_offset
-      ?schedule_timezone ?start_date ?tags ?tags_all ~cutoff
-      ~duration ~name ~schedule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_maintenance_window __resource);
-  let __resource_attributes =
+let make ?allow_unassociated_targets ?description ?enabled ?end_date
+    ?id ?schedule_offset ?schedule_timezone ?start_date ?tags
+    ?tags_all ~cutoff ~duration ~name ~schedule __id =
+  let __type = "aws_ssm_maintenance_window" in
+  let __attrs =
     ({
        allow_unassociated_targets =
-         Prop.computed __resource_type __resource_id
-           "allow_unassociated_targets";
-       cutoff = Prop.computed __resource_type __resource_id "cutoff";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       duration =
-         Prop.computed __resource_type __resource_id "duration";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       end_date =
-         Prop.computed __resource_type __resource_id "end_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
-       schedule_offset =
-         Prop.computed __resource_type __resource_id
-           "schedule_offset";
+         Prop.computed __type __id "allow_unassociated_targets";
+       cutoff = Prop.computed __type __id "cutoff";
+       description = Prop.computed __type __id "description";
+       duration = Prop.computed __type __id "duration";
+       enabled = Prop.computed __type __id "enabled";
+       end_date = Prop.computed __type __id "end_date";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       schedule = Prop.computed __type __id "schedule";
+       schedule_offset = Prop.computed __type __id "schedule_offset";
        schedule_timezone =
-         Prop.computed __resource_type __resource_id
-           "schedule_timezone";
-       start_date =
-         Prop.computed __resource_type __resource_id "start_date";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "schedule_timezone";
+       start_date = Prop.computed __type __id "start_date";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_maintenance_window
+        (aws_ssm_maintenance_window ?allow_unassociated_targets
+           ?description ?enabled ?end_date ?id ?schedule_offset
+           ?schedule_timezone ?start_date ?tags ?tags_all ~cutoff
+           ~duration ~name ~schedule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_unassociated_targets ?description
+    ?enabled ?end_date ?id ?schedule_offset ?schedule_timezone
+    ?start_date ?tags ?tags_all ~cutoff ~duration ~name ~schedule
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_unassociated_targets ?description ?enabled ?end_date
+      ?id ?schedule_offset ?schedule_timezone ?start_date ?tags
+      ?tags_all ~cutoff ~duration ~name ~schedule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

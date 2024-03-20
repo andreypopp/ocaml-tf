@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type external_reference = {
   description : string prop option; [@option]  (** description *)
@@ -155,83 +153,75 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?confidence ?created_by ?description ?extension ?id
+    ?language ?object_marking_refs ?pattern_version ?revoked ?tags
+    ?threat_types ?validate_until_utc ?timeouts ~display_name
+    ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
+    ~external_reference ~granular_marking ~kill_chain_phase __id =
+  let __type = "azurerm_sentinel_threat_intelligence_indicator" in
+  let __attrs =
+    ({
+       confidence = Prop.computed __type __id "confidence";
+       created_by = Prop.computed __type __id "created_by";
+       created_on = Prop.computed __type __id "created_on";
+       defanged = Prop.computed __type __id "defanged";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       extension = Prop.computed __type __id "extension";
+       external_id = Prop.computed __type __id "external_id";
+       external_last_updated_time_utc =
+         Prop.computed __type __id "external_last_updated_time_utc";
+       guid = Prop.computed __type __id "guid";
+       id = Prop.computed __type __id "id";
+       indicator_type = Prop.computed __type __id "indicator_type";
+       language = Prop.computed __type __id "language";
+       last_updated_time_utc =
+         Prop.computed __type __id "last_updated_time_utc";
+       object_marking_refs =
+         Prop.computed __type __id "object_marking_refs";
+       parsed_pattern = Prop.computed __type __id "parsed_pattern";
+       pattern = Prop.computed __type __id "pattern";
+       pattern_type = Prop.computed __type __id "pattern_type";
+       pattern_version = Prop.computed __type __id "pattern_version";
+       revoked = Prop.computed __type __id "revoked";
+       source = Prop.computed __type __id "source";
+       tags = Prop.computed __type __id "tags";
+       threat_types = Prop.computed __type __id "threat_types";
+       validate_from_utc =
+         Prop.computed __type __id "validate_from_utc";
+       validate_until_utc =
+         Prop.computed __type __id "validate_until_utc";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_threat_intelligence_indicator
+        (azurerm_sentinel_threat_intelligence_indicator ?confidence
+           ?created_by ?description ?extension ?id ?language
+           ?object_marking_refs ?pattern_version ?revoked ?tags
+           ?threat_types ?validate_until_utc ?timeouts ~display_name
+           ~pattern ~pattern_type ~source ~validate_from_utc
+           ~workspace_id ~external_reference ~granular_marking
+           ~kill_chain_phase ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?confidence ?created_by ?description
     ?extension ?id ?language ?object_marking_refs ?pattern_version
     ?revoked ?tags ?threat_types ?validate_until_utc ?timeouts
     ~display_name ~pattern ~pattern_type ~source ~validate_from_utc
     ~workspace_id ~external_reference ~granular_marking
-    ~kill_chain_phase __resource_id =
-  let __resource_type =
-    "azurerm_sentinel_threat_intelligence_indicator"
-  in
-  let __resource =
-    azurerm_sentinel_threat_intelligence_indicator ?confidence
-      ?created_by ?description ?extension ?id ?language
-      ?object_marking_refs ?pattern_version ?revoked ?tags
+    ~kill_chain_phase __id =
+  let (r : _ Tf_core.resource) =
+    make ?confidence ?created_by ?description ?extension ?id
+      ?language ?object_marking_refs ?pattern_version ?revoked ?tags
       ?threat_types ?validate_until_utc ?timeouts ~display_name
       ~pattern ~pattern_type ~source ~validate_from_utc ~workspace_id
-      ~external_reference ~granular_marking ~kill_chain_phase ()
+      ~external_reference ~granular_marking ~kill_chain_phase __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_threat_intelligence_indicator
-       __resource);
-  let __resource_attributes =
-    ({
-       confidence =
-         Prop.computed __resource_type __resource_id "confidence";
-       created_by =
-         Prop.computed __resource_type __resource_id "created_by";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       defanged =
-         Prop.computed __resource_type __resource_id "defanged";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       extension =
-         Prop.computed __resource_type __resource_id "extension";
-       external_id =
-         Prop.computed __resource_type __resource_id "external_id";
-       external_last_updated_time_utc =
-         Prop.computed __resource_type __resource_id
-           "external_last_updated_time_utc";
-       guid = Prop.computed __resource_type __resource_id "guid";
-       id = Prop.computed __resource_type __resource_id "id";
-       indicator_type =
-         Prop.computed __resource_type __resource_id "indicator_type";
-       language =
-         Prop.computed __resource_type __resource_id "language";
-       last_updated_time_utc =
-         Prop.computed __resource_type __resource_id
-           "last_updated_time_utc";
-       object_marking_refs =
-         Prop.computed __resource_type __resource_id
-           "object_marking_refs";
-       parsed_pattern =
-         Prop.computed __resource_type __resource_id "parsed_pattern";
-       pattern =
-         Prop.computed __resource_type __resource_id "pattern";
-       pattern_type =
-         Prop.computed __resource_type __resource_id "pattern_type";
-       pattern_version =
-         Prop.computed __resource_type __resource_id
-           "pattern_version";
-       revoked =
-         Prop.computed __resource_type __resource_id "revoked";
-       source = Prop.computed __resource_type __resource_id "source";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       threat_types =
-         Prop.computed __resource_type __resource_id "threat_types";
-       validate_from_utc =
-         Prop.computed __resource_type __resource_id
-           "validate_from_utc";
-       validate_until_utc =
-         Prop.computed __resource_type __resource_id
-           "validate_until_utc";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

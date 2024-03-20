@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,13 @@ val register :
   provisioned_model_name:string prop ->
   string ->
   t
+
+val make :
+  ?commitment_duration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  model_arn:string prop ->
+  model_units:float prop ->
+  provisioned_model_name:string prop ->
+  string ->
+  t Tf_core.resource

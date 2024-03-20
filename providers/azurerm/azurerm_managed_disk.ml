@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_settings__disk_encryption_key = {
   secret_url : string prop;  (** secret_url *)
@@ -205,6 +203,103 @@ type t = {
   zone : string prop;
 }
 
+let make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
+    ?disk_iops_read_write ?disk_mbps_read_only ?disk_mbps_read_write
+    ?disk_size_gb ?edge_zone ?gallery_image_reference_id
+    ?hyper_v_generation ?id ?image_reference_id ?logical_sector_size
+    ?max_shares ?network_access_policy ?on_demand_bursting_enabled
+    ?optimized_frequent_attach_enabled ?os_type
+    ?performance_plus_enabled ?public_network_access_enabled
+    ?secure_vm_disk_encryption_set_id ?security_type
+    ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
+    ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
+    ~create_option ~location ~name ~resource_group_name
+    ~storage_account_type ~encryption_settings __id =
+  let __type = "azurerm_managed_disk" in
+  let __attrs =
+    ({
+       create_option = Prop.computed __type __id "create_option";
+       disk_access_id = Prop.computed __type __id "disk_access_id";
+       disk_encryption_set_id =
+         Prop.computed __type __id "disk_encryption_set_id";
+       disk_iops_read_only =
+         Prop.computed __type __id "disk_iops_read_only";
+       disk_iops_read_write =
+         Prop.computed __type __id "disk_iops_read_write";
+       disk_mbps_read_only =
+         Prop.computed __type __id "disk_mbps_read_only";
+       disk_mbps_read_write =
+         Prop.computed __type __id "disk_mbps_read_write";
+       disk_size_gb = Prop.computed __type __id "disk_size_gb";
+       edge_zone = Prop.computed __type __id "edge_zone";
+       gallery_image_reference_id =
+         Prop.computed __type __id "gallery_image_reference_id";
+       hyper_v_generation =
+         Prop.computed __type __id "hyper_v_generation";
+       id = Prop.computed __type __id "id";
+       image_reference_id =
+         Prop.computed __type __id "image_reference_id";
+       location = Prop.computed __type __id "location";
+       logical_sector_size =
+         Prop.computed __type __id "logical_sector_size";
+       max_shares = Prop.computed __type __id "max_shares";
+       name = Prop.computed __type __id "name";
+       network_access_policy =
+         Prop.computed __type __id "network_access_policy";
+       on_demand_bursting_enabled =
+         Prop.computed __type __id "on_demand_bursting_enabled";
+       optimized_frequent_attach_enabled =
+         Prop.computed __type __id
+           "optimized_frequent_attach_enabled";
+       os_type = Prop.computed __type __id "os_type";
+       performance_plus_enabled =
+         Prop.computed __type __id "performance_plus_enabled";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secure_vm_disk_encryption_set_id =
+         Prop.computed __type __id "secure_vm_disk_encryption_set_id";
+       security_type = Prop.computed __type __id "security_type";
+       source_resource_id =
+         Prop.computed __type __id "source_resource_id";
+       source_uri = Prop.computed __type __id "source_uri";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+       storage_account_type =
+         Prop.computed __type __id "storage_account_type";
+       tags = Prop.computed __type __id "tags";
+       tier = Prop.computed __type __id "tier";
+       trusted_launch_enabled =
+         Prop.computed __type __id "trusted_launch_enabled";
+       upload_size_bytes =
+         Prop.computed __type __id "upload_size_bytes";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_managed_disk
+        (azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
+           ?disk_iops_read_only ?disk_iops_read_write
+           ?disk_mbps_read_only ?disk_mbps_read_write ?disk_size_gb
+           ?edge_zone ?gallery_image_reference_id ?hyper_v_generation
+           ?id ?image_reference_id ?logical_sector_size ?max_shares
+           ?network_access_policy ?on_demand_bursting_enabled
+           ?optimized_frequent_attach_enabled ?os_type
+           ?performance_plus_enabled ?public_network_access_enabled
+           ?secure_vm_disk_encryption_set_id ?security_type
+           ?source_resource_id ?source_uri ?storage_account_id ?tags
+           ?tier ?trusted_launch_enabled ?upload_size_bytes ?zone
+           ?timeouts ~create_option ~location ~name
+           ~resource_group_name ~storage_account_type
+           ~encryption_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?disk_access_id ?disk_encryption_set_id
     ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
     ?disk_mbps_read_write ?disk_size_gb ?edge_zone
@@ -217,11 +312,10 @@ let register ?tf_module ?disk_access_id ?disk_encryption_set_id
     ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
     ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
     ~create_option ~location ~name ~resource_group_name
-    ~storage_account_type ~encryption_settings __resource_id =
-  let __resource_type = "azurerm_managed_disk" in
-  let __resource =
-    azurerm_managed_disk ?disk_access_id ?disk_encryption_set_id
-      ?disk_iops_read_only ?disk_iops_read_write ?disk_mbps_read_only
+    ~storage_account_type ~encryption_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?disk_access_id ?disk_encryption_set_id ?disk_iops_read_only
+      ?disk_iops_read_write ?disk_mbps_read_only
       ?disk_mbps_read_write ?disk_size_gb ?edge_zone
       ?gallery_image_reference_id ?hyper_v_generation ?id
       ?image_reference_id ?logical_sector_size ?max_shares
@@ -232,99 +326,7 @@ let register ?tf_module ?disk_access_id ?disk_encryption_set_id
       ?source_resource_id ?source_uri ?storage_account_id ?tags ?tier
       ?trusted_launch_enabled ?upload_size_bytes ?zone ?timeouts
       ~create_option ~location ~name ~resource_group_name
-      ~storage_account_type ~encryption_settings ()
+      ~storage_account_type ~encryption_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_managed_disk __resource);
-  let __resource_attributes =
-    ({
-       create_option =
-         Prop.computed __resource_type __resource_id "create_option";
-       disk_access_id =
-         Prop.computed __resource_type __resource_id "disk_access_id";
-       disk_encryption_set_id =
-         Prop.computed __resource_type __resource_id
-           "disk_encryption_set_id";
-       disk_iops_read_only =
-         Prop.computed __resource_type __resource_id
-           "disk_iops_read_only";
-       disk_iops_read_write =
-         Prop.computed __resource_type __resource_id
-           "disk_iops_read_write";
-       disk_mbps_read_only =
-         Prop.computed __resource_type __resource_id
-           "disk_mbps_read_only";
-       disk_mbps_read_write =
-         Prop.computed __resource_type __resource_id
-           "disk_mbps_read_write";
-       disk_size_gb =
-         Prop.computed __resource_type __resource_id "disk_size_gb";
-       edge_zone =
-         Prop.computed __resource_type __resource_id "edge_zone";
-       gallery_image_reference_id =
-         Prop.computed __resource_type __resource_id
-           "gallery_image_reference_id";
-       hyper_v_generation =
-         Prop.computed __resource_type __resource_id
-           "hyper_v_generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_reference_id =
-         Prop.computed __resource_type __resource_id
-           "image_reference_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       logical_sector_size =
-         Prop.computed __resource_type __resource_id
-           "logical_sector_size";
-       max_shares =
-         Prop.computed __resource_type __resource_id "max_shares";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_access_policy =
-         Prop.computed __resource_type __resource_id
-           "network_access_policy";
-       on_demand_bursting_enabled =
-         Prop.computed __resource_type __resource_id
-           "on_demand_bursting_enabled";
-       optimized_frequent_attach_enabled =
-         Prop.computed __resource_type __resource_id
-           "optimized_frequent_attach_enabled";
-       os_type =
-         Prop.computed __resource_type __resource_id "os_type";
-       performance_plus_enabled =
-         Prop.computed __resource_type __resource_id
-           "performance_plus_enabled";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secure_vm_disk_encryption_set_id =
-         Prop.computed __resource_type __resource_id
-           "secure_vm_disk_encryption_set_id";
-       security_type =
-         Prop.computed __resource_type __resource_id "security_type";
-       source_resource_id =
-         Prop.computed __resource_type __resource_id
-           "source_resource_id";
-       source_uri =
-         Prop.computed __resource_type __resource_id "source_uri";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       storage_account_type =
-         Prop.computed __resource_type __resource_id
-           "storage_account_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       trusted_launch_enabled =
-         Prop.computed __resource_type __resource_id
-           "trusted_launch_enabled";
-       upload_size_bytes =
-         Prop.computed __resource_type __resource_id
-           "upload_size_bytes";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

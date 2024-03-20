@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type key_vault_password = {
   linked_service_name : string prop;  (** linked_service_name *)
@@ -92,53 +90,57 @@ type t = {
   user_id : string prop;
 }
 
-let register ?tf_module ?additional_properties ?annotations
-    ?description ?file_share ?host ?id ?integration_runtime_name
-    ?parameters ?password ?user_id ?timeouts ~connection_string
-    ~data_factory_id ~name ~key_vault_password __resource_id =
-  let __resource_type =
+let make ?additional_properties ?annotations ?description ?file_share
+    ?host ?id ?integration_runtime_name ?parameters ?password
+    ?user_id ?timeouts ~connection_string ~data_factory_id ~name
+    ~key_vault_password __id =
+  let __type =
     "azurerm_data_factory_linked_service_azure_file_storage"
   in
-  let __resource =
-    azurerm_data_factory_linked_service_azure_file_storage
-      ?additional_properties ?annotations ?description ?file_share
-      ?host ?id ?integration_runtime_name ?parameters ?password
-      ?user_id ?timeouts ~connection_string ~data_factory_id ~name
-      ~key_vault_password ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_linked_service_azure_file_storage
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
        connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       file_share =
-         Prop.computed __resource_type __resource_id "file_share";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "connection_string";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       file_share = Prop.computed __type __id "file_share";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
        integration_runtime_name =
-         Prop.computed __resource_type __resource_id
-           "integration_runtime_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
+         Prop.computed __type __id "integration_runtime_name";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       password = Prop.computed __type __id "password";
+       user_id = Prop.computed __type __id "user_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_linked_service_azure_file_storage
+        (azurerm_data_factory_linked_service_azure_file_storage
+           ?additional_properties ?annotations ?description
+           ?file_share ?host ?id ?integration_runtime_name
+           ?parameters ?password ?user_id ?timeouts
+           ~connection_string ~data_factory_id ~name
+           ~key_vault_password ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?file_share ?host ?id ?integration_runtime_name
+    ?parameters ?password ?user_id ?timeouts ~connection_string
+    ~data_factory_id ~name ~key_vault_password __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?description ?file_share
+      ?host ?id ?integration_runtime_name ?parameters ?password
+      ?user_id ?timeouts ~connection_string ~data_factory_id ~name
+      ~key_vault_password __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

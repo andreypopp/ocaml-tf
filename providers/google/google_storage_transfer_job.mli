@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -217,3 +217,16 @@ val register :
   transfer_spec:transfer_spec list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?status:string prop ->
+  description:string prop ->
+  event_stream:event_stream list ->
+  notification_config:notification_config list ->
+  schedule:schedule list ->
+  transfer_spec:transfer_spec list ->
+  string ->
+  t Tf_core.resource

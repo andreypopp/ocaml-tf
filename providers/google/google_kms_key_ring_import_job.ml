@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,36 +62,40 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~import_job_id ~import_method
-    ~key_ring ~protection_level __resource_id =
-  let __resource_type = "google_kms_key_ring_import_job" in
-  let __resource =
-    google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
-      ~import_method ~key_ring ~protection_level ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_kms_key_ring_import_job __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~import_job_id ~import_method ~key_ring
+    ~protection_level __id =
+  let __type = "google_kms_key_ring_import_job" in
+  let __attrs =
     ({
-       attestation =
-         Prop.computed __resource_type __resource_id "attestation";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       import_job_id =
-         Prop.computed __resource_type __resource_id "import_job_id";
-       import_method =
-         Prop.computed __resource_type __resource_id "import_method";
-       key_ring =
-         Prop.computed __resource_type __resource_id "key_ring";
-       name = Prop.computed __resource_type __resource_id "name";
+       attestation = Prop.computed __type __id "attestation";
+       expire_time = Prop.computed __type __id "expire_time";
+       id = Prop.computed __type __id "id";
+       import_job_id = Prop.computed __type __id "import_job_id";
+       import_method = Prop.computed __type __id "import_method";
+       key_ring = Prop.computed __type __id "key_ring";
+       name = Prop.computed __type __id "name";
        protection_level =
-         Prop.computed __resource_type __resource_id
-           "protection_level";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "protection_level";
+       public_key = Prop.computed __type __id "public_key";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_kms_key_ring_import_job
+        (google_kms_key_ring_import_job ?id ?timeouts ~import_job_id
+           ~import_method ~key_ring ~protection_level ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~import_job_id ~import_method
+    ~key_ring ~protection_level __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~import_job_id ~import_method ~key_ring
+      ~protection_level __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

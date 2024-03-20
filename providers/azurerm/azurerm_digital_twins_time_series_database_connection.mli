@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,19 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?eventhub_consumer_group_name:string prop ->
+  ?id:string prop ->
+  ?kusto_table_name:string prop ->
+  ?timeouts:timeouts ->
+  digital_twins_id:string prop ->
+  eventhub_name:string prop ->
+  eventhub_namespace_endpoint_uri:string prop ->
+  eventhub_namespace_id:string prop ->
+  kusto_cluster_id:string prop ->
+  kusto_cluster_uri:string prop ->
+  kusto_database_name:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sesv2_email_identity_policy = {
   email_identity : string prop;  (** email_identity *)
@@ -24,24 +22,31 @@ type t = {
   policy_name : string prop;
 }
 
-let register ?tf_module ?id ~email_identity ~policy ~policy_name
-    __resource_id =
-  let __resource_type = "aws_sesv2_email_identity_policy" in
-  let __resource =
-    aws_sesv2_email_identity_policy ?id ~email_identity ~policy
-      ~policy_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_email_identity_policy __resource);
-  let __resource_attributes =
+let make ?id ~email_identity ~policy ~policy_name __id =
+  let __type = "aws_sesv2_email_identity_policy" in
+  let __attrs =
     ({
-       email_identity =
-         Prop.computed __resource_type __resource_id "email_identity";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       policy_name =
-         Prop.computed __resource_type __resource_id "policy_name";
+       email_identity = Prop.computed __type __id "email_identity";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       policy_name = Prop.computed __type __id "policy_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_email_identity_policy
+        (aws_sesv2_email_identity_policy ?id ~email_identity ~policy
+           ~policy_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~email_identity ~policy ~policy_name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ~email_identity ~policy ~policy_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

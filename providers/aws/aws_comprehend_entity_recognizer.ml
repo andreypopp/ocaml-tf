@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input_data_config__annotations = {
   s3_uri : string prop;  (** s3_uri *)
@@ -172,44 +170,52 @@ type t = {
   volume_kms_key_id : string prop;
 }
 
-let register ?tf_module ?id ?model_kms_key_id ?tags ?tags_all
-    ?version_name ?version_name_prefix ?volume_kms_key_id ?timeouts
+let make ?id ?model_kms_key_id ?tags ?tags_all ?version_name
+    ?version_name_prefix ?volume_kms_key_id ?timeouts
     ~data_access_role_arn ~language_code ~name ~input_data_config
-    ~vpc_config __resource_id =
-  let __resource_type = "aws_comprehend_entity_recognizer" in
-  let __resource =
-    aws_comprehend_entity_recognizer ?id ?model_kms_key_id ?tags
-      ?tags_all ?version_name ?version_name_prefix ?volume_kms_key_id
-      ?timeouts ~data_access_role_arn ~language_code ~name
-      ~input_data_config ~vpc_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_comprehend_entity_recognizer __resource);
-  let __resource_attributes =
+    ~vpc_config __id =
+  let __type = "aws_comprehend_entity_recognizer" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        data_access_role_arn =
-         Prop.computed __resource_type __resource_id
-           "data_access_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
+         Prop.computed __type __id "data_access_role_arn";
+       id = Prop.computed __type __id "id";
+       language_code = Prop.computed __type __id "language_code";
        model_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "model_kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version_name =
-         Prop.computed __resource_type __resource_id "version_name";
+         Prop.computed __type __id "model_kms_key_id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version_name = Prop.computed __type __id "version_name";
        version_name_prefix =
-         Prop.computed __resource_type __resource_id
-           "version_name_prefix";
+         Prop.computed __type __id "version_name_prefix";
        volume_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "volume_kms_key_id";
+         Prop.computed __type __id "volume_kms_key_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_comprehend_entity_recognizer
+        (aws_comprehend_entity_recognizer ?id ?model_kms_key_id ?tags
+           ?tags_all ?version_name ?version_name_prefix
+           ?volume_kms_key_id ?timeouts ~data_access_role_arn
+           ~language_code ~name ~input_data_config ~vpc_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?model_kms_key_id ?tags ?tags_all
+    ?version_name ?version_name_prefix ?volume_kms_key_id ?timeouts
+    ~data_access_role_arn ~language_code ~name ~input_data_config
+    ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?model_kms_key_id ?tags ?tags_all ?version_name
+      ?version_name_prefix ?volume_kms_key_id ?timeouts
+      ~data_access_role_arn ~language_code ~name ~input_data_config
+      ~vpc_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

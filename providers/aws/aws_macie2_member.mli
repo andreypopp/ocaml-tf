@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   email:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?invitation_disable_email_notification:bool prop ->
+  ?invitation_message:string prop ->
+  ?invite:bool prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  email:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,27 @@ val register :
   sticky_sessions:sticky_sessions list ->
   string ->
   t
+
+val make :
+  ?algorithm:string prop ->
+  ?disable_lets_encrypt_dns_records:bool prop ->
+  ?droplet_ids:float prop list ->
+  ?droplet_tag:string prop ->
+  ?enable_backend_keepalive:bool prop ->
+  ?enable_proxy_protocol:bool prop ->
+  ?http_idle_timeout_seconds:float prop ->
+  ?id:string prop ->
+  ?project_id:string prop ->
+  ?redirect_http_to_https:bool prop ->
+  ?region:string prop ->
+  ?size:string prop ->
+  ?size_unit:float prop ->
+  ?type_:string prop ->
+  ?vpc_uuid:string prop ->
+  name:string prop ->
+  firewall:firewall list ->
+  forwarding_rule:forwarding_rule list ->
+  healthcheck:healthcheck list ->
+  sticky_sessions:sticky_sessions list ->
+  string ->
+  t Tf_core.resource

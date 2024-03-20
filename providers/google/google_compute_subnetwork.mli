@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,24 @@ val register :
   log_config:log_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?external_ipv6_prefix:string prop ->
+  ?id:string prop ->
+  ?ipv6_access_type:string prop ->
+  ?private_ip_google_access:bool prop ->
+  ?private_ipv6_google_access:string prop ->
+  ?project:string prop ->
+  ?purpose:string prop ->
+  ?region:string prop ->
+  ?role:string prop ->
+  ?secondary_ip_range:secondary_ip_range list ->
+  ?stack_type:string prop ->
+  ?timeouts:timeouts ->
+  ip_cidr_range:string prop ->
+  name:string prop ->
+  network:string prop ->
+  log_config:log_config list ->
+  string ->
+  t Tf_core.resource

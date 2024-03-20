@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   name : string prop;  (** The name of the ConfigMap. *)
@@ -38,23 +36,31 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?field_manager ?force ?id ~data ~metadata
-    __resource_id =
-  let __resource_type = "kubernetes_config_map_v1_data" in
-  let __resource =
-    kubernetes_config_map_v1_data ?field_manager ?force ?id ~data
-      ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_config_map_v1_data __resource);
-  let __resource_attributes =
+let make ?field_manager ?force ?id ~data ~metadata __id =
+  let __type = "kubernetes_config_map_v1_data" in
+  let __attrs =
     ({
-       data = Prop.computed __resource_type __resource_id "data";
-       field_manager =
-         Prop.computed __resource_type __resource_id "field_manager";
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
+       data = Prop.computed __type __id "data";
+       field_manager = Prop.computed __type __id "field_manager";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_config_map_v1_data
+        (kubernetes_config_map_v1_data ?field_manager ?force ?id
+           ~data ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?field_manager ?force ?id ~data ~metadata
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?field_manager ?force ?id ~data ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

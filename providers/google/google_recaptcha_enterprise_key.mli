@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,17 @@ val register :
   web_settings:web_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  android_settings:android_settings list ->
+  ios_settings:ios_settings list ->
+  testing_options:testing_options list ->
+  waf_settings:waf_settings list ->
+  web_settings:web_settings list ->
+  string ->
+  t Tf_core.resource

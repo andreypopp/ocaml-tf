@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,13 @@ val register :
   launch:launch list ->
   string ->
   t
+
+val make :
+  ?binding_type:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_builder_id:string prop ->
+  launch:launch list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_config = {
   kms_key_name : string prop;
@@ -96,41 +94,48 @@ type t = {
   version_retention_period : string prop;
 }
 
-let register ?tf_module ?database_dialect ?ddl ?deletion_protection
+let make ?database_dialect ?ddl ?deletion_protection
     ?enable_drop_protection ?id ?project ?version_retention_period
-    ?timeouts ~instance ~name ~encryption_config __resource_id =
-  let __resource_type = "google_spanner_database" in
-  let __resource =
-    google_spanner_database ?database_dialect ?ddl
-      ?deletion_protection ?enable_drop_protection ?id ?project
-      ?version_retention_period ?timeouts ~instance ~name
-      ~encryption_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_spanner_database __resource);
-  let __resource_attributes =
+    ?timeouts ~instance ~name ~encryption_config __id =
+  let __type = "google_spanner_database" in
+  let __attrs =
     ({
        database_dialect =
-         Prop.computed __resource_type __resource_id
-           "database_dialect";
-       ddl = Prop.computed __resource_type __resource_id "ddl";
+         Prop.computed __type __id "database_dialect";
+       ddl = Prop.computed __type __id "ddl";
        deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
+         Prop.computed __type __id "deletion_protection";
        enable_drop_protection =
-         Prop.computed __resource_type __resource_id
-           "enable_drop_protection";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "enable_drop_protection";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
        version_retention_period =
-         Prop.computed __resource_type __resource_id
-           "version_retention_period";
+         Prop.computed __type __id "version_retention_period";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_spanner_database
+        (google_spanner_database ?database_dialect ?ddl
+           ?deletion_protection ?enable_drop_protection ?id ?project
+           ?version_retention_period ?timeouts ~instance ~name
+           ~encryption_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database_dialect ?ddl ?deletion_protection
+    ?enable_drop_protection ?id ?project ?version_retention_period
+    ?timeouts ~instance ~name ~encryption_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?database_dialect ?ddl ?deletion_protection
+      ?enable_drop_protection ?id ?project ?version_retention_period
+      ?timeouts ~instance ~name ~encryption_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

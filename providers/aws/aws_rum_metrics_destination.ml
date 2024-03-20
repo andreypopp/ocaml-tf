@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_rum_metrics_destination = {
   app_monitor_name : string prop;  (** app_monitor_name *)
@@ -33,29 +31,35 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?destination_arn ?iam_role_arn ?id
-    ~app_monitor_name ~destination __resource_id =
-  let __resource_type = "aws_rum_metrics_destination" in
-  let __resource =
-    aws_rum_metrics_destination ?destination_arn ?iam_role_arn ?id
-      ~app_monitor_name ~destination ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rum_metrics_destination __resource);
-  let __resource_attributes =
+let make ?destination_arn ?iam_role_arn ?id ~app_monitor_name
+    ~destination __id =
+  let __type = "aws_rum_metrics_destination" in
+  let __attrs =
     ({
        app_monitor_name =
-         Prop.computed __resource_type __resource_id
-           "app_monitor_name";
-       destination =
-         Prop.computed __resource_type __resource_id "destination";
-       destination_arn =
-         Prop.computed __resource_type __resource_id
-           "destination_arn";
-       iam_role_arn =
-         Prop.computed __resource_type __resource_id "iam_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "app_monitor_name";
+       destination = Prop.computed __type __id "destination";
+       destination_arn = Prop.computed __type __id "destination_arn";
+       iam_role_arn = Prop.computed __type __id "iam_role_arn";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rum_metrics_destination
+        (aws_rum_metrics_destination ?destination_arn ?iam_role_arn
+           ?id ~app_monitor_name ~destination ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?destination_arn ?iam_role_arn ?id
+    ~app_monitor_name ~destination __id =
+  let (r : _ Tf_core.resource) =
+    make ?destination_arn ?iam_role_arn ?id ~app_monitor_name
+      ~destination __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

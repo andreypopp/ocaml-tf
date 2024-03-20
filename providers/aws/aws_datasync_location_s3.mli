@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,15 @@ val register :
   s3_config:s3_config list ->
   string ->
   t
+
+val make :
+  ?agent_arns:string prop list ->
+  ?id:string prop ->
+  ?s3_storage_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  s3_bucket_arn:string prop ->
+  subdirectory:string prop ->
+  s3_config:s3_config list ->
+  string ->
+  t Tf_core.resource

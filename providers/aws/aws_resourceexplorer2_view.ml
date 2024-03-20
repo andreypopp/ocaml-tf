@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filters = { filter_string : string prop  (** filter_string *) }
 [@@deriving yojson_of]
@@ -38,26 +36,33 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?default_view ?tags ~name ~filters
-    ~included_property __resource_id =
-  let __resource_type = "aws_resourceexplorer2_view" in
-  let __resource =
-    aws_resourceexplorer2_view ?default_view ?tags ~name ~filters
-      ~included_property ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_resourceexplorer2_view __resource);
-  let __resource_attributes =
+let make ?default_view ?tags ~name ~filters ~included_property __id =
+  let __type = "aws_resourceexplorer2_view" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       default_view =
-         Prop.computed __resource_type __resource_id "default_view";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       default_view = Prop.computed __type __id "default_view";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_resourceexplorer2_view
+        (aws_resourceexplorer2_view ?default_view ?tags ~name
+           ~filters ~included_property ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_view ?tags ~name ~filters
+    ~included_property __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_view ?tags ~name ~filters ~included_property __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

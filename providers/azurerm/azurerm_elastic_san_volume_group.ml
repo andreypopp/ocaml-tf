@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption = {
   key_vault_key_id : string prop;  (** key_vault_key_id *)
@@ -87,29 +85,35 @@ type t = {
   protocol_type : string prop;
 }
 
-let register ?tf_module ?encryption_type ?id ?protocol_type ?timeouts
-    ~elastic_san_id ~name ~encryption ~identity ~network_rule
-    __resource_id =
-  let __resource_type = "azurerm_elastic_san_volume_group" in
-  let __resource =
-    azurerm_elastic_san_volume_group ?encryption_type ?id
-      ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
-      ~identity ~network_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_elastic_san_volume_group __resource);
-  let __resource_attributes =
+let make ?encryption_type ?id ?protocol_type ?timeouts
+    ~elastic_san_id ~name ~encryption ~identity ~network_rule __id =
+  let __type = "azurerm_elastic_san_volume_group" in
+  let __attrs =
     ({
-       elastic_san_id =
-         Prop.computed __resource_type __resource_id "elastic_san_id";
-       encryption_type =
-         Prop.computed __resource_type __resource_id
-           "encryption_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       protocol_type =
-         Prop.computed __resource_type __resource_id "protocol_type";
+       elastic_san_id = Prop.computed __type __id "elastic_san_id";
+       encryption_type = Prop.computed __type __id "encryption_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       protocol_type = Prop.computed __type __id "protocol_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_elastic_san_volume_group
+        (azurerm_elastic_san_volume_group ?encryption_type ?id
+           ?protocol_type ?timeouts ~elastic_san_id ~name ~encryption
+           ~identity ~network_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?encryption_type ?id ?protocol_type ?timeouts
+    ~elastic_san_id ~name ~encryption ~identity ~network_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?encryption_type ?id ?protocol_type ?timeouts
+      ~elastic_san_id ~name ~encryption ~identity ~network_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

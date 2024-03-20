@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,19 @@ val register :
   internal_mapping:internal_mapping list ->
   string ->
   t
+
+val make :
+  ?external_address_space_mappings:string prop list ->
+  ?id:string prop ->
+  ?internal_address_space_mappings:string prop list ->
+  ?ip_configuration_id:string prop ->
+  ?mode:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  vpn_gateway_id:string prop ->
+  external_mapping:external_mapping list ->
+  internal_mapping:internal_mapping list ->
+  string ->
+  t Tf_core.resource

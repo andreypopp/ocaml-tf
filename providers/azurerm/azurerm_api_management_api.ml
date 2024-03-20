@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type contact = {
   email : string prop option; [@option]  (** email *)
@@ -193,6 +191,64 @@ type t = {
   version_set_id : string prop;
 }
 
+let make ?api_type ?description ?display_name ?id ?path ?protocols
+    ?revision_description ?service_url ?soap_pass_through
+    ?source_api_id ?subscription_required ?terms_of_service_url
+    ?version ?version_description ?version_set_id ?timeouts
+    ~api_management_name ~name ~resource_group_name ~revision
+    ~contact ~import ~license ~oauth2_authorization
+    ~openid_authentication ~subscription_key_parameter_names __id =
+  let __type = "azurerm_api_management_api" in
+  let __attrs =
+    ({
+       api_management_name =
+         Prop.computed __type __id "api_management_name";
+       api_type = Prop.computed __type __id "api_type";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       is_current = Prop.computed __type __id "is_current";
+       is_online = Prop.computed __type __id "is_online";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
+       protocols = Prop.computed __type __id "protocols";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       revision = Prop.computed __type __id "revision";
+       revision_description =
+         Prop.computed __type __id "revision_description";
+       service_url = Prop.computed __type __id "service_url";
+       soap_pass_through =
+         Prop.computed __type __id "soap_pass_through";
+       source_api_id = Prop.computed __type __id "source_api_id";
+       subscription_required =
+         Prop.computed __type __id "subscription_required";
+       terms_of_service_url =
+         Prop.computed __type __id "terms_of_service_url";
+       version = Prop.computed __type __id "version";
+       version_description =
+         Prop.computed __type __id "version_description";
+       version_set_id = Prop.computed __type __id "version_set_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_api
+        (azurerm_api_management_api ?api_type ?description
+           ?display_name ?id ?path ?protocols ?revision_description
+           ?service_url ?soap_pass_through ?source_api_id
+           ?subscription_required ?terms_of_service_url ?version
+           ?version_description ?version_set_id ?timeouts
+           ~api_management_name ~name ~resource_group_name ~revision
+           ~contact ~import ~license ~oauth2_authorization
+           ~openid_authentication ~subscription_key_parameter_names
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?api_type ?description ?display_name ?id
     ?path ?protocols ?revision_description ?service_url
     ?soap_pass_through ?source_api_id ?subscription_required
@@ -200,69 +256,15 @@ let register ?tf_module ?api_type ?description ?display_name ?id
     ?version_set_id ?timeouts ~api_management_name ~name
     ~resource_group_name ~revision ~contact ~import ~license
     ~oauth2_authorization ~openid_authentication
-    ~subscription_key_parameter_names __resource_id =
-  let __resource_type = "azurerm_api_management_api" in
-  let __resource =
-    azurerm_api_management_api ?api_type ?description ?display_name
-      ?id ?path ?protocols ?revision_description ?service_url
-      ?soap_pass_through ?source_api_id ?subscription_required
-      ?terms_of_service_url ?version ?version_description
-      ?version_set_id ?timeouts ~api_management_name ~name
-      ~resource_group_name ~revision ~contact ~import ~license
-      ~oauth2_authorization ~openid_authentication
-      ~subscription_key_parameter_names ()
+    ~subscription_key_parameter_names __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_type ?description ?display_name ?id ?path ?protocols
+      ?revision_description ?service_url ?soap_pass_through
+      ?source_api_id ?subscription_required ?terms_of_service_url
+      ?version ?version_description ?version_set_id ?timeouts
+      ~api_management_name ~name ~resource_group_name ~revision
+      ~contact ~import ~license ~oauth2_authorization
+      ~openid_authentication ~subscription_key_parameter_names __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_api __resource);
-  let __resource_attributes =
-    ({
-       api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       api_type =
-         Prop.computed __resource_type __resource_id "api_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_current =
-         Prop.computed __resource_type __resource_id "is_current";
-       is_online =
-         Prop.computed __resource_type __resource_id "is_online";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
-       protocols =
-         Prop.computed __resource_type __resource_id "protocols";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       revision =
-         Prop.computed __resource_type __resource_id "revision";
-       revision_description =
-         Prop.computed __resource_type __resource_id
-           "revision_description";
-       service_url =
-         Prop.computed __resource_type __resource_id "service_url";
-       soap_pass_through =
-         Prop.computed __resource_type __resource_id
-           "soap_pass_through";
-       source_api_id =
-         Prop.computed __resource_type __resource_id "source_api_id";
-       subscription_required =
-         Prop.computed __resource_type __resource_id
-           "subscription_required";
-       terms_of_service_url =
-         Prop.computed __resource_type __resource_id
-           "terms_of_service_url";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       version_description =
-         Prop.computed __resource_type __resource_id
-           "version_description";
-       version_set_id =
-         Prop.computed __resource_type __resource_id "version_set_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

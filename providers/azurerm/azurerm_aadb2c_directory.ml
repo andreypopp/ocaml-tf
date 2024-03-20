@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,43 +62,47 @@ type t = {
   tenant_id : string prop;
 }
 
-let register ?tf_module ?country_code ?display_name ?id ?tags
-    ?timeouts ~data_residency_location ~domain_name
-    ~resource_group_name ~sku_name __resource_id =
-  let __resource_type = "azurerm_aadb2c_directory" in
-  let __resource =
-    azurerm_aadb2c_directory ?country_code ?display_name ?id ?tags
-      ?timeouts ~data_residency_location ~domain_name
-      ~resource_group_name ~sku_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_aadb2c_directory __resource);
-  let __resource_attributes =
+let make ?country_code ?display_name ?id ?tags ?timeouts
+    ~data_residency_location ~domain_name ~resource_group_name
+    ~sku_name __id =
+  let __type = "azurerm_aadb2c_directory" in
+  let __attrs =
     ({
-       billing_type =
-         Prop.computed __resource_type __resource_id "billing_type";
-       country_code =
-         Prop.computed __resource_type __resource_id "country_code";
+       billing_type = Prop.computed __type __id "billing_type";
+       country_code = Prop.computed __type __id "country_code";
        data_residency_location =
-         Prop.computed __resource_type __resource_id
-           "data_residency_location";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
+         Prop.computed __type __id "data_residency_location";
+       display_name = Prop.computed __type __id "display_name";
+       domain_name = Prop.computed __type __id "domain_name";
        effective_start_date =
-         Prop.computed __resource_type __resource_id
-           "effective_start_date";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "effective_start_date";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_aadb2c_directory
+        (azurerm_aadb2c_directory ?country_code ?display_name ?id
+           ?tags ?timeouts ~data_residency_location ~domain_name
+           ~resource_group_name ~sku_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?country_code ?display_name ?id ?tags
+    ?timeouts ~data_residency_location ~domain_name
+    ~resource_group_name ~sku_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?country_code ?display_name ?id ?tags ?timeouts
+      ~data_residency_location ~domain_name ~resource_group_name
+      ~sku_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

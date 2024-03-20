@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,41 +64,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags
-    ?timeouts ~dtu ~edition ~location ~name ~resource_group_name
-    ~server_name __resource_id =
-  let __resource_type = "azurerm_sql_elasticpool" in
-  let __resource =
-    azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id ?pool_size
-      ?tags ?timeouts ~dtu ~edition ~location ~name
-      ~resource_group_name ~server_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_elasticpool __resource);
-  let __resource_attributes =
+let make ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags ?timeouts ~dtu
+    ~edition ~location ~name ~resource_group_name ~server_name __id =
+  let __type = "azurerm_sql_elasticpool" in
+  let __attrs =
     ({
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       db_dtu_max =
-         Prop.computed __resource_type __resource_id "db_dtu_max";
-       db_dtu_min =
-         Prop.computed __resource_type __resource_id "db_dtu_min";
-       dtu = Prop.computed __resource_type __resource_id "dtu";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       pool_size =
-         Prop.computed __resource_type __resource_id "pool_size";
+       creation_date = Prop.computed __type __id "creation_date";
+       db_dtu_max = Prop.computed __type __id "db_dtu_max";
+       db_dtu_min = Prop.computed __type __id "db_dtu_min";
+       dtu = Prop.computed __type __id "dtu";
+       edition = Prop.computed __type __id "edition";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       pool_size = Prop.computed __type __id "pool_size";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       server_name = Prop.computed __type __id "server_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_elasticpool
+        (azurerm_sql_elasticpool ?db_dtu_max ?db_dtu_min ?id
+           ?pool_size ?tags ?timeouts ~dtu ~edition ~location ~name
+           ~resource_group_name ~server_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags
+    ?timeouts ~dtu ~edition ~location ~name ~resource_group_name
+    ~server_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?db_dtu_max ?db_dtu_min ?id ?pool_size ?tags ?timeouts ~dtu
+      ~edition ~location ~name ~resource_group_name ~server_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

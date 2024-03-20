@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appstream_user_stack_association = {
   authentication_type : string prop;  (** authentication_type *)
@@ -34,29 +32,37 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ?send_email_notification
-    ~authentication_type ~stack_name ~user_name __resource_id =
-  let __resource_type = "aws_appstream_user_stack_association" in
-  let __resource =
-    aws_appstream_user_stack_association ?id ?send_email_notification
-      ~authentication_type ~stack_name ~user_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_user_stack_association __resource);
-  let __resource_attributes =
+let make ?id ?send_email_notification ~authentication_type
+    ~stack_name ~user_name __id =
+  let __type = "aws_appstream_user_stack_association" in
+  let __attrs =
     ({
        authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "authentication_type";
+       id = Prop.computed __type __id "id";
        send_email_notification =
-         Prop.computed __resource_type __resource_id
-           "send_email_notification";
-       stack_name =
-         Prop.computed __resource_type __resource_id "stack_name";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "send_email_notification";
+       stack_name = Prop.computed __type __id "stack_name";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_user_stack_association
+        (aws_appstream_user_stack_association ?id
+           ?send_email_notification ~authentication_type ~stack_name
+           ~user_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?send_email_notification
+    ~authentication_type ~stack_name ~user_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?send_email_notification ~authentication_type
+      ~stack_name ~user_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

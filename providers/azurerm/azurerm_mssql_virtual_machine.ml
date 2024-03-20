@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type assessment__schedule = {
   day_of_week : string prop;  (** day_of_week *)
@@ -338,56 +336,69 @@ type t = {
   virtual_machine_id : string prop;
 }
 
+let make ?id ?r_services_enabled ?sql_connectivity_port
+    ?sql_connectivity_type ?sql_connectivity_update_password
+    ?sql_connectivity_update_username ?sql_license_type
+    ?sql_virtual_machine_group_id ?tags ?timeouts ~virtual_machine_id
+    ~assessment ~auto_backup ~auto_patching ~key_vault_credential
+    ~sql_instance ~storage_configuration ~wsfc_domain_credential __id
+    =
+  let __type = "azurerm_mssql_virtual_machine" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       r_services_enabled =
+         Prop.computed __type __id "r_services_enabled";
+       sql_connectivity_port =
+         Prop.computed __type __id "sql_connectivity_port";
+       sql_connectivity_type =
+         Prop.computed __type __id "sql_connectivity_type";
+       sql_connectivity_update_password =
+         Prop.computed __type __id "sql_connectivity_update_password";
+       sql_connectivity_update_username =
+         Prop.computed __type __id "sql_connectivity_update_username";
+       sql_license_type =
+         Prop.computed __type __id "sql_license_type";
+       sql_virtual_machine_group_id =
+         Prop.computed __type __id "sql_virtual_machine_group_id";
+       tags = Prop.computed __type __id "tags";
+       virtual_machine_id =
+         Prop.computed __type __id "virtual_machine_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_virtual_machine
+        (azurerm_mssql_virtual_machine ?id ?r_services_enabled
+           ?sql_connectivity_port ?sql_connectivity_type
+           ?sql_connectivity_update_password
+           ?sql_connectivity_update_username ?sql_license_type
+           ?sql_virtual_machine_group_id ?tags ?timeouts
+           ~virtual_machine_id ~assessment ~auto_backup
+           ~auto_patching ~key_vault_credential ~sql_instance
+           ~storage_configuration ~wsfc_domain_credential ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?r_services_enabled
     ?sql_connectivity_port ?sql_connectivity_type
     ?sql_connectivity_update_password
     ?sql_connectivity_update_username ?sql_license_type
     ?sql_virtual_machine_group_id ?tags ?timeouts ~virtual_machine_id
     ~assessment ~auto_backup ~auto_patching ~key_vault_credential
-    ~sql_instance ~storage_configuration ~wsfc_domain_credential
-    __resource_id =
-  let __resource_type = "azurerm_mssql_virtual_machine" in
-  let __resource =
-    azurerm_mssql_virtual_machine ?id ?r_services_enabled
-      ?sql_connectivity_port ?sql_connectivity_type
-      ?sql_connectivity_update_password
+    ~sql_instance ~storage_configuration ~wsfc_domain_credential __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?r_services_enabled ?sql_connectivity_port
+      ?sql_connectivity_type ?sql_connectivity_update_password
       ?sql_connectivity_update_username ?sql_license_type
       ?sql_virtual_machine_group_id ?tags ?timeouts
       ~virtual_machine_id ~assessment ~auto_backup ~auto_patching
       ~key_vault_credential ~sql_instance ~storage_configuration
-      ~wsfc_domain_credential ()
+      ~wsfc_domain_credential __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_virtual_machine __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       r_services_enabled =
-         Prop.computed __resource_type __resource_id
-           "r_services_enabled";
-       sql_connectivity_port =
-         Prop.computed __resource_type __resource_id
-           "sql_connectivity_port";
-       sql_connectivity_type =
-         Prop.computed __resource_type __resource_id
-           "sql_connectivity_type";
-       sql_connectivity_update_password =
-         Prop.computed __resource_type __resource_id
-           "sql_connectivity_update_password";
-       sql_connectivity_update_username =
-         Prop.computed __resource_type __resource_id
-           "sql_connectivity_update_username";
-       sql_license_type =
-         Prop.computed __resource_type __resource_id
-           "sql_license_type";
-       sql_virtual_machine_group_id =
-         Prop.computed __resource_type __resource_id
-           "sql_virtual_machine_group_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

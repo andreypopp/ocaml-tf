@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,19 @@ val register :
     user_equipment_aggregate_maximum_bit_rate list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?rat_frequency_selection_priority_index:float prop ->
+  ?registration_timer_in_seconds:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  default_slice_id:string prop ->
+  location:string prop ->
+  mobile_network_id:string prop ->
+  name:string prop ->
+  slice:slice list ->
+  user_equipment_aggregate_maximum_bit_rate:
+    user_equipment_aggregate_maximum_bit_rate list ->
+  string ->
+  t Tf_core.resource

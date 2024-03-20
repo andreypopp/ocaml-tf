@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,30 +50,35 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?description ?id ?parent ?timeouts
-    ~display_name __resource_id =
-  let __resource_type = "google_dialogflow_cx_version" in
-  let __resource =
-    google_dialogflow_cx_version ?description ?id ?parent ?timeouts
-      ~display_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_version __resource);
-  let __resource_attributes =
+let make ?description ?id ?parent ?timeouts ~display_name __id =
+  let __type = "google_dialogflow_cx_version" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       nlu_settings =
-         Prop.computed __resource_type __resource_id "nlu_settings";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       state = Prop.computed __resource_type __resource_id "state";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       nlu_settings = Prop.computed __type __id "nlu_settings";
+       parent = Prop.computed __type __id "parent";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_version
+        (google_dialogflow_cx_version ?description ?id ?parent
+           ?timeouts ~display_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?parent ?timeouts
+    ~display_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?parent ?timeouts ~display_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

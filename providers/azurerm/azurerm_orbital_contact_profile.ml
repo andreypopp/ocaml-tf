@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type links__channels__end_point = {
   end_point_name : string prop;  (** end_point_name *)
@@ -119,44 +117,56 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?event_hub_uri ?id ?minimum_elevation_degrees
-    ?tags ?timeouts ~auto_tracking ~location
+let make ?event_hub_uri ?id ?minimum_elevation_degrees ?tags
+    ?timeouts ~auto_tracking ~location
     ~minimum_variable_contact_duration ~name
-    ~network_configuration_subnet_id ~resource_group_name ~links
-    __resource_id =
-  let __resource_type = "azurerm_orbital_contact_profile" in
-  let __resource =
-    azurerm_orbital_contact_profile ?event_hub_uri ?id
-      ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
-      ~location ~minimum_variable_contact_duration ~name
-      ~network_configuration_subnet_id ~resource_group_name ~links ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_orbital_contact_profile __resource);
-  let __resource_attributes =
+    ~network_configuration_subnet_id ~resource_group_name ~links __id
+    =
+  let __type = "azurerm_orbital_contact_profile" in
+  let __attrs =
     ({
-       auto_tracking =
-         Prop.computed __resource_type __resource_id "auto_tracking";
-       event_hub_uri =
-         Prop.computed __resource_type __resource_id "event_hub_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       auto_tracking = Prop.computed __type __id "auto_tracking";
+       event_hub_uri = Prop.computed __type __id "event_hub_uri";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        minimum_elevation_degrees =
-         Prop.computed __resource_type __resource_id
-           "minimum_elevation_degrees";
+         Prop.computed __type __id "minimum_elevation_degrees";
        minimum_variable_contact_duration =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "minimum_variable_contact_duration";
-       name = Prop.computed __resource_type __resource_id "name";
+       name = Prop.computed __type __id "name";
        network_configuration_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "network_configuration_subnet_id";
+         Prop.computed __type __id "network_configuration_subnet_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_orbital_contact_profile
+        (azurerm_orbital_contact_profile ?event_hub_uri ?id
+           ?minimum_elevation_degrees ?tags ?timeouts ~auto_tracking
+           ~location ~minimum_variable_contact_duration ~name
+           ~network_configuration_subnet_id ~resource_group_name
+           ~links ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?event_hub_uri ?id ?minimum_elevation_degrees
+    ?tags ?timeouts ~auto_tracking ~location
+    ~minimum_variable_contact_duration ~name
+    ~network_configuration_subnet_id ~resource_group_name ~links __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?event_hub_uri ?id ?minimum_elevation_degrees ?tags
+      ?timeouts ~auto_tracking ~location
+      ~minimum_variable_contact_duration ~name
+      ~network_configuration_subnet_id ~resource_group_name ~links
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

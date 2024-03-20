@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_tiered_cache = {
   cache_type : string prop;
@@ -26,21 +24,28 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ~cache_type ~zone_id __resource_id =
-  let __resource_type = "cloudflare_tiered_cache" in
-  let __resource =
-    cloudflare_tiered_cache ?id ~cache_type ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_tiered_cache __resource);
-  let __resource_attributes =
+let make ?id ~cache_type ~zone_id __id =
+  let __type = "cloudflare_tiered_cache" in
+  let __attrs =
     ({
-       cache_type =
-         Prop.computed __resource_type __resource_id "cache_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       cache_type = Prop.computed __type __id "cache_type";
+       id = Prop.computed __type __id "id";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_tiered_cache
+        (cloudflare_tiered_cache ?id ~cache_type ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cache_type ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~cache_type ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

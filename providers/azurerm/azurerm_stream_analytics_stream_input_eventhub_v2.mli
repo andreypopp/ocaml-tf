@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,19 @@ val register :
   serialization:serialization list ->
   string ->
   t
+
+val make :
+  ?authentication_mode:string prop ->
+  ?eventhub_consumer_group_name:string prop ->
+  ?id:string prop ->
+  ?partition_key:string prop ->
+  ?shared_access_policy_key:string prop ->
+  ?shared_access_policy_name:string prop ->
+  ?timeouts:timeouts ->
+  eventhub_name:string prop ->
+  name:string prop ->
+  servicebus_namespace:string prop ->
+  stream_analytics_job_id:string prop ->
+  serialization:serialization list ->
+  string ->
+  t Tf_core.resource

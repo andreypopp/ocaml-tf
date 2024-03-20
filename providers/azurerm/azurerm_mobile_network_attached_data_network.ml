@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_address_port_translation__port_range = {
   maximum : float prop option; [@option]  (** maximum *)
@@ -135,6 +133,60 @@ type t = {
   user_plane_access_name : string prop;
 }
 
+let make ?id ?tags ?user_equipment_address_pool_prefixes
+    ?user_equipment_static_address_pool_prefixes
+    ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
+    ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
+    ~dns_addresses ~location ~mobile_network_data_network_name
+    ~mobile_network_packet_core_data_plane_id
+    ~network_address_port_translation __id =
+  let __type = "azurerm_mobile_network_attached_data_network" in
+  let __attrs =
+    ({
+       dns_addresses = Prop.computed __type __id "dns_addresses";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       mobile_network_data_network_name =
+         Prop.computed __type __id "mobile_network_data_network_name";
+       mobile_network_packet_core_data_plane_id =
+         Prop.computed __type __id
+           "mobile_network_packet_core_data_plane_id";
+       tags = Prop.computed __type __id "tags";
+       user_equipment_address_pool_prefixes =
+         Prop.computed __type __id
+           "user_equipment_address_pool_prefixes";
+       user_equipment_static_address_pool_prefixes =
+         Prop.computed __type __id
+           "user_equipment_static_address_pool_prefixes";
+       user_plane_access_ipv4_address =
+         Prop.computed __type __id "user_plane_access_ipv4_address";
+       user_plane_access_ipv4_gateway =
+         Prop.computed __type __id "user_plane_access_ipv4_gateway";
+       user_plane_access_ipv4_subnet =
+         Prop.computed __type __id "user_plane_access_ipv4_subnet";
+       user_plane_access_name =
+         Prop.computed __type __id "user_plane_access_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mobile_network_attached_data_network
+        (azurerm_mobile_network_attached_data_network ?id ?tags
+           ?user_equipment_address_pool_prefixes
+           ?user_equipment_static_address_pool_prefixes
+           ?user_plane_access_ipv4_address
+           ?user_plane_access_ipv4_gateway
+           ?user_plane_access_ipv4_subnet ?user_plane_access_name
+           ?timeouts ~dns_addresses ~location
+           ~mobile_network_data_network_name
+           ~mobile_network_packet_core_data_plane_id
+           ~network_address_port_translation ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?tags
     ?user_equipment_address_pool_prefixes
     ?user_equipment_static_address_pool_prefixes
@@ -142,57 +194,16 @@ let register ?tf_module ?id ?tags
     ?user_plane_access_ipv4_subnet ?user_plane_access_name ?timeouts
     ~dns_addresses ~location ~mobile_network_data_network_name
     ~mobile_network_packet_core_data_plane_id
-    ~network_address_port_translation __resource_id =
-  let __resource_type =
-    "azurerm_mobile_network_attached_data_network"
-  in
-  let __resource =
-    azurerm_mobile_network_attached_data_network ?id ?tags
-      ?user_equipment_address_pool_prefixes
+    ~network_address_port_translation __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?user_equipment_address_pool_prefixes
       ?user_equipment_static_address_pool_prefixes
       ?user_plane_access_ipv4_address ?user_plane_access_ipv4_gateway
       ?user_plane_access_ipv4_subnet ?user_plane_access_name
       ?timeouts ~dns_addresses ~location
       ~mobile_network_data_network_name
       ~mobile_network_packet_core_data_plane_id
-      ~network_address_port_translation ()
+      ~network_address_port_translation __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mobile_network_attached_data_network
-       __resource);
-  let __resource_attributes =
-    ({
-       dns_addresses =
-         Prop.computed __resource_type __resource_id "dns_addresses";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mobile_network_data_network_name =
-         Prop.computed __resource_type __resource_id
-           "mobile_network_data_network_name";
-       mobile_network_packet_core_data_plane_id =
-         Prop.computed __resource_type __resource_id
-           "mobile_network_packet_core_data_plane_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       user_equipment_address_pool_prefixes =
-         Prop.computed __resource_type __resource_id
-           "user_equipment_address_pool_prefixes";
-       user_equipment_static_address_pool_prefixes =
-         Prop.computed __resource_type __resource_id
-           "user_equipment_static_address_pool_prefixes";
-       user_plane_access_ipv4_address =
-         Prop.computed __resource_type __resource_id
-           "user_plane_access_ipv4_address";
-       user_plane_access_ipv4_gateway =
-         Prop.computed __resource_type __resource_id
-           "user_plane_access_ipv4_gateway";
-       user_plane_access_ipv4_subnet =
-         Prop.computed __resource_type __resource_id
-           "user_plane_access_ipv4_subnet";
-       user_plane_access_name =
-         Prop.computed __resource_type __resource_id
-           "user_plane_access_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

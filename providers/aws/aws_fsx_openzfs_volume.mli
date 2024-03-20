@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,24 @@ val register :
   user_and_group_quotas:user_and_group_quotas list ->
   string ->
   t
+
+val make :
+  ?copy_tags_to_snapshots:bool prop ->
+  ?data_compression_type:string prop ->
+  ?delete_volume_options:string prop list ->
+  ?id:string prop ->
+  ?read_only:bool prop ->
+  ?record_size_kib:float prop ->
+  ?storage_capacity_quota_gib:float prop ->
+  ?storage_capacity_reservation_gib:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent_volume_id:string prop ->
+  nfs_exports:nfs_exports list ->
+  origin_snapshot:origin_snapshot list ->
+  user_and_group_quotas:user_and_group_quotas list ->
+  string ->
+  t Tf_core.resource

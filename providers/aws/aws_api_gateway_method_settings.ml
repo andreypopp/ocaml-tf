@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type settings = {
   cache_data_encrypted : bool prop option; [@option]
@@ -69,25 +67,31 @@ type t = {
   stage_name : string prop;
 }
 
-let register ?tf_module ?id ~method_path ~rest_api_id ~stage_name
-    ~settings __resource_id =
-  let __resource_type = "aws_api_gateway_method_settings" in
-  let __resource =
-    aws_api_gateway_method_settings ?id ~method_path ~rest_api_id
-      ~stage_name ~settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_method_settings __resource);
-  let __resource_attributes =
+let make ?id ~method_path ~rest_api_id ~stage_name ~settings __id =
+  let __type = "aws_api_gateway_method_settings" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       method_path =
-         Prop.computed __resource_type __resource_id "method_path";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
-       stage_name =
-         Prop.computed __resource_type __resource_id "stage_name";
+       id = Prop.computed __type __id "id";
+       method_path = Prop.computed __type __id "method_path";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
+       stage_name = Prop.computed __type __id "stage_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_method_settings
+        (aws_api_gateway_method_settings ?id ~method_path
+           ~rest_api_id ~stage_name ~settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~method_path ~rest_api_id ~stage_name
+    ~settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~method_path ~rest_api_id ~stage_name ~settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

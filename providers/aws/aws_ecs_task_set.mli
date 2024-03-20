@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -113,3 +113,24 @@ val register :
   service_registries:service_registries list ->
   string ->
   t
+
+val make :
+  ?external_id:string prop ->
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?launch_type:string prop ->
+  ?platform_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?wait_until_stable:bool prop ->
+  ?wait_until_stable_timeout:string prop ->
+  cluster:string prop ->
+  service:string prop ->
+  task_definition:string prop ->
+  capacity_provider_strategy:capacity_provider_strategy list ->
+  load_balancer:load_balancer list ->
+  network_configuration:network_configuration list ->
+  scale:scale list ->
+  service_registries:service_registries list ->
+  string ->
+  t Tf_core.resource

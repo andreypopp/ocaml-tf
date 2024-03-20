@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_log_settings = {
   destination_arn : string prop;  (** destination_arn *)
@@ -101,60 +99,63 @@ type t = {
   xray_tracing_enabled : bool prop;
 }
 
+let make ?cache_cluster_enabled ?cache_cluster_size
+    ?client_certificate_id ?description ?documentation_version ?id
+    ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
+    ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
+    __id =
+  let __type = "aws_api_gateway_stage" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       cache_cluster_enabled =
+         Prop.computed __type __id "cache_cluster_enabled";
+       cache_cluster_size =
+         Prop.computed __type __id "cache_cluster_size";
+       client_certificate_id =
+         Prop.computed __type __id "client_certificate_id";
+       deployment_id = Prop.computed __type __id "deployment_id";
+       description = Prop.computed __type __id "description";
+       documentation_version =
+         Prop.computed __type __id "documentation_version";
+       execution_arn = Prop.computed __type __id "execution_arn";
+       id = Prop.computed __type __id "id";
+       invoke_url = Prop.computed __type __id "invoke_url";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
+       stage_name = Prop.computed __type __id "stage_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       variables = Prop.computed __type __id "variables";
+       web_acl_arn = Prop.computed __type __id "web_acl_arn";
+       xray_tracing_enabled =
+         Prop.computed __type __id "xray_tracing_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_stage
+        (aws_api_gateway_stage ?cache_cluster_enabled
+           ?cache_cluster_size ?client_certificate_id ?description
+           ?documentation_version ?id ?tags ?tags_all ?variables
+           ?xray_tracing_enabled ~deployment_id ~rest_api_id
+           ~stage_name ~access_log_settings ~canary_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cache_cluster_enabled ?cache_cluster_size
     ?client_certificate_id ?description ?documentation_version ?id
     ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
     ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
-    __resource_id =
-  let __resource_type = "aws_api_gateway_stage" in
-  let __resource =
-    aws_api_gateway_stage ?cache_cluster_enabled ?cache_cluster_size
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?cache_cluster_enabled ?cache_cluster_size
       ?client_certificate_id ?description ?documentation_version ?id
       ?tags ?tags_all ?variables ?xray_tracing_enabled ~deployment_id
       ~rest_api_id ~stage_name ~access_log_settings ~canary_settings
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_stage __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cache_cluster_enabled =
-         Prop.computed __resource_type __resource_id
-           "cache_cluster_enabled";
-       cache_cluster_size =
-         Prop.computed __resource_type __resource_id
-           "cache_cluster_size";
-       client_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_id";
-       deployment_id =
-         Prop.computed __resource_type __resource_id "deployment_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       documentation_version =
-         Prop.computed __resource_type __resource_id
-           "documentation_version";
-       execution_arn =
-         Prop.computed __resource_type __resource_id "execution_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       invoke_url =
-         Prop.computed __resource_type __resource_id "invoke_url";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
-       stage_name =
-         Prop.computed __resource_type __resource_id "stage_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       variables =
-         Prop.computed __resource_type __resource_id "variables";
-       web_acl_arn =
-         Prop.computed __resource_type __resource_id "web_acl_arn";
-       xray_tracing_enabled =
-         Prop.computed __resource_type __resource_id
-           "xray_tracing_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

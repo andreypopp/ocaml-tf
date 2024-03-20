@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,16 @@ val register :
   vpc_configuration:vpc_configuration list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?bucket_account_id:string prop ->
+  ?id:string prop ->
+  ?policy:string prop ->
+  bucket:string prop ->
+  name:string prop ->
+  public_access_block_configuration:
+    public_access_block_configuration list ->
+  vpc_configuration:vpc_configuration list ->
+  string ->
+  t Tf_core.resource

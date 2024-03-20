@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,16 @@ val register :
   constraints:constraints list ->
   string ->
   t
+
+val make :
+  ?grant_creation_tokens:string prop list ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?retire_on_delete:bool prop ->
+  ?retiring_principal:string prop ->
+  grantee_principal:string prop ->
+  key_id:string prop ->
+  operations:string prop list ->
+  constraints:constraints list ->
+  string ->
+  t Tf_core.resource

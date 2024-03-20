@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -108,3 +108,22 @@ val register :
   run:run list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?deploy_parameters:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?require_approval:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  anthos_cluster:anthos_cluster list ->
+  execution_configs:execution_configs list ->
+  gke:gke list ->
+  multi_target:multi_target list ->
+  run:run list ->
+  string ->
+  t Tf_core.resource

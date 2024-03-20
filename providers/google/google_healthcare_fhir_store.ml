@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type notification_config = {
   pubsub_topic : string prop;
@@ -222,57 +220,66 @@ type t = {
   version : string prop;
 }
 
+let make ?complex_data_type_reference_parsing
+    ?default_search_handling_strict ?disable_referential_integrity
+    ?disable_resource_versioning ?enable_history_import
+    ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
+    ~version ~notification_config ~stream_configs __id =
+  let __type = "google_healthcare_fhir_store" in
+  let __attrs =
+    ({
+       complex_data_type_reference_parsing =
+         Prop.computed __type __id
+           "complex_data_type_reference_parsing";
+       dataset = Prop.computed __type __id "dataset";
+       default_search_handling_strict =
+         Prop.computed __type __id "default_search_handling_strict";
+       disable_referential_integrity =
+         Prop.computed __type __id "disable_referential_integrity";
+       disable_resource_versioning =
+         Prop.computed __type __id "disable_resource_versioning";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       enable_history_import =
+         Prop.computed __type __id "enable_history_import";
+       enable_update_create =
+         Prop.computed __type __id "enable_update_create";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       self_link = Prop.computed __type __id "self_link";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_healthcare_fhir_store
+        (google_healthcare_fhir_store
+           ?complex_data_type_reference_parsing
+           ?default_search_handling_strict
+           ?disable_referential_integrity
+           ?disable_resource_versioning ?enable_history_import
+           ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
+           ~version ~notification_config ~stream_configs ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?complex_data_type_reference_parsing
     ?default_search_handling_strict ?disable_referential_integrity
     ?disable_resource_versioning ?enable_history_import
     ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-    ~version ~notification_config ~stream_configs __resource_id =
-  let __resource_type = "google_healthcare_fhir_store" in
-  let __resource =
-    google_healthcare_fhir_store ?complex_data_type_reference_parsing
+    ~version ~notification_config ~stream_configs __id =
+  let (r : _ Tf_core.resource) =
+    make ?complex_data_type_reference_parsing
       ?default_search_handling_strict ?disable_referential_integrity
       ?disable_resource_versioning ?enable_history_import
       ?enable_update_create ?id ?labels ?timeouts ~dataset ~name
-      ~version ~notification_config ~stream_configs ()
+      ~version ~notification_config ~stream_configs __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_healthcare_fhir_store __resource);
-  let __resource_attributes =
-    ({
-       complex_data_type_reference_parsing =
-         Prop.computed __resource_type __resource_id
-           "complex_data_type_reference_parsing";
-       dataset =
-         Prop.computed __resource_type __resource_id "dataset";
-       default_search_handling_strict =
-         Prop.computed __resource_type __resource_id
-           "default_search_handling_strict";
-       disable_referential_integrity =
-         Prop.computed __resource_type __resource_id
-           "disable_referential_integrity";
-       disable_resource_versioning =
-         Prop.computed __resource_type __resource_id
-           "disable_resource_versioning";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       enable_history_import =
-         Prop.computed __resource_type __resource_id
-           "enable_history_import";
-       enable_update_create =
-         Prop.computed __resource_type __resource_id
-           "enable_update_create";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

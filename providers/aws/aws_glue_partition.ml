@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type storage_descriptor__columns = {
   comment : string prop option; [@option]  (** comment *)
@@ -141,38 +139,42 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?catalog_id ?id ?parameters ~database_name
-    ~partition_values ~table_name ~storage_descriptor __resource_id =
-  let __resource_type = "aws_glue_partition" in
-  let __resource =
-    aws_glue_partition ?catalog_id ?id ?parameters ~database_name
-      ~partition_values ~table_name ~storage_descriptor ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_partition __resource);
-  let __resource_attributes =
+let make ?catalog_id ?id ?parameters ~database_name ~partition_values
+    ~table_name ~storage_descriptor __id =
+  let __type = "aws_glue_partition" in
+  let __attrs =
     ({
-       catalog_id =
-         Prop.computed __resource_type __resource_id "catalog_id";
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       catalog_id = Prop.computed __type __id "catalog_id";
+       creation_time = Prop.computed __type __id "creation_time";
+       database_name = Prop.computed __type __id "database_name";
+       id = Prop.computed __type __id "id";
        last_accessed_time =
-         Prop.computed __resource_type __resource_id
-           "last_accessed_time";
+         Prop.computed __type __id "last_accessed_time";
        last_analyzed_time =
-         Prop.computed __resource_type __resource_id
-           "last_analyzed_time";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+         Prop.computed __type __id "last_analyzed_time";
+       parameters = Prop.computed __type __id "parameters";
        partition_values =
-         Prop.computed __resource_type __resource_id
-           "partition_values";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+         Prop.computed __type __id "partition_values";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_partition
+        (aws_glue_partition ?catalog_id ?id ?parameters
+           ~database_name ~partition_values ~table_name
+           ~storage_descriptor ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?catalog_id ?id ?parameters ~database_name
+    ~partition_values ~table_name ~storage_descriptor __id =
+  let (r : _ Tf_core.resource) =
+    make ?catalog_id ?id ?parameters ~database_name ~partition_values
+      ~table_name ~storage_descriptor __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

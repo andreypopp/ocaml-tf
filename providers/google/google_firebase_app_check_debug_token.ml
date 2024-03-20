@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,27 +51,33 @@ type t = {
   token : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~app_id ~display_name
-    ~token __resource_id =
-  let __resource_type = "google_firebase_app_check_debug_token" in
-  let __resource =
-    google_firebase_app_check_debug_token ?id ?project ?timeouts
-      ~app_id ~display_name ~token ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firebase_app_check_debug_token __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~app_id ~display_name ~token __id =
+  let __type = "google_firebase_app_check_debug_token" in
+  let __attrs =
     ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       debug_token_id =
-         Prop.computed __resource_type __resource_id "debug_token_id";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       token = Prop.computed __resource_type __resource_id "token";
+       app_id = Prop.computed __type __id "app_id";
+       debug_token_id = Prop.computed __type __id "debug_token_id";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       token = Prop.computed __type __id "token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firebase_app_check_debug_token
+        (google_firebase_app_check_debug_token ?id ?project ?timeouts
+           ~app_id ~display_name ~token ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~app_id ~display_name
+    ~token __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~app_id ~display_name ~token __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,23 @@ val register :
   sensitive_params:sensitive_params list ->
   string ->
   t
+
+val make :
+  ?data_refresh_window_days:float prop ->
+  ?destination_dataset_id:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?notification_pubsub_topic:string prop ->
+  ?project:string prop ->
+  ?schedule:string prop ->
+  ?service_account_name:string prop ->
+  ?timeouts:timeouts ->
+  data_source_id:string prop ->
+  display_name:string prop ->
+  params:(string * string prop) list ->
+  email_preferences:email_preferences list ->
+  schedule_options:schedule_options list ->
+  sensitive_params:sensitive_params list ->
+  string ->
+  t Tf_core.resource

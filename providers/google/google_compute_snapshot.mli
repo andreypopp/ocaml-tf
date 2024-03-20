@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -90,3 +90,19 @@ val register :
   source_disk_encryption_key:source_disk_encryption_key list ->
   string ->
   t
+
+val make :
+  ?chain_name:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?storage_locations:string prop list ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  source_disk:string prop ->
+  snapshot_encryption_key:snapshot_encryption_key list ->
+  source_disk_encryption_key:source_disk_encryption_key list ->
+  string ->
+  t Tf_core.resource

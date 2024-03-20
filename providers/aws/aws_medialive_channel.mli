@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -1987,3 +1987,23 @@ val register :
   vpc:vpc list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?log_level:string prop ->
+  ?role_arn:string prop ->
+  ?start_channel:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  channel_class:string prop ->
+  name:string prop ->
+  cdi_input_specification:cdi_input_specification list ->
+  destinations:destinations list ->
+  encoder_settings:encoder_settings list ->
+  input_attachments:input_attachments list ->
+  input_specification:input_specification list ->
+  maintenance:maintenance list ->
+  vpc:vpc list ->
+  string ->
+  t Tf_core.resource

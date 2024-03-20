@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type scalable_target_action = {
   max_capacity : string prop option; [@option]  (** max_capacity *)
@@ -60,39 +58,46 @@ type t = {
   timezone : string prop;
 }
 
-let register ?tf_module ?end_time ?id ?start_time ?timezone ~name
-    ~resource_id ~scalable_dimension ~schedule ~service_namespace
-    ~scalable_target_action __resource_id =
-  let __resource_type = "aws_appautoscaling_scheduled_action" in
-  let __resource =
-    aws_appautoscaling_scheduled_action ?end_time ?id ?start_time
-      ?timezone ~name ~resource_id ~scalable_dimension ~schedule
-      ~service_namespace ~scalable_target_action ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appautoscaling_scheduled_action __resource);
-  let __resource_attributes =
+let make ?end_time ?id ?start_time ?timezone ~name ~resource_id
+    ~scalable_dimension ~schedule ~service_namespace
+    ~scalable_target_action __id =
+  let __type = "aws_appautoscaling_scheduled_action" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+       arn = Prop.computed __type __id "arn";
+       end_time = Prop.computed __type __id "end_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       resource_id = Prop.computed __type __id "resource_id";
        scalable_dimension =
-         Prop.computed __resource_type __resource_id
-           "scalable_dimension";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
+         Prop.computed __type __id "scalable_dimension";
+       schedule = Prop.computed __type __id "schedule";
        service_namespace =
-         Prop.computed __resource_type __resource_id
-           "service_namespace";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       timezone =
-         Prop.computed __resource_type __resource_id "timezone";
+         Prop.computed __type __id "service_namespace";
+       start_time = Prop.computed __type __id "start_time";
+       timezone = Prop.computed __type __id "timezone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appautoscaling_scheduled_action
+        (aws_appautoscaling_scheduled_action ?end_time ?id
+           ?start_time ?timezone ~name ~resource_id
+           ~scalable_dimension ~schedule ~service_namespace
+           ~scalable_target_action ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?end_time ?id ?start_time ?timezone ~name
+    ~resource_id ~scalable_dimension ~schedule ~service_namespace
+    ~scalable_target_action __id =
+  let (r : _ Tf_core.resource) =
+    make ?end_time ?id ?start_time ?timezone ~name ~resource_id
+      ~scalable_dimension ~schedule ~service_namespace
+      ~scalable_target_action __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

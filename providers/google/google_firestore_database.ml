@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -96,58 +94,61 @@ type t = {
   version_retention_period : string prop;
 }
 
-let register ?tf_module ?app_engine_integration_mode
-    ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
+let make ?app_engine_integration_mode ?concurrency_mode
+    ?delete_protection_state ?deletion_policy ?id
     ?point_in_time_recovery_enablement ?project ?timeouts
-    ~location_id ~name ~type_ __resource_id =
-  let __resource_type = "google_firestore_database" in
-  let __resource =
-    google_firestore_database ?app_engine_integration_mode
-      ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
-      ?point_in_time_recovery_enablement ?project ?timeouts
-      ~location_id ~name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firestore_database __resource);
-  let __resource_attributes =
+    ~location_id ~name ~type_ __id =
+  let __type = "google_firestore_database" in
+  let __attrs =
     ({
        app_engine_integration_mode =
-         Prop.computed __resource_type __resource_id
-           "app_engine_integration_mode";
+         Prop.computed __type __id "app_engine_integration_mode";
        concurrency_mode =
-         Prop.computed __resource_type __resource_id
-           "concurrency_mode";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+         Prop.computed __type __id "concurrency_mode";
+       create_time = Prop.computed __type __id "create_time";
        delete_protection_state =
-         Prop.computed __resource_type __resource_id
-           "delete_protection_state";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
+         Prop.computed __type __id "delete_protection_state";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
        earliest_version_time =
-         Prop.computed __resource_type __resource_id
-           "earliest_version_time";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_prefix =
-         Prop.computed __resource_type __resource_id "key_prefix";
-       location_id =
-         Prop.computed __resource_type __resource_id "location_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "earliest_version_time";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       key_prefix = Prop.computed __type __id "key_prefix";
+       location_id = Prop.computed __type __id "location_id";
+       name = Prop.computed __type __id "name";
        point_in_time_recovery_enablement =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "point_in_time_recovery_enablement";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       project = Prop.computed __type __id "project";
+       type_ = Prop.computed __type __id "type";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
        version_retention_period =
-         Prop.computed __resource_type __resource_id
-           "version_retention_period";
+         Prop.computed __type __id "version_retention_period";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firestore_database
+        (google_firestore_database ?app_engine_integration_mode
+           ?concurrency_mode ?delete_protection_state
+           ?deletion_policy ?id ?point_in_time_recovery_enablement
+           ?project ?timeouts ~location_id ~name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?app_engine_integration_mode
+    ?concurrency_mode ?delete_protection_state ?deletion_policy ?id
+    ?point_in_time_recovery_enablement ?project ?timeouts
+    ~location_id ~name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_engine_integration_mode ?concurrency_mode
+      ?delete_protection_state ?deletion_policy ?id
+      ?point_in_time_recovery_enablement ?project ?timeouts
+      ~location_id ~name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

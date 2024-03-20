@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backend = {
   balancing_mode : string prop option; [@option]
@@ -787,6 +785,72 @@ type t = {
   timeout_sec : float prop;
 }
 
+let make ?affinity_cookie_ttl_sec ?compression_mode
+    ?connection_draining_timeout_sec ?custom_request_headers
+    ?custom_response_headers ?description ?edge_security_policy
+    ?enable_cdn ?health_checks ?id ?load_balancing_scheme
+    ?locality_lb_policy ?port_name ?project ?protocol
+    ?security_policy ?session_affinity ?timeout_sec ?timeouts ~name
+    ~backend ~cdn_policy ~circuit_breakers ~consistent_hash ~iap
+    ~locality_lb_policies ~log_config ~outlier_detection
+    ~security_settings __id =
+  let __type = "google_compute_backend_service" in
+  let __attrs =
+    ({
+       affinity_cookie_ttl_sec =
+         Prop.computed __type __id "affinity_cookie_ttl_sec";
+       compression_mode =
+         Prop.computed __type __id "compression_mode";
+       connection_draining_timeout_sec =
+         Prop.computed __type __id "connection_draining_timeout_sec";
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       custom_request_headers =
+         Prop.computed __type __id "custom_request_headers";
+       custom_response_headers =
+         Prop.computed __type __id "custom_response_headers";
+       description = Prop.computed __type __id "description";
+       edge_security_policy =
+         Prop.computed __type __id "edge_security_policy";
+       enable_cdn = Prop.computed __type __id "enable_cdn";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       generated_id = Prop.computed __type __id "generated_id";
+       health_checks = Prop.computed __type __id "health_checks";
+       id = Prop.computed __type __id "id";
+       load_balancing_scheme =
+         Prop.computed __type __id "load_balancing_scheme";
+       locality_lb_policy =
+         Prop.computed __type __id "locality_lb_policy";
+       name = Prop.computed __type __id "name";
+       port_name = Prop.computed __type __id "port_name";
+       project = Prop.computed __type __id "project";
+       protocol = Prop.computed __type __id "protocol";
+       security_policy = Prop.computed __type __id "security_policy";
+       self_link = Prop.computed __type __id "self_link";
+       session_affinity =
+         Prop.computed __type __id "session_affinity";
+       timeout_sec = Prop.computed __type __id "timeout_sec";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_backend_service
+        (google_compute_backend_service ?affinity_cookie_ttl_sec
+           ?compression_mode ?connection_draining_timeout_sec
+           ?custom_request_headers ?custom_response_headers
+           ?description ?edge_security_policy ?enable_cdn
+           ?health_checks ?id ?load_balancing_scheme
+           ?locality_lb_policy ?port_name ?project ?protocol
+           ?security_policy ?session_affinity ?timeout_sec ?timeouts
+           ~name ~backend ~cdn_policy ~circuit_breakers
+           ~consistent_hash ~iap ~locality_lb_policies ~log_config
+           ~outlier_detection ~security_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?affinity_cookie_ttl_sec ?compression_mode
     ?connection_draining_timeout_sec ?custom_request_headers
     ?custom_response_headers ?description ?edge_security_policy
@@ -795,79 +859,17 @@ let register ?tf_module ?affinity_cookie_ttl_sec ?compression_mode
     ?security_policy ?session_affinity ?timeout_sec ?timeouts ~name
     ~backend ~cdn_policy ~circuit_breakers ~consistent_hash ~iap
     ~locality_lb_policies ~log_config ~outlier_detection
-    ~security_settings __resource_id =
-  let __resource_type = "google_compute_backend_service" in
-  let __resource =
-    google_compute_backend_service ?affinity_cookie_ttl_sec
-      ?compression_mode ?connection_draining_timeout_sec
-      ?custom_request_headers ?custom_response_headers ?description
-      ?edge_security_policy ?enable_cdn ?health_checks ?id
-      ?load_balancing_scheme ?locality_lb_policy ?port_name ?project
-      ?protocol ?security_policy ?session_affinity ?timeout_sec
-      ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
-      ~consistent_hash ~iap ~locality_lb_policies ~log_config
-      ~outlier_detection ~security_settings ()
+    ~security_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?affinity_cookie_ttl_sec ?compression_mode
+      ?connection_draining_timeout_sec ?custom_request_headers
+      ?custom_response_headers ?description ?edge_security_policy
+      ?enable_cdn ?health_checks ?id ?load_balancing_scheme
+      ?locality_lb_policy ?port_name ?project ?protocol
+      ?security_policy ?session_affinity ?timeout_sec ?timeouts ~name
+      ~backend ~cdn_policy ~circuit_breakers ~consistent_hash ~iap
+      ~locality_lb_policies ~log_config ~outlier_detection
+      ~security_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_backend_service __resource);
-  let __resource_attributes =
-    ({
-       affinity_cookie_ttl_sec =
-         Prop.computed __resource_type __resource_id
-           "affinity_cookie_ttl_sec";
-       compression_mode =
-         Prop.computed __resource_type __resource_id
-           "compression_mode";
-       connection_draining_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "connection_draining_timeout_sec";
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       custom_request_headers =
-         Prop.computed __resource_type __resource_id
-           "custom_request_headers";
-       custom_response_headers =
-         Prop.computed __resource_type __resource_id
-           "custom_response_headers";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       edge_security_policy =
-         Prop.computed __resource_type __resource_id
-           "edge_security_policy";
-       enable_cdn =
-         Prop.computed __resource_type __resource_id "enable_cdn";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       generated_id =
-         Prop.computed __resource_type __resource_id "generated_id";
-       health_checks =
-         Prop.computed __resource_type __resource_id "health_checks";
-       id = Prop.computed __resource_type __resource_id "id";
-       load_balancing_scheme =
-         Prop.computed __resource_type __resource_id
-           "load_balancing_scheme";
-       locality_lb_policy =
-         Prop.computed __resource_type __resource_id
-           "locality_lb_policy";
-       name = Prop.computed __resource_type __resource_id "name";
-       port_name =
-         Prop.computed __resource_type __resource_id "port_name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       security_policy =
-         Prop.computed __resource_type __resource_id
-           "security_policy";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       session_affinity =
-         Prop.computed __resource_type __resource_id
-           "session_affinity";
-       timeout_sec =
-         Prop.computed __resource_type __resource_id "timeout_sec";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

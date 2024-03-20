@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -32,3 +32,10 @@ val register :
   lex_bot:lex_bot list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  instance_id:string prop ->
+  lex_bot:lex_bot list ->
+  string ->
+  t Tf_core.resource

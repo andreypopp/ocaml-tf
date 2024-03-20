@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_header = {
   name : string prop;  (** name *)
@@ -84,37 +82,45 @@ type t = {
   weight : float prop;
 }
 
-let register ?tf_module ?always_serve_enabled ?enabled ?geo_mappings
-    ?id ?priority ?weight ?timeouts ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet __resource_id =
-  let __resource_type = "azurerm_traffic_manager_azure_endpoint" in
-  let __resource =
-    azurerm_traffic_manager_azure_endpoint ?always_serve_enabled
-      ?enabled ?geo_mappings ?id ?priority ?weight ?timeouts ~name
-      ~profile_id ~target_resource_id ~custom_header ~subnet ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_traffic_manager_azure_endpoint __resource);
-  let __resource_attributes =
+let make ?always_serve_enabled ?enabled ?geo_mappings ?id ?priority
+    ?weight ?timeouts ~name ~profile_id ~target_resource_id
+    ~custom_header ~subnet __id =
+  let __type = "azurerm_traffic_manager_azure_endpoint" in
+  let __attrs =
     ({
        always_serve_enabled =
-         Prop.computed __resource_type __resource_id
-           "always_serve_enabled";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       geo_mappings =
-         Prop.computed __resource_type __resource_id "geo_mappings";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       profile_id =
-         Prop.computed __resource_type __resource_id "profile_id";
+         Prop.computed __type __id "always_serve_enabled";
+       enabled = Prop.computed __type __id "enabled";
+       geo_mappings = Prop.computed __type __id "geo_mappings";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       profile_id = Prop.computed __type __id "profile_id";
        target_resource_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_id";
-       weight = Prop.computed __resource_type __resource_id "weight";
+         Prop.computed __type __id "target_resource_id";
+       weight = Prop.computed __type __id "weight";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_traffic_manager_azure_endpoint
+        (azurerm_traffic_manager_azure_endpoint ?always_serve_enabled
+           ?enabled ?geo_mappings ?id ?priority ?weight ?timeouts
+           ~name ~profile_id ~target_resource_id ~custom_header
+           ~subnet ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?always_serve_enabled ?enabled ?geo_mappings
+    ?id ?priority ?weight ?timeouts ~name ~profile_id
+    ~target_resource_id ~custom_header ~subnet __id =
+  let (r : _ Tf_core.resource) =
+    make ?always_serve_enabled ?enabled ?geo_mappings ?id ?priority
+      ?weight ?timeouts ~name ~profile_id ~target_resource_id
+      ~custom_header ~subnet __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

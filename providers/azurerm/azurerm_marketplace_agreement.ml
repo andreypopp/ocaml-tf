@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,29 +36,34 @@ type t = {
   publisher : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~offer ~plan ~publisher
-    __resource_id =
-  let __resource_type = "azurerm_marketplace_agreement" in
-  let __resource =
-    azurerm_marketplace_agreement ?id ?timeouts ~offer ~plan
-      ~publisher ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_marketplace_agreement __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~offer ~plan ~publisher __id =
+  let __type = "azurerm_marketplace_agreement" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        license_text_link =
-         Prop.computed __resource_type __resource_id
-           "license_text_link";
-       offer = Prop.computed __resource_type __resource_id "offer";
-       plan = Prop.computed __resource_type __resource_id "plan";
+         Prop.computed __type __id "license_text_link";
+       offer = Prop.computed __type __id "offer";
+       plan = Prop.computed __type __id "plan";
        privacy_policy_link =
-         Prop.computed __resource_type __resource_id
-           "privacy_policy_link";
-       publisher =
-         Prop.computed __resource_type __resource_id "publisher";
+         Prop.computed __type __id "privacy_policy_link";
+       publisher = Prop.computed __type __id "publisher";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_marketplace_agreement
+        (azurerm_marketplace_agreement ?id ?timeouts ~offer ~plan
+           ~publisher ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~offer ~plan ~publisher __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~offer ~plan ~publisher __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

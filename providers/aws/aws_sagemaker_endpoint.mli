@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -134,3 +134,13 @@ val register :
   deployment_config:deployment_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  endpoint_config_name:string prop ->
+  deployment_config:deployment_config list ->
+  string ->
+  t Tf_core.resource

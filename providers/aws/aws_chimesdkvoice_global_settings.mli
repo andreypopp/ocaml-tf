@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -30,3 +30,9 @@ val register :
   voice_connector:voice_connector list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  voice_connector:voice_connector list ->
+  string ->
+  t Tf_core.resource

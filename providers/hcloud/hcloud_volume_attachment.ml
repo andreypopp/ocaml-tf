@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_volume_attachment = {
   automount : bool prop option; [@option]  (** automount *)
@@ -24,24 +22,30 @@ type t = {
   volume_id : float prop;
 }
 
-let register ?tf_module ?automount ?id ~server_id ~volume_id
-    __resource_id =
-  let __resource_type = "hcloud_volume_attachment" in
-  let __resource =
-    hcloud_volume_attachment ?automount ?id ~server_id ~volume_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_volume_attachment __resource);
-  let __resource_attributes =
+let make ?automount ?id ~server_id ~volume_id __id =
+  let __type = "hcloud_volume_attachment" in
+  let __attrs =
     ({
-       automount =
-         Prop.computed __resource_type __resource_id "automount";
-       id = Prop.computed __resource_type __resource_id "id";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       volume_id =
-         Prop.computed __resource_type __resource_id "volume_id";
+       automount = Prop.computed __type __id "automount";
+       id = Prop.computed __type __id "id";
+       server_id = Prop.computed __type __id "server_id";
+       volume_id = Prop.computed __type __id "volume_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_volume_attachment
+        (hcloud_volume_attachment ?automount ?id ~server_id
+           ~volume_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automount ?id ~server_id ~volume_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?automount ?id ~server_id ~volume_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   actions_suppressor:actions_suppressor list ->
   string ->
   t
+
+val make :
+  ?actions_enabled:bool prop ->
+  ?alarm_actions:string prop list ->
+  ?alarm_description:string prop ->
+  ?id:string prop ->
+  ?insufficient_data_actions:string prop list ->
+  ?ok_actions:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  alarm_name:string prop ->
+  alarm_rule:string prop ->
+  actions_suppressor:actions_suppressor list ->
+  string ->
+  t Tf_core.resource

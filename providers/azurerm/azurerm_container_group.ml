@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type container__gpu = {
   count : float prop option; [@option]  (** count *)
@@ -480,68 +478,76 @@ type t = {
   zones : string list prop;
 }
 
+let make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
+    ?id ?ip_address_type ?key_vault_key_id
+    ?key_vault_user_assigned_identity_id ?network_profile_id
+    ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones ?timeouts
+    ~location ~name ~os_type ~resource_group_name ~container
+    ~diagnostics ~dns_config ~identity ~image_registry_credential
+    ~init_container __id =
+  let __type = "azurerm_container_group" in
+  let __attrs =
+    ({
+       dns_name_label = Prop.computed __type __id "dns_name_label";
+       dns_name_label_reuse_policy =
+         Prop.computed __type __id "dns_name_label_reuse_policy";
+       exposed_port = Prop.computed __type __id "exposed_port";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
+       key_vault_key_id =
+         Prop.computed __type __id "key_vault_key_id";
+       key_vault_user_assigned_identity_id =
+         Prop.computed __type __id
+           "key_vault_user_assigned_identity_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network_profile_id =
+         Prop.computed __type __id "network_profile_id";
+       os_type = Prop.computed __type __id "os_type";
+       priority = Prop.computed __type __id "priority";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       restart_policy = Prop.computed __type __id "restart_policy";
+       sku = Prop.computed __type __id "sku";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_group
+        (azurerm_container_group ?dns_name_label
+           ?dns_name_label_reuse_policy ?exposed_port ?id
+           ?ip_address_type ?key_vault_key_id
+           ?key_vault_user_assigned_identity_id ?network_profile_id
+           ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
+           ?timeouts ~location ~name ~os_type ~resource_group_name
+           ~container ~diagnostics ~dns_config ~identity
+           ~image_registry_credential ~init_container ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?dns_name_label ?dns_name_label_reuse_policy
     ?exposed_port ?id ?ip_address_type ?key_vault_key_id
     ?key_vault_user_assigned_identity_id ?network_profile_id
     ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones ?timeouts
     ~location ~name ~os_type ~resource_group_name ~container
     ~diagnostics ~dns_config ~identity ~image_registry_credential
-    ~init_container __resource_id =
-  let __resource_type = "azurerm_container_group" in
-  let __resource =
-    azurerm_container_group ?dns_name_label
-      ?dns_name_label_reuse_policy ?exposed_port ?id ?ip_address_type
-      ?key_vault_key_id ?key_vault_user_assigned_identity_id
-      ?network_profile_id ?priority ?restart_policy ?sku ?subnet_ids
-      ?tags ?zones ?timeouts ~location ~name ~os_type
-      ~resource_group_name ~container ~diagnostics ~dns_config
-      ~identity ~image_registry_credential ~init_container ()
+    ~init_container __id =
+  let (r : _ Tf_core.resource) =
+    make ?dns_name_label ?dns_name_label_reuse_policy ?exposed_port
+      ?id ?ip_address_type ?key_vault_key_id
+      ?key_vault_user_assigned_identity_id ?network_profile_id
+      ?priority ?restart_policy ?sku ?subnet_ids ?tags ?zones
+      ?timeouts ~location ~name ~os_type ~resource_group_name
+      ~container ~diagnostics ~dns_config ~identity
+      ~image_registry_credential ~init_container __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_group __resource);
-  let __resource_attributes =
-    ({
-       dns_name_label =
-         Prop.computed __resource_type __resource_id "dns_name_label";
-       dns_name_label_reuse_policy =
-         Prop.computed __resource_type __resource_id
-           "dns_name_label_reuse_policy";
-       exposed_port =
-         Prop.computed __resource_type __resource_id "exposed_port";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
-       key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_key_id";
-       key_vault_user_assigned_identity_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_user_assigned_identity_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_profile_id =
-         Prop.computed __resource_type __resource_id
-           "network_profile_id";
-       os_type =
-         Prop.computed __resource_type __resource_id "os_type";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       restart_policy =
-         Prop.computed __resource_type __resource_id "restart_policy";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,19 @@ val register :
     create_table_default_permissions list ->
   string ->
   t
+
+val make :
+  ?admins:string prop list ->
+  ?allow_external_data_filtering:bool prop ->
+  ?authorized_session_tag_value_list:string prop list ->
+  ?catalog_id:string prop ->
+  ?external_data_filtering_allow_list:string prop list ->
+  ?id:string prop ->
+  ?read_only_admins:string prop list ->
+  ?trusted_resource_owners:string prop list ->
+  create_database_default_permissions:
+    create_database_default_permissions list ->
+  create_table_default_permissions:
+    create_table_default_permissions list ->
+  string ->
+  t Tf_core.resource

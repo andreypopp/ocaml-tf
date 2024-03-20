@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_spaces_bucket_object = {
   acl : string prop option; [@option]  (** acl *)
@@ -78,55 +76,60 @@ type t = {
   website_redirect : string prop;
 }
 
-let register ?tf_module ?acl ?cache_control ?content ?content_base64
+let make ?acl ?cache_control ?content ?content_base64
     ?content_disposition ?content_encoding ?content_language
     ?content_type ?etag ?force_destroy ?id ?metadata ?source
-    ?website_redirect ~bucket ~key ~region __resource_id =
-  let __resource_type = "digitalocean_spaces_bucket_object" in
-  let __resource =
-    digitalocean_spaces_bucket_object ?acl ?cache_control ?content
-      ?content_base64 ?content_disposition ?content_encoding
-      ?content_language ?content_type ?etag ?force_destroy ?id
-      ?metadata ?source ?website_redirect ~bucket ~key ~region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_spaces_bucket_object __resource);
-  let __resource_attributes =
+    ?website_redirect ~bucket ~key ~region __id =
+  let __type = "digitalocean_spaces_bucket_object" in
+  let __attrs =
     ({
-       acl = Prop.computed __resource_type __resource_id "acl";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       cache_control =
-         Prop.computed __resource_type __resource_id "cache_control";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       content_base64 =
-         Prop.computed __resource_type __resource_id "content_base64";
+       acl = Prop.computed __type __id "acl";
+       bucket = Prop.computed __type __id "bucket";
+       cache_control = Prop.computed __type __id "cache_control";
+       content = Prop.computed __type __id "content";
+       content_base64 = Prop.computed __type __id "content_base64";
        content_disposition =
-         Prop.computed __resource_type __resource_id
-           "content_disposition";
+         Prop.computed __type __id "content_disposition";
        content_encoding =
-         Prop.computed __resource_type __resource_id
-           "content_encoding";
+         Prop.computed __type __id "content_encoding";
        content_language =
-         Prop.computed __resource_type __resource_id
-           "content_language";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       region = Prop.computed __resource_type __resource_id "region";
-       source = Prop.computed __resource_type __resource_id "source";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
+         Prop.computed __type __id "content_language";
+       content_type = Prop.computed __type __id "content_type";
+       etag = Prop.computed __type __id "etag";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       metadata = Prop.computed __type __id "metadata";
+       region = Prop.computed __type __id "region";
+       source = Prop.computed __type __id "source";
+       version_id = Prop.computed __type __id "version_id";
        website_redirect =
-         Prop.computed __resource_type __resource_id
-           "website_redirect";
+         Prop.computed __type __id "website_redirect";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_spaces_bucket_object
+        (digitalocean_spaces_bucket_object ?acl ?cache_control
+           ?content ?content_base64 ?content_disposition
+           ?content_encoding ?content_language ?content_type ?etag
+           ?force_destroy ?id ?metadata ?source ?website_redirect
+           ~bucket ~key ~region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?acl ?cache_control ?content ?content_base64
+    ?content_disposition ?content_encoding ?content_language
+    ?content_type ?etag ?force_destroy ?id ?metadata ?source
+    ?website_redirect ~bucket ~key ~region __id =
+  let (r : _ Tf_core.resource) =
+    make ?acl ?cache_control ?content ?content_base64
+      ?content_disposition ?content_encoding ?content_language
+      ?content_type ?etag ?force_destroy ?id ?metadata ?source
+      ?website_redirect ~bucket ~key ~region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

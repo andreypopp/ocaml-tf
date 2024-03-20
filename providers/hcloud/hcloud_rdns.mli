@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,14 @@ val register :
   ip_address:string prop ->
   string ->
   t
+
+val make :
+  ?floating_ip_id:float prop ->
+  ?id:string prop ->
+  ?load_balancer_id:float prop ->
+  ?primary_ip_id:float prop ->
+  ?server_id:float prop ->
+  dns_ptr:string prop ->
+  ip_address:string prop ->
+  string ->
+  t Tf_core.resource

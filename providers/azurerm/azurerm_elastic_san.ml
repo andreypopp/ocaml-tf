@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sku = {
   name : string prop;  (** name *)
@@ -73,48 +71,52 @@ type t = {
   zones : string list prop;
 }
 
-let register ?tf_module ?extended_size_in_tib ?id ?tags ?zones
-    ?timeouts ~base_size_in_tib ~location ~name ~resource_group_name
-    ~sku __resource_id =
-  let __resource_type = "azurerm_elastic_san" in
-  let __resource =
-    azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
-      ?timeouts ~base_size_in_tib ~location ~name
-      ~resource_group_name ~sku ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_elastic_san __resource);
-  let __resource_attributes =
+let make ?extended_size_in_tib ?id ?tags ?zones ?timeouts
+    ~base_size_in_tib ~location ~name ~resource_group_name ~sku __id
+    =
+  let __type = "azurerm_elastic_san" in
+  let __attrs =
     ({
        base_size_in_tib =
-         Prop.computed __resource_type __resource_id
-           "base_size_in_tib";
+         Prop.computed __type __id "base_size_in_tib";
        extended_size_in_tib =
-         Prop.computed __resource_type __resource_id
-           "extended_size_in_tib";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "extended_size_in_tib";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       total_iops =
-         Prop.computed __resource_type __resource_id "total_iops";
-       total_mbps =
-         Prop.computed __resource_type __resource_id "total_mbps";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       total_iops = Prop.computed __type __id "total_iops";
+       total_mbps = Prop.computed __type __id "total_mbps";
        total_size_in_tib =
-         Prop.computed __resource_type __resource_id
-           "total_size_in_tib";
+         Prop.computed __type __id "total_size_in_tib";
        total_volume_size_in_gib =
-         Prop.computed __resource_type __resource_id
-           "total_volume_size_in_gib";
+         Prop.computed __type __id "total_volume_size_in_gib";
        volume_group_count =
-         Prop.computed __resource_type __resource_id
-           "volume_group_count";
-       zones = Prop.computed __resource_type __resource_id "zones";
+         Prop.computed __type __id "volume_group_count";
+       zones = Prop.computed __type __id "zones";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_elastic_san
+        (azurerm_elastic_san ?extended_size_in_tib ?id ?tags ?zones
+           ?timeouts ~base_size_in_tib ~location ~name
+           ~resource_group_name ~sku ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?extended_size_in_tib ?id ?tags ?zones
+    ?timeouts ~base_size_in_tib ~location ~name ~resource_group_name
+    ~sku __id =
+  let (r : _ Tf_core.resource) =
+    make ?extended_size_in_tib ?id ?tags ?zones ?timeouts
+      ~base_size_in_tib ~location ~name ~resource_group_name ~sku
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

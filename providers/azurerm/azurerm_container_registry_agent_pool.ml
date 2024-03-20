@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,38 +61,46 @@ type t = {
   virtual_network_subnet_id : string prop;
 }
 
-let register ?tf_module ?id ?instance_count ?tags ?tier
-    ?virtual_network_subnet_id ?timeouts ~container_registry_name
-    ~location ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_container_registry_agent_pool" in
-  let __resource =
-    azurerm_container_registry_agent_pool ?id ?instance_count ?tags
-      ?tier ?virtual_network_subnet_id ?timeouts
-      ~container_registry_name ~location ~name ~resource_group_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry_agent_pool __resource);
-  let __resource_attributes =
+let make ?id ?instance_count ?tags ?tier ?virtual_network_subnet_id
+    ?timeouts ~container_registry_name ~location ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_container_registry_agent_pool" in
+  let __attrs =
     ({
        container_registry_name =
-         Prop.computed __resource_type __resource_id
-           "container_registry_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "container_registry_name";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tier = Prop.computed __resource_type __resource_id "tier";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       tier = Prop.computed __type __id "tier";
        virtual_network_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_subnet_id";
+         Prop.computed __type __id "virtual_network_subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry_agent_pool
+        (azurerm_container_registry_agent_pool ?id ?instance_count
+           ?tags ?tier ?virtual_network_subnet_id ?timeouts
+           ~container_registry_name ~location ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?instance_count ?tags ?tier
+    ?virtual_network_subnet_id ?timeouts ~container_registry_name
+    ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?instance_count ?tags ?tier ?virtual_network_subnet_id
+      ?timeouts ~container_registry_name ~location ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

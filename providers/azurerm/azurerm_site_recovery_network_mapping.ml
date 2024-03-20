@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,42 +57,51 @@ type t = {
   target_recovery_fabric_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~recovery_vault_name
+let make ?id ?timeouts ~name ~recovery_vault_name
     ~resource_group_name ~source_network_id
     ~source_recovery_fabric_name ~target_network_id
-    ~target_recovery_fabric_name __resource_id =
-  let __resource_type = "azurerm_site_recovery_network_mapping" in
-  let __resource =
-    azurerm_site_recovery_network_mapping ?id ?timeouts ~name
-      ~recovery_vault_name ~resource_group_name ~source_network_id
-      ~source_recovery_fabric_name ~target_network_id
-      ~target_recovery_fabric_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_site_recovery_network_mapping __resource);
-  let __resource_attributes =
+    ~target_recovery_fabric_name __id =
+  let __type = "azurerm_site_recovery_network_mapping" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        recovery_vault_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_vault_name";
+         Prop.computed __type __id "recovery_vault_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        source_network_id =
-         Prop.computed __resource_type __resource_id
-           "source_network_id";
+         Prop.computed __type __id "source_network_id";
        source_recovery_fabric_name =
-         Prop.computed __resource_type __resource_id
-           "source_recovery_fabric_name";
+         Prop.computed __type __id "source_recovery_fabric_name";
        target_network_id =
-         Prop.computed __resource_type __resource_id
-           "target_network_id";
+         Prop.computed __type __id "target_network_id";
        target_recovery_fabric_name =
-         Prop.computed __resource_type __resource_id
-           "target_recovery_fabric_name";
+         Prop.computed __type __id "target_recovery_fabric_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_site_recovery_network_mapping
+        (azurerm_site_recovery_network_mapping ?id ?timeouts ~name
+           ~recovery_vault_name ~resource_group_name
+           ~source_network_id ~source_recovery_fabric_name
+           ~target_network_id ~target_recovery_fabric_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~recovery_vault_name
+    ~resource_group_name ~source_network_id
+    ~source_recovery_fabric_name ~target_network_id
+    ~target_recovery_fabric_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~recovery_vault_name
+      ~resource_group_name ~source_network_id
+      ~source_recovery_fabric_name ~target_network_id
+      ~target_recovery_fabric_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

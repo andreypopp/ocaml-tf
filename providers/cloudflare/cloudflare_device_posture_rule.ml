@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input = {
   active_threats : float prop option; [@option]
@@ -165,29 +163,36 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?expiration ?id ?name ?schedule
-    ~account_id ~type_ ~input ~match_ __resource_id =
-  let __resource_type = "cloudflare_device_posture_rule" in
-  let __resource =
-    cloudflare_device_posture_rule ?description ?expiration ?id ?name
-      ?schedule ~account_id ~type_ ~input ~match_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_device_posture_rule __resource);
-  let __resource_attributes =
+let make ?description ?expiration ?id ?name ?schedule ~account_id
+    ~type_ ~input ~match_ __id =
+  let __type = "cloudflare_device_posture_rule" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expiration =
-         Prop.computed __resource_type __resource_id "expiration";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       account_id = Prop.computed __type __id "account_id";
+       description = Prop.computed __type __id "description";
+       expiration = Prop.computed __type __id "expiration";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       schedule = Prop.computed __type __id "schedule";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_device_posture_rule
+        (cloudflare_device_posture_rule ?description ?expiration ?id
+           ?name ?schedule ~account_id ~type_ ~input ~match_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?expiration ?id ?name ?schedule
+    ~account_id ~type_ ~input ~match_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?expiration ?id ?name ?schedule ~account_id
+      ~type_ ~input ~match_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

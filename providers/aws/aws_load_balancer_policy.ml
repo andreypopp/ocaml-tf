@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy_attribute = {
   name : string prop option; [@option]  (** name *)
@@ -42,27 +40,35 @@ type t = {
   policy_type_name : string prop;
 }
 
-let register ?tf_module ?id ~load_balancer_name ~policy_name
-    ~policy_type_name ~policy_attribute __resource_id =
-  let __resource_type = "aws_load_balancer_policy" in
-  let __resource =
-    aws_load_balancer_policy ?id ~load_balancer_name ~policy_name
-      ~policy_type_name ~policy_attribute ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_load_balancer_policy __resource);
-  let __resource_attributes =
+let make ?id ~load_balancer_name ~policy_name ~policy_type_name
+    ~policy_attribute __id =
+  let __type = "aws_load_balancer_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        load_balancer_name =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_name";
-       policy_name =
-         Prop.computed __resource_type __resource_id "policy_name";
+         Prop.computed __type __id "load_balancer_name";
+       policy_name = Prop.computed __type __id "policy_name";
        policy_type_name =
-         Prop.computed __resource_type __resource_id
-           "policy_type_name";
+         Prop.computed __type __id "policy_type_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_load_balancer_policy
+        (aws_load_balancer_policy ?id ~load_balancer_name
+           ~policy_name ~policy_type_name ~policy_attribute ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~load_balancer_name ~policy_name
+    ~policy_type_name ~policy_attribute __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~load_balancer_name ~policy_name ~policy_type_name
+      ~policy_attribute __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

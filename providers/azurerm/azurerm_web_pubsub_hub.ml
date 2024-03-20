@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_handler__auth = {
   managed_identity_id : string prop;  (** managed_identity_id *)
@@ -95,27 +93,35 @@ type t = {
   web_pubsub_id : string prop;
 }
 
-let register ?tf_module ?anonymous_connections_enabled ?id ?timeouts
-    ~name ~web_pubsub_id ~event_handler ~event_listener __resource_id
-    =
-  let __resource_type = "azurerm_web_pubsub_hub" in
-  let __resource =
-    azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
-      ?timeouts ~name ~web_pubsub_id ~event_handler ~event_listener
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_web_pubsub_hub __resource);
-  let __resource_attributes =
+let make ?anonymous_connections_enabled ?id ?timeouts ~name
+    ~web_pubsub_id ~event_handler ~event_listener __id =
+  let __type = "azurerm_web_pubsub_hub" in
+  let __attrs =
     ({
        anonymous_connections_enabled =
-         Prop.computed __resource_type __resource_id
-           "anonymous_connections_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       web_pubsub_id =
-         Prop.computed __resource_type __resource_id "web_pubsub_id";
+         Prop.computed __type __id "anonymous_connections_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       web_pubsub_id = Prop.computed __type __id "web_pubsub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_web_pubsub_hub
+        (azurerm_web_pubsub_hub ?anonymous_connections_enabled ?id
+           ?timeouts ~name ~web_pubsub_id ~event_handler
+           ~event_listener ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?anonymous_connections_enabled ?id ?timeouts
+    ~name ~web_pubsub_id ~event_handler ~event_listener __id =
+  let (r : _ Tf_core.resource) =
+    make ?anonymous_connections_enabled ?id ?timeouts ~name
+      ~web_pubsub_id ~event_handler ~event_listener __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

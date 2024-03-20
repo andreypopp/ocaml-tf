@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,15 @@ val register :
   scale:scale list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?rai_policy_name:string prop ->
+  ?version_upgrade_option:string prop ->
+  ?timeouts:timeouts ->
+  cognitive_account_id:string prop ->
+  name:string prop ->
+  model:model list ->
+  scale:scale list ->
+  string ->
+  t Tf_core.resource

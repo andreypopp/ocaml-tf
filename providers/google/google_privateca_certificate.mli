@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -417,3 +417,19 @@ val register :
   config:config list ->
   string ->
   t
+
+val make :
+  ?certificate_authority:string prop ->
+  ?certificate_template:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?lifetime:string prop ->
+  ?pem_csr:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  pool:string prop ->
+  config:config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type server_side_encryption = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -111,71 +109,73 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?availability_zones ?cluster_endpoint_encryption_type
+    ?description ?id ?maintenance_window ?notification_topic_arn
+    ?parameter_group_name ?security_group_ids ?subnet_group_name
+    ?tags ?tags_all ?timeouts ~cluster_name ~iam_role_arn ~node_type
+    ~replication_factor ~server_side_encryption __id =
+  let __type = "aws_dax_cluster" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       availability_zones =
+         Prop.computed __type __id "availability_zones";
+       cluster_address = Prop.computed __type __id "cluster_address";
+       cluster_endpoint_encryption_type =
+         Prop.computed __type __id "cluster_endpoint_encryption_type";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       configuration_endpoint =
+         Prop.computed __type __id "configuration_endpoint";
+       description = Prop.computed __type __id "description";
+       iam_role_arn = Prop.computed __type __id "iam_role_arn";
+       id = Prop.computed __type __id "id";
+       maintenance_window =
+         Prop.computed __type __id "maintenance_window";
+       node_type = Prop.computed __type __id "node_type";
+       nodes = Prop.computed __type __id "nodes";
+       notification_topic_arn =
+         Prop.computed __type __id "notification_topic_arn";
+       parameter_group_name =
+         Prop.computed __type __id "parameter_group_name";
+       port = Prop.computed __type __id "port";
+       replication_factor =
+         Prop.computed __type __id "replication_factor";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       subnet_group_name =
+         Prop.computed __type __id "subnet_group_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dax_cluster
+        (aws_dax_cluster ?availability_zones
+           ?cluster_endpoint_encryption_type ?description ?id
+           ?maintenance_window ?notification_topic_arn
+           ?parameter_group_name ?security_group_ids
+           ?subnet_group_name ?tags ?tags_all ?timeouts ~cluster_name
+           ~iam_role_arn ~node_type ~replication_factor
+           ~server_side_encryption ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?availability_zones
     ?cluster_endpoint_encryption_type ?description ?id
     ?maintenance_window ?notification_topic_arn ?parameter_group_name
     ?security_group_ids ?subnet_group_name ?tags ?tags_all ?timeouts
     ~cluster_name ~iam_role_arn ~node_type ~replication_factor
-    ~server_side_encryption __resource_id =
-  let __resource_type = "aws_dax_cluster" in
-  let __resource =
-    aws_dax_cluster ?availability_zones
-      ?cluster_endpoint_encryption_type ?description ?id
-      ?maintenance_window ?notification_topic_arn
+    ~server_side_encryption __id =
+  let (r : _ Tf_core.resource) =
+    make ?availability_zones ?cluster_endpoint_encryption_type
+      ?description ?id ?maintenance_window ?notification_topic_arn
       ?parameter_group_name ?security_group_ids ?subnet_group_name
       ?tags ?tags_all ?timeouts ~cluster_name ~iam_role_arn
-      ~node_type ~replication_factor ~server_side_encryption ()
+      ~node_type ~replication_factor ~server_side_encryption __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dax_cluster __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       availability_zones =
-         Prop.computed __resource_type __resource_id
-           "availability_zones";
-       cluster_address =
-         Prop.computed __resource_type __resource_id
-           "cluster_address";
-       cluster_endpoint_encryption_type =
-         Prop.computed __resource_type __resource_id
-           "cluster_endpoint_encryption_type";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       configuration_endpoint =
-         Prop.computed __resource_type __resource_id
-           "configuration_endpoint";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       iam_role_arn =
-         Prop.computed __resource_type __resource_id "iam_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "maintenance_window";
-       node_type =
-         Prop.computed __resource_type __resource_id "node_type";
-       nodes = Prop.computed __resource_type __resource_id "nodes";
-       notification_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "notification_topic_arn";
-       parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "parameter_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       replication_factor =
-         Prop.computed __resource_type __resource_id
-           "replication_factor";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "subnet_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

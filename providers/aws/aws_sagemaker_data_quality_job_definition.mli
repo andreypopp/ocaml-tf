@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -210,3 +210,19 @@ val register :
   stopping_condition:stopping_condition list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  role_arn:string prop ->
+  data_quality_app_specification:data_quality_app_specification list ->
+  data_quality_baseline_config:data_quality_baseline_config list ->
+  data_quality_job_input:data_quality_job_input list ->
+  data_quality_job_output_config:data_quality_job_output_config list ->
+  job_resources:job_resources list ->
+  network_config:network_config list ->
+  stopping_condition:stopping_condition list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,19 @@ val register :
   policy:policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?open_enclave_policy_base64:string prop ->
+  ?policy_signing_certificate_data:string prop ->
+  ?sev_snp_policy_base64:string prop ->
+  ?sgx_enclave_policy_base64:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tpm_policy_base64:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  policy:policy list ->
+  string ->
+  t Tf_core.resource

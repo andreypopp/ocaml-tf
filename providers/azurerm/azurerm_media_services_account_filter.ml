@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type presentation_time_range = {
   end_in_units : float prop option; [@option]  (** end_in_units *)
@@ -102,32 +100,42 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?first_quality_bitrate ?id ?timeouts
+let make ?first_quality_bitrate ?id ?timeouts
     ~media_services_account_name ~name ~resource_group_name
-    ~presentation_time_range ~track_selection __resource_id =
-  let __resource_type = "azurerm_media_services_account_filter" in
-  let __resource =
-    azurerm_media_services_account_filter ?first_quality_bitrate ?id
-      ?timeouts ~media_services_account_name ~name
-      ~resource_group_name ~presentation_time_range ~track_selection
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_services_account_filter __resource);
-  let __resource_attributes =
+    ~presentation_time_range ~track_selection __id =
+  let __type = "azurerm_media_services_account_filter" in
+  let __attrs =
     ({
        first_quality_bitrate =
-         Prop.computed __resource_type __resource_id
-           "first_quality_bitrate";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "first_quality_bitrate";
+       id = Prop.computed __type __id "id";
        media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_services_account_filter
+        (azurerm_media_services_account_filter ?first_quality_bitrate
+           ?id ?timeouts ~media_services_account_name ~name
+           ~resource_group_name ~presentation_time_range
+           ~track_selection ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?first_quality_bitrate ?id ?timeouts
+    ~media_services_account_name ~name ~resource_group_name
+    ~presentation_time_range ~track_selection __id =
+  let (r : _ Tf_core.resource) =
+    make ?first_quality_bitrate ?id ?timeouts
+      ~media_services_account_name ~name ~resource_group_name
+      ~presentation_time_range ~track_selection __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

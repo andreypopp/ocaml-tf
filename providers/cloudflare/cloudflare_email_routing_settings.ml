@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_email_routing_settings = {
   enabled : bool prop;
@@ -33,32 +31,35 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?skip_wizard ~enabled ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_email_routing_settings" in
-  let __resource =
-    cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
-      ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_email_routing_settings __resource);
-  let __resource_attributes =
+let make ?id ?skip_wizard ~enabled ~zone_id __id =
+  let __type = "cloudflare_email_routing_settings" in
+  let __attrs =
     ({
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified =
-         Prop.computed __resource_type __resource_id "modified";
-       name = Prop.computed __resource_type __resource_id "name";
-       skip_wizard =
-         Prop.computed __resource_type __resource_id "skip_wizard";
-       status = Prop.computed __resource_type __resource_id "status";
-       tag = Prop.computed __resource_type __resource_id "tag";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       created = Prop.computed __type __id "created";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       modified = Prop.computed __type __id "modified";
+       name = Prop.computed __type __id "name";
+       skip_wizard = Prop.computed __type __id "skip_wizard";
+       status = Prop.computed __type __id "status";
+       tag = Prop.computed __type __id "tag";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_email_routing_settings
+        (cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
+           ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?skip_wizard ~enabled ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?skip_wizard ~enabled ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

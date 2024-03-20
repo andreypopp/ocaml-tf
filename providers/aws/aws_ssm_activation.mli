@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,15 @@ val register :
   iam_role:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?expiration_date:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?registration_limit:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  iam_role:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   storage_mover_id:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?export:string prop ->
+  ?id:string prop ->
+  ?nfs_version:string prop ->
+  ?timeouts:timeouts ->
+  host:string prop ->
+  name:string prop ->
+  storage_mover_id:string prop ->
+  string ->
+  t Tf_core.resource

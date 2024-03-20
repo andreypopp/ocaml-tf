@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,54 +83,57 @@ type t = {
   timeout_in_minutes : float prop;
 }
 
-let register ?tf_module ?capabilities ?disable_rollback ?iam_role_arn
-    ?id ?notification_arns ?on_failure ?parameters ?policy_body
+let make ?capabilities ?disable_rollback ?iam_role_arn ?id
+    ?notification_arns ?on_failure ?parameters ?policy_body
     ?policy_url ?tags ?tags_all ?template_body ?template_url
-    ?timeout_in_minutes ?timeouts ~name __resource_id =
-  let __resource_type = "aws_cloudformation_stack" in
-  let __resource =
-    aws_cloudformation_stack ?capabilities ?disable_rollback
-      ?iam_role_arn ?id ?notification_arns ?on_failure ?parameters
-      ?policy_body ?policy_url ?tags ?tags_all ?template_body
-      ?template_url ?timeout_in_minutes ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudformation_stack __resource);
-  let __resource_attributes =
+    ?timeout_in_minutes ?timeouts ~name __id =
+  let __type = "aws_cloudformation_stack" in
+  let __attrs =
     ({
-       capabilities =
-         Prop.computed __resource_type __resource_id "capabilities";
+       capabilities = Prop.computed __type __id "capabilities";
        disable_rollback =
-         Prop.computed __resource_type __resource_id
-           "disable_rollback";
-       iam_role_arn =
-         Prop.computed __resource_type __resource_id "iam_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "disable_rollback";
+       iam_role_arn = Prop.computed __type __id "iam_role_arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        notification_arns =
-         Prop.computed __resource_type __resource_id
-           "notification_arns";
-       on_failure =
-         Prop.computed __resource_type __resource_id "on_failure";
-       outputs =
-         Prop.computed __resource_type __resource_id "outputs";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       policy_body =
-         Prop.computed __resource_type __resource_id "policy_body";
-       policy_url =
-         Prop.computed __resource_type __resource_id "policy_url";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       template_body =
-         Prop.computed __resource_type __resource_id "template_body";
-       template_url =
-         Prop.computed __resource_type __resource_id "template_url";
+         Prop.computed __type __id "notification_arns";
+       on_failure = Prop.computed __type __id "on_failure";
+       outputs = Prop.computed __type __id "outputs";
+       parameters = Prop.computed __type __id "parameters";
+       policy_body = Prop.computed __type __id "policy_body";
+       policy_url = Prop.computed __type __id "policy_url";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       template_body = Prop.computed __type __id "template_body";
+       template_url = Prop.computed __type __id "template_url";
        timeout_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "timeout_in_minutes";
+         Prop.computed __type __id "timeout_in_minutes";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudformation_stack
+        (aws_cloudformation_stack ?capabilities ?disable_rollback
+           ?iam_role_arn ?id ?notification_arns ?on_failure
+           ?parameters ?policy_body ?policy_url ?tags ?tags_all
+           ?template_body ?template_url ?timeout_in_minutes ?timeouts
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?capabilities ?disable_rollback ?iam_role_arn
+    ?id ?notification_arns ?on_failure ?parameters ?policy_body
+    ?policy_url ?tags ?tags_all ?template_body ?template_url
+    ?timeout_in_minutes ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?capabilities ?disable_rollback ?iam_role_arn ?id
+      ?notification_arns ?on_failure ?parameters ?policy_body
+      ?policy_url ?tags ?tags_all ?template_body ?template_url
+      ?timeout_in_minutes ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

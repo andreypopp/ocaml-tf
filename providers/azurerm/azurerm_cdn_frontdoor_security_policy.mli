@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,12 @@ val register :
   security_policies:security_policies list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_profile_id:string prop ->
+  name:string prop ->
+  security_policies:security_policies list ->
+  string ->
+  t Tf_core.resource

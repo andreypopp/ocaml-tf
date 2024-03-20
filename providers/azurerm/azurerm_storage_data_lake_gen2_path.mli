@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,16 @@ val register :
   ace:ace list ->
   string ->
   t
+
+val make :
+  ?group:string prop ->
+  ?id:string prop ->
+  ?owner:string prop ->
+  ?timeouts:timeouts ->
+  filesystem_name:string prop ->
+  path:string prop ->
+  resource:string prop ->
+  storage_account_id:string prop ->
+  ace:ace list ->
+  string ->
+  t Tf_core.resource

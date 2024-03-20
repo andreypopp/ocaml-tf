@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,14 @@ val register :
   redirect:redirect list ->
   string ->
   t
+
+val make :
+  ?asn:float prop ->
+  ?comment:string prop ->
+  ?ip:string prop ->
+  account_id:string prop ->
+  list_id:string prop ->
+  hostname:hostname list ->
+  redirect:redirect list ->
+  string ->
+  t Tf_core.resource

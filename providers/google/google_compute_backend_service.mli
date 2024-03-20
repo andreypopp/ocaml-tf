@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -286,3 +286,36 @@ val register :
   security_settings:security_settings list ->
   string ->
   t
+
+val make :
+  ?affinity_cookie_ttl_sec:float prop ->
+  ?compression_mode:string prop ->
+  ?connection_draining_timeout_sec:float prop ->
+  ?custom_request_headers:string prop list ->
+  ?custom_response_headers:string prop list ->
+  ?description:string prop ->
+  ?edge_security_policy:string prop ->
+  ?enable_cdn:bool prop ->
+  ?health_checks:string prop list ->
+  ?id:string prop ->
+  ?load_balancing_scheme:string prop ->
+  ?locality_lb_policy:string prop ->
+  ?port_name:string prop ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?security_policy:string prop ->
+  ?session_affinity:string prop ->
+  ?timeout_sec:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  backend:backend list ->
+  cdn_policy:cdn_policy list ->
+  circuit_breakers:circuit_breakers list ->
+  consistent_hash:consistent_hash list ->
+  iap:iap list ->
+  locality_lb_policies:locality_lb_policies list ->
+  log_config:log_config list ->
+  outlier_detection:outlier_detection list ->
+  security_settings:security_settings list ->
+  string ->
+  t Tf_core.resource

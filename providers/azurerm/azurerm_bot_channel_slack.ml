@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,40 +60,46 @@ type t = {
   verification_token : string prop;
 }
 
-let register ?tf_module ?id ?landing_page_url ?signing_secret
-    ?timeouts ~bot_name ~client_id ~client_secret ~location
-    ~resource_group_name ~verification_token __resource_id =
-  let __resource_type = "azurerm_bot_channel_slack" in
-  let __resource =
-    azurerm_bot_channel_slack ?id ?landing_page_url ?signing_secret
-      ?timeouts ~bot_name ~client_id ~client_secret ~location
-      ~resource_group_name ~verification_token ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channel_slack __resource);
-  let __resource_attributes =
+let make ?id ?landing_page_url ?signing_secret ?timeouts ~bot_name
+    ~client_id ~client_secret ~location ~resource_group_name
+    ~verification_token __id =
+  let __type = "azurerm_bot_channel_slack" in
+  let __attrs =
     ({
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       id = Prop.computed __resource_type __resource_id "id";
+       bot_name = Prop.computed __type __id "bot_name";
+       client_id = Prop.computed __type __id "client_id";
+       client_secret = Prop.computed __type __id "client_secret";
+       id = Prop.computed __type __id "id";
        landing_page_url =
-         Prop.computed __resource_type __resource_id
-           "landing_page_url";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "landing_page_url";
+       location = Prop.computed __type __id "location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       signing_secret =
-         Prop.computed __resource_type __resource_id "signing_secret";
+         Prop.computed __type __id "resource_group_name";
+       signing_secret = Prop.computed __type __id "signing_secret";
        verification_token =
-         Prop.computed __resource_type __resource_id
-           "verification_token";
+         Prop.computed __type __id "verification_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channel_slack
+        (azurerm_bot_channel_slack ?id ?landing_page_url
+           ?signing_secret ?timeouts ~bot_name ~client_id
+           ~client_secret ~location ~resource_group_name
+           ~verification_token ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?landing_page_url ?signing_secret
+    ?timeouts ~bot_name ~client_id ~client_secret ~location
+    ~resource_group_name ~verification_token __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?landing_page_url ?signing_secret ?timeouts ~bot_name
+      ~client_id ~client_secret ~location ~resource_group_name
+      ~verification_token __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

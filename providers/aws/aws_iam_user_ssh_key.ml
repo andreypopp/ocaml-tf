@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_user_ssh_key = {
   encoding : string prop;  (** encoding *)
@@ -28,31 +26,35 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?id ?status ~encoding ~public_key ~username
-    __resource_id =
-  let __resource_type = "aws_iam_user_ssh_key" in
-  let __resource =
-    aws_iam_user_ssh_key ?id ?status ~encoding ~public_key ~username
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_user_ssh_key __resource);
-  let __resource_attributes =
+let make ?id ?status ~encoding ~public_key ~username __id =
+  let __type = "aws_iam_user_ssh_key" in
+  let __attrs =
     ({
-       encoding =
-         Prop.computed __resource_type __resource_id "encoding";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
+       encoding = Prop.computed __type __id "encoding";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       public_key = Prop.computed __type __id "public_key";
        ssh_public_key_id =
-         Prop.computed __resource_type __resource_id
-           "ssh_public_key_id";
-       status = Prop.computed __resource_type __resource_id "status";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "ssh_public_key_id";
+       status = Prop.computed __type __id "status";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_user_ssh_key
+        (aws_iam_user_ssh_key ?id ?status ~encoding ~public_key
+           ~username ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?status ~encoding ~public_key ~username
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?status ~encoding ~public_key ~username __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_detective_organization_configuration = {
   auto_enable : bool prop;  (** auto_enable *)
@@ -22,22 +20,29 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ~auto_enable ~graph_arn __resource_id =
-  let __resource_type = "aws_detective_organization_configuration" in
-  let __resource =
-    aws_detective_organization_configuration ?id ~auto_enable
-      ~graph_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_detective_organization_configuration __resource);
-  let __resource_attributes =
+let make ?id ~auto_enable ~graph_arn __id =
+  let __type = "aws_detective_organization_configuration" in
+  let __attrs =
     ({
-       auto_enable =
-         Prop.computed __resource_type __resource_id "auto_enable";
-       graph_arn =
-         Prop.computed __resource_type __resource_id "graph_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       auto_enable = Prop.computed __type __id "auto_enable";
+       graph_arn = Prop.computed __type __id "graph_arn";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_detective_organization_configuration
+        (aws_detective_organization_configuration ?id ~auto_enable
+           ~graph_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~auto_enable ~graph_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~auto_enable ~graph_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

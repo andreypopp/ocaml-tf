@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,19 @@ val register :
   security:security list ->
   string ->
   t
+
+val make :
+  ?automatic_sync:bool prop ->
+  ?branch:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?publish_runbook_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  automation_account_id:string prop ->
+  folder_path:string prop ->
+  name:string prop ->
+  repository_url:string prop ->
+  source_control_type:string prop ->
+  security:security list ->
+  string ->
+  t Tf_core.resource

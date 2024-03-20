@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type tunnel1_log_options__cloudwatch_log_options = {
   log_enabled : bool prop option; [@option]  (** log_enabled *)
@@ -359,6 +357,231 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
+let make ?enable_acceleration ?id ?local_ipv4_network_cidr
+    ?local_ipv6_network_cidr ?outside_ip_address_type
+    ?remote_ipv4_network_cidr ?remote_ipv6_network_cidr
+    ?static_routes_only ?tags ?tags_all ?transit_gateway_id
+    ?transport_transit_gateway_attachment_id
+    ?tunnel1_dpd_timeout_action ?tunnel1_dpd_timeout_seconds
+    ?tunnel1_enable_tunnel_lifecycle_control ?tunnel1_ike_versions
+    ?tunnel1_inside_cidr ?tunnel1_inside_ipv6_cidr
+    ?tunnel1_phase1_dh_group_numbers
+    ?tunnel1_phase1_encryption_algorithms
+    ?tunnel1_phase1_integrity_algorithms
+    ?tunnel1_phase1_lifetime_seconds ?tunnel1_phase2_dh_group_numbers
+    ?tunnel1_phase2_encryption_algorithms
+    ?tunnel1_phase2_integrity_algorithms
+    ?tunnel1_phase2_lifetime_seconds ?tunnel1_preshared_key
+    ?tunnel1_rekey_fuzz_percentage ?tunnel1_rekey_margin_time_seconds
+    ?tunnel1_replay_window_size ?tunnel1_startup_action
+    ?tunnel2_dpd_timeout_action ?tunnel2_dpd_timeout_seconds
+    ?tunnel2_enable_tunnel_lifecycle_control ?tunnel2_ike_versions
+    ?tunnel2_inside_cidr ?tunnel2_inside_ipv6_cidr
+    ?tunnel2_phase1_dh_group_numbers
+    ?tunnel2_phase1_encryption_algorithms
+    ?tunnel2_phase1_integrity_algorithms
+    ?tunnel2_phase1_lifetime_seconds ?tunnel2_phase2_dh_group_numbers
+    ?tunnel2_phase2_encryption_algorithms
+    ?tunnel2_phase2_integrity_algorithms
+    ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
+    ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
+    ?tunnel2_replay_window_size ?tunnel2_startup_action
+    ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
+    ~type_ ~tunnel1_log_options ~tunnel2_log_options __id =
+  let __type = "aws_vpn_connection" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       core_network_arn =
+         Prop.computed __type __id "core_network_arn";
+       core_network_attachment_arn =
+         Prop.computed __type __id "core_network_attachment_arn";
+       customer_gateway_configuration =
+         Prop.computed __type __id "customer_gateway_configuration";
+       customer_gateway_id =
+         Prop.computed __type __id "customer_gateway_id";
+       enable_acceleration =
+         Prop.computed __type __id "enable_acceleration";
+       id = Prop.computed __type __id "id";
+       local_ipv4_network_cidr =
+         Prop.computed __type __id "local_ipv4_network_cidr";
+       local_ipv6_network_cidr =
+         Prop.computed __type __id "local_ipv6_network_cidr";
+       outside_ip_address_type =
+         Prop.computed __type __id "outside_ip_address_type";
+       remote_ipv4_network_cidr =
+         Prop.computed __type __id "remote_ipv4_network_cidr";
+       remote_ipv6_network_cidr =
+         Prop.computed __type __id "remote_ipv6_network_cidr";
+       routes = Prop.computed __type __id "routes";
+       static_routes_only =
+         Prop.computed __type __id "static_routes_only";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transit_gateway_attachment_id =
+         Prop.computed __type __id "transit_gateway_attachment_id";
+       transit_gateway_id =
+         Prop.computed __type __id "transit_gateway_id";
+       transport_transit_gateway_attachment_id =
+         Prop.computed __type __id
+           "transport_transit_gateway_attachment_id";
+       tunnel1_address = Prop.computed __type __id "tunnel1_address";
+       tunnel1_bgp_asn = Prop.computed __type __id "tunnel1_bgp_asn";
+       tunnel1_bgp_holdtime =
+         Prop.computed __type __id "tunnel1_bgp_holdtime";
+       tunnel1_cgw_inside_address =
+         Prop.computed __type __id "tunnel1_cgw_inside_address";
+       tunnel1_dpd_timeout_action =
+         Prop.computed __type __id "tunnel1_dpd_timeout_action";
+       tunnel1_dpd_timeout_seconds =
+         Prop.computed __type __id "tunnel1_dpd_timeout_seconds";
+       tunnel1_enable_tunnel_lifecycle_control =
+         Prop.computed __type __id
+           "tunnel1_enable_tunnel_lifecycle_control";
+       tunnel1_ike_versions =
+         Prop.computed __type __id "tunnel1_ike_versions";
+       tunnel1_inside_cidr =
+         Prop.computed __type __id "tunnel1_inside_cidr";
+       tunnel1_inside_ipv6_cidr =
+         Prop.computed __type __id "tunnel1_inside_ipv6_cidr";
+       tunnel1_phase1_dh_group_numbers =
+         Prop.computed __type __id "tunnel1_phase1_dh_group_numbers";
+       tunnel1_phase1_encryption_algorithms =
+         Prop.computed __type __id
+           "tunnel1_phase1_encryption_algorithms";
+       tunnel1_phase1_integrity_algorithms =
+         Prop.computed __type __id
+           "tunnel1_phase1_integrity_algorithms";
+       tunnel1_phase1_lifetime_seconds =
+         Prop.computed __type __id "tunnel1_phase1_lifetime_seconds";
+       tunnel1_phase2_dh_group_numbers =
+         Prop.computed __type __id "tunnel1_phase2_dh_group_numbers";
+       tunnel1_phase2_encryption_algorithms =
+         Prop.computed __type __id
+           "tunnel1_phase2_encryption_algorithms";
+       tunnel1_phase2_integrity_algorithms =
+         Prop.computed __type __id
+           "tunnel1_phase2_integrity_algorithms";
+       tunnel1_phase2_lifetime_seconds =
+         Prop.computed __type __id "tunnel1_phase2_lifetime_seconds";
+       tunnel1_preshared_key =
+         Prop.computed __type __id "tunnel1_preshared_key";
+       tunnel1_rekey_fuzz_percentage =
+         Prop.computed __type __id "tunnel1_rekey_fuzz_percentage";
+       tunnel1_rekey_margin_time_seconds =
+         Prop.computed __type __id
+           "tunnel1_rekey_margin_time_seconds";
+       tunnel1_replay_window_size =
+         Prop.computed __type __id "tunnel1_replay_window_size";
+       tunnel1_startup_action =
+         Prop.computed __type __id "tunnel1_startup_action";
+       tunnel1_vgw_inside_address =
+         Prop.computed __type __id "tunnel1_vgw_inside_address";
+       tunnel2_address = Prop.computed __type __id "tunnel2_address";
+       tunnel2_bgp_asn = Prop.computed __type __id "tunnel2_bgp_asn";
+       tunnel2_bgp_holdtime =
+         Prop.computed __type __id "tunnel2_bgp_holdtime";
+       tunnel2_cgw_inside_address =
+         Prop.computed __type __id "tunnel2_cgw_inside_address";
+       tunnel2_dpd_timeout_action =
+         Prop.computed __type __id "tunnel2_dpd_timeout_action";
+       tunnel2_dpd_timeout_seconds =
+         Prop.computed __type __id "tunnel2_dpd_timeout_seconds";
+       tunnel2_enable_tunnel_lifecycle_control =
+         Prop.computed __type __id
+           "tunnel2_enable_tunnel_lifecycle_control";
+       tunnel2_ike_versions =
+         Prop.computed __type __id "tunnel2_ike_versions";
+       tunnel2_inside_cidr =
+         Prop.computed __type __id "tunnel2_inside_cidr";
+       tunnel2_inside_ipv6_cidr =
+         Prop.computed __type __id "tunnel2_inside_ipv6_cidr";
+       tunnel2_phase1_dh_group_numbers =
+         Prop.computed __type __id "tunnel2_phase1_dh_group_numbers";
+       tunnel2_phase1_encryption_algorithms =
+         Prop.computed __type __id
+           "tunnel2_phase1_encryption_algorithms";
+       tunnel2_phase1_integrity_algorithms =
+         Prop.computed __type __id
+           "tunnel2_phase1_integrity_algorithms";
+       tunnel2_phase1_lifetime_seconds =
+         Prop.computed __type __id "tunnel2_phase1_lifetime_seconds";
+       tunnel2_phase2_dh_group_numbers =
+         Prop.computed __type __id "tunnel2_phase2_dh_group_numbers";
+       tunnel2_phase2_encryption_algorithms =
+         Prop.computed __type __id
+           "tunnel2_phase2_encryption_algorithms";
+       tunnel2_phase2_integrity_algorithms =
+         Prop.computed __type __id
+           "tunnel2_phase2_integrity_algorithms";
+       tunnel2_phase2_lifetime_seconds =
+         Prop.computed __type __id "tunnel2_phase2_lifetime_seconds";
+       tunnel2_preshared_key =
+         Prop.computed __type __id "tunnel2_preshared_key";
+       tunnel2_rekey_fuzz_percentage =
+         Prop.computed __type __id "tunnel2_rekey_fuzz_percentage";
+       tunnel2_rekey_margin_time_seconds =
+         Prop.computed __type __id
+           "tunnel2_rekey_margin_time_seconds";
+       tunnel2_replay_window_size =
+         Prop.computed __type __id "tunnel2_replay_window_size";
+       tunnel2_startup_action =
+         Prop.computed __type __id "tunnel2_startup_action";
+       tunnel2_vgw_inside_address =
+         Prop.computed __type __id "tunnel2_vgw_inside_address";
+       tunnel_inside_ip_version =
+         Prop.computed __type __id "tunnel_inside_ip_version";
+       type_ = Prop.computed __type __id "type";
+       vgw_telemetry = Prop.computed __type __id "vgw_telemetry";
+       vpn_gateway_id = Prop.computed __type __id "vpn_gateway_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpn_connection
+        (aws_vpn_connection ?enable_acceleration ?id
+           ?local_ipv4_network_cidr ?local_ipv6_network_cidr
+           ?outside_ip_address_type ?remote_ipv4_network_cidr
+           ?remote_ipv6_network_cidr ?static_routes_only ?tags
+           ?tags_all ?transit_gateway_id
+           ?transport_transit_gateway_attachment_id
+           ?tunnel1_dpd_timeout_action ?tunnel1_dpd_timeout_seconds
+           ?tunnel1_enable_tunnel_lifecycle_control
+           ?tunnel1_ike_versions ?tunnel1_inside_cidr
+           ?tunnel1_inside_ipv6_cidr ?tunnel1_phase1_dh_group_numbers
+           ?tunnel1_phase1_encryption_algorithms
+           ?tunnel1_phase1_integrity_algorithms
+           ?tunnel1_phase1_lifetime_seconds
+           ?tunnel1_phase2_dh_group_numbers
+           ?tunnel1_phase2_encryption_algorithms
+           ?tunnel1_phase2_integrity_algorithms
+           ?tunnel1_phase2_lifetime_seconds ?tunnel1_preshared_key
+           ?tunnel1_rekey_fuzz_percentage
+           ?tunnel1_rekey_margin_time_seconds
+           ?tunnel1_replay_window_size ?tunnel1_startup_action
+           ?tunnel2_dpd_timeout_action ?tunnel2_dpd_timeout_seconds
+           ?tunnel2_enable_tunnel_lifecycle_control
+           ?tunnel2_ike_versions ?tunnel2_inside_cidr
+           ?tunnel2_inside_ipv6_cidr ?tunnel2_phase1_dh_group_numbers
+           ?tunnel2_phase1_encryption_algorithms
+           ?tunnel2_phase1_integrity_algorithms
+           ?tunnel2_phase1_lifetime_seconds
+           ?tunnel2_phase2_dh_group_numbers
+           ?tunnel2_phase2_encryption_algorithms
+           ?tunnel2_phase2_integrity_algorithms
+           ?tunnel2_phase2_lifetime_seconds ?tunnel2_preshared_key
+           ?tunnel2_rekey_fuzz_percentage
+           ?tunnel2_rekey_margin_time_seconds
+           ?tunnel2_replay_window_size ?tunnel2_startup_action
+           ?tunnel_inside_ip_version ?vpn_gateway_id
+           ~customer_gateway_id ~type_ ~tunnel1_log_options
+           ~tunnel2_log_options ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enable_acceleration ?id
     ?local_ipv4_network_cidr ?local_ipv6_network_cidr
     ?outside_ip_address_type ?remote_ipv4_network_cidr
@@ -389,14 +612,13 @@ let register ?tf_module ?enable_acceleration ?id
     ?tunnel2_rekey_fuzz_percentage ?tunnel2_rekey_margin_time_seconds
     ?tunnel2_replay_window_size ?tunnel2_startup_action
     ?tunnel_inside_ip_version ?vpn_gateway_id ~customer_gateway_id
-    ~type_ ~tunnel1_log_options ~tunnel2_log_options __resource_id =
-  let __resource_type = "aws_vpn_connection" in
-  let __resource =
-    aws_vpn_connection ?enable_acceleration ?id
-      ?local_ipv4_network_cidr ?local_ipv6_network_cidr
-      ?outside_ip_address_type ?remote_ipv4_network_cidr
-      ?remote_ipv6_network_cidr ?static_routes_only ?tags ?tags_all
-      ?transit_gateway_id ?transport_transit_gateway_attachment_id
+    ~type_ ~tunnel1_log_options ~tunnel2_log_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_acceleration ?id ?local_ipv4_network_cidr
+      ?local_ipv6_network_cidr ?outside_ip_address_type
+      ?remote_ipv4_network_cidr ?remote_ipv6_network_cidr
+      ?static_routes_only ?tags ?tags_all ?transit_gateway_id
+      ?transport_transit_gateway_attachment_id
       ?tunnel1_dpd_timeout_action ?tunnel1_dpd_timeout_seconds
       ?tunnel1_enable_tunnel_lifecycle_control ?tunnel1_ike_versions
       ?tunnel1_inside_cidr ?tunnel1_inside_ipv6_cidr
@@ -426,213 +648,7 @@ let register ?tf_module ?enable_acceleration ?id
       ?tunnel2_rekey_margin_time_seconds ?tunnel2_replay_window_size
       ?tunnel2_startup_action ?tunnel_inside_ip_version
       ?vpn_gateway_id ~customer_gateway_id ~type_
-      ~tunnel1_log_options ~tunnel2_log_options ()
+      ~tunnel1_log_options ~tunnel2_log_options __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpn_connection __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       core_network_arn =
-         Prop.computed __resource_type __resource_id
-           "core_network_arn";
-       core_network_attachment_arn =
-         Prop.computed __resource_type __resource_id
-           "core_network_attachment_arn";
-       customer_gateway_configuration =
-         Prop.computed __resource_type __resource_id
-           "customer_gateway_configuration";
-       customer_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "customer_gateway_id";
-       enable_acceleration =
-         Prop.computed __resource_type __resource_id
-           "enable_acceleration";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_ipv4_network_cidr =
-         Prop.computed __resource_type __resource_id
-           "local_ipv4_network_cidr";
-       local_ipv6_network_cidr =
-         Prop.computed __resource_type __resource_id
-           "local_ipv6_network_cidr";
-       outside_ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "outside_ip_address_type";
-       remote_ipv4_network_cidr =
-         Prop.computed __resource_type __resource_id
-           "remote_ipv4_network_cidr";
-       remote_ipv6_network_cidr =
-         Prop.computed __resource_type __resource_id
-           "remote_ipv6_network_cidr";
-       routes = Prop.computed __resource_type __resource_id "routes";
-       static_routes_only =
-         Prop.computed __resource_type __resource_id
-           "static_routes_only";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transit_gateway_attachment_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_attachment_id";
-       transit_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_id";
-       transport_transit_gateway_attachment_id =
-         Prop.computed __resource_type __resource_id
-           "transport_transit_gateway_attachment_id";
-       tunnel1_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_address";
-       tunnel1_bgp_asn =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_bgp_asn";
-       tunnel1_bgp_holdtime =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_bgp_holdtime";
-       tunnel1_cgw_inside_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_cgw_inside_address";
-       tunnel1_dpd_timeout_action =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_dpd_timeout_action";
-       tunnel1_dpd_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_dpd_timeout_seconds";
-       tunnel1_enable_tunnel_lifecycle_control =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_enable_tunnel_lifecycle_control";
-       tunnel1_ike_versions =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_ike_versions";
-       tunnel1_inside_cidr =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_inside_cidr";
-       tunnel1_inside_ipv6_cidr =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_inside_ipv6_cidr";
-       tunnel1_phase1_dh_group_numbers =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase1_dh_group_numbers";
-       tunnel1_phase1_encryption_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase1_encryption_algorithms";
-       tunnel1_phase1_integrity_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase1_integrity_algorithms";
-       tunnel1_phase1_lifetime_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase1_lifetime_seconds";
-       tunnel1_phase2_dh_group_numbers =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase2_dh_group_numbers";
-       tunnel1_phase2_encryption_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase2_encryption_algorithms";
-       tunnel1_phase2_integrity_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase2_integrity_algorithms";
-       tunnel1_phase2_lifetime_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_phase2_lifetime_seconds";
-       tunnel1_preshared_key =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_preshared_key";
-       tunnel1_rekey_fuzz_percentage =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_rekey_fuzz_percentage";
-       tunnel1_rekey_margin_time_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_rekey_margin_time_seconds";
-       tunnel1_replay_window_size =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_replay_window_size";
-       tunnel1_startup_action =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_startup_action";
-       tunnel1_vgw_inside_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel1_vgw_inside_address";
-       tunnel2_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_address";
-       tunnel2_bgp_asn =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_bgp_asn";
-       tunnel2_bgp_holdtime =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_bgp_holdtime";
-       tunnel2_cgw_inside_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_cgw_inside_address";
-       tunnel2_dpd_timeout_action =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_dpd_timeout_action";
-       tunnel2_dpd_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_dpd_timeout_seconds";
-       tunnel2_enable_tunnel_lifecycle_control =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_enable_tunnel_lifecycle_control";
-       tunnel2_ike_versions =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_ike_versions";
-       tunnel2_inside_cidr =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_inside_cidr";
-       tunnel2_inside_ipv6_cidr =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_inside_ipv6_cidr";
-       tunnel2_phase1_dh_group_numbers =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase1_dh_group_numbers";
-       tunnel2_phase1_encryption_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase1_encryption_algorithms";
-       tunnel2_phase1_integrity_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase1_integrity_algorithms";
-       tunnel2_phase1_lifetime_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase1_lifetime_seconds";
-       tunnel2_phase2_dh_group_numbers =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase2_dh_group_numbers";
-       tunnel2_phase2_encryption_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase2_encryption_algorithms";
-       tunnel2_phase2_integrity_algorithms =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase2_integrity_algorithms";
-       tunnel2_phase2_lifetime_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_phase2_lifetime_seconds";
-       tunnel2_preshared_key =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_preshared_key";
-       tunnel2_rekey_fuzz_percentage =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_rekey_fuzz_percentage";
-       tunnel2_rekey_margin_time_seconds =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_rekey_margin_time_seconds";
-       tunnel2_replay_window_size =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_replay_window_size";
-       tunnel2_startup_action =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_startup_action";
-       tunnel2_vgw_inside_address =
-         Prop.computed __resource_type __resource_id
-           "tunnel2_vgw_inside_address";
-       tunnel_inside_ip_version =
-         Prop.computed __resource_type __resource_id
-           "tunnel_inside_ip_version";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       vgw_telemetry =
-         Prop.computed __resource_type __resource_id "vgw_telemetry";
-       vpn_gateway_id =
-         Prop.computed __resource_type __resource_id "vpn_gateway_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

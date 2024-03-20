@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type instance_filter__group_labels = {
   labels : (string * string prop) list;
@@ -517,39 +515,45 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?duration ?id ?project ?timeouts
+let make ?description ?duration ?id ?project ?timeouts
     ~patch_deployment_id ~instance_filter ~one_time_schedule
-    ~patch_config ~recurring_schedule ~rollout __resource_id =
-  let __resource_type = "google_os_config_patch_deployment" in
-  let __resource =
-    google_os_config_patch_deployment ?description ?duration ?id
-      ?project ?timeouts ~patch_deployment_id ~instance_filter
-      ~one_time_schedule ~patch_config ~recurring_schedule ~rollout
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_os_config_patch_deployment __resource);
-  let __resource_attributes =
+    ~patch_config ~recurring_schedule ~rollout __id =
+  let __type = "google_os_config_patch_deployment" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       duration =
-         Prop.computed __resource_type __resource_id "duration";
-       id = Prop.computed __resource_type __resource_id "id";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       duration = Prop.computed __type __id "duration";
+       id = Prop.computed __type __id "id";
        last_execute_time =
-         Prop.computed __resource_type __resource_id
-           "last_execute_time";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_execute_time";
+       name = Prop.computed __type __id "name";
        patch_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "patch_deployment_id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "patch_deployment_id";
+       project = Prop.computed __type __id "project";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_os_config_patch_deployment
+        (google_os_config_patch_deployment ?description ?duration ?id
+           ?project ?timeouts ~patch_deployment_id ~instance_filter
+           ~one_time_schedule ~patch_config ~recurring_schedule
+           ~rollout ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?duration ?id ?project ?timeouts
+    ~patch_deployment_id ~instance_filter ~one_time_schedule
+    ~patch_config ~recurring_schedule ~rollout __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?duration ?id ?project ?timeouts
+      ~patch_deployment_id ~instance_filter ~one_time_schedule
+      ~patch_config ~recurring_schedule ~rollout __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

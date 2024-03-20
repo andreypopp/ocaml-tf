@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,41 +56,52 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~destination_fhir_mapping_json
+let make ?id ?timeouts ~destination_fhir_mapping_json
     ~destination_fhir_service_id
     ~destination_identity_resolution_type ~location
-    ~medtech_service_id ~name __resource_id =
-  let __resource_type =
+    ~medtech_service_id ~name __id =
+  let __type =
     "azurerm_healthcare_medtech_service_fhir_destination"
   in
-  let __resource =
-    azurerm_healthcare_medtech_service_fhir_destination ?id ?timeouts
-      ~destination_fhir_mapping_json ~destination_fhir_service_id
-      ~destination_identity_resolution_type ~location
-      ~medtech_service_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_healthcare_medtech_service_fhir_destination
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        destination_fhir_mapping_json =
-         Prop.computed __resource_type __resource_id
-           "destination_fhir_mapping_json";
+         Prop.computed __type __id "destination_fhir_mapping_json";
        destination_fhir_service_id =
-         Prop.computed __resource_type __resource_id
-           "destination_fhir_service_id";
+         Prop.computed __type __id "destination_fhir_service_id";
        destination_identity_resolution_type =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "destination_identity_resolution_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        medtech_service_id =
-         Prop.computed __resource_type __resource_id
-           "medtech_service_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "medtech_service_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_healthcare_medtech_service_fhir_destination
+        (azurerm_healthcare_medtech_service_fhir_destination ?id
+           ?timeouts ~destination_fhir_mapping_json
+           ~destination_fhir_service_id
+           ~destination_identity_resolution_type ~location
+           ~medtech_service_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~destination_fhir_mapping_json
+    ~destination_fhir_service_id
+    ~destination_identity_resolution_type ~location
+    ~medtech_service_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~destination_fhir_mapping_json
+      ~destination_fhir_service_id
+      ~destination_identity_resolution_type ~location
+      ~medtech_service_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

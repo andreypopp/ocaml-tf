@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type targets = {
   key : string prop;  (** key *)
@@ -238,48 +236,49 @@ type t = {
   window_task_id : string prop;
 }
 
-let register ?tf_module ?cutoff_behavior ?description ?id
-    ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
-    ~task_arn ~task_type ~window_id ~targets
-    ~task_invocation_parameters __resource_id =
-  let __resource_type = "aws_ssm_maintenance_window_task" in
-  let __resource =
-    aws_ssm_maintenance_window_task ?cutoff_behavior ?description ?id
-      ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
-      ~task_arn ~task_type ~window_id ~targets
-      ~task_invocation_parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_maintenance_window_task __resource);
-  let __resource_attributes =
+let make ?cutoff_behavior ?description ?id ?max_concurrency
+    ?max_errors ?name ?priority ?service_role_arn ~task_arn
+    ~task_type ~window_id ~targets ~task_invocation_parameters __id =
+  let __type = "aws_ssm_maintenance_window_task" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cutoff_behavior =
-         Prop.computed __resource_type __resource_id
-           "cutoff_behavior";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_concurrency =
-         Prop.computed __resource_type __resource_id
-           "max_concurrency";
-       max_errors =
-         Prop.computed __resource_type __resource_id "max_errors";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+       arn = Prop.computed __type __id "arn";
+       cutoff_behavior = Prop.computed __type __id "cutoff_behavior";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       max_concurrency = Prop.computed __type __id "max_concurrency";
+       max_errors = Prop.computed __type __id "max_errors";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_role_arn";
-       task_arn =
-         Prop.computed __resource_type __resource_id "task_arn";
-       task_type =
-         Prop.computed __resource_type __resource_id "task_type";
-       window_id =
-         Prop.computed __resource_type __resource_id "window_id";
-       window_task_id =
-         Prop.computed __resource_type __resource_id "window_task_id";
+         Prop.computed __type __id "service_role_arn";
+       task_arn = Prop.computed __type __id "task_arn";
+       task_type = Prop.computed __type __id "task_type";
+       window_id = Prop.computed __type __id "window_id";
+       window_task_id = Prop.computed __type __id "window_task_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_maintenance_window_task
+        (aws_ssm_maintenance_window_task ?cutoff_behavior
+           ?description ?id ?max_concurrency ?max_errors ?name
+           ?priority ?service_role_arn ~task_arn ~task_type
+           ~window_id ~targets ~task_invocation_parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cutoff_behavior ?description ?id
+    ?max_concurrency ?max_errors ?name ?priority ?service_role_arn
+    ~task_arn ~task_type ~window_id ~targets
+    ~task_invocation_parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?cutoff_behavior ?description ?id ?max_concurrency
+      ?max_errors ?name ?priority ?service_role_arn ~task_arn
+      ~task_type ~window_id ~targets ~task_invocation_parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

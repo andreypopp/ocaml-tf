@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,14 @@ val register :
   scim_config:scim_config list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  config:config list ->
+  scim_config:scim_config list ->
+  string ->
+  t Tf_core.resource

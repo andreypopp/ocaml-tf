@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,19 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?lock_exclude_actions:string prop list ->
+  ?lock_exclude_principals:string prop list ->
+  ?lock_mode:string prop ->
+  ?parameter_values:string prop ->
+  ?resource_groups:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  target_subscription_id:string prop ->
+  version_id:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

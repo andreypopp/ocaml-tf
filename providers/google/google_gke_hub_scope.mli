@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,13 @@ val register :
   scope_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?namespace_labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  scope_id:string prop ->
+  string ->
+  t Tf_core.resource

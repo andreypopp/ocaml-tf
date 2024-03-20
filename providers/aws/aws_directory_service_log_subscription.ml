@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_directory_service_log_subscription = {
   directory_id : string prop;  (** directory_id *)
@@ -22,23 +20,29 @@ type t = {
   log_group_name : string prop;
 }
 
-let register ?tf_module ?id ~directory_id ~log_group_name
-    __resource_id =
-  let __resource_type = "aws_directory_service_log_subscription" in
-  let __resource =
-    aws_directory_service_log_subscription ?id ~directory_id
-      ~log_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_directory_service_log_subscription __resource);
-  let __resource_attributes =
+let make ?id ~directory_id ~log_group_name __id =
+  let __type = "aws_directory_service_log_subscription" in
+  let __attrs =
     ({
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       log_group_name =
-         Prop.computed __resource_type __resource_id "log_group_name";
+       directory_id = Prop.computed __type __id "directory_id";
+       id = Prop.computed __type __id "id";
+       log_group_name = Prop.computed __type __id "log_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_directory_service_log_subscription
+        (aws_directory_service_log_subscription ?id ~directory_id
+           ~log_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~directory_id ~log_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~directory_id ~log_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type component_version = { spark : string prop  (** spark *) }
 [@@deriving yojson_of]
@@ -468,48 +466,57 @@ type t = {
   tls_min_version : string prop;
 }
 
+let make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
+    ?timeouts ~cluster_version ~location ~name ~resource_group_name
+    ~tier ~component_version ~compute_isolation ~disk_encryption
+    ~extension ~gateway ~metastores ~monitor ~network ~roles
+    ~security_profile ~storage_account ~storage_account_gen2 __id =
+  let __type = "azurerm_hdinsight_spark_cluster" in
+  let __attrs =
+    ({
+       cluster_version = Prop.computed __type __id "cluster_version";
+       encryption_in_transit_enabled =
+         Prop.computed __type __id "encryption_in_transit_enabled";
+       https_endpoint = Prop.computed __type __id "https_endpoint";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       ssh_endpoint = Prop.computed __type __id "ssh_endpoint";
+       tags = Prop.computed __type __id "tags";
+       tier = Prop.computed __type __id "tier";
+       tls_min_version = Prop.computed __type __id "tls_min_version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_hdinsight_spark_cluster
+        (azurerm_hdinsight_spark_cluster
+           ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
+           ?timeouts ~cluster_version ~location ~name
+           ~resource_group_name ~tier ~component_version
+           ~compute_isolation ~disk_encryption ~extension ~gateway
+           ~metastores ~monitor ~network ~roles ~security_profile
+           ~storage_account ~storage_account_gen2 ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?encryption_in_transit_enabled ?id ?tags
     ?tls_min_version ?timeouts ~cluster_version ~location ~name
     ~resource_group_name ~tier ~component_version ~compute_isolation
     ~disk_encryption ~extension ~gateway ~metastores ~monitor
     ~network ~roles ~security_profile ~storage_account
-    ~storage_account_gen2 __resource_id =
-  let __resource_type = "azurerm_hdinsight_spark_cluster" in
-  let __resource =
-    azurerm_hdinsight_spark_cluster ?encryption_in_transit_enabled
-      ?id ?tags ?tls_min_version ?timeouts ~cluster_version ~location
-      ~name ~resource_group_name ~tier ~component_version
-      ~compute_isolation ~disk_encryption ~extension ~gateway
-      ~metastores ~monitor ~network ~roles ~security_profile
-      ~storage_account ~storage_account_gen2 ()
+    ~storage_account_gen2 __id =
+  let (r : _ Tf_core.resource) =
+    make ?encryption_in_transit_enabled ?id ?tags ?tls_min_version
+      ?timeouts ~cluster_version ~location ~name ~resource_group_name
+      ~tier ~component_version ~compute_isolation ~disk_encryption
+      ~extension ~gateway ~metastores ~monitor ~network ~roles
+      ~security_profile ~storage_account ~storage_account_gen2 __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_hdinsight_spark_cluster __resource);
-  let __resource_attributes =
-    ({
-       cluster_version =
-         Prop.computed __resource_type __resource_id
-           "cluster_version";
-       encryption_in_transit_enabled =
-         Prop.computed __resource_type __resource_id
-           "encryption_in_transit_enabled";
-       https_endpoint =
-         Prop.computed __resource_type __resource_id "https_endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       ssh_endpoint =
-         Prop.computed __resource_type __resource_id "ssh_endpoint";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       tls_min_version =
-         Prop.computed __resource_type __resource_id
-           "tls_min_version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

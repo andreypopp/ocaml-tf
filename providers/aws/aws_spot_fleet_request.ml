@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type launch_specification__ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
@@ -560,6 +558,86 @@ type t = {
   wait_for_fulfillment : bool prop;
 }
 
+let make ?allocation_strategy ?context
+    ?excess_capacity_termination_policy ?fleet_type ?id
+    ?instance_interruption_behaviour ?instance_pools_to_use_count
+    ?load_balancers ?on_demand_allocation_strategy
+    ?on_demand_max_total_price ?on_demand_target_capacity
+    ?replace_unhealthy_instances ?spot_price ?tags ?tags_all
+    ?target_capacity_unit_type ?target_group_arns
+    ?terminate_instances_on_delete
+    ?terminate_instances_with_expiration ?valid_from ?valid_until
+    ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
+    ~launch_specification ~launch_template_config
+    ~spot_maintenance_strategies __id =
+  let __type = "aws_spot_fleet_request" in
+  let __attrs =
+    ({
+       allocation_strategy =
+         Prop.computed __type __id "allocation_strategy";
+       client_token = Prop.computed __type __id "client_token";
+       context = Prop.computed __type __id "context";
+       excess_capacity_termination_policy =
+         Prop.computed __type __id
+           "excess_capacity_termination_policy";
+       fleet_type = Prop.computed __type __id "fleet_type";
+       iam_fleet_role = Prop.computed __type __id "iam_fleet_role";
+       id = Prop.computed __type __id "id";
+       instance_interruption_behaviour =
+         Prop.computed __type __id "instance_interruption_behaviour";
+       instance_pools_to_use_count =
+         Prop.computed __type __id "instance_pools_to_use_count";
+       load_balancers = Prop.computed __type __id "load_balancers";
+       on_demand_allocation_strategy =
+         Prop.computed __type __id "on_demand_allocation_strategy";
+       on_demand_max_total_price =
+         Prop.computed __type __id "on_demand_max_total_price";
+       on_demand_target_capacity =
+         Prop.computed __type __id "on_demand_target_capacity";
+       replace_unhealthy_instances =
+         Prop.computed __type __id "replace_unhealthy_instances";
+       spot_price = Prop.computed __type __id "spot_price";
+       spot_request_state =
+         Prop.computed __type __id "spot_request_state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_capacity = Prop.computed __type __id "target_capacity";
+       target_capacity_unit_type =
+         Prop.computed __type __id "target_capacity_unit_type";
+       target_group_arns =
+         Prop.computed __type __id "target_group_arns";
+       terminate_instances_on_delete =
+         Prop.computed __type __id "terminate_instances_on_delete";
+       terminate_instances_with_expiration =
+         Prop.computed __type __id
+           "terminate_instances_with_expiration";
+       valid_from = Prop.computed __type __id "valid_from";
+       valid_until = Prop.computed __type __id "valid_until";
+       wait_for_fulfillment =
+         Prop.computed __type __id "wait_for_fulfillment";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_spot_fleet_request
+        (aws_spot_fleet_request ?allocation_strategy ?context
+           ?excess_capacity_termination_policy ?fleet_type ?id
+           ?instance_interruption_behaviour
+           ?instance_pools_to_use_count ?load_balancers
+           ?on_demand_allocation_strategy ?on_demand_max_total_price
+           ?on_demand_target_capacity ?replace_unhealthy_instances
+           ?spot_price ?tags ?tags_all ?target_capacity_unit_type
+           ?target_group_arns ?terminate_instances_on_delete
+           ?terminate_instances_with_expiration ?valid_from
+           ?valid_until ?wait_for_fulfillment ?timeouts
+           ~iam_fleet_role ~target_capacity ~launch_specification
+           ~launch_template_config ~spot_maintenance_strategies ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allocation_strategy ?context
     ?excess_capacity_termination_policy ?fleet_type ?id
     ?instance_interruption_behaviour ?instance_pools_to_use_count
@@ -571,10 +649,9 @@ let register ?tf_module ?allocation_strategy ?context
     ?terminate_instances_with_expiration ?valid_from ?valid_until
     ?wait_for_fulfillment ?timeouts ~iam_fleet_role ~target_capacity
     ~launch_specification ~launch_template_config
-    ~spot_maintenance_strategies __resource_id =
-  let __resource_type = "aws_spot_fleet_request" in
-  let __resource =
-    aws_spot_fleet_request ?allocation_strategy ?context
+    ~spot_maintenance_strategies __id =
+  let (r : _ Tf_core.resource) =
+    make ?allocation_strategy ?context
       ?excess_capacity_termination_policy ?fleet_type ?id
       ?instance_interruption_behaviour ?instance_pools_to_use_count
       ?load_balancers ?on_demand_allocation_strategy
@@ -585,78 +662,7 @@ let register ?tf_module ?allocation_strategy ?context
       ?terminate_instances_with_expiration ?valid_from ?valid_until
       ?wait_for_fulfillment ?timeouts ~iam_fleet_role
       ~target_capacity ~launch_specification ~launch_template_config
-      ~spot_maintenance_strategies ()
+      ~spot_maintenance_strategies __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_spot_fleet_request __resource);
-  let __resource_attributes =
-    ({
-       allocation_strategy =
-         Prop.computed __resource_type __resource_id
-           "allocation_strategy";
-       client_token =
-         Prop.computed __resource_type __resource_id "client_token";
-       context =
-         Prop.computed __resource_type __resource_id "context";
-       excess_capacity_termination_policy =
-         Prop.computed __resource_type __resource_id
-           "excess_capacity_termination_policy";
-       fleet_type =
-         Prop.computed __resource_type __resource_id "fleet_type";
-       iam_fleet_role =
-         Prop.computed __resource_type __resource_id "iam_fleet_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_interruption_behaviour =
-         Prop.computed __resource_type __resource_id
-           "instance_interruption_behaviour";
-       instance_pools_to_use_count =
-         Prop.computed __resource_type __resource_id
-           "instance_pools_to_use_count";
-       load_balancers =
-         Prop.computed __resource_type __resource_id "load_balancers";
-       on_demand_allocation_strategy =
-         Prop.computed __resource_type __resource_id
-           "on_demand_allocation_strategy";
-       on_demand_max_total_price =
-         Prop.computed __resource_type __resource_id
-           "on_demand_max_total_price";
-       on_demand_target_capacity =
-         Prop.computed __resource_type __resource_id
-           "on_demand_target_capacity";
-       replace_unhealthy_instances =
-         Prop.computed __resource_type __resource_id
-           "replace_unhealthy_instances";
-       spot_price =
-         Prop.computed __resource_type __resource_id "spot_price";
-       spot_request_state =
-         Prop.computed __resource_type __resource_id
-           "spot_request_state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_capacity =
-         Prop.computed __resource_type __resource_id
-           "target_capacity";
-       target_capacity_unit_type =
-         Prop.computed __resource_type __resource_id
-           "target_capacity_unit_type";
-       target_group_arns =
-         Prop.computed __resource_type __resource_id
-           "target_group_arns";
-       terminate_instances_on_delete =
-         Prop.computed __resource_type __resource_id
-           "terminate_instances_on_delete";
-       terminate_instances_with_expiration =
-         Prop.computed __resource_type __resource_id
-           "terminate_instances_with_expiration";
-       valid_from =
-         Prop.computed __resource_type __resource_id "valid_from";
-       valid_until =
-         Prop.computed __resource_type __resource_id "valid_until";
-       wait_for_fulfillment =
-         Prop.computed __resource_type __resource_id
-           "wait_for_fulfillment";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

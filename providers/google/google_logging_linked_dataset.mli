@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,15 @@ val register :
   bigquery_dataset:bigquery_dataset list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?parent:string prop ->
+  ?timeouts:timeouts ->
+  bucket:string prop ->
+  link_id:string prop ->
+  bigquery_dataset:bigquery_dataset list ->
+  string ->
+  t Tf_core.resource

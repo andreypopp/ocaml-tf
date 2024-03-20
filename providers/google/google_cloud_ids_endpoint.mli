@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,16 @@ val register :
   severity:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?threat_exceptions:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network:string prop ->
+  severity:string prop ->
+  string ->
+  t Tf_core.resource

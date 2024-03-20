@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type logs__filtering_tag = {
   action : string prop;  (** action *)
@@ -100,53 +98,55 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
+let make ?id ?monitoring_enabled ?tags ?timeouts
     ~elastic_cloud_email_address ~location ~name ~resource_group_name
-    ~sku_name ~logs __resource_id =
-  let __resource_type = "azurerm_elastic_cloud_elasticsearch" in
-  let __resource =
-    azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled ?tags
-      ?timeouts ~elastic_cloud_email_address ~location ~name
-      ~resource_group_name ~sku_name ~logs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_elastic_cloud_elasticsearch __resource);
-  let __resource_attributes =
+    ~sku_name ~logs __id =
+  let __type = "azurerm_elastic_cloud_elasticsearch" in
+  let __attrs =
     ({
        elastic_cloud_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "elastic_cloud_deployment_id";
+         Prop.computed __type __id "elastic_cloud_deployment_id";
        elastic_cloud_email_address =
-         Prop.computed __resource_type __resource_id
-           "elastic_cloud_email_address";
+         Prop.computed __type __id "elastic_cloud_email_address";
        elastic_cloud_sso_default_url =
-         Prop.computed __resource_type __resource_id
-           "elastic_cloud_sso_default_url";
+         Prop.computed __type __id "elastic_cloud_sso_default_url";
        elastic_cloud_user_id =
-         Prop.computed __resource_type __resource_id
-           "elastic_cloud_user_id";
+         Prop.computed __type __id "elastic_cloud_user_id";
        elasticsearch_service_url =
-         Prop.computed __resource_type __resource_id
-           "elasticsearch_service_url";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "elasticsearch_service_url";
+       id = Prop.computed __type __id "id";
        kibana_service_url =
-         Prop.computed __resource_type __resource_id
-           "kibana_service_url";
-       kibana_sso_uri =
-         Prop.computed __resource_type __resource_id "kibana_sso_uri";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "kibana_service_url";
+       kibana_sso_uri = Prop.computed __type __id "kibana_sso_uri";
+       location = Prop.computed __type __id "location";
        monitoring_enabled =
-         Prop.computed __resource_type __resource_id
-           "monitoring_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "monitoring_enabled";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_elastic_cloud_elasticsearch
+        (azurerm_elastic_cloud_elasticsearch ?id ?monitoring_enabled
+           ?tags ?timeouts ~elastic_cloud_email_address ~location
+           ~name ~resource_group_name ~sku_name ~logs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?monitoring_enabled ?tags ?timeouts
+    ~elastic_cloud_email_address ~location ~name ~resource_group_name
+    ~sku_name ~logs __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?monitoring_enabled ?tags ?timeouts
+      ~elastic_cloud_email_address ~location ~name
+      ~resource_group_name ~sku_name ~logs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

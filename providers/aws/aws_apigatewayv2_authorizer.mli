@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,18 @@ val register :
   jwt_configuration:jwt_configuration list ->
   string ->
   t
+
+val make :
+  ?authorizer_credentials_arn:string prop ->
+  ?authorizer_payload_format_version:string prop ->
+  ?authorizer_result_ttl_in_seconds:float prop ->
+  ?authorizer_uri:string prop ->
+  ?enable_simple_responses:bool prop ->
+  ?id:string prop ->
+  ?identity_sources:string prop list ->
+  api_id:string prop ->
+  authorizer_type:string prop ->
+  name:string prop ->
+  jwt_configuration:jwt_configuration list ->
+  string ->
+  t Tf_core.resource

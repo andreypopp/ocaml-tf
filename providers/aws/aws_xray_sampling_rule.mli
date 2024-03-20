@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,22 @@ val register :
   version:float prop ->
   string ->
   t
+
+val make :
+  ?attributes:(string * string prop) list ->
+  ?id:string prop ->
+  ?rule_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  fixed_rate:float prop ->
+  host:string prop ->
+  http_method:string prop ->
+  priority:float prop ->
+  reservoir_size:float prop ->
+  resource_arn:string prop ->
+  service_name:string prop ->
+  service_type:string prop ->
+  url_path:string prop ->
+  version:float prop ->
+  string ->
+  t Tf_core.resource

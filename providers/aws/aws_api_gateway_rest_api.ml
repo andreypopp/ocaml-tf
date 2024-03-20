@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;  (** types *)
@@ -88,59 +86,63 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?api_key_source ?binary_media_types ?body
-    ?description ?disable_execute_api_endpoint ?fail_on_warnings ?id
+let make ?api_key_source ?binary_media_types ?body ?description
+    ?disable_execute_api_endpoint ?fail_on_warnings ?id
     ?minimum_compression_size ?parameters ?policy ?put_rest_api_mode
-    ?tags ?tags_all ~name ~endpoint_configuration __resource_id =
-  let __resource_type = "aws_api_gateway_rest_api" in
-  let __resource =
-    aws_api_gateway_rest_api ?api_key_source ?binary_media_types
-      ?body ?description ?disable_execute_api_endpoint
-      ?fail_on_warnings ?id ?minimum_compression_size ?parameters
-      ?policy ?put_rest_api_mode ?tags ?tags_all ~name
-      ~endpoint_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_rest_api __resource);
-  let __resource_attributes =
+    ?tags ?tags_all ~name ~endpoint_configuration __id =
+  let __type = "aws_api_gateway_rest_api" in
+  let __attrs =
     ({
-       api_key_source =
-         Prop.computed __resource_type __resource_id "api_key_source";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       api_key_source = Prop.computed __type __id "api_key_source";
+       arn = Prop.computed __type __id "arn";
        binary_media_types =
-         Prop.computed __resource_type __resource_id
-           "binary_media_types";
-       body = Prop.computed __resource_type __resource_id "body";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "binary_media_types";
+       body = Prop.computed __type __id "body";
+       created_date = Prop.computed __type __id "created_date";
+       description = Prop.computed __type __id "description";
        disable_execute_api_endpoint =
-         Prop.computed __resource_type __resource_id
-           "disable_execute_api_endpoint";
-       execution_arn =
-         Prop.computed __resource_type __resource_id "execution_arn";
+         Prop.computed __type __id "disable_execute_api_endpoint";
+       execution_arn = Prop.computed __type __id "execution_arn";
        fail_on_warnings =
-         Prop.computed __resource_type __resource_id
-           "fail_on_warnings";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "fail_on_warnings";
+       id = Prop.computed __type __id "id";
        minimum_compression_size =
-         Prop.computed __resource_type __resource_id
-           "minimum_compression_size";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       policy = Prop.computed __resource_type __resource_id "policy";
+         Prop.computed __type __id "minimum_compression_size";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       policy = Prop.computed __type __id "policy";
        put_rest_api_mode =
-         Prop.computed __resource_type __resource_id
-           "put_rest_api_mode";
+         Prop.computed __type __id "put_rest_api_mode";
        root_resource_id =
-         Prop.computed __resource_type __resource_id
-           "root_resource_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "root_resource_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_rest_api
+        (aws_api_gateway_rest_api ?api_key_source ?binary_media_types
+           ?body ?description ?disable_execute_api_endpoint
+           ?fail_on_warnings ?id ?minimum_compression_size
+           ?parameters ?policy ?put_rest_api_mode ?tags ?tags_all
+           ~name ~endpoint_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_key_source ?binary_media_types ?body
+    ?description ?disable_execute_api_endpoint ?fail_on_warnings ?id
+    ?minimum_compression_size ?parameters ?policy ?put_rest_api_mode
+    ?tags ?tags_all ~name ~endpoint_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_key_source ?binary_media_types ?body ?description
+      ?disable_execute_api_endpoint ?fail_on_warnings ?id
+      ?minimum_compression_size ?parameters ?policy
+      ?put_rest_api_mode ?tags ?tags_all ~name
+      ~endpoint_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,13 @@ val register :
   tracking_options:tracking_options list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?reputation_metrics_enabled:bool prop ->
+  ?sending_enabled:bool prop ->
+  name:string prop ->
+  delivery_options:delivery_options list ->
+  tracking_options:tracking_options list ->
+  string ->
+  t Tf_core.resource

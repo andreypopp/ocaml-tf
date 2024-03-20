@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,16 @@ val register :
   role:role list ->
   string ->
   t
+
+val make :
+  ?group:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?user:string prop ->
+  ?timeouts:timeouts ->
+  scope_id:string prop ->
+  scope_rbac_role_binding_id:string prop ->
+  role:role list ->
+  string ->
+  t Tf_core.resource

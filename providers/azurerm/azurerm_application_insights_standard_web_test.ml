@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type request__header = {
   name : string prop;  (** name *)
@@ -145,51 +143,54 @@ type t = {
   timeout : float prop;
 }
 
-let register ?tf_module ?description ?enabled ?frequency ?id
-    ?retry_enabled ?tags ?timeout ?timeouts ~application_insights_id
-    ~geo_locations ~location ~name ~resource_group_name ~request
-    ~validation_rules __resource_id =
-  let __resource_type =
-    "azurerm_application_insights_standard_web_test"
-  in
-  let __resource =
-    azurerm_application_insights_standard_web_test ?description
-      ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout ?timeouts
-      ~application_insights_id ~geo_locations ~location ~name
-      ~resource_group_name ~request ~validation_rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights_standard_web_test
-       __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
+    ?timeout ?timeouts ~application_insights_id ~geo_locations
+    ~location ~name ~resource_group_name ~request ~validation_rules
+    __id =
+  let __type = "azurerm_application_insights_standard_web_test" in
+  let __attrs =
     ({
        application_insights_id =
-         Prop.computed __resource_type __resource_id
-           "application_insights_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       geo_locations =
-         Prop.computed __resource_type __resource_id "geo_locations";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "application_insights_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       frequency = Prop.computed __type __id "frequency";
+       geo_locations = Prop.computed __type __id "geo_locations";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retry_enabled =
-         Prop.computed __resource_type __resource_id "retry_enabled";
+         Prop.computed __type __id "resource_group_name";
+       retry_enabled = Prop.computed __type __id "retry_enabled";
        synthetic_monitor_id =
-         Prop.computed __resource_type __resource_id
-           "synthetic_monitor_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
+         Prop.computed __type __id "synthetic_monitor_id";
+       tags = Prop.computed __type __id "tags";
+       timeout = Prop.computed __type __id "timeout";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights_standard_web_test
+        (azurerm_application_insights_standard_web_test ?description
+           ?enabled ?frequency ?id ?retry_enabled ?tags ?timeout
+           ?timeouts ~application_insights_id ~geo_locations
+           ~location ~name ~resource_group_name ~request
+           ~validation_rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?frequency ?id
+    ?retry_enabled ?tags ?timeout ?timeouts ~application_insights_id
+    ~geo_locations ~location ~name ~resource_group_name ~request
+    ~validation_rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?frequency ?id ?retry_enabled ?tags
+      ?timeout ?timeouts ~application_insights_id ~geo_locations
+      ~location ~name ~resource_group_name ~request ~validation_rules
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

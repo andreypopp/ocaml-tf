@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type private_registry_access__ecr_image_puller_role = {
   is_active : bool prop option; [@option]  (** is_active *)
@@ -107,46 +105,49 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?is_disabled ?tags ?tags_all ?timeouts
-    ~name ~power ~scale ~private_registry_access ~public_domain_names
-    __resource_id =
-  let __resource_type = "aws_lightsail_container_service" in
-  let __resource =
-    aws_lightsail_container_service ?id ?is_disabled ?tags ?tags_all
-      ?timeouts ~name ~power ~scale ~private_registry_access
-      ~public_domain_names ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_container_service __resource);
-  let __resource_attributes =
+let make ?id ?is_disabled ?tags ?tags_all ?timeouts ~name ~power
+    ~scale ~private_registry_access ~public_domain_names __id =
+  let __type = "aws_lightsail_container_service" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_disabled =
-         Prop.computed __resource_type __resource_id "is_disabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       power = Prop.computed __resource_type __resource_id "power";
-       power_id =
-         Prop.computed __resource_type __resource_id "power_id";
-       principal_arn =
-         Prop.computed __resource_type __resource_id "principal_arn";
+         Prop.computed __type __id "availability_zone";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       is_disabled = Prop.computed __type __id "is_disabled";
+       name = Prop.computed __type __id "name";
+       power = Prop.computed __type __id "power";
+       power_id = Prop.computed __type __id "power_id";
+       principal_arn = Prop.computed __type __id "principal_arn";
        private_domain_name =
-         Prop.computed __resource_type __resource_id
-           "private_domain_name";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
-       scale = Prop.computed __resource_type __resource_id "scale";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "private_domain_name";
+       resource_type = Prop.computed __type __id "resource_type";
+       scale = Prop.computed __type __id "scale";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_container_service
+        (aws_lightsail_container_service ?id ?is_disabled ?tags
+           ?tags_all ?timeouts ~name ~power ~scale
+           ~private_registry_access ~public_domain_names ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_disabled ?tags ?tags_all ?timeouts
+    ~name ~power ~scale ~private_registry_access ~public_domain_names
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_disabled ?tags ?tags_all ?timeouts ~name ~power
+      ~scale ~private_registry_access ~public_domain_names __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

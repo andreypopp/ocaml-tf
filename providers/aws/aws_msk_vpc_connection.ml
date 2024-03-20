@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_msk_vpc_connection = {
   authentication : string prop;  (** authentication *)
@@ -44,35 +42,41 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~authentication
-    ~client_subnets ~security_groups ~target_cluster_arn ~vpc_id
-    __resource_id =
-  let __resource_type = "aws_msk_vpc_connection" in
-  let __resource =
-    aws_msk_vpc_connection ?id ?tags ?tags_all ~authentication
-      ~client_subnets ~security_groups ~target_cluster_arn ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_msk_vpc_connection __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~authentication ~client_subnets
+    ~security_groups ~target_cluster_arn ~vpc_id __id =
+  let __type = "aws_msk_vpc_connection" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication =
-         Prop.computed __resource_type __resource_id "authentication";
-       client_subnets =
-         Prop.computed __resource_type __resource_id "client_subnets";
-       id = Prop.computed __resource_type __resource_id "id";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       authentication = Prop.computed __type __id "authentication";
+       client_subnets = Prop.computed __type __id "client_subnets";
+       id = Prop.computed __type __id "id";
+       security_groups = Prop.computed __type __id "security_groups";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        target_cluster_arn =
-         Prop.computed __resource_type __resource_id
-           "target_cluster_arn";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "target_cluster_arn";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_msk_vpc_connection
+        (aws_msk_vpc_connection ?id ?tags ?tags_all ~authentication
+           ~client_subnets ~security_groups ~target_cluster_arn
+           ~vpc_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~authentication
+    ~client_subnets ~security_groups ~target_cluster_arn ~vpc_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~authentication ~client_subnets
+      ~security_groups ~target_cluster_arn ~vpc_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

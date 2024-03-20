@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,13 @@ val register :
   graph_arn:string prop ->
   string ->
   t
+
+val make :
+  ?disable_email_notification:bool prop ->
+  ?id:string prop ->
+  ?message:string prop ->
+  account_id:string prop ->
+  email_address:string prop ->
+  graph_arn:string prop ->
+  string ->
+  t Tf_core.resource

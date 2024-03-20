@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,16 @@ val register :
   schema:schema list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  database_name:string prop ->
+  table_name:string prop ->
+  magnetic_store_write_properties:
+    magnetic_store_write_properties list ->
+  retention_properties:retention_properties list ->
+  schema:schema list ->
+  string ->
+  t Tf_core.resource

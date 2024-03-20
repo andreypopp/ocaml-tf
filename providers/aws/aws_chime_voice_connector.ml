@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_chime_voice_connector = {
   aws_region : string prop option; [@option]  (** aws_region *)
@@ -31,32 +29,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?aws_region ?id ?tags ?tags_all ~name
-    ~require_encryption __resource_id =
-  let __resource_type = "aws_chime_voice_connector" in
-  let __resource =
-    aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all ~name
-      ~require_encryption ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chime_voice_connector __resource);
-  let __resource_attributes =
+let make ?aws_region ?id ?tags ?tags_all ~name ~require_encryption
+    __id =
+  let __type = "aws_chime_voice_connector" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       aws_region =
-         Prop.computed __resource_type __resource_id "aws_region";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       aws_region = Prop.computed __type __id "aws_region";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        outbound_host_name =
-         Prop.computed __resource_type __resource_id
-           "outbound_host_name";
+         Prop.computed __type __id "outbound_host_name";
        require_encryption =
-         Prop.computed __resource_type __resource_id
-           "require_encryption";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "require_encryption";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chime_voice_connector
+        (aws_chime_voice_connector ?aws_region ?id ?tags ?tags_all
+           ~name ~require_encryption ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?aws_region ?id ?tags ?tags_all ~name
+    ~require_encryption __id =
+  let (r : _ Tf_core.resource) =
+    make ?aws_region ?id ?tags ?tags_all ~name ~require_encryption
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

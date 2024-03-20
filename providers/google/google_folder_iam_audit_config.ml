@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type audit_log_config = {
   exempted_members : string prop list option; [@option]
@@ -38,23 +36,30 @@ type t = {
   service : string prop;
 }
 
-let register ?tf_module ?id ~folder ~service ~audit_log_config
-    __resource_id =
-  let __resource_type = "google_folder_iam_audit_config" in
-  let __resource =
-    google_folder_iam_audit_config ?id ~folder ~service
-      ~audit_log_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_folder_iam_audit_config __resource);
-  let __resource_attributes =
+let make ?id ~folder ~service ~audit_log_config __id =
+  let __type = "google_folder_iam_audit_config" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       service =
-         Prop.computed __resource_type __resource_id "service";
+       etag = Prop.computed __type __id "etag";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       service = Prop.computed __type __id "service";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_folder_iam_audit_config
+        (google_folder_iam_audit_config ?id ~folder ~service
+           ~audit_log_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~folder ~service ~audit_log_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~folder ~service ~audit_log_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -37,23 +35,31 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~body ~container_id ~name
-    __resource_id =
-  let __resource_type = "azurerm_cosmosdb_sql_function" in
-  let __resource =
-    azurerm_cosmosdb_sql_function ?id ?timeouts ~body ~container_id
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_sql_function __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~body ~container_id ~name __id =
+  let __type = "azurerm_cosmosdb_sql_function" in
+  let __attrs =
     ({
-       body = Prop.computed __resource_type __resource_id "body";
-       container_id =
-         Prop.computed __resource_type __resource_id "container_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       body = Prop.computed __type __id "body";
+       container_id = Prop.computed __type __id "container_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_sql_function
+        (azurerm_cosmosdb_sql_function ?id ?timeouts ~body
+           ~container_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~body ~container_id ~name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~body ~container_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

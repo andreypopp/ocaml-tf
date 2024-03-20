@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,39 +43,39 @@ type t = {
   thumbprint : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts
-    ~custom_hostname_binding_id __resource_id =
-  let __resource_type = "azurerm_app_service_managed_certificate" in
-  let __resource =
-    azurerm_app_service_managed_certificate ?id ?tags ?timeouts
-      ~custom_hostname_binding_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_managed_certificate __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~custom_hostname_binding_id __id =
+  let __type = "azurerm_app_service_managed_certificate" in
+  let __attrs =
     ({
-       canonical_name =
-         Prop.computed __resource_type __resource_id "canonical_name";
+       canonical_name = Prop.computed __type __id "canonical_name";
        custom_hostname_binding_id =
-         Prop.computed __resource_type __resource_id
-           "custom_hostname_binding_id";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       host_names =
-         Prop.computed __resource_type __resource_id "host_names";
-       id = Prop.computed __resource_type __resource_id "id";
-       issue_date =
-         Prop.computed __resource_type __resource_id "issue_date";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       subject_name =
-         Prop.computed __resource_type __resource_id "subject_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
+         Prop.computed __type __id "custom_hostname_binding_id";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       host_names = Prop.computed __type __id "host_names";
+       id = Prop.computed __type __id "id";
+       issue_date = Prop.computed __type __id "issue_date";
+       issuer = Prop.computed __type __id "issuer";
+       subject_name = Prop.computed __type __id "subject_name";
+       tags = Prop.computed __type __id "tags";
+       thumbprint = Prop.computed __type __id "thumbprint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_managed_certificate
+        (azurerm_app_service_managed_certificate ?id ?tags ?timeouts
+           ~custom_hostname_binding_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts
+    ~custom_hostname_binding_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~custom_hostname_binding_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

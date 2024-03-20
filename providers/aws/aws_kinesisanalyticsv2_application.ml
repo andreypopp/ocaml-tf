@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type application_configuration__application_code_configuration__code_content__s3_content_location = {
   bucket_arn : string prop;  (** bucket_arn *)
@@ -761,51 +759,56 @@ type t = {
   version_id : float prop;
 }
 
-let register ?tf_module ?description ?force_stop ?id
-    ?start_application ?tags ?tags_all ?timeouts ~name
-    ~runtime_environment ~service_execution_role
-    ~application_configuration ~cloudwatch_logging_options
-    __resource_id =
-  let __resource_type = "aws_kinesisanalyticsv2_application" in
-  let __resource =
-    aws_kinesisanalyticsv2_application ?description ?force_stop ?id
-      ?start_application ?tags ?tags_all ?timeouts ~name
-      ~runtime_environment ~service_execution_role
-      ~application_configuration ~cloudwatch_logging_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesisanalyticsv2_application __resource);
-  let __resource_attributes =
+let make ?description ?force_stop ?id ?start_application ?tags
+    ?tags_all ?timeouts ~name ~runtime_environment
+    ~service_execution_role ~application_configuration
+    ~cloudwatch_logging_options __id =
+  let __type = "aws_kinesisanalyticsv2_application" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        create_timestamp =
-         Prop.computed __resource_type __resource_id
-           "create_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       force_stop =
-         Prop.computed __resource_type __resource_id "force_stop";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "create_timestamp";
+       description = Prop.computed __type __id "description";
+       force_stop = Prop.computed __type __id "force_stop";
+       id = Prop.computed __type __id "id";
        last_update_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_update_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_update_timestamp";
+       name = Prop.computed __type __id "name";
        runtime_environment =
-         Prop.computed __resource_type __resource_id
-           "runtime_environment";
+         Prop.computed __type __id "runtime_environment";
        service_execution_role =
-         Prop.computed __resource_type __resource_id
-           "service_execution_role";
+         Prop.computed __type __id "service_execution_role";
        start_application =
-         Prop.computed __resource_type __resource_id
-           "start_application";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
+         Prop.computed __type __id "start_application";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version_id = Prop.computed __type __id "version_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesisanalyticsv2_application
+        (aws_kinesisanalyticsv2_application ?description ?force_stop
+           ?id ?start_application ?tags ?tags_all ?timeouts ~name
+           ~runtime_environment ~service_execution_role
+           ~application_configuration ~cloudwatch_logging_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_stop ?id
+    ?start_application ?tags ?tags_all ?timeouts ~name
+    ~runtime_environment ~service_execution_role
+    ~application_configuration ~cloudwatch_logging_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_stop ?id ?start_application ?tags
+      ?tags_all ?timeouts ~name ~runtime_environment
+      ~service_execution_role ~application_configuration
+      ~cloudwatch_logging_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

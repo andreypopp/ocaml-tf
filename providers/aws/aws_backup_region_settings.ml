@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_backup_region_settings = {
   id : string prop option; [@option]  (** id *)
@@ -32,26 +30,36 @@ type t = {
   resource_type_opt_in_preference : (string * bool) list prop;
 }
 
-let register ?tf_module ?id ?resource_type_management_preference
-    ~resource_type_opt_in_preference __resource_id =
-  let __resource_type = "aws_backup_region_settings" in
-  let __resource =
-    aws_backup_region_settings ?id
-      ?resource_type_management_preference
-      ~resource_type_opt_in_preference ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_backup_region_settings __resource);
-  let __resource_attributes =
+let make ?id ?resource_type_management_preference
+    ~resource_type_opt_in_preference __id =
+  let __type = "aws_backup_region_settings" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        resource_type_management_preference =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "resource_type_management_preference";
        resource_type_opt_in_preference =
-         Prop.computed __resource_type __resource_id
-           "resource_type_opt_in_preference";
+         Prop.computed __type __id "resource_type_opt_in_preference";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_backup_region_settings
+        (aws_backup_region_settings ?id
+           ?resource_type_management_preference
+           ~resource_type_opt_in_preference ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?resource_type_management_preference
+    ~resource_type_opt_in_preference __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?resource_type_management_preference
+      ~resource_type_opt_in_preference __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

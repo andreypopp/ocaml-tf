@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,14 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?health_check_path:string prop ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_port:float prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

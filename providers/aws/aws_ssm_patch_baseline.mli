@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,21 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?approved_patches:string prop list ->
+  ?approved_patches_compliance_level:string prop ->
+  ?approved_patches_enable_non_security:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?operating_system:string prop ->
+  ?rejected_patches:string prop list ->
+  ?rejected_patches_action:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  approval_rule:approval_rule list ->
+  global_filter:global_filter list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

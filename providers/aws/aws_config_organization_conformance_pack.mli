@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,16 @@ val register :
   input_parameter:input_parameter list ->
   string ->
   t
+
+val make :
+  ?delivery_s3_bucket:string prop ->
+  ?delivery_s3_key_prefix:string prop ->
+  ?excluded_accounts:string prop list ->
+  ?id:string prop ->
+  ?template_body:string prop ->
+  ?template_s3_uri:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  input_parameter:input_parameter list ->
+  string ->
+  t Tf_core.resource

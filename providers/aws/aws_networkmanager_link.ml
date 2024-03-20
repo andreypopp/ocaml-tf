@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bandwidth = {
   download_speed : float prop option; [@option]
@@ -70,35 +68,41 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?provider_name ?tags
-    ?tags_all ?type_ ?timeouts ~global_network_id ~site_id ~bandwidth
-    __resource_id =
-  let __resource_type = "aws_networkmanager_link" in
-  let __resource =
-    aws_networkmanager_link ?description ?id ?provider_name ?tags
-      ?tags_all ?type_ ?timeouts ~global_network_id ~site_id
-      ~bandwidth ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_link __resource);
-  let __resource_attributes =
+let make ?description ?id ?provider_name ?tags ?tags_all ?type_
+    ?timeouts ~global_network_id ~site_id ~bandwidth __id =
+  let __type = "aws_networkmanager_link" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        global_network_id =
-         Prop.computed __resource_type __resource_id
-           "global_network_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       provider_name =
-         Prop.computed __resource_type __resource_id "provider_name";
-       site_id =
-         Prop.computed __resource_type __resource_id "site_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "global_network_id";
+       id = Prop.computed __type __id "id";
+       provider_name = Prop.computed __type __id "provider_name";
+       site_id = Prop.computed __type __id "site_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_link
+        (aws_networkmanager_link ?description ?id ?provider_name
+           ?tags ?tags_all ?type_ ?timeouts ~global_network_id
+           ~site_id ~bandwidth ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?provider_name ?tags
+    ?tags_all ?type_ ?timeouts ~global_network_id ~site_id ~bandwidth
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?provider_name ?tags ?tags_all ?type_
+      ?timeouts ~global_network_id ~site_id ~bandwidth __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

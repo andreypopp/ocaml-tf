@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type galleries = {
   category : string prop;  (** category *)
@@ -76,38 +74,41 @@ type t = {
   template_data : string prop;
 }
 
-let register ?tf_module ?author ?id ?localized ?priority ?tags
-    ?timeouts ~location ~name ~resource_group_name ~template_data
-    ~galleries __resource_id =
-  let __resource_type =
-    "azurerm_application_insights_workbook_template"
-  in
-  let __resource =
-    azurerm_application_insights_workbook_template ?author ?id
-      ?localized ?priority ?tags ?timeouts ~location ~name
-      ~resource_group_name ~template_data ~galleries ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights_workbook_template
-       __resource);
-  let __resource_attributes =
+let make ?author ?id ?localized ?priority ?tags ?timeouts ~location
+    ~name ~resource_group_name ~template_data ~galleries __id =
+  let __type = "azurerm_application_insights_workbook_template" in
+  let __attrs =
     ({
-       author = Prop.computed __resource_type __resource_id "author";
-       id = Prop.computed __resource_type __resource_id "id";
-       localized =
-         Prop.computed __resource_type __resource_id "localized";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+       author = Prop.computed __type __id "author";
+       id = Prop.computed __type __id "id";
+       localized = Prop.computed __type __id "localized";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       template_data =
-         Prop.computed __resource_type __resource_id "template_data";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       template_data = Prop.computed __type __id "template_data";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights_workbook_template
+        (azurerm_application_insights_workbook_template ?author ?id
+           ?localized ?priority ?tags ?timeouts ~location ~name
+           ~resource_group_name ~template_data ~galleries ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?author ?id ?localized ?priority ?tags
+    ?timeouts ~location ~name ~resource_group_name ~template_data
+    ~galleries __id =
+  let (r : _ Tf_core.resource) =
+    make ?author ?id ?localized ?priority ?tags ?timeouts ~location
+      ~name ~resource_group_name ~template_data ~galleries __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

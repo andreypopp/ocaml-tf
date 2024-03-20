@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,32 +52,39 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?display_name ?id ?parameter_values ?tags
-    ?timeouts ~managed_api_id ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_api_connection" in
-  let __resource =
-    azurerm_api_connection ?display_name ?id ?parameter_values ?tags
-      ?timeouts ~managed_api_id ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_connection __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?parameter_values ?tags ?timeouts
+    ~managed_api_id ~name ~resource_group_name __id =
+  let __type = "azurerm_api_connection" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       managed_api_id =
-         Prop.computed __resource_type __resource_id "managed_api_id";
-       name = Prop.computed __resource_type __resource_id "name";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       managed_api_id = Prop.computed __type __id "managed_api_id";
+       name = Prop.computed __type __id "name";
        parameter_values =
-         Prop.computed __resource_type __resource_id
-           "parameter_values";
+         Prop.computed __type __id "parameter_values";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_connection
+        (azurerm_api_connection ?display_name ?id ?parameter_values
+           ?tags ?timeouts ~managed_api_id ~name ~resource_group_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?parameter_values ?tags
+    ?timeouts ~managed_api_id ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?parameter_values ?tags ?timeouts
+      ~managed_api_id ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action_group = {
   email_subject : string prop option; [@option]  (** email_subject *)
@@ -83,46 +81,49 @@ type t = {
   throttling_duration : string prop;
 }
 
-let register ?tf_module ?description ?enabled ?id ?tags
-    ?throttling_duration ?timeouts ~detector_type ~frequency ~name
-    ~resource_group_name ~scope_resource_ids ~severity ~action_group
-    __resource_id =
-  let __resource_type =
-    "azurerm_monitor_smart_detector_alert_rule"
-  in
-  let __resource =
-    azurerm_monitor_smart_detector_alert_rule ?description ?enabled
-      ?id ?tags ?throttling_duration ?timeouts ~detector_type
-      ~frequency ~name ~resource_group_name ~scope_resource_ids
-      ~severity ~action_group ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_smart_detector_alert_rule __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?id ?tags ?throttling_duration
+    ?timeouts ~detector_type ~frequency ~name ~resource_group_name
+    ~scope_resource_ids ~severity ~action_group __id =
+  let __type = "azurerm_monitor_smart_detector_alert_rule" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       detector_type =
-         Prop.computed __resource_type __resource_id "detector_type";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       detector_type = Prop.computed __type __id "detector_type";
+       enabled = Prop.computed __type __id "enabled";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        scope_resource_ids =
-         Prop.computed __resource_type __resource_id
-           "scope_resource_ids";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "scope_resource_ids";
+       severity = Prop.computed __type __id "severity";
+       tags = Prop.computed __type __id "tags";
        throttling_duration =
-         Prop.computed __resource_type __resource_id
-           "throttling_duration";
+         Prop.computed __type __id "throttling_duration";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_smart_detector_alert_rule
+        (azurerm_monitor_smart_detector_alert_rule ?description
+           ?enabled ?id ?tags ?throttling_duration ?timeouts
+           ~detector_type ~frequency ~name ~resource_group_name
+           ~scope_resource_ids ~severity ~action_group ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?id ?tags
+    ?throttling_duration ?timeouts ~detector_type ~frequency ~name
+    ~resource_group_name ~scope_resource_ids ~severity ~action_group
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?id ?tags ?throttling_duration
+      ?timeouts ~detector_type ~frequency ~name ~resource_group_name
+      ~scope_resource_ids ~severity ~action_group __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

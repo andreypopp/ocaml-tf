@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -68,39 +66,46 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?additional_settings_json ?categories
-    ?description ?id ?name ?resource_types ?solutions ?tags ?timeouts
-    ~body ~display_name ~query_pack_id __resource_id =
-  let __resource_type = "azurerm_log_analytics_query_pack_query" in
-  let __resource =
-    azurerm_log_analytics_query_pack_query ?additional_settings_json
-      ?categories ?description ?id ?name ?resource_types ?solutions
-      ?tags ?timeouts ~body ~display_name ~query_pack_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_log_analytics_query_pack_query __resource);
-  let __resource_attributes =
+let make ?additional_settings_json ?categories ?description ?id ?name
+    ?resource_types ?solutions ?tags ?timeouts ~body ~display_name
+    ~query_pack_id __id =
+  let __type = "azurerm_log_analytics_query_pack_query" in
+  let __attrs =
     ({
        additional_settings_json =
-         Prop.computed __resource_type __resource_id
-           "additional_settings_json";
-       body = Prop.computed __resource_type __resource_id "body";
-       categories =
-         Prop.computed __resource_type __resource_id "categories";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       query_pack_id =
-         Prop.computed __resource_type __resource_id "query_pack_id";
-       resource_types =
-         Prop.computed __resource_type __resource_id "resource_types";
-       solutions =
-         Prop.computed __resource_type __resource_id "solutions";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "additional_settings_json";
+       body = Prop.computed __type __id "body";
+       categories = Prop.computed __type __id "categories";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       query_pack_id = Prop.computed __type __id "query_pack_id";
+       resource_types = Prop.computed __type __id "resource_types";
+       solutions = Prop.computed __type __id "solutions";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_log_analytics_query_pack_query
+        (azurerm_log_analytics_query_pack_query
+           ?additional_settings_json ?categories ?description ?id
+           ?name ?resource_types ?solutions ?tags ?timeouts ~body
+           ~display_name ~query_pack_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_settings_json ?categories
+    ?description ?id ?name ?resource_types ?solutions ?tags ?timeouts
+    ~body ~display_name ~query_pack_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_settings_json ?categories ?description ?id ?name
+      ?resource_types ?solutions ?tags ?timeouts ~body ~display_name
+      ~query_pack_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_network = {
   delete_protection : bool prop option; [@option]
@@ -38,29 +36,37 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?delete_protection ?expose_routes_to_vswitch
-    ?id ?labels ~ip_range ~name __resource_id =
-  let __resource_type = "hcloud_network" in
-  let __resource =
-    hcloud_network ?delete_protection ?expose_routes_to_vswitch ?id
-      ?labels ~ip_range ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_network __resource);
-  let __resource_attributes =
+let make ?delete_protection ?expose_routes_to_vswitch ?id ?labels
+    ~ip_range ~name __id =
+  let __type = "hcloud_network" in
+  let __attrs =
     ({
        delete_protection =
-         Prop.computed __resource_type __resource_id
-           "delete_protection";
+         Prop.computed __type __id "delete_protection";
        expose_routes_to_vswitch =
-         Prop.computed __resource_type __resource_id
-           "expose_routes_to_vswitch";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_range =
-         Prop.computed __resource_type __resource_id "ip_range";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "expose_routes_to_vswitch";
+       id = Prop.computed __type __id "id";
+       ip_range = Prop.computed __type __id "ip_range";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_network
+        (hcloud_network ?delete_protection ?expose_routes_to_vswitch
+           ?id ?labels ~ip_range ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_protection ?expose_routes_to_vswitch
+    ?id ?labels ~ip_range ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_protection ?expose_routes_to_vswitch ?id ?labels
+      ~ip_range ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

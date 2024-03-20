@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   scope:scope list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  identifier:string prop ->
+  name:string prop ->
+  user_pool_id:string prop ->
+  scope:scope list ->
+  string ->
+  t Tf_core.resource

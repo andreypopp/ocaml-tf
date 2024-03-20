@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,25 @@ val register :
   router:string prop ->
   string ->
   t
+
+val make :
+  ?admin_enabled:bool prop ->
+  ?bandwidth:string prop ->
+  ?candidate_subnets:string prop list ->
+  ?description:string prop ->
+  ?edge_availability_domain:string prop ->
+  ?encryption:string prop ->
+  ?id:string prop ->
+  ?interconnect:string prop ->
+  ?ipsec_internal_addresses:string prop list ->
+  ?mtu:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?stack_type:string prop ->
+  ?type_:string prop ->
+  ?vlan_tag8021q:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  router:string prop ->
+  string ->
+  t Tf_core.resource

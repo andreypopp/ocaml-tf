@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   synapse_workspace_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  end_ip_address:string prop ->
+  name:string prop ->
+  start_ip_address:string prop ->
+  synapse_workspace_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_eip_association = {
   allocation_id : string prop option; [@option]  (** allocation_id *)
@@ -42,36 +40,41 @@ type t = {
   public_ip : string prop;
 }
 
-let register ?tf_module ?allocation_id ?allow_reassociation ?id
-    ?instance_id ?network_interface_id ?private_ip_address ?public_ip
-    __resource_id =
-  let __resource_type = "aws_eip_association" in
-  let __resource =
-    aws_eip_association ?allocation_id ?allow_reassociation ?id
-      ?instance_id ?network_interface_id ?private_ip_address
-      ?public_ip ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eip_association __resource);
-  let __resource_attributes =
+let make ?allocation_id ?allow_reassociation ?id ?instance_id
+    ?network_interface_id ?private_ip_address ?public_ip __id =
+  let __type = "aws_eip_association" in
+  let __attrs =
     ({
-       allocation_id =
-         Prop.computed __resource_type __resource_id "allocation_id";
+       allocation_id = Prop.computed __type __id "allocation_id";
        allow_reassociation =
-         Prop.computed __resource_type __resource_id
-           "allow_reassociation";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
+         Prop.computed __type __id "allow_reassociation";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
        network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
+         Prop.computed __type __id "network_interface_id";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
-       public_ip =
-         Prop.computed __resource_type __resource_id "public_ip";
+         Prop.computed __type __id "private_ip_address";
+       public_ip = Prop.computed __type __id "public_ip";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eip_association
+        (aws_eip_association ?allocation_id ?allow_reassociation ?id
+           ?instance_id ?network_interface_id ?private_ip_address
+           ?public_ip ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allocation_id ?allow_reassociation ?id
+    ?instance_id ?network_interface_id ?private_ip_address ?public_ip
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?allocation_id ?allow_reassociation ?id ?instance_id
+      ?network_interface_id ?private_ip_address ?public_ip __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

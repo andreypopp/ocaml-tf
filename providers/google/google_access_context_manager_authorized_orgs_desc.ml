@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,39 +83,43 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?asset_type ?authorization_direction
-    ?authorization_type ?id ?orgs ?timeouts ~name ~parent
-    __resource_id =
-  let __resource_type =
+let make ?asset_type ?authorization_direction ?authorization_type ?id
+    ?orgs ?timeouts ~name ~parent __id =
+  let __type =
     "google_access_context_manager_authorized_orgs_desc"
   in
-  let __resource =
-    google_access_context_manager_authorized_orgs_desc ?asset_type
-      ?authorization_direction ?authorization_type ?id ?orgs
-      ?timeouts ~name ~parent ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_authorized_orgs_desc
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       asset_type =
-         Prop.computed __resource_type __resource_id "asset_type";
+       asset_type = Prop.computed __type __id "asset_type";
        authorization_direction =
-         Prop.computed __resource_type __resource_id
-           "authorization_direction";
+         Prop.computed __type __id "authorization_direction";
        authorization_type =
-         Prop.computed __resource_type __resource_id
-           "authorization_type";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       orgs = Prop.computed __resource_type __resource_id "orgs";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "authorization_type";
+       create_time = Prop.computed __type __id "create_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       orgs = Prop.computed __type __id "orgs";
+       parent = Prop.computed __type __id "parent";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_authorized_orgs_desc
+        (google_access_context_manager_authorized_orgs_desc
+           ?asset_type ?authorization_direction ?authorization_type
+           ?id ?orgs ?timeouts ~name ~parent ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?asset_type ?authorization_direction
+    ?authorization_type ?id ?orgs ?timeouts ~name ~parent __id =
+  let (r : _ Tf_core.resource) =
+    make ?asset_type ?authorization_direction ?authorization_type ?id
+      ?orgs ?timeouts ~name ~parent __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

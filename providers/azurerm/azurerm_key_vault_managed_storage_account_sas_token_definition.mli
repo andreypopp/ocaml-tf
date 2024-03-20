@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,15 @@ val register :
   validity_period:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  managed_storage_account_id:string prop ->
+  name:string prop ->
+  sas_template_uri:string prop ->
+  sas_type:string prop ->
+  validity_period:string prop ->
+  string ->
+  t Tf_core.resource

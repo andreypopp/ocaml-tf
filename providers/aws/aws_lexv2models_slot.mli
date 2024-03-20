@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -763,3 +763,18 @@ val register :
   value_elicitation_setting:value_elicitation_setting list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?slot_type_id:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  intent_id:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
+  multiple_values_setting:multiple_values_setting list ->
+  obfuscation_setting:obfuscation_setting list ->
+  value_elicitation_setting:value_elicitation_setting list ->
+  string ->
+  t Tf_core.resource

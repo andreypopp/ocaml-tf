@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,47 +65,49 @@ type t = {
   storage_endpoint : string prop;
 }
 
-let register ?tf_module ?disabled_alerts
-    ?email_account_admins_enabled ?email_addresses ?id
-    ?retention_days ?storage_account_access_key ?storage_endpoint
-    ?timeouts ~policy_state ~sql_pool_id __resource_id =
-  let __resource_type =
-    "azurerm_synapse_sql_pool_security_alert_policy"
-  in
-  let __resource =
-    azurerm_synapse_sql_pool_security_alert_policy ?disabled_alerts
-      ?email_account_admins_enabled ?email_addresses ?id
-      ?retention_days ?storage_account_access_key ?storage_endpoint
-      ?timeouts ~policy_state ~sql_pool_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_sql_pool_security_alert_policy
-       __resource);
-  let __resource_attributes =
+let make ?disabled_alerts ?email_account_admins_enabled
+    ?email_addresses ?id ?retention_days ?storage_account_access_key
+    ?storage_endpoint ?timeouts ~policy_state ~sql_pool_id __id =
+  let __type = "azurerm_synapse_sql_pool_security_alert_policy" in
+  let __attrs =
     ({
-       disabled_alerts =
-         Prop.computed __resource_type __resource_id
-           "disabled_alerts";
+       disabled_alerts = Prop.computed __type __id "disabled_alerts";
        email_account_admins_enabled =
-         Prop.computed __resource_type __resource_id
-           "email_account_admins_enabled";
-       email_addresses =
-         Prop.computed __resource_type __resource_id
-           "email_addresses";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_state =
-         Prop.computed __resource_type __resource_id "policy_state";
-       retention_days =
-         Prop.computed __resource_type __resource_id "retention_days";
-       sql_pool_id =
-         Prop.computed __resource_type __resource_id "sql_pool_id";
+         Prop.computed __type __id "email_account_admins_enabled";
+       email_addresses = Prop.computed __type __id "email_addresses";
+       id = Prop.computed __type __id "id";
+       policy_state = Prop.computed __type __id "policy_state";
+       retention_days = Prop.computed __type __id "retention_days";
+       sql_pool_id = Prop.computed __type __id "sql_pool_id";
        storage_account_access_key =
-         Prop.computed __resource_type __resource_id
-           "storage_account_access_key";
+         Prop.computed __type __id "storage_account_access_key";
        storage_endpoint =
-         Prop.computed __resource_type __resource_id
-           "storage_endpoint";
+         Prop.computed __type __id "storage_endpoint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_sql_pool_security_alert_policy
+        (azurerm_synapse_sql_pool_security_alert_policy
+           ?disabled_alerts ?email_account_admins_enabled
+           ?email_addresses ?id ?retention_days
+           ?storage_account_access_key ?storage_endpoint ?timeouts
+           ~policy_state ~sql_pool_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled_alerts
+    ?email_account_admins_enabled ?email_addresses ?id
+    ?retention_days ?storage_account_access_key ?storage_endpoint
+    ?timeouts ~policy_state ~sql_pool_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled_alerts ?email_account_admins_enabled
+      ?email_addresses ?id ?retention_days
+      ?storage_account_access_key ?storage_endpoint ?timeouts
+      ~policy_state ~sql_pool_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

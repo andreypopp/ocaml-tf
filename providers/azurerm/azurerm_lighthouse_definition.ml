@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorization = {
   delegated_role_definition_ids : string prop list option; [@option]
@@ -146,31 +144,42 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?description ?id ?lighthouse_definition_id
-    ?timeouts ~managing_tenant_id ~name ~scope ~authorization
-    ~eligible_authorization ~plan __resource_id =
-  let __resource_type = "azurerm_lighthouse_definition" in
-  let __resource =
-    azurerm_lighthouse_definition ?description ?id
-      ?lighthouse_definition_id ?timeouts ~managing_tenant_id ~name
-      ~scope ~authorization ~eligible_authorization ~plan ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lighthouse_definition __resource);
-  let __resource_attributes =
+let make ?description ?id ?lighthouse_definition_id ?timeouts
+    ~managing_tenant_id ~name ~scope ~authorization
+    ~eligible_authorization ~plan __id =
+  let __type = "azurerm_lighthouse_definition" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        lighthouse_definition_id =
-         Prop.computed __resource_type __resource_id
-           "lighthouse_definition_id";
+         Prop.computed __type __id "lighthouse_definition_id";
        managing_tenant_id =
-         Prop.computed __resource_type __resource_id
-           "managing_tenant_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "managing_tenant_id";
+       name = Prop.computed __type __id "name";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lighthouse_definition
+        (azurerm_lighthouse_definition ?description ?id
+           ?lighthouse_definition_id ?timeouts ~managing_tenant_id
+           ~name ~scope ~authorization ~eligible_authorization ~plan
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?lighthouse_definition_id
+    ?timeouts ~managing_tenant_id ~name ~scope ~authorization
+    ~eligible_authorization ~plan __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?lighthouse_definition_id ?timeouts
+      ~managing_tenant_id ~name ~scope ~authorization
+      ~eligible_authorization ~plan __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -109,3 +109,16 @@ val register :
   active_directory_configuration:active_directory_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?root_volume_security_style:string prop ->
+  ?svm_admin_password:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  file_system_id:string prop ->
+  name:string prop ->
+  active_directory_configuration:active_directory_configuration list ->
+  string ->
+  t Tf_core.resource

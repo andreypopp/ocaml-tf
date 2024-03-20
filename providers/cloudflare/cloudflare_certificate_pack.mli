@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,18 @@ val register :
   validation_records:validation_records list ->
   string ->
   t
+
+val make :
+  ?cloudflare_branding:bool prop ->
+  ?id:string prop ->
+  ?wait_for_active_status:bool prop ->
+  certificate_authority:string prop ->
+  hosts:string prop list ->
+  type_:string prop ->
+  validation_method:string prop ->
+  validity_days:float prop ->
+  zone_id:string prop ->
+  validation_errors:validation_errors list ->
+  validation_records:validation_records list ->
+  string ->
+  t Tf_core.resource

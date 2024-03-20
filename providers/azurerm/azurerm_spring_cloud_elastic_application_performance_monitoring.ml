@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -57,38 +55,44 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let register ?tf_module ?globally_enabled ?id ?timeouts
-    ~application_packages ~name ~server_url ~service_name
-    ~spring_cloud_service_id __resource_id =
-  let __resource_type =
+let make ?globally_enabled ?id ?timeouts ~application_packages ~name
+    ~server_url ~service_name ~spring_cloud_service_id __id =
+  let __type =
     "azurerm_spring_cloud_elastic_application_performance_monitoring"
   in
-  let __resource =
-    azurerm_spring_cloud_elastic_application_performance_monitoring
-      ?globally_enabled ?id ?timeouts ~application_packages ~name
-      ~server_url ~service_name ~spring_cloud_service_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_elastic_application_performance_monitoring
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        application_packages =
-         Prop.computed __resource_type __resource_id
-           "application_packages";
+         Prop.computed __type __id "application_packages";
        globally_enabled =
-         Prop.computed __resource_type __resource_id
-           "globally_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       server_url =
-         Prop.computed __resource_type __resource_id "server_url";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
+         Prop.computed __type __id "globally_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       server_url = Prop.computed __type __id "server_url";
+       service_name = Prop.computed __type __id "service_name";
        spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
+         Prop.computed __type __id "spring_cloud_service_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_elastic_application_performance_monitoring
+        (azurerm_spring_cloud_elastic_application_performance_monitoring
+           ?globally_enabled ?id ?timeouts ~application_packages
+           ~name ~server_url ~service_name ~spring_cloud_service_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?globally_enabled ?id ?timeouts
+    ~application_packages ~name ~server_url ~service_name
+    ~spring_cloud_service_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?globally_enabled ?id ?timeouts ~application_packages ~name
+      ~server_url ~service_name ~spring_cloud_service_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

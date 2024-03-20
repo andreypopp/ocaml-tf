@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_event_selector__field_selector = {
   ends_with : string prop list option; [@option]  (** ends_with *)
@@ -105,42 +103,51 @@ type t = {
   termination_protection_enabled : bool prop;
 }
 
-let register ?tf_module ?id ?kms_key_id ?multi_region_enabled
-    ?organization_enabled ?retention_period ?tags ?tags_all
-    ?termination_protection_enabled ?timeouts ~name
-    ~advanced_event_selector __resource_id =
-  let __resource_type = "aws_cloudtrail_event_data_store" in
-  let __resource =
-    aws_cloudtrail_event_data_store ?id ?kms_key_id
-      ?multi_region_enabled ?organization_enabled ?retention_period
-      ?tags ?tags_all ?termination_protection_enabled ?timeouts ~name
-      ~advanced_event_selector ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudtrail_event_data_store __resource);
-  let __resource_attributes =
+let make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
+    ?retention_period ?tags ?tags_all ?termination_protection_enabled
+    ?timeouts ~name ~advanced_event_selector __id =
+  let __type = "aws_cloudtrail_event_data_store" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
        multi_region_enabled =
-         Prop.computed __resource_type __resource_id
-           "multi_region_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "multi_region_enabled";
+       name = Prop.computed __type __id "name";
        organization_enabled =
-         Prop.computed __resource_type __resource_id
-           "organization_enabled";
+         Prop.computed __type __id "organization_enabled";
        retention_period =
-         Prop.computed __resource_type __resource_id
-           "retention_period";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "retention_period";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        termination_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "termination_protection_enabled";
+         Prop.computed __type __id "termination_protection_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudtrail_event_data_store
+        (aws_cloudtrail_event_data_store ?id ?kms_key_id
+           ?multi_region_enabled ?organization_enabled
+           ?retention_period ?tags ?tags_all
+           ?termination_protection_enabled ?timeouts ~name
+           ~advanced_event_selector ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kms_key_id ?multi_region_enabled
+    ?organization_enabled ?retention_period ?tags ?tags_all
+    ?termination_protection_enabled ?timeouts ~name
+    ~advanced_event_selector __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kms_key_id ?multi_region_enabled ?organization_enabled
+      ?retention_period ?tags ?tags_all
+      ?termination_protection_enabled ?timeouts ~name
+      ~advanced_event_selector __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

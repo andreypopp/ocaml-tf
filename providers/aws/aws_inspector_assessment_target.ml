@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_inspector_assessment_target = {
   id : string prop option; [@option]  (** id *)
@@ -24,22 +22,31 @@ type t = {
   resource_group_arn : string prop;
 }
 
-let register ?tf_module ?id ?resource_group_arn ~name __resource_id =
-  let __resource_type = "aws_inspector_assessment_target" in
-  let __resource =
-    aws_inspector_assessment_target ?id ?resource_group_arn ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_inspector_assessment_target __resource);
-  let __resource_attributes =
+let make ?id ?resource_group_arn ~name __id =
+  let __type = "aws_inspector_assessment_target" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_arn =
-         Prop.computed __resource_type __resource_id
-           "resource_group_arn";
+         Prop.computed __type __id "resource_group_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_inspector_assessment_target
+        (aws_inspector_assessment_target ?id ?resource_group_arn
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?resource_group_arn ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?resource_group_arn ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

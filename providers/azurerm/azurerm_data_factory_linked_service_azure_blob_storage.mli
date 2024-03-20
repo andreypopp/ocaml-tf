@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,28 @@ val register :
     service_principal_linked_key_vault_key list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?connection_string:string prop ->
+  ?connection_string_insecure:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?sas_uri:string prop ->
+  ?service_endpoint:string prop ->
+  ?service_principal_id:string prop ->
+  ?service_principal_key:string prop ->
+  ?storage_kind:string prop ->
+  ?tenant_id:string prop ->
+  ?use_managed_identity:bool prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  key_vault_sas_token:key_vault_sas_token list ->
+  service_principal_linked_key_vault_key:
+    service_principal_linked_key_vault_key list ->
+  string ->
+  t Tf_core.resource

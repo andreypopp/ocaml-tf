@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type restore = {
   point_in_time : string prop;  (** point_in_time *)
@@ -81,45 +79,53 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?collation ?create_mode ?data_encrypted
+let make ?collation ?create_mode ?data_encrypted
     ?geo_backup_policy_enabled ?id ?recovery_database_id
     ?storage_account_type ?tags ?timeouts ~name ~sku_name
-    ~synapse_workspace_id ~restore __resource_id =
-  let __resource_type = "azurerm_synapse_sql_pool" in
-  let __resource =
-    azurerm_synapse_sql_pool ?collation ?create_mode ?data_encrypted
-      ?geo_backup_policy_enabled ?id ?recovery_database_id
-      ?storage_account_type ?tags ?timeouts ~name ~sku_name
-      ~synapse_workspace_id ~restore ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_sql_pool __resource);
-  let __resource_attributes =
+    ~synapse_workspace_id ~restore __id =
+  let __type = "azurerm_synapse_sql_pool" in
+  let __attrs =
     ({
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       data_encrypted =
-         Prop.computed __resource_type __resource_id "data_encrypted";
+       collation = Prop.computed __type __id "collation";
+       create_mode = Prop.computed __type __id "create_mode";
+       data_encrypted = Prop.computed __type __id "data_encrypted";
        geo_backup_policy_enabled =
-         Prop.computed __resource_type __resource_id
-           "geo_backup_policy_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "geo_backup_policy_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        recovery_database_id =
-         Prop.computed __resource_type __resource_id
-           "recovery_database_id";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
+         Prop.computed __type __id "recovery_database_id";
+       sku_name = Prop.computed __type __id "sku_name";
        storage_account_type =
-         Prop.computed __resource_type __resource_id
-           "storage_account_type";
+         Prop.computed __type __id "storage_account_type";
        synapse_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_workspace_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "synapse_workspace_id";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_sql_pool
+        (azurerm_synapse_sql_pool ?collation ?create_mode
+           ?data_encrypted ?geo_backup_policy_enabled ?id
+           ?recovery_database_id ?storage_account_type ?tags
+           ?timeouts ~name ~sku_name ~synapse_workspace_id ~restore
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?collation ?create_mode ?data_encrypted
+    ?geo_backup_policy_enabled ?id ?recovery_database_id
+    ?storage_account_type ?tags ?timeouts ~name ~sku_name
+    ~synapse_workspace_id ~restore __id =
+  let (r : _ Tf_core.resource) =
+    make ?collation ?create_mode ?data_encrypted
+      ?geo_backup_policy_enabled ?id ?recovery_database_id
+      ?storage_account_type ?tags ?timeouts ~name ~sku_name
+      ~synapse_workspace_id ~restore __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

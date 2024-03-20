@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_config = {
   aggregation_interval : string prop option; [@option]
@@ -180,71 +178,67 @@ type t = {
   stack_type : string prop;
 }
 
+let make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
+    ?private_ip_google_access ?private_ipv6_google_access ?project
+    ?purpose ?region ?role ?secondary_ip_range ?stack_type ?timeouts
+    ~ip_cidr_range ~name ~network ~log_config __id =
+  let __type = "google_compute_subnetwork" in
+  let __attrs =
+    ({
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       external_ipv6_prefix =
+         Prop.computed __type __id "external_ipv6_prefix";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       gateway_address = Prop.computed __type __id "gateway_address";
+       id = Prop.computed __type __id "id";
+       internal_ipv6_prefix =
+         Prop.computed __type __id "internal_ipv6_prefix";
+       ip_cidr_range = Prop.computed __type __id "ip_cidr_range";
+       ipv6_access_type =
+         Prop.computed __type __id "ipv6_access_type";
+       ipv6_cidr_range = Prop.computed __type __id "ipv6_cidr_range";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       private_ip_google_access =
+         Prop.computed __type __id "private_ip_google_access";
+       private_ipv6_google_access =
+         Prop.computed __type __id "private_ipv6_google_access";
+       project = Prop.computed __type __id "project";
+       purpose = Prop.computed __type __id "purpose";
+       region = Prop.computed __type __id "region";
+       role = Prop.computed __type __id "role";
+       secondary_ip_range =
+         Prop.computed __type __id "secondary_ip_range";
+       self_link = Prop.computed __type __id "self_link";
+       stack_type = Prop.computed __type __id "stack_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_subnetwork
+        (google_compute_subnetwork ?description ?external_ipv6_prefix
+           ?id ?ipv6_access_type ?private_ip_google_access
+           ?private_ipv6_google_access ?project ?purpose ?region
+           ?role ?secondary_ip_range ?stack_type ?timeouts
+           ~ip_cidr_range ~name ~network ~log_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?external_ipv6_prefix ?id
     ?ipv6_access_type ?private_ip_google_access
     ?private_ipv6_google_access ?project ?purpose ?region ?role
     ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
-    ~network ~log_config __resource_id =
-  let __resource_type = "google_compute_subnetwork" in
-  let __resource =
-    google_compute_subnetwork ?description ?external_ipv6_prefix ?id
-      ?ipv6_access_type ?private_ip_google_access
-      ?private_ipv6_google_access ?project ?purpose ?region ?role
-      ?secondary_ip_range ?stack_type ?timeouts ~ip_cidr_range ~name
-      ~network ~log_config ()
+    ~network ~log_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?external_ipv6_prefix ?id ?ipv6_access_type
+      ?private_ip_google_access ?private_ipv6_google_access ?project
+      ?purpose ?region ?role ?secondary_ip_range ?stack_type
+      ?timeouts ~ip_cidr_range ~name ~network ~log_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_subnetwork __resource);
-  let __resource_attributes =
-    ({
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       external_ipv6_prefix =
-         Prop.computed __resource_type __resource_id
-           "external_ipv6_prefix";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       gateway_address =
-         Prop.computed __resource_type __resource_id
-           "gateway_address";
-       id = Prop.computed __resource_type __resource_id "id";
-       internal_ipv6_prefix =
-         Prop.computed __resource_type __resource_id
-           "internal_ipv6_prefix";
-       ip_cidr_range =
-         Prop.computed __resource_type __resource_id "ip_cidr_range";
-       ipv6_access_type =
-         Prop.computed __resource_type __resource_id
-           "ipv6_access_type";
-       ipv6_cidr_range =
-         Prop.computed __resource_type __resource_id
-           "ipv6_cidr_range";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       private_ip_google_access =
-         Prop.computed __resource_type __resource_id
-           "private_ip_google_access";
-       private_ipv6_google_access =
-         Prop.computed __resource_type __resource_id
-           "private_ipv6_google_access";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       region = Prop.computed __resource_type __resource_id "region";
-       role = Prop.computed __resource_type __resource_id "role";
-       secondary_ip_range =
-         Prop.computed __resource_type __resource_id
-           "secondary_ip_range";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       stack_type =
-         Prop.computed __resource_type __resource_id "stack_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

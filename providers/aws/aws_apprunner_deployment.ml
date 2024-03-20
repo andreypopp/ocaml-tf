@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -31,22 +29,27 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?timeouts ~service_arn __resource_id =
-  let __resource_type = "aws_apprunner_deployment" in
-  let __resource =
-    aws_apprunner_deployment ?timeouts ~service_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apprunner_deployment __resource);
-  let __resource_attributes =
+let make ?timeouts ~service_arn __id =
+  let __type = "aws_apprunner_deployment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       operation_id =
-         Prop.computed __resource_type __resource_id "operation_id";
-       service_arn =
-         Prop.computed __resource_type __resource_id "service_arn";
-       status = Prop.computed __resource_type __resource_id "status";
+       id = Prop.computed __type __id "id";
+       operation_id = Prop.computed __type __id "operation_id";
+       service_arn = Prop.computed __type __id "service_arn";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apprunner_deployment
+        (aws_apprunner_deployment ?timeouts ~service_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~service_arn __id =
+  let (r : _ Tf_core.resource) = make ?timeouts ~service_arn __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

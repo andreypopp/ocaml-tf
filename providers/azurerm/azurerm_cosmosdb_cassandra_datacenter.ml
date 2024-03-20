@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -80,57 +78,64 @@ type t = {
   sku_name : string prop;
 }
 
+let make ?availability_zones_enabled ?backup_storage_customer_key_uri
+    ?base64_encoded_yaml_fragment ?disk_count ?disk_sku ?id
+    ?managed_disk_customer_key_uri ?node_count ?sku_name ?timeouts
+    ~cassandra_cluster_id ~delegated_management_subnet_id ~location
+    ~name __id =
+  let __type = "azurerm_cosmosdb_cassandra_datacenter" in
+  let __attrs =
+    ({
+       availability_zones_enabled =
+         Prop.computed __type __id "availability_zones_enabled";
+       backup_storage_customer_key_uri =
+         Prop.computed __type __id "backup_storage_customer_key_uri";
+       base64_encoded_yaml_fragment =
+         Prop.computed __type __id "base64_encoded_yaml_fragment";
+       cassandra_cluster_id =
+         Prop.computed __type __id "cassandra_cluster_id";
+       delegated_management_subnet_id =
+         Prop.computed __type __id "delegated_management_subnet_id";
+       disk_count = Prop.computed __type __id "disk_count";
+       disk_sku = Prop.computed __type __id "disk_sku";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       managed_disk_customer_key_uri =
+         Prop.computed __type __id "managed_disk_customer_key_uri";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       seed_node_ip_addresses =
+         Prop.computed __type __id "seed_node_ip_addresses";
+       sku_name = Prop.computed __type __id "sku_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_cassandra_datacenter
+        (azurerm_cosmosdb_cassandra_datacenter
+           ?availability_zones_enabled
+           ?backup_storage_customer_key_uri
+           ?base64_encoded_yaml_fragment ?disk_count ?disk_sku ?id
+           ?managed_disk_customer_key_uri ?node_count ?sku_name
+           ?timeouts ~cassandra_cluster_id
+           ~delegated_management_subnet_id ~location ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?availability_zones_enabled
     ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
     ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
     ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
-    ~delegated_management_subnet_id ~location ~name __resource_id =
-  let __resource_type = "azurerm_cosmosdb_cassandra_datacenter" in
-  let __resource =
-    azurerm_cosmosdb_cassandra_datacenter ?availability_zones_enabled
-      ?backup_storage_customer_key_uri ?base64_encoded_yaml_fragment
-      ?disk_count ?disk_sku ?id ?managed_disk_customer_key_uri
-      ?node_count ?sku_name ?timeouts ~cassandra_cluster_id
-      ~delegated_management_subnet_id ~location ~name ()
+    ~delegated_management_subnet_id ~location ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?availability_zones_enabled ?backup_storage_customer_key_uri
+      ?base64_encoded_yaml_fragment ?disk_count ?disk_sku ?id
+      ?managed_disk_customer_key_uri ?node_count ?sku_name ?timeouts
+      ~cassandra_cluster_id ~delegated_management_subnet_id ~location
+      ~name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_cassandra_datacenter __resource);
-  let __resource_attributes =
-    ({
-       availability_zones_enabled =
-         Prop.computed __resource_type __resource_id
-           "availability_zones_enabled";
-       backup_storage_customer_key_uri =
-         Prop.computed __resource_type __resource_id
-           "backup_storage_customer_key_uri";
-       base64_encoded_yaml_fragment =
-         Prop.computed __resource_type __resource_id
-           "base64_encoded_yaml_fragment";
-       cassandra_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "cassandra_cluster_id";
-       delegated_management_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_management_subnet_id";
-       disk_count =
-         Prop.computed __resource_type __resource_id "disk_count";
-       disk_sku =
-         Prop.computed __resource_type __resource_id "disk_sku";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_disk_customer_key_uri =
-         Prop.computed __resource_type __resource_id
-           "managed_disk_customer_key_uri";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       seed_node_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "seed_node_ip_addresses";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

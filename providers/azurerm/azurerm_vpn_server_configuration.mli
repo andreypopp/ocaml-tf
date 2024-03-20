@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -140,3 +140,21 @@ val register :
   radius:radius list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vpn_protocols:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  vpn_authentication_types:string prop list ->
+  azure_active_directory_authentication:
+    azure_active_directory_authentication list ->
+  client_revoked_certificate:client_revoked_certificate list ->
+  client_root_certificate:client_root_certificate list ->
+  ipsec_policy:ipsec_policy list ->
+  radius:radius list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,32 +51,39 @@ type t = {
   title : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?timeouts
-    ~alternate_contact_type ~email_address ~name ~phone_number ~title
-    __resource_id =
-  let __resource_type = "aws_account_alternate_contact" in
-  let __resource =
-    aws_account_alternate_contact ?account_id ?id ?timeouts
-      ~alternate_contact_type ~email_address ~name ~phone_number
-      ~title ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_account_alternate_contact __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?timeouts ~alternate_contact_type
+    ~email_address ~name ~phone_number ~title __id =
+  let __type = "aws_account_alternate_contact" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        alternate_contact_type =
-         Prop.computed __resource_type __resource_id
-           "alternate_contact_type";
-       email_address =
-         Prop.computed __resource_type __resource_id "email_address";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       phone_number =
-         Prop.computed __resource_type __resource_id "phone_number";
-       title = Prop.computed __resource_type __resource_id "title";
+         Prop.computed __type __id "alternate_contact_type";
+       email_address = Prop.computed __type __id "email_address";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       phone_number = Prop.computed __type __id "phone_number";
+       title = Prop.computed __type __id "title";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_account_alternate_contact
+        (aws_account_alternate_contact ?account_id ?id ?timeouts
+           ~alternate_contact_type ~email_address ~name ~phone_number
+           ~title ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?timeouts
+    ~alternate_contact_type ~email_address ~name ~phone_number ~title
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?timeouts ~alternate_contact_type
+      ~email_address ~name ~phone_number ~title __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

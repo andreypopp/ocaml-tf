@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint_configuration = {
   client_ip_preservation_enabled : bool prop option; [@option]
@@ -96,49 +94,55 @@ type t = {
   traffic_dial_percentage : float prop;
 }
 
+let make ?endpoint_group_region ?health_check_interval_seconds
+    ?health_check_path ?health_check_port ?health_check_protocol ?id
+    ?threshold_count ?traffic_dial_percentage ?timeouts ~listener_arn
+    ~endpoint_configuration ~port_override __id =
+  let __type = "aws_globalaccelerator_endpoint_group" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       endpoint_group_region =
+         Prop.computed __type __id "endpoint_group_region";
+       health_check_interval_seconds =
+         Prop.computed __type __id "health_check_interval_seconds";
+       health_check_path =
+         Prop.computed __type __id "health_check_path";
+       health_check_port =
+         Prop.computed __type __id "health_check_port";
+       health_check_protocol =
+         Prop.computed __type __id "health_check_protocol";
+       id = Prop.computed __type __id "id";
+       listener_arn = Prop.computed __type __id "listener_arn";
+       threshold_count = Prop.computed __type __id "threshold_count";
+       traffic_dial_percentage =
+         Prop.computed __type __id "traffic_dial_percentage";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_globalaccelerator_endpoint_group
+        (aws_globalaccelerator_endpoint_group ?endpoint_group_region
+           ?health_check_interval_seconds ?health_check_path
+           ?health_check_port ?health_check_protocol ?id
+           ?threshold_count ?traffic_dial_percentage ?timeouts
+           ~listener_arn ~endpoint_configuration ~port_override ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?endpoint_group_region
     ?health_check_interval_seconds ?health_check_path
     ?health_check_port ?health_check_protocol ?id ?threshold_count
     ?traffic_dial_percentage ?timeouts ~listener_arn
-    ~endpoint_configuration ~port_override __resource_id =
-  let __resource_type = "aws_globalaccelerator_endpoint_group" in
-  let __resource =
-    aws_globalaccelerator_endpoint_group ?endpoint_group_region
-      ?health_check_interval_seconds ?health_check_path
-      ?health_check_port ?health_check_protocol ?id ?threshold_count
-      ?traffic_dial_percentage ?timeouts ~listener_arn
-      ~endpoint_configuration ~port_override ()
+    ~endpoint_configuration ~port_override __id =
+  let (r : _ Tf_core.resource) =
+    make ?endpoint_group_region ?health_check_interval_seconds
+      ?health_check_path ?health_check_port ?health_check_protocol
+      ?id ?threshold_count ?traffic_dial_percentage ?timeouts
+      ~listener_arn ~endpoint_configuration ~port_override __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_globalaccelerator_endpoint_group __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       endpoint_group_region =
-         Prop.computed __resource_type __resource_id
-           "endpoint_group_region";
-       health_check_interval_seconds =
-         Prop.computed __resource_type __resource_id
-           "health_check_interval_seconds";
-       health_check_path =
-         Prop.computed __resource_type __resource_id
-           "health_check_path";
-       health_check_port =
-         Prop.computed __resource_type __resource_id
-           "health_check_port";
-       health_check_protocol =
-         Prop.computed __resource_type __resource_id
-           "health_check_protocol";
-       id = Prop.computed __resource_type __resource_id "id";
-       listener_arn =
-         Prop.computed __resource_type __resource_id "listener_arn";
-       threshold_count =
-         Prop.computed __resource_type __resource_id
-           "threshold_count";
-       traffic_dial_percentage =
-         Prop.computed __resource_type __resource_id
-           "traffic_dial_percentage";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

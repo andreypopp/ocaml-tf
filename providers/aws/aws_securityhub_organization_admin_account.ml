@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_securityhub_organization_admin_account = {
   admin_account_id : string prop;  (** admin_account_id *)
@@ -17,23 +15,27 @@ let aws_securityhub_organization_admin_account ?id ~admin_account_id
 
 type t = { admin_account_id : string prop; id : string prop }
 
-let register ?tf_module ?id ~admin_account_id __resource_id =
-  let __resource_type =
-    "aws_securityhub_organization_admin_account"
-  in
-  let __resource =
-    aws_securityhub_organization_admin_account ?id ~admin_account_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securityhub_organization_admin_account __resource);
-  let __resource_attributes =
+let make ?id ~admin_account_id __id =
+  let __type = "aws_securityhub_organization_admin_account" in
+  let __attrs =
     ({
        admin_account_id =
-         Prop.computed __resource_type __resource_id
-           "admin_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "admin_account_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securityhub_organization_admin_account
+        (aws_securityhub_organization_admin_account ?id
+           ~admin_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~admin_account_id __id =
+  let (r : _ Tf_core.resource) = make ?id ~admin_account_id __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

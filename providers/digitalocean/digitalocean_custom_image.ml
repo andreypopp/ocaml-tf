@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,40 +54,44 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?description ?distribution ?id ?tags
-    ?timeouts ~name ~regions ~url __resource_id =
-  let __resource_type = "digitalocean_custom_image" in
-  let __resource =
-    digitalocean_custom_image ?description ?distribution ?id ?tags
-      ?timeouts ~name ~regions ~url ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_custom_image __resource);
-  let __resource_attributes =
+let make ?description ?distribution ?id ?tags ?timeouts ~name
+    ~regions ~url __id =
+  let __type = "digitalocean_custom_image" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       distribution =
-         Prop.computed __resource_type __resource_id "distribution";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_id =
-         Prop.computed __resource_type __resource_id "image_id";
-       min_disk_size =
-         Prop.computed __resource_type __resource_id "min_disk_size";
-       name = Prop.computed __resource_type __resource_id "name";
-       public = Prop.computed __resource_type __resource_id "public";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
-       size_gigabytes =
-         Prop.computed __resource_type __resource_id "size_gigabytes";
-       slug = Prop.computed __resource_type __resource_id "slug";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       url = Prop.computed __resource_type __resource_id "url";
+       created_at = Prop.computed __type __id "created_at";
+       description = Prop.computed __type __id "description";
+       distribution = Prop.computed __type __id "distribution";
+       id = Prop.computed __type __id "id";
+       image_id = Prop.computed __type __id "image_id";
+       min_disk_size = Prop.computed __type __id "min_disk_size";
+       name = Prop.computed __type __id "name";
+       public = Prop.computed __type __id "public";
+       regions = Prop.computed __type __id "regions";
+       size_gigabytes = Prop.computed __type __id "size_gigabytes";
+       slug = Prop.computed __type __id "slug";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_custom_image
+        (digitalocean_custom_image ?description ?distribution ?id
+           ?tags ?timeouts ~name ~regions ~url ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?distribution ?id ?tags
+    ?timeouts ~name ~regions ~url __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?distribution ?id ?tags ?timeouts ~name
+      ~regions ~url __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -40,29 +38,35 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts
-    ~application_load_balancer_id ~name __resource_id =
-  let __resource_type =
-    "azurerm_application_load_balancer_frontend"
-  in
-  let __resource =
-    azurerm_application_load_balancer_frontend ?id ?tags ?timeouts
-      ~application_load_balancer_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_load_balancer_frontend __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~application_load_balancer_id ~name __id
+    =
+  let __type = "azurerm_application_load_balancer_frontend" in
+  let __attrs =
     ({
        application_load_balancer_id =
-         Prop.computed __resource_type __resource_id
-           "application_load_balancer_id";
+         Prop.computed __type __id "application_load_balancer_id";
        fully_qualified_domain_name =
-         Prop.computed __resource_type __resource_id
-           "fully_qualified_domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "fully_qualified_domain_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_load_balancer_frontend
+        (azurerm_application_load_balancer_frontend ?id ?tags
+           ?timeouts ~application_load_balancer_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts
+    ~application_load_balancer_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~application_load_balancer_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

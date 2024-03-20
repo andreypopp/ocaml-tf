@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -94,3 +94,15 @@ val register :
   selection_tag:selection_tag list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?not_resources:string prop list ->
+  ?resources:string prop list ->
+  iam_role_arn:string prop ->
+  name:string prop ->
+  plan_id:string prop ->
+  condition:condition list ->
+  selection_tag:selection_tag list ->
+  string ->
+  t Tf_core.resource

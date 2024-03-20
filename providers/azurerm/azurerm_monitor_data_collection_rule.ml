@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_flow = {
   built_in_transform : string prop option; [@option]
@@ -460,38 +458,47 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?data_collection_endpoint_id ?description ?id
-    ?kind ?tags ?timeouts ~location ~name ~resource_group_name
-    ~data_flow ~data_sources ~destinations ~identity
-    ~stream_declaration __resource_id =
-  let __resource_type = "azurerm_monitor_data_collection_rule" in
-  let __resource =
-    azurerm_monitor_data_collection_rule ?data_collection_endpoint_id
-      ?description ?id ?kind ?tags ?timeouts ~location ~name
-      ~resource_group_name ~data_flow ~data_sources ~destinations
-      ~identity ~stream_declaration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_data_collection_rule __resource);
-  let __resource_attributes =
+let make ?data_collection_endpoint_id ?description ?id ?kind ?tags
+    ?timeouts ~location ~name ~resource_group_name ~data_flow
+    ~data_sources ~destinations ~identity ~stream_declaration __id =
+  let __type = "azurerm_monitor_data_collection_rule" in
+  let __attrs =
     ({
        data_collection_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "data_collection_endpoint_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       immutable_id =
-         Prop.computed __resource_type __resource_id "immutable_id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "data_collection_endpoint_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       immutable_id = Prop.computed __type __id "immutable_id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_data_collection_rule
+        (azurerm_monitor_data_collection_rule
+           ?data_collection_endpoint_id ?description ?id ?kind ?tags
+           ?timeouts ~location ~name ~resource_group_name ~data_flow
+           ~data_sources ~destinations ~identity ~stream_declaration
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data_collection_endpoint_id ?description ?id
+    ?kind ?tags ?timeouts ~location ~name ~resource_group_name
+    ~data_flow ~data_sources ~destinations ~identity
+    ~stream_declaration __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_collection_endpoint_id ?description ?id ?kind ?tags
+      ?timeouts ~location ~name ~resource_group_name ~data_flow
+      ~data_sources ~destinations ~identity ~stream_declaration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

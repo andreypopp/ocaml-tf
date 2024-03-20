@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]
@@ -116,35 +114,39 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?asset_names ?asset_types ?billing_project
-    ?content_type ?id ?project ?timeouts ~feed_id ~condition
-    ~feed_output_config __resource_id =
-  let __resource_type = "google_cloud_asset_project_feed" in
-  let __resource =
-    google_cloud_asset_project_feed ?asset_names ?asset_types
-      ?billing_project ?content_type ?id ?project ?timeouts ~feed_id
-      ~condition ~feed_output_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloud_asset_project_feed __resource);
-  let __resource_attributes =
+let make ?asset_names ?asset_types ?billing_project ?content_type ?id
+    ?project ?timeouts ~feed_id ~condition ~feed_output_config __id =
+  let __type = "google_cloud_asset_project_feed" in
+  let __attrs =
     ({
-       asset_names =
-         Prop.computed __resource_type __resource_id "asset_names";
-       asset_types =
-         Prop.computed __resource_type __resource_id "asset_types";
-       billing_project =
-         Prop.computed __resource_type __resource_id
-           "billing_project";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       feed_id =
-         Prop.computed __resource_type __resource_id "feed_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       asset_names = Prop.computed __type __id "asset_names";
+       asset_types = Prop.computed __type __id "asset_types";
+       billing_project = Prop.computed __type __id "billing_project";
+       content_type = Prop.computed __type __id "content_type";
+       feed_id = Prop.computed __type __id "feed_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloud_asset_project_feed
+        (google_cloud_asset_project_feed ?asset_names ?asset_types
+           ?billing_project ?content_type ?id ?project ?timeouts
+           ~feed_id ~condition ~feed_output_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?asset_names ?asset_types ?billing_project
+    ?content_type ?id ?project ?timeouts ~feed_id ~condition
+    ~feed_output_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?asset_names ?asset_types ?billing_project ?content_type ?id
+      ?project ?timeouts ~feed_id ~condition ~feed_output_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

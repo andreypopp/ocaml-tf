@@ -394,25 +394,29 @@ and gen_block_constructors ppf (name, (block : block)) =
 
 let gen_resource_constructor ppf (name, (schema : schema)) =
   let args = concat_space (gen_block_args schema.block) in
-  Format.fprintf ppf "let register ?tf_module %s __resource_id =@."
-    args;
-  Format.fprintf ppf "  let __resource_type = %S in@." name;
-  Format.fprintf ppf "  let __resource = %s %s () in@."
-    (to_ocaml_name name) args;
-  Format.fprintf ppf
-    "  Resource.add ?tf_module ~type_:__resource_type \
-     ~id:__resource_id@.";
-  Format.fprintf ppf "    (yojson_of_%s __resource);@." name;
-  Format.fprintf ppf "  let __resource_attributes = ({@.";
+  Format.fprintf ppf "let make %s __id =@." args;
+  Format.fprintf ppf "  let __type = %S in@." name;
+  Format.fprintf ppf "  let __attrs = ({@.";
   List.iter schema.block.attributes ~f:(fun (attr_name, _attr) ->
       let ocaml_name = to_ocaml_name attr_name in
       let ocaml_value =
-        sprintf "Prop.computed __resource_type __resource_id %S"
-          attr_name
+        sprintf "Prop.computed __type __id %S" attr_name
       in
       Format.fprintf ppf "    %s = %s;@." ocaml_name ocaml_value);
   Format.fprintf ppf "  } : t) in@.";
-  Format.fprintf ppf "  __resource_attributes;;@.@."
+  Format.fprintf ppf "  {Tf_core.@.";
+  Format.fprintf ppf "    id=__id;@.";
+  Format.fprintf ppf "    type_=__type;@.";
+  Format.fprintf ppf "    json=yojson_of_%s (%s %s ());@." name name
+    args;
+  Format.fprintf ppf "    attrs=__attrs;@.";
+  Format.fprintf ppf "  };;@.@.";
+  Format.fprintf ppf "let register ?tf_module %s __id =@." args;
+  Format.fprintf ppf
+    "  let (r : _ Tf_core.resource) = make %s __id in@." args;
+  Format.fprintf ppf
+    "  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;@.";
+  Format.fprintf ppf "  r.attrs;;@.@."
 
 let gen_resource_attributes_ty ~is_mli ppf (_name, (schema : schema))
     =
@@ -507,16 +511,16 @@ and gen_block_constructors_sig ppf (name, (block : block)) =
 
 let gen_resource_constructor_sig ppf (_name, (schema : schema)) =
   let args = gen_block_args_sig None schema.block in
-  let ty =
-    ("?tf_module:tf_module" :: args) @ [ "string"; "t" ]
-    |> String.concat ~sep:" ->\n    "
-  in
-  Format.fprintf ppf "val register :@.    %s@.@." ty
+  Format.fprintf ppf "val register :@.    %s@.@."
+    (("?tf_module:tf_module" :: args) @ [ "string"; "t" ]
+    |> String.concat ~sep:" ->\n    ");
+  Format.fprintf ppf "val make :@.    %s@.@."
+    (args @ [ "string"; "t Tf_core.resource" ]
+    |> String.concat ~sep:" ->\n    ")
 
 let gen_resource_impl ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
-  Format.fprintf ppf "[%@%@%@ocaml.warning \"-33-27-26\"]@.@.";
-  Format.fprintf ppf "open! Tf.Prelude@.@.";
+  Format.fprintf ppf "open! Tf_core@.@.";
   gen_block_type_ml ~is_resource:true ~input_only:true ~is_mli:false
     ppf
     (resource_name, resource.block);
@@ -528,7 +532,7 @@ let gen_resource_impl ppf (resource_name, (resource : schema)) =
 
 let gen_resource_iface ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
-  Format.fprintf ppf "open! Tf.Prelude@.@.";
+  Format.fprintf ppf "open! Tf_core@.@.";
   Format.fprintf ppf "(** RESOURCE SERIALIZATION *)@.@.";
   gen_block_constructor_sig ~is_resource:true ppf
     (resource_name, resource.block);

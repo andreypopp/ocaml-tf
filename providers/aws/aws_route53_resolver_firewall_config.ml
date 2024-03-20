@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_resolver_firewall_config = {
   firewall_fail_open : string prop option; [@option]
@@ -24,26 +22,31 @@ type t = {
   resource_id : string prop;
 }
 
-let register ?tf_module ?firewall_fail_open ?id ~resource_id
-    __resource_id =
-  let __resource_type = "aws_route53_resolver_firewall_config" in
-  let __resource =
-    aws_route53_resolver_firewall_config ?firewall_fail_open ?id
-      ~resource_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_resolver_firewall_config __resource);
-  let __resource_attributes =
+let make ?firewall_fail_open ?id ~resource_id __id =
+  let __type = "aws_route53_resolver_firewall_config" in
+  let __attrs =
     ({
        firewall_fail_open =
-         Prop.computed __resource_type __resource_id
-           "firewall_fail_open";
-       id = Prop.computed __resource_type __resource_id "id";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+         Prop.computed __type __id "firewall_fail_open";
+       id = Prop.computed __type __id "id";
+       owner_id = Prop.computed __type __id "owner_id";
+       resource_id = Prop.computed __type __id "resource_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_resolver_firewall_config
+        (aws_route53_resolver_firewall_config ?firewall_fail_open ?id
+           ~resource_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?firewall_fail_open ?id ~resource_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?firewall_fail_open ?id ~resource_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

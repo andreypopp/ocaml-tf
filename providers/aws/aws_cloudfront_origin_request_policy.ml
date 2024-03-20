@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cookies_config__cookies = {
   items : string prop list option; [@option]  (** items *)
@@ -94,23 +92,33 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?comment ?id ~name ~cookies_config
-    ~headers_config ~query_strings_config __resource_id =
-  let __resource_type = "aws_cloudfront_origin_request_policy" in
-  let __resource =
-    aws_cloudfront_origin_request_policy ?comment ?id ~name
-      ~cookies_config ~headers_config ~query_strings_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_origin_request_policy __resource);
-  let __resource_attributes =
+let make ?comment ?id ~name ~cookies_config ~headers_config
+    ~query_strings_config __id =
+  let __type = "aws_cloudfront_origin_request_policy" in
+  let __attrs =
     ({
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       comment = Prop.computed __type __id "comment";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_origin_request_policy
+        (aws_cloudfront_origin_request_policy ?comment ?id ~name
+           ~cookies_config ~headers_config ~query_strings_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?id ~name ~cookies_config
+    ~headers_config ~query_strings_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?id ~name ~cookies_config ~headers_config
+      ~query_strings_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication = {
   audience : string prop;  (** audience *)
@@ -137,47 +135,60 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?access_policy_object_ids
+    ?configuration_export_storage_account_name
+    ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
+    ~location ~name ~resource_group_name ~workspace_id
+    ~authentication ~cors ~identity ~oci_artifact __id =
+  let __type = "azurerm_healthcare_fhir_service" in
+  let __attrs =
+    ({
+       access_policy_object_ids =
+         Prop.computed __type __id "access_policy_object_ids";
+       configuration_export_storage_account_name =
+         Prop.computed __type __id
+           "configuration_export_storage_account_name";
+       container_registry_login_server_url =
+         Prop.computed __type __id
+           "container_registry_login_server_url";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_healthcare_fhir_service
+        (azurerm_healthcare_fhir_service ?access_policy_object_ids
+           ?configuration_export_storage_account_name
+           ?container_registry_login_server_url ?id ?kind ?tags
+           ?timeouts ~location ~name ~resource_group_name
+           ~workspace_id ~authentication ~cors ~identity
+           ~oci_artifact ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_policy_object_ids
     ?configuration_export_storage_account_name
     ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
     ~location ~name ~resource_group_name ~workspace_id
-    ~authentication ~cors ~identity ~oci_artifact __resource_id =
-  let __resource_type = "azurerm_healthcare_fhir_service" in
-  let __resource =
-    azurerm_healthcare_fhir_service ?access_policy_object_ids
+    ~authentication ~cors ~identity ~oci_artifact __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_policy_object_ids
       ?configuration_export_storage_account_name
       ?container_registry_login_server_url ?id ?kind ?tags ?timeouts
       ~location ~name ~resource_group_name ~workspace_id
-      ~authentication ~cors ~identity ~oci_artifact ()
+      ~authentication ~cors ~identity ~oci_artifact __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_healthcare_fhir_service __resource);
-  let __resource_attributes =
-    ({
-       access_policy_object_ids =
-         Prop.computed __resource_type __resource_id
-           "access_policy_object_ids";
-       configuration_export_storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_export_storage_account_name";
-       container_registry_login_server_url =
-         Prop.computed __resource_type __resource_id
-           "container_registry_login_server_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

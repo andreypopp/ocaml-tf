@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type analytics_configuration = {
   application_arn : string prop option; [@option]
@@ -147,6 +145,79 @@ type t = {
   write_attributes : string list prop;
 }
 
+let make ?access_token_validity ?allowed_oauth_flows
+    ?allowed_oauth_flows_user_pool_client ?allowed_oauth_scopes
+    ?auth_session_validity ?callback_urls ?default_redirect_uri
+    ?enable_propagate_additional_user_context_data
+    ?enable_token_revocation ?explicit_auth_flows ?generate_secret
+    ?id_token_validity ?logout_urls ?prevent_user_existence_errors
+    ?read_attributes ?refresh_token_validity
+    ?supported_identity_providers ?write_attributes ~name
+    ~user_pool_id ~analytics_configuration ~token_validity_units __id
+    =
+  let __type = "aws_cognito_user_pool_client" in
+  let __attrs =
+    ({
+       access_token_validity =
+         Prop.computed __type __id "access_token_validity";
+       allowed_oauth_flows =
+         Prop.computed __type __id "allowed_oauth_flows";
+       allowed_oauth_flows_user_pool_client =
+         Prop.computed __type __id
+           "allowed_oauth_flows_user_pool_client";
+       allowed_oauth_scopes =
+         Prop.computed __type __id "allowed_oauth_scopes";
+       auth_session_validity =
+         Prop.computed __type __id "auth_session_validity";
+       callback_urls = Prop.computed __type __id "callback_urls";
+       client_secret = Prop.computed __type __id "client_secret";
+       default_redirect_uri =
+         Prop.computed __type __id "default_redirect_uri";
+       enable_propagate_additional_user_context_data =
+         Prop.computed __type __id
+           "enable_propagate_additional_user_context_data";
+       enable_token_revocation =
+         Prop.computed __type __id "enable_token_revocation";
+       explicit_auth_flows =
+         Prop.computed __type __id "explicit_auth_flows";
+       generate_secret = Prop.computed __type __id "generate_secret";
+       id = Prop.computed __type __id "id";
+       id_token_validity =
+         Prop.computed __type __id "id_token_validity";
+       logout_urls = Prop.computed __type __id "logout_urls";
+       name = Prop.computed __type __id "name";
+       prevent_user_existence_errors =
+         Prop.computed __type __id "prevent_user_existence_errors";
+       read_attributes = Prop.computed __type __id "read_attributes";
+       refresh_token_validity =
+         Prop.computed __type __id "refresh_token_validity";
+       supported_identity_providers =
+         Prop.computed __type __id "supported_identity_providers";
+       user_pool_id = Prop.computed __type __id "user_pool_id";
+       write_attributes =
+         Prop.computed __type __id "write_attributes";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_user_pool_client
+        (aws_cognito_user_pool_client ?access_token_validity
+           ?allowed_oauth_flows ?allowed_oauth_flows_user_pool_client
+           ?allowed_oauth_scopes ?auth_session_validity
+           ?callback_urls ?default_redirect_uri
+           ?enable_propagate_additional_user_context_data
+           ?enable_token_revocation ?explicit_auth_flows
+           ?generate_secret ?id_token_validity ?logout_urls
+           ?prevent_user_existence_errors ?read_attributes
+           ?refresh_token_validity ?supported_identity_providers
+           ?write_attributes ~name ~user_pool_id
+           ~analytics_configuration ~token_validity_units ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_token_validity ?allowed_oauth_flows
     ?allowed_oauth_flows_user_pool_client ?allowed_oauth_scopes
     ?auth_session_validity ?callback_urls ?default_redirect_uri
@@ -155,84 +226,19 @@ let register ?tf_module ?access_token_validity ?allowed_oauth_flows
     ?id_token_validity ?logout_urls ?prevent_user_existence_errors
     ?read_attributes ?refresh_token_validity
     ?supported_identity_providers ?write_attributes ~name
-    ~user_pool_id ~analytics_configuration ~token_validity_units
-    __resource_id =
-  let __resource_type = "aws_cognito_user_pool_client" in
-  let __resource =
-    aws_cognito_user_pool_client ?access_token_validity
-      ?allowed_oauth_flows ?allowed_oauth_flows_user_pool_client
-      ?allowed_oauth_scopes ?auth_session_validity ?callback_urls
-      ?default_redirect_uri
+    ~user_pool_id ~analytics_configuration ~token_validity_units __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?access_token_validity ?allowed_oauth_flows
+      ?allowed_oauth_flows_user_pool_client ?allowed_oauth_scopes
+      ?auth_session_validity ?callback_urls ?default_redirect_uri
       ?enable_propagate_additional_user_context_data
       ?enable_token_revocation ?explicit_auth_flows ?generate_secret
       ?id_token_validity ?logout_urls ?prevent_user_existence_errors
       ?read_attributes ?refresh_token_validity
       ?supported_identity_providers ?write_attributes ~name
-      ~user_pool_id ~analytics_configuration ~token_validity_units ()
+      ~user_pool_id ~analytics_configuration ~token_validity_units
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_user_pool_client __resource);
-  let __resource_attributes =
-    ({
-       access_token_validity =
-         Prop.computed __resource_type __resource_id
-           "access_token_validity";
-       allowed_oauth_flows =
-         Prop.computed __resource_type __resource_id
-           "allowed_oauth_flows";
-       allowed_oauth_flows_user_pool_client =
-         Prop.computed __resource_type __resource_id
-           "allowed_oauth_flows_user_pool_client";
-       allowed_oauth_scopes =
-         Prop.computed __resource_type __resource_id
-           "allowed_oauth_scopes";
-       auth_session_validity =
-         Prop.computed __resource_type __resource_id
-           "auth_session_validity";
-       callback_urls =
-         Prop.computed __resource_type __resource_id "callback_urls";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       default_redirect_uri =
-         Prop.computed __resource_type __resource_id
-           "default_redirect_uri";
-       enable_propagate_additional_user_context_data =
-         Prop.computed __resource_type __resource_id
-           "enable_propagate_additional_user_context_data";
-       enable_token_revocation =
-         Prop.computed __resource_type __resource_id
-           "enable_token_revocation";
-       explicit_auth_flows =
-         Prop.computed __resource_type __resource_id
-           "explicit_auth_flows";
-       generate_secret =
-         Prop.computed __resource_type __resource_id
-           "generate_secret";
-       id = Prop.computed __resource_type __resource_id "id";
-       id_token_validity =
-         Prop.computed __resource_type __resource_id
-           "id_token_validity";
-       logout_urls =
-         Prop.computed __resource_type __resource_id "logout_urls";
-       name = Prop.computed __resource_type __resource_id "name";
-       prevent_user_existence_errors =
-         Prop.computed __resource_type __resource_id
-           "prevent_user_existence_errors";
-       read_attributes =
-         Prop.computed __resource_type __resource_id
-           "read_attributes";
-       refresh_token_validity =
-         Prop.computed __resource_type __resource_id
-           "refresh_token_validity";
-       supported_identity_providers =
-         Prop.computed __resource_type __resource_id
-           "supported_identity_providers";
-       user_pool_id =
-         Prop.computed __resource_type __resource_id "user_pool_id";
-       write_attributes =
-         Prop.computed __resource_type __resource_id
-           "write_attributes";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

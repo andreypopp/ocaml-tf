@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_transfer_ssh_key = {
   body : string prop;  (** body *)
@@ -24,23 +22,29 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ~body ~server_id ~user_name __resource_id
-    =
-  let __resource_type = "aws_transfer_ssh_key" in
-  let __resource =
-    aws_transfer_ssh_key ?id ~body ~server_id ~user_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_ssh_key __resource);
-  let __resource_attributes =
+let make ?id ~body ~server_id ~user_name __id =
+  let __type = "aws_transfer_ssh_key" in
+  let __attrs =
     ({
-       body = Prop.computed __resource_type __resource_id "body";
-       id = Prop.computed __resource_type __resource_id "id";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+       body = Prop.computed __type __id "body";
+       id = Prop.computed __type __id "id";
+       server_id = Prop.computed __type __id "server_id";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_ssh_key
+        (aws_transfer_ssh_key ?id ~body ~server_id ~user_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~body ~server_id ~user_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~body ~server_id ~user_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

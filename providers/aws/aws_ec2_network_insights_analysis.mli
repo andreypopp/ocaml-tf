@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -757,3 +757,13 @@ val register :
   network_insights_path_id:string prop ->
   string ->
   t
+
+val make :
+  ?filter_in_arns:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?wait_for_completion:bool prop ->
+  network_insights_path_id:string prop ->
+  string ->
+  t Tf_core.resource

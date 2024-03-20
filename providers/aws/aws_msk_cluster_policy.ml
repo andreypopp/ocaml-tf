@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_msk_cluster_policy = {
   cluster_arn : string prop;  (** cluster_arn *)
@@ -23,23 +21,29 @@ type t = {
   policy : string prop;
 }
 
-let register ?tf_module ?id ~cluster_arn ~policy __resource_id =
-  let __resource_type = "aws_msk_cluster_policy" in
-  let __resource =
-    aws_msk_cluster_policy ?id ~cluster_arn ~policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_msk_cluster_policy __resource);
-  let __resource_attributes =
+let make ?id ~cluster_arn ~policy __id =
+  let __type = "aws_msk_cluster_policy" in
+  let __attrs =
     ({
-       cluster_arn =
-         Prop.computed __resource_type __resource_id "cluster_arn";
-       current_version =
-         Prop.computed __resource_type __resource_id
-           "current_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
+       cluster_arn = Prop.computed __type __id "cluster_arn";
+       current_version = Prop.computed __type __id "current_version";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_msk_cluster_policy
+        (aws_msk_cluster_policy ?id ~cluster_arn ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cluster_arn ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~cluster_arn ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

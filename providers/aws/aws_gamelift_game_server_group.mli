@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,21 @@ val register :
   launch_template:launch_template list ->
   string ->
   t
+
+val make :
+  ?balancing_strategy:string prop ->
+  ?game_server_protection_policy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_subnets:string prop list ->
+  ?timeouts:timeouts ->
+  game_server_group_name:string prop ->
+  max_size:float prop ->
+  min_size:float prop ->
+  role_arn:string prop ->
+  auto_scaling_policy:auto_scaling_policy list ->
+  instance_definition:instance_definition list ->
+  launch_template:launch_template list ->
+  string ->
+  t Tf_core.resource

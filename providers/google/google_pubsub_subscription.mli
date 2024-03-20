@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -153,3 +153,25 @@ val register :
   retry_policy:retry_policy list ->
   string ->
   t
+
+val make :
+  ?ack_deadline_seconds:float prop ->
+  ?enable_exactly_once_delivery:bool prop ->
+  ?enable_message_ordering:bool prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?message_retention_duration:string prop ->
+  ?project:string prop ->
+  ?retain_acked_messages:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  topic:string prop ->
+  bigquery_config:bigquery_config list ->
+  cloud_storage_config:cloud_storage_config list ->
+  dead_letter_policy:dead_letter_policy list ->
+  expiration_policy:expiration_policy list ->
+  push_config:push_config list ->
+  retry_policy:retry_policy list ->
+  string ->
+  t Tf_core.resource

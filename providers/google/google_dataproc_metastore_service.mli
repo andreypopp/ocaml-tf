@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -171,3 +171,25 @@ val register :
   telemetry_config:telemetry_config list ->
   string ->
   t
+
+val make :
+  ?database_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?network:string prop ->
+  ?port:float prop ->
+  ?project:string prop ->
+  ?release_channel:string prop ->
+  ?tier:string prop ->
+  ?timeouts:timeouts ->
+  service_id:string prop ->
+  encryption_config:encryption_config list ->
+  hive_metastore_config:hive_metastore_config list ->
+  maintenance_window:maintenance_window list ->
+  metadata_integration:metadata_integration list ->
+  network_config:network_config list ->
+  scaling_config:scaling_config list ->
+  telemetry_config:telemetry_config list ->
+  string ->
+  t Tf_core.resource

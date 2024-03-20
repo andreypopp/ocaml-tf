@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_location_tracker = {
   description : string prop option; [@option]  (** description *)
@@ -44,37 +42,40 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?kms_key_id
-    ?position_filtering ?tags ?tags_all ~tracker_name __resource_id =
-  let __resource_type = "aws_location_tracker" in
-  let __resource =
-    aws_location_tracker ?description ?id ?kms_key_id
-      ?position_filtering ?tags ?tags_all ~tracker_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_location_tracker __resource);
-  let __resource_attributes =
+let make ?description ?id ?kms_key_id ?position_filtering ?tags
+    ?tags_all ~tracker_name __id =
+  let __type = "aws_location_tracker" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
        position_filtering =
-         Prop.computed __resource_type __resource_id
-           "position_filtering";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tracker_arn =
-         Prop.computed __resource_type __resource_id "tracker_arn";
-       tracker_name =
-         Prop.computed __resource_type __resource_id "tracker_name";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "position_filtering";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tracker_arn = Prop.computed __type __id "tracker_arn";
+       tracker_name = Prop.computed __type __id "tracker_name";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_location_tracker
+        (aws_location_tracker ?description ?id ?kms_key_id
+           ?position_filtering ?tags ?tags_all ~tracker_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?kms_key_id
+    ?position_filtering ?tags ?tags_all ~tracker_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?kms_key_id ?position_filtering ?tags
+      ?tags_all ~tracker_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

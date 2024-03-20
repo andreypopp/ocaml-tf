@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -120,3 +120,22 @@ val register :
   planned_limit:planned_limit list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?limit_amount:string prop ->
+  ?limit_unit:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?time_period_end:string prop ->
+  ?time_period_start:string prop ->
+  budget_type:string prop ->
+  time_unit:string prop ->
+  auto_adjust_data:auto_adjust_data list ->
+  cost_filter:cost_filter list ->
+  cost_types:cost_types list ->
+  notification:notification list ->
+  planned_limit:planned_limit list ->
+  string ->
+  t Tf_core.resource

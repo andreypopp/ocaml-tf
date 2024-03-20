@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type create_database_default_permissions = {
   permissions : string prop list option; [@option]
@@ -83,44 +81,58 @@ type t = {
   trusted_resource_owners : string list prop;
 }
 
+let make ?admins ?allow_external_data_filtering
+    ?authorized_session_tag_value_list ?catalog_id
+    ?external_data_filtering_allow_list ?id ?read_only_admins
+    ?trusted_resource_owners ~create_database_default_permissions
+    ~create_table_default_permissions __id =
+  let __type = "aws_lakeformation_data_lake_settings" in
+  let __attrs =
+    ({
+       admins = Prop.computed __type __id "admins";
+       allow_external_data_filtering =
+         Prop.computed __type __id "allow_external_data_filtering";
+       authorized_session_tag_value_list =
+         Prop.computed __type __id
+           "authorized_session_tag_value_list";
+       catalog_id = Prop.computed __type __id "catalog_id";
+       external_data_filtering_allow_list =
+         Prop.computed __type __id
+           "external_data_filtering_allow_list";
+       id = Prop.computed __type __id "id";
+       read_only_admins =
+         Prop.computed __type __id "read_only_admins";
+       trusted_resource_owners =
+         Prop.computed __type __id "trusted_resource_owners";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lakeformation_data_lake_settings
+        (aws_lakeformation_data_lake_settings ?admins
+           ?allow_external_data_filtering
+           ?authorized_session_tag_value_list ?catalog_id
+           ?external_data_filtering_allow_list ?id ?read_only_admins
+           ?trusted_resource_owners
+           ~create_database_default_permissions
+           ~create_table_default_permissions ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?admins ?allow_external_data_filtering
     ?authorized_session_tag_value_list ?catalog_id
     ?external_data_filtering_allow_list ?id ?read_only_admins
     ?trusted_resource_owners ~create_database_default_permissions
-    ~create_table_default_permissions __resource_id =
-  let __resource_type = "aws_lakeformation_data_lake_settings" in
-  let __resource =
-    aws_lakeformation_data_lake_settings ?admins
-      ?allow_external_data_filtering
+    ~create_table_default_permissions __id =
+  let (r : _ Tf_core.resource) =
+    make ?admins ?allow_external_data_filtering
       ?authorized_session_tag_value_list ?catalog_id
       ?external_data_filtering_allow_list ?id ?read_only_admins
       ?trusted_resource_owners ~create_database_default_permissions
-      ~create_table_default_permissions ()
+      ~create_table_default_permissions __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lakeformation_data_lake_settings __resource);
-  let __resource_attributes =
-    ({
-       admins = Prop.computed __resource_type __resource_id "admins";
-       allow_external_data_filtering =
-         Prop.computed __resource_type __resource_id
-           "allow_external_data_filtering";
-       authorized_session_tag_value_list =
-         Prop.computed __resource_type __resource_id
-           "authorized_session_tag_value_list";
-       catalog_id =
-         Prop.computed __resource_type __resource_id "catalog_id";
-       external_data_filtering_allow_list =
-         Prop.computed __resource_type __resource_id
-           "external_data_filtering_allow_list";
-       id = Prop.computed __resource_type __resource_id "id";
-       read_only_admins =
-         Prop.computed __resource_type __resource_id
-           "read_only_admins";
-       trusted_resource_owners =
-         Prop.computed __resource_type __resource_id
-           "trusted_resource_owners";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

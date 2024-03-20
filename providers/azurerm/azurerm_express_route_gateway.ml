@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -57,35 +55,41 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let register ?tf_module ?allow_non_virtual_wan_traffic ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~scale_units
-    ~virtual_hub_id __resource_id =
-  let __resource_type = "azurerm_express_route_gateway" in
-  let __resource =
-    azurerm_express_route_gateway ?allow_non_virtual_wan_traffic ?id
-      ?tags ?timeouts ~location ~name ~resource_group_name
-      ~scale_units ~virtual_hub_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_gateway __resource);
-  let __resource_attributes =
+let make ?allow_non_virtual_wan_traffic ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~scale_units ~virtual_hub_id __id =
+  let __type = "azurerm_express_route_gateway" in
+  let __attrs =
     ({
        allow_non_virtual_wan_traffic =
-         Prop.computed __resource_type __resource_id
-           "allow_non_virtual_wan_traffic";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "allow_non_virtual_wan_traffic";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scale_units =
-         Prop.computed __resource_type __resource_id "scale_units";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+         Prop.computed __type __id "resource_group_name";
+       scale_units = Prop.computed __type __id "scale_units";
+       tags = Prop.computed __type __id "tags";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_gateway
+        (azurerm_express_route_gateway ?allow_non_virtual_wan_traffic
+           ?id ?tags ?timeouts ~location ~name ~resource_group_name
+           ~scale_units ~virtual_hub_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_non_virtual_wan_traffic ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~scale_units
+    ~virtual_hub_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_non_virtual_wan_traffic ?id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~scale_units ~virtual_hub_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

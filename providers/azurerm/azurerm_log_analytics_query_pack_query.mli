@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   query_pack_id:string prop ->
   string ->
   t
+
+val make :
+  ?additional_settings_json:string prop ->
+  ?categories:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?resource_types:string prop list ->
+  ?solutions:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  body:string prop ->
+  display_name:string prop ->
+  query_pack_id:string prop ->
+  string ->
+  t Tf_core.resource

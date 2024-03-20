@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_apigatewayv2_model = {
   api_id : string prop;  (** api_id *)
@@ -28,26 +26,33 @@ type t = {
   schema : string prop;
 }
 
-let register ?tf_module ?description ?id ~api_id ~content_type ~name
-    ~schema __resource_id =
-  let __resource_type = "aws_apigatewayv2_model" in
-  let __resource =
-    aws_apigatewayv2_model ?description ?id ~api_id ~content_type
-      ~name ~schema ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_model __resource);
-  let __resource_attributes =
+let make ?description ?id ~api_id ~content_type ~name ~schema __id =
+  let __type = "aws_apigatewayv2_model" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       schema = Prop.computed __resource_type __resource_id "schema";
+       api_id = Prop.computed __type __id "api_id";
+       content_type = Prop.computed __type __id "content_type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       schema = Prop.computed __type __id "schema";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_model
+        (aws_apigatewayv2_model ?description ?id ~api_id
+           ~content_type ~name ~schema ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ~api_id ~content_type ~name
+    ~schema __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ~api_id ~content_type ~name ~schema __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

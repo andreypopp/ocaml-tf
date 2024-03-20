@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type content_key = {
   content_key_id : string prop option; [@option]
@@ -99,52 +97,58 @@ type t = {
   streaming_policy_name : string prop;
 }
 
+let make ?alternative_media_id ?default_content_key_policy_name
+    ?end_time ?filter_names ?id ?start_time ?streaming_locator_id
+    ?timeouts ~asset_name ~media_services_account_name ~name
+    ~resource_group_name ~streaming_policy_name ~content_key __id =
+  let __type = "azurerm_media_streaming_locator" in
+  let __attrs =
+    ({
+       alternative_media_id =
+         Prop.computed __type __id "alternative_media_id";
+       asset_name = Prop.computed __type __id "asset_name";
+       default_content_key_policy_name =
+         Prop.computed __type __id "default_content_key_policy_name";
+       end_time = Prop.computed __type __id "end_time";
+       filter_names = Prop.computed __type __id "filter_names";
+       id = Prop.computed __type __id "id";
+       media_services_account_name =
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       start_time = Prop.computed __type __id "start_time";
+       streaming_locator_id =
+         Prop.computed __type __id "streaming_locator_id";
+       streaming_policy_name =
+         Prop.computed __type __id "streaming_policy_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_streaming_locator
+        (azurerm_media_streaming_locator ?alternative_media_id
+           ?default_content_key_policy_name ?end_time ?filter_names
+           ?id ?start_time ?streaming_locator_id ?timeouts
+           ~asset_name ~media_services_account_name ~name
+           ~resource_group_name ~streaming_policy_name ~content_key
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?alternative_media_id
     ?default_content_key_policy_name ?end_time ?filter_names ?id
     ?start_time ?streaming_locator_id ?timeouts ~asset_name
     ~media_services_account_name ~name ~resource_group_name
-    ~streaming_policy_name ~content_key __resource_id =
-  let __resource_type = "azurerm_media_streaming_locator" in
-  let __resource =
-    azurerm_media_streaming_locator ?alternative_media_id
-      ?default_content_key_policy_name ?end_time ?filter_names ?id
-      ?start_time ?streaming_locator_id ?timeouts ~asset_name
-      ~media_services_account_name ~name ~resource_group_name
-      ~streaming_policy_name ~content_key ()
+    ~streaming_policy_name ~content_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?alternative_media_id ?default_content_key_policy_name
+      ?end_time ?filter_names ?id ?start_time ?streaming_locator_id
+      ?timeouts ~asset_name ~media_services_account_name ~name
+      ~resource_group_name ~streaming_policy_name ~content_key __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_streaming_locator __resource);
-  let __resource_attributes =
-    ({
-       alternative_media_id =
-         Prop.computed __resource_type __resource_id
-           "alternative_media_id";
-       asset_name =
-         Prop.computed __resource_type __resource_id "asset_name";
-       default_content_key_policy_name =
-         Prop.computed __resource_type __resource_id
-           "default_content_key_policy_name";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       filter_names =
-         Prop.computed __resource_type __resource_id "filter_names";
-       id = Prop.computed __resource_type __resource_id "id";
-       media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       streaming_locator_id =
-         Prop.computed __resource_type __resource_id
-           "streaming_locator_id";
-       streaming_policy_name =
-         Prop.computed __resource_type __resource_id
-           "streaming_policy_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

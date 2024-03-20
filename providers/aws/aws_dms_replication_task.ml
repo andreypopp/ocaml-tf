@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dms_replication_task = {
   cdc_start_position : string prop option; [@option]
@@ -67,59 +65,64 @@ type t = {
   target_endpoint_arn : string prop;
 }
 
+let make ?cdc_start_position ?cdc_start_time ?id
+    ?replication_task_settings ?start_replication_task ?tags
+    ?tags_all ~migration_type ~replication_instance_arn
+    ~replication_task_id ~source_endpoint_arn ~table_mappings
+    ~target_endpoint_arn __id =
+  let __type = "aws_dms_replication_task" in
+  let __attrs =
+    ({
+       cdc_start_position =
+         Prop.computed __type __id "cdc_start_position";
+       cdc_start_time = Prop.computed __type __id "cdc_start_time";
+       id = Prop.computed __type __id "id";
+       migration_type = Prop.computed __type __id "migration_type";
+       replication_instance_arn =
+         Prop.computed __type __id "replication_instance_arn";
+       replication_task_arn =
+         Prop.computed __type __id "replication_task_arn";
+       replication_task_id =
+         Prop.computed __type __id "replication_task_id";
+       replication_task_settings =
+         Prop.computed __type __id "replication_task_settings";
+       source_endpoint_arn =
+         Prop.computed __type __id "source_endpoint_arn";
+       start_replication_task =
+         Prop.computed __type __id "start_replication_task";
+       status = Prop.computed __type __id "status";
+       table_mappings = Prop.computed __type __id "table_mappings";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_endpoint_arn =
+         Prop.computed __type __id "target_endpoint_arn";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dms_replication_task
+        (aws_dms_replication_task ?cdc_start_position ?cdc_start_time
+           ?id ?replication_task_settings ?start_replication_task
+           ?tags ?tags_all ~migration_type ~replication_instance_arn
+           ~replication_task_id ~source_endpoint_arn ~table_mappings
+           ~target_endpoint_arn ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cdc_start_position ?cdc_start_time ?id
     ?replication_task_settings ?start_replication_task ?tags
     ?tags_all ~migration_type ~replication_instance_arn
     ~replication_task_id ~source_endpoint_arn ~table_mappings
-    ~target_endpoint_arn __resource_id =
-  let __resource_type = "aws_dms_replication_task" in
-  let __resource =
-    aws_dms_replication_task ?cdc_start_position ?cdc_start_time ?id
+    ~target_endpoint_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?cdc_start_position ?cdc_start_time ?id
       ?replication_task_settings ?start_replication_task ?tags
       ?tags_all ~migration_type ~replication_instance_arn
       ~replication_task_id ~source_endpoint_arn ~table_mappings
-      ~target_endpoint_arn ()
+      ~target_endpoint_arn __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dms_replication_task __resource);
-  let __resource_attributes =
-    ({
-       cdc_start_position =
-         Prop.computed __resource_type __resource_id
-           "cdc_start_position";
-       cdc_start_time =
-         Prop.computed __resource_type __resource_id "cdc_start_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       migration_type =
-         Prop.computed __resource_type __resource_id "migration_type";
-       replication_instance_arn =
-         Prop.computed __resource_type __resource_id
-           "replication_instance_arn";
-       replication_task_arn =
-         Prop.computed __resource_type __resource_id
-           "replication_task_arn";
-       replication_task_id =
-         Prop.computed __resource_type __resource_id
-           "replication_task_id";
-       replication_task_settings =
-         Prop.computed __resource_type __resource_id
-           "replication_task_settings";
-       source_endpoint_arn =
-         Prop.computed __resource_type __resource_id
-           "source_endpoint_arn";
-       start_replication_task =
-         Prop.computed __resource_type __resource_id
-           "start_replication_task";
-       status = Prop.computed __resource_type __resource_id "status";
-       table_mappings =
-         Prop.computed __resource_type __resource_id "table_mappings";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_endpoint_arn =
-         Prop.computed __resource_type __resource_id
-           "target_endpoint_arn";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type accepter = {
   allow_remote_vpc_dns_resolution : bool prop option; [@option]
@@ -43,22 +41,30 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
-let register ?tf_module ?id ~vpc_peering_connection_id ~accepter
-    ~requester __resource_id =
-  let __resource_type = "aws_vpc_peering_connection_options" in
-  let __resource =
-    aws_vpc_peering_connection_options ?id ~vpc_peering_connection_id
-      ~accepter ~requester ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_peering_connection_options __resource);
-  let __resource_attributes =
+let make ?id ~vpc_peering_connection_id ~accepter ~requester __id =
+  let __type = "aws_vpc_peering_connection_options" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        vpc_peering_connection_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_peering_connection_id";
+         Prop.computed __type __id "vpc_peering_connection_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_peering_connection_options
+        (aws_vpc_peering_connection_options ?id
+           ~vpc_peering_connection_id ~accepter ~requester ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~vpc_peering_connection_id ~accepter
+    ~requester __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~vpc_peering_connection_id ~accepter ~requester __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

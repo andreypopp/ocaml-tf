@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type blob_storage__managed_identity = {
   client_id : string prop;  (** client_id *)
@@ -234,31 +232,42 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?continuous_reconciliation_enabled ?id ?scope
-    ?timeouts ~cluster_id ~name ~namespace ~blob_storage ~bucket
-    ~git_repository ~kustomizations __resource_id =
-  let __resource_type = "azurerm_kubernetes_flux_configuration" in
-  let __resource =
-    azurerm_kubernetes_flux_configuration
-      ?continuous_reconciliation_enabled ?id ?scope ?timeouts
-      ~cluster_id ~name ~namespace ~blob_storage ~bucket
-      ~git_repository ~kustomizations ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kubernetes_flux_configuration __resource);
-  let __resource_attributes =
+let make ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+    ~cluster_id ~name ~namespace ~blob_storage ~bucket
+    ~git_repository ~kustomizations __id =
+  let __type = "azurerm_kubernetes_flux_configuration" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
+       cluster_id = Prop.computed __type __id "cluster_id";
        continuous_reconciliation_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "continuous_reconciliation_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace =
-         Prop.computed __resource_type __resource_id "namespace";
-       scope = Prop.computed __resource_type __resource_id "scope";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespace = Prop.computed __type __id "namespace";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kubernetes_flux_configuration
+        (azurerm_kubernetes_flux_configuration
+           ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+           ~cluster_id ~name ~namespace ~blob_storage ~bucket
+           ~git_repository ~kustomizations ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?continuous_reconciliation_enabled ?id ?scope
+    ?timeouts ~cluster_id ~name ~namespace ~blob_storage ~bucket
+    ~git_repository ~kustomizations __id =
+  let (r : _ Tf_core.resource) =
+    make ?continuous_reconciliation_enabled ?id ?scope ?timeouts
+      ~cluster_id ~name ~namespace ~blob_storage ~bucket
+      ~git_repository ~kustomizations __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

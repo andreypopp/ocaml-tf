@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type contact = {
   email : string prop;  (** email *)
@@ -130,65 +128,73 @@ type t = {
   vault_uri : string prop;
 }
 
+let make ?access_policy ?enable_rbac_authorization
+    ?enabled_for_deployment ?enabled_for_disk_encryption
+    ?enabled_for_template_deployment ?id
+    ?public_network_access_enabled ?purge_protection_enabled
+    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
+    __id =
+  let __type = "azurerm_key_vault" in
+  let __attrs =
+    ({
+       access_policy = Prop.computed __type __id "access_policy";
+       enable_rbac_authorization =
+         Prop.computed __type __id "enable_rbac_authorization";
+       enabled_for_deployment =
+         Prop.computed __type __id "enabled_for_deployment";
+       enabled_for_disk_encryption =
+         Prop.computed __type __id "enabled_for_disk_encryption";
+       enabled_for_template_deployment =
+         Prop.computed __type __id "enabled_for_template_deployment";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       purge_protection_enabled =
+         Prop.computed __type __id "purge_protection_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       soft_delete_retention_days =
+         Prop.computed __type __id "soft_delete_retention_days";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       vault_uri = Prop.computed __type __id "vault_uri";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault
+        (azurerm_key_vault ?access_policy ?enable_rbac_authorization
+           ?enabled_for_deployment ?enabled_for_disk_encryption
+           ?enabled_for_template_deployment ?id
+           ?public_network_access_enabled ?purge_protection_enabled
+           ?soft_delete_retention_days ?tags ?timeouts ~location
+           ~name ~resource_group_name ~sku_name ~tenant_id ~contact
+           ~network_acls ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_policy ?enable_rbac_authorization
     ?enabled_for_deployment ?enabled_for_disk_encryption
     ?enabled_for_template_deployment ?id
     ?public_network_access_enabled ?purge_protection_enabled
     ?soft_delete_retention_days ?tags ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~tenant_id ~contact ~network_acls
-    __resource_id =
-  let __resource_type = "azurerm_key_vault" in
-  let __resource =
-    azurerm_key_vault ?access_policy ?enable_rbac_authorization
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_policy ?enable_rbac_authorization
       ?enabled_for_deployment ?enabled_for_disk_encryption
       ?enabled_for_template_deployment ?id
       ?public_network_access_enabled ?purge_protection_enabled
       ?soft_delete_retention_days ?tags ?timeouts ~location ~name
       ~resource_group_name ~sku_name ~tenant_id ~contact
-      ~network_acls ()
+      ~network_acls __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault __resource);
-  let __resource_attributes =
-    ({
-       access_policy =
-         Prop.computed __resource_type __resource_id "access_policy";
-       enable_rbac_authorization =
-         Prop.computed __resource_type __resource_id
-           "enable_rbac_authorization";
-       enabled_for_deployment =
-         Prop.computed __resource_type __resource_id
-           "enabled_for_deployment";
-       enabled_for_disk_encryption =
-         Prop.computed __resource_type __resource_id
-           "enabled_for_disk_encryption";
-       enabled_for_template_deployment =
-         Prop.computed __resource_type __resource_id
-           "enabled_for_template_deployment";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       purge_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "purge_protection_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       soft_delete_retention_days =
-         Prop.computed __resource_type __resource_id
-           "soft_delete_retention_days";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       vault_uri =
-         Prop.computed __resource_type __resource_id "vault_uri";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,23 @@ val register :
   route_table_id:string prop ->
   string ->
   t
+
+val make :
+  ?carrier_gateway_id:string prop ->
+  ?core_network_arn:string prop ->
+  ?destination_cidr_block:string prop ->
+  ?destination_ipv6_cidr_block:string prop ->
+  ?destination_prefix_list_id:string prop ->
+  ?egress_only_gateway_id:string prop ->
+  ?gateway_id:string prop ->
+  ?id:string prop ->
+  ?local_gateway_id:string prop ->
+  ?nat_gateway_id:string prop ->
+  ?network_interface_id:string prop ->
+  ?transit_gateway_id:string prop ->
+  ?vpc_endpoint_id:string prop ->
+  ?vpc_peering_connection_id:string prop ->
+  ?timeouts:timeouts ->
+  route_table_id:string prop ->
+  string ->
+  t Tf_core.resource

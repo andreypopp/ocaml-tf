@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,15 @@ val register :
   http:http list ->
   string ->
   t
+
+val make :
+  ?destination_port:float prop ->
+  ?id:string prop ->
+  ?listen_port:float prop ->
+  ?proxyprotocol:bool prop ->
+  load_balancer_id:string prop ->
+  protocol:string prop ->
+  health_check:health_check list ->
+  http:http list ->
+  string ->
+  t Tf_core.resource

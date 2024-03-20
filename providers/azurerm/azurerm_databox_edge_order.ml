@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type contact = {
   company_name : string prop;  (** company_name *)
@@ -110,37 +108,41 @@ type t = {
   status : status list prop;
 }
 
-let register ?tf_module ?id ?timeouts ~device_name
-    ~resource_group_name ~contact ~shipment_address __resource_id =
-  let __resource_type = "azurerm_databox_edge_order" in
-  let __resource =
-    azurerm_databox_edge_order ?id ?timeouts ~device_name
-      ~resource_group_name ~contact ~shipment_address ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_databox_edge_order __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~device_name ~resource_group_name ~contact
+    ~shipment_address __id =
+  let __type = "azurerm_databox_edge_order" in
+  let __attrs =
     ({
-       device_name =
-         Prop.computed __resource_type __resource_id "device_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       device_name = Prop.computed __type __id "device_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       return_tracking =
-         Prop.computed __resource_type __resource_id
-           "return_tracking";
-       serial_number =
-         Prop.computed __resource_type __resource_id "serial_number";
+         Prop.computed __type __id "resource_group_name";
+       return_tracking = Prop.computed __type __id "return_tracking";
+       serial_number = Prop.computed __type __id "serial_number";
        shipment_history =
-         Prop.computed __resource_type __resource_id
-           "shipment_history";
+         Prop.computed __type __id "shipment_history";
        shipment_tracking =
-         Prop.computed __resource_type __resource_id
-           "shipment_tracking";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "shipment_tracking";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_databox_edge_order
+        (azurerm_databox_edge_order ?id ?timeouts ~device_name
+           ~resource_group_name ~contact ~shipment_address ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~device_name
+    ~resource_group_name ~contact ~shipment_address __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~device_name ~resource_group_name ~contact
+      ~shipment_address __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,16 @@ val register :
   schema_settings:schema_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?message_retention_duration:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  message_storage_policy:message_storage_policy list ->
+  schema_settings:schema_settings list ->
+  string ->
+  t Tf_core.resource

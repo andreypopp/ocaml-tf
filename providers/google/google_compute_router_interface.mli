@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,19 @@ val register :
   router:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?interconnect_attachment:string prop ->
+  ?ip_range:string prop ->
+  ?private_ip_address:string prop ->
+  ?project:string prop ->
+  ?redundant_interface:string prop ->
+  ?region:string prop ->
+  ?subnetwork:string prop ->
+  ?vpn_tunnel:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  router:string prop ->
+  string ->
+  t Tf_core.resource

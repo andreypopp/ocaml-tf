@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_zone_hold = {
   hold : bool prop;  (** Enablement status of the zone hold. *)
@@ -31,27 +29,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?hold_after ?id ?include_subdomains ~hold
-    ~zone_id __resource_id =
-  let __resource_type = "cloudflare_zone_hold" in
-  let __resource =
-    cloudflare_zone_hold ?hold_after ?id ?include_subdomains ~hold
-      ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_zone_hold __resource);
-  let __resource_attributes =
+let make ?hold_after ?id ?include_subdomains ~hold ~zone_id __id =
+  let __type = "cloudflare_zone_hold" in
+  let __attrs =
     ({
-       hold = Prop.computed __resource_type __resource_id "hold";
-       hold_after =
-         Prop.computed __resource_type __resource_id "hold_after";
-       id = Prop.computed __resource_type __resource_id "id";
+       hold = Prop.computed __type __id "hold";
+       hold_after = Prop.computed __type __id "hold_after";
+       id = Prop.computed __type __id "id";
        include_subdomains =
-         Prop.computed __resource_type __resource_id
-           "include_subdomains";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "include_subdomains";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_zone_hold
+        (cloudflare_zone_hold ?hold_after ?id ?include_subdomains
+           ~hold ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?hold_after ?id ?include_subdomains ~hold
+    ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?hold_after ?id ?include_subdomains ~hold ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

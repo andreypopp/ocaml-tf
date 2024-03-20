@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,18 @@ val register :
   autoscale:autoscale list ->
   string ->
   t
+
+val make :
+  ?concurrency:float prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?ignore_idle_slots:bool prop ->
+  ?location:string prop ->
+  ?multi_region_auxiliary:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  slot_capacity:float prop ->
+  autoscale:autoscale list ->
+  string ->
+  t Tf_core.resource

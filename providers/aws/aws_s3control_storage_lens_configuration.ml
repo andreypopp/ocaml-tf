@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type storage_lens_configuration__account_level__activity_metrics = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -376,27 +374,35 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?account_id ?id ?tags ?tags_all ~config_id
-    ~storage_lens_configuration __resource_id =
-  let __resource_type = "aws_s3control_storage_lens_configuration" in
-  let __resource =
-    aws_s3control_storage_lens_configuration ?account_id ?id ?tags
-      ?tags_all ~config_id ~storage_lens_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3control_storage_lens_configuration __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?tags ?tags_all ~config_id
+    ~storage_lens_configuration __id =
+  let __type = "aws_s3control_storage_lens_configuration" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       config_id =
-         Prop.computed __resource_type __resource_id "config_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       account_id = Prop.computed __type __id "account_id";
+       arn = Prop.computed __type __id "arn";
+       config_id = Prop.computed __type __id "config_id";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3control_storage_lens_configuration
+        (aws_s3control_storage_lens_configuration ?account_id ?id
+           ?tags ?tags_all ~config_id ~storage_lens_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?tags ?tags_all ~config_id
+    ~storage_lens_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?tags ?tags_all ~config_id
+      ~storage_lens_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

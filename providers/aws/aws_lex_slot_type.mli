@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,14 @@ val register :
   enumeration_value:enumeration_value list ->
   string ->
   t
+
+val make :
+  ?create_version:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?value_selection_strategy:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  enumeration_value:enumeration_value list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,26 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disconnect_timeout_in_seconds:float prop ->
+  ?display_name:string prop ->
+  ?enable_default_internet_access:bool prop ->
+  ?fleet_type:string prop ->
+  ?iam_role_arn:string prop ->
+  ?id:string prop ->
+  ?idle_disconnect_timeout_in_seconds:float prop ->
+  ?image_arn:string prop ->
+  ?image_name:string prop ->
+  ?max_user_duration_in_seconds:float prop ->
+  ?stream_view:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_type:string prop ->
+  name:string prop ->
+  compute_capacity:compute_capacity list ->
+  domain_join_info:domain_join_info list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

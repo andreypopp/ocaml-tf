@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,11 @@ val register :
   role_mapping:role_mapping list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  identity_pool_id:string prop ->
+  roles:(string * string prop) list ->
+  role_mapping:role_mapping list ->
+  string ->
+  t Tf_core.resource

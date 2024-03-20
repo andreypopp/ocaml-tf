@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -167,3 +167,23 @@ val register :
   ssh_session_log:ssh_session_log list ->
   string ->
   t
+
+val make :
+  ?activity_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?non_identity_browser_isolation_enabled:bool prop ->
+  ?protocol_detection_enabled:bool prop ->
+  ?tls_decrypt_enabled:bool prop ->
+  ?url_browser_isolation_enabled:bool prop ->
+  account_id:string prop ->
+  antivirus:antivirus list ->
+  block_page:block_page list ->
+  body_scanning:body_scanning list ->
+  extended_email_matching:extended_email_matching list ->
+  fips:fips list ->
+  logging:logging list ->
+  payload_log:payload_log list ->
+  proxy:proxy list ->
+  ssh_session_log:ssh_session_log list ->
+  string ->
+  t Tf_core.resource

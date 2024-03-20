@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -143,3 +143,18 @@ val register :
   value_selection_setting:value_selection_setting list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?parent_slot_type_signature:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
+  composite_slot_type_setting:composite_slot_type_setting list ->
+  external_source_setting:external_source_setting list ->
+  slot_type_values:slot_type_values list ->
+  value_selection_setting:value_selection_setting list ->
+  string ->
+  t Tf_core.resource

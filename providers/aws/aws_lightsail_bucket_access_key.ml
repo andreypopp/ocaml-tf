@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lightsail_bucket_access_key = {
   bucket_name : string prop;  (** bucket_name *)
@@ -24,27 +22,30 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~bucket_name __resource_id =
-  let __resource_type = "aws_lightsail_bucket_access_key" in
-  let __resource =
-    aws_lightsail_bucket_access_key ?id ~bucket_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_bucket_access_key __resource);
-  let __resource_attributes =
+let make ?id ~bucket_name __id =
+  let __type = "aws_lightsail_bucket_access_key" in
+  let __attrs =
     ({
-       access_key_id =
-         Prop.computed __resource_type __resource_id "access_key_id";
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_key_id = Prop.computed __type __id "access_key_id";
+       bucket_name = Prop.computed __type __id "bucket_name";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
        secret_access_key =
-         Prop.computed __resource_type __resource_id
-           "secret_access_key";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "secret_access_key";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_bucket_access_key
+        (aws_lightsail_bucket_access_key ?id ~bucket_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~bucket_name __id =
+  let (r : _ Tf_core.resource) = make ?id ~bucket_name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_managed_prefix_list_entry = {
   cidr : string prop;  (** cidr *)
@@ -24,24 +22,30 @@ type t = {
   prefix_list_id : string prop;
 }
 
-let register ?tf_module ?description ?id ~cidr ~prefix_list_id
-    __resource_id =
-  let __resource_type = "aws_ec2_managed_prefix_list_entry" in
-  let __resource =
-    aws_ec2_managed_prefix_list_entry ?description ?id ~cidr
-      ~prefix_list_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_managed_prefix_list_entry __resource);
-  let __resource_attributes =
+let make ?description ?id ~cidr ~prefix_list_id __id =
+  let __type = "aws_ec2_managed_prefix_list_entry" in
+  let __attrs =
     ({
-       cidr = Prop.computed __resource_type __resource_id "cidr";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       prefix_list_id =
-         Prop.computed __resource_type __resource_id "prefix_list_id";
+       cidr = Prop.computed __type __id "cidr";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       prefix_list_id = Prop.computed __type __id "prefix_list_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_managed_prefix_list_entry
+        (aws_ec2_managed_prefix_list_entry ?description ?id ~cidr
+           ~prefix_list_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ~cidr ~prefix_list_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ~cidr ~prefix_list_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

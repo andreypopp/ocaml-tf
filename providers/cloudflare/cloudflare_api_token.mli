@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,13 @@ val register :
   policy:policy list ->
   string ->
   t
+
+val make :
+  ?expires_on:string prop ->
+  ?id:string prop ->
+  ?not_before:string prop ->
+  name:string prop ->
+  condition:condition list ->
+  policy:policy list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,12 @@ val register :
   secret:secret list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_profile_id:string prop ->
+  name:string prop ->
+  secret:secret list ->
+  string ->
+  t Tf_core.resource

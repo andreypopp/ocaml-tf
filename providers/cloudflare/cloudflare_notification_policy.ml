@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type email_integration = {
   id : string prop;  (** id *)
@@ -189,34 +187,41 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?id ~account_id ~alert_type
-    ~enabled ~name ~email_integration ~filters ~pagerduty_integration
-    ~webhooks_integration __resource_id =
-  let __resource_type = "cloudflare_notification_policy" in
-  let __resource =
-    cloudflare_notification_policy ?description ?id ~account_id
-      ~alert_type ~enabled ~name ~email_integration ~filters
-      ~pagerduty_integration ~webhooks_integration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_notification_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ~account_id ~alert_type ~enabled ~name
+    ~email_integration ~filters ~pagerduty_integration
+    ~webhooks_integration __id =
+  let __type = "cloudflare_notification_policy" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       alert_type =
-         Prop.computed __resource_type __resource_id "alert_type";
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified =
-         Prop.computed __resource_type __resource_id "modified";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_id = Prop.computed __type __id "account_id";
+       alert_type = Prop.computed __type __id "alert_type";
+       created = Prop.computed __type __id "created";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       modified = Prop.computed __type __id "modified";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_notification_policy
+        (cloudflare_notification_policy ?description ?id ~account_id
+           ~alert_type ~enabled ~name ~email_integration ~filters
+           ~pagerduty_integration ~webhooks_integration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ~account_id ~alert_type
+    ~enabled ~name ~email_integration ~filters ~pagerduty_integration
+    ~webhooks_integration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ~account_id ~alert_type ~enabled ~name
+      ~email_integration ~filters ~pagerduty_integration
+      ~webhooks_integration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

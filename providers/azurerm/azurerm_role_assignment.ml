@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -76,50 +74,59 @@ type t = {
   skip_service_principal_aad_check : bool prop;
 }
 
+let make ?condition ?condition_version
+    ?delegated_managed_identity_resource_id ?description ?id ?name
+    ?principal_type ?role_definition_id ?role_definition_name
+    ?skip_service_principal_aad_check ?timeouts ~principal_id ~scope
+    __id =
+  let __type = "azurerm_role_assignment" in
+  let __attrs =
+    ({
+       condition = Prop.computed __type __id "condition";
+       condition_version =
+         Prop.computed __type __id "condition_version";
+       delegated_managed_identity_resource_id =
+         Prop.computed __type __id
+           "delegated_managed_identity_resource_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       principal_id = Prop.computed __type __id "principal_id";
+       principal_type = Prop.computed __type __id "principal_type";
+       role_definition_id =
+         Prop.computed __type __id "role_definition_id";
+       role_definition_name =
+         Prop.computed __type __id "role_definition_name";
+       scope = Prop.computed __type __id "scope";
+       skip_service_principal_aad_check =
+         Prop.computed __type __id "skip_service_principal_aad_check";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_role_assignment
+        (azurerm_role_assignment ?condition ?condition_version
+           ?delegated_managed_identity_resource_id ?description ?id
+           ?name ?principal_type ?role_definition_id
+           ?role_definition_name ?skip_service_principal_aad_check
+           ?timeouts ~principal_id ~scope ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?condition ?condition_version
     ?delegated_managed_identity_resource_id ?description ?id ?name
     ?principal_type ?role_definition_id ?role_definition_name
     ?skip_service_principal_aad_check ?timeouts ~principal_id ~scope
-    __resource_id =
-  let __resource_type = "azurerm_role_assignment" in
-  let __resource =
-    azurerm_role_assignment ?condition ?condition_version
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?condition ?condition_version
       ?delegated_managed_identity_resource_id ?description ?id ?name
       ?principal_type ?role_definition_id ?role_definition_name
       ?skip_service_principal_aad_check ?timeouts ~principal_id
-      ~scope ()
+      ~scope __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_role_assignment __resource);
-  let __resource_attributes =
-    ({
-       condition =
-         Prop.computed __resource_type __resource_id "condition";
-       condition_version =
-         Prop.computed __resource_type __resource_id
-           "condition_version";
-       delegated_managed_identity_resource_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_managed_identity_resource_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
-       role_definition_id =
-         Prop.computed __resource_type __resource_id
-           "role_definition_id";
-       role_definition_name =
-         Prop.computed __resource_type __resource_id
-           "role_definition_name";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       skip_service_principal_aad_check =
-         Prop.computed __resource_type __resource_id
-           "skip_service_principal_aad_check";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

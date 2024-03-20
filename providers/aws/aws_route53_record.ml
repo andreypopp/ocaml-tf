@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alias = {
   evaluate_target_health : bool prop;  (** evaluate_target_health *)
@@ -152,46 +150,57 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?allow_overwrite ?health_check_id ?id
+    ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
+    ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
+    ~failover_routing_policy ~geolocation_routing_policy
+    ~geoproximity_routing_policy ~latency_routing_policy
+    ~weighted_routing_policy __id =
+  let __type = "aws_route53_record" in
+  let __attrs =
+    ({
+       allow_overwrite = Prop.computed __type __id "allow_overwrite";
+       fqdn = Prop.computed __type __id "fqdn";
+       health_check_id = Prop.computed __type __id "health_check_id";
+       id = Prop.computed __type __id "id";
+       multivalue_answer_routing_policy =
+         Prop.computed __type __id "multivalue_answer_routing_policy";
+       name = Prop.computed __type __id "name";
+       records = Prop.computed __type __id "records";
+       set_identifier = Prop.computed __type __id "set_identifier";
+       ttl = Prop.computed __type __id "ttl";
+       type_ = Prop.computed __type __id "type";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_record
+        (aws_route53_record ?allow_overwrite ?health_check_id ?id
+           ?multivalue_answer_routing_policy ?records ?set_identifier
+           ?ttl ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
+           ~failover_routing_policy ~geolocation_routing_policy
+           ~geoproximity_routing_policy ~latency_routing_policy
+           ~weighted_routing_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_overwrite ?health_check_id ?id
     ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
     ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
     ~failover_routing_policy ~geolocation_routing_policy
     ~geoproximity_routing_policy ~latency_routing_policy
-    ~weighted_routing_policy __resource_id =
-  let __resource_type = "aws_route53_record" in
-  let __resource =
-    aws_route53_record ?allow_overwrite ?health_check_id ?id
+    ~weighted_routing_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_overwrite ?health_check_id ?id
       ?multivalue_answer_routing_policy ?records ?set_identifier ?ttl
       ~name ~type_ ~zone_id ~alias ~cidr_routing_policy
       ~failover_routing_policy ~geolocation_routing_policy
       ~geoproximity_routing_policy ~latency_routing_policy
-      ~weighted_routing_policy ()
+      ~weighted_routing_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_record __resource);
-  let __resource_attributes =
-    ({
-       allow_overwrite =
-         Prop.computed __resource_type __resource_id
-           "allow_overwrite";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       health_check_id =
-         Prop.computed __resource_type __resource_id
-           "health_check_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       multivalue_answer_routing_policy =
-         Prop.computed __resource_type __resource_id
-           "multivalue_answer_routing_policy";
-       name = Prop.computed __resource_type __resource_id "name";
-       records =
-         Prop.computed __resource_type __resource_id "records";
-       set_identifier =
-         Prop.computed __resource_type __resource_id "set_identifier";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

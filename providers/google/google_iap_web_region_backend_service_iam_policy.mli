@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -38,3 +38,12 @@ val register :
   web_region_backend_service:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  policy_data:string prop ->
+  web_region_backend_service:string prop ->
+  string ->
+  t Tf_core.resource

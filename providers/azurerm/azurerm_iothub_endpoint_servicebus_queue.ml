@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,39 +60,46 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?authentication_type ?connection_string
-    ?endpoint_uri ?entity_path ?id ?identity_id ?timeouts ~iothub_id
-    ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_iothub_endpoint_servicebus_queue" in
-  let __resource =
-    azurerm_iothub_endpoint_servicebus_queue ?authentication_type
-      ?connection_string ?endpoint_uri ?entity_path ?id ?identity_id
-      ?timeouts ~iothub_id ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_endpoint_servicebus_queue __resource);
-  let __resource_attributes =
+let make ?authentication_type ?connection_string ?endpoint_uri
+    ?entity_path ?id ?identity_id ?timeouts ~iothub_id ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_iothub_endpoint_servicebus_queue" in
+  let __attrs =
     ({
        authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
+         Prop.computed __type __id "authentication_type";
        connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       endpoint_uri =
-         Prop.computed __resource_type __resource_id "endpoint_uri";
-       entity_path =
-         Prop.computed __resource_type __resource_id "entity_path";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_id =
-         Prop.computed __resource_type __resource_id "identity_id";
-       iothub_id =
-         Prop.computed __resource_type __resource_id "iothub_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "connection_string";
+       endpoint_uri = Prop.computed __type __id "endpoint_uri";
+       entity_path = Prop.computed __type __id "entity_path";
+       id = Prop.computed __type __id "id";
+       identity_id = Prop.computed __type __id "identity_id";
+       iothub_id = Prop.computed __type __id "iothub_id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_endpoint_servicebus_queue
+        (azurerm_iothub_endpoint_servicebus_queue
+           ?authentication_type ?connection_string ?endpoint_uri
+           ?entity_path ?id ?identity_id ?timeouts ~iothub_id ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authentication_type ?connection_string
+    ?endpoint_uri ?entity_path ?id ?identity_id ?timeouts ~iothub_id
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_type ?connection_string ?endpoint_uri
+      ?entity_path ?id ?identity_id ?timeouts ~iothub_id ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

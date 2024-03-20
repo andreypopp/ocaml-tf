@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -25,3 +25,9 @@ val register :
   admin_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  admin_account_id:string prop ->
+  string ->
+  t Tf_core.resource

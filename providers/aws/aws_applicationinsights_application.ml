@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_applicationinsights_application = {
   auto_config_enabled : bool prop option; [@option]
@@ -55,46 +53,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?auto_config_enabled ?auto_create
-    ?cwe_monitor_enabled ?grouping_type ?id ?ops_center_enabled
-    ?ops_item_sns_topic_arn ?tags ?tags_all ~resource_group_name
-    __resource_id =
-  let __resource_type = "aws_applicationinsights_application" in
-  let __resource =
-    aws_applicationinsights_application ?auto_config_enabled
-      ?auto_create ?cwe_monitor_enabled ?grouping_type ?id
-      ?ops_center_enabled ?ops_item_sns_topic_arn ?tags ?tags_all
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_applicationinsights_application __resource);
-  let __resource_attributes =
+let make ?auto_config_enabled ?auto_create ?cwe_monitor_enabled
+    ?grouping_type ?id ?ops_center_enabled ?ops_item_sns_topic_arn
+    ?tags ?tags_all ~resource_group_name __id =
+  let __type = "aws_applicationinsights_application" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        auto_config_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_config_enabled";
-       auto_create =
-         Prop.computed __resource_type __resource_id "auto_create";
+         Prop.computed __type __id "auto_config_enabled";
+       auto_create = Prop.computed __type __id "auto_create";
        cwe_monitor_enabled =
-         Prop.computed __resource_type __resource_id
-           "cwe_monitor_enabled";
-       grouping_type =
-         Prop.computed __resource_type __resource_id "grouping_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "cwe_monitor_enabled";
+       grouping_type = Prop.computed __type __id "grouping_type";
+       id = Prop.computed __type __id "id";
        ops_center_enabled =
-         Prop.computed __resource_type __resource_id
-           "ops_center_enabled";
+         Prop.computed __type __id "ops_center_enabled";
        ops_item_sns_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "ops_item_sns_topic_arn";
+         Prop.computed __type __id "ops_item_sns_topic_arn";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_applicationinsights_application
+        (aws_applicationinsights_application ?auto_config_enabled
+           ?auto_create ?cwe_monitor_enabled ?grouping_type ?id
+           ?ops_center_enabled ?ops_item_sns_topic_arn ?tags
+           ?tags_all ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_config_enabled ?auto_create
+    ?cwe_monitor_enabled ?grouping_type ?id ?ops_center_enabled
+    ?ops_item_sns_topic_arn ?tags ?tags_all ~resource_group_name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?auto_config_enabled ?auto_create ?cwe_monitor_enabled
+      ?grouping_type ?id ?ops_center_enabled ?ops_item_sns_topic_arn
+      ?tags ?tags_all ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

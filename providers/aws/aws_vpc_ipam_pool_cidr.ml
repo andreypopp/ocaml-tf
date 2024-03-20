@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cidr_authorization_context = {
   message : string prop option; [@option]  (** message *)
@@ -56,27 +54,35 @@ type t = {
   netmask_length : float prop;
 }
 
-let register ?tf_module ?cidr ?id ?netmask_length ?timeouts
-    ~ipam_pool_id ~cidr_authorization_context __resource_id =
-  let __resource_type = "aws_vpc_ipam_pool_cidr" in
-  let __resource =
-    aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
-      ~ipam_pool_id ~cidr_authorization_context ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam_pool_cidr __resource);
-  let __resource_attributes =
+let make ?cidr ?id ?netmask_length ?timeouts ~ipam_pool_id
+    ~cidr_authorization_context __id =
+  let __type = "aws_vpc_ipam_pool_cidr" in
+  let __attrs =
     ({
-       cidr = Prop.computed __resource_type __resource_id "cidr";
-       id = Prop.computed __resource_type __resource_id "id";
+       cidr = Prop.computed __type __id "cidr";
+       id = Prop.computed __type __id "id";
        ipam_pool_cidr_id =
-         Prop.computed __resource_type __resource_id
-           "ipam_pool_cidr_id";
-       ipam_pool_id =
-         Prop.computed __resource_type __resource_id "ipam_pool_id";
-       netmask_length =
-         Prop.computed __resource_type __resource_id "netmask_length";
+         Prop.computed __type __id "ipam_pool_cidr_id";
+       ipam_pool_id = Prop.computed __type __id "ipam_pool_id";
+       netmask_length = Prop.computed __type __id "netmask_length";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam_pool_cidr
+        (aws_vpc_ipam_pool_cidr ?cidr ?id ?netmask_length ?timeouts
+           ~ipam_pool_id ~cidr_authorization_context ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cidr ?id ?netmask_length ?timeouts
+    ~ipam_pool_id ~cidr_authorization_context __id =
+  let (r : _ Tf_core.resource) =
+    make ?cidr ?id ?netmask_length ?timeouts ~ipam_pool_id
+      ~cidr_authorization_context __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

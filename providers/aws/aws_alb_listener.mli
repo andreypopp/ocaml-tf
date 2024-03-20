@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -159,3 +159,19 @@ val register :
   mutual_authentication:mutual_authentication list ->
   string ->
   t
+
+val make :
+  ?alpn_policy:string prop ->
+  ?certificate_arn:string prop ->
+  ?id:string prop ->
+  ?port:float prop ->
+  ?protocol:string prop ->
+  ?ssl_policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  load_balancer_arn:string prop ->
+  default_action:default_action list ->
+  mutual_authentication:mutual_authentication list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,16 @@ val register :
   cluster:cluster list ->
   string ->
   t
+
+val make :
+  ?deletion_protection:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?instance_type:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  cluster:cluster list ->
+  string ->
+  t Tf_core.resource

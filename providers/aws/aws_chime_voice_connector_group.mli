@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,3 +35,10 @@ val register :
   connector:connector list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  connector:connector list ->
+  string ->
+  t Tf_core.resource

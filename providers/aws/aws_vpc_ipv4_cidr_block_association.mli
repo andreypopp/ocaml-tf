@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,13 @@ val register :
   vpc_id:string prop ->
   string ->
   t
+
+val make :
+  ?cidr_block:string prop ->
+  ?id:string prop ->
+  ?ipv4_ipam_pool_id:string prop ->
+  ?ipv4_netmask_length:float prop ->
+  ?timeouts:timeouts ->
+  vpc_id:string prop ->
+  string ->
+  t Tf_core.resource

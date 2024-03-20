@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -121,3 +121,26 @@ val register :
   root_block_device:root_block_device list ->
   string ->
   t
+
+val make :
+  ?associate_public_ip_address:bool prop ->
+  ?ebs_optimized:bool prop ->
+  ?enable_monitoring:bool prop ->
+  ?iam_instance_profile:string prop ->
+  ?id:string prop ->
+  ?key_name:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?placement_tenancy:string prop ->
+  ?security_groups:string prop list ->
+  ?spot_price:string prop ->
+  ?user_data:string prop ->
+  ?user_data_base64:string prop ->
+  image_id:string prop ->
+  instance_type:string prop ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  metadata_options:metadata_options list ->
+  root_block_device:root_block_device list ->
+  string ->
+  t Tf_core.resource

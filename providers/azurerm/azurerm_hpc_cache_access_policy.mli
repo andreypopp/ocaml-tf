@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,12 @@ val register :
   access_rule:access_rule list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  hpc_cache_id:string prop ->
+  name:string prop ->
+  access_rule:access_rule list ->
+  string ->
+  t Tf_core.resource

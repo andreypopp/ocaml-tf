@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_blob_fs_location = {
   dynamic_file_system_enabled : bool prop option; [@option]
@@ -196,73 +194,76 @@ type t = {
   row_delimiter : string prop;
 }
 
+let make ?additional_properties ?annotations ?column_delimiter
+    ?compression_codec ?compression_level ?description ?encoding
+    ?escape_character ?first_row_as_header ?folder ?id ?null_value
+    ?parameters ?quote_character ?row_delimiter ?timeouts
+    ~data_factory_id ~linked_service_name ~name
+    ~azure_blob_fs_location ~azure_blob_storage_location
+    ~http_server_location ~schema_column __id =
+  let __type = "azurerm_data_factory_dataset_delimited_text" in
+  let __attrs =
+    ({
+       additional_properties =
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       column_delimiter =
+         Prop.computed __type __id "column_delimiter";
+       compression_codec =
+         Prop.computed __type __id "compression_codec";
+       compression_level =
+         Prop.computed __type __id "compression_level";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       encoding = Prop.computed __type __id "encoding";
+       escape_character =
+         Prop.computed __type __id "escape_character";
+       first_row_as_header =
+         Prop.computed __type __id "first_row_as_header";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       linked_service_name =
+         Prop.computed __type __id "linked_service_name";
+       name = Prop.computed __type __id "name";
+       null_value = Prop.computed __type __id "null_value";
+       parameters = Prop.computed __type __id "parameters";
+       quote_character = Prop.computed __type __id "quote_character";
+       row_delimiter = Prop.computed __type __id "row_delimiter";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_dataset_delimited_text
+        (azurerm_data_factory_dataset_delimited_text
+           ?additional_properties ?annotations ?column_delimiter
+           ?compression_codec ?compression_level ?description
+           ?encoding ?escape_character ?first_row_as_header ?folder
+           ?id ?null_value ?parameters ?quote_character
+           ?row_delimiter ?timeouts ~data_factory_id
+           ~linked_service_name ~name ~azure_blob_fs_location
+           ~azure_blob_storage_location ~http_server_location
+           ~schema_column ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?additional_properties ?annotations
     ?column_delimiter ?compression_codec ?compression_level
     ?description ?encoding ?escape_character ?first_row_as_header
     ?folder ?id ?null_value ?parameters ?quote_character
     ?row_delimiter ?timeouts ~data_factory_id ~linked_service_name
     ~name ~azure_blob_fs_location ~azure_blob_storage_location
-    ~http_server_location ~schema_column __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_dataset_delimited_text"
-  in
-  let __resource =
-    azurerm_data_factory_dataset_delimited_text
-      ?additional_properties ?annotations ?column_delimiter
+    ~http_server_location ~schema_column __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?column_delimiter
       ?compression_codec ?compression_level ?description ?encoding
       ?escape_character ?first_row_as_header ?folder ?id ?null_value
       ?parameters ?quote_character ?row_delimiter ?timeouts
       ~data_factory_id ~linked_service_name ~name
       ~azure_blob_fs_location ~azure_blob_storage_location
-      ~http_server_location ~schema_column ()
+      ~http_server_location ~schema_column __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_dataset_delimited_text __resource);
-  let __resource_attributes =
-    ({
-       additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       column_delimiter =
-         Prop.computed __resource_type __resource_id
-           "column_delimiter";
-       compression_codec =
-         Prop.computed __resource_type __resource_id
-           "compression_codec";
-       compression_level =
-         Prop.computed __resource_type __resource_id
-           "compression_level";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encoding =
-         Prop.computed __resource_type __resource_id "encoding";
-       escape_character =
-         Prop.computed __resource_type __resource_id
-           "escape_character";
-       first_row_as_header =
-         Prop.computed __resource_type __resource_id
-           "first_row_as_header";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       linked_service_name =
-         Prop.computed __resource_type __resource_id
-           "linked_service_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       null_value =
-         Prop.computed __resource_type __resource_id "null_value";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       quote_character =
-         Prop.computed __resource_type __resource_id
-           "quote_character";
-       row_delimiter =
-         Prop.computed __resource_type __resource_id "row_delimiter";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

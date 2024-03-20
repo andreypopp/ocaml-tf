@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type user_settings__canvas_app_settings__direct_deploy_settings = {
   status : string prop option; [@option]  (** status *)
@@ -631,39 +629,47 @@ type t = {
   user_profile_name : string prop;
 }
 
-let register ?tf_module ?id ?single_sign_on_user_identifier
+let make ?id ?single_sign_on_user_identifier
     ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-    ~user_profile_name ~user_settings __resource_id =
-  let __resource_type = "aws_sagemaker_user_profile" in
-  let __resource =
-    aws_sagemaker_user_profile ?id ?single_sign_on_user_identifier
-      ?single_sign_on_user_value ?tags ?tags_all ~domain_id
-      ~user_profile_name ~user_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_user_profile __resource);
-  let __resource_attributes =
+    ~user_profile_name ~user_settings __id =
+  let __type = "aws_sagemaker_user_profile" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain_id =
-         Prop.computed __resource_type __resource_id "domain_id";
+       arn = Prop.computed __type __id "arn";
+       domain_id = Prop.computed __type __id "domain_id";
        home_efs_file_system_uid =
-         Prop.computed __resource_type __resource_id
-           "home_efs_file_system_uid";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "home_efs_file_system_uid";
+       id = Prop.computed __type __id "id";
        single_sign_on_user_identifier =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_user_identifier";
+         Prop.computed __type __id "single_sign_on_user_identifier";
        single_sign_on_user_value =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_user_value";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "single_sign_on_user_value";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        user_profile_name =
-         Prop.computed __resource_type __resource_id
-           "user_profile_name";
+         Prop.computed __type __id "user_profile_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_user_profile
+        (aws_sagemaker_user_profile ?id
+           ?single_sign_on_user_identifier ?single_sign_on_user_value
+           ?tags ?tags_all ~domain_id ~user_profile_name
+           ~user_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?single_sign_on_user_identifier
+    ?single_sign_on_user_value ?tags ?tags_all ~domain_id
+    ~user_profile_name ~user_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?single_sign_on_user_identifier
+      ?single_sign_on_user_value ?tags ?tags_all ~domain_id
+      ~user_profile_name ~user_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

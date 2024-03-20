@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -132,3 +132,30 @@ val register :
   support:support list ->
   string ->
   t
+
+val make :
+  ?content_schema_version:string prop ->
+  ?custom_version:string prop ->
+  ?dependency:string prop ->
+  ?first_publish_date:string prop ->
+  ?icon_id:string prop ->
+  ?id:string prop ->
+  ?last_publish_date:string prop ->
+  ?preview_images:string prop list ->
+  ?preview_images_dark:string prop list ->
+  ?providers:string prop list ->
+  ?threat_analysis_tactics:string prop list ->
+  ?threat_analysis_techniques:string prop list ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  content_id:string prop ->
+  kind:string prop ->
+  name:string prop ->
+  parent_id:string prop ->
+  workspace_id:string prop ->
+  author:author list ->
+  category:category list ->
+  source:source list ->
+  support:support list ->
+  string ->
+  t Tf_core.resource

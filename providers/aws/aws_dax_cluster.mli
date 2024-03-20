@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -96,3 +96,24 @@ val register :
   server_side_encryption:server_side_encryption list ->
   string ->
   t
+
+val make :
+  ?availability_zones:string prop list ->
+  ?cluster_endpoint_encryption_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?maintenance_window:string prop ->
+  ?notification_topic_arn:string prop ->
+  ?parameter_group_name:string prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_group_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  iam_role_arn:string prop ->
+  node_type:string prop ->
+  replication_factor:float prop ->
+  server_side_encryption:server_side_encryption list ->
+  string ->
+  t Tf_core.resource

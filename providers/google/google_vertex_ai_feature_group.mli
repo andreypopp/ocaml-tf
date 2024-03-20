@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,15 @@ val register :
   big_query:big_query list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  big_query:big_query list ->
+  string ->
+  t Tf_core.resource

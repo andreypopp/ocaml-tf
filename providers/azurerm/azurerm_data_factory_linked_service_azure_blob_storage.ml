@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type key_vault_sas_token = {
   linked_service_name : string prop;  (** linked_service_name *)
@@ -126,73 +124,78 @@ type t = {
   use_managed_identity : bool prop;
 }
 
+let make ?additional_properties ?annotations ?connection_string
+    ?connection_string_insecure ?description ?id
+    ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
+    ?service_principal_id ?service_principal_key ?storage_kind
+    ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
+    ~key_vault_sas_token ~service_principal_linked_key_vault_key __id
+    =
+  let __type =
+    "azurerm_data_factory_linked_service_azure_blob_storage"
+  in
+  let __attrs =
+    ({
+       additional_properties =
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       connection_string =
+         Prop.computed __type __id "connection_string";
+       connection_string_insecure =
+         Prop.computed __type __id "connection_string_insecure";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       integration_runtime_name =
+         Prop.computed __type __id "integration_runtime_name";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       sas_uri = Prop.computed __type __id "sas_uri";
+       service_endpoint =
+         Prop.computed __type __id "service_endpoint";
+       service_principal_id =
+         Prop.computed __type __id "service_principal_id";
+       service_principal_key =
+         Prop.computed __type __id "service_principal_key";
+       storage_kind = Prop.computed __type __id "storage_kind";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       use_managed_identity =
+         Prop.computed __type __id "use_managed_identity";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
+        (azurerm_data_factory_linked_service_azure_blob_storage
+           ?additional_properties ?annotations ?connection_string
+           ?connection_string_insecure ?description ?id
+           ?integration_runtime_name ?parameters ?sas_uri
+           ?service_endpoint ?service_principal_id
+           ?service_principal_key ?storage_kind ?tenant_id
+           ?use_managed_identity ?timeouts ~data_factory_id ~name
+           ~key_vault_sas_token
+           ~service_principal_linked_key_vault_key ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?additional_properties ?annotations
     ?connection_string ?connection_string_insecure ?description ?id
     ?integration_runtime_name ?parameters ?sas_uri ?service_endpoint
     ?service_principal_id ?service_principal_key ?storage_kind
     ?tenant_id ?use_managed_identity ?timeouts ~data_factory_id ~name
-    ~key_vault_sas_token ~service_principal_linked_key_vault_key
-    __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_linked_service_azure_blob_storage"
-  in
-  let __resource =
-    azurerm_data_factory_linked_service_azure_blob_storage
-      ?additional_properties ?annotations ?connection_string
+    ~key_vault_sas_token ~service_principal_linked_key_vault_key __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?connection_string
       ?connection_string_insecure ?description ?id
       ?integration_runtime_name ?parameters ?sas_uri
       ?service_endpoint ?service_principal_id ?service_principal_key
       ?storage_kind ?tenant_id ?use_managed_identity ?timeouts
       ~data_factory_id ~name ~key_vault_sas_token
-      ~service_principal_linked_key_vault_key ()
+      ~service_principal_linked_key_vault_key __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
-       __resource);
-  let __resource_attributes =
-    ({
-       additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       connection_string_insecure =
-         Prop.computed __resource_type __resource_id
-           "connection_string_insecure";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_runtime_name =
-         Prop.computed __resource_type __resource_id
-           "integration_runtime_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       sas_uri =
-         Prop.computed __resource_type __resource_id "sas_uri";
-       service_endpoint =
-         Prop.computed __resource_type __resource_id
-           "service_endpoint";
-       service_principal_id =
-         Prop.computed __resource_type __resource_id
-           "service_principal_id";
-       service_principal_key =
-         Prop.computed __resource_type __resource_id
-           "service_principal_key";
-       storage_kind =
-         Prop.computed __resource_type __resource_id "storage_kind";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       use_managed_identity =
-         Prop.computed __resource_type __resource_id
-           "use_managed_identity";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

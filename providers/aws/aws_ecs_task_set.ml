@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type capacity_provider_strategy = {
   base : float prop option; [@option]  (** base *)
@@ -145,57 +143,62 @@ type t = {
   wait_until_stable_timeout : string prop;
 }
 
+let make ?external_id ?force_delete ?id ?launch_type
+    ?platform_version ?tags ?tags_all ?wait_until_stable
+    ?wait_until_stable_timeout ~cluster ~service ~task_definition
+    ~capacity_provider_strategy ~load_balancer ~network_configuration
+    ~scale ~service_registries __id =
+  let __type = "aws_ecs_task_set" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       cluster = Prop.computed __type __id "cluster";
+       external_id = Prop.computed __type __id "external_id";
+       force_delete = Prop.computed __type __id "force_delete";
+       id = Prop.computed __type __id "id";
+       launch_type = Prop.computed __type __id "launch_type";
+       platform_version =
+         Prop.computed __type __id "platform_version";
+       service = Prop.computed __type __id "service";
+       stability_status =
+         Prop.computed __type __id "stability_status";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       task_definition = Prop.computed __type __id "task_definition";
+       task_set_id = Prop.computed __type __id "task_set_id";
+       wait_until_stable =
+         Prop.computed __type __id "wait_until_stable";
+       wait_until_stable_timeout =
+         Prop.computed __type __id "wait_until_stable_timeout";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecs_task_set
+        (aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+           ?platform_version ?tags ?tags_all ?wait_until_stable
+           ?wait_until_stable_timeout ~cluster ~service
+           ~task_definition ~capacity_provider_strategy
+           ~load_balancer ~network_configuration ~scale
+           ~service_registries ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?external_id ?force_delete ?id ?launch_type
     ?platform_version ?tags ?tags_all ?wait_until_stable
     ?wait_until_stable_timeout ~cluster ~service ~task_definition
     ~capacity_provider_strategy ~load_balancer ~network_configuration
-    ~scale ~service_registries __resource_id =
-  let __resource_type = "aws_ecs_task_set" in
-  let __resource =
-    aws_ecs_task_set ?external_id ?force_delete ?id ?launch_type
+    ~scale ~service_registries __id =
+  let (r : _ Tf_core.resource) =
+    make ?external_id ?force_delete ?id ?launch_type
       ?platform_version ?tags ?tags_all ?wait_until_stable
       ?wait_until_stable_timeout ~cluster ~service ~task_definition
       ~capacity_provider_strategy ~load_balancer
-      ~network_configuration ~scale ~service_registries ()
+      ~network_configuration ~scale ~service_registries __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecs_task_set __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       external_id =
-         Prop.computed __resource_type __resource_id "external_id";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       id = Prop.computed __resource_type __resource_id "id";
-       launch_type =
-         Prop.computed __resource_type __resource_id "launch_type";
-       platform_version =
-         Prop.computed __resource_type __resource_id
-           "platform_version";
-       service =
-         Prop.computed __resource_type __resource_id "service";
-       stability_status =
-         Prop.computed __resource_type __resource_id
-           "stability_status";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       task_definition =
-         Prop.computed __resource_type __resource_id
-           "task_definition";
-       task_set_id =
-         Prop.computed __resource_type __resource_id "task_set_id";
-       wait_until_stable =
-         Prop.computed __resource_type __resource_id
-           "wait_until_stable";
-       wait_until_stable_timeout =
-         Prop.computed __resource_type __resource_id
-           "wait_until_stable_timeout";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

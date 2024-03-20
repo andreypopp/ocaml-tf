@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -43,36 +41,41 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?data_location ?id ?tags ?timeouts ~name
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_communication_service" in
-  let __resource =
-    azurerm_communication_service ?data_location ?id ?tags ?timeouts
-      ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_communication_service __resource);
-  let __resource_attributes =
+let make ?data_location ?id ?tags ?timeouts ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_communication_service" in
+  let __attrs =
     ({
-       data_location =
-         Prop.computed __resource_type __resource_id "data_location";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       data_location = Prop.computed __type __id "data_location";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
+         Prop.computed __type __id "primary_connection_string";
+       primary_key = Prop.computed __type __id "primary_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_connection_string";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "secondary_connection_string";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_communication_service
+        (azurerm_communication_service ?data_location ?id ?tags
+           ?timeouts ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data_location ?id ?tags ?timeouts ~name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_location ?id ?tags ?timeouts ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

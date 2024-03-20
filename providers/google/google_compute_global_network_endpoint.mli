@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,14 @@ val register :
   port:float prop ->
   string ->
   t
+
+val make :
+  ?fqdn:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  global_network_endpoint_group:string prop ->
+  port:float prop ->
+  string ->
+  t Tf_core.resource

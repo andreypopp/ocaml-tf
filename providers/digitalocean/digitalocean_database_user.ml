@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type settings__acl = {
   permission : string prop;  (** permission *)
@@ -45,32 +43,36 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?id ?mysql_auth_plugin ~cluster_id ~name
-    ~settings __resource_id =
-  let __resource_type = "digitalocean_database_user" in
-  let __resource =
-    digitalocean_database_user ?id ?mysql_auth_plugin ~cluster_id
-      ~name ~settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_user __resource);
-  let __resource_attributes =
+let make ?id ?mysql_auth_plugin ~cluster_id ~name ~settings __id =
+  let __type = "digitalocean_database_user" in
+  let __attrs =
     ({
-       access_cert =
-         Prop.computed __resource_type __resource_id "access_cert";
-       access_key =
-         Prop.computed __resource_type __resource_id "access_key";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_cert = Prop.computed __type __id "access_cert";
+       access_key = Prop.computed __type __id "access_key";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
        mysql_auth_plugin =
-         Prop.computed __resource_type __resource_id
-           "mysql_auth_plugin";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       role = Prop.computed __resource_type __resource_id "role";
+         Prop.computed __type __id "mysql_auth_plugin";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_user
+        (digitalocean_database_user ?id ?mysql_auth_plugin
+           ~cluster_id ~name ~settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?mysql_auth_plugin ~cluster_id ~name
+    ~settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?mysql_auth_plugin ~cluster_id ~name ~settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

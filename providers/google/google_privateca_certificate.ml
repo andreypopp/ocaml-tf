@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config__public_key = {
   format : string prop;
@@ -643,63 +641,60 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?certificate_authority ?certificate_template
-    ?id ?labels ?lifetime ?pem_csr ?project ?timeouts ~location ~name
-    ~pool ~config __resource_id =
-  let __resource_type = "google_privateca_certificate" in
-  let __resource =
-    google_privateca_certificate ?certificate_authority
-      ?certificate_template ?id ?labels ?lifetime ?pem_csr ?project
-      ?timeouts ~location ~name ~pool ~config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_privateca_certificate __resource);
-  let __resource_attributes =
+let make ?certificate_authority ?certificate_template ?id ?labels
+    ?lifetime ?pem_csr ?project ?timeouts ~location ~name ~pool
+    ~config __id =
+  let __type = "google_privateca_certificate" in
+  let __attrs =
     ({
        certificate_authority =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority";
+         Prop.computed __type __id "certificate_authority";
        certificate_description =
-         Prop.computed __resource_type __resource_id
-           "certificate_description";
+         Prop.computed __type __id "certificate_description";
        certificate_template =
-         Prop.computed __resource_type __resource_id
-           "certificate_template";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+         Prop.computed __type __id "certificate_template";
+       create_time = Prop.computed __type __id "create_time";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
        issuer_certificate_authority =
-         Prop.computed __resource_type __resource_id
-           "issuer_certificate_authority";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       lifetime =
-         Prop.computed __resource_type __resource_id "lifetime";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       pem_certificate =
-         Prop.computed __resource_type __resource_id
-           "pem_certificate";
+         Prop.computed __type __id "issuer_certificate_authority";
+       labels = Prop.computed __type __id "labels";
+       lifetime = Prop.computed __type __id "lifetime";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       pem_certificate = Prop.computed __type __id "pem_certificate";
        pem_certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "pem_certificate_chain";
-       pem_csr =
-         Prop.computed __resource_type __resource_id "pem_csr";
-       pool = Prop.computed __resource_type __resource_id "pool";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "pem_certificate_chain";
+       pem_csr = Prop.computed __type __id "pem_csr";
+       pool = Prop.computed __type __id "pool";
+       project = Prop.computed __type __id "project";
        revocation_details =
-         Prop.computed __resource_type __resource_id
-           "revocation_details";
+         Prop.computed __type __id "revocation_details";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_privateca_certificate
+        (google_privateca_certificate ?certificate_authority
+           ?certificate_template ?id ?labels ?lifetime ?pem_csr
+           ?project ?timeouts ~location ~name ~pool ~config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_authority ?certificate_template
+    ?id ?labels ?lifetime ?pem_csr ?project ?timeouts ~location ~name
+    ~pool ~config __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_authority ?certificate_template ?id ?labels
+      ?lifetime ?pem_csr ?project ?timeouts ~location ~name ~pool
+      ~config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

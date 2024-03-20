@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_v4_authentication = {
   access_key_id : string prop;
@@ -268,51 +266,54 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?failover_origin ?id ?labels
-    ?max_attempts ?port ?project ?protocol ?retry_conditions
-    ?timeouts ~name ~origin_address ~aws_v4_authentication
-    ~origin_override_action ~origin_redirect ~timeout __resource_id =
-  let __resource_type =
-    "google_network_services_edge_cache_origin"
-  in
-  let __resource =
-    google_network_services_edge_cache_origin ?description
-      ?failover_origin ?id ?labels ?max_attempts ?port ?project
-      ?protocol ?retry_conditions ?timeouts ~name ~origin_address
-      ~aws_v4_authentication ~origin_override_action ~origin_redirect
-      ~timeout ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_services_edge_cache_origin __resource);
-  let __resource_attributes =
+let make ?description ?failover_origin ?id ?labels ?max_attempts
+    ?port ?project ?protocol ?retry_conditions ?timeouts ~name
+    ~origin_address ~aws_v4_authentication ~origin_override_action
+    ~origin_redirect ~timeout __id =
+  let __type = "google_network_services_edge_cache_origin" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       failover_origin =
-         Prop.computed __resource_type __resource_id
-           "failover_origin";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       max_attempts =
-         Prop.computed __resource_type __resource_id "max_attempts";
-       name = Prop.computed __resource_type __resource_id "name";
-       origin_address =
-         Prop.computed __resource_type __resource_id "origin_address";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+         Prop.computed __type __id "effective_labels";
+       failover_origin = Prop.computed __type __id "failover_origin";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       max_attempts = Prop.computed __type __id "max_attempts";
+       name = Prop.computed __type __id "name";
+       origin_address = Prop.computed __type __id "origin_address";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       protocol = Prop.computed __type __id "protocol";
        retry_conditions =
-         Prop.computed __resource_type __resource_id
-           "retry_conditions";
+         Prop.computed __type __id "retry_conditions";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_services_edge_cache_origin
+        (google_network_services_edge_cache_origin ?description
+           ?failover_origin ?id ?labels ?max_attempts ?port ?project
+           ?protocol ?retry_conditions ?timeouts ~name
+           ~origin_address ~aws_v4_authentication
+           ~origin_override_action ~origin_redirect ~timeout ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?failover_origin ?id ?labels
+    ?max_attempts ?port ?project ?protocol ?retry_conditions
+    ?timeouts ~name ~origin_address ~aws_v4_authentication
+    ~origin_override_action ~origin_redirect ~timeout __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?failover_origin ?id ?labels ?max_attempts
+      ?port ?project ?protocol ?retry_conditions ?timeouts ~name
+      ~origin_address ~aws_v4_authentication ~origin_override_action
+      ~origin_redirect ~timeout __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type catalog_data = {
   about_text : string prop option; [@option]  (** about_text *)
@@ -75,32 +73,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?force_destroy ?id ?tags ?tags_all ?timeouts
-    ~repository_name ~catalog_data __resource_id =
-  let __resource_type = "aws_ecrpublic_repository" in
-  let __resource =
-    aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
-      ?timeouts ~repository_name ~catalog_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecrpublic_repository __resource);
-  let __resource_attributes =
+let make ?force_destroy ?id ?tags ?tags_all ?timeouts
+    ~repository_name ~catalog_data __id =
+  let __type = "aws_ecrpublic_repository" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       registry_id =
-         Prop.computed __resource_type __resource_id "registry_id";
-       repository_name =
-         Prop.computed __resource_type __resource_id
-           "repository_name";
-       repository_uri =
-         Prop.computed __resource_type __resource_id "repository_uri";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       registry_id = Prop.computed __type __id "registry_id";
+       repository_name = Prop.computed __type __id "repository_name";
+       repository_uri = Prop.computed __type __id "repository_uri";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecrpublic_repository
+        (aws_ecrpublic_repository ?force_destroy ?id ?tags ?tags_all
+           ?timeouts ~repository_name ~catalog_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_destroy ?id ?tags ?tags_all ?timeouts
+    ~repository_name ~catalog_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_destroy ?id ?tags ?tags_all ?timeouts
+      ~repository_name ~catalog_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

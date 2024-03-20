@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,18 @@ val register :
   validator:validator list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_identifier:string prop ->
+  ?retrieval_role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  application_id:string prop ->
+  location_uri:string prop ->
+  name:string prop ->
+  validator:validator list ->
+  string ->
+  t Tf_core.resource

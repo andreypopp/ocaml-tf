@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -208,3 +208,26 @@ val register :
   sqs_target:sqs_target list ->
   string ->
   t
+
+val make :
+  ?event_bus_name:string prop ->
+  ?id:string prop ->
+  ?input:string prop ->
+  ?input_path:string prop ->
+  ?role_arn:string prop ->
+  ?target_id:string prop ->
+  arn:string prop ->
+  rule:string prop ->
+  batch_target:batch_target list ->
+  dead_letter_config:dead_letter_config list ->
+  ecs_target:ecs_target list ->
+  http_target:http_target list ->
+  input_transformer:input_transformer list ->
+  kinesis_target:kinesis_target list ->
+  redshift_target:redshift_target list ->
+  retry_policy:retry_policy list ->
+  run_command_targets:run_command_targets list ->
+  sagemaker_pipeline_target:sagemaker_pipeline_target list ->
+  sqs_target:sqs_target list ->
+  string ->
+  t Tf_core.resource

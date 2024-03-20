@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action = {
   action_groups : string prop list option; [@option]
@@ -176,81 +174,82 @@ type t = {
   workspace_alerts_storage_enabled : bool prop;
 }
 
+let make ?auto_mitigation_enabled ?description ?display_name ?enabled
+    ?evaluation_frequency ?id ?mute_actions_after_alert_duration
+    ?query_time_range_override ?skip_query_validation ?tags
+    ?target_resource_types ?workspace_alerts_storage_enabled
+    ?timeouts ~location ~name ~resource_group_name ~scopes ~severity
+    ~window_duration ~action ~criteria __id =
+  let __type = "azurerm_monitor_scheduled_query_rules_alert_v2" in
+  let __attrs =
+    ({
+       auto_mitigation_enabled =
+         Prop.computed __type __id "auto_mitigation_enabled";
+       created_with_api_version =
+         Prop.computed __type __id "created_with_api_version";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       evaluation_frequency =
+         Prop.computed __type __id "evaluation_frequency";
+       id = Prop.computed __type __id "id";
+       is_a_legacy_log_analytics_rule =
+         Prop.computed __type __id "is_a_legacy_log_analytics_rule";
+       is_workspace_alerts_storage_configured =
+         Prop.computed __type __id
+           "is_workspace_alerts_storage_configured";
+       location = Prop.computed __type __id "location";
+       mute_actions_after_alert_duration =
+         Prop.computed __type __id
+           "mute_actions_after_alert_duration";
+       name = Prop.computed __type __id "name";
+       query_time_range_override =
+         Prop.computed __type __id "query_time_range_override";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       scopes = Prop.computed __type __id "scopes";
+       severity = Prop.computed __type __id "severity";
+       skip_query_validation =
+         Prop.computed __type __id "skip_query_validation";
+       tags = Prop.computed __type __id "tags";
+       target_resource_types =
+         Prop.computed __type __id "target_resource_types";
+       window_duration = Prop.computed __type __id "window_duration";
+       workspace_alerts_storage_enabled =
+         Prop.computed __type __id "workspace_alerts_storage_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2
+        (azurerm_monitor_scheduled_query_rules_alert_v2
+           ?auto_mitigation_enabled ?description ?display_name
+           ?enabled ?evaluation_frequency ?id
+           ?mute_actions_after_alert_duration
+           ?query_time_range_override ?skip_query_validation ?tags
+           ?target_resource_types ?workspace_alerts_storage_enabled
+           ?timeouts ~location ~name ~resource_group_name ~scopes
+           ~severity ~window_duration ~action ~criteria ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_mitigation_enabled ?description
     ?display_name ?enabled ?evaluation_frequency ?id
     ?mute_actions_after_alert_duration ?query_time_range_override
     ?skip_query_validation ?tags ?target_resource_types
     ?workspace_alerts_storage_enabled ?timeouts ~location ~name
     ~resource_group_name ~scopes ~severity ~window_duration ~action
-    ~criteria __resource_id =
-  let __resource_type =
-    "azurerm_monitor_scheduled_query_rules_alert_v2"
-  in
-  let __resource =
-    azurerm_monitor_scheduled_query_rules_alert_v2
-      ?auto_mitigation_enabled ?description ?display_name ?enabled
+    ~criteria __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_mitigation_enabled ?description ?display_name ?enabled
       ?evaluation_frequency ?id ?mute_actions_after_alert_duration
       ?query_time_range_override ?skip_query_validation ?tags
       ?target_resource_types ?workspace_alerts_storage_enabled
       ?timeouts ~location ~name ~resource_group_name ~scopes
-      ~severity ~window_duration ~action ~criteria ()
+      ~severity ~window_duration ~action ~criteria __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2
-       __resource);
-  let __resource_attributes =
-    ({
-       auto_mitigation_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_mitigation_enabled";
-       created_with_api_version =
-         Prop.computed __resource_type __resource_id
-           "created_with_api_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       evaluation_frequency =
-         Prop.computed __resource_type __resource_id
-           "evaluation_frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_a_legacy_log_analytics_rule =
-         Prop.computed __resource_type __resource_id
-           "is_a_legacy_log_analytics_rule";
-       is_workspace_alerts_storage_configured =
-         Prop.computed __resource_type __resource_id
-           "is_workspace_alerts_storage_configured";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mute_actions_after_alert_duration =
-         Prop.computed __resource_type __resource_id
-           "mute_actions_after_alert_duration";
-       name = Prop.computed __resource_type __resource_id "name";
-       query_time_range_override =
-         Prop.computed __resource_type __resource_id
-           "query_time_range_override";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scopes = Prop.computed __resource_type __resource_id "scopes";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       skip_query_validation =
-         Prop.computed __resource_type __resource_id
-           "skip_query_validation";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       target_resource_types =
-         Prop.computed __resource_type __resource_id
-           "target_resource_types";
-       window_duration =
-         Prop.computed __resource_type __resource_id
-           "window_duration";
-       workspace_alerts_storage_enabled =
-         Prop.computed __resource_type __resource_id
-           "workspace_alerts_storage_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

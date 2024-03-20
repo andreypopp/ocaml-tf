@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,24 @@ val register :
   trigger_dependency:trigger_dependency list ->
   string ->
   t
+
+val make :
+  ?activated:bool prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?delay:string prop ->
+  ?description:string prop ->
+  ?end_time:string prop ->
+  ?id:string prop ->
+  ?max_concurrency:float prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  frequency:string prop ->
+  interval:float prop ->
+  name:string prop ->
+  start_time:string prop ->
+  pipeline:pipeline list ->
+  retry:retry list ->
+  trigger_dependency:trigger_dependency list ->
+  string ->
+  t Tf_core.resource

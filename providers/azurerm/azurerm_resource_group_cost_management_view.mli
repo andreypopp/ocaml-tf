@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -103,3 +103,19 @@ val register :
   pivot:pivot list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  accumulated:bool prop ->
+  chart_type:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  report_type:string prop ->
+  resource_group_id:string prop ->
+  timeframe:string prop ->
+  dataset:dataset list ->
+  kpi:kpi list ->
+  pivot:pivot list ->
+  string ->
+  t Tf_core.resource

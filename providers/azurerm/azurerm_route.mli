@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,15 @@ val register :
   route_table_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?next_hop_in_ip_address:string prop ->
+  ?timeouts:timeouts ->
+  address_prefix:string prop ->
+  name:string prop ->
+  next_hop_type:string prop ->
+  resource_group_name:string prop ->
+  route_table_name:string prop ->
+  string ->
+  t Tf_core.resource

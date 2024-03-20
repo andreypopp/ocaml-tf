@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,18 @@ val register :
   parameter:parameter list ->
   string ->
   t
+
+val make :
+  ?automatic:bool prop ->
+  ?id:string prop ->
+  ?maximum_automatic_attempts:float prop ->
+  ?resource_type:string prop ->
+  ?retry_attempt_seconds:float prop ->
+  ?target_version:string prop ->
+  config_rule_name:string prop ->
+  target_id:string prop ->
+  target_type:string prop ->
+  execution_controls:execution_controls list ->
+  parameter:parameter list ->
+  string ->
+  t Tf_core.resource

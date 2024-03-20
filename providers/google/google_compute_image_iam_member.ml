@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]  (** description *)
@@ -39,25 +37,33 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?id ?project ~image ~member ~role ~condition
-    __resource_id =
-  let __resource_type = "google_compute_image_iam_member" in
-  let __resource =
-    google_compute_image_iam_member ?id ?project ~image ~member ~role
-      ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_image_iam_member __resource);
-  let __resource_attributes =
+let make ?id ?project ~image ~member ~role ~condition __id =
+  let __type = "google_compute_image_iam_member" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       image = Prop.computed __resource_type __resource_id "image";
-       member = Prop.computed __resource_type __resource_id "member";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       role = Prop.computed __resource_type __resource_id "role";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       image = Prop.computed __type __id "image";
+       member = Prop.computed __type __id "member";
+       project = Prop.computed __type __id "project";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_image_iam_member
+        (google_compute_image_iam_member ?id ?project ~image ~member
+           ~role ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ~image ~member ~role ~condition
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ~image ~member ~role ~condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

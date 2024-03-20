@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -193,3 +193,17 @@ val register :
   rule:rule list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  adaptive_protection_config:adaptive_protection_config list ->
+  advanced_options_config:advanced_options_config list ->
+  recaptcha_options_config:recaptcha_options_config list ->
+  rule:rule list ->
+  string ->
+  t Tf_core.resource

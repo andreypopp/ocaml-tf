@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,18 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?egress:egress list ->
+  ?id:string prop ->
+  ?ingress:ingress list ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?revoke_rules_on_delete:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_id:string prop ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

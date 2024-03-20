@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,45 +54,47 @@ type t = {
   worker_type : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~automation_account_name
-    ~resource_group_name ~vm_resource_id ~worker_group_name
-    ~worker_id __resource_id =
-  let __resource_type = "azurerm_automation_hybrid_runbook_worker" in
-  let __resource =
-    azurerm_automation_hybrid_runbook_worker ?id ?timeouts
-      ~automation_account_name ~resource_group_name ~vm_resource_id
-      ~worker_group_name ~worker_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_hybrid_runbook_worker __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~automation_account_name ~resource_group_name
+    ~vm_resource_id ~worker_group_name ~worker_id __id =
+  let __type = "azurerm_automation_hybrid_runbook_worker" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
+         Prop.computed __type __id "automation_account_name";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
        last_seen_date_time =
-         Prop.computed __resource_type __resource_id
-           "last_seen_date_time";
+         Prop.computed __type __id "last_seen_date_time";
        registration_date_time =
-         Prop.computed __resource_type __resource_id
-           "registration_date_time";
+         Prop.computed __type __id "registration_date_time";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       vm_resource_id =
-         Prop.computed __resource_type __resource_id "vm_resource_id";
+         Prop.computed __type __id "resource_group_name";
+       vm_resource_id = Prop.computed __type __id "vm_resource_id";
        worker_group_name =
-         Prop.computed __resource_type __resource_id
-           "worker_group_name";
-       worker_id =
-         Prop.computed __resource_type __resource_id "worker_id";
-       worker_name =
-         Prop.computed __resource_type __resource_id "worker_name";
-       worker_type =
-         Prop.computed __resource_type __resource_id "worker_type";
+         Prop.computed __type __id "worker_group_name";
+       worker_id = Prop.computed __type __id "worker_id";
+       worker_name = Prop.computed __type __id "worker_name";
+       worker_type = Prop.computed __type __id "worker_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_hybrid_runbook_worker
+        (azurerm_automation_hybrid_runbook_worker ?id ?timeouts
+           ~automation_account_name ~resource_group_name
+           ~vm_resource_id ~worker_group_name ~worker_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~automation_account_name
+    ~resource_group_name ~vm_resource_id ~worker_group_name
+    ~worker_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~automation_account_name ~resource_group_name
+      ~vm_resource_id ~worker_group_name ~worker_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

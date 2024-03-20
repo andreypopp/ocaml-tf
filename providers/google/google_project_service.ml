@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -49,30 +47,36 @@ type t = {
   service : string prop;
 }
 
-let register ?tf_module ?disable_dependent_services
-    ?disable_on_destroy ?id ?project ?timeouts ~service __resource_id
-    =
-  let __resource_type = "google_project_service" in
-  let __resource =
-    google_project_service ?disable_dependent_services
-      ?disable_on_destroy ?id ?project ?timeouts ~service ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_project_service __resource);
-  let __resource_attributes =
+let make ?disable_dependent_services ?disable_on_destroy ?id ?project
+    ?timeouts ~service __id =
+  let __type = "google_project_service" in
+  let __attrs =
     ({
        disable_dependent_services =
-         Prop.computed __resource_type __resource_id
-           "disable_dependent_services";
+         Prop.computed __type __id "disable_dependent_services";
        disable_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "disable_on_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service =
-         Prop.computed __resource_type __resource_id "service";
+         Prop.computed __type __id "disable_on_destroy";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       service = Prop.computed __type __id "service";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_project_service
+        (google_project_service ?disable_dependent_services
+           ?disable_on_destroy ?id ?project ?timeouts ~service ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disable_dependent_services
+    ?disable_on_destroy ?id ?project ?timeouts ~service __id =
+  let (r : _ Tf_core.resource) =
+    make ?disable_dependent_services ?disable_on_destroy ?id ?project
+      ?timeouts ~service __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

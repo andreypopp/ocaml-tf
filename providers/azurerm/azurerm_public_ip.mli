@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,26 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?ddos_protection_mode:string prop ->
+  ?ddos_protection_plan_id:string prop ->
+  ?domain_name_label:string prop ->
+  ?edge_zone:string prop ->
+  ?id:string prop ->
+  ?idle_timeout_in_minutes:float prop ->
+  ?ip_tags:(string * string prop) list ->
+  ?ip_version:string prop ->
+  ?public_ip_prefix_id:string prop ->
+  ?reverse_fqdn:string prop ->
+  ?sku:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  allocation_method:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

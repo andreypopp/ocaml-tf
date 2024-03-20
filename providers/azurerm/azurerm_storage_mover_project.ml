@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -37,25 +35,32 @@ type t = {
   storage_mover_id : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~name
-    ~storage_mover_id __resource_id =
-  let __resource_type = "azurerm_storage_mover_project" in
-  let __resource =
-    azurerm_storage_mover_project ?description ?id ?timeouts ~name
-      ~storage_mover_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_mover_project __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~name ~storage_mover_id __id =
+  let __type = "azurerm_storage_mover_project" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        storage_mover_id =
-         Prop.computed __resource_type __resource_id
-           "storage_mover_id";
+         Prop.computed __type __id "storage_mover_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_mover_project
+        (azurerm_storage_mover_project ?description ?id ?timeouts
+           ~name ~storage_mover_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~name
+    ~storage_mover_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~name ~storage_mover_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

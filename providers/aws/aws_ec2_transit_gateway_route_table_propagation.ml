@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_transit_gateway_route_table_propagation = {
   id : string prop option; [@option]  (** id *)
@@ -31,33 +29,37 @@ type t = {
   transit_gateway_route_table_id : string prop;
 }
 
-let register ?tf_module ?id ~transit_gateway_attachment_id
-    ~transit_gateway_route_table_id __resource_id =
-  let __resource_type =
-    "aws_ec2_transit_gateway_route_table_propagation"
-  in
-  let __resource =
-    aws_ec2_transit_gateway_route_table_propagation ?id
-      ~transit_gateway_attachment_id ~transit_gateway_route_table_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_transit_gateway_route_table_propagation
-       __resource);
-  let __resource_attributes =
+let make ?id ~transit_gateway_attachment_id
+    ~transit_gateway_route_table_id __id =
+  let __type = "aws_ec2_transit_gateway_route_table_propagation" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
+       id = Prop.computed __type __id "id";
+       resource_id = Prop.computed __type __id "resource_id";
+       resource_type = Prop.computed __type __id "resource_type";
        transit_gateway_attachment_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_attachment_id";
+         Prop.computed __type __id "transit_gateway_attachment_id";
        transit_gateway_route_table_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_route_table_id";
+         Prop.computed __type __id "transit_gateway_route_table_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_transit_gateway_route_table_propagation
+        (aws_ec2_transit_gateway_route_table_propagation ?id
+           ~transit_gateway_attachment_id
+           ~transit_gateway_route_table_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~transit_gateway_attachment_id
+    ~transit_gateway_route_table_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~transit_gateway_attachment_id
+      ~transit_gateway_route_table_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

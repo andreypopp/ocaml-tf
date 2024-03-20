@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_licensemanager_license_configuration = {
   description : string prop option; [@option]  (** description *)
@@ -51,41 +49,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?license_count
-    ?license_count_hard_limit ?license_rules ?tags ?tags_all
-    ~license_counting_type ~name __resource_id =
-  let __resource_type = "aws_licensemanager_license_configuration" in
-  let __resource =
-    aws_licensemanager_license_configuration ?description ?id
-      ?license_count ?license_count_hard_limit ?license_rules ?tags
-      ?tags_all ~license_counting_type ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_licensemanager_license_configuration __resource);
-  let __resource_attributes =
+let make ?description ?id ?license_count ?license_count_hard_limit
+    ?license_rules ?tags ?tags_all ~license_counting_type ~name __id
+    =
+  let __type = "aws_licensemanager_license_configuration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_count =
-         Prop.computed __resource_type __resource_id "license_count";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       license_count = Prop.computed __type __id "license_count";
        license_count_hard_limit =
-         Prop.computed __resource_type __resource_id
-           "license_count_hard_limit";
+         Prop.computed __type __id "license_count_hard_limit";
        license_counting_type =
-         Prop.computed __resource_type __resource_id
-           "license_counting_type";
-       license_rules =
-         Prop.computed __resource_type __resource_id "license_rules";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "license_counting_type";
+       license_rules = Prop.computed __type __id "license_rules";
+       name = Prop.computed __type __id "name";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "owner_account_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_licensemanager_license_configuration
+        (aws_licensemanager_license_configuration ?description ?id
+           ?license_count ?license_count_hard_limit ?license_rules
+           ?tags ?tags_all ~license_counting_type ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?license_count
+    ?license_count_hard_limit ?license_rules ?tags ?tags_all
+    ~license_counting_type ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?license_count ?license_count_hard_limit
+      ?license_rules ?tags ?tags_all ~license_counting_type ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

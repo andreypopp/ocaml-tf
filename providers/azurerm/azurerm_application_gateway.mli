@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -510,3 +510,42 @@ val register :
   waf_configuration:waf_configuration list ->
   string ->
   t
+
+val make :
+  ?enable_http2:bool prop ->
+  ?fips_enabled:bool prop ->
+  ?firewall_policy_id:string prop ->
+  ?force_firewall_policy_association:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  authentication_certificate:authentication_certificate list ->
+  autoscale_configuration:autoscale_configuration list ->
+  backend_address_pool:backend_address_pool list ->
+  backend_http_settings:backend_http_settings list ->
+  custom_error_configuration:custom_error_configuration list ->
+  frontend_ip_configuration:frontend_ip_configuration list ->
+  frontend_port:frontend_port list ->
+  gateway_ip_configuration:gateway_ip_configuration list ->
+  global:global list ->
+  http_listener:http_listener list ->
+  identity:identity list ->
+  private_link_configuration:private_link_configuration list ->
+  probe:probe list ->
+  redirect_configuration:redirect_configuration list ->
+  request_routing_rule:request_routing_rule list ->
+  rewrite_rule_set:rewrite_rule_set list ->
+  sku:sku list ->
+  ssl_certificate:ssl_certificate list ->
+  ssl_policy:ssl_policy list ->
+  ssl_profile:ssl_profile list ->
+  trusted_client_certificate:trusted_client_certificate list ->
+  trusted_root_certificate:trusted_root_certificate list ->
+  url_path_map:url_path_map list ->
+  waf_configuration:waf_configuration list ->
+  string ->
+  t Tf_core.resource

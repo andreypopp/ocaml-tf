@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_space_settings__jupyter_server_app_settings__code_repository = {
   repository_url : string prop;  (** repository_url *)
@@ -894,57 +892,63 @@ type t = {
   vpc_id : string prop;
 }
 
+let make ?app_network_access_type ?app_security_group_management ?id
+    ?kms_key_id ?tags ?tags_all ~auth_mode ~domain_name ~subnet_ids
+    ~vpc_id ~default_space_settings ~default_user_settings
+    ~domain_settings ~retention_policy __id =
+  let __type = "aws_sagemaker_domain" in
+  let __attrs =
+    ({
+       app_network_access_type =
+         Prop.computed __type __id "app_network_access_type";
+       app_security_group_management =
+         Prop.computed __type __id "app_security_group_management";
+       arn = Prop.computed __type __id "arn";
+       auth_mode = Prop.computed __type __id "auth_mode";
+       domain_name = Prop.computed __type __id "domain_name";
+       home_efs_file_system_id =
+         Prop.computed __type __id "home_efs_file_system_id";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       security_group_id_for_domain_boundary =
+         Prop.computed __type __id
+           "security_group_id_for_domain_boundary";
+       single_sign_on_application_arn =
+         Prop.computed __type __id "single_sign_on_application_arn";
+       single_sign_on_managed_application_instance_id =
+         Prop.computed __type __id
+           "single_sign_on_managed_application_instance_id";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
+       vpc_id = Prop.computed __type __id "vpc_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_domain
+        (aws_sagemaker_domain ?app_network_access_type
+           ?app_security_group_management ?id ?kms_key_id ?tags
+           ?tags_all ~auth_mode ~domain_name ~subnet_ids ~vpc_id
+           ~default_space_settings ~default_user_settings
+           ~domain_settings ~retention_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?app_network_access_type
     ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
     ~auth_mode ~domain_name ~subnet_ids ~vpc_id
     ~default_space_settings ~default_user_settings ~domain_settings
-    ~retention_policy __resource_id =
-  let __resource_type = "aws_sagemaker_domain" in
-  let __resource =
-    aws_sagemaker_domain ?app_network_access_type
-      ?app_security_group_management ?id ?kms_key_id ?tags ?tags_all
-      ~auth_mode ~domain_name ~subnet_ids ~vpc_id
-      ~default_space_settings ~default_user_settings ~domain_settings
-      ~retention_policy ()
+    ~retention_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_network_access_type ?app_security_group_management ?id
+      ?kms_key_id ?tags ?tags_all ~auth_mode ~domain_name ~subnet_ids
+      ~vpc_id ~default_space_settings ~default_user_settings
+      ~domain_settings ~retention_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_domain __resource);
-  let __resource_attributes =
-    ({
-       app_network_access_type =
-         Prop.computed __resource_type __resource_id
-           "app_network_access_type";
-       app_security_group_management =
-         Prop.computed __resource_type __resource_id
-           "app_security_group_management";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auth_mode =
-         Prop.computed __resource_type __resource_id "auth_mode";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       home_efs_file_system_id =
-         Prop.computed __resource_type __resource_id
-           "home_efs_file_system_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       security_group_id_for_domain_boundary =
-         Prop.computed __resource_type __resource_id
-           "security_group_id_for_domain_boundary";
-       single_sign_on_application_arn =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_application_arn";
-       single_sign_on_managed_application_instance_id =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_managed_application_instance_id";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_container_registry_docker_credentials = {
   expiry_seconds : float prop option; [@option]
@@ -28,33 +26,37 @@ type t = {
   write : bool prop;
 }
 
-let register ?tf_module ?expiry_seconds ?id ?write ~registry_name
-    __resource_id =
-  let __resource_type =
+let make ?expiry_seconds ?id ?write ~registry_name __id =
+  let __type =
     "digitalocean_container_registry_docker_credentials"
   in
-  let __resource =
-    digitalocean_container_registry_docker_credentials
-      ?expiry_seconds ?id ?write ~registry_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_container_registry_docker_credentials
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        credential_expiration_time =
-         Prop.computed __resource_type __resource_id
-           "credential_expiration_time";
+         Prop.computed __type __id "credential_expiration_time";
        docker_credentials =
-         Prop.computed __resource_type __resource_id
-           "docker_credentials";
-       expiry_seconds =
-         Prop.computed __resource_type __resource_id "expiry_seconds";
-       id = Prop.computed __resource_type __resource_id "id";
-       registry_name =
-         Prop.computed __resource_type __resource_id "registry_name";
-       write = Prop.computed __resource_type __resource_id "write";
+         Prop.computed __type __id "docker_credentials";
+       expiry_seconds = Prop.computed __type __id "expiry_seconds";
+       id = Prop.computed __type __id "id";
+       registry_name = Prop.computed __type __id "registry_name";
+       write = Prop.computed __type __id "write";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_container_registry_docker_credentials
+        (digitalocean_container_registry_docker_credentials
+           ?expiry_seconds ?id ?write ~registry_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?expiry_seconds ?id ?write ~registry_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?expiry_seconds ?id ?write ~registry_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type validation_settings = { mode : string prop  (** mode *) }
 [@@deriving yojson_of]
@@ -28,25 +26,30 @@ type t = {
   policy_store_id : string prop;
 }
 
-let register ?tf_module ?description ~validation_settings
-    __resource_id =
-  let __resource_type = "aws_verifiedpermissions_policy_store" in
-  let __resource =
-    aws_verifiedpermissions_policy_store ?description
-      ~validation_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedpermissions_policy_store __resource);
-  let __resource_attributes =
+let make ?description ~validation_settings __id =
+  let __type = "aws_verifiedpermissions_policy_store" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_store_id =
-         Prop.computed __resource_type __resource_id
-           "policy_store_id";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       policy_store_id = Prop.computed __type __id "policy_store_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedpermissions_policy_store
+        (aws_verifiedpermissions_policy_store ?description
+           ~validation_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ~validation_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ~validation_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_auditmanager_framework_share = {
   comment : string prop option; [@option]  (** comment *)
@@ -27,30 +25,37 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?comment ~destination_account
-    ~destination_region ~framework_id __resource_id =
-  let __resource_type = "aws_auditmanager_framework_share" in
-  let __resource =
-    aws_auditmanager_framework_share ?comment ~destination_account
-      ~destination_region ~framework_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_auditmanager_framework_share __resource);
-  let __resource_attributes =
+let make ?comment ~destination_account ~destination_region
+    ~framework_id __id =
+  let __type = "aws_auditmanager_framework_share" in
+  let __attrs =
     ({
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
+       comment = Prop.computed __type __id "comment";
        destination_account =
-         Prop.computed __resource_type __resource_id
-           "destination_account";
+         Prop.computed __type __id "destination_account";
        destination_region =
-         Prop.computed __resource_type __resource_id
-           "destination_region";
-       framework_id =
-         Prop.computed __resource_type __resource_id "framework_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "destination_region";
+       framework_id = Prop.computed __type __id "framework_id";
+       id = Prop.computed __type __id "id";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_auditmanager_framework_share
+        (aws_auditmanager_framework_share ?comment
+           ~destination_account ~destination_region ~framework_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ~destination_account
+    ~destination_region ~framework_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ~destination_account ~destination_region
+      ~framework_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

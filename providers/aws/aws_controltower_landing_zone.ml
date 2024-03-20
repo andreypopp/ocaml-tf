@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,32 +43,36 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~manifest_json
-    ~version __resource_id =
-  let __resource_type = "aws_controltower_landing_zone" in
-  let __resource =
-    aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
-      ~manifest_json ~version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_controltower_landing_zone __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~manifest_json ~version __id =
+  let __type = "aws_controltower_landing_zone" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       drift_status =
-         Prop.computed __resource_type __resource_id "drift_status";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       drift_status = Prop.computed __type __id "drift_status";
+       id = Prop.computed __type __id "id";
        latest_available_version =
-         Prop.computed __resource_type __resource_id
-           "latest_available_version";
-       manifest_json =
-         Prop.computed __resource_type __resource_id "manifest_json";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "latest_available_version";
+       manifest_json = Prop.computed __type __id "manifest_json";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_controltower_landing_zone
+        (aws_controltower_landing_zone ?id ?tags ?tags_all ?timeouts
+           ~manifest_json ~version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~manifest_json
+    ~version __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~manifest_json ~version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

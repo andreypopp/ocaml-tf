@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -204,3 +204,27 @@ val register :
   sku:sku list ->
   string ->
   t
+
+val make :
+  ?endpoint:endpoint list ->
+  ?enrichment:enrichment list ->
+  ?event_hub_partition_count:float prop ->
+  ?event_hub_retention_in_days:float prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?min_tls_version:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?route:route list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  cloud_to_device:cloud_to_device list ->
+  fallback_route:fallback_route list ->
+  file_upload:file_upload list ->
+  identity:identity list ->
+  network_rule_set:network_rule_set list ->
+  sku:sku list ->
+  string ->
+  t Tf_core.resource

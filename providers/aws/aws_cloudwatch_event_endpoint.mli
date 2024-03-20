@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,14 @@ val register :
   routing_config:routing_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_arn:string prop ->
+  name:string prop ->
+  event_bus:event_bus list ->
+  replication_config:replication_config list ->
+  routing_config:routing_config list ->
+  string ->
+  t Tf_core.resource

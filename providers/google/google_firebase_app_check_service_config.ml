@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,27 +71,33 @@ type t = {
   service_id : string prop;
 }
 
-let register ?tf_module ?enforcement_mode ?id ?project ?timeouts
-    ~service_id __resource_id =
-  let __resource_type = "google_firebase_app_check_service_config" in
-  let __resource =
-    google_firebase_app_check_service_config ?enforcement_mode ?id
-      ?project ?timeouts ~service_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firebase_app_check_service_config __resource);
-  let __resource_attributes =
+let make ?enforcement_mode ?id ?project ?timeouts ~service_id __id =
+  let __type = "google_firebase_app_check_service_config" in
+  let __attrs =
     ({
        enforcement_mode =
-         Prop.computed __resource_type __resource_id
-           "enforcement_mode";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service_id =
-         Prop.computed __resource_type __resource_id "service_id";
+         Prop.computed __type __id "enforcement_mode";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       service_id = Prop.computed __type __id "service_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firebase_app_check_service_config
+        (google_firebase_app_check_service_config ?enforcement_mode
+           ?id ?project ?timeouts ~service_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enforcement_mode ?id ?project ?timeouts
+    ~service_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?enforcement_mode ?id ?project ?timeouts ~service_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

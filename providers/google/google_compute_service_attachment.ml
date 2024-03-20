@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type consumer_accept_lists = {
   connection_limit : float prop;
@@ -125,55 +123,58 @@ type t = {
   target_service : string prop;
 }
 
-let register ?tf_module ?consumer_reject_lists ?description
-    ?domain_names ?id ?project ?reconcile_connections ?region
-    ?timeouts ~connection_preference ~enable_proxy_protocol ~name
-    ~nat_subnets ~target_service ~consumer_accept_lists __resource_id
-    =
-  let __resource_type = "google_compute_service_attachment" in
-  let __resource =
-    google_compute_service_attachment ?consumer_reject_lists
-      ?description ?domain_names ?id ?project ?reconcile_connections
-      ?region ?timeouts ~connection_preference ~enable_proxy_protocol
-      ~name ~nat_subnets ~target_service ~consumer_accept_lists ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_service_attachment __resource);
-  let __resource_attributes =
+let make ?consumer_reject_lists ?description ?domain_names ?id
+    ?project ?reconcile_connections ?region ?timeouts
+    ~connection_preference ~enable_proxy_protocol ~name ~nat_subnets
+    ~target_service ~consumer_accept_lists __id =
+  let __type = "google_compute_service_attachment" in
+  let __attrs =
     ({
        connected_endpoints =
-         Prop.computed __resource_type __resource_id
-           "connected_endpoints";
+         Prop.computed __type __id "connected_endpoints";
        connection_preference =
-         Prop.computed __resource_type __resource_id
-           "connection_preference";
+         Prop.computed __type __id "connection_preference";
        consumer_reject_lists =
-         Prop.computed __resource_type __resource_id
-           "consumer_reject_lists";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       domain_names =
-         Prop.computed __resource_type __resource_id "domain_names";
+         Prop.computed __type __id "consumer_reject_lists";
+       description = Prop.computed __type __id "description";
+       domain_names = Prop.computed __type __id "domain_names";
        enable_proxy_protocol =
-         Prop.computed __resource_type __resource_id
-           "enable_proxy_protocol";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       nat_subnets =
-         Prop.computed __resource_type __resource_id "nat_subnets";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "enable_proxy_protocol";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       nat_subnets = Prop.computed __type __id "nat_subnets";
+       project = Prop.computed __type __id "project";
        reconcile_connections =
-         Prop.computed __resource_type __resource_id
-           "reconcile_connections";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       target_service =
-         Prop.computed __resource_type __resource_id "target_service";
+         Prop.computed __type __id "reconcile_connections";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       target_service = Prop.computed __type __id "target_service";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_service_attachment
+        (google_compute_service_attachment ?consumer_reject_lists
+           ?description ?domain_names ?id ?project
+           ?reconcile_connections ?region ?timeouts
+           ~connection_preference ~enable_proxy_protocol ~name
+           ~nat_subnets ~target_service ~consumer_accept_lists ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?consumer_reject_lists ?description
+    ?domain_names ?id ?project ?reconcile_connections ?region
+    ?timeouts ~connection_preference ~enable_proxy_protocol ~name
+    ~nat_subnets ~target_service ~consumer_accept_lists __id =
+  let (r : _ Tf_core.resource) =
+    make ?consumer_reject_lists ?description ?domain_names ?id
+      ?project ?reconcile_connections ?region ?timeouts
+      ~connection_preference ~enable_proxy_protocol ~name
+      ~nat_subnets ~target_service ~consumer_accept_lists __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

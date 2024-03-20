@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string prop list;  (** dns_ips *)
@@ -138,40 +136,47 @@ type t = {
   uuid : string prop;
 }
 
-let register ?tf_module ?id ?root_volume_security_style
-    ?svm_admin_password ?tags ?tags_all ?timeouts ~file_system_id
-    ~name ~active_directory_configuration __resource_id =
-  let __resource_type = "aws_fsx_ontap_storage_virtual_machine" in
-  let __resource =
-    aws_fsx_ontap_storage_virtual_machine ?id
-      ?root_volume_security_style ?svm_admin_password ?tags ?tags_all
-      ?timeouts ~file_system_id ~name ~active_directory_configuration
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_ontap_storage_virtual_machine __resource);
-  let __resource_attributes =
+let make ?id ?root_volume_security_style ?svm_admin_password ?tags
+    ?tags_all ?timeouts ~file_system_id ~name
+    ~active_directory_configuration __id =
+  let __type = "aws_fsx_ontap_storage_virtual_machine" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       endpoints =
-         Prop.computed __resource_type __resource_id "endpoints";
-       file_system_id =
-         Prop.computed __resource_type __resource_id "file_system_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       endpoints = Prop.computed __type __id "endpoints";
+       file_system_id = Prop.computed __type __id "file_system_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        root_volume_security_style =
-         Prop.computed __resource_type __resource_id
-           "root_volume_security_style";
-       subtype =
-         Prop.computed __resource_type __resource_id "subtype";
+         Prop.computed __type __id "root_volume_security_style";
+       subtype = Prop.computed __type __id "subtype";
        svm_admin_password =
-         Prop.computed __resource_type __resource_id
-           "svm_admin_password";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uuid = Prop.computed __resource_type __resource_id "uuid";
+         Prop.computed __type __id "svm_admin_password";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uuid = Prop.computed __type __id "uuid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_ontap_storage_virtual_machine
+        (aws_fsx_ontap_storage_virtual_machine ?id
+           ?root_volume_security_style ?svm_admin_password ?tags
+           ?tags_all ?timeouts ~file_system_id ~name
+           ~active_directory_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?root_volume_security_style
+    ?svm_admin_password ?tags ?tags_all ?timeouts ~file_system_id
+    ~name ~active_directory_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?root_volume_security_style ?svm_admin_password ?tags
+      ?tags_all ?timeouts ~file_system_id ~name
+      ~active_directory_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

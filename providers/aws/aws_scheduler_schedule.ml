@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type flexible_time_window = {
   maximum_window_in_minutes : float prop option; [@option]
@@ -277,44 +275,49 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?description ?end_date ?group_name ?id
-    ?kms_key_arn ?name ?name_prefix ?schedule_expression_timezone
-    ?start_date ?state ~schedule_expression ~flexible_time_window
-    ~target __resource_id =
-  let __resource_type = "aws_scheduler_schedule" in
-  let __resource =
-    aws_scheduler_schedule ?description ?end_date ?group_name ?id
-      ?kms_key_arn ?name ?name_prefix ?schedule_expression_timezone
-      ?start_date ?state ~schedule_expression ~flexible_time_window
-      ~target ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_scheduler_schedule __resource);
-  let __resource_attributes =
+let make ?description ?end_date ?group_name ?id ?kms_key_arn ?name
+    ?name_prefix ?schedule_expression_timezone ?start_date ?state
+    ~schedule_expression ~flexible_time_window ~target __id =
+  let __type = "aws_scheduler_schedule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       end_date =
-         Prop.computed __resource_type __resource_id "end_date";
-       group_name =
-         Prop.computed __resource_type __resource_id "group_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       end_date = Prop.computed __type __id "end_date";
+       group_name = Prop.computed __type __id "group_name";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
        schedule_expression =
-         Prop.computed __resource_type __resource_id
-           "schedule_expression";
+         Prop.computed __type __id "schedule_expression";
        schedule_expression_timezone =
-         Prop.computed __resource_type __resource_id
-           "schedule_expression_timezone";
-       start_date =
-         Prop.computed __resource_type __resource_id "start_date";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "schedule_expression_timezone";
+       start_date = Prop.computed __type __id "start_date";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_scheduler_schedule
+        (aws_scheduler_schedule ?description ?end_date ?group_name
+           ?id ?kms_key_arn ?name ?name_prefix
+           ?schedule_expression_timezone ?start_date ?state
+           ~schedule_expression ~flexible_time_window ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?end_date ?group_name ?id
+    ?kms_key_arn ?name ?name_prefix ?schedule_expression_timezone
+    ?start_date ?state ~schedule_expression ~flexible_time_window
+    ~target __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?end_date ?group_name ?id ?kms_key_arn ?name
+      ?name_prefix ?schedule_expression_timezone ?start_date ?state
+      ~schedule_expression ~flexible_time_window ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

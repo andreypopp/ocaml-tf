@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -90,3 +90,17 @@ val register :
   github_action_configuration:github_action_configuration list ->
   string ->
   t
+
+val make :
+  ?branch:string prop ->
+  ?id:string prop ->
+  ?repo_url:string prop ->
+  ?rollback_enabled:bool prop ->
+  ?use_local_git:bool prop ->
+  ?use_manual_integration:bool prop ->
+  ?use_mercurial:bool prop ->
+  ?timeouts:timeouts ->
+  slot_id:string prop ->
+  github_action_configuration:github_action_configuration list ->
+  string ->
+  t Tf_core.resource

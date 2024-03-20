@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -148,6 +146,98 @@ type t = {
   writer : bool prop;
 }
 
+let make ?apply_immediately ?auto_minor_version_upgrade
+    ?availability_zone ?ca_cert_identifier ?copy_tags_to_snapshot
+    ?custom_iam_instance_profile ?db_parameter_group_name
+    ?db_subnet_group_name ?engine_version ?id ?identifier
+    ?identifier_prefix ?monitoring_interval ?monitoring_role_arn
+    ?performance_insights_enabled ?performance_insights_kms_key_id
+    ?performance_insights_retention_period ?preferred_backup_window
+    ?preferred_maintenance_window ?promotion_tier
+    ?publicly_accessible ?tags ?tags_all ?timeouts
+    ~cluster_identifier ~engine ~instance_class __id =
+  let __type = "aws_rds_cluster_instance" in
+  let __attrs =
+    ({
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       auto_minor_version_upgrade =
+         Prop.computed __type __id "auto_minor_version_upgrade";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       ca_cert_identifier =
+         Prop.computed __type __id "ca_cert_identifier";
+       cluster_identifier =
+         Prop.computed __type __id "cluster_identifier";
+       copy_tags_to_snapshot =
+         Prop.computed __type __id "copy_tags_to_snapshot";
+       custom_iam_instance_profile =
+         Prop.computed __type __id "custom_iam_instance_profile";
+       db_parameter_group_name =
+         Prop.computed __type __id "db_parameter_group_name";
+       db_subnet_group_name =
+         Prop.computed __type __id "db_subnet_group_name";
+       dbi_resource_id = Prop.computed __type __id "dbi_resource_id";
+       endpoint = Prop.computed __type __id "endpoint";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       engine_version_actual =
+         Prop.computed __type __id "engine_version_actual";
+       id = Prop.computed __type __id "id";
+       identifier = Prop.computed __type __id "identifier";
+       identifier_prefix =
+         Prop.computed __type __id "identifier_prefix";
+       instance_class = Prop.computed __type __id "instance_class";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       monitoring_interval =
+         Prop.computed __type __id "monitoring_interval";
+       monitoring_role_arn =
+         Prop.computed __type __id "monitoring_role_arn";
+       network_type = Prop.computed __type __id "network_type";
+       performance_insights_enabled =
+         Prop.computed __type __id "performance_insights_enabled";
+       performance_insights_kms_key_id =
+         Prop.computed __type __id "performance_insights_kms_key_id";
+       performance_insights_retention_period =
+         Prop.computed __type __id
+           "performance_insights_retention_period";
+       port = Prop.computed __type __id "port";
+       preferred_backup_window =
+         Prop.computed __type __id "preferred_backup_window";
+       preferred_maintenance_window =
+         Prop.computed __type __id "preferred_maintenance_window";
+       promotion_tier = Prop.computed __type __id "promotion_tier";
+       publicly_accessible =
+         Prop.computed __type __id "publicly_accessible";
+       storage_encrypted =
+         Prop.computed __type __id "storage_encrypted";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       writer = Prop.computed __type __id "writer";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rds_cluster_instance
+        (aws_rds_cluster_instance ?apply_immediately
+           ?auto_minor_version_upgrade ?availability_zone
+           ?ca_cert_identifier ?copy_tags_to_snapshot
+           ?custom_iam_instance_profile ?db_parameter_group_name
+           ?db_subnet_group_name ?engine_version ?id ?identifier
+           ?identifier_prefix ?monitoring_interval
+           ?monitoring_role_arn ?performance_insights_enabled
+           ?performance_insights_kms_key_id
+           ?performance_insights_retention_period
+           ?preferred_backup_window ?preferred_maintenance_window
+           ?promotion_tier ?publicly_accessible ?tags ?tags_all
+           ?timeouts ~cluster_identifier ~engine ~instance_class ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone
     ?ca_cert_identifier ?copy_tags_to_snapshot
@@ -158,12 +248,10 @@ let register ?tf_module ?apply_immediately
     ?performance_insights_retention_period ?preferred_backup_window
     ?preferred_maintenance_window ?promotion_tier
     ?publicly_accessible ?tags ?tags_all ?timeouts
-    ~cluster_identifier ~engine ~instance_class __resource_id =
-  let __resource_type = "aws_rds_cluster_instance" in
-  let __resource =
-    aws_rds_cluster_instance ?apply_immediately
-      ?auto_minor_version_upgrade ?availability_zone
-      ?ca_cert_identifier ?copy_tags_to_snapshot
+    ~cluster_identifier ~engine ~instance_class __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_immediately ?auto_minor_version_upgrade
+      ?availability_zone ?ca_cert_identifier ?copy_tags_to_snapshot
       ?custom_iam_instance_profile ?db_parameter_group_name
       ?db_subnet_group_name ?engine_version ?id ?identifier
       ?identifier_prefix ?monitoring_interval ?monitoring_role_arn
@@ -171,98 +259,7 @@ let register ?tf_module ?apply_immediately
       ?performance_insights_retention_period ?preferred_backup_window
       ?preferred_maintenance_window ?promotion_tier
       ?publicly_accessible ?tags ?tags_all ?timeouts
-      ~cluster_identifier ~engine ~instance_class ()
+      ~cluster_identifier ~engine ~instance_class __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rds_cluster_instance __resource);
-  let __resource_attributes =
-    ({
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_minor_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "auto_minor_version_upgrade";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       ca_cert_identifier =
-         Prop.computed __resource_type __resource_id
-           "ca_cert_identifier";
-       cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       copy_tags_to_snapshot =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_snapshot";
-       custom_iam_instance_profile =
-         Prop.computed __resource_type __resource_id
-           "custom_iam_instance_profile";
-       db_parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "db_parameter_group_name";
-       db_subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "db_subnet_group_name";
-       dbi_resource_id =
-         Prop.computed __resource_type __resource_id
-           "dbi_resource_id";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       engine_version_actual =
-         Prop.computed __resource_type __resource_id
-           "engine_version_actual";
-       id = Prop.computed __resource_type __resource_id "id";
-       identifier =
-         Prop.computed __resource_type __resource_id "identifier";
-       identifier_prefix =
-         Prop.computed __resource_type __resource_id
-           "identifier_prefix";
-       instance_class =
-         Prop.computed __resource_type __resource_id "instance_class";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       monitoring_interval =
-         Prop.computed __resource_type __resource_id
-           "monitoring_interval";
-       monitoring_role_arn =
-         Prop.computed __resource_type __resource_id
-           "monitoring_role_arn";
-       network_type =
-         Prop.computed __resource_type __resource_id "network_type";
-       performance_insights_enabled =
-         Prop.computed __resource_type __resource_id
-           "performance_insights_enabled";
-       performance_insights_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "performance_insights_kms_key_id";
-       performance_insights_retention_period =
-         Prop.computed __resource_type __resource_id
-           "performance_insights_retention_period";
-       port = Prop.computed __resource_type __resource_id "port";
-       preferred_backup_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_backup_window";
-       preferred_maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_maintenance_window";
-       promotion_tier =
-         Prop.computed __resource_type __resource_id "promotion_tier";
-       publicly_accessible =
-         Prop.computed __resource_type __resource_id
-           "publicly_accessible";
-       storage_encrypted =
-         Prop.computed __resource_type __resource_id
-           "storage_encrypted";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       writer = Prop.computed __resource_type __resource_id "writer";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

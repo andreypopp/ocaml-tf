@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,13 @@ val register :
   datasources:datasources list ->
   string ->
   t
+
+val make :
+  ?enable:bool prop ->
+  ?finding_publishing_frequency:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  datasources:datasources list ->
+  string ->
+  t Tf_core.resource

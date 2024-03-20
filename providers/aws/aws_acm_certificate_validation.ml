@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -32,25 +30,32 @@ type t = {
   validation_record_fqdns : string list prop;
 }
 
-let register ?tf_module ?id ?validation_record_fqdns ?timeouts
-    ~certificate_arn __resource_id =
-  let __resource_type = "aws_acm_certificate_validation" in
-  let __resource =
-    aws_acm_certificate_validation ?id ?validation_record_fqdns
-      ?timeouts ~certificate_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acm_certificate_validation __resource);
-  let __resource_attributes =
+let make ?id ?validation_record_fqdns ?timeouts ~certificate_arn __id
+    =
+  let __type = "aws_acm_certificate_validation" in
+  let __attrs =
     ({
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
+       id = Prop.computed __type __id "id";
        validation_record_fqdns =
-         Prop.computed __resource_type __resource_id
-           "validation_record_fqdns";
+         Prop.computed __type __id "validation_record_fqdns";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acm_certificate_validation
+        (aws_acm_certificate_validation ?id ?validation_record_fqdns
+           ?timeouts ~certificate_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?validation_record_fqdns ?timeouts
+    ~certificate_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?validation_record_fqdns ?timeouts ~certificate_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

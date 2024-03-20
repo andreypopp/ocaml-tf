@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_custom_hostname_fallback_origin = {
   id : string prop option; [@option]  (** id *)
@@ -25,24 +23,28 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ~origin ~zone_id __resource_id =
-  let __resource_type =
-    "cloudflare_custom_hostname_fallback_origin"
-  in
-  let __resource =
-    cloudflare_custom_hostname_fallback_origin ?id ~origin ~zone_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_custom_hostname_fallback_origin __resource);
-  let __resource_attributes =
+let make ?id ~origin ~zone_id __id =
+  let __type = "cloudflare_custom_hostname_fallback_origin" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       origin = Prop.computed __resource_type __resource_id "origin";
-       status = Prop.computed __resource_type __resource_id "status";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       id = Prop.computed __type __id "id";
+       origin = Prop.computed __type __id "origin";
+       status = Prop.computed __type __id "status";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_custom_hostname_fallback_origin
+        (cloudflare_custom_hostname_fallback_origin ?id ~origin
+           ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~origin ~zone_id __id =
+  let (r : _ Tf_core.resource) = make ?id ~origin ~zone_id __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

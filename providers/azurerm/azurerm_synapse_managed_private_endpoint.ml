@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -46,29 +44,38 @@ type t = {
   target_resource_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~subresource_name
-    ~synapse_workspace_id ~target_resource_id __resource_id =
-  let __resource_type = "azurerm_synapse_managed_private_endpoint" in
-  let __resource =
-    azurerm_synapse_managed_private_endpoint ?id ?timeouts ~name
-      ~subresource_name ~synapse_workspace_id ~target_resource_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_managed_private_endpoint __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~subresource_name ~synapse_workspace_id
+    ~target_resource_id __id =
+  let __type = "azurerm_synapse_managed_private_endpoint" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        subresource_name =
-         Prop.computed __resource_type __resource_id
-           "subresource_name";
+         Prop.computed __type __id "subresource_name";
        synapse_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_workspace_id";
+         Prop.computed __type __id "synapse_workspace_id";
        target_resource_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_id";
+         Prop.computed __type __id "target_resource_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_managed_private_endpoint
+        (azurerm_synapse_managed_private_endpoint ?id ?timeouts ~name
+           ~subresource_name ~synapse_workspace_id
+           ~target_resource_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~subresource_name
+    ~synapse_workspace_id ~target_resource_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~subresource_name ~synapse_workspace_id
+      ~target_resource_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

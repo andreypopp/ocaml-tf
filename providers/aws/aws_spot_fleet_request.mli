@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -341,3 +341,35 @@ val register :
   spot_maintenance_strategies:spot_maintenance_strategies list ->
   string ->
   t
+
+val make :
+  ?allocation_strategy:string prop ->
+  ?context:string prop ->
+  ?excess_capacity_termination_policy:string prop ->
+  ?fleet_type:string prop ->
+  ?id:string prop ->
+  ?instance_interruption_behaviour:string prop ->
+  ?instance_pools_to_use_count:float prop ->
+  ?load_balancers:string prop list ->
+  ?on_demand_allocation_strategy:string prop ->
+  ?on_demand_max_total_price:string prop ->
+  ?on_demand_target_capacity:float prop ->
+  ?replace_unhealthy_instances:bool prop ->
+  ?spot_price:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_capacity_unit_type:string prop ->
+  ?target_group_arns:string prop list ->
+  ?terminate_instances_on_delete:string prop ->
+  ?terminate_instances_with_expiration:bool prop ->
+  ?valid_from:string prop ->
+  ?valid_until:string prop ->
+  ?wait_for_fulfillment:bool prop ->
+  ?timeouts:timeouts ->
+  iam_fleet_role:string prop ->
+  target_capacity:float prop ->
+  launch_specification:launch_specification list ->
+  launch_template_config:launch_template_config list ->
+  spot_maintenance_strategies:spot_maintenance_strategies list ->
+  string ->
+  t Tf_core.resource

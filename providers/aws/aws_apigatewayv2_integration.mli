@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,26 @@ val register :
   tls_config:tls_config list ->
   string ->
   t
+
+val make :
+  ?connection_id:string prop ->
+  ?connection_type:string prop ->
+  ?content_handling_strategy:string prop ->
+  ?credentials_arn:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_method:string prop ->
+  ?integration_subtype:string prop ->
+  ?integration_uri:string prop ->
+  ?passthrough_behavior:string prop ->
+  ?payload_format_version:string prop ->
+  ?request_parameters:(string * string prop) list ->
+  ?request_templates:(string * string prop) list ->
+  ?template_selection_expression:string prop ->
+  ?timeout_milliseconds:float prop ->
+  api_id:string prop ->
+  integration_type:string prop ->
+  response_parameters:response_parameters list ->
+  tls_config:tls_config list ->
+  string ->
+  t Tf_core.resource

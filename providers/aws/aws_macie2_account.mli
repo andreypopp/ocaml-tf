@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -33,4 +33,11 @@ val register :
     ?status:string prop ->
     string ->
     t
+
+val make :
+    ?finding_publishing_frequency:string prop ->
+    ?id:string prop ->
+    ?status:string prop ->
+    string ->
+    t Tf_core.resource
 

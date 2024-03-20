@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -37,34 +35,36 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~share_arn __resource_id =
-  let __resource_type = "aws_ram_resource_share_accepter" in
-  let __resource =
-    aws_ram_resource_share_accepter ?id ?timeouts ~share_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ram_resource_share_accepter __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~share_arn __id =
+  let __type = "aws_ram_resource_share_accepter" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       invitation_arn =
-         Prop.computed __resource_type __resource_id "invitation_arn";
+       id = Prop.computed __type __id "id";
+       invitation_arn = Prop.computed __type __id "invitation_arn";
        receiver_account_id =
-         Prop.computed __resource_type __resource_id
-           "receiver_account_id";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
+         Prop.computed __type __id "receiver_account_id";
+       resources = Prop.computed __type __id "resources";
        sender_account_id =
-         Prop.computed __resource_type __resource_id
-           "sender_account_id";
-       share_arn =
-         Prop.computed __resource_type __resource_id "share_arn";
-       share_id =
-         Prop.computed __resource_type __resource_id "share_id";
-       share_name =
-         Prop.computed __resource_type __resource_id "share_name";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "sender_account_id";
+       share_arn = Prop.computed __type __id "share_arn";
+       share_id = Prop.computed __type __id "share_id";
+       share_name = Prop.computed __type __id "share_name";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ram_resource_share_accepter
+        (aws_ram_resource_share_accepter ?id ?timeouts ~share_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~share_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~share_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

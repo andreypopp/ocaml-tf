@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -101,3 +101,14 @@ val register :
   subscriber_identity:subscriber_identity list ->
   string ->
   t
+
+val make :
+  ?access_type:string prop ->
+  ?subscriber_description:string prop ->
+  ?subscriber_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  source:source list ->
+  subscriber_identity:subscriber_identity list ->
+  string ->
+  t Tf_core.resource

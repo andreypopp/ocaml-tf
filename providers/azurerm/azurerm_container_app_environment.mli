@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,20 @@ val register :
   workload_profile:workload_profile list ->
   string ->
   t
+
+val make :
+  ?dapr_application_insights_connection_string:string prop ->
+  ?id:string prop ->
+  ?infrastructure_resource_group_name:string prop ->
+  ?infrastructure_subnet_id:string prop ->
+  ?internal_load_balancer_enabled:bool prop ->
+  ?log_analytics_workspace_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundancy_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  workload_profile:workload_profile list ->
+  string ->
+  t Tf_core.resource

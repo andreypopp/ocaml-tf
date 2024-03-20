@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,3 +37,12 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?authenticated_origin_pulls_certificate:string prop ->
+  ?hostname:string prop ->
+  ?id:string prop ->
+  enabled:bool prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

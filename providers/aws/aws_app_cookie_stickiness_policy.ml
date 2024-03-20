@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_app_cookie_stickiness_policy = {
   cookie_name : string prop;  (** cookie_name *)
@@ -26,26 +24,32 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ~cookie_name ~lb_port ~load_balancer
-    ~name __resource_id =
-  let __resource_type = "aws_app_cookie_stickiness_policy" in
-  let __resource =
-    aws_app_cookie_stickiness_policy ?id ~cookie_name ~lb_port
-      ~load_balancer ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_app_cookie_stickiness_policy __resource);
-  let __resource_attributes =
+let make ?id ~cookie_name ~lb_port ~load_balancer ~name __id =
+  let __type = "aws_app_cookie_stickiness_policy" in
+  let __attrs =
     ({
-       cookie_name =
-         Prop.computed __resource_type __resource_id "cookie_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       lb_port =
-         Prop.computed __resource_type __resource_id "lb_port";
-       load_balancer =
-         Prop.computed __resource_type __resource_id "load_balancer";
-       name = Prop.computed __resource_type __resource_id "name";
+       cookie_name = Prop.computed __type __id "cookie_name";
+       id = Prop.computed __type __id "id";
+       lb_port = Prop.computed __type __id "lb_port";
+       load_balancer = Prop.computed __type __id "load_balancer";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_app_cookie_stickiness_policy
+        (aws_app_cookie_stickiness_policy ?id ~cookie_name ~lb_port
+           ~load_balancer ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cookie_name ~lb_port ~load_balancer
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~cookie_name ~lb_port ~load_balancer ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type batch_target = {
   array_size : float prop option; [@option]  (** array_size *)
@@ -304,36 +302,50 @@ type t = {
   target_id : string prop;
 }
 
+let make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
+    ~arn ~rule ~batch_target ~dead_letter_config ~ecs_target
+    ~http_target ~input_transformer ~kinesis_target ~redshift_target
+    ~retry_policy ~run_command_targets ~sagemaker_pipeline_target
+    ~sqs_target __id =
+  let __type = "aws_cloudwatch_event_target" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       event_bus_name = Prop.computed __type __id "event_bus_name";
+       id = Prop.computed __type __id "id";
+       input = Prop.computed __type __id "input";
+       input_path = Prop.computed __type __id "input_path";
+       role_arn = Prop.computed __type __id "role_arn";
+       rule = Prop.computed __type __id "rule";
+       target_id = Prop.computed __type __id "target_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_event_target
+        (aws_cloudwatch_event_target ?event_bus_name ?id ?input
+           ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
+           ~dead_letter_config ~ecs_target ~http_target
+           ~input_transformer ~kinesis_target ~redshift_target
+           ~retry_policy ~run_command_targets
+           ~sagemaker_pipeline_target ~sqs_target ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?event_bus_name ?id ?input ?input_path
     ?role_arn ?target_id ~arn ~rule ~batch_target ~dead_letter_config
     ~ecs_target ~http_target ~input_transformer ~kinesis_target
     ~redshift_target ~retry_policy ~run_command_targets
-    ~sagemaker_pipeline_target ~sqs_target __resource_id =
-  let __resource_type = "aws_cloudwatch_event_target" in
-  let __resource =
-    aws_cloudwatch_event_target ?event_bus_name ?id ?input
-      ?input_path ?role_arn ?target_id ~arn ~rule ~batch_target
-      ~dead_letter_config ~ecs_target ~http_target ~input_transformer
-      ~kinesis_target ~redshift_target ~retry_policy
-      ~run_command_targets ~sagemaker_pipeline_target ~sqs_target ()
+    ~sagemaker_pipeline_target ~sqs_target __id =
+  let (r : _ Tf_core.resource) =
+    make ?event_bus_name ?id ?input ?input_path ?role_arn ?target_id
+      ~arn ~rule ~batch_target ~dead_letter_config ~ecs_target
+      ~http_target ~input_transformer ~kinesis_target
+      ~redshift_target ~retry_policy ~run_command_targets
+      ~sagemaker_pipeline_target ~sqs_target __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_event_target __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       event_bus_name =
-         Prop.computed __resource_type __resource_id "event_bus_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       input = Prop.computed __resource_type __resource_id "input";
-       input_path =
-         Prop.computed __resource_type __resource_id "input_path";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       rule = Prop.computed __resource_type __resource_id "rule";
-       target_id =
-         Prop.computed __resource_type __resource_id "target_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy_sets__policies__compliance_standards = {
   control : string prop option; [@option]
@@ -476,37 +474,41 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~location ~parent
-    ~posture_id ~state ~policy_sets __resource_id =
-  let __resource_type = "google_securityposture_posture" in
-  let __resource =
-    google_securityposture_posture ?description ?id ?timeouts
-      ~location ~parent ~posture_id ~state ~policy_sets ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_securityposture_posture __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~location ~parent ~posture_id
+    ~state ~policy_sets __id =
+  let __type = "google_securityposture_posture" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       posture_id =
-         Prop.computed __resource_type __resource_id "posture_id";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       revision_id =
-         Prop.computed __resource_type __resource_id "revision_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       posture_id = Prop.computed __type __id "posture_id";
+       reconciling = Prop.computed __type __id "reconciling";
+       revision_id = Prop.computed __type __id "revision_id";
+       state = Prop.computed __type __id "state";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_securityposture_posture
+        (google_securityposture_posture ?description ?id ?timeouts
+           ~location ~parent ~posture_id ~state ~policy_sets ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~location ~parent
+    ~posture_id ~state ~policy_sets __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~location ~parent ~posture_id
+      ~state ~policy_sets __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -75,54 +73,61 @@ type t = {
   resource_discovery_mode : string prop;
 }
 
+let make ?failure_percentage ?id ?location_filters
+    ?parallel_deployments ?policy_definition_id
+    ?policy_definition_reference_id ?resource_count
+    ?resource_discovery_mode ?timeouts ~management_group_id ~name
+    ~policy_assignment_id __id =
+  let __type = "azurerm_management_group_policy_remediation" in
+  let __attrs =
+    ({
+       failure_percentage =
+         Prop.computed __type __id "failure_percentage";
+       id = Prop.computed __type __id "id";
+       location_filters =
+         Prop.computed __type __id "location_filters";
+       management_group_id =
+         Prop.computed __type __id "management_group_id";
+       name = Prop.computed __type __id "name";
+       parallel_deployments =
+         Prop.computed __type __id "parallel_deployments";
+       policy_assignment_id =
+         Prop.computed __type __id "policy_assignment_id";
+       policy_definition_id =
+         Prop.computed __type __id "policy_definition_id";
+       policy_definition_reference_id =
+         Prop.computed __type __id "policy_definition_reference_id";
+       resource_count = Prop.computed __type __id "resource_count";
+       resource_discovery_mode =
+         Prop.computed __type __id "resource_discovery_mode";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_management_group_policy_remediation
+        (azurerm_management_group_policy_remediation
+           ?failure_percentage ?id ?location_filters
+           ?parallel_deployments ?policy_definition_id
+           ?policy_definition_reference_id ?resource_count
+           ?resource_discovery_mode ?timeouts ~management_group_id
+           ~name ~policy_assignment_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?failure_percentage ?id ?location_filters
     ?parallel_deployments ?policy_definition_id
     ?policy_definition_reference_id ?resource_count
     ?resource_discovery_mode ?timeouts ~management_group_id ~name
-    ~policy_assignment_id __resource_id =
-  let __resource_type =
-    "azurerm_management_group_policy_remediation"
+    ~policy_assignment_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?failure_percentage ?id ?location_filters
+      ?parallel_deployments ?policy_definition_id
+      ?policy_definition_reference_id ?resource_count
+      ?resource_discovery_mode ?timeouts ~management_group_id ~name
+      ~policy_assignment_id __id
   in
-  let __resource =
-    azurerm_management_group_policy_remediation ?failure_percentage
-      ?id ?location_filters ?parallel_deployments
-      ?policy_definition_id ?policy_definition_reference_id
-      ?resource_count ?resource_discovery_mode ?timeouts
-      ~management_group_id ~name ~policy_assignment_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_management_group_policy_remediation __resource);
-  let __resource_attributes =
-    ({
-       failure_percentage =
-         Prop.computed __resource_type __resource_id
-           "failure_percentage";
-       id = Prop.computed __resource_type __resource_id "id";
-       location_filters =
-         Prop.computed __resource_type __resource_id
-           "location_filters";
-       management_group_id =
-         Prop.computed __resource_type __resource_id
-           "management_group_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parallel_deployments =
-         Prop.computed __resource_type __resource_id
-           "parallel_deployments";
-       policy_assignment_id =
-         Prop.computed __resource_type __resource_id
-           "policy_assignment_id";
-       policy_definition_id =
-         Prop.computed __resource_type __resource_id
-           "policy_definition_id";
-       policy_definition_reference_id =
-         Prop.computed __resource_type __resource_id
-           "policy_definition_reference_id";
-       resource_count =
-         Prop.computed __resource_type __resource_id "resource_count";
-       resource_discovery_mode =
-         Prop.computed __resource_type __resource_id
-           "resource_discovery_mode";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

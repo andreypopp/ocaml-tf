@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -502,3 +502,26 @@ val register :
   ssl_config:ssl_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?eventing_enablement_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?service_account:string prop ->
+  ?suspended:bool prop ->
+  ?timeouts:timeouts ->
+  connector_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  auth_config:auth_config list ->
+  config_variable:config_variable list ->
+  destination_config:destination_config list ->
+  eventing_config:eventing_config list ->
+  lock_config:lock_config list ->
+  log_config:log_config list ->
+  node_config:node_config list ->
+  ssl_config:ssl_config list ->
+  string ->
+  t Tf_core.resource

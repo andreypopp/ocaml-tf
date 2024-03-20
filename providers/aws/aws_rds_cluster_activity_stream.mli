@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -38,3 +38,12 @@ val register :
   resource_arn:string prop ->
   string ->
   t
+
+val make :
+  ?engine_native_audit_fields_included:bool prop ->
+  ?id:string prop ->
+  kms_key_id:string prop ->
+  mode:string prop ->
+  resource_arn:string prop ->
+  string ->
+  t Tf_core.resource

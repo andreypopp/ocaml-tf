@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,45 +51,49 @@ type t = {
   secondary_connection_string_alias : string prop;
 }
 
-let register ?tf_module ?alias_authorization_rule_id ?id ?timeouts
-    ~name ~partner_namespace_id ~primary_namespace_id __resource_id =
-  let __resource_type =
+let make ?alias_authorization_rule_id ?id ?timeouts ~name
+    ~partner_namespace_id ~primary_namespace_id __id =
+  let __type =
     "azurerm_servicebus_namespace_disaster_recovery_config"
   in
-  let __resource =
-    azurerm_servicebus_namespace_disaster_recovery_config
-      ?alias_authorization_rule_id ?id ?timeouts ~name
-      ~partner_namespace_id ~primary_namespace_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_namespace_disaster_recovery_config
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        alias_authorization_rule_id =
-         Prop.computed __resource_type __resource_id
-           "alias_authorization_rule_id";
+         Prop.computed __type __id "alias_authorization_rule_id";
        default_primary_key =
-         Prop.computed __resource_type __resource_id
-           "default_primary_key";
+         Prop.computed __type __id "default_primary_key";
        default_secondary_key =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_secondary_key";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        partner_namespace_id =
-         Prop.computed __resource_type __resource_id
-           "partner_namespace_id";
+         Prop.computed __type __id "partner_namespace_id";
        primary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string_alias";
+         Prop.computed __type __id "primary_connection_string_alias";
        primary_namespace_id =
-         Prop.computed __resource_type __resource_id
-           "primary_namespace_id";
+         Prop.computed __type __id "primary_namespace_id";
        secondary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "secondary_connection_string_alias";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_namespace_disaster_recovery_config
+        (azurerm_servicebus_namespace_disaster_recovery_config
+           ?alias_authorization_rule_id ?id ?timeouts ~name
+           ~partner_namespace_id ~primary_namespace_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alias_authorization_rule_id ?id ?timeouts
+    ~name ~partner_namespace_id ~primary_namespace_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias_authorization_rule_id ?id ?timeouts ~name
+      ~partner_namespace_id ~primary_namespace_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

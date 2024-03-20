@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -112,3 +112,16 @@ val register :
   specific_reservation:specific_reservation list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?specific_reservation_required:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  zone:string prop ->
+  share_settings:share_settings list ->
+  specific_reservation:specific_reservation list ->
+  string ->
+  t Tf_core.resource

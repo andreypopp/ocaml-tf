@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,38 +57,42 @@ type t = {
   unique_id : string prop;
 }
 
-let register ?tf_module ?create_ignore_already_exists ?description
-    ?disabled ?display_name ?id ?project ?timeouts ~account_id
-    __resource_id =
-  let __resource_type = "google_service_account" in
-  let __resource =
-    google_service_account ?create_ignore_already_exists ?description
-      ?disabled ?display_name ?id ?project ?timeouts ~account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_service_account __resource);
-  let __resource_attributes =
+let make ?create_ignore_already_exists ?description ?disabled
+    ?display_name ?id ?project ?timeouts ~account_id __id =
+  let __type = "google_service_account" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        create_ignore_already_exists =
-         Prop.computed __resource_type __resource_id
-           "create_ignore_already_exists";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       member = Prop.computed __resource_type __resource_id "member";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       unique_id =
-         Prop.computed __resource_type __resource_id "unique_id";
+         Prop.computed __type __id "create_ignore_already_exists";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       display_name = Prop.computed __type __id "display_name";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       member = Prop.computed __type __id "member";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       unique_id = Prop.computed __type __id "unique_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_service_account
+        (google_service_account ?create_ignore_already_exists
+           ?description ?disabled ?display_name ?id ?project
+           ?timeouts ~account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?create_ignore_already_exists ?description
+    ?disabled ?display_name ?id ?project ?timeouts ~account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_ignore_already_exists ?description ?disabled
+      ?display_name ?id ?project ?timeouts ~account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

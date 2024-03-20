@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type validation_errors = unit [@@deriving yojson_of]
 
@@ -88,41 +86,50 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?cloudflare_branding ?id
-    ?wait_for_active_status ~certificate_authority ~hosts ~type_
-    ~validation_method ~validity_days ~zone_id ~validation_errors
-    ~validation_records __resource_id =
-  let __resource_type = "cloudflare_certificate_pack" in
-  let __resource =
-    cloudflare_certificate_pack ?cloudflare_branding ?id
-      ?wait_for_active_status ~certificate_authority ~hosts ~type_
-      ~validation_method ~validity_days ~zone_id ~validation_errors
-      ~validation_records ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_certificate_pack __resource);
-  let __resource_attributes =
+let make ?cloudflare_branding ?id ?wait_for_active_status
+    ~certificate_authority ~hosts ~type_ ~validation_method
+    ~validity_days ~zone_id ~validation_errors ~validation_records
+    __id =
+  let __type = "cloudflare_certificate_pack" in
+  let __attrs =
     ({
        certificate_authority =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority";
+         Prop.computed __type __id "certificate_authority";
        cloudflare_branding =
-         Prop.computed __resource_type __resource_id
-           "cloudflare_branding";
-       hosts = Prop.computed __resource_type __resource_id "hosts";
-       id = Prop.computed __resource_type __resource_id "id";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "cloudflare_branding";
+       hosts = Prop.computed __type __id "hosts";
+       id = Prop.computed __type __id "id";
+       type_ = Prop.computed __type __id "type";
        validation_method =
-         Prop.computed __resource_type __resource_id
-           "validation_method";
-       validity_days =
-         Prop.computed __resource_type __resource_id "validity_days";
+         Prop.computed __type __id "validation_method";
+       validity_days = Prop.computed __type __id "validity_days";
        wait_for_active_status =
-         Prop.computed __resource_type __resource_id
-           "wait_for_active_status";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "wait_for_active_status";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_certificate_pack
+        (cloudflare_certificate_pack ?cloudflare_branding ?id
+           ?wait_for_active_status ~certificate_authority ~hosts
+           ~type_ ~validation_method ~validity_days ~zone_id
+           ~validation_errors ~validation_records ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cloudflare_branding ?id
+    ?wait_for_active_status ~certificate_authority ~hosts ~type_
+    ~validation_method ~validity_days ~zone_id ~validation_errors
+    ~validation_records __id =
+  let (r : _ Tf_core.resource) =
+    make ?cloudflare_branding ?id ?wait_for_active_status
+      ~certificate_authority ~hosts ~type_ ~validation_method
+      ~validity_days ~zone_id ~validation_errors ~validation_records
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

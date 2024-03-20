@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_certificate = {
   data : string prop;  (** data *)
@@ -832,6 +830,60 @@ type t = {
   zones : string list prop;
 }
 
+let make ?enable_http2 ?fips_enabled ?firewall_policy_id
+    ?force_firewall_policy_association ?id ?tags ?zones ?timeouts
+    ~location ~name ~resource_group_name ~authentication_certificate
+    ~autoscale_configuration ~backend_address_pool
+    ~backend_http_settings ~custom_error_configuration
+    ~frontend_ip_configuration ~frontend_port
+    ~gateway_ip_configuration ~global ~http_listener ~identity
+    ~private_link_configuration ~probe ~redirect_configuration
+    ~request_routing_rule ~rewrite_rule_set ~sku ~ssl_certificate
+    ~ssl_policy ~ssl_profile ~trusted_client_certificate
+    ~trusted_root_certificate ~url_path_map ~waf_configuration __id =
+  let __type = "azurerm_application_gateway" in
+  let __attrs =
+    ({
+       enable_http2 = Prop.computed __type __id "enable_http2";
+       fips_enabled = Prop.computed __type __id "fips_enabled";
+       firewall_policy_id =
+         Prop.computed __type __id "firewall_policy_id";
+       force_firewall_policy_association =
+         Prop.computed __type __id
+           "force_firewall_policy_association";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       private_endpoint_connection =
+         Prop.computed __type __id "private_endpoint_connection";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_gateway
+        (azurerm_application_gateway ?enable_http2 ?fips_enabled
+           ?firewall_policy_id ?force_firewall_policy_association ?id
+           ?tags ?zones ?timeouts ~location ~name
+           ~resource_group_name ~authentication_certificate
+           ~autoscale_configuration ~backend_address_pool
+           ~backend_http_settings ~custom_error_configuration
+           ~frontend_ip_configuration ~frontend_port
+           ~gateway_ip_configuration ~global ~http_listener ~identity
+           ~private_link_configuration ~probe ~redirect_configuration
+           ~request_routing_rule ~rewrite_rule_set ~sku
+           ~ssl_certificate ~ssl_policy ~ssl_profile
+           ~trusted_client_certificate ~trusted_root_certificate
+           ~url_path_map ~waf_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enable_http2 ?fips_enabled
     ?firewall_policy_id ?force_firewall_policy_association ?id ?tags
     ?zones ?timeouts ~location ~name ~resource_group_name
@@ -843,12 +895,11 @@ let register ?tf_module ?enable_http2 ?fips_enabled
     ~redirect_configuration ~request_routing_rule ~rewrite_rule_set
     ~sku ~ssl_certificate ~ssl_policy ~ssl_profile
     ~trusted_client_certificate ~trusted_root_certificate
-    ~url_path_map ~waf_configuration __resource_id =
-  let __resource_type = "azurerm_application_gateway" in
-  let __resource =
-    azurerm_application_gateway ?enable_http2 ?fips_enabled
-      ?firewall_policy_id ?force_firewall_policy_association ?id
-      ?tags ?zones ?timeouts ~location ~name ~resource_group_name
+    ~url_path_map ~waf_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_http2 ?fips_enabled ?firewall_policy_id
+      ?force_firewall_policy_association ?id ?tags ?zones ?timeouts
+      ~location ~name ~resource_group_name
       ~authentication_certificate ~autoscale_configuration
       ~backend_address_pool ~backend_http_settings
       ~custom_error_configuration ~frontend_ip_configuration
@@ -857,35 +908,7 @@ let register ?tf_module ?enable_http2 ?fips_enabled
       ~redirect_configuration ~request_routing_rule ~rewrite_rule_set
       ~sku ~ssl_certificate ~ssl_policy ~ssl_profile
       ~trusted_client_certificate ~trusted_root_certificate
-      ~url_path_map ~waf_configuration ()
+      ~url_path_map ~waf_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_gateway __resource);
-  let __resource_attributes =
-    ({
-       enable_http2 =
-         Prop.computed __resource_type __resource_id "enable_http2";
-       fips_enabled =
-         Prop.computed __resource_type __resource_id "fips_enabled";
-       firewall_policy_id =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy_id";
-       force_firewall_policy_association =
-         Prop.computed __resource_type __resource_id
-           "force_firewall_policy_association";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_endpoint_connection =
-         Prop.computed __resource_type __resource_id
-           "private_endpoint_connection";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

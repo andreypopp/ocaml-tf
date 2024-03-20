@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -1183,3 +1183,71 @@ val register :
   workload_identity_config:workload_identity_config list ->
   string ->
   t
+
+val make :
+  ?allow_net_admin:bool prop ->
+  ?cluster_ipv4_cidr:string prop ->
+  ?datapath_provider:string prop ->
+  ?default_max_pods_per_node:float prop ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?enable_autopilot:bool prop ->
+  ?enable_intranode_visibility:bool prop ->
+  ?enable_kubernetes_alpha:bool prop ->
+  ?enable_l4_ilb_subsetting:bool prop ->
+  ?enable_legacy_abac:bool prop ->
+  ?enable_shielded_nodes:bool prop ->
+  ?enable_tpu:bool prop ->
+  ?id:string prop ->
+  ?initial_node_count:float prop ->
+  ?location:string prop ->
+  ?logging_service:string prop ->
+  ?min_master_version:string prop ->
+  ?monitoring_service:string prop ->
+  ?network:string prop ->
+  ?networking_mode:string prop ->
+  ?node_locations:string prop list ->
+  ?node_version:string prop ->
+  ?private_ipv6_google_access:string prop ->
+  ?project:string prop ->
+  ?remove_default_node_pool:bool prop ->
+  ?resource_labels:(string * string prop) list ->
+  ?subnetwork:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  addons_config:addons_config list ->
+  authenticator_groups_config:authenticator_groups_config list ->
+  binary_authorization:binary_authorization list ->
+  cluster_autoscaling:cluster_autoscaling list ->
+  confidential_nodes:confidential_nodes list ->
+  cost_management_config:cost_management_config list ->
+  database_encryption:database_encryption list ->
+  default_snat_status:default_snat_status list ->
+  dns_config:dns_config list ->
+  enable_k8s_beta_apis:enable_k8s_beta_apis list ->
+  fleet:fleet list ->
+  gateway_api_config:gateway_api_config list ->
+  identity_service_config:identity_service_config list ->
+  ip_allocation_policy:ip_allocation_policy list ->
+  logging_config:logging_config list ->
+  maintenance_policy:maintenance_policy list ->
+  master_auth:master_auth list ->
+  master_authorized_networks_config:
+    master_authorized_networks_config list ->
+  mesh_certificates:mesh_certificates list ->
+  monitoring_config:monitoring_config list ->
+  network_policy:network_policy list ->
+  node_config:node_config list ->
+  node_pool:node_pool list ->
+  node_pool_auto_config:node_pool_auto_config list ->
+  node_pool_defaults:node_pool_defaults list ->
+  notification_config:notification_config list ->
+  private_cluster_config:private_cluster_config list ->
+  release_channel:release_channel list ->
+  resource_usage_export_config:resource_usage_export_config list ->
+  security_posture_config:security_posture_config list ->
+  service_external_ips_config:service_external_ips_config list ->
+  vertical_pod_autoscaling:vertical_pod_autoscaling list ->
+  workload_identity_config:workload_identity_config list ->
+  string ->
+  t Tf_core.resource

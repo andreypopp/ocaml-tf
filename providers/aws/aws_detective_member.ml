@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_detective_member = {
   account_id : string prop;  (** account_id *)
@@ -42,44 +40,44 @@ type t = {
   volume_usage_in_bytes : string prop;
 }
 
-let register ?tf_module ?disable_email_notification ?id ?message
-    ~account_id ~email_address ~graph_arn __resource_id =
-  let __resource_type = "aws_detective_member" in
-  let __resource =
-    aws_detective_member ?disable_email_notification ?id ?message
-      ~account_id ~email_address ~graph_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_detective_member __resource);
-  let __resource_attributes =
+let make ?disable_email_notification ?id ?message ~account_id
+    ~email_address ~graph_arn __id =
+  let __type = "aws_detective_member" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        administrator_id =
-         Prop.computed __resource_type __resource_id
-           "administrator_id";
+         Prop.computed __type __id "administrator_id";
        disable_email_notification =
-         Prop.computed __resource_type __resource_id
-           "disable_email_notification";
-       disabled_reason =
-         Prop.computed __resource_type __resource_id
-           "disabled_reason";
-       email_address =
-         Prop.computed __resource_type __resource_id "email_address";
-       graph_arn =
-         Prop.computed __resource_type __resource_id "graph_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       invited_time =
-         Prop.computed __resource_type __resource_id "invited_time";
-       message =
-         Prop.computed __resource_type __resource_id "message";
-       status = Prop.computed __resource_type __resource_id "status";
-       updated_time =
-         Prop.computed __resource_type __resource_id "updated_time";
+         Prop.computed __type __id "disable_email_notification";
+       disabled_reason = Prop.computed __type __id "disabled_reason";
+       email_address = Prop.computed __type __id "email_address";
+       graph_arn = Prop.computed __type __id "graph_arn";
+       id = Prop.computed __type __id "id";
+       invited_time = Prop.computed __type __id "invited_time";
+       message = Prop.computed __type __id "message";
+       status = Prop.computed __type __id "status";
+       updated_time = Prop.computed __type __id "updated_time";
        volume_usage_in_bytes =
-         Prop.computed __resource_type __resource_id
-           "volume_usage_in_bytes";
+         Prop.computed __type __id "volume_usage_in_bytes";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_detective_member
+        (aws_detective_member ?disable_email_notification ?id
+           ?message ~account_id ~email_address ~graph_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disable_email_notification ?id ?message
+    ~account_id ~email_address ~graph_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?disable_email_notification ?id ?message ~account_id
+      ~email_address ~graph_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

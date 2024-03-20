@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,20 @@ val register :
   sku_name:string prop ->
   string ->
   t
+
+val make :
+  ?app_service_environment_id:string prop ->
+  ?id:string prop ->
+  ?maximum_elastic_worker_count:float prop ->
+  ?per_site_scaling_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?worker_count:float prop ->
+  ?zone_balancing_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  os_type:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  string ->
+  t Tf_core.resource

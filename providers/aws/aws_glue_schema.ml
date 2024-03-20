@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_glue_schema = {
   compatibility : string prop;  (** compatibility *)
@@ -51,48 +49,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?registry_arn ?tags
-    ?tags_all ~compatibility ~data_format ~schema_definition
-    ~schema_name __resource_id =
-  let __resource_type = "aws_glue_schema" in
-  let __resource =
-    aws_glue_schema ?description ?id ?registry_arn ?tags ?tags_all
-      ~compatibility ~data_format ~schema_definition ~schema_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_schema __resource);
-  let __resource_attributes =
+let make ?description ?id ?registry_arn ?tags ?tags_all
+    ~compatibility ~data_format ~schema_definition ~schema_name __id
+    =
+  let __type = "aws_glue_schema" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       compatibility =
-         Prop.computed __resource_type __resource_id "compatibility";
-       data_format =
-         Prop.computed __resource_type __resource_id "data_format";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       compatibility = Prop.computed __type __id "compatibility";
+       data_format = Prop.computed __type __id "data_format";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        latest_schema_version =
-         Prop.computed __resource_type __resource_id
-           "latest_schema_version";
+         Prop.computed __type __id "latest_schema_version";
        next_schema_version =
-         Prop.computed __resource_type __resource_id
-           "next_schema_version";
-       registry_arn =
-         Prop.computed __resource_type __resource_id "registry_arn";
-       registry_name =
-         Prop.computed __resource_type __resource_id "registry_name";
+         Prop.computed __type __id "next_schema_version";
+       registry_arn = Prop.computed __type __id "registry_arn";
+       registry_name = Prop.computed __type __id "registry_name";
        schema_checkpoint =
-         Prop.computed __resource_type __resource_id
-           "schema_checkpoint";
+         Prop.computed __type __id "schema_checkpoint";
        schema_definition =
-         Prop.computed __resource_type __resource_id
-           "schema_definition";
-       schema_name =
-         Prop.computed __resource_type __resource_id "schema_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "schema_definition";
+       schema_name = Prop.computed __type __id "schema_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_schema
+        (aws_glue_schema ?description ?id ?registry_arn ?tags
+           ?tags_all ~compatibility ~data_format ~schema_definition
+           ~schema_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?registry_arn ?tags
+    ?tags_all ~compatibility ~data_format ~schema_definition
+    ~schema_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?registry_arn ?tags ?tags_all
+      ~compatibility ~data_format ~schema_definition ~schema_name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

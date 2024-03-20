@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_control__action = {
   allowed_caller_ip_address_range : string prop list;
@@ -181,68 +179,70 @@ type t = {
   workflow_version : string prop;
 }
 
+let make ?enabled ?id ?integration_service_environment_id
+    ?logic_app_integration_account_id ?parameters ?tags
+    ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
+    ~location ~name ~resource_group_name ~access_control ~identity
+    __id =
+  let __type = "azurerm_logic_app_workflow" in
+  let __attrs =
+    ({
+       access_endpoint = Prop.computed __type __id "access_endpoint";
+       connector_endpoint_ip_addresses =
+         Prop.computed __type __id "connector_endpoint_ip_addresses";
+       connector_outbound_ip_addresses =
+         Prop.computed __type __id "connector_outbound_ip_addresses";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       integration_service_environment_id =
+         Prop.computed __type __id
+           "integration_service_environment_id";
+       location = Prop.computed __type __id "location";
+       logic_app_integration_account_id =
+         Prop.computed __type __id "logic_app_integration_account_id";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       workflow_endpoint_ip_addresses =
+         Prop.computed __type __id "workflow_endpoint_ip_addresses";
+       workflow_outbound_ip_addresses =
+         Prop.computed __type __id "workflow_outbound_ip_addresses";
+       workflow_parameters =
+         Prop.computed __type __id "workflow_parameters";
+       workflow_schema = Prop.computed __type __id "workflow_schema";
+       workflow_version =
+         Prop.computed __type __id "workflow_version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_workflow
+        (azurerm_logic_app_workflow ?enabled ?id
+           ?integration_service_environment_id
+           ?logic_app_integration_account_id ?parameters ?tags
+           ?workflow_parameters ?workflow_schema ?workflow_version
+           ?timeouts ~location ~name ~resource_group_name
+           ~access_control ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enabled ?id
     ?integration_service_environment_id
     ?logic_app_integration_account_id ?parameters ?tags
     ?workflow_parameters ?workflow_schema ?workflow_version ?timeouts
     ~location ~name ~resource_group_name ~access_control ~identity
-    __resource_id =
-  let __resource_type = "azurerm_logic_app_workflow" in
-  let __resource =
-    azurerm_logic_app_workflow ?enabled ?id
-      ?integration_service_environment_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?integration_service_environment_id
       ?logic_app_integration_account_id ?parameters ?tags
       ?workflow_parameters ?workflow_schema ?workflow_version
       ?timeouts ~location ~name ~resource_group_name ~access_control
-      ~identity ()
+      ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_workflow __resource);
-  let __resource_attributes =
-    ({
-       access_endpoint =
-         Prop.computed __resource_type __resource_id
-           "access_endpoint";
-       connector_endpoint_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "connector_endpoint_ip_addresses";
-       connector_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "connector_outbound_ip_addresses";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_service_environment_id =
-         Prop.computed __resource_type __resource_id
-           "integration_service_environment_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       logic_app_integration_account_id =
-         Prop.computed __resource_type __resource_id
-           "logic_app_integration_account_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workflow_endpoint_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "workflow_endpoint_ip_addresses";
-       workflow_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "workflow_outbound_ip_addresses";
-       workflow_parameters =
-         Prop.computed __resource_type __resource_id
-           "workflow_parameters";
-       workflow_schema =
-         Prop.computed __resource_type __resource_id
-           "workflow_schema";
-       workflow_version =
-         Prop.computed __resource_type __resource_id
-           "workflow_version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

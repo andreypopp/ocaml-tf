@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type permissions = {
   data_actions : string prop list;  (** data_actions *)
@@ -65,34 +63,41 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?role_definition_id ?type_ ?timeouts
-    ~account_name ~assignable_scopes ~name ~resource_group_name
-    ~permissions __resource_id =
-  let __resource_type = "azurerm_cosmosdb_sql_role_definition" in
-  let __resource =
-    azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
-      ?type_ ?timeouts ~account_name ~assignable_scopes ~name
-      ~resource_group_name ~permissions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_sql_role_definition __resource);
-  let __resource_attributes =
+let make ?id ?role_definition_id ?type_ ?timeouts ~account_name
+    ~assignable_scopes ~name ~resource_group_name ~permissions __id =
+  let __type = "azurerm_cosmosdb_sql_role_definition" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
+       account_name = Prop.computed __type __id "account_name";
        assignable_scopes =
-         Prop.computed __resource_type __resource_id
-           "assignable_scopes";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "assignable_scopes";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        role_definition_id =
-         Prop.computed __resource_type __resource_id
-           "role_definition_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "role_definition_id";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_sql_role_definition
+        (azurerm_cosmosdb_sql_role_definition ?id ?role_definition_id
+           ?type_ ?timeouts ~account_name ~assignable_scopes ~name
+           ~resource_group_name ~permissions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?role_definition_id ?type_ ?timeouts
+    ~account_name ~assignable_scopes ~name ~resource_group_name
+    ~permissions __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?role_definition_id ?type_ ?timeouts ~account_name
+      ~assignable_scopes ~name ~resource_group_name ~permissions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

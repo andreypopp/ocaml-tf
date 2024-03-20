@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,16 @@ val register :
   replica:replica list ->
   string ->
   t
+
+val make :
+  ?availability_group_name:string prop ->
+  ?id:string prop ->
+  ?port:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  sql_virtual_machine_group_id:string prop ->
+  load_balancer_configuration:load_balancer_configuration list ->
+  multi_subnet_ip_configuration:multi_subnet_ip_configuration list ->
+  replica:replica list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type versioning_configuration = {
   mfa_delete : string prop option; [@option]  (** mfa_delete *)
@@ -43,24 +41,34 @@ type t = {
   mfa : string prop;
 }
 
-let register ?tf_module ?expected_bucket_owner ?id ?mfa ~bucket
-    ~versioning_configuration __resource_id =
-  let __resource_type = "aws_s3_bucket_versioning" in
-  let __resource =
-    aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa ~bucket
-      ~versioning_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket_versioning __resource);
-  let __resource_attributes =
+let make ?expected_bucket_owner ?id ?mfa ~bucket
+    ~versioning_configuration __id =
+  let __type = "aws_s3_bucket_versioning" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
+       bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       id = Prop.computed __resource_type __resource_id "id";
-       mfa = Prop.computed __resource_type __resource_id "mfa";
+         Prop.computed __type __id "expected_bucket_owner";
+       id = Prop.computed __type __id "id";
+       mfa = Prop.computed __type __id "mfa";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket_versioning
+        (aws_s3_bucket_versioning ?expected_bucket_owner ?id ?mfa
+           ~bucket ~versioning_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?expected_bucket_owner ?id ?mfa ~bucket
+    ~versioning_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?expected_bucket_owner ?id ?mfa ~bucket
+      ~versioning_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

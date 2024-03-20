@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,20 @@ val register :
   scheduling_config:scheduling_config list ->
   string ->
   t
+
+val make :
+  ?cidr_block:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?use_service_networking:bool prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  accelerator_type:string prop ->
+  name:string prop ->
+  tensorflow_version:string prop ->
+  scheduling_config:scheduling_config list ->
+  string ->
+  t Tf_core.resource

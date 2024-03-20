@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,14 @@ val register :
   table_with_columns:table_with_columns list ->
   string ->
   t
+
+val make :
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  database:database list ->
+  lf_tag:lf_tag list ->
+  table:table list ->
+  table_with_columns:table_with_columns list ->
+  string ->
+  t Tf_core.resource

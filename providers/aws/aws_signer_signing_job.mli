@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,12 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ignore_signing_job_failure:bool prop ->
+  profile_name:string prop ->
+  destination:destination list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

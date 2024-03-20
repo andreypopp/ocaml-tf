@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ipv4_firewall_rule = {
   name : string prop;  (** name *)
@@ -83,45 +81,53 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?admin_users ?backup_blob_container_uri
+let make ?admin_users ?backup_blob_container_uri
     ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
     ?timeouts ~location ~name ~resource_group_name ~sku
-    ~ipv4_firewall_rule __resource_id =
-  let __resource_type = "azurerm_analysis_services_server" in
-  let __resource =
-    azurerm_analysis_services_server ?admin_users
-      ?backup_blob_container_uri ?enable_power_bi_service ?id
-      ?querypool_connection_mode ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~ipv4_firewall_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_analysis_services_server __resource);
-  let __resource_attributes =
+    ~ipv4_firewall_rule __id =
+  let __type = "azurerm_analysis_services_server" in
+  let __attrs =
     ({
-       admin_users =
-         Prop.computed __resource_type __resource_id "admin_users";
+       admin_users = Prop.computed __type __id "admin_users";
        backup_blob_container_uri =
-         Prop.computed __resource_type __resource_id
-           "backup_blob_container_uri";
+         Prop.computed __type __id "backup_blob_container_uri";
        enable_power_bi_service =
-         Prop.computed __resource_type __resource_id
-           "enable_power_bi_service";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enable_power_bi_service";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        querypool_connection_mode =
-         Prop.computed __resource_type __resource_id
-           "querypool_connection_mode";
+         Prop.computed __type __id "querypool_connection_mode";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        server_full_name =
-         Prop.computed __resource_type __resource_id
-           "server_full_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "server_full_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_analysis_services_server
+        (azurerm_analysis_services_server ?admin_users
+           ?backup_blob_container_uri ?enable_power_bi_service ?id
+           ?querypool_connection_mode ?tags ?timeouts ~location ~name
+           ~resource_group_name ~sku ~ipv4_firewall_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?admin_users ?backup_blob_container_uri
+    ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
+    ?timeouts ~location ~name ~resource_group_name ~sku
+    ~ipv4_firewall_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_users ?backup_blob_container_uri
+      ?enable_power_bi_service ?id ?querypool_connection_mode ?tags
+      ?timeouts ~location ~name ~resource_group_name ~sku
+      ~ipv4_firewall_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

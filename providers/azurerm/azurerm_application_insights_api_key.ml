@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,31 +48,39 @@ type t = {
   write_permissions : string list prop;
 }
 
-let register ?tf_module ?id ?read_permissions ?write_permissions
-    ?timeouts ~application_insights_id ~name __resource_id =
-  let __resource_type = "azurerm_application_insights_api_key" in
-  let __resource =
-    azurerm_application_insights_api_key ?id ?read_permissions
-      ?write_permissions ?timeouts ~application_insights_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights_api_key __resource);
-  let __resource_attributes =
+let make ?id ?read_permissions ?write_permissions ?timeouts
+    ~application_insights_id ~name __id =
+  let __type = "azurerm_application_insights_api_key" in
+  let __attrs =
     ({
-       api_key =
-         Prop.computed __resource_type __resource_id "api_key";
+       api_key = Prop.computed __type __id "api_key";
        application_insights_id =
-         Prop.computed __resource_type __resource_id
-           "application_insights_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "application_insights_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        read_permissions =
-         Prop.computed __resource_type __resource_id
-           "read_permissions";
+         Prop.computed __type __id "read_permissions";
        write_permissions =
-         Prop.computed __resource_type __resource_id
-           "write_permissions";
+         Prop.computed __type __id "write_permissions";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights_api_key
+        (azurerm_application_insights_api_key ?id ?read_permissions
+           ?write_permissions ?timeouts ~application_insights_id
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?read_permissions ?write_permissions
+    ?timeouts ~application_insights_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?read_permissions ?write_permissions ?timeouts
+      ~application_insights_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

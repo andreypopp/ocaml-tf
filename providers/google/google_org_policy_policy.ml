@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dry_run_spec__rules__condition = {
   description : string prop option; [@option]
@@ -159,22 +157,31 @@ type t = {
   parent : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~parent ~dry_run_spec
-    ~spec __resource_id =
-  let __resource_type = "google_org_policy_policy" in
-  let __resource =
-    google_org_policy_policy ?id ?timeouts ~name ~parent
-      ~dry_run_spec ~spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_org_policy_policy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~parent ~dry_run_spec ~spec __id =
+  let __type = "google_org_policy_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_org_policy_policy
+        (google_org_policy_policy ?id ?timeouts ~name ~parent
+           ~dry_run_spec ~spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~parent ~dry_run_spec
+    ~spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~parent ~dry_run_spec ~spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

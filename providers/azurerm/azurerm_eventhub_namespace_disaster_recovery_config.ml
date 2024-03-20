@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -47,32 +45,39 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~namespace_name
-    ~partner_namespace_id ~resource_group_name __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~name ~namespace_name ~partner_namespace_id
+    ~resource_group_name __id =
+  let __type =
     "azurerm_eventhub_namespace_disaster_recovery_config"
   in
-  let __resource =
-    azurerm_eventhub_namespace_disaster_recovery_config ?id ?timeouts
-      ~name ~namespace_name ~partner_namespace_id
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventhub_namespace_disaster_recovery_config
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespace_name = Prop.computed __type __id "namespace_name";
        partner_namespace_id =
-         Prop.computed __resource_type __resource_id
-           "partner_namespace_id";
+         Prop.computed __type __id "partner_namespace_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventhub_namespace_disaster_recovery_config
+        (azurerm_eventhub_namespace_disaster_recovery_config ?id
+           ?timeouts ~name ~namespace_name ~partner_namespace_id
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~namespace_name
+    ~partner_namespace_id ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~namespace_name ~partner_namespace_id
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

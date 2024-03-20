@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config_file = {
   content : string prop;  (** content *)
@@ -68,27 +66,36 @@ type t = {
   root_file : string prop;
 }
 
-let register ?tf_module ?id ?package_data ?timeouts
-    ~nginx_deployment_id ~root_file ~config_file ~protected_file
-    __resource_id =
-  let __resource_type = "azurerm_nginx_configuration" in
-  let __resource =
-    azurerm_nginx_configuration ?id ?package_data ?timeouts
-      ~nginx_deployment_id ~root_file ~config_file ~protected_file ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_nginx_configuration __resource);
-  let __resource_attributes =
+let make ?id ?package_data ?timeouts ~nginx_deployment_id ~root_file
+    ~config_file ~protected_file __id =
+  let __type = "azurerm_nginx_configuration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        nginx_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "nginx_deployment_id";
-       package_data =
-         Prop.computed __resource_type __resource_id "package_data";
-       root_file =
-         Prop.computed __resource_type __resource_id "root_file";
+         Prop.computed __type __id "nginx_deployment_id";
+       package_data = Prop.computed __type __id "package_data";
+       root_file = Prop.computed __type __id "root_file";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_nginx_configuration
+        (azurerm_nginx_configuration ?id ?package_data ?timeouts
+           ~nginx_deployment_id ~root_file ~config_file
+           ~protected_file ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?package_data ?timeouts
+    ~nginx_deployment_id ~root_file ~config_file ~protected_file __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?package_data ?timeouts ~nginx_deployment_id ~root_file
+      ~config_file ~protected_file __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type all_instances_config = {
   labels : (string * string prop) list option; [@option]
@@ -280,63 +278,72 @@ type t = {
   zone : string prop;
 }
 
+let make ?description ?id ?list_managed_instances_results ?project
+    ?target_pools ?target_size ?wait_for_instances
+    ?wait_for_instances_status ?zone ?timeouts ~base_instance_name
+    ~name ~all_instances_config ~auto_healing_policies
+    ~instance_lifecycle_policy ~named_port ~stateful_disk
+    ~stateful_external_ip ~stateful_internal_ip ~update_policy
+    ~version __id =
+  let __type = "google_compute_instance_group_manager" in
+  let __attrs =
+    ({
+       base_instance_name =
+         Prop.computed __type __id "base_instance_name";
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       instance_group = Prop.computed __type __id "instance_group";
+       list_managed_instances_results =
+         Prop.computed __type __id "list_managed_instances_results";
+       name = Prop.computed __type __id "name";
+       operation = Prop.computed __type __id "operation";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       status = Prop.computed __type __id "status";
+       target_pools = Prop.computed __type __id "target_pools";
+       target_size = Prop.computed __type __id "target_size";
+       wait_for_instances =
+         Prop.computed __type __id "wait_for_instances";
+       wait_for_instances_status =
+         Prop.computed __type __id "wait_for_instances_status";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_instance_group_manager
+        (google_compute_instance_group_manager ?description ?id
+           ?list_managed_instances_results ?project ?target_pools
+           ?target_size ?wait_for_instances
+           ?wait_for_instances_status ?zone ?timeouts
+           ~base_instance_name ~name ~all_instances_config
+           ~auto_healing_policies ~instance_lifecycle_policy
+           ~named_port ~stateful_disk ~stateful_external_ip
+           ~stateful_internal_ip ~update_policy ~version ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id
     ?list_managed_instances_results ?project ?target_pools
     ?target_size ?wait_for_instances ?wait_for_instances_status ?zone
     ?timeouts ~base_instance_name ~name ~all_instances_config
     ~auto_healing_policies ~instance_lifecycle_policy ~named_port
     ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
-    ~update_policy ~version __resource_id =
-  let __resource_type = "google_compute_instance_group_manager" in
-  let __resource =
-    google_compute_instance_group_manager ?description ?id
-      ?list_managed_instances_results ?project ?target_pools
-      ?target_size ?wait_for_instances ?wait_for_instances_status
-      ?zone ?timeouts ~base_instance_name ~name ~all_instances_config
-      ~auto_healing_policies ~instance_lifecycle_policy ~named_port
-      ~stateful_disk ~stateful_external_ip ~stateful_internal_ip
-      ~update_policy ~version ()
+    ~update_policy ~version __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?list_managed_instances_results ?project
+      ?target_pools ?target_size ?wait_for_instances
+      ?wait_for_instances_status ?zone ?timeouts ~base_instance_name
+      ~name ~all_instances_config ~auto_healing_policies
+      ~instance_lifecycle_policy ~named_port ~stateful_disk
+      ~stateful_external_ip ~stateful_internal_ip ~update_policy
+      ~version __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_instance_group_manager __resource);
-  let __resource_attributes =
-    ({
-       base_instance_name =
-         Prop.computed __resource_type __resource_id
-           "base_instance_name";
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_group =
-         Prop.computed __resource_type __resource_id "instance_group";
-       list_managed_instances_results =
-         Prop.computed __resource_type __resource_id
-           "list_managed_instances_results";
-       name = Prop.computed __resource_type __resource_id "name";
-       operation =
-         Prop.computed __resource_type __resource_id "operation";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       status = Prop.computed __resource_type __resource_id "status";
-       target_pools =
-         Prop.computed __resource_type __resource_id "target_pools";
-       target_size =
-         Prop.computed __resource_type __resource_id "target_size";
-       wait_for_instances =
-         Prop.computed __resource_type __resource_id
-           "wait_for_instances";
-       wait_for_instances_status =
-         Prop.computed __resource_type __resource_id
-           "wait_for_instances_status";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -121,3 +121,18 @@ val register :
   video_watermarks:video_watermarks list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?type_:string prop ->
+  ?video_codec_options:(string * string prop) list ->
+  container:string prop ->
+  audio:audio list ->
+  audio_codec_options:audio_codec_options list ->
+  thumbnails:thumbnails list ->
+  video:video list ->
+  video_watermarks:video_watermarks list ->
+  string ->
+  t Tf_core.resource

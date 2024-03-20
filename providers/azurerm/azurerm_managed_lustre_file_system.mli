@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -103,3 +103,21 @@ val register :
   maintenance_window:maintenance_window list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  storage_capacity_in_tb:float prop ->
+  subnet_id:string prop ->
+  zones:string prop list ->
+  encryption_key:encryption_key list ->
+  hsm_setting:hsm_setting list ->
+  identity:identity list ->
+  maintenance_window:maintenance_window list ->
+  string ->
+  t Tf_core.resource

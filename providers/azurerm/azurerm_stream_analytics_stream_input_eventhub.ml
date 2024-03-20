@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type serialization = {
   encoding : string prop option; [@option]  (** encoding *)
@@ -89,55 +87,60 @@ type t = {
   stream_analytics_job_name : string prop;
 }
 
+let make ?authentication_mode ?eventhub_consumer_group_name ?id
+    ?partition_key ?shared_access_policy_key
+    ?shared_access_policy_name ?timeouts ~eventhub_name ~name
+    ~resource_group_name ~servicebus_namespace
+    ~stream_analytics_job_name ~serialization __id =
+  let __type = "azurerm_stream_analytics_stream_input_eventhub" in
+  let __attrs =
+    ({
+       authentication_mode =
+         Prop.computed __type __id "authentication_mode";
+       eventhub_consumer_group_name =
+         Prop.computed __type __id "eventhub_consumer_group_name";
+       eventhub_name = Prop.computed __type __id "eventhub_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       partition_key = Prop.computed __type __id "partition_key";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       servicebus_namespace =
+         Prop.computed __type __id "servicebus_namespace";
+       shared_access_policy_key =
+         Prop.computed __type __id "shared_access_policy_key";
+       shared_access_policy_name =
+         Prop.computed __type __id "shared_access_policy_name";
+       stream_analytics_job_name =
+         Prop.computed __type __id "stream_analytics_job_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_stream_input_eventhub
+        (azurerm_stream_analytics_stream_input_eventhub
+           ?authentication_mode ?eventhub_consumer_group_name ?id
+           ?partition_key ?shared_access_policy_key
+           ?shared_access_policy_name ?timeouts ~eventhub_name ~name
+           ~resource_group_name ~servicebus_namespace
+           ~stream_analytics_job_name ~serialization ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authentication_mode
     ?eventhub_consumer_group_name ?id ?partition_key
     ?shared_access_policy_key ?shared_access_policy_name ?timeouts
     ~eventhub_name ~name ~resource_group_name ~servicebus_namespace
-    ~stream_analytics_job_name ~serialization __resource_id =
-  let __resource_type =
-    "azurerm_stream_analytics_stream_input_eventhub"
-  in
-  let __resource =
-    azurerm_stream_analytics_stream_input_eventhub
-      ?authentication_mode ?eventhub_consumer_group_name ?id
+    ~stream_analytics_job_name ~serialization __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_mode ?eventhub_consumer_group_name ?id
       ?partition_key ?shared_access_policy_key
       ?shared_access_policy_name ?timeouts ~eventhub_name ~name
       ~resource_group_name ~servicebus_namespace
-      ~stream_analytics_job_name ~serialization ()
+      ~stream_analytics_job_name ~serialization __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_stream_input_eventhub
-       __resource);
-  let __resource_attributes =
-    ({
-       authentication_mode =
-         Prop.computed __resource_type __resource_id
-           "authentication_mode";
-       eventhub_consumer_group_name =
-         Prop.computed __resource_type __resource_id
-           "eventhub_consumer_group_name";
-       eventhub_name =
-         Prop.computed __resource_type __resource_id "eventhub_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_key =
-         Prop.computed __resource_type __resource_id "partition_key";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       servicebus_namespace =
-         Prop.computed __resource_type __resource_id
-           "servicebus_namespace";
-       shared_access_policy_key =
-         Prop.computed __resource_type __resource_id
-           "shared_access_policy_key";
-       shared_access_policy_name =
-         Prop.computed __resource_type __resource_id
-           "shared_access_policy_name";
-       stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

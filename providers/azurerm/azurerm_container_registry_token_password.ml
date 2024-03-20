@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type password1 = {
   expiry : string prop option; [@option]  (** expiry *)
@@ -52,24 +50,32 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~container_registry_token_id
-    ~password1 ~password2 __resource_id =
-  let __resource_type =
-    "azurerm_container_registry_token_password"
-  in
-  let __resource =
-    azurerm_container_registry_token_password ?id ?timeouts
-      ~container_registry_token_id ~password1 ~password2 ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry_token_password __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~container_registry_token_id ~password1
+    ~password2 __id =
+  let __type = "azurerm_container_registry_token_password" in
+  let __attrs =
     ({
        container_registry_token_id =
-         Prop.computed __resource_type __resource_id
-           "container_registry_token_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "container_registry_token_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry_token_password
+        (azurerm_container_registry_token_password ?id ?timeouts
+           ~container_registry_token_id ~password1 ~password2 ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~container_registry_token_id
+    ~password1 ~password2 __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~container_registry_token_id ~password1
+      ~password2 __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

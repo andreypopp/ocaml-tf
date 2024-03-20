@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create: string  prop option; [@option] (** create *)
@@ -80,29 +78,36 @@ type t = {
   realm: string prop;
 }
 
-let register ?tf_module ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __resource_id =
-  let __resource_type = "aws_quicksight_account_subscription" in
-  let __resource = aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_account_subscription __resource);
-  let __resource_attributes = ({
-    account_name = Prop.computed __resource_type __resource_id "account_name";
-    account_subscription_status = Prop.computed __resource_type __resource_id "account_subscription_status";
-    active_directory_name = Prop.computed __resource_type __resource_id "active_directory_name";
-    admin_group = Prop.computed __resource_type __resource_id "admin_group";
-    authentication_method = Prop.computed __resource_type __resource_id "authentication_method";
-    author_group = Prop.computed __resource_type __resource_id "author_group";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    contact_number = Prop.computed __resource_type __resource_id "contact_number";
-    directory_id = Prop.computed __resource_type __resource_id "directory_id";
-    edition = Prop.computed __resource_type __resource_id "edition";
-    email_address = Prop.computed __resource_type __resource_id "email_address";
-    first_name = Prop.computed __resource_type __resource_id "first_name";
-    id = Prop.computed __resource_type __resource_id "id";
-    last_name = Prop.computed __resource_type __resource_id "last_name";
-    notification_email = Prop.computed __resource_type __resource_id "notification_email";
-    reader_group = Prop.computed __resource_type __resource_id "reader_group";
-    realm = Prop.computed __resource_type __resource_id "realm";
+let make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
+  let __type = "aws_quicksight_account_subscription" in
+  let __attrs = ({
+    account_name = Prop.computed __type __id "account_name";
+    account_subscription_status = Prop.computed __type __id "account_subscription_status";
+    active_directory_name = Prop.computed __type __id "active_directory_name";
+    admin_group = Prop.computed __type __id "admin_group";
+    authentication_method = Prop.computed __type __id "authentication_method";
+    author_group = Prop.computed __type __id "author_group";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    contact_number = Prop.computed __type __id "contact_number";
+    directory_id = Prop.computed __type __id "directory_id";
+    edition = Prop.computed __type __id "edition";
+    email_address = Prop.computed __type __id "email_address";
+    first_name = Prop.computed __type __id "first_name";
+    id = Prop.computed __type __id "id";
+    last_name = Prop.computed __type __id "last_name";
+    notification_email = Prop.computed __type __id "notification_email";
+    reader_group = Prop.computed __type __id "reader_group";
+    realm = Prop.computed __type __id "realm";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_account_subscription (aws_quicksight_account_subscription ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id =
+  let (r : _ Tf_core.resource) = make ?active_directory_name ?admin_group ?author_group ?aws_account_id ?contact_number ?directory_id ?email_address ?first_name ?id ?last_name ?reader_group ?realm ?timeouts ~account_name ~authentication_method ~edition ~notification_email __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

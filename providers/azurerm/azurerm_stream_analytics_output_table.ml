@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -69,46 +67,52 @@ type t = {
   table : string prop;
 }
 
-let register ?tf_module ?columns_to_remove ?id ?timeouts ~batch_size
-    ~name ~partition_key ~resource_group_name ~row_key
-    ~storage_account_key ~storage_account_name
-    ~stream_analytics_job_name ~table __resource_id =
-  let __resource_type = "azurerm_stream_analytics_output_table" in
-  let __resource =
-    azurerm_stream_analytics_output_table ?columns_to_remove ?id
-      ?timeouts ~batch_size ~name ~partition_key ~resource_group_name
-      ~row_key ~storage_account_key ~storage_account_name
-      ~stream_analytics_job_name ~table ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_table __resource);
-  let __resource_attributes =
+let make ?columns_to_remove ?id ?timeouts ~batch_size ~name
+    ~partition_key ~resource_group_name ~row_key ~storage_account_key
+    ~storage_account_name ~stream_analytics_job_name ~table __id =
+  let __type = "azurerm_stream_analytics_output_table" in
+  let __attrs =
     ({
-       batch_size =
-         Prop.computed __resource_type __resource_id "batch_size";
+       batch_size = Prop.computed __type __id "batch_size";
        columns_to_remove =
-         Prop.computed __resource_type __resource_id
-           "columns_to_remove";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_key =
-         Prop.computed __resource_type __resource_id "partition_key";
+         Prop.computed __type __id "columns_to_remove";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       partition_key = Prop.computed __type __id "partition_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       row_key =
-         Prop.computed __resource_type __resource_id "row_key";
+         Prop.computed __type __id "resource_group_name";
+       row_key = Prop.computed __type __id "row_key";
        storage_account_key =
-         Prop.computed __resource_type __resource_id
-           "storage_account_key";
+         Prop.computed __type __id "storage_account_key";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
        stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
-       table = Prop.computed __resource_type __resource_id "table";
+         Prop.computed __type __id "stream_analytics_job_name";
+       table = Prop.computed __type __id "table";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_table
+        (azurerm_stream_analytics_output_table ?columns_to_remove ?id
+           ?timeouts ~batch_size ~name ~partition_key
+           ~resource_group_name ~row_key ~storage_account_key
+           ~storage_account_name ~stream_analytics_job_name ~table ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?columns_to_remove ?id ?timeouts ~batch_size
+    ~name ~partition_key ~resource_group_name ~row_key
+    ~storage_account_key ~storage_account_name
+    ~stream_analytics_job_name ~table __id =
+  let (r : _ Tf_core.resource) =
+    make ?columns_to_remove ?id ?timeouts ~batch_size ~name
+      ~partition_key ~resource_group_name ~row_key
+      ~storage_account_key ~storage_account_name
+      ~stream_analytics_job_name ~table __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

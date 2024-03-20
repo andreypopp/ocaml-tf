@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,21 @@ val register :
   validation_option:validation_option list ->
   string ->
   t
+
+val make :
+  ?certificate_authority_arn:string prop ->
+  ?certificate_body:string prop ->
+  ?certificate_chain:string prop ->
+  ?domain_name:string prop ->
+  ?early_renewal_duration:string prop ->
+  ?id:string prop ->
+  ?key_algorithm:string prop ->
+  ?private_key:string prop ->
+  ?subject_alternative_names:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?validation_method:string prop ->
+  options:options list ->
+  validation_option:validation_option list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -187,3 +187,30 @@ val register :
   vpc_configuration:vpc_configuration list ->
   string ->
   t
+
+val make :
+  ?availability_zone_id:string prop ->
+  ?command_line_arguments:(string * string prop) list ->
+  ?description:string prop ->
+  ?execution_role:string prop ->
+  ?id:string prop ->
+  ?initialization_script:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  az_mode:string prop ->
+  environment_id:string prop ->
+  name:string prop ->
+  release_label:string prop ->
+  type_:string prop ->
+  auto_scaling_configuration:auto_scaling_configuration list ->
+  cache_storage_configurations:cache_storage_configurations list ->
+  capacity_configuration:capacity_configuration list ->
+  code:code list ->
+  database:database list ->
+  savedown_storage_configuration:savedown_storage_configuration list ->
+  scaling_group_configuration:scaling_group_configuration list ->
+  tickerplant_log_configuration:tickerplant_log_configuration list ->
+  vpc_configuration:vpc_configuration list ->
+  string ->
+  t Tf_core.resource

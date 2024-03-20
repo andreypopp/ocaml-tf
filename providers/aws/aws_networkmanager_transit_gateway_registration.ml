@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -33,28 +31,32 @@ type t = {
   transit_gateway_arn : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~global_network_id
-    ~transit_gateway_arn __resource_id =
-  let __resource_type =
-    "aws_networkmanager_transit_gateway_registration"
-  in
-  let __resource =
-    aws_networkmanager_transit_gateway_registration ?id ?timeouts
-      ~global_network_id ~transit_gateway_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_transit_gateway_registration
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~global_network_id ~transit_gateway_arn __id =
+  let __type = "aws_networkmanager_transit_gateway_registration" in
+  let __attrs =
     ({
        global_network_id =
-         Prop.computed __resource_type __resource_id
-           "global_network_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "global_network_id";
+       id = Prop.computed __type __id "id";
        transit_gateway_arn =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_arn";
+         Prop.computed __type __id "transit_gateway_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_transit_gateway_registration
+        (aws_networkmanager_transit_gateway_registration ?id
+           ?timeouts ~global_network_id ~transit_gateway_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~global_network_id
+    ~transit_gateway_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~global_network_id ~transit_gateway_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

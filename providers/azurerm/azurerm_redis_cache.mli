@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -142,3 +142,30 @@ val register :
   redis_configuration:redis_configuration list ->
   string ->
   t
+
+val make :
+  ?enable_non_ssl_port:bool prop ->
+  ?id:string prop ->
+  ?minimum_tls_version:string prop ->
+  ?private_static_ip_address:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?redis_version:string prop ->
+  ?replicas_per_master:float prop ->
+  ?replicas_per_primary:float prop ->
+  ?shard_count:float prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tenant_settings:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  capacity:float prop ->
+  family:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  identity:identity list ->
+  patch_schedule:patch_schedule list ->
+  redis_configuration:redis_configuration list ->
+  string ->
+  t Tf_core.resource

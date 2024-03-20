@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_nat__backend_config = {
   port : float prop;  (** port *)
@@ -143,37 +141,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~panorama_base64_config ~resource_group_name ~destination_nat
-    ~dns_settings ~network_profile __resource_id =
-  let __resource_type =
+let make ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
+    ~resource_group_name ~destination_nat ~dns_settings
+    ~network_profile __id =
+  let __type =
     "azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama"
   in
-  let __resource =
-    azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
-      ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
-      ~resource_group_name ~destination_nat ~dns_settings
-      ~network_profile ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       panorama =
-         Prop.computed __resource_type __resource_id "panorama";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       panorama = Prop.computed __type __id "panorama";
        panorama_base64_config =
-         Prop.computed __resource_type __resource_id
-           "panorama_base64_config";
+         Prop.computed __type __id "panorama_base64_config";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
+        (azurerm_palo_alto_next_generation_firewall_virtual_hub_panorama
+           ?id ?tags ?timeouts ~location ~name
+           ~panorama_base64_config ~resource_group_name
+           ~destination_nat ~dns_settings ~network_profile ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~panorama_base64_config ~resource_group_name ~destination_nat
+    ~dns_settings ~network_profile __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~panorama_base64_config
+      ~resource_group_name ~destination_nat ~dns_settings
+      ~network_profile __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type content_type_profile_config__content_type_profiles__items = {
   content_type : string prop;  (** content_type *)
@@ -103,28 +101,34 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?comment ?id ~content_type_profile_config
-    ~query_arg_profile_config __resource_id =
-  let __resource_type =
-    "aws_cloudfront_field_level_encryption_config"
-  in
-  let __resource =
-    aws_cloudfront_field_level_encryption_config ?comment ?id
-      ~content_type_profile_config ~query_arg_profile_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_field_level_encryption_config
-       __resource);
-  let __resource_attributes =
+let make ?comment ?id ~content_type_profile_config
+    ~query_arg_profile_config __id =
+  let __type = "aws_cloudfront_field_level_encryption_config" in
+  let __attrs =
     ({
        caller_reference =
-         Prop.computed __resource_type __resource_id
-           "caller_reference";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "caller_reference";
+       comment = Prop.computed __type __id "comment";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_field_level_encryption_config
+        (aws_cloudfront_field_level_encryption_config ?comment ?id
+           ~content_type_profile_config ~query_arg_profile_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?id ~content_type_profile_config
+    ~query_arg_profile_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?id ~content_type_profile_config
+      ~query_arg_profile_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

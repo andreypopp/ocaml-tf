@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ssl__settings = {
   ciphers : string prop list option; [@option]
@@ -119,44 +117,49 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?custom_metadata ?custom_origin_server
-    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
-    ~zone_id ~ssl __resource_id =
-  let __resource_type = "cloudflare_custom_hostname" in
-  let __resource =
-    cloudflare_custom_hostname ?custom_metadata ?custom_origin_server
-      ?custom_origin_sni ?id ?wait_for_ssl_pending_validation
-      ~hostname ~zone_id ~ssl ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_custom_hostname __resource);
-  let __resource_attributes =
+let make ?custom_metadata ?custom_origin_server ?custom_origin_sni
+    ?id ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl __id
+    =
+  let __type = "cloudflare_custom_hostname" in
+  let __attrs =
     ({
-       custom_metadata =
-         Prop.computed __resource_type __resource_id
-           "custom_metadata";
+       custom_metadata = Prop.computed __type __id "custom_metadata";
        custom_origin_server =
-         Prop.computed __resource_type __resource_id
-           "custom_origin_server";
+         Prop.computed __type __id "custom_origin_server";
        custom_origin_sni =
-         Prop.computed __resource_type __resource_id
-           "custom_origin_sni";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "custom_origin_sni";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
        ownership_verification =
-         Prop.computed __resource_type __resource_id
-           "ownership_verification";
+         Prop.computed __type __id "ownership_verification";
        ownership_verification_http =
-         Prop.computed __resource_type __resource_id
-           "ownership_verification_http";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "ownership_verification_http";
+       status = Prop.computed __type __id "status";
        wait_for_ssl_pending_validation =
-         Prop.computed __resource_type __resource_id
-           "wait_for_ssl_pending_validation";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "wait_for_ssl_pending_validation";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_custom_hostname
+        (cloudflare_custom_hostname ?custom_metadata
+           ?custom_origin_server ?custom_origin_sni ?id
+           ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_metadata ?custom_origin_server
+    ?custom_origin_sni ?id ?wait_for_ssl_pending_validation ~hostname
+    ~zone_id ~ssl __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_metadata ?custom_origin_server ?custom_origin_sni
+      ?id ?wait_for_ssl_pending_validation ~hostname ~zone_id ~ssl
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,48 +60,52 @@ type t = {
   workflow_outbound_ip_addresses : string list prop;
 }
 
-let register ?tf_module ?id ?sku_name ?tags ?timeouts
-    ~access_endpoint_type ~location ~name ~resource_group_name
-    ~virtual_network_subnet_ids __resource_id =
-  let __resource_type = "azurerm_integration_service_environment" in
-  let __resource =
-    azurerm_integration_service_environment ?id ?sku_name ?tags
-      ?timeouts ~access_endpoint_type ~location ~name
-      ~resource_group_name ~virtual_network_subnet_ids ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_integration_service_environment __resource);
-  let __resource_attributes =
+let make ?id ?sku_name ?tags ?timeouts ~access_endpoint_type
+    ~location ~name ~resource_group_name ~virtual_network_subnet_ids
+    __id =
+  let __type = "azurerm_integration_service_environment" in
+  let __attrs =
     ({
        access_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "access_endpoint_type";
+         Prop.computed __type __id "access_endpoint_type";
        connector_endpoint_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "connector_endpoint_ip_addresses";
+         Prop.computed __type __id "connector_endpoint_ip_addresses";
        connector_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "connector_outbound_ip_addresses";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "connector_outbound_ip_addresses";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
        virtual_network_subnet_ids =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_subnet_ids";
+         Prop.computed __type __id "virtual_network_subnet_ids";
        workflow_endpoint_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "workflow_endpoint_ip_addresses";
+         Prop.computed __type __id "workflow_endpoint_ip_addresses";
        workflow_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "workflow_outbound_ip_addresses";
+         Prop.computed __type __id "workflow_outbound_ip_addresses";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_integration_service_environment
+        (azurerm_integration_service_environment ?id ?sku_name ?tags
+           ?timeouts ~access_endpoint_type ~location ~name
+           ~resource_group_name ~virtual_network_subnet_ids ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?sku_name ?tags ?timeouts
+    ~access_endpoint_type ~location ~name ~resource_group_name
+    ~virtual_network_subnet_ids __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?sku_name ?tags ?timeouts ~access_endpoint_type
+      ~location ~name ~resource_group_name
+      ~virtual_network_subnet_ids __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

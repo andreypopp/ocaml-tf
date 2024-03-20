@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,22 @@ val register :
   engine_version:string prop ->
   string ->
   t
+
+val make :
+  ?database_installation_files_s3_bucket_name:string prop ->
+  ?database_installation_files_s3_prefix:string prop ->
+  ?description:string prop ->
+  ?filename:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?manifest:string prop ->
+  ?manifest_hash:string prop ->
+  ?source_image_id:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  engine:string prop ->
+  engine_version:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,34 +50,40 @@ type t = {
   title : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~api_management_name ~body
-    ~resource_group_name ~subject ~template_name __resource_id =
-  let __resource_type = "azurerm_api_management_email_template" in
-  let __resource =
-    azurerm_api_management_email_template ?id ?timeouts
-      ~api_management_name ~body ~resource_group_name ~subject
-      ~template_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_email_template __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~api_management_name ~body
+    ~resource_group_name ~subject ~template_name __id =
+  let __type = "azurerm_api_management_email_template" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       body = Prop.computed __resource_type __resource_id "body";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "api_management_name";
+       body = Prop.computed __type __id "body";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subject =
-         Prop.computed __resource_type __resource_id "subject";
-       template_name =
-         Prop.computed __resource_type __resource_id "template_name";
-       title = Prop.computed __resource_type __resource_id "title";
+         Prop.computed __type __id "resource_group_name";
+       subject = Prop.computed __type __id "subject";
+       template_name = Prop.computed __type __id "template_name";
+       title = Prop.computed __type __id "title";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_email_template
+        (azurerm_api_management_email_template ?id ?timeouts
+           ~api_management_name ~body ~resource_group_name ~subject
+           ~template_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~api_management_name ~body
+    ~resource_group_name ~subject ~template_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~api_management_name ~body
+      ~resource_group_name ~subject ~template_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,13 @@ val register :
   notification_config:notification_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  dataset:string prop ->
+  name:string prop ->
+  notification_config:notification_config list ->
+  string ->
+  t Tf_core.resource

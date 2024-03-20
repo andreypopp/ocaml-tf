@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   trusted_domain_fqdn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_service_id:string prop ->
+  name:string prop ->
+  password:string prop ->
+  trusted_domain_dns_ips:string prop list ->
+  trusted_domain_fqdn:string prop ->
+  string ->
+  t Tf_core.resource

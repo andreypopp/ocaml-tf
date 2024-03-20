@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -104,47 +102,50 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?destroy_scheduled_duration ?id ?import_only
-    ?labels ?purpose ?rotation_period ?skip_initial_version_creation
-    ?timeouts ~key_ring ~name ~version_template __resource_id =
-  let __resource_type = "google_kms_crypto_key" in
-  let __resource =
-    google_kms_crypto_key ?destroy_scheduled_duration ?id
-      ?import_only ?labels ?purpose ?rotation_period
-      ?skip_initial_version_creation ?timeouts ~key_ring ~name
-      ~version_template ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_kms_crypto_key __resource);
-  let __resource_attributes =
+let make ?destroy_scheduled_duration ?id ?import_only ?labels
+    ?purpose ?rotation_period ?skip_initial_version_creation
+    ?timeouts ~key_ring ~name ~version_template __id =
+  let __type = "google_kms_crypto_key" in
+  let __attrs =
     ({
        destroy_scheduled_duration =
-         Prop.computed __resource_type __resource_id
-           "destroy_scheduled_duration";
+         Prop.computed __type __id "destroy_scheduled_duration";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       import_only =
-         Prop.computed __resource_type __resource_id "import_only";
-       key_ring =
-         Prop.computed __resource_type __resource_id "key_ring";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary =
-         Prop.computed __resource_type __resource_id "primary";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       rotation_period =
-         Prop.computed __resource_type __resource_id
-           "rotation_period";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       import_only = Prop.computed __type __id "import_only";
+       key_ring = Prop.computed __type __id "key_ring";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       primary = Prop.computed __type __id "primary";
+       purpose = Prop.computed __type __id "purpose";
+       rotation_period = Prop.computed __type __id "rotation_period";
        skip_initial_version_creation =
-         Prop.computed __resource_type __resource_id
-           "skip_initial_version_creation";
+         Prop.computed __type __id "skip_initial_version_creation";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_kms_crypto_key
+        (google_kms_crypto_key ?destroy_scheduled_duration ?id
+           ?import_only ?labels ?purpose ?rotation_period
+           ?skip_initial_version_creation ?timeouts ~key_ring ~name
+           ~version_template ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?destroy_scheduled_duration ?id ?import_only
+    ?labels ?purpose ?rotation_period ?skip_initial_version_creation
+    ?timeouts ~key_ring ~name ~version_template __id =
+  let (r : _ Tf_core.resource) =
+    make ?destroy_scheduled_duration ?id ?import_only ?labels
+      ?purpose ?rotation_period ?skip_initial_version_creation
+      ?timeouts ~key_ring ~name ~version_template __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

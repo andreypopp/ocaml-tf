@@ -2,6 +2,13 @@ type json = Yojson.Safe.t
 
 let yojson_of_json json = json
 
+type 'attrs resource = {
+  type_ : string;
+  id : string;
+  json : json;
+  attrs : 'attrs;
+}
+
 type tf_module = ..
 type tf_module += Tf_default
 

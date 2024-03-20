@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -77,3 +77,17 @@ val register :
   global_network_id:string prop ->
   string ->
   t
+
+val make :
+  ?base_policy_document:string prop ->
+  ?base_policy_region:string prop ->
+  ?base_policy_regions:string prop list ->
+  ?create_base_policy:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  global_network_id:string prop ->
+  string ->
+  t Tf_core.resource

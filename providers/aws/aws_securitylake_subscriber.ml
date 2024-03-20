@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type source__aws_log_source_resource = {
   source_name : string prop option; [@option]  (** source_name *)
@@ -121,49 +119,49 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?access_type ?subscriber_description
-    ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
-    __resource_id =
-  let __resource_type = "aws_securitylake_subscriber" in
-  let __resource =
-    aws_securitylake_subscriber ?access_type ?subscriber_description
-      ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securitylake_subscriber __resource);
-  let __resource_attributes =
+let make ?access_type ?subscriber_description ?subscriber_name ?tags
+    ?timeouts ~source ~subscriber_identity __id =
+  let __type = "aws_securitylake_subscriber" in
+  let __attrs =
     ({
-       access_type =
-         Prop.computed __resource_type __resource_id "access_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_type = Prop.computed __type __id "access_type";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        resource_share_arn =
-         Prop.computed __resource_type __resource_id
-           "resource_share_arn";
+         Prop.computed __type __id "resource_share_arn";
        resource_share_name =
-         Prop.computed __resource_type __resource_id
-           "resource_share_name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       s3_bucket_arn =
-         Prop.computed __resource_type __resource_id "s3_bucket_arn";
+         Prop.computed __type __id "resource_share_name";
+       role_arn = Prop.computed __type __id "role_arn";
+       s3_bucket_arn = Prop.computed __type __id "s3_bucket_arn";
        subscriber_description =
-         Prop.computed __resource_type __resource_id
-           "subscriber_description";
+         Prop.computed __type __id "subscriber_description";
        subscriber_endpoint =
-         Prop.computed __resource_type __resource_id
-           "subscriber_endpoint";
-       subscriber_name =
-         Prop.computed __resource_type __resource_id
-           "subscriber_name";
+         Prop.computed __type __id "subscriber_endpoint";
+       subscriber_name = Prop.computed __type __id "subscriber_name";
        subscriber_status =
-         Prop.computed __resource_type __resource_id
-           "subscriber_status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "subscriber_status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securitylake_subscriber
+        (aws_securitylake_subscriber ?access_type
+           ?subscriber_description ?subscriber_name ?tags ?timeouts
+           ~source ~subscriber_identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_type ?subscriber_description
+    ?subscriber_name ?tags ?timeouts ~source ~subscriber_identity
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_type ?subscriber_description ?subscriber_name ?tags
+      ?timeouts ~source ~subscriber_identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

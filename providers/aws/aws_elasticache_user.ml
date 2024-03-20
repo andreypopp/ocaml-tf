@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_mode = {
   passwords : string prop list option; [@option]  (** passwords *)
@@ -74,37 +72,44 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ?no_password_required ?passwords ?tags
-    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
-    ~authentication_mode __resource_id =
-  let __resource_type = "aws_elasticache_user" in
-  let __resource =
-    aws_elasticache_user ?id ?no_password_required ?passwords ?tags
-      ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
-      ~authentication_mode ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_user __resource);
-  let __resource_attributes =
+let make ?id ?no_password_required ?passwords ?tags ?tags_all
+    ?timeouts ~access_string ~engine ~user_id ~user_name
+    ~authentication_mode __id =
+  let __type = "aws_elasticache_user" in
+  let __attrs =
     ({
-       access_string =
-         Prop.computed __resource_type __resource_id "access_string";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_string = Prop.computed __type __id "access_string";
+       arn = Prop.computed __type __id "arn";
+       engine = Prop.computed __type __id "engine";
+       id = Prop.computed __type __id "id";
        no_password_required =
-         Prop.computed __resource_type __resource_id
-           "no_password_required";
-       passwords =
-         Prop.computed __resource_type __resource_id "passwords";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "no_password_required";
+       passwords = Prop.computed __type __id "passwords";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_id = Prop.computed __type __id "user_id";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_user
+        (aws_elasticache_user ?id ?no_password_required ?passwords
+           ?tags ?tags_all ?timeouts ~access_string ~engine ~user_id
+           ~user_name ~authentication_mode ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?no_password_required ?passwords ?tags
+    ?tags_all ?timeouts ~access_string ~engine ~user_id ~user_name
+    ~authentication_mode __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?no_password_required ?passwords ?tags ?tags_all
+      ?timeouts ~access_string ~engine ~user_id ~user_name
+      ~authentication_mode __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

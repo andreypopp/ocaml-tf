@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,38 +58,42 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?data_retention_in_hours ?device_name ?id
-    ?kms_key_id ?media_type ?tags ?tags_all ?timeouts ~name
-    __resource_id =
-  let __resource_type = "aws_kinesis_video_stream" in
-  let __resource =
-    aws_kinesis_video_stream ?data_retention_in_hours ?device_name
-      ?id ?kms_key_id ?media_type ?tags ?tags_all ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesis_video_stream __resource);
-  let __resource_attributes =
+let make ?data_retention_in_hours ?device_name ?id ?kms_key_id
+    ?media_type ?tags ?tags_all ?timeouts ~name __id =
+  let __type = "aws_kinesis_video_stream" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
+       arn = Prop.computed __type __id "arn";
+       creation_time = Prop.computed __type __id "creation_time";
        data_retention_in_hours =
-         Prop.computed __resource_type __resource_id
-           "data_retention_in_hours";
-       device_name =
-         Prop.computed __resource_type __resource_id "device_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       media_type =
-         Prop.computed __resource_type __resource_id "media_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "data_retention_in_hours";
+       device_name = Prop.computed __type __id "device_name";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       media_type = Prop.computed __type __id "media_type";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesis_video_stream
+        (aws_kinesis_video_stream ?data_retention_in_hours
+           ?device_name ?id ?kms_key_id ?media_type ?tags ?tags_all
+           ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data_retention_in_hours ?device_name ?id
+    ?kms_key_id ?media_type ?tags ?tags_all ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_retention_in_hours ?device_name ?id ?kms_key_id
+      ?media_type ?tags ?tags_all ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

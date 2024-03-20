@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type analytics_engine_binding = {
   dataset : string prop;
@@ -190,41 +188,54 @@ type t = {
   name : string prop;
 }
 
+let make ?compatibility_date ?compatibility_flags ?id ?logpush
+    ?module_ ~account_id ~content ~name ~analytics_engine_binding
+    ~d1_database_binding ~kv_namespace_binding ~placement
+    ~plain_text_binding ~queue_binding ~r2_bucket_binding
+    ~secret_text_binding ~service_binding ~webassembly_binding __id =
+  let __type = "cloudflare_worker_script" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       compatibility_date =
+         Prop.computed __type __id "compatibility_date";
+       compatibility_flags =
+         Prop.computed __type __id "compatibility_flags";
+       content = Prop.computed __type __id "content";
+       id = Prop.computed __type __id "id";
+       logpush = Prop.computed __type __id "logpush";
+       module_ = Prop.computed __type __id "module";
+       name = Prop.computed __type __id "name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_worker_script
+        (cloudflare_worker_script ?compatibility_date
+           ?compatibility_flags ?id ?logpush ?module_ ~account_id
+           ~content ~name ~analytics_engine_binding
+           ~d1_database_binding ~kv_namespace_binding ~placement
+           ~plain_text_binding ~queue_binding ~r2_bucket_binding
+           ~secret_text_binding ~service_binding ~webassembly_binding
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?compatibility_date ?compatibility_flags ?id
     ?logpush ?module_ ~account_id ~content ~name
     ~analytics_engine_binding ~d1_database_binding
     ~kv_namespace_binding ~placement ~plain_text_binding
     ~queue_binding ~r2_bucket_binding ~secret_text_binding
-    ~service_binding ~webassembly_binding __resource_id =
-  let __resource_type = "cloudflare_worker_script" in
-  let __resource =
-    cloudflare_worker_script ?compatibility_date ?compatibility_flags
-      ?id ?logpush ?module_ ~account_id ~content ~name
-      ~analytics_engine_binding ~d1_database_binding
-      ~kv_namespace_binding ~placement ~plain_text_binding
-      ~queue_binding ~r2_bucket_binding ~secret_text_binding
-      ~service_binding ~webassembly_binding ()
+    ~service_binding ~webassembly_binding __id =
+  let (r : _ Tf_core.resource) =
+    make ?compatibility_date ?compatibility_flags ?id ?logpush
+      ?module_ ~account_id ~content ~name ~analytics_engine_binding
+      ~d1_database_binding ~kv_namespace_binding ~placement
+      ~plain_text_binding ~queue_binding ~r2_bucket_binding
+      ~secret_text_binding ~service_binding ~webassembly_binding __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_worker_script __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       compatibility_date =
-         Prop.computed __resource_type __resource_id
-           "compatibility_date";
-       compatibility_flags =
-         Prop.computed __resource_type __resource_id
-           "compatibility_flags";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       id = Prop.computed __resource_type __resource_id "id";
-       logpush =
-         Prop.computed __resource_type __resource_id "logpush";
-       module_ = Prop.computed __resource_type __resource_id "module";
-       name = Prop.computed __resource_type __resource_id "name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

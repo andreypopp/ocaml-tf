@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -71,37 +69,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?local_auth_enabled ?tags
-    ?timeouts ~location ~machine_learning_workspace_id ~name
-    ~synapse_spark_pool_id ~identity __resource_id =
-  let __resource_type = "azurerm_machine_learning_synapse_spark" in
-  let __resource =
-    azurerm_machine_learning_synapse_spark ?description ?id
-      ?local_auth_enabled ?tags ?timeouts ~location
-      ~machine_learning_workspace_id ~name ~synapse_spark_pool_id
-      ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_machine_learning_synapse_spark __resource);
-  let __resource_attributes =
+let make ?description ?id ?local_auth_enabled ?tags ?timeouts
+    ~location ~machine_learning_workspace_id ~name
+    ~synapse_spark_pool_id ~identity __id =
+  let __type = "azurerm_machine_learning_synapse_spark" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
        machine_learning_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "machine_learning_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "machine_learning_workspace_id";
+       name = Prop.computed __type __id "name";
        synapse_spark_pool_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_spark_pool_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "synapse_spark_pool_id";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_machine_learning_synapse_spark
+        (azurerm_machine_learning_synapse_spark ?description ?id
+           ?local_auth_enabled ?tags ?timeouts ~location
+           ~machine_learning_workspace_id ~name
+           ~synapse_spark_pool_id ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?local_auth_enabled ?tags
+    ?timeouts ~location ~machine_learning_workspace_id ~name
+    ~synapse_spark_pool_id ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?local_auth_enabled ?tags ?timeouts
+      ~location ~machine_learning_workspace_id ~name
+      ~synapse_spark_pool_id ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -123,3 +123,20 @@ val register :
   worker_profile:worker_profile list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  api_server_profile:api_server_profile list ->
+  cluster_profile:cluster_profile list ->
+  ingress_profile:ingress_profile list ->
+  main_profile:main_profile list ->
+  network_profile:network_profile list ->
+  service_principal:service_principal list ->
+  worker_profile:worker_profile list ->
+  string ->
+  t Tf_core.resource

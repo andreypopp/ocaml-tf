@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,17 @@ val register :
   scheduled_action_name:string prop ->
   string ->
   t
+
+val make :
+  ?desired_capacity:float prop ->
+  ?end_time:string prop ->
+  ?id:string prop ->
+  ?max_size:float prop ->
+  ?min_size:float prop ->
+  ?recurrence:string prop ->
+  ?start_time:string prop ->
+  ?time_zone:string prop ->
+  autoscaling_group_name:string prop ->
+  scheduled_action_name:string prop ->
+  string ->
+  t Tf_core.resource

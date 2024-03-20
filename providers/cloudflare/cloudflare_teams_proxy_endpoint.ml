@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_teams_proxy_endpoint = {
   account_id : string prop;
@@ -30,23 +28,31 @@ type t = {
   subdomain : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~ips ~name __resource_id =
-  let __resource_type = "cloudflare_teams_proxy_endpoint" in
-  let __resource =
-    cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_teams_proxy_endpoint __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~ips ~name __id =
+  let __type = "cloudflare_teams_proxy_endpoint" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ips = Prop.computed __resource_type __resource_id "ips";
-       name = Prop.computed __resource_type __resource_id "name";
-       subdomain =
-         Prop.computed __resource_type __resource_id "subdomain";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       ips = Prop.computed __type __id "ips";
+       name = Prop.computed __type __id "name";
+       subdomain = Prop.computed __type __id "subdomain";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_teams_proxy_endpoint
+        (cloudflare_teams_proxy_endpoint ?id ~account_id ~ips ~name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~ips ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~ips ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

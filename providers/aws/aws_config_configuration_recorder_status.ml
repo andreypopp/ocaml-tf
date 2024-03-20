@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_config_configuration_recorder_status = {
   id : string prop option; [@option]  (** id *)
@@ -22,20 +20,27 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ~is_enabled ~name __resource_id =
-  let __resource_type = "aws_config_configuration_recorder_status" in
-  let __resource =
-    aws_config_configuration_recorder_status ?id ~is_enabled ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_configuration_recorder_status __resource);
-  let __resource_attributes =
+let make ?id ~is_enabled ~name __id =
+  let __type = "aws_config_configuration_recorder_status" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       is_enabled =
-         Prop.computed __resource_type __resource_id "is_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       is_enabled = Prop.computed __type __id "is_enabled";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_configuration_recorder_status
+        (aws_config_configuration_recorder_status ?id ~is_enabled
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~is_enabled ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ~is_enabled ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

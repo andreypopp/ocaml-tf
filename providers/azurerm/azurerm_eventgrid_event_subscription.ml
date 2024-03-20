@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_filter__bool_equals = {
   key : string prop;  (** key *)
@@ -503,6 +501,62 @@ type t = {
   service_bus_topic_endpoint_id : string prop;
 }
 
+let make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
+    ?eventhub_endpoint_id ?expiration_time_utc
+    ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
+    ?service_bus_queue_endpoint_id ?service_bus_topic_endpoint_id
+    ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
+    ~dead_letter_identity ~delivery_identity ~delivery_property
+    ~retry_policy ~storage_blob_dead_letter_destination
+    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint __id =
+  let __type = "azurerm_eventgrid_event_subscription" in
+  let __attrs =
+    ({
+       advanced_filtering_on_arrays_enabled =
+         Prop.computed __type __id
+           "advanced_filtering_on_arrays_enabled";
+       event_delivery_schema =
+         Prop.computed __type __id "event_delivery_schema";
+       eventhub_endpoint_id =
+         Prop.computed __type __id "eventhub_endpoint_id";
+       expiration_time_utc =
+         Prop.computed __type __id "expiration_time_utc";
+       hybrid_connection_endpoint_id =
+         Prop.computed __type __id "hybrid_connection_endpoint_id";
+       id = Prop.computed __type __id "id";
+       included_event_types =
+         Prop.computed __type __id "included_event_types";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       scope = Prop.computed __type __id "scope";
+       service_bus_queue_endpoint_id =
+         Prop.computed __type __id "service_bus_queue_endpoint_id";
+       service_bus_topic_endpoint_id =
+         Prop.computed __type __id "service_bus_topic_endpoint_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventgrid_event_subscription
+        (azurerm_eventgrid_event_subscription
+           ?advanced_filtering_on_arrays_enabled
+           ?event_delivery_schema ?eventhub_endpoint_id
+           ?expiration_time_utc ?hybrid_connection_endpoint_id ?id
+           ?included_event_types ?labels
+           ?service_bus_queue_endpoint_id
+           ?service_bus_topic_endpoint_id ?timeouts ~name ~scope
+           ~advanced_filter ~azure_function_endpoint
+           ~dead_letter_identity ~delivery_identity
+           ~delivery_property ~retry_policy
+           ~storage_blob_dead_letter_destination
+           ~storage_queue_endpoint ~subject_filter ~webhook_endpoint
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?advanced_filtering_on_arrays_enabled
     ?event_delivery_schema ?eventhub_endpoint_id ?expiration_time_utc
     ?hybrid_connection_endpoint_id ?id ?included_event_types ?labels
@@ -510,12 +564,9 @@ let register ?tf_module ?advanced_filtering_on_arrays_enabled
     ?timeouts ~name ~scope ~advanced_filter ~azure_function_endpoint
     ~dead_letter_identity ~delivery_identity ~delivery_property
     ~retry_policy ~storage_blob_dead_letter_destination
-    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint
-    __resource_id =
-  let __resource_type = "azurerm_eventgrid_event_subscription" in
-  let __resource =
-    azurerm_eventgrid_event_subscription
-      ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
+    ~storage_queue_endpoint ~subject_filter ~webhook_endpoint __id =
+  let (r : _ Tf_core.resource) =
+    make ?advanced_filtering_on_arrays_enabled ?event_delivery_schema
       ?eventhub_endpoint_id ?expiration_time_utc
       ?hybrid_connection_endpoint_id ?id ?included_event_types
       ?labels ?service_bus_queue_endpoint_id
@@ -523,41 +574,7 @@ let register ?tf_module ?advanced_filtering_on_arrays_enabled
       ~advanced_filter ~azure_function_endpoint ~dead_letter_identity
       ~delivery_identity ~delivery_property ~retry_policy
       ~storage_blob_dead_letter_destination ~storage_queue_endpoint
-      ~subject_filter ~webhook_endpoint ()
+      ~subject_filter ~webhook_endpoint __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventgrid_event_subscription __resource);
-  let __resource_attributes =
-    ({
-       advanced_filtering_on_arrays_enabled =
-         Prop.computed __resource_type __resource_id
-           "advanced_filtering_on_arrays_enabled";
-       event_delivery_schema =
-         Prop.computed __resource_type __resource_id
-           "event_delivery_schema";
-       eventhub_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "eventhub_endpoint_id";
-       expiration_time_utc =
-         Prop.computed __resource_type __resource_id
-           "expiration_time_utc";
-       hybrid_connection_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "hybrid_connection_endpoint_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       included_event_types =
-         Prop.computed __resource_type __resource_id
-           "included_event_types";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       service_bus_queue_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "service_bus_queue_endpoint_id";
-       service_bus_topic_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "service_bus_topic_endpoint_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,26 @@ val register :
   retention:retention list ->
   string ->
   t
+
+val make :
+  ?cache_control:string prop ->
+  ?content:string prop ->
+  ?content_disposition:string prop ->
+  ?content_encoding:string prop ->
+  ?content_language:string prop ->
+  ?content_type:string prop ->
+  ?detect_md5hash:string prop ->
+  ?event_based_hold:bool prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?source:string prop ->
+  ?storage_class:string prop ->
+  ?temporary_hold:bool prop ->
+  ?timeouts:timeouts ->
+  bucket:string prop ->
+  name:string prop ->
+  customer_encryption:customer_encryption list ->
+  retention:retention list ->
+  string ->
+  t Tf_core.resource

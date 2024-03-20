@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_transcribe_vocabulary_filter = {
   id : string prop option; [@option]  (** id *)
@@ -44,36 +42,42 @@ type t = {
   words : string list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all
-    ?vocabulary_filter_file_uri ?words ~language_code
-    ~vocabulary_filter_name __resource_id =
-  let __resource_type = "aws_transcribe_vocabulary_filter" in
-  let __resource =
-    aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
-      ?vocabulary_filter_file_uri ?words ~language_code
-      ~vocabulary_filter_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transcribe_vocabulary_filter __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?vocabulary_filter_file_uri ?words
+    ~language_code ~vocabulary_filter_name __id =
+  let __type = "aws_transcribe_vocabulary_filter" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       download_uri =
-         Prop.computed __resource_type __resource_id "download_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       download_uri = Prop.computed __type __id "download_uri";
+       id = Prop.computed __type __id "id";
+       language_code = Prop.computed __type __id "language_code";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        vocabulary_filter_file_uri =
-         Prop.computed __resource_type __resource_id
-           "vocabulary_filter_file_uri";
+         Prop.computed __type __id "vocabulary_filter_file_uri";
        vocabulary_filter_name =
-         Prop.computed __resource_type __resource_id
-           "vocabulary_filter_name";
-       words = Prop.computed __resource_type __resource_id "words";
+         Prop.computed __type __id "vocabulary_filter_name";
+       words = Prop.computed __type __id "words";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transcribe_vocabulary_filter
+        (aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
+           ?vocabulary_filter_file_uri ?words ~language_code
+           ~vocabulary_filter_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all
+    ?vocabulary_filter_file_uri ?words ~language_code
+    ~vocabulary_filter_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?vocabulary_filter_file_uri ?words
+      ~language_code ~vocabulary_filter_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

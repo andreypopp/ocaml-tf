@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -69,44 +67,51 @@ type t = {
   show_in_portal : bool prop;
 }
 
-let register ?tf_module ?command_line_arguments ?description
-    ?friendly_name ?icon_index ?icon_path ?id ?show_in_portal
-    ?timeouts ~application_group_id ~command_line_argument_policy
-    ~name ~path __resource_id =
-  let __resource_type = "azurerm_virtual_desktop_application" in
-  let __resource =
-    azurerm_virtual_desktop_application ?command_line_arguments
-      ?description ?friendly_name ?icon_index ?icon_path ?id
-      ?show_in_portal ?timeouts ~application_group_id
-      ~command_line_argument_policy ~name ~path ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_desktop_application __resource);
-  let __resource_attributes =
+let make ?command_line_arguments ?description ?friendly_name
+    ?icon_index ?icon_path ?id ?show_in_portal ?timeouts
+    ~application_group_id ~command_line_argument_policy ~name ~path
+    __id =
+  let __type = "azurerm_virtual_desktop_application" in
+  let __attrs =
     ({
        application_group_id =
-         Prop.computed __resource_type __resource_id
-           "application_group_id";
+         Prop.computed __type __id "application_group_id";
        command_line_argument_policy =
-         Prop.computed __resource_type __resource_id
-           "command_line_argument_policy";
+         Prop.computed __type __id "command_line_argument_policy";
        command_line_arguments =
-         Prop.computed __resource_type __resource_id
-           "command_line_arguments";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       icon_index =
-         Prop.computed __resource_type __resource_id "icon_index";
-       icon_path =
-         Prop.computed __resource_type __resource_id "icon_path";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
-       show_in_portal =
-         Prop.computed __resource_type __resource_id "show_in_portal";
+         Prop.computed __type __id "command_line_arguments";
+       description = Prop.computed __type __id "description";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       icon_index = Prop.computed __type __id "icon_index";
+       icon_path = Prop.computed __type __id "icon_path";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
+       show_in_portal = Prop.computed __type __id "show_in_portal";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_desktop_application
+        (azurerm_virtual_desktop_application ?command_line_arguments
+           ?description ?friendly_name ?icon_index ?icon_path ?id
+           ?show_in_portal ?timeouts ~application_group_id
+           ~command_line_argument_policy ~name ~path ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?command_line_arguments ?description
+    ?friendly_name ?icon_index ?icon_path ?id ?show_in_portal
+    ?timeouts ~application_group_id ~command_line_argument_policy
+    ~name ~path __id =
+  let (r : _ Tf_core.resource) =
+    make ?command_line_arguments ?description ?friendly_name
+      ?icon_index ?icon_path ?id ?show_in_portal ?timeouts
+      ~application_group_id ~command_line_argument_policy ~name ~path
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

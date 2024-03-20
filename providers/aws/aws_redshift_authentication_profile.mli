@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -31,3 +31,10 @@ val register :
   authentication_profile_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  authentication_profile_content:string prop ->
+  authentication_profile_name:string prop ->
+  string ->
+  t Tf_core.resource

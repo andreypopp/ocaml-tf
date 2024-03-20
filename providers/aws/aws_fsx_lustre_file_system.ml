@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_configuration = {
   destination : string prop option; [@option]  (** destination *)
@@ -151,6 +149,82 @@ type t = {
   weekly_maintenance_start_time : string prop;
 }
 
+let make ?auto_import_policy ?automatic_backup_retention_days
+    ?backup_id ?copy_tags_to_backups
+    ?daily_automatic_backup_start_time ?data_compression_type
+    ?deployment_type ?drive_cache_type ?export_path
+    ?file_system_type_version ?id ?import_path
+    ?imported_file_chunk_size ?kms_key_id
+    ?per_unit_storage_throughput ?security_group_ids
+    ?storage_capacity ?storage_type ?tags ?tags_all
+    ?weekly_maintenance_start_time ?timeouts ~subnet_ids
+    ~log_configuration ~root_squash_configuration __id =
+  let __type = "aws_fsx_lustre_file_system" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       auto_import_policy =
+         Prop.computed __type __id "auto_import_policy";
+       automatic_backup_retention_days =
+         Prop.computed __type __id "automatic_backup_retention_days";
+       backup_id = Prop.computed __type __id "backup_id";
+       copy_tags_to_backups =
+         Prop.computed __type __id "copy_tags_to_backups";
+       daily_automatic_backup_start_time =
+         Prop.computed __type __id
+           "daily_automatic_backup_start_time";
+       data_compression_type =
+         Prop.computed __type __id "data_compression_type";
+       deployment_type = Prop.computed __type __id "deployment_type";
+       dns_name = Prop.computed __type __id "dns_name";
+       drive_cache_type =
+         Prop.computed __type __id "drive_cache_type";
+       export_path = Prop.computed __type __id "export_path";
+       file_system_type_version =
+         Prop.computed __type __id "file_system_type_version";
+       id = Prop.computed __type __id "id";
+       import_path = Prop.computed __type __id "import_path";
+       imported_file_chunk_size =
+         Prop.computed __type __id "imported_file_chunk_size";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       mount_name = Prop.computed __type __id "mount_name";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
+       per_unit_storage_throughput =
+         Prop.computed __type __id "per_unit_storage_throughput";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       storage_capacity =
+         Prop.computed __type __id "storage_capacity";
+       storage_type = Prop.computed __type __id "storage_type";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       weekly_maintenance_start_time =
+         Prop.computed __type __id "weekly_maintenance_start_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_lustre_file_system
+        (aws_fsx_lustre_file_system ?auto_import_policy
+           ?automatic_backup_retention_days ?backup_id
+           ?copy_tags_to_backups ?daily_automatic_backup_start_time
+           ?data_compression_type ?deployment_type ?drive_cache_type
+           ?export_path ?file_system_type_version ?id ?import_path
+           ?imported_file_chunk_size ?kms_key_id
+           ?per_unit_storage_throughput ?security_group_ids
+           ?storage_capacity ?storage_type ?tags ?tags_all
+           ?weekly_maintenance_start_time ?timeouts ~subnet_ids
+           ~log_configuration ~root_squash_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_import_policy
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?data_compression_type
@@ -160,91 +234,18 @@ let register ?tf_module ?auto_import_policy
     ?per_unit_storage_throughput ?security_group_ids
     ?storage_capacity ?storage_type ?tags ?tags_all
     ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-    ~log_configuration ~root_squash_configuration __resource_id =
-  let __resource_type = "aws_fsx_lustre_file_system" in
-  let __resource =
-    aws_fsx_lustre_file_system ?auto_import_policy
-      ?automatic_backup_retention_days ?backup_id
-      ?copy_tags_to_backups ?daily_automatic_backup_start_time
-      ?data_compression_type ?deployment_type ?drive_cache_type
-      ?export_path ?file_system_type_version ?id ?import_path
+    ~log_configuration ~root_squash_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_import_policy ?automatic_backup_retention_days
+      ?backup_id ?copy_tags_to_backups
+      ?daily_automatic_backup_start_time ?data_compression_type
+      ?deployment_type ?drive_cache_type ?export_path
+      ?file_system_type_version ?id ?import_path
       ?imported_file_chunk_size ?kms_key_id
       ?per_unit_storage_throughput ?security_group_ids
       ?storage_capacity ?storage_type ?tags ?tags_all
       ?weekly_maintenance_start_time ?timeouts ~subnet_ids
-      ~log_configuration ~root_squash_configuration ()
+      ~log_configuration ~root_squash_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_lustre_file_system __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_import_policy =
-         Prop.computed __resource_type __resource_id
-           "auto_import_policy";
-       automatic_backup_retention_days =
-         Prop.computed __resource_type __resource_id
-           "automatic_backup_retention_days";
-       backup_id =
-         Prop.computed __resource_type __resource_id "backup_id";
-       copy_tags_to_backups =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_backups";
-       daily_automatic_backup_start_time =
-         Prop.computed __resource_type __resource_id
-           "daily_automatic_backup_start_time";
-       data_compression_type =
-         Prop.computed __resource_type __resource_id
-           "data_compression_type";
-       deployment_type =
-         Prop.computed __resource_type __resource_id
-           "deployment_type";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       drive_cache_type =
-         Prop.computed __resource_type __resource_id
-           "drive_cache_type";
-       export_path =
-         Prop.computed __resource_type __resource_id "export_path";
-       file_system_type_version =
-         Prop.computed __resource_type __resource_id
-           "file_system_type_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       import_path =
-         Prop.computed __resource_type __resource_id "import_path";
-       imported_file_chunk_size =
-         Prop.computed __resource_type __resource_id
-           "imported_file_chunk_size";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       mount_name =
-         Prop.computed __resource_type __resource_id "mount_name";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       per_unit_storage_throughput =
-         Prop.computed __resource_type __resource_id
-           "per_unit_storage_throughput";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       storage_capacity =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       weekly_maintenance_start_time =
-         Prop.computed __resource_type __resource_id
-           "weekly_maintenance_start_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

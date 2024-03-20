@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   tunnels:tunnels list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?policy_id:string prop ->
+  account_id:string prop ->
+  mode:string prop ->
+  tunnels:tunnels list ->
+  string ->
+  t Tf_core.resource

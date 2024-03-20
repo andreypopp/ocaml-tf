@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config = {
   cleanup_policy : string prop option; [@option]
@@ -119,29 +117,36 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?id ?partition_count ?replication_factor
-    ~cluster_id ~name ~config __resource_id =
-  let __resource_type = "digitalocean_database_kafka_topic" in
-  let __resource =
-    digitalocean_database_kafka_topic ?id ?partition_count
-      ?replication_factor ~cluster_id ~name ~config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_kafka_topic __resource);
-  let __resource_attributes =
+let make ?id ?partition_count ?replication_factor ~cluster_id ~name
+    ~config __id =
+  let __type = "digitalocean_database_kafka_topic" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_count =
-         Prop.computed __resource_type __resource_id
-           "partition_count";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       partition_count = Prop.computed __type __id "partition_count";
        replication_factor =
-         Prop.computed __resource_type __resource_id
-           "replication_factor";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "replication_factor";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_kafka_topic
+        (digitalocean_database_kafka_topic ?id ?partition_count
+           ?replication_factor ~cluster_id ~name ~config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?partition_count ?replication_factor
+    ~cluster_id ~name ~config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?partition_count ?replication_factor ~cluster_id ~name
+      ~config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,21 @@ val register :
   target_region:target_region list ->
   string ->
   t
+
+val make :
+  ?config_file:string prop ->
+  ?enable_health_check:bool prop ->
+  ?end_of_life_date:string prop ->
+  ?exclude_from_latest:bool prop ->
+  ?id:string prop ->
+  ?package_file:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  gallery_application_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  manage_action:manage_action list ->
+  source:source list ->
+  target_region:target_region list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -107,55 +105,58 @@ type t = {
   webhook_state : string prop;
 }
 
-let register ?tf_module ?action ?default_response_platforms ?events
-    ?id ?input_context_names ?is_fallback ?ml_disabled
+let make ?action ?default_response_platforms ?events ?id
+    ?input_context_names ?is_fallback ?ml_disabled
     ?parent_followup_intent_name ?priority ?project ?reset_contexts
-    ?webhook_state ?timeouts ~display_name __resource_id =
-  let __resource_type = "google_dialogflow_intent" in
-  let __resource =
-    google_dialogflow_intent ?action ?default_response_platforms
-      ?events ?id ?input_context_names ?is_fallback ?ml_disabled
-      ?parent_followup_intent_name ?priority ?project ?reset_contexts
-      ?webhook_state ?timeouts ~display_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_intent __resource);
-  let __resource_attributes =
+    ?webhook_state ?timeouts ~display_name __id =
+  let __type = "google_dialogflow_intent" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
+       action = Prop.computed __type __id "action";
        default_response_platforms =
-         Prop.computed __resource_type __resource_id
-           "default_response_platforms";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       events = Prop.computed __resource_type __resource_id "events";
+         Prop.computed __type __id "default_response_platforms";
+       display_name = Prop.computed __type __id "display_name";
+       events = Prop.computed __type __id "events";
        followup_intent_info =
-         Prop.computed __resource_type __resource_id
-           "followup_intent_info";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "followup_intent_info";
+       id = Prop.computed __type __id "id";
        input_context_names =
-         Prop.computed __resource_type __resource_id
-           "input_context_names";
-       is_fallback =
-         Prop.computed __resource_type __resource_id "is_fallback";
-       ml_disabled =
-         Prop.computed __resource_type __resource_id "ml_disabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "input_context_names";
+       is_fallback = Prop.computed __type __id "is_fallback";
+       ml_disabled = Prop.computed __type __id "ml_disabled";
+       name = Prop.computed __type __id "name";
        parent_followup_intent_name =
-         Prop.computed __resource_type __resource_id
-           "parent_followup_intent_name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reset_contexts =
-         Prop.computed __resource_type __resource_id "reset_contexts";
+         Prop.computed __type __id "parent_followup_intent_name";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       reset_contexts = Prop.computed __type __id "reset_contexts";
        root_followup_intent_name =
-         Prop.computed __resource_type __resource_id
-           "root_followup_intent_name";
-       webhook_state =
-         Prop.computed __resource_type __resource_id "webhook_state";
+         Prop.computed __type __id "root_followup_intent_name";
+       webhook_state = Prop.computed __type __id "webhook_state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_intent
+        (google_dialogflow_intent ?action ?default_response_platforms
+           ?events ?id ?input_context_names ?is_fallback ?ml_disabled
+           ?parent_followup_intent_name ?priority ?project
+           ?reset_contexts ?webhook_state ?timeouts ~display_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?action ?default_response_platforms ?events
+    ?id ?input_context_names ?is_fallback ?ml_disabled
+    ?parent_followup_intent_name ?priority ?project ?reset_contexts
+    ?webhook_state ?timeouts ~display_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?action ?default_response_platforms ?events ?id
+      ?input_context_names ?is_fallback ?ml_disabled
+      ?parent_followup_intent_name ?priority ?project ?reset_contexts
+      ?webhook_state ?timeouts ~display_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

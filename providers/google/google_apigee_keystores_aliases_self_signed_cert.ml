@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type subject = {
   common_name : string prop option; [@option]
@@ -132,41 +130,45 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?cert_validity_in_days ?id ?key_size
-    ?timeouts ~alias ~environment ~keystore ~org_id ~sig_alg ~subject
-    ~subject_alternative_dns_names __resource_id =
-  let __resource_type =
-    "google_apigee_keystores_aliases_self_signed_cert"
-  in
-  let __resource =
-    google_apigee_keystores_aliases_self_signed_cert
-      ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
-      ~environment ~keystore ~org_id ~sig_alg ~subject
-      ~subject_alternative_dns_names ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_keystores_aliases_self_signed_cert
-       __resource);
-  let __resource_attributes =
+let make ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+    ~environment ~keystore ~org_id ~sig_alg ~subject
+    ~subject_alternative_dns_names __id =
+  let __type = "google_apigee_keystores_aliases_self_signed_cert" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
+       alias = Prop.computed __type __id "alias";
        cert_validity_in_days =
-         Prop.computed __resource_type __resource_id
-           "cert_validity_in_days";
-       certs_info =
-         Prop.computed __resource_type __resource_id "certs_info";
-       environment =
-         Prop.computed __resource_type __resource_id "environment";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_size =
-         Prop.computed __resource_type __resource_id "key_size";
-       keystore =
-         Prop.computed __resource_type __resource_id "keystore";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       sig_alg =
-         Prop.computed __resource_type __resource_id "sig_alg";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "cert_validity_in_days";
+       certs_info = Prop.computed __type __id "certs_info";
+       environment = Prop.computed __type __id "environment";
+       id = Prop.computed __type __id "id";
+       key_size = Prop.computed __type __id "key_size";
+       keystore = Prop.computed __type __id "keystore";
+       org_id = Prop.computed __type __id "org_id";
+       sig_alg = Prop.computed __type __id "sig_alg";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_keystores_aliases_self_signed_cert
+        (google_apigee_keystores_aliases_self_signed_cert
+           ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+           ~environment ~keystore ~org_id ~sig_alg ~subject
+           ~subject_alternative_dns_names ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cert_validity_in_days ?id ?key_size
+    ?timeouts ~alias ~environment ~keystore ~org_id ~sig_alg ~subject
+    ~subject_alternative_dns_names __id =
+  let (r : _ Tf_core.resource) =
+    make ?cert_validity_in_days ?id ?key_size ?timeouts ~alias
+      ~environment ~keystore ~org_id ~sig_alg ~subject
+      ~subject_alternative_dns_names __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

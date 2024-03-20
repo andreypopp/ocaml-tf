@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -126,3 +126,13 @@ val register :
   recurrence:recurrence list ->
   string ->
   t
+
+val make :
+  ?start_time:string prop ->
+  ?tags:(string * string prop) list ->
+  contact_ids:string prop list ->
+  name:string prop ->
+  time_zone_id:string prop ->
+  recurrence:recurrence list ->
+  string ->
+  t Tf_core.resource

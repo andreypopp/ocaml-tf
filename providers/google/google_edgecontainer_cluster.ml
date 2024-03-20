@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorization__admin_users = {
   username : string prop;  (** An active Google username. *)
@@ -320,68 +318,70 @@ type t = {
   update_time : string prop;
 }
 
+let make ?default_max_pods_per_node
+    ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
+    ?release_channel ?target_version ?timeouts ~location ~name
+    ~authorization ~control_plane ~control_plane_encryption ~fleet
+    ~maintenance_policy ~networking ~system_addons_config __id =
+  let __type = "google_edgecontainer_cluster" in
+  let __attrs =
+    ({
+       cluster_ca_certificate =
+         Prop.computed __type __id "cluster_ca_certificate";
+       control_plane_version =
+         Prop.computed __type __id "control_plane_version";
+       create_time = Prop.computed __type __id "create_time";
+       default_max_pods_per_node =
+         Prop.computed __type __id "default_max_pods_per_node";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       endpoint = Prop.computed __type __id "endpoint";
+       external_load_balancer_ipv4_address_pools =
+         Prop.computed __type __id
+           "external_load_balancer_ipv4_address_pools";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       maintenance_events =
+         Prop.computed __type __id "maintenance_events";
+       name = Prop.computed __type __id "name";
+       node_version = Prop.computed __type __id "node_version";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       release_channel = Prop.computed __type __id "release_channel";
+       status = Prop.computed __type __id "status";
+       target_version = Prop.computed __type __id "target_version";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_edgecontainer_cluster
+        (google_edgecontainer_cluster ?default_max_pods_per_node
+           ?external_load_balancer_ipv4_address_pools ?id ?labels
+           ?project ?release_channel ?target_version ?timeouts
+           ~location ~name ~authorization ~control_plane
+           ~control_plane_encryption ~fleet ~maintenance_policy
+           ~networking ~system_addons_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?default_max_pods_per_node
     ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
     ?release_channel ?target_version ?timeouts ~location ~name
     ~authorization ~control_plane ~control_plane_encryption ~fleet
-    ~maintenance_policy ~networking ~system_addons_config
-    __resource_id =
-  let __resource_type = "google_edgecontainer_cluster" in
-  let __resource =
-    google_edgecontainer_cluster ?default_max_pods_per_node
+    ~maintenance_policy ~networking ~system_addons_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_max_pods_per_node
       ?external_load_balancer_ipv4_address_pools ?id ?labels ?project
       ?release_channel ?target_version ?timeouts ~location ~name
       ~authorization ~control_plane ~control_plane_encryption ~fleet
-      ~maintenance_policy ~networking ~system_addons_config ()
+      ~maintenance_policy ~networking ~system_addons_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_edgecontainer_cluster __resource);
-  let __resource_attributes =
-    ({
-       cluster_ca_certificate =
-         Prop.computed __resource_type __resource_id
-           "cluster_ca_certificate";
-       control_plane_version =
-         Prop.computed __resource_type __resource_id
-           "control_plane_version";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       default_max_pods_per_node =
-         Prop.computed __resource_type __resource_id
-           "default_max_pods_per_node";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       external_load_balancer_ipv4_address_pools =
-         Prop.computed __resource_type __resource_id
-           "external_load_balancer_ipv4_address_pools";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       maintenance_events =
-         Prop.computed __resource_type __resource_id
-           "maintenance_events";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_version =
-         Prop.computed __resource_type __resource_id "node_version";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       release_channel =
-         Prop.computed __resource_type __resource_id
-           "release_channel";
-       status = Prop.computed __resource_type __resource_id "status";
-       target_version =
-         Prop.computed __resource_type __resource_id "target_version";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

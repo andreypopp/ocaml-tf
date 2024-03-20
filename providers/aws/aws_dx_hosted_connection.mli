@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,13 @@ val register :
   vlan:float prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  bandwidth:string prop ->
+  connection_id:string prop ->
+  name:string prop ->
+  owner_account_id:string prop ->
+  vlan:float prop ->
+  string ->
+  t Tf_core.resource

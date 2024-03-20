@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssm_parameter = {
   allowed_pattern : string prop option; [@option]
@@ -64,43 +62,48 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?allowed_pattern ?arn ?data_type ?description
-    ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
-    ?value ~name ~type_ __resource_id =
-  let __resource_type = "aws_ssm_parameter" in
-  let __resource =
-    aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
-      ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
-      ?value ~name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_parameter __resource);
-  let __resource_attributes =
+let make ?allowed_pattern ?arn ?data_type ?description ?id
+    ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier ?value
+    ~name ~type_ __id =
+  let __type = "aws_ssm_parameter" in
+  let __attrs =
     ({
-       allowed_pattern =
-         Prop.computed __resource_type __resource_id
-           "allowed_pattern";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       data_type =
-         Prop.computed __resource_type __resource_id "data_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       insecure_value =
-         Prop.computed __resource_type __resource_id "insecure_value";
-       key_id = Prop.computed __resource_type __resource_id "key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       overwrite =
-         Prop.computed __resource_type __resource_id "overwrite";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       value = Prop.computed __resource_type __resource_id "value";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       allowed_pattern = Prop.computed __type __id "allowed_pattern";
+       arn = Prop.computed __type __id "arn";
+       data_type = Prop.computed __type __id "data_type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       insecure_value = Prop.computed __type __id "insecure_value";
+       key_id = Prop.computed __type __id "key_id";
+       name = Prop.computed __type __id "name";
+       overwrite = Prop.computed __type __id "overwrite";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tier = Prop.computed __type __id "tier";
+       type_ = Prop.computed __type __id "type";
+       value = Prop.computed __type __id "value";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_parameter
+        (aws_ssm_parameter ?allowed_pattern ?arn ?data_type
+           ?description ?id ?insecure_value ?key_id ?overwrite ?tags
+           ?tags_all ?tier ?value ~name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allowed_pattern ?arn ?data_type ?description
+    ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier
+    ?value ~name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_pattern ?arn ?data_type ?description ?id
+      ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier ?value
+      ~name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

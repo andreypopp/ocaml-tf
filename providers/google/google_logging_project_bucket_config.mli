@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,17 @@ val register :
   index_configs:index_configs list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enable_analytics:bool prop ->
+  ?id:string prop ->
+  ?locked:bool prop ->
+  ?retention_days:float prop ->
+  bucket_id:string prop ->
+  location:string prop ->
+  project:string prop ->
+  cmek_settings:cmek_settings list ->
+  index_configs:index_configs list ->
+  string ->
+  t Tf_core.resource

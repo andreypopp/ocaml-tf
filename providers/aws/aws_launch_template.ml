@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type block_device_mappings__ebs = {
   delete_on_termination : string prop option; [@option]
@@ -685,6 +683,78 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
+let make ?default_version ?description ?disable_api_stop
+    ?disable_api_termination ?ebs_optimized ?id ?image_id
+    ?instance_initiated_shutdown_behavior ?instance_type ?kernel_id
+    ?key_name ?name ?name_prefix ?ram_disk_id ?security_group_names
+    ?tags ?tags_all ?update_default_version ?user_data
+    ?vpc_security_group_ids ~block_device_mappings
+    ~capacity_reservation_specification ~cpu_options
+    ~credit_specification ~elastic_gpu_specifications
+    ~elastic_inference_accelerator ~enclave_options
+    ~hibernation_options ~iam_instance_profile
+    ~instance_market_options ~instance_requirements
+    ~license_specification ~maintenance_options ~metadata_options
+    ~monitoring ~network_interfaces ~placement
+    ~private_dns_name_options ~tag_specifications __id =
+  let __type = "aws_launch_template" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       default_version = Prop.computed __type __id "default_version";
+       description = Prop.computed __type __id "description";
+       disable_api_stop =
+         Prop.computed __type __id "disable_api_stop";
+       disable_api_termination =
+         Prop.computed __type __id "disable_api_termination";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       id = Prop.computed __type __id "id";
+       image_id = Prop.computed __type __id "image_id";
+       instance_initiated_shutdown_behavior =
+         Prop.computed __type __id
+           "instance_initiated_shutdown_behavior";
+       instance_type = Prop.computed __type __id "instance_type";
+       kernel_id = Prop.computed __type __id "kernel_id";
+       key_name = Prop.computed __type __id "key_name";
+       latest_version = Prop.computed __type __id "latest_version";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       ram_disk_id = Prop.computed __type __id "ram_disk_id";
+       security_group_names =
+         Prop.computed __type __id "security_group_names";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       update_default_version =
+         Prop.computed __type __id "update_default_version";
+       user_data = Prop.computed __type __id "user_data";
+       vpc_security_group_ids =
+         Prop.computed __type __id "vpc_security_group_ids";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_launch_template
+        (aws_launch_template ?default_version ?description
+           ?disable_api_stop ?disable_api_termination ?ebs_optimized
+           ?id ?image_id ?instance_initiated_shutdown_behavior
+           ?instance_type ?kernel_id ?key_name ?name ?name_prefix
+           ?ram_disk_id ?security_group_names ?tags ?tags_all
+           ?update_default_version ?user_data ?vpc_security_group_ids
+           ~block_device_mappings ~capacity_reservation_specification
+           ~cpu_options ~credit_specification
+           ~elastic_gpu_specifications ~elastic_inference_accelerator
+           ~enclave_options ~hibernation_options
+           ~iam_instance_profile ~instance_market_options
+           ~instance_requirements ~license_specification
+           ~maintenance_options ~metadata_options ~monitoring
+           ~network_interfaces ~placement ~private_dns_name_options
+           ~tag_specifications ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?default_version ?description
     ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
     ?image_id ?instance_initiated_shutdown_behavior ?instance_type
@@ -698,15 +768,14 @@ let register ?tf_module ?default_version ?description
     ~instance_market_options ~instance_requirements
     ~license_specification ~maintenance_options ~metadata_options
     ~monitoring ~network_interfaces ~placement
-    ~private_dns_name_options ~tag_specifications __resource_id =
-  let __resource_type = "aws_launch_template" in
-  let __resource =
-    aws_launch_template ?default_version ?description
-      ?disable_api_stop ?disable_api_termination ?ebs_optimized ?id
-      ?image_id ?instance_initiated_shutdown_behavior ?instance_type
-      ?kernel_id ?key_name ?name ?name_prefix ?ram_disk_id
-      ?security_group_names ?tags ?tags_all ?update_default_version
-      ?user_data ?vpc_security_group_ids ~block_device_mappings
+    ~private_dns_name_options ~tag_specifications __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_version ?description ?disable_api_stop
+      ?disable_api_termination ?ebs_optimized ?id ?image_id
+      ?instance_initiated_shutdown_behavior ?instance_type ?kernel_id
+      ?key_name ?name ?name_prefix ?ram_disk_id ?security_group_names
+      ?tags ?tags_all ?update_default_version ?user_data
+      ?vpc_security_group_ids ~block_device_mappings
       ~capacity_reservation_specification ~cpu_options
       ~credit_specification ~elastic_gpu_specifications
       ~elastic_inference_accelerator ~enclave_options
@@ -714,60 +783,7 @@ let register ?tf_module ?default_version ?description
       ~instance_market_options ~instance_requirements
       ~license_specification ~maintenance_options ~metadata_options
       ~monitoring ~network_interfaces ~placement
-      ~private_dns_name_options ~tag_specifications ()
+      ~private_dns_name_options ~tag_specifications __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_launch_template __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       default_version =
-         Prop.computed __resource_type __resource_id
-           "default_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disable_api_stop =
-         Prop.computed __resource_type __resource_id
-           "disable_api_stop";
-       disable_api_termination =
-         Prop.computed __resource_type __resource_id
-           "disable_api_termination";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_id =
-         Prop.computed __resource_type __resource_id "image_id";
-       instance_initiated_shutdown_behavior =
-         Prop.computed __resource_type __resource_id
-           "instance_initiated_shutdown_behavior";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       kernel_id =
-         Prop.computed __resource_type __resource_id "kernel_id";
-       key_name =
-         Prop.computed __resource_type __resource_id "key_name";
-       latest_version =
-         Prop.computed __resource_type __resource_id "latest_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       ram_disk_id =
-         Prop.computed __resource_type __resource_id "ram_disk_id";
-       security_group_names =
-         Prop.computed __resource_type __resource_id
-           "security_group_names";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       update_default_version =
-         Prop.computed __resource_type __resource_id
-           "update_default_version";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       vpc_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "vpc_security_group_ids";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

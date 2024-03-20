@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ipv6__microsoft_peering = {
   advertised_communities : string prop list option; [@option]
@@ -147,61 +145,64 @@ type t = {
   vlan_id : float prop;
 }
 
+let make ?id ?ipv4_enabled ?peer_asn ?primary_peer_address_prefix
+    ?route_filter_id ?secondary_peer_address_prefix ?shared_key
+    ?timeouts ~express_route_circuit_name ~peering_type
+    ~resource_group_name ~vlan_id ~ipv6 ~microsoft_peering_config
+    __id =
+  let __type = "azurerm_express_route_circuit_peering" in
+  let __attrs =
+    ({
+       azure_asn = Prop.computed __type __id "azure_asn";
+       express_route_circuit_name =
+         Prop.computed __type __id "express_route_circuit_name";
+       gateway_manager_etag =
+         Prop.computed __type __id "gateway_manager_etag";
+       id = Prop.computed __type __id "id";
+       ipv4_enabled = Prop.computed __type __id "ipv4_enabled";
+       peer_asn = Prop.computed __type __id "peer_asn";
+       peering_type = Prop.computed __type __id "peering_type";
+       primary_azure_port =
+         Prop.computed __type __id "primary_azure_port";
+       primary_peer_address_prefix =
+         Prop.computed __type __id "primary_peer_address_prefix";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       route_filter_id = Prop.computed __type __id "route_filter_id";
+       secondary_azure_port =
+         Prop.computed __type __id "secondary_azure_port";
+       secondary_peer_address_prefix =
+         Prop.computed __type __id "secondary_peer_address_prefix";
+       shared_key = Prop.computed __type __id "shared_key";
+       vlan_id = Prop.computed __type __id "vlan_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_circuit_peering
+        (azurerm_express_route_circuit_peering ?id ?ipv4_enabled
+           ?peer_asn ?primary_peer_address_prefix ?route_filter_id
+           ?secondary_peer_address_prefix ?shared_key ?timeouts
+           ~express_route_circuit_name ~peering_type
+           ~resource_group_name ~vlan_id ~ipv6
+           ~microsoft_peering_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?ipv4_enabled ?peer_asn
     ?primary_peer_address_prefix ?route_filter_id
     ?secondary_peer_address_prefix ?shared_key ?timeouts
     ~express_route_circuit_name ~peering_type ~resource_group_name
-    ~vlan_id ~ipv6 ~microsoft_peering_config __resource_id =
-  let __resource_type = "azurerm_express_route_circuit_peering" in
-  let __resource =
-    azurerm_express_route_circuit_peering ?id ?ipv4_enabled ?peer_asn
-      ?primary_peer_address_prefix ?route_filter_id
-      ?secondary_peer_address_prefix ?shared_key ?timeouts
-      ~express_route_circuit_name ~peering_type ~resource_group_name
-      ~vlan_id ~ipv6 ~microsoft_peering_config ()
+    ~vlan_id ~ipv6 ~microsoft_peering_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ipv4_enabled ?peer_asn ?primary_peer_address_prefix
+      ?route_filter_id ?secondary_peer_address_prefix ?shared_key
+      ?timeouts ~express_route_circuit_name ~peering_type
+      ~resource_group_name ~vlan_id ~ipv6 ~microsoft_peering_config
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_circuit_peering __resource);
-  let __resource_attributes =
-    ({
-       azure_asn =
-         Prop.computed __resource_type __resource_id "azure_asn";
-       express_route_circuit_name =
-         Prop.computed __resource_type __resource_id
-           "express_route_circuit_name";
-       gateway_manager_etag =
-         Prop.computed __resource_type __resource_id
-           "gateway_manager_etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv4_enabled =
-         Prop.computed __resource_type __resource_id "ipv4_enabled";
-       peer_asn =
-         Prop.computed __resource_type __resource_id "peer_asn";
-       peering_type =
-         Prop.computed __resource_type __resource_id "peering_type";
-       primary_azure_port =
-         Prop.computed __resource_type __resource_id
-           "primary_azure_port";
-       primary_peer_address_prefix =
-         Prop.computed __resource_type __resource_id
-           "primary_peer_address_prefix";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       route_filter_id =
-         Prop.computed __resource_type __resource_id
-           "route_filter_id";
-       secondary_azure_port =
-         Prop.computed __resource_type __resource_id
-           "secondary_azure_port";
-       secondary_peer_address_prefix =
-         Prop.computed __resource_type __resource_id
-           "secondary_peer_address_prefix";
-       shared_key =
-         Prop.computed __resource_type __resource_id "shared_key";
-       vlan_id =
-         Prop.computed __resource_type __resource_id "vlan_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

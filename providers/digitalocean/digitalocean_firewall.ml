@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type inbound_rule = {
   port_range : string prop option; [@option]  (** port_range *)
@@ -95,29 +93,36 @@ type t = {
   tags : string list prop;
 }
 
-let register ?tf_module ?droplet_ids ?id ?tags ~name ~inbound_rule
-    ~outbound_rule __resource_id =
-  let __resource_type = "digitalocean_firewall" in
-  let __resource =
-    digitalocean_firewall ?droplet_ids ?id ?tags ~name ~inbound_rule
-      ~outbound_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_firewall __resource);
-  let __resource_attributes =
+let make ?droplet_ids ?id ?tags ~name ~inbound_rule ~outbound_rule
+    __id =
+  let __type = "digitalocean_firewall" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       droplet_ids =
-         Prop.computed __resource_type __resource_id "droplet_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       pending_changes =
-         Prop.computed __resource_type __resource_id
-           "pending_changes";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
+       created_at = Prop.computed __type __id "created_at";
+       droplet_ids = Prop.computed __type __id "droplet_ids";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       pending_changes = Prop.computed __type __id "pending_changes";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_firewall
+        (digitalocean_firewall ?droplet_ids ?id ?tags ~name
+           ~inbound_rule ~outbound_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?droplet_ids ?id ?tags ~name ~inbound_rule
+    ~outbound_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?droplet_ids ?id ?tags ~name ~inbound_rule ~outbound_rule
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

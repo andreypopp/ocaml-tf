@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_configuration = {
   gateway_load_balancer_frontend_ip_configuration_id :
@@ -119,65 +117,65 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let register ?tf_module ?auxiliary_mode ?auxiliary_sku ?dns_servers
-    ?edge_zone ?enable_accelerated_networking ?enable_ip_forwarding
-    ?id ?internal_dns_name_label ?tags ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __resource_id =
-  let __resource_type = "azurerm_network_interface" in
-  let __resource =
-    azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
-      ?dns_servers ?edge_zone ?enable_accelerated_networking
-      ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
-      ?timeouts ~location ~name ~resource_group_name
-      ~ip_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_interface __resource);
-  let __resource_attributes =
+let make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+    ?enable_accelerated_networking ?enable_ip_forwarding ?id
+    ?internal_dns_name_label ?tags ?timeouts ~location ~name
+    ~resource_group_name ~ip_configuration __id =
+  let __type = "azurerm_network_interface" in
+  let __attrs =
     ({
        applied_dns_servers =
-         Prop.computed __resource_type __resource_id
-           "applied_dns_servers";
-       auxiliary_mode =
-         Prop.computed __resource_type __resource_id "auxiliary_mode";
-       auxiliary_sku =
-         Prop.computed __resource_type __resource_id "auxiliary_sku";
-       dns_servers =
-         Prop.computed __resource_type __resource_id "dns_servers";
-       edge_zone =
-         Prop.computed __resource_type __resource_id "edge_zone";
+         Prop.computed __type __id "applied_dns_servers";
+       auxiliary_mode = Prop.computed __type __id "auxiliary_mode";
+       auxiliary_sku = Prop.computed __type __id "auxiliary_sku";
+       dns_servers = Prop.computed __type __id "dns_servers";
+       edge_zone = Prop.computed __type __id "edge_zone";
        enable_accelerated_networking =
-         Prop.computed __resource_type __resource_id
-           "enable_accelerated_networking";
+         Prop.computed __type __id "enable_accelerated_networking";
        enable_ip_forwarding =
-         Prop.computed __resource_type __resource_id
-           "enable_ip_forwarding";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "enable_ip_forwarding";
+       id = Prop.computed __type __id "id";
        internal_dns_name_label =
-         Prop.computed __resource_type __resource_id
-           "internal_dns_name_label";
+         Prop.computed __type __id "internal_dns_name_label";
        internal_domain_name_suffix =
-         Prop.computed __resource_type __resource_id
-           "internal_domain_name_suffix";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mac_address =
-         Prop.computed __resource_type __resource_id "mac_address";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "internal_domain_name_suffix";
+       location = Prop.computed __type __id "location";
+       mac_address = Prop.computed __type __id "mac_address";
+       name = Prop.computed __type __id "name";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
+         Prop.computed __type __id "private_ip_address";
        private_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "private_ip_addresses";
+         Prop.computed __type __id "private_ip_addresses";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
        virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
+         Prop.computed __type __id "virtual_machine_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_interface
+        (azurerm_network_interface ?auxiliary_mode ?auxiliary_sku
+           ?dns_servers ?edge_zone ?enable_accelerated_networking
+           ?enable_ip_forwarding ?id ?internal_dns_name_label ?tags
+           ?timeouts ~location ~name ~resource_group_name
+           ~ip_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auxiliary_mode ?auxiliary_sku ?dns_servers
+    ?edge_zone ?enable_accelerated_networking ?enable_ip_forwarding
+    ?id ?internal_dns_name_label ?tags ?timeouts ~location ~name
+    ~resource_group_name ~ip_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?auxiliary_mode ?auxiliary_sku ?dns_servers ?edge_zone
+      ?enable_accelerated_networking ?enable_ip_forwarding ?id
+      ?internal_dns_name_label ?tags ?timeouts ~location ~name
+      ~resource_group_name ~ip_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

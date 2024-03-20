@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type selector = {
   labels : (string * string prop) list option; [@option]
@@ -65,36 +63,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?subnet_ids ?tags ?tags_all ?timeouts
-    ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
-    ~selector __resource_id =
-  let __resource_type = "aws_eks_fargate_profile" in
-  let __resource =
-    aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all ?timeouts
-      ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
-      ~selector ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_fargate_profile __resource);
-  let __resource_attributes =
+let make ?id ?subnet_ids ?tags ?tags_all ?timeouts ~cluster_name
+    ~fargate_profile_name ~pod_execution_role_arn ~selector __id =
+  let __type = "aws_eks_fargate_profile" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
+       arn = Prop.computed __type __id "arn";
+       cluster_name = Prop.computed __type __id "cluster_name";
        fargate_profile_name =
-         Prop.computed __resource_type __resource_id
-           "fargate_profile_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "fargate_profile_name";
+       id = Prop.computed __type __id "id";
        pod_execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "pod_execution_role_arn";
-       status = Prop.computed __resource_type __resource_id "status";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "pod_execution_role_arn";
+       status = Prop.computed __type __id "status";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_fargate_profile
+        (aws_eks_fargate_profile ?id ?subnet_ids ?tags ?tags_all
+           ?timeouts ~cluster_name ~fargate_profile_name
+           ~pod_execution_role_arn ~selector ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?subnet_ids ?tags ?tags_all ?timeouts
+    ~cluster_name ~fargate_profile_name ~pod_execution_role_arn
+    ~selector __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?subnet_ids ?tags ?tags_all ?timeouts ~cluster_name
+      ~fargate_profile_name ~pod_execution_role_arn ~selector __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

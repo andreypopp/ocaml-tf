@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition__alert_context = {
   operator : string prop;  (** operator *)
@@ -194,30 +192,37 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
-    ~name ~resource_group_name ~condition ~scope ~suppression
-    __resource_id =
-  let __resource_type = "azurerm_monitor_action_rule_suppression" in
-  let __resource =
-    azurerm_monitor_action_rule_suppression ?description ?enabled ?id
-      ?tags ?timeouts ~name ~resource_group_name ~condition ~scope
-      ~suppression ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_action_rule_suppression __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?id ?tags ?timeouts ~name
+    ~resource_group_name ~condition ~scope ~suppression __id =
+  let __type = "azurerm_monitor_action_rule_suppression" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_action_rule_suppression
+        (azurerm_monitor_action_rule_suppression ?description
+           ?enabled ?id ?tags ?timeouts ~name ~resource_group_name
+           ~condition ~scope ~suppression ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
+    ~name ~resource_group_name ~condition ~scope ~suppression __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?id ?tags ?timeouts ~name
+      ~resource_group_name ~condition ~scope ~suppression __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

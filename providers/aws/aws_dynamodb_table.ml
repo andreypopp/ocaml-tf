@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attribute = {
   name : string prop;  (** name *)
@@ -257,67 +255,74 @@ type t = {
   write_capacity : float prop;
 }
 
+let make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
+    ?range_key ?read_capacity ?restore_date_time ?restore_source_name
+    ?restore_to_latest_time ?stream_enabled ?stream_view_type
+    ?table_class ?tags ?tags_all ?write_capacity ?timeouts ~name
+    ~attribute ~global_secondary_index ~import_table
+    ~local_secondary_index ~point_in_time_recovery ~replica
+    ~server_side_encryption ~ttl __id =
+  let __type = "aws_dynamodb_table" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       billing_mode = Prop.computed __type __id "billing_mode";
+       deletion_protection_enabled =
+         Prop.computed __type __id "deletion_protection_enabled";
+       hash_key = Prop.computed __type __id "hash_key";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       range_key = Prop.computed __type __id "range_key";
+       read_capacity = Prop.computed __type __id "read_capacity";
+       restore_date_time =
+         Prop.computed __type __id "restore_date_time";
+       restore_source_name =
+         Prop.computed __type __id "restore_source_name";
+       restore_to_latest_time =
+         Prop.computed __type __id "restore_to_latest_time";
+       stream_arn = Prop.computed __type __id "stream_arn";
+       stream_enabled = Prop.computed __type __id "stream_enabled";
+       stream_label = Prop.computed __type __id "stream_label";
+       stream_view_type =
+         Prop.computed __type __id "stream_view_type";
+       table_class = Prop.computed __type __id "table_class";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       write_capacity = Prop.computed __type __id "write_capacity";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dynamodb_table
+        (aws_dynamodb_table ?billing_mode
+           ?deletion_protection_enabled ?hash_key ?id ?range_key
+           ?read_capacity ?restore_date_time ?restore_source_name
+           ?restore_to_latest_time ?stream_enabled ?stream_view_type
+           ?table_class ?tags ?tags_all ?write_capacity ?timeouts
+           ~name ~attribute ~global_secondary_index ~import_table
+           ~local_secondary_index ~point_in_time_recovery ~replica
+           ~server_side_encryption ~ttl ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?billing_mode ?deletion_protection_enabled
     ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
     ?restore_source_name ?restore_to_latest_time ?stream_enabled
     ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
     ?timeouts ~name ~attribute ~global_secondary_index ~import_table
     ~local_secondary_index ~point_in_time_recovery ~replica
-    ~server_side_encryption ~ttl __resource_id =
-  let __resource_type = "aws_dynamodb_table" in
-  let __resource =
-    aws_dynamodb_table ?billing_mode ?deletion_protection_enabled
-      ?hash_key ?id ?range_key ?read_capacity ?restore_date_time
+    ~server_side_encryption ~ttl __id =
+  let (r : _ Tf_core.resource) =
+    make ?billing_mode ?deletion_protection_enabled ?hash_key ?id
+      ?range_key ?read_capacity ?restore_date_time
       ?restore_source_name ?restore_to_latest_time ?stream_enabled
       ?stream_view_type ?table_class ?tags ?tags_all ?write_capacity
       ?timeouts ~name ~attribute ~global_secondary_index
       ~import_table ~local_secondary_index ~point_in_time_recovery
-      ~replica ~server_side_encryption ~ttl ()
+      ~replica ~server_side_encryption ~ttl __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dynamodb_table __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       billing_mode =
-         Prop.computed __resource_type __resource_id "billing_mode";
-       deletion_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection_enabled";
-       hash_key =
-         Prop.computed __resource_type __resource_id "hash_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       range_key =
-         Prop.computed __resource_type __resource_id "range_key";
-       read_capacity =
-         Prop.computed __resource_type __resource_id "read_capacity";
-       restore_date_time =
-         Prop.computed __resource_type __resource_id
-           "restore_date_time";
-       restore_source_name =
-         Prop.computed __resource_type __resource_id
-           "restore_source_name";
-       restore_to_latest_time =
-         Prop.computed __resource_type __resource_id
-           "restore_to_latest_time";
-       stream_arn =
-         Prop.computed __resource_type __resource_id "stream_arn";
-       stream_enabled =
-         Prop.computed __resource_type __resource_id "stream_enabled";
-       stream_label =
-         Prop.computed __resource_type __resource_id "stream_label";
-       stream_view_type =
-         Prop.computed __resource_type __resource_id
-           "stream_view_type";
-       table_class =
-         Prop.computed __resource_type __resource_id "table_class";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       write_capacity =
-         Prop.computed __resource_type __resource_id "write_capacity";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

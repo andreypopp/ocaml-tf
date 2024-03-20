@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type broker_node_group_info__connectivity_info__public_access = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
@@ -374,82 +372,83 @@ type t = {
   zookeeper_connect_string_tls : string prop;
 }
 
+let make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
+    ?timeouts ~cluster_name ~kafka_version ~number_of_broker_nodes
+    ~broker_node_group_info ~client_authentication
+    ~configuration_info ~encryption_info ~logging_info
+    ~open_monitoring __id =
+  let __type = "aws_msk_cluster" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       bootstrap_brokers =
+         Prop.computed __type __id "bootstrap_brokers";
+       bootstrap_brokers_public_sasl_iam =
+         Prop.computed __type __id
+           "bootstrap_brokers_public_sasl_iam";
+       bootstrap_brokers_public_sasl_scram =
+         Prop.computed __type __id
+           "bootstrap_brokers_public_sasl_scram";
+       bootstrap_brokers_public_tls =
+         Prop.computed __type __id "bootstrap_brokers_public_tls";
+       bootstrap_brokers_sasl_iam =
+         Prop.computed __type __id "bootstrap_brokers_sasl_iam";
+       bootstrap_brokers_sasl_scram =
+         Prop.computed __type __id "bootstrap_brokers_sasl_scram";
+       bootstrap_brokers_tls =
+         Prop.computed __type __id "bootstrap_brokers_tls";
+       bootstrap_brokers_vpc_connectivity_sasl_iam =
+         Prop.computed __type __id
+           "bootstrap_brokers_vpc_connectivity_sasl_iam";
+       bootstrap_brokers_vpc_connectivity_sasl_scram =
+         Prop.computed __type __id
+           "bootstrap_brokers_vpc_connectivity_sasl_scram";
+       bootstrap_brokers_vpc_connectivity_tls =
+         Prop.computed __type __id
+           "bootstrap_brokers_vpc_connectivity_tls";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       cluster_uuid = Prop.computed __type __id "cluster_uuid";
+       current_version = Prop.computed __type __id "current_version";
+       enhanced_monitoring =
+         Prop.computed __type __id "enhanced_monitoring";
+       id = Prop.computed __type __id "id";
+       kafka_version = Prop.computed __type __id "kafka_version";
+       number_of_broker_nodes =
+         Prop.computed __type __id "number_of_broker_nodes";
+       storage_mode = Prop.computed __type __id "storage_mode";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       zookeeper_connect_string =
+         Prop.computed __type __id "zookeeper_connect_string";
+       zookeeper_connect_string_tls =
+         Prop.computed __type __id "zookeeper_connect_string_tls";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_msk_cluster
+        (aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
+           ?tags_all ?timeouts ~cluster_name ~kafka_version
+           ~number_of_broker_nodes ~broker_node_group_info
+           ~client_authentication ~configuration_info
+           ~encryption_info ~logging_info ~open_monitoring ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enhanced_monitoring ?id ?storage_mode ?tags
     ?tags_all ?timeouts ~cluster_name ~kafka_version
     ~number_of_broker_nodes ~broker_node_group_info
     ~client_authentication ~configuration_info ~encryption_info
-    ~logging_info ~open_monitoring __resource_id =
-  let __resource_type = "aws_msk_cluster" in
-  let __resource =
-    aws_msk_cluster ?enhanced_monitoring ?id ?storage_mode ?tags
-      ?tags_all ?timeouts ~cluster_name ~kafka_version
-      ~number_of_broker_nodes ~broker_node_group_info
-      ~client_authentication ~configuration_info ~encryption_info
-      ~logging_info ~open_monitoring ()
+    ~logging_info ~open_monitoring __id =
+  let (r : _ Tf_core.resource) =
+    make ?enhanced_monitoring ?id ?storage_mode ?tags ?tags_all
+      ?timeouts ~cluster_name ~kafka_version ~number_of_broker_nodes
+      ~broker_node_group_info ~client_authentication
+      ~configuration_info ~encryption_info ~logging_info
+      ~open_monitoring __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_msk_cluster __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bootstrap_brokers =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers";
-       bootstrap_brokers_public_sasl_iam =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_public_sasl_iam";
-       bootstrap_brokers_public_sasl_scram =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_public_sasl_scram";
-       bootstrap_brokers_public_tls =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_public_tls";
-       bootstrap_brokers_sasl_iam =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_sasl_iam";
-       bootstrap_brokers_sasl_scram =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_sasl_scram";
-       bootstrap_brokers_tls =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_tls";
-       bootstrap_brokers_vpc_connectivity_sasl_iam =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_vpc_connectivity_sasl_iam";
-       bootstrap_brokers_vpc_connectivity_sasl_scram =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_vpc_connectivity_sasl_scram";
-       bootstrap_brokers_vpc_connectivity_tls =
-         Prop.computed __resource_type __resource_id
-           "bootstrap_brokers_vpc_connectivity_tls";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       cluster_uuid =
-         Prop.computed __resource_type __resource_id "cluster_uuid";
-       current_version =
-         Prop.computed __resource_type __resource_id
-           "current_version";
-       enhanced_monitoring =
-         Prop.computed __resource_type __resource_id
-           "enhanced_monitoring";
-       id = Prop.computed __resource_type __resource_id "id";
-       kafka_version =
-         Prop.computed __resource_type __resource_id "kafka_version";
-       number_of_broker_nodes =
-         Prop.computed __resource_type __resource_id
-           "number_of_broker_nodes";
-       storage_mode =
-         Prop.computed __resource_type __resource_id "storage_mode";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       zookeeper_connect_string =
-         Prop.computed __resource_type __resource_id
-           "zookeeper_connect_string";
-       zookeeper_connect_string_tls =
-         Prop.computed __resource_type __resource_id
-           "zookeeper_connect_string_tls";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

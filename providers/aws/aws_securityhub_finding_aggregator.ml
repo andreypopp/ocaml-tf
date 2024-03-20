@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_securityhub_finding_aggregator = {
   id : string prop option; [@option]  (** id *)
@@ -23,24 +21,30 @@ type t = {
   specified_regions : string list prop;
 }
 
-let register ?tf_module ?id ?specified_regions ~linking_mode
-    __resource_id =
-  let __resource_type = "aws_securityhub_finding_aggregator" in
-  let __resource =
-    aws_securityhub_finding_aggregator ?id ?specified_regions
-      ~linking_mode ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securityhub_finding_aggregator __resource);
-  let __resource_attributes =
+let make ?id ?specified_regions ~linking_mode __id =
+  let __type = "aws_securityhub_finding_aggregator" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       linking_mode =
-         Prop.computed __resource_type __resource_id "linking_mode";
+       id = Prop.computed __type __id "id";
+       linking_mode = Prop.computed __type __id "linking_mode";
        specified_regions =
-         Prop.computed __resource_type __resource_id
-           "specified_regions";
+         Prop.computed __type __id "specified_regions";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securityhub_finding_aggregator
+        (aws_securityhub_finding_aggregator ?id ?specified_regions
+           ~linking_mode ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?specified_regions ~linking_mode __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?specified_regions ~linking_mode __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

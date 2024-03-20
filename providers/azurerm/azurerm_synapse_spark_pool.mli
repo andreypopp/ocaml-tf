@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,28 @@ val register :
   spark_config:spark_config list ->
   string ->
   t
+
+val make :
+  ?cache_size:float prop ->
+  ?compute_isolation_enabled:bool prop ->
+  ?dynamic_executor_allocation_enabled:bool prop ->
+  ?id:string prop ->
+  ?max_executors:float prop ->
+  ?min_executors:float prop ->
+  ?node_count:float prop ->
+  ?session_level_packages_enabled:bool prop ->
+  ?spark_events_folder:string prop ->
+  ?spark_log_folder:string prop ->
+  ?spark_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  node_size:string prop ->
+  node_size_family:string prop ->
+  synapse_workspace_id:string prop ->
+  auto_pause:auto_pause list ->
+  auto_scale:auto_scale list ->
+  library_requirement:library_requirement list ->
+  spark_config:spark_config list ->
+  string ->
+  t Tf_core.resource

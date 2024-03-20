@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,16 @@ val register :
   limit_type:string prop ->
   string ->
   t
+
+val make :
+  ?breach_action:string prop ->
+  ?id:string prop ->
+  ?period:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  amount:float prop ->
+  cluster_identifier:string prop ->
+  feature_type:string prop ->
+  limit_type:string prop ->
+  string ->
+  t Tf_core.resource

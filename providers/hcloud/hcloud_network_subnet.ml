@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_network_subnet = {
   id : string prop option; [@option]  (** id *)
@@ -29,30 +27,36 @@ type t = {
   vswitch_id : float prop;
 }
 
-let register ?tf_module ?id ?vswitch_id ~ip_range ~network_id
-    ~network_zone ~type_ __resource_id =
-  let __resource_type = "hcloud_network_subnet" in
-  let __resource =
-    hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
-      ~network_zone ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_network_subnet __resource);
-  let __resource_attributes =
+let make ?id ?vswitch_id ~ip_range ~network_id ~network_zone ~type_
+    __id =
+  let __type = "hcloud_network_subnet" in
+  let __attrs =
     ({
-       gateway =
-         Prop.computed __resource_type __resource_id "gateway";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_range =
-         Prop.computed __resource_type __resource_id "ip_range";
-       network_id =
-         Prop.computed __resource_type __resource_id "network_id";
-       network_zone =
-         Prop.computed __resource_type __resource_id "network_zone";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       vswitch_id =
-         Prop.computed __resource_type __resource_id "vswitch_id";
+       gateway = Prop.computed __type __id "gateway";
+       id = Prop.computed __type __id "id";
+       ip_range = Prop.computed __type __id "ip_range";
+       network_id = Prop.computed __type __id "network_id";
+       network_zone = Prop.computed __type __id "network_zone";
+       type_ = Prop.computed __type __id "type";
+       vswitch_id = Prop.computed __type __id "vswitch_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_network_subnet
+        (hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
+           ~network_zone ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?vswitch_id ~ip_range ~network_id
+    ~network_zone ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?vswitch_id ~ip_range ~network_id ~network_zone ~type_
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,14 @@ val register :
   cors:cors list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?invoke_mode:string prop ->
+  ?qualifier:string prop ->
+  ?timeouts:timeouts ->
+  authorization_type:string prop ->
+  function_name:string prop ->
+  cors:cors list ->
+  string ->
+  t Tf_core.resource

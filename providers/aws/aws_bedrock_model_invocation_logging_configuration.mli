@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,6 @@ val register :
   logging_config:logging_config ->
   string ->
   t
+
+val make :
+  logging_config:logging_config -> string -> t Tf_core.resource

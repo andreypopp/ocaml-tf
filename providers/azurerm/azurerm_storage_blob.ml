@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -82,50 +80,55 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?access_tier ?cache_control ?content_md5
-    ?content_type ?id ?metadata ?parallelism ?size ?source
-    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
-    ~storage_container_name ~type_ __resource_id =
-  let __resource_type = "azurerm_storage_blob" in
-  let __resource =
-    azurerm_storage_blob ?access_tier ?cache_control ?content_md5
-      ?content_type ?id ?metadata ?parallelism ?size ?source
-      ?source_content ?source_uri ?timeouts ~name
-      ~storage_account_name ~storage_container_name ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_blob __resource);
-  let __resource_attributes =
+let make ?access_tier ?cache_control ?content_md5 ?content_type ?id
+    ?metadata ?parallelism ?size ?source ?source_content ?source_uri
+    ?timeouts ~name ~storage_account_name ~storage_container_name
+    ~type_ __id =
+  let __type = "azurerm_storage_blob" in
+  let __attrs =
     ({
-       access_tier =
-         Prop.computed __resource_type __resource_id "access_tier";
-       cache_control =
-         Prop.computed __resource_type __resource_id "cache_control";
-       content_md5 =
-         Prop.computed __resource_type __resource_id "content_md5";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       parallelism =
-         Prop.computed __resource_type __resource_id "parallelism";
-       size = Prop.computed __resource_type __resource_id "size";
-       source = Prop.computed __resource_type __resource_id "source";
-       source_content =
-         Prop.computed __resource_type __resource_id "source_content";
-       source_uri =
-         Prop.computed __resource_type __resource_id "source_uri";
+       access_tier = Prop.computed __type __id "access_tier";
+       cache_control = Prop.computed __type __id "cache_control";
+       content_md5 = Prop.computed __type __id "content_md5";
+       content_type = Prop.computed __type __id "content_type";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       parallelism = Prop.computed __type __id "parallelism";
+       size = Prop.computed __type __id "size";
+       source = Prop.computed __type __id "source";
+       source_content = Prop.computed __type __id "source_content";
+       source_uri = Prop.computed __type __id "source_uri";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
        storage_container_name =
-         Prop.computed __resource_type __resource_id
-           "storage_container_name";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "storage_container_name";
+       type_ = Prop.computed __type __id "type";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_blob
+        (azurerm_storage_blob ?access_tier ?cache_control
+           ?content_md5 ?content_type ?id ?metadata ?parallelism
+           ?size ?source ?source_content ?source_uri ?timeouts ~name
+           ~storage_account_name ~storage_container_name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_tier ?cache_control ?content_md5
+    ?content_type ?id ?metadata ?parallelism ?size ?source
+    ?source_content ?source_uri ?timeouts ~name ~storage_account_name
+    ~storage_container_name ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_tier ?cache_control ?content_md5 ?content_type ?id
+      ?metadata ?parallelism ?size ?source ?source_content
+      ?source_uri ?timeouts ~name ~storage_account_name
+      ~storage_container_name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

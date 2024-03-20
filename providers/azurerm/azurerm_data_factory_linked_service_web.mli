@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   url:string prop ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?password:string prop ->
+  ?username:string prop ->
+  ?timeouts:timeouts ->
+  authentication_type:string prop ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  url:string prop ->
+  string ->
+  t Tf_core.resource

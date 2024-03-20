@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,15 @@ val register :
   virtual_interface_id:string prop ->
   string ->
   t
+
+val make :
+  ?amazon_address:string prop ->
+  ?bgp_auth_key:string prop ->
+  ?customer_address:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  bgp_asn:float prop ->
+  virtual_interface_id:string prop ->
+  string ->
+  t Tf_core.resource

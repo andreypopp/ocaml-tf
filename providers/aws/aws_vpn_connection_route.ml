@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpn_connection_route = {
   destination_cidr_block : string prop;
@@ -23,25 +21,32 @@ type t = {
   vpn_connection_id : string prop;
 }
 
-let register ?tf_module ?id ~destination_cidr_block
-    ~vpn_connection_id __resource_id =
-  let __resource_type = "aws_vpn_connection_route" in
-  let __resource =
-    aws_vpn_connection_route ?id ~destination_cidr_block
-      ~vpn_connection_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpn_connection_route __resource);
-  let __resource_attributes =
+let make ?id ~destination_cidr_block ~vpn_connection_id __id =
+  let __type = "aws_vpn_connection_route" in
+  let __attrs =
     ({
        destination_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "destination_cidr_block";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "destination_cidr_block";
+       id = Prop.computed __type __id "id";
        vpn_connection_id =
-         Prop.computed __resource_type __resource_id
-           "vpn_connection_id";
+         Prop.computed __type __id "vpn_connection_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpn_connection_route
+        (aws_vpn_connection_route ?id ~destination_cidr_block
+           ~vpn_connection_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~destination_cidr_block
+    ~vpn_connection_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~destination_cidr_block ~vpn_connection_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

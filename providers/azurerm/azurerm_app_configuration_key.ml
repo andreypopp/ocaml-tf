@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,36 +65,46 @@ type t = {
   vault_key_reference : string prop;
 }
 
-let register ?tf_module ?content_type ?etag ?id ?label ?locked ?tags
-    ?type_ ?value ?vault_key_reference ?timeouts
-    ~configuration_store_id ~key __resource_id =
-  let __resource_type = "azurerm_app_configuration_key" in
-  let __resource =
-    azurerm_app_configuration_key ?content_type ?etag ?id ?label
-      ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
-      ~configuration_store_id ~key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_configuration_key __resource);
-  let __resource_attributes =
+let make ?content_type ?etag ?id ?label ?locked ?tags ?type_ ?value
+    ?vault_key_reference ?timeouts ~configuration_store_id ~key __id
+    =
+  let __type = "azurerm_app_configuration_key" in
+  let __attrs =
     ({
        configuration_store_id =
-         Prop.computed __resource_type __resource_id
-           "configuration_store_id";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       label = Prop.computed __resource_type __resource_id "label";
-       locked = Prop.computed __resource_type __resource_id "locked";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "configuration_store_id";
+       content_type = Prop.computed __type __id "content_type";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       label = Prop.computed __type __id "label";
+       locked = Prop.computed __type __id "locked";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       value = Prop.computed __type __id "value";
        vault_key_reference =
-         Prop.computed __resource_type __resource_id
-           "vault_key_reference";
+         Prop.computed __type __id "vault_key_reference";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_configuration_key
+        (azurerm_app_configuration_key ?content_type ?etag ?id ?label
+           ?locked ?tags ?type_ ?value ?vault_key_reference ?timeouts
+           ~configuration_store_id ~key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?content_type ?etag ?id ?label ?locked ?tags
+    ?type_ ?value ?vault_key_reference ?timeouts
+    ~configuration_store_id ~key __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_type ?etag ?id ?label ?locked ?tags ?type_ ?value
+      ?vault_key_reference ?timeouts ~configuration_store_id ~key
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

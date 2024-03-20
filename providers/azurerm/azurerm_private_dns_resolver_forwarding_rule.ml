@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target_dns_servers = {
   ip_address : string prop;  (** ip_address *)
@@ -65,34 +63,38 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?metadata ?timeouts
-    ~dns_forwarding_ruleset_id ~domain_name ~name ~target_dns_servers
-    __resource_id =
-  let __resource_type =
-    "azurerm_private_dns_resolver_forwarding_rule"
-  in
-  let __resource =
-    azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
-      ?metadata ?timeouts ~dns_forwarding_ruleset_id ~domain_name
-      ~name ~target_dns_servers ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_dns_resolver_forwarding_rule
-       __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?metadata ?timeouts ~dns_forwarding_ruleset_id
+    ~domain_name ~name ~target_dns_servers __id =
+  let __type = "azurerm_private_dns_resolver_forwarding_rule" in
+  let __attrs =
     ({
        dns_forwarding_ruleset_id =
-         Prop.computed __resource_type __resource_id
-           "dns_forwarding_ruleset_id";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "dns_forwarding_ruleset_id";
+       domain_name = Prop.computed __type __id "domain_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_dns_resolver_forwarding_rule
+        (azurerm_private_dns_resolver_forwarding_rule ?enabled ?id
+           ?metadata ?timeouts ~dns_forwarding_ruleset_id
+           ~domain_name ~name ~target_dns_servers ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?metadata ?timeouts
+    ~dns_forwarding_ruleset_id ~domain_name ~name ~target_dns_servers
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?metadata ?timeouts ~dns_forwarding_ruleset_id
+      ~domain_name ~name ~target_dns_servers __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_api_shield_schema = {
   id : string prop option; [@option]  (** id *)
@@ -34,27 +32,34 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?kind ?validation_enabled ~name ~source
-    ~zone_id __resource_id =
-  let __resource_type = "cloudflare_api_shield_schema" in
-  let __resource =
-    cloudflare_api_shield_schema ?id ?kind ?validation_enabled ~name
-      ~source ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_api_shield_schema __resource);
-  let __resource_attributes =
+let make ?id ?kind ?validation_enabled ~name ~source ~zone_id __id =
+  let __type = "cloudflare_api_shield_schema" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
-       source = Prop.computed __resource_type __resource_id "source";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
+       source = Prop.computed __type __id "source";
        validation_enabled =
-         Prop.computed __resource_type __resource_id
-           "validation_enabled";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "validation_enabled";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_api_shield_schema
+        (cloudflare_api_shield_schema ?id ?kind ?validation_enabled
+           ~name ~source ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kind ?validation_enabled ~name ~source
+    ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kind ?validation_enabled ~name ~source ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

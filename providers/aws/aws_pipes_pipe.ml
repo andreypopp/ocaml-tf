@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type enrichment_parameters__http_parameters = {
   header_parameters : (string * string prop) list option; [@option]
@@ -1012,40 +1010,49 @@ type t = {
   target : string prop;
 }
 
-let register ?tf_module ?description ?desired_state ?enrichment ?id
-    ?name ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
-    ~target ~enrichment_parameters ~source_parameters
-    ~target_parameters __resource_id =
-  let __resource_type = "aws_pipes_pipe" in
-  let __resource =
-    aws_pipes_pipe ?description ?desired_state ?enrichment ?id ?name
-      ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
-      ~target ~enrichment_parameters ~source_parameters
-      ~target_parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_pipes_pipe __resource);
-  let __resource_attributes =
+let make ?description ?desired_state ?enrichment ?id ?name
+    ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source ~target
+    ~enrichment_parameters ~source_parameters ~target_parameters __id
+    =
+  let __type = "aws_pipes_pipe" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       desired_state =
-         Prop.computed __resource_type __resource_id "desired_state";
-       enrichment =
-         Prop.computed __resource_type __resource_id "enrichment";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       source = Prop.computed __resource_type __resource_id "source";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target = Prop.computed __resource_type __resource_id "target";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       desired_state = Prop.computed __type __id "desired_state";
+       enrichment = Prop.computed __type __id "enrichment";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       role_arn = Prop.computed __type __id "role_arn";
+       source = Prop.computed __type __id "source";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target = Prop.computed __type __id "target";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_pipes_pipe
+        (aws_pipes_pipe ?description ?desired_state ?enrichment ?id
+           ?name ?name_prefix ?tags ?tags_all ?timeouts ~role_arn
+           ~source ~target ~enrichment_parameters ~source_parameters
+           ~target_parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?desired_state ?enrichment ?id
+    ?name ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
+    ~target ~enrichment_parameters ~source_parameters
+    ~target_parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?desired_state ?enrichment ?id ?name
+      ?name_prefix ?tags ?tags_all ?timeouts ~role_arn ~source
+      ~target ~enrichment_parameters ~source_parameters
+      ~target_parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

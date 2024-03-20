@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target_applications = {
   aws_region : string prop;  (** aws_region *)
@@ -48,26 +46,34 @@ type t = {
   trigger_value : string prop;
 }
 
-let register ?tf_module ?disabled ?id ~name ~trigger_type
-    ~trigger_value ~target_applications __resource_id =
-  let __resource_type = "aws_chimesdkvoice_sip_rule" in
-  let __resource =
-    aws_chimesdkvoice_sip_rule ?disabled ?id ~name ~trigger_type
-      ~trigger_value ~target_applications ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chimesdkvoice_sip_rule __resource);
-  let __resource_attributes =
+let make ?disabled ?id ~name ~trigger_type ~trigger_value
+    ~target_applications __id =
+  let __type = "aws_chimesdkvoice_sip_rule" in
+  let __attrs =
     ({
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       trigger_type =
-         Prop.computed __resource_type __resource_id "trigger_type";
-       trigger_value =
-         Prop.computed __resource_type __resource_id "trigger_value";
+       disabled = Prop.computed __type __id "disabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       trigger_type = Prop.computed __type __id "trigger_type";
+       trigger_value = Prop.computed __type __id "trigger_value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chimesdkvoice_sip_rule
+        (aws_chimesdkvoice_sip_rule ?disabled ?id ~name ~trigger_type
+           ~trigger_value ~target_applications ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled ?id ~name ~trigger_type
+    ~trigger_value ~target_applications __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled ?id ~name ~trigger_type ~trigger_value
+      ~target_applications __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

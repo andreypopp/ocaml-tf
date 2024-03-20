@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,18 @@ val register :
   policy_definition_reference:policy_definition_reference list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?management_group_id:string prop ->
+  ?metadata:string prop ->
+  ?parameters:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  name:string prop ->
+  policy_type:string prop ->
+  policy_definition_group:policy_definition_group list ->
+  policy_definition_reference:policy_definition_reference list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type tag_filter = {
   action : string prop;  (** action *)
@@ -62,32 +60,40 @@ type t = {
   send_subscription_logs : bool prop;
 }
 
-let register ?tf_module ?id ?send_aad_logs ?send_activity_logs
+let make ?id ?send_aad_logs ?send_activity_logs
     ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
-    __resource_id =
-  let __resource_type = "azurerm_logz_tag_rule" in
-  let __resource =
-    azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
-      ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logz_tag_rule __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "azurerm_logz_tag_rule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       logz_monitor_id =
-         Prop.computed __resource_type __resource_id
-           "logz_monitor_id";
-       send_aad_logs =
-         Prop.computed __resource_type __resource_id "send_aad_logs";
+       id = Prop.computed __type __id "id";
+       logz_monitor_id = Prop.computed __type __id "logz_monitor_id";
+       send_aad_logs = Prop.computed __type __id "send_aad_logs";
        send_activity_logs =
-         Prop.computed __resource_type __resource_id
-           "send_activity_logs";
+         Prop.computed __type __id "send_activity_logs";
        send_subscription_logs =
-         Prop.computed __resource_type __resource_id
-           "send_subscription_logs";
+         Prop.computed __type __id "send_subscription_logs";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logz_tag_rule
+        (azurerm_logz_tag_rule ?id ?send_aad_logs ?send_activity_logs
+           ?send_subscription_logs ?timeouts ~logz_monitor_id
+           ~tag_filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?send_aad_logs ?send_activity_logs
+    ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?send_aad_logs ?send_activity_logs
+      ?send_subscription_logs ?timeouts ~logz_monitor_id ~tag_filter
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_encryption_metadata = {
   allow_clear_text : bool prop;  (** allow_clear_text *)
@@ -94,42 +92,48 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?tags ?tags_all ?timeouts
-    ~creator_display_name ~creator_member_abilities ~description
-    ~name ~query_log_status ~data_encryption_metadata ~member
-    __resource_id =
-  let __resource_type = "aws_cleanrooms_collaboration" in
-  let __resource =
-    aws_cleanrooms_collaboration ?tags ?tags_all ?timeouts
-      ~creator_display_name ~creator_member_abilities ~description
-      ~name ~query_log_status ~data_encryption_metadata ~member ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cleanrooms_collaboration __resource);
-  let __resource_attributes =
+let make ?tags ?tags_all ?timeouts ~creator_display_name
+    ~creator_member_abilities ~description ~name ~query_log_status
+    ~data_encryption_metadata ~member __id =
+  let __type = "aws_cleanrooms_collaboration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       arn = Prop.computed __type __id "arn";
+       create_time = Prop.computed __type __id "create_time";
        creator_display_name =
-         Prop.computed __resource_type __resource_id
-           "creator_display_name";
+         Prop.computed __type __id "creator_display_name";
        creator_member_abilities =
-         Prop.computed __resource_type __resource_id
-           "creator_member_abilities";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "creator_member_abilities";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        query_log_status =
-         Prop.computed __resource_type __resource_id
-           "query_log_status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "query_log_status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cleanrooms_collaboration
+        (aws_cleanrooms_collaboration ?tags ?tags_all ?timeouts
+           ~creator_display_name ~creator_member_abilities
+           ~description ~name ~query_log_status
+           ~data_encryption_metadata ~member ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?tags ?tags_all ?timeouts
+    ~creator_display_name ~creator_member_abilities ~description
+    ~name ~query_log_status ~data_encryption_metadata ~member __id =
+  let (r : _ Tf_core.resource) =
+    make ?tags ?tags_all ?timeouts ~creator_display_name
+      ~creator_member_abilities ~description ~name ~query_log_status
+      ~data_encryption_metadata ~member __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

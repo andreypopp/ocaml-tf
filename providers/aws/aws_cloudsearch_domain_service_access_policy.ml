@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   delete : string prop option; [@option]  (** delete *)
@@ -33,26 +31,30 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~access_policy ~domain_name
-    __resource_id =
-  let __resource_type =
-    "aws_cloudsearch_domain_service_access_policy"
-  in
-  let __resource =
-    aws_cloudsearch_domain_service_access_policy ?id ?timeouts
-      ~access_policy ~domain_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudsearch_domain_service_access_policy
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~access_policy ~domain_name __id =
+  let __type = "aws_cloudsearch_domain_service_access_policy" in
+  let __attrs =
     ({
-       access_policy =
-         Prop.computed __resource_type __resource_id "access_policy";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_policy = Prop.computed __type __id "access_policy";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudsearch_domain_service_access_policy
+        (aws_cloudsearch_domain_service_access_policy ?id ?timeouts
+           ~access_policy ~domain_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~access_policy ~domain_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~access_policy ~domain_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

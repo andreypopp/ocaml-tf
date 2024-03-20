@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_masking_policy = {
   predefined_expression : string prop;
@@ -68,33 +66,39 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~data_policy_id
-    ~data_policy_type ~location ~policy_tag ~data_masking_policy
-    __resource_id =
-  let __resource_type = "google_bigquery_datapolicy_data_policy" in
-  let __resource =
-    google_bigquery_datapolicy_data_policy ?id ?project ?timeouts
-      ~data_policy_id ~data_policy_type ~location ~policy_tag
-      ~data_masking_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_datapolicy_data_policy __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~data_policy_id ~data_policy_type
+    ~location ~policy_tag ~data_masking_policy __id =
+  let __type = "google_bigquery_datapolicy_data_policy" in
+  let __attrs =
     ({
-       data_policy_id =
-         Prop.computed __resource_type __resource_id "data_policy_id";
+       data_policy_id = Prop.computed __type __id "data_policy_id";
        data_policy_type =
-         Prop.computed __resource_type __resource_id
-           "data_policy_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_tag =
-         Prop.computed __resource_type __resource_id "policy_tag";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "data_policy_type";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       policy_tag = Prop.computed __type __id "policy_tag";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_datapolicy_data_policy
+        (google_bigquery_datapolicy_data_policy ?id ?project
+           ?timeouts ~data_policy_id ~data_policy_type ~location
+           ~policy_tag ~data_masking_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~data_policy_id
+    ~data_policy_type ~location ~policy_tag ~data_masking_policy __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~data_policy_id ~data_policy_type
+      ~location ~policy_tag ~data_masking_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sub_domain = {
   branch_name : string prop;  (** branch_name *)
@@ -49,33 +47,40 @@ type t = {
   wait_for_verification : bool prop;
 }
 
-let register ?tf_module ?enable_auto_sub_domain ?id
-    ?wait_for_verification ~app_id ~domain_name ~sub_domain
-    __resource_id =
-  let __resource_type = "aws_amplify_domain_association" in
-  let __resource =
-    aws_amplify_domain_association ?enable_auto_sub_domain ?id
-      ?wait_for_verification ~app_id ~domain_name ~sub_domain ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_amplify_domain_association __resource);
-  let __resource_attributes =
+let make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
+    ~domain_name ~sub_domain __id =
+  let __type = "aws_amplify_domain_association" in
+  let __attrs =
     ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       app_id = Prop.computed __type __id "app_id";
+       arn = Prop.computed __type __id "arn";
        certificate_verification_dns_record =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "certificate_verification_dns_record";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
+       domain_name = Prop.computed __type __id "domain_name";
        enable_auto_sub_domain =
-         Prop.computed __resource_type __resource_id
-           "enable_auto_sub_domain";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "enable_auto_sub_domain";
+       id = Prop.computed __type __id "id";
        wait_for_verification =
-         Prop.computed __resource_type __resource_id
-           "wait_for_verification";
+         Prop.computed __type __id "wait_for_verification";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_amplify_domain_association
+        (aws_amplify_domain_association ?enable_auto_sub_domain ?id
+           ?wait_for_verification ~app_id ~domain_name ~sub_domain ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_auto_sub_domain ?id
+    ?wait_for_verification ~app_id ~domain_name ~sub_domain __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_auto_sub_domain ?id ?wait_for_verification ~app_id
+      ~domain_name ~sub_domain __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

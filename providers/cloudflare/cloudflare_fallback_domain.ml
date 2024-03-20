@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type domains = {
   description : string prop option; [@option]
@@ -43,22 +41,29 @@ type t = {
   policy_id : string prop;
 }
 
-let register ?tf_module ?id ?policy_id ~account_id ~domains
-    __resource_id =
-  let __resource_type = "cloudflare_fallback_domain" in
-  let __resource =
-    cloudflare_fallback_domain ?id ?policy_id ~account_id ~domains ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_fallback_domain __resource);
-  let __resource_attributes =
+let make ?id ?policy_id ~account_id ~domains __id =
+  let __type = "cloudflare_fallback_domain" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_id =
-         Prop.computed __resource_type __resource_id "policy_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       policy_id = Prop.computed __type __id "policy_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_fallback_domain
+        (cloudflare_fallback_domain ?id ?policy_id ~account_id
+           ~domains ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?policy_id ~account_id ~domains __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?policy_id ~account_id ~domains __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

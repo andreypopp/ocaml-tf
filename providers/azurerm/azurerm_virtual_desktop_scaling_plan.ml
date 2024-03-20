@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type host_pool = {
   hostpool_id : string prop;  (** hostpool_id *)
@@ -140,36 +138,44 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?description ?exclusion_tag ?friendly_name
-    ?id ?tags ?timeouts ~location ~name ~resource_group_name
-    ~time_zone ~host_pool ~schedule __resource_id =
-  let __resource_type = "azurerm_virtual_desktop_scaling_plan" in
-  let __resource =
-    azurerm_virtual_desktop_scaling_plan ?description ?exclusion_tag
-      ?friendly_name ?id ?tags ?timeouts ~location ~name
-      ~resource_group_name ~time_zone ~host_pool ~schedule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_desktop_scaling_plan __resource);
-  let __resource_attributes =
+let make ?description ?exclusion_tag ?friendly_name ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~time_zone
+    ~host_pool ~schedule __id =
+  let __type = "azurerm_virtual_desktop_scaling_plan" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       exclusion_tag =
-         Prop.computed __resource_type __resource_id "exclusion_tag";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       exclusion_tag = Prop.computed __type __id "exclusion_tag";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_desktop_scaling_plan
+        (azurerm_virtual_desktop_scaling_plan ?description
+           ?exclusion_tag ?friendly_name ?id ?tags ?timeouts
+           ~location ~name ~resource_group_name ~time_zone ~host_pool
+           ~schedule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?exclusion_tag ?friendly_name
+    ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~time_zone ~host_pool ~schedule __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?exclusion_tag ?friendly_name ?id ?tags
+      ?timeouts ~location ~name ~resource_group_name ~time_zone
+      ~host_pool ~schedule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

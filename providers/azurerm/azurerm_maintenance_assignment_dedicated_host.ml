@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,30 +42,36 @@ type t = {
   maintenance_configuration_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~dedicated_host_id ~location
-    ~maintenance_configuration_id __resource_id =
-  let __resource_type =
-    "azurerm_maintenance_assignment_dedicated_host"
-  in
-  let __resource =
-    azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
-      ~dedicated_host_id ~location ~maintenance_configuration_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_maintenance_assignment_dedicated_host
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~dedicated_host_id ~location
+    ~maintenance_configuration_id __id =
+  let __type = "azurerm_maintenance_assignment_dedicated_host" in
+  let __attrs =
     ({
        dedicated_host_id =
-         Prop.computed __resource_type __resource_id
-           "dedicated_host_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "dedicated_host_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        maintenance_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "maintenance_configuration_id";
+         Prop.computed __type __id "maintenance_configuration_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_maintenance_assignment_dedicated_host
+        (azurerm_maintenance_assignment_dedicated_host ?id ?timeouts
+           ~dedicated_host_id ~location ~maintenance_configuration_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~dedicated_host_id ~location
+    ~maintenance_configuration_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~dedicated_host_id ~location
+      ~maintenance_configuration_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

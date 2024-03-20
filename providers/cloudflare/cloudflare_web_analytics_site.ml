@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -43,34 +41,37 @@ type t = {
   zone_tag : string prop;
 }
 
-let register ?tf_module ?host ?id ?zone_tag ?timeouts ~account_id
-    ~auto_install __resource_id =
-  let __resource_type = "cloudflare_web_analytics_site" in
-  let __resource =
-    cloudflare_web_analytics_site ?host ?id ?zone_tag ?timeouts
-      ~account_id ~auto_install ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_web_analytics_site __resource);
-  let __resource_attributes =
+let make ?host ?id ?zone_tag ?timeouts ~account_id ~auto_install __id
+    =
+  let __type = "cloudflare_web_analytics_site" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       auto_install =
-         Prop.computed __resource_type __resource_id "auto_install";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       ruleset_id =
-         Prop.computed __resource_type __resource_id "ruleset_id";
-       site_tag =
-         Prop.computed __resource_type __resource_id "site_tag";
-       site_token =
-         Prop.computed __resource_type __resource_id "site_token";
-       snippet =
-         Prop.computed __resource_type __resource_id "snippet";
-       zone_tag =
-         Prop.computed __resource_type __resource_id "zone_tag";
+       account_id = Prop.computed __type __id "account_id";
+       auto_install = Prop.computed __type __id "auto_install";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       ruleset_id = Prop.computed __type __id "ruleset_id";
+       site_tag = Prop.computed __type __id "site_tag";
+       site_token = Prop.computed __type __id "site_token";
+       snippet = Prop.computed __type __id "snippet";
+       zone_tag = Prop.computed __type __id "zone_tag";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_web_analytics_site
+        (cloudflare_web_analytics_site ?host ?id ?zone_tag ?timeouts
+           ~account_id ~auto_install ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?host ?id ?zone_tag ?timeouts ~account_id
+    ~auto_install __id =
+  let (r : _ Tf_core.resource) =
+    make ?host ?id ?zone_tag ?timeouts ~account_id ~auto_install __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

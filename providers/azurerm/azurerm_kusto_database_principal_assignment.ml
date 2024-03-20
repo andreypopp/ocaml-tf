@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,42 +59,45 @@ type t = {
   tenant_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cluster_name ~database_name
-    ~name ~principal_id ~principal_type ~resource_group_name ~role
-    ~tenant_id __resource_id =
-  let __resource_type =
-    "azurerm_kusto_database_principal_assignment"
-  in
-  let __resource =
-    azurerm_kusto_database_principal_assignment ?id ?timeouts
-      ~cluster_name ~database_name ~name ~principal_id
-      ~principal_type ~resource_group_name ~role ~tenant_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_database_principal_assignment __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cluster_name ~database_name ~name
+    ~principal_id ~principal_type ~resource_group_name ~role
+    ~tenant_id __id =
+  let __type = "azurerm_kusto_database_principal_assignment" in
+  let __attrs =
     ({
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
-       principal_name =
-         Prop.computed __resource_type __resource_id "principal_name";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       database_name = Prop.computed __type __id "database_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       principal_id = Prop.computed __type __id "principal_id";
+       principal_name = Prop.computed __type __id "principal_name";
+       principal_type = Prop.computed __type __id "principal_type";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       role = Prop.computed __resource_type __resource_id "role";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       tenant_name =
-         Prop.computed __resource_type __resource_id "tenant_name";
+         Prop.computed __type __id "resource_group_name";
+       role = Prop.computed __type __id "role";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       tenant_name = Prop.computed __type __id "tenant_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_database_principal_assignment
+        (azurerm_kusto_database_principal_assignment ?id ?timeouts
+           ~cluster_name ~database_name ~name ~principal_id
+           ~principal_type ~resource_group_name ~role ~tenant_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cluster_name ~database_name
+    ~name ~principal_id ~principal_type ~resource_group_name ~role
+    ~tenant_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cluster_name ~database_name ~name
+      ~principal_id ~principal_type ~resource_group_name ~role
+      ~tenant_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

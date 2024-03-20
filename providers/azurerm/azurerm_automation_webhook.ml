@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,40 +64,47 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?parameters ?run_on_worker_group
-    ?uri ?timeouts ~automation_account_name ~expiry_time ~name
-    ~resource_group_name ~runbook_name __resource_id =
-  let __resource_type = "azurerm_automation_webhook" in
-  let __resource =
-    azurerm_automation_webhook ?enabled ?id ?parameters
-      ?run_on_worker_group ?uri ?timeouts ~automation_account_name
-      ~expiry_time ~name ~resource_group_name ~runbook_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_webhook __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?parameters ?run_on_worker_group ?uri ?timeouts
+    ~automation_account_name ~expiry_time ~name ~resource_group_name
+    ~runbook_name __id =
+  let __type = "azurerm_automation_webhook" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       expiry_time =
-         Prop.computed __resource_type __resource_id "expiry_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+         Prop.computed __type __id "automation_account_name";
+       enabled = Prop.computed __type __id "enabled";
+       expiry_time = Prop.computed __type __id "expiry_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        run_on_worker_group =
-         Prop.computed __resource_type __resource_id
-           "run_on_worker_group";
-       runbook_name =
-         Prop.computed __resource_type __resource_id "runbook_name";
-       uri = Prop.computed __resource_type __resource_id "uri";
+         Prop.computed __type __id "run_on_worker_group";
+       runbook_name = Prop.computed __type __id "runbook_name";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_webhook
+        (azurerm_automation_webhook ?enabled ?id ?parameters
+           ?run_on_worker_group ?uri ?timeouts
+           ~automation_account_name ~expiry_time ~name
+           ~resource_group_name ~runbook_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?parameters ?run_on_worker_group
+    ?uri ?timeouts ~automation_account_name ~expiry_time ~name
+    ~resource_group_name ~runbook_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?parameters ?run_on_worker_group ?uri ?timeouts
+      ~automation_account_name ~expiry_time ~name
+      ~resource_group_name ~runbook_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

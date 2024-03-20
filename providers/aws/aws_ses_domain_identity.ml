@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ses_domain_identity = {
   domain : string prop;  (** domain *)
@@ -22,20 +20,28 @@ type t = {
   verification_token : string prop;
 }
 
-let register ?tf_module ?id ~domain __resource_id =
-  let __resource_type = "aws_ses_domain_identity" in
-  let __resource = aws_ses_domain_identity ?id ~domain () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ses_domain_identity __resource);
-  let __resource_attributes =
+let make ?id ~domain __id =
+  let __type = "aws_ses_domain_identity" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       domain = Prop.computed __type __id "domain";
+       id = Prop.computed __type __id "id";
        verification_token =
-         Prop.computed __resource_type __resource_id
-           "verification_token";
+         Prop.computed __type __id "verification_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ses_domain_identity
+        (aws_ses_domain_identity ?id ~domain ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~domain __id =
+  let (r : _ Tf_core.resource) = make ?id ~domain __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

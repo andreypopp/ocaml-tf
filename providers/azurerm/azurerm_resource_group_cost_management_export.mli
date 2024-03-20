@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,17 @@ val register :
   export_data_storage_location:export_data_storage_location list ->
   string ->
   t
+
+val make :
+  ?active:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  recurrence_period_end_date:string prop ->
+  recurrence_period_start_date:string prop ->
+  recurrence_type:string prop ->
+  resource_group_id:string prop ->
+  export_data_options:export_data_options list ->
+  export_data_storage_location:export_data_storage_location list ->
+  string ->
+  t Tf_core.resource

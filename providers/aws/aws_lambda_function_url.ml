@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cors = {
   allow_credentials : bool prop option; [@option]
@@ -75,33 +73,38 @@ type t = {
   url_id : string prop;
 }
 
-let register ?tf_module ?id ?invoke_mode ?qualifier ?timeouts
-    ~authorization_type ~function_name ~cors __resource_id =
-  let __resource_type = "aws_lambda_function_url" in
-  let __resource =
-    aws_lambda_function_url ?id ?invoke_mode ?qualifier ?timeouts
-      ~authorization_type ~function_name ~cors ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_function_url __resource);
-  let __resource_attributes =
+let make ?id ?invoke_mode ?qualifier ?timeouts ~authorization_type
+    ~function_name ~cors __id =
+  let __type = "aws_lambda_function_url" in
+  let __attrs =
     ({
        authorization_type =
-         Prop.computed __resource_type __resource_id
-           "authorization_type";
-       function_arn =
-         Prop.computed __resource_type __resource_id "function_arn";
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
-       function_url =
-         Prop.computed __resource_type __resource_id "function_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       invoke_mode =
-         Prop.computed __resource_type __resource_id "invoke_mode";
-       qualifier =
-         Prop.computed __resource_type __resource_id "qualifier";
-       url_id = Prop.computed __resource_type __resource_id "url_id";
+         Prop.computed __type __id "authorization_type";
+       function_arn = Prop.computed __type __id "function_arn";
+       function_name = Prop.computed __type __id "function_name";
+       function_url = Prop.computed __type __id "function_url";
+       id = Prop.computed __type __id "id";
+       invoke_mode = Prop.computed __type __id "invoke_mode";
+       qualifier = Prop.computed __type __id "qualifier";
+       url_id = Prop.computed __type __id "url_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_function_url
+        (aws_lambda_function_url ?id ?invoke_mode ?qualifier
+           ?timeouts ~authorization_type ~function_name ~cors ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?invoke_mode ?qualifier ?timeouts
+    ~authorization_type ~function_name ~cors __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?invoke_mode ?qualifier ?timeouts ~authorization_type
+      ~function_name ~cors __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

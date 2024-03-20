@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,15 @@ val register :
   snapshot_schedule:snapshot_schedule list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?terms:string prop ->
+  ?timeouts:timeouts ->
+  account_id:string prop ->
+  kind:string prop ->
+  name:string prop ->
+  snapshot_schedule:snapshot_schedule list ->
+  string ->
+  t Tf_core.resource

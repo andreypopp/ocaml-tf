@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_endpoints = {
   endpoint_type : string prop;  (** endpoint_type *)
@@ -117,43 +115,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?description ?display_name ?embed_host_domains ?feedback_url
+    ?id ?redirect_url ?tags ?tags_all ~name ~access_endpoints
+    ~application_settings ~storage_connectors
+    ~streaming_experience_settings ~user_settings __id =
+  let __type = "aws_appstream_stack" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       created_time = Prop.computed __type __id "created_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       embed_host_domains =
+         Prop.computed __type __id "embed_host_domains";
+       feedback_url = Prop.computed __type __id "feedback_url";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       redirect_url = Prop.computed __type __id "redirect_url";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_stack
+        (aws_appstream_stack ?description ?display_name
+           ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
+           ?tags_all ~name ~access_endpoints ~application_settings
+           ~storage_connectors ~streaming_experience_settings
+           ~user_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?display_name
     ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
     ?tags_all ~name ~access_endpoints ~application_settings
     ~storage_connectors ~streaming_experience_settings ~user_settings
-    __resource_id =
-  let __resource_type = "aws_appstream_stack" in
-  let __resource =
-    aws_appstream_stack ?description ?display_name
-      ?embed_host_domains ?feedback_url ?id ?redirect_url ?tags
-      ?tags_all ~name ~access_endpoints ~application_settings
-      ~storage_connectors ~streaming_experience_settings
-      ~user_settings ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?embed_host_domains ?feedback_url
+      ?id ?redirect_url ?tags ?tags_all ~name ~access_endpoints
+      ~application_settings ~storage_connectors
+      ~streaming_experience_settings ~user_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_stack __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       embed_host_domains =
-         Prop.computed __resource_type __resource_id
-           "embed_host_domains";
-       feedback_url =
-         Prop.computed __resource_type __resource_id "feedback_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       redirect_url =
-         Prop.computed __resource_type __resource_id "redirect_url";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

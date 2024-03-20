@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -311,3 +311,32 @@ val register :
   init_container:init_container list ->
   string ->
   t
+
+val make :
+  ?dns_name_label:string prop ->
+  ?dns_name_label_reuse_policy:string prop ->
+  ?exposed_port:exposed_port list ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?key_vault_user_assigned_identity_id:string prop ->
+  ?network_profile_id:string prop ->
+  ?priority:string prop ->
+  ?restart_policy:string prop ->
+  ?sku:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  os_type:string prop ->
+  resource_group_name:string prop ->
+  container:container list ->
+  diagnostics:diagnostics list ->
+  dns_config:dns_config list ->
+  identity:identity list ->
+  image_registry_credential:image_registry_credential list ->
+  init_container:init_container list ->
+  string ->
+  t Tf_core.resource

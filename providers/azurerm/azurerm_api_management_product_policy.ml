@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,33 +48,38 @@ type t = {
   xml_link : string prop;
 }
 
-let register ?tf_module ?id ?xml_content ?xml_link ?timeouts
-    ~api_management_name ~product_id ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_api_management_product_policy" in
-  let __resource =
-    azurerm_api_management_product_policy ?id ?xml_content ?xml_link
-      ?timeouts ~api_management_name ~product_id ~resource_group_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_product_policy __resource);
-  let __resource_attributes =
+let make ?id ?xml_content ?xml_link ?timeouts ~api_management_name
+    ~product_id ~resource_group_name __id =
+  let __type = "azurerm_api_management_product_policy" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       product_id =
-         Prop.computed __resource_type __resource_id "product_id";
+         Prop.computed __type __id "api_management_name";
+       id = Prop.computed __type __id "id";
+       product_id = Prop.computed __type __id "product_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       xml_content =
-         Prop.computed __resource_type __resource_id "xml_content";
-       xml_link =
-         Prop.computed __resource_type __resource_id "xml_link";
+         Prop.computed __type __id "resource_group_name";
+       xml_content = Prop.computed __type __id "xml_content";
+       xml_link = Prop.computed __type __id "xml_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_product_policy
+        (azurerm_api_management_product_policy ?id ?xml_content
+           ?xml_link ?timeouts ~api_management_name ~product_id
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?xml_content ?xml_link ?timeouts
+    ~api_management_name ~product_id ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?xml_content ?xml_link ?timeouts ~api_management_name
+      ~product_id ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,42 +59,48 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?id ?mapping_rule_name ?retrieval_start_date
-    ?timeouts ~cosmosdb_container_id ~kusto_database_id ~location
-    ~managed_identity_id ~name ~table_name __resource_id =
-  let __resource_type = "azurerm_kusto_cosmosdb_data_connection" in
-  let __resource =
-    azurerm_kusto_cosmosdb_data_connection ?id ?mapping_rule_name
-      ?retrieval_start_date ?timeouts ~cosmosdb_container_id
-      ~kusto_database_id ~location ~managed_identity_id ~name
-      ~table_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_cosmosdb_data_connection __resource);
-  let __resource_attributes =
+let make ?id ?mapping_rule_name ?retrieval_start_date ?timeouts
+    ~cosmosdb_container_id ~kusto_database_id ~location
+    ~managed_identity_id ~name ~table_name __id =
+  let __type = "azurerm_kusto_cosmosdb_data_connection" in
+  let __attrs =
     ({
        cosmosdb_container_id =
-         Prop.computed __resource_type __resource_id
-           "cosmosdb_container_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "cosmosdb_container_id";
+       id = Prop.computed __type __id "id";
        kusto_database_id =
-         Prop.computed __resource_type __resource_id
-           "kusto_database_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "kusto_database_id";
+       location = Prop.computed __type __id "location";
        managed_identity_id =
-         Prop.computed __resource_type __resource_id
-           "managed_identity_id";
+         Prop.computed __type __id "managed_identity_id";
        mapping_rule_name =
-         Prop.computed __resource_type __resource_id
-           "mapping_rule_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "mapping_rule_name";
+       name = Prop.computed __type __id "name";
        retrieval_start_date =
-         Prop.computed __resource_type __resource_id
-           "retrieval_start_date";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+         Prop.computed __type __id "retrieval_start_date";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_cosmosdb_data_connection
+        (azurerm_kusto_cosmosdb_data_connection ?id
+           ?mapping_rule_name ?retrieval_start_date ?timeouts
+           ~cosmosdb_container_id ~kusto_database_id ~location
+           ~managed_identity_id ~name ~table_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?mapping_rule_name ?retrieval_start_date
+    ?timeouts ~cosmosdb_container_id ~kusto_database_id ~location
+    ~managed_identity_id ~name ~table_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?mapping_rule_name ?retrieval_start_date ?timeouts
+      ~cosmosdb_container_id ~kusto_database_id ~location
+      ~managed_identity_id ~name ~table_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

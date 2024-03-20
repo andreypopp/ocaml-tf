@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type load_shedding = {
   default_percent : float prop option; [@option]
@@ -129,48 +127,49 @@ type t = {
   notification_email : string prop;
 }
 
-let register ?tf_module ?check_regions ?description ?enabled ?id
-    ?latitude ?longitude ?minimum_origins ?monitor
-    ?notification_email ~account_id ~name ~load_shedding
-    ~origin_steering ~origins __resource_id =
-  let __resource_type = "cloudflare_load_balancer_pool" in
-  let __resource =
-    cloudflare_load_balancer_pool ?check_regions ?description
-      ?enabled ?id ?latitude ?longitude ?minimum_origins ?monitor
-      ?notification_email ~account_id ~name ~load_shedding
-      ~origin_steering ~origins ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_load_balancer_pool __resource);
-  let __resource_attributes =
+let make ?check_regions ?description ?enabled ?id ?latitude
+    ?longitude ?minimum_origins ?monitor ?notification_email
+    ~account_id ~name ~load_shedding ~origin_steering ~origins __id =
+  let __type = "cloudflare_load_balancer_pool" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       check_regions =
-         Prop.computed __resource_type __resource_id "check_regions";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       latitude =
-         Prop.computed __resource_type __resource_id "latitude";
-       longitude =
-         Prop.computed __resource_type __resource_id "longitude";
-       minimum_origins =
-         Prop.computed __resource_type __resource_id
-           "minimum_origins";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       monitor =
-         Prop.computed __resource_type __resource_id "monitor";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_id = Prop.computed __type __id "account_id";
+       check_regions = Prop.computed __type __id "check_regions";
+       created_on = Prop.computed __type __id "created_on";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       latitude = Prop.computed __type __id "latitude";
+       longitude = Prop.computed __type __id "longitude";
+       minimum_origins = Prop.computed __type __id "minimum_origins";
+       modified_on = Prop.computed __type __id "modified_on";
+       monitor = Prop.computed __type __id "monitor";
+       name = Prop.computed __type __id "name";
        notification_email =
-         Prop.computed __resource_type __resource_id
-           "notification_email";
+         Prop.computed __type __id "notification_email";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_load_balancer_pool
+        (cloudflare_load_balancer_pool ?check_regions ?description
+           ?enabled ?id ?latitude ?longitude ?minimum_origins
+           ?monitor ?notification_email ~account_id ~name
+           ~load_shedding ~origin_steering ~origins ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?check_regions ?description ?enabled ?id
+    ?latitude ?longitude ?minimum_origins ?monitor
+    ?notification_email ~account_id ~name ~load_shedding
+    ~origin_steering ~origins __id =
+  let (r : _ Tf_core.resource) =
+    make ?check_regions ?description ?enabled ?id ?latitude
+      ?longitude ?minimum_origins ?monitor ?notification_email
+      ~account_id ~name ~load_shedding ~origin_steering ~origins __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

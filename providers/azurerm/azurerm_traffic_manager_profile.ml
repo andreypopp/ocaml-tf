@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dns_config = {
   relative_name : string prop;  (** relative_name *)
@@ -117,39 +115,46 @@ type t = {
   traffic_view_enabled : bool prop;
 }
 
-let register ?tf_module ?id ?max_return ?profile_status ?tags
-    ?traffic_view_enabled ?timeouts ~name ~resource_group_name
-    ~traffic_routing_method ~dns_config ~monitor_config __resource_id
-    =
-  let __resource_type = "azurerm_traffic_manager_profile" in
-  let __resource =
-    azurerm_traffic_manager_profile ?id ?max_return ?profile_status
-      ?tags ?traffic_view_enabled ?timeouts ~name
-      ~resource_group_name ~traffic_routing_method ~dns_config
-      ~monitor_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_traffic_manager_profile __resource);
-  let __resource_attributes =
+let make ?id ?max_return ?profile_status ?tags ?traffic_view_enabled
+    ?timeouts ~name ~resource_group_name ~traffic_routing_method
+    ~dns_config ~monitor_config __id =
+  let __type = "azurerm_traffic_manager_profile" in
+  let __attrs =
     ({
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_return =
-         Prop.computed __resource_type __resource_id "max_return";
-       name = Prop.computed __resource_type __resource_id "name";
-       profile_status =
-         Prop.computed __resource_type __resource_id "profile_status";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       max_return = Prop.computed __type __id "max_return";
+       name = Prop.computed __type __id "name";
+       profile_status = Prop.computed __type __id "profile_status";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
        traffic_routing_method =
-         Prop.computed __resource_type __resource_id
-           "traffic_routing_method";
+         Prop.computed __type __id "traffic_routing_method";
        traffic_view_enabled =
-         Prop.computed __resource_type __resource_id
-           "traffic_view_enabled";
+         Prop.computed __type __id "traffic_view_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_traffic_manager_profile
+        (azurerm_traffic_manager_profile ?id ?max_return
+           ?profile_status ?tags ?traffic_view_enabled ?timeouts
+           ~name ~resource_group_name ~traffic_routing_method
+           ~dns_config ~monitor_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?max_return ?profile_status ?tags
+    ?traffic_view_enabled ?timeouts ~name ~resource_group_name
+    ~traffic_routing_method ~dns_config ~monitor_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?max_return ?profile_status ?tags ?traffic_view_enabled
+      ?timeouts ~name ~resource_group_name ~traffic_routing_method
+      ~dns_config ~monitor_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

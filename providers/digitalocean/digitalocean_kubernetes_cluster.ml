@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type maintenance_policy = {
   day : string prop option; [@option]  (** day *)
@@ -150,57 +148,58 @@ type t = {
   vpc_uuid : string prop;
 }
 
-let register ?tf_module ?auto_upgrade
-    ?destroy_all_associated_resources ?ha ?id ?registry_integration
-    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
-    ~maintenance_policy ~node_pool __resource_id =
-  let __resource_type = "digitalocean_kubernetes_cluster" in
-  let __resource =
-    digitalocean_kubernetes_cluster ?auto_upgrade
-      ?destroy_all_associated_resources ?ha ?id ?registry_integration
-      ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
-      ~maintenance_policy ~node_pool ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_kubernetes_cluster __resource);
-  let __resource_attributes =
+let make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
+    ?registry_integration ?surge_upgrade ?tags ?vpc_uuid ?timeouts
+    ~name ~region ~version ~maintenance_policy ~node_pool __id =
+  let __type = "digitalocean_kubernetes_cluster" in
+  let __attrs =
     ({
-       auto_upgrade =
-         Prop.computed __resource_type __resource_id "auto_upgrade";
-       cluster_subnet =
-         Prop.computed __resource_type __resource_id "cluster_subnet";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
+       auto_upgrade = Prop.computed __type __id "auto_upgrade";
+       cluster_subnet = Prop.computed __type __id "cluster_subnet";
+       created_at = Prop.computed __type __id "created_at";
        destroy_all_associated_resources =
-         Prop.computed __resource_type __resource_id
-           "destroy_all_associated_resources";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       ha = Prop.computed __resource_type __resource_id "ha";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv4_address =
-         Prop.computed __resource_type __resource_id "ipv4_address";
-       kube_config =
-         Prop.computed __resource_type __resource_id "kube_config";
-       name = Prop.computed __resource_type __resource_id "name";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "destroy_all_associated_resources";
+       endpoint = Prop.computed __type __id "endpoint";
+       ha = Prop.computed __type __id "ha";
+       id = Prop.computed __type __id "id";
+       ipv4_address = Prop.computed __type __id "ipv4_address";
+       kube_config = Prop.computed __type __id "kube_config";
+       name = Prop.computed __type __id "name";
+       region = Prop.computed __type __id "region";
        registry_integration =
-         Prop.computed __resource_type __resource_id
-           "registry_integration";
-       service_subnet =
-         Prop.computed __resource_type __resource_id "service_subnet";
-       status = Prop.computed __resource_type __resource_id "status";
-       surge_upgrade =
-         Prop.computed __resource_type __resource_id "surge_upgrade";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       updated_at =
-         Prop.computed __resource_type __resource_id "updated_at";
-       urn = Prop.computed __resource_type __resource_id "urn";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       vpc_uuid =
-         Prop.computed __resource_type __resource_id "vpc_uuid";
+         Prop.computed __type __id "registry_integration";
+       service_subnet = Prop.computed __type __id "service_subnet";
+       status = Prop.computed __type __id "status";
+       surge_upgrade = Prop.computed __type __id "surge_upgrade";
+       tags = Prop.computed __type __id "tags";
+       updated_at = Prop.computed __type __id "updated_at";
+       urn = Prop.computed __type __id "urn";
+       version = Prop.computed __type __id "version";
+       vpc_uuid = Prop.computed __type __id "vpc_uuid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_kubernetes_cluster
+        (digitalocean_kubernetes_cluster ?auto_upgrade
+           ?destroy_all_associated_resources ?ha ?id
+           ?registry_integration ?surge_upgrade ?tags ?vpc_uuid
+           ?timeouts ~name ~region ~version ~maintenance_policy
+           ~node_pool ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_upgrade
+    ?destroy_all_associated_resources ?ha ?id ?registry_integration
+    ?surge_upgrade ?tags ?vpc_uuid ?timeouts ~name ~region ~version
+    ~maintenance_policy ~node_pool __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_upgrade ?destroy_all_associated_resources ?ha ?id
+      ?registry_integration ?surge_upgrade ?tags ?vpc_uuid ?timeouts
+      ~name ~region ~version ~maintenance_policy ~node_pool __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

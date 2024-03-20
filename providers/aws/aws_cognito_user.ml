@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cognito_user = {
   attributes : (string * string prop) list option; [@option]
@@ -68,63 +66,61 @@ type t = {
   validation_data : (string * string) list prop;
 }
 
-let register ?tf_module ?attributes ?client_metadata
-    ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
-    ?message_action ?password ?temporary_password ?validation_data
-    ~user_pool_id ~username __resource_id =
-  let __resource_type = "aws_cognito_user" in
-  let __resource =
-    aws_cognito_user ?attributes ?client_metadata
-      ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
-      ?message_action ?password ?temporary_password ?validation_data
-      ~user_pool_id ~username ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_user __resource);
-  let __resource_attributes =
+let make ?attributes ?client_metadata ?desired_delivery_mediums
+    ?enabled ?force_alias_creation ?id ?message_action ?password
+    ?temporary_password ?validation_data ~user_pool_id ~username __id
+    =
+  let __type = "aws_cognito_user" in
+  let __attrs =
     ({
-       attributes =
-         Prop.computed __resource_type __resource_id "attributes";
-       client_metadata =
-         Prop.computed __resource_type __resource_id
-           "client_metadata";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
+       attributes = Prop.computed __type __id "attributes";
+       client_metadata = Prop.computed __type __id "client_metadata";
+       creation_date = Prop.computed __type __id "creation_date";
        desired_delivery_mediums =
-         Prop.computed __resource_type __resource_id
-           "desired_delivery_mediums";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+         Prop.computed __type __id "desired_delivery_mediums";
+       enabled = Prop.computed __type __id "enabled";
        force_alias_creation =
-         Prop.computed __resource_type __resource_id
-           "force_alias_creation";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "force_alias_creation";
+       id = Prop.computed __type __id "id";
        last_modified_date =
-         Prop.computed __resource_type __resource_id
-           "last_modified_date";
-       message_action =
-         Prop.computed __resource_type __resource_id "message_action";
+         Prop.computed __type __id "last_modified_date";
+       message_action = Prop.computed __type __id "message_action";
        mfa_setting_list =
-         Prop.computed __resource_type __resource_id
-           "mfa_setting_list";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "mfa_setting_list";
+       password = Prop.computed __type __id "password";
        preferred_mfa_setting =
-         Prop.computed __resource_type __resource_id
-           "preferred_mfa_setting";
-       status = Prop.computed __resource_type __resource_id "status";
-       sub = Prop.computed __resource_type __resource_id "sub";
+         Prop.computed __type __id "preferred_mfa_setting";
+       status = Prop.computed __type __id "status";
+       sub = Prop.computed __type __id "sub";
        temporary_password =
-         Prop.computed __resource_type __resource_id
-           "temporary_password";
-       user_pool_id =
-         Prop.computed __resource_type __resource_id "user_pool_id";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-       validation_data =
-         Prop.computed __resource_type __resource_id
-           "validation_data";
+         Prop.computed __type __id "temporary_password";
+       user_pool_id = Prop.computed __type __id "user_pool_id";
+       username = Prop.computed __type __id "username";
+       validation_data = Prop.computed __type __id "validation_data";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_user
+        (aws_cognito_user ?attributes ?client_metadata
+           ?desired_delivery_mediums ?enabled ?force_alias_creation
+           ?id ?message_action ?password ?temporary_password
+           ?validation_data ~user_pool_id ~username ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?attributes ?client_metadata
+    ?desired_delivery_mediums ?enabled ?force_alias_creation ?id
+    ?message_action ?password ?temporary_password ?validation_data
+    ~user_pool_id ~username __id =
+  let (r : _ Tf_core.resource) =
+    make ?attributes ?client_metadata ?desired_delivery_mediums
+      ?enabled ?force_alias_creation ?id ?message_action ?password
+      ?temporary_password ?validation_data ~user_pool_id ~username
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

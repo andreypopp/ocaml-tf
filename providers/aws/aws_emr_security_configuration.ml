@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_emr_security_configuration = {
   configuration : string prop;  (** configuration *)
@@ -25,26 +23,31 @@ type t = {
   name_prefix : string prop;
 }
 
-let register ?tf_module ?id ?name ?name_prefix ~configuration
-    __resource_id =
-  let __resource_type = "aws_emr_security_configuration" in
-  let __resource =
-    aws_emr_security_configuration ?id ?name ?name_prefix
-      ~configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_security_configuration __resource);
-  let __resource_attributes =
+let make ?id ?name ?name_prefix ~configuration __id =
+  let __type = "aws_emr_security_configuration" in
+  let __attrs =
     ({
-       configuration =
-         Prop.computed __resource_type __resource_id "configuration";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
+       configuration = Prop.computed __type __id "configuration";
+       creation_date = Prop.computed __type __id "creation_date";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_security_configuration
+        (aws_emr_security_configuration ?id ?name ?name_prefix
+           ~configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?name_prefix ~configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?name_prefix ~configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

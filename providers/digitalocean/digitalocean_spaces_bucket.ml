@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cors_rule = {
   allowed_headers : string prop list option; [@option]
@@ -123,30 +121,38 @@ type t = {
   urn : string prop;
 }
 
-let register ?tf_module ?acl ?force_destroy ?id ?region ~name
-    ~cors_rule ~lifecycle_rule ~versioning __resource_id =
-  let __resource_type = "digitalocean_spaces_bucket" in
-  let __resource =
-    digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region ~name
-      ~cors_rule ~lifecycle_rule ~versioning ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_spaces_bucket __resource);
-  let __resource_attributes =
+let make ?acl ?force_destroy ?id ?region ~name ~cors_rule
+    ~lifecycle_rule ~versioning __id =
+  let __type = "digitalocean_spaces_bucket" in
+  let __attrs =
     ({
-       acl = Prop.computed __resource_type __resource_id "acl";
+       acl = Prop.computed __type __id "acl";
        bucket_domain_name =
-         Prop.computed __resource_type __resource_id
-           "bucket_domain_name";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       region = Prop.computed __resource_type __resource_id "region";
-       urn = Prop.computed __resource_type __resource_id "urn";
+         Prop.computed __type __id "bucket_domain_name";
+       endpoint = Prop.computed __type __id "endpoint";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       region = Prop.computed __type __id "region";
+       urn = Prop.computed __type __id "urn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_spaces_bucket
+        (digitalocean_spaces_bucket ?acl ?force_destroy ?id ?region
+           ~name ~cors_rule ~lifecycle_rule ~versioning ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?acl ?force_destroy ?id ?region ~name
+    ~cors_rule ~lifecycle_rule ~versioning __id =
+  let (r : _ Tf_core.resource) =
+    make ?acl ?force_destroy ?id ?region ~name ~cors_rule
+      ~lifecycle_rule ~versioning __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -96,3 +96,21 @@ val register :
   origins:origins list ->
   string ->
   t
+
+val make :
+  ?check_regions:string prop list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?latitude:float prop ->
+  ?longitude:float prop ->
+  ?minimum_origins:float prop ->
+  ?monitor:string prop ->
+  ?notification_email:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  load_shedding:load_shedding list ->
+  origin_steering:origin_steering list ->
+  origins:origins list ->
+  string ->
+  t Tf_core.resource

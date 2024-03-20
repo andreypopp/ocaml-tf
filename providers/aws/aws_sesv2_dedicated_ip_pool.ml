@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -40,27 +38,34 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?scaling_mode ?tags ?tags_all ?timeouts
-    ~pool_name __resource_id =
-  let __resource_type = "aws_sesv2_dedicated_ip_pool" in
-  let __resource =
-    aws_sesv2_dedicated_ip_pool ?id ?scaling_mode ?tags ?tags_all
-      ?timeouts ~pool_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_dedicated_ip_pool __resource);
-  let __resource_attributes =
+let make ?id ?scaling_mode ?tags ?tags_all ?timeouts ~pool_name __id
+    =
+  let __type = "aws_sesv2_dedicated_ip_pool" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       pool_name =
-         Prop.computed __resource_type __resource_id "pool_name";
-       scaling_mode =
-         Prop.computed __resource_type __resource_id "scaling_mode";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       pool_name = Prop.computed __type __id "pool_name";
+       scaling_mode = Prop.computed __type __id "scaling_mode";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_dedicated_ip_pool
+        (aws_sesv2_dedicated_ip_pool ?id ?scaling_mode ?tags
+           ?tags_all ?timeouts ~pool_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?scaling_mode ?tags ?tags_all ?timeouts
+    ~pool_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?scaling_mode ?tags ?tags_all ?timeouts ~pool_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_inspector_resource_group = {
   id : string prop option; [@option]  (** id *)
@@ -21,17 +19,26 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ~tags __resource_id =
-  let __resource_type = "aws_inspector_resource_group" in
-  let __resource = aws_inspector_resource_group ?id ~tags () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_inspector_resource_group __resource);
-  let __resource_attributes =
+let make ?id ~tags __id =
+  let __type = "aws_inspector_resource_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_inspector_resource_group
+        (aws_inspector_resource_group ?id ~tags ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~tags __id =
+  let (r : _ Tf_core.resource) = make ?id ~tags __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

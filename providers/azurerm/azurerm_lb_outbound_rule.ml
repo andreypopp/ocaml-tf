@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type frontend_ip_configuration = { name : string prop  (** name *) }
 [@@deriving yojson_of]
@@ -70,41 +68,49 @@ type t = {
   protocol : string prop;
 }
 
-let register ?tf_module ?allocated_outbound_ports ?enable_tcp_reset
-    ?id ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
-    ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration
-    __resource_id =
-  let __resource_type = "azurerm_lb_outbound_rule" in
-  let __resource =
-    azurerm_lb_outbound_rule ?allocated_outbound_ports
-      ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
-      ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
-      ~frontend_ip_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lb_outbound_rule __resource);
-  let __resource_attributes =
+let make ?allocated_outbound_ports ?enable_tcp_reset ?id
+    ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
+    ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration __id
+    =
+  let __type = "azurerm_lb_outbound_rule" in
+  let __attrs =
     ({
        allocated_outbound_ports =
-         Prop.computed __resource_type __resource_id
-           "allocated_outbound_ports";
+         Prop.computed __type __id "allocated_outbound_ports";
        backend_address_pool_id =
-         Prop.computed __resource_type __resource_id
-           "backend_address_pool_id";
+         Prop.computed __type __id "backend_address_pool_id";
        enable_tcp_reset =
-         Prop.computed __resource_type __resource_id
-           "enable_tcp_reset";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "enable_tcp_reset";
+       id = Prop.computed __type __id "id";
        idle_timeout_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "idle_timeout_in_minutes";
-       loadbalancer_id =
-         Prop.computed __resource_type __resource_id
-           "loadbalancer_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+         Prop.computed __type __id "idle_timeout_in_minutes";
+       loadbalancer_id = Prop.computed __type __id "loadbalancer_id";
+       name = Prop.computed __type __id "name";
+       protocol = Prop.computed __type __id "protocol";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lb_outbound_rule
+        (azurerm_lb_outbound_rule ?allocated_outbound_ports
+           ?enable_tcp_reset ?id ?idle_timeout_in_minutes ?timeouts
+           ~backend_address_pool_id ~loadbalancer_id ~name ~protocol
+           ~frontend_ip_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allocated_outbound_ports ?enable_tcp_reset
+    ?id ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
+    ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?allocated_outbound_ports ?enable_tcp_reset ?id
+      ?idle_timeout_in_minutes ?timeouts ~backend_address_pool_id
+      ~loadbalancer_id ~name ~protocol ~frontend_ip_configuration
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

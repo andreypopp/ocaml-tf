@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration__data_color_palette = {
   colors: string   prop list option; [@option] (** colors *)
@@ -230,25 +228,32 @@ type t = {
   version_number: float prop;
 }
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __resource_id =
-  let __resource_type = "aws_quicksight_theme" in
-  let __resource = aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_theme __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    base_theme_id = Prop.computed __resource_type __resource_id "base_theme_id";
-    created_time = Prop.computed __resource_type __resource_id "created_time";
-    id = Prop.computed __resource_type __resource_id "id";
-    last_updated_time = Prop.computed __resource_type __resource_id "last_updated_time";
-    name = Prop.computed __resource_type __resource_id "name";
-    status = Prop.computed __resource_type __resource_id "status";
-    tags = Prop.computed __resource_type __resource_id "tags";
-    tags_all = Prop.computed __resource_type __resource_id "tags_all";
-    theme_id = Prop.computed __resource_type __resource_id "theme_id";
-    version_description = Prop.computed __resource_type __resource_id "version_description";
-    version_number = Prop.computed __resource_type __resource_id "version_number";
+let make ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id =
+  let __type = "aws_quicksight_theme" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    base_theme_id = Prop.computed __type __id "base_theme_id";
+    created_time = Prop.computed __type __id "created_time";
+    id = Prop.computed __type __id "id";
+    last_updated_time = Prop.computed __type __id "last_updated_time";
+    name = Prop.computed __type __id "name";
+    status = Prop.computed __type __id "status";
+    tags = Prop.computed __type __id "tags";
+    tags_all = Prop.computed __type __id "tags_all";
+    theme_id = Prop.computed __type __id "theme_id";
+    version_description = Prop.computed __type __id "version_description";
+    version_number = Prop.computed __type __id "version_number";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_theme (aws_quicksight_theme ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ?version_description ?timeouts ~base_theme_id ~name ~theme_id ~configuration ~permissions __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

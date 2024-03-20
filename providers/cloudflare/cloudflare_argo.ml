@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_argo = {
   id : string prop option; [@option]  (** id *)
@@ -29,24 +27,31 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?smart_routing ?tiered_caching ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_argo" in
-  let __resource =
-    cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_argo __resource);
-  let __resource_attributes =
+let make ?id ?smart_routing ?tiered_caching ~zone_id __id =
+  let __type = "cloudflare_argo" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       smart_routing =
-         Prop.computed __resource_type __resource_id "smart_routing";
-       tiered_caching =
-         Prop.computed __resource_type __resource_id "tiered_caching";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       id = Prop.computed __type __id "id";
+       smart_routing = Prop.computed __type __id "smart_routing";
+       tiered_caching = Prop.computed __type __id "tiered_caching";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_argo
+        (cloudflare_argo ?id ?smart_routing ?tiered_caching ~zone_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?smart_routing ?tiered_caching ~zone_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?smart_routing ?tiered_caching ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

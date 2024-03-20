@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_rules = {
   ignore_missing_vnet_service_endpoint : bool prop option; [@option]
@@ -68,37 +66,42 @@ type t = {
   trusted_services_allowed : bool prop;
 }
 
-let register ?tf_module ?default_action ?id ?ip_rules
-    ?public_network_access_enabled ?trusted_services_allowed
-    ?timeouts ~namespace_id ~network_rules __resource_id =
-  let __resource_type =
-    "azurerm_servicebus_namespace_network_rule_set"
-  in
-  let __resource =
-    azurerm_servicebus_namespace_network_rule_set ?default_action ?id
-      ?ip_rules ?public_network_access_enabled
-      ?trusted_services_allowed ?timeouts ~namespace_id
-      ~network_rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_namespace_network_rule_set
-       __resource);
-  let __resource_attributes =
+let make ?default_action ?id ?ip_rules ?public_network_access_enabled
+    ?trusted_services_allowed ?timeouts ~namespace_id ~network_rules
+    __id =
+  let __type = "azurerm_servicebus_namespace_network_rule_set" in
+  let __attrs =
     ({
-       default_action =
-         Prop.computed __resource_type __resource_id "default_action";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_rules =
-         Prop.computed __resource_type __resource_id "ip_rules";
-       namespace_id =
-         Prop.computed __resource_type __resource_id "namespace_id";
+       default_action = Prop.computed __type __id "default_action";
+       id = Prop.computed __type __id "id";
+       ip_rules = Prop.computed __type __id "ip_rules";
+       namespace_id = Prop.computed __type __id "namespace_id";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
+         Prop.computed __type __id "public_network_access_enabled";
        trusted_services_allowed =
-         Prop.computed __resource_type __resource_id
-           "trusted_services_allowed";
+         Prop.computed __type __id "trusted_services_allowed";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_namespace_network_rule_set
+        (azurerm_servicebus_namespace_network_rule_set
+           ?default_action ?id ?ip_rules
+           ?public_network_access_enabled ?trusted_services_allowed
+           ?timeouts ~namespace_id ~network_rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_action ?id ?ip_rules
+    ?public_network_access_enabled ?trusted_services_allowed
+    ?timeouts ~namespace_id ~network_rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_action ?id ?ip_rules ?public_network_access_enabled
+      ?trusted_services_allowed ?timeouts ~namespace_id
+      ~network_rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

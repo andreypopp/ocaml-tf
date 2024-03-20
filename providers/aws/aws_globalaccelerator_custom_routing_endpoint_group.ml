@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_configuration = {
   from_port : float prop;  (** from_port *)
@@ -66,30 +64,38 @@ type t = {
   listener_arn : string prop;
 }
 
-let register ?tf_module ?endpoint_group_region ?id ?timeouts
-    ~listener_arn ~destination_configuration ~endpoint_configuration
-    __resource_id =
-  let __resource_type =
+let make ?endpoint_group_region ?id ?timeouts ~listener_arn
+    ~destination_configuration ~endpoint_configuration __id =
+  let __type =
     "aws_globalaccelerator_custom_routing_endpoint_group"
   in
-  let __resource =
-    aws_globalaccelerator_custom_routing_endpoint_group
-      ?endpoint_group_region ?id ?timeouts ~listener_arn
-      ~destination_configuration ~endpoint_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_globalaccelerator_custom_routing_endpoint_group
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        endpoint_group_region =
-         Prop.computed __resource_type __resource_id
-           "endpoint_group_region";
-       id = Prop.computed __resource_type __resource_id "id";
-       listener_arn =
-         Prop.computed __resource_type __resource_id "listener_arn";
+         Prop.computed __type __id "endpoint_group_region";
+       id = Prop.computed __type __id "id";
+       listener_arn = Prop.computed __type __id "listener_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_globalaccelerator_custom_routing_endpoint_group
+        (aws_globalaccelerator_custom_routing_endpoint_group
+           ?endpoint_group_region ?id ?timeouts ~listener_arn
+           ~destination_configuration ~endpoint_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?endpoint_group_region ?id ?timeouts
+    ~listener_arn ~destination_configuration ~endpoint_configuration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?endpoint_group_region ?id ?timeouts ~listener_arn
+      ~destination_configuration ~endpoint_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

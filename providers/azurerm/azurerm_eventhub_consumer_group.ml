@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,29 +48,37 @@ type t = {
   user_metadata : string prop;
 }
 
-let register ?tf_module ?id ?user_metadata ?timeouts ~eventhub_name
-    ~name ~namespace_name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_eventhub_consumer_group" in
-  let __resource =
-    azurerm_eventhub_consumer_group ?id ?user_metadata ?timeouts
-      ~eventhub_name ~name ~namespace_name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventhub_consumer_group __resource);
-  let __resource_attributes =
+let make ?id ?user_metadata ?timeouts ~eventhub_name ~name
+    ~namespace_name ~resource_group_name __id =
+  let __type = "azurerm_eventhub_consumer_group" in
+  let __attrs =
     ({
-       eventhub_name =
-         Prop.computed __resource_type __resource_id "eventhub_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
+       eventhub_name = Prop.computed __type __id "eventhub_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespace_name = Prop.computed __type __id "namespace_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       user_metadata =
-         Prop.computed __resource_type __resource_id "user_metadata";
+         Prop.computed __type __id "resource_group_name";
+       user_metadata = Prop.computed __type __id "user_metadata";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventhub_consumer_group
+        (azurerm_eventhub_consumer_group ?id ?user_metadata ?timeouts
+           ~eventhub_name ~name ~namespace_name ~resource_group_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?user_metadata ?timeouts ~eventhub_name
+    ~name ~namespace_name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?user_metadata ?timeouts ~eventhub_name ~name
+      ~namespace_name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

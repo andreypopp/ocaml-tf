@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,11 @@ val register :
   connection_pool_config:connection_pool_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  db_proxy_name:string prop ->
+  connection_pool_config:connection_pool_config list ->
+  string ->
+  t Tf_core.resource

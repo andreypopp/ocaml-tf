@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,37 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?allow_major_version_upgrade:bool prop ->
+  ?apply_immediately:bool prop ->
+  ?availability_zones:string prop list ->
+  ?backup_retention_period:float prop ->
+  ?cluster_identifier:string prop ->
+  ?cluster_identifier_prefix:string prop ->
+  ?cluster_members:string prop list ->
+  ?db_cluster_parameter_group_name:string prop ->
+  ?db_subnet_group_name:string prop ->
+  ?deletion_protection:bool prop ->
+  ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine:string prop ->
+  ?engine_version:string prop ->
+  ?final_snapshot_identifier:string prop ->
+  ?global_cluster_identifier:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?master_password:string prop ->
+  ?master_username:string prop ->
+  ?port:float prop ->
+  ?preferred_backup_window:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?snapshot_identifier:string prop ->
+  ?storage_encrypted:bool prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

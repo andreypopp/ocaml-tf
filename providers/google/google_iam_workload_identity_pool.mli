@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,14 @@ val register :
   workload_identity_pool_id:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  workload_identity_pool_id:string prop ->
+  string ->
+  t Tf_core.resource

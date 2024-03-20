@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_firewall_attachment = {
   firewall_id : float prop;  (** firewall_id *)
@@ -25,26 +23,31 @@ type t = {
   server_ids : float list prop;
 }
 
-let register ?tf_module ?id ?label_selectors ?server_ids ~firewall_id
-    __resource_id =
-  let __resource_type = "hcloud_firewall_attachment" in
-  let __resource =
-    hcloud_firewall_attachment ?id ?label_selectors ?server_ids
-      ~firewall_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_firewall_attachment __resource);
-  let __resource_attributes =
+let make ?id ?label_selectors ?server_ids ~firewall_id __id =
+  let __type = "hcloud_firewall_attachment" in
+  let __attrs =
     ({
-       firewall_id =
-         Prop.computed __resource_type __resource_id "firewall_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       label_selectors =
-         Prop.computed __resource_type __resource_id
-           "label_selectors";
-       server_ids =
-         Prop.computed __resource_type __resource_id "server_ids";
+       firewall_id = Prop.computed __type __id "firewall_id";
+       id = Prop.computed __type __id "id";
+       label_selectors = Prop.computed __type __id "label_selectors";
+       server_ids = Prop.computed __type __id "server_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_firewall_attachment
+        (hcloud_firewall_attachment ?id ?label_selectors ?server_ids
+           ~firewall_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?label_selectors ?server_ids ~firewall_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?label_selectors ?server_ids ~firewall_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

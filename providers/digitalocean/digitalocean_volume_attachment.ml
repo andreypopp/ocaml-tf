@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_volume_attachment = {
   droplet_id : float prop;  (** droplet_id *)
@@ -22,21 +20,28 @@ type t = {
   volume_id : string prop;
 }
 
-let register ?tf_module ?id ~droplet_id ~volume_id __resource_id =
-  let __resource_type = "digitalocean_volume_attachment" in
-  let __resource =
-    digitalocean_volume_attachment ?id ~droplet_id ~volume_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_volume_attachment __resource);
-  let __resource_attributes =
+let make ?id ~droplet_id ~volume_id __id =
+  let __type = "digitalocean_volume_attachment" in
+  let __attrs =
     ({
-       droplet_id =
-         Prop.computed __resource_type __resource_id "droplet_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       volume_id =
-         Prop.computed __resource_type __resource_id "volume_id";
+       droplet_id = Prop.computed __type __id "droplet_id";
+       id = Prop.computed __type __id "id";
+       volume_id = Prop.computed __type __id "volume_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_volume_attachment
+        (digitalocean_volume_attachment ?id ~droplet_id ~volume_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~droplet_id ~volume_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~droplet_id ~volume_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

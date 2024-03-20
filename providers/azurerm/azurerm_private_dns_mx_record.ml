@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type record = {
   exchange : string prop;  (** exchange *)
@@ -63,28 +61,37 @@ type t = {
   zone_name : string prop;
 }
 
-let register ?tf_module ?id ?name ?tags ?timeouts
-    ~resource_group_name ~ttl ~zone_name ~record __resource_id =
-  let __resource_type = "azurerm_private_dns_mx_record" in
-  let __resource =
-    azurerm_private_dns_mx_record ?id ?name ?tags ?timeouts
-      ~resource_group_name ~ttl ~zone_name ~record ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_dns_mx_record __resource);
-  let __resource_attributes =
+let make ?id ?name ?tags ?timeouts ~resource_group_name ~ttl
+    ~zone_name ~record __id =
+  let __type = "azurerm_private_dns_mx_record" in
+  let __attrs =
     ({
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       zone_name =
-         Prop.computed __resource_type __resource_id "zone_name";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       ttl = Prop.computed __type __id "ttl";
+       zone_name = Prop.computed __type __id "zone_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_dns_mx_record
+        (azurerm_private_dns_mx_record ?id ?name ?tags ?timeouts
+           ~resource_group_name ~ttl ~zone_name ~record ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?tags ?timeouts
+    ~resource_group_name ~ttl ~zone_name ~record __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?tags ?timeouts ~resource_group_name ~ttl
+      ~zone_name ~record __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

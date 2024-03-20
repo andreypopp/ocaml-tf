@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type psc_configs = {
   network : string prop;
@@ -118,49 +116,51 @@ type t = {
   uid : string prop;
 }
 
-let register ?tf_module ?authorization_mode ?id ?name ?project
-    ?region ?replica_count ?transit_encryption_mode ?timeouts
-    ~shard_count ~psc_configs __resource_id =
-  let __resource_type = "google_redis_cluster" in
-  let __resource =
-    google_redis_cluster ?authorization_mode ?id ?name ?project
-      ?region ?replica_count ?transit_encryption_mode ?timeouts
-      ~shard_count ~psc_configs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_redis_cluster __resource);
-  let __resource_attributes =
+let make ?authorization_mode ?id ?name ?project ?region
+    ?replica_count ?transit_encryption_mode ?timeouts ~shard_count
+    ~psc_configs __id =
+  let __type = "google_redis_cluster" in
+  let __attrs =
     ({
        authorization_mode =
-         Prop.computed __resource_type __resource_id
-           "authorization_mode";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+         Prop.computed __type __id "authorization_mode";
+       create_time = Prop.computed __type __id "create_time";
        discovery_endpoints =
-         Prop.computed __resource_type __resource_id
-           "discovery_endpoints";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       psc_connections =
-         Prop.computed __resource_type __resource_id
-           "psc_connections";
-       region = Prop.computed __resource_type __resource_id "region";
-       replica_count =
-         Prop.computed __resource_type __resource_id "replica_count";
-       shard_count =
-         Prop.computed __resource_type __resource_id "shard_count";
-       size_gb =
-         Prop.computed __resource_type __resource_id "size_gb";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_info =
-         Prop.computed __resource_type __resource_id "state_info";
+         Prop.computed __type __id "discovery_endpoints";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       psc_connections = Prop.computed __type __id "psc_connections";
+       region = Prop.computed __type __id "region";
+       replica_count = Prop.computed __type __id "replica_count";
+       shard_count = Prop.computed __type __id "shard_count";
+       size_gb = Prop.computed __type __id "size_gb";
+       state = Prop.computed __type __id "state";
+       state_info = Prop.computed __type __id "state_info";
        transit_encryption_mode =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_mode";
-       uid = Prop.computed __resource_type __resource_id "uid";
+         Prop.computed __type __id "transit_encryption_mode";
+       uid = Prop.computed __type __id "uid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_redis_cluster
+        (google_redis_cluster ?authorization_mode ?id ?name ?project
+           ?region ?replica_count ?transit_encryption_mode ?timeouts
+           ~shard_count ~psc_configs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorization_mode ?id ?name ?project
+    ?region ?replica_count ?transit_encryption_mode ?timeouts
+    ~shard_count ~psc_configs __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorization_mode ?id ?name ?project ?region
+      ?replica_count ?transit_encryption_mode ?timeouts ~shard_count
+      ~psc_configs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

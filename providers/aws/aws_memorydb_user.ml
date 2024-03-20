@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_mode = {
   passwords : string prop list;  (** passwords *)
@@ -47,30 +45,37 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~access_string ~user_name
-    ~authentication_mode __resource_id =
-  let __resource_type = "aws_memorydb_user" in
-  let __resource =
-    aws_memorydb_user ?id ?tags ?tags_all ~access_string ~user_name
-      ~authentication_mode ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_memorydb_user __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~access_string ~user_name
+    ~authentication_mode __id =
+  let __type = "aws_memorydb_user" in
+  let __attrs =
     ({
-       access_string =
-         Prop.computed __resource_type __resource_id "access_string";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_string = Prop.computed __type __id "access_string";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        minimum_engine_version =
-         Prop.computed __resource_type __resource_id
-           "minimum_engine_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "minimum_engine_version";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_memorydb_user
+        (aws_memorydb_user ?id ?tags ?tags_all ~access_string
+           ~user_name ~authentication_mode ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~access_string ~user_name
+    ~authentication_mode __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~access_string ~user_name
+      ~authentication_mode __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

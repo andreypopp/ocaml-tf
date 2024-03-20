@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,16 @@ val register :
   vpn_interfaces:vpn_interfaces list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?stack_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  vpn_interfaces:vpn_interfaces list ->
+  string ->
+  t Tf_core.resource

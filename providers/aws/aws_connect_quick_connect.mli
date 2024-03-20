@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -77,3 +77,14 @@ val register :
   quick_connect_config:quick_connect_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  instance_id:string prop ->
+  name:string prop ->
+  quick_connect_config:quick_connect_config list ->
+  string ->
+  t Tf_core.resource

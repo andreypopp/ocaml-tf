@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscale_settings = {
   max_throughput : float prop option; [@option]  (** max_throughput *)
@@ -58,27 +56,36 @@ type t = {
   throughput : float prop;
 }
 
-let register ?tf_module ?id ?throughput ?timeouts ~account_name ~name
-    ~resource_group_name ~autoscale_settings __resource_id =
-  let __resource_type = "azurerm_cosmosdb_table" in
-  let __resource =
-    azurerm_cosmosdb_table ?id ?throughput ?timeouts ~account_name
-      ~name ~resource_group_name ~autoscale_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_table __resource);
-  let __resource_attributes =
+let make ?id ?throughput ?timeouts ~account_name ~name
+    ~resource_group_name ~autoscale_settings __id =
+  let __type = "azurerm_cosmosdb_table" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_name = Prop.computed __type __id "account_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       throughput =
-         Prop.computed __resource_type __resource_id "throughput";
+         Prop.computed __type __id "resource_group_name";
+       throughput = Prop.computed __type __id "throughput";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_table
+        (azurerm_cosmosdb_table ?id ?throughput ?timeouts
+           ~account_name ~name ~resource_group_name
+           ~autoscale_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?throughput ?timeouts ~account_name ~name
+    ~resource_group_name ~autoscale_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?throughput ?timeouts ~account_name ~name
+      ~resource_group_name ~autoscale_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

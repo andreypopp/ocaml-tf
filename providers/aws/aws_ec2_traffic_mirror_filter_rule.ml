@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_port_range = {
   from_port : float prop option; [@option]  (** from_port *)
@@ -75,44 +73,52 @@ type t = {
   traffic_mirror_filter_id : string prop;
 }
 
-let register ?tf_module ?description ?id ?protocol
-    ~destination_cidr_block ~rule_action ~rule_number
-    ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
-    ~destination_port_range ~source_port_range __resource_id =
-  let __resource_type = "aws_ec2_traffic_mirror_filter_rule" in
-  let __resource =
-    aws_ec2_traffic_mirror_filter_rule ?description ?id ?protocol
-      ~destination_cidr_block ~rule_action ~rule_number
-      ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
-      ~destination_port_range ~source_port_range ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_traffic_mirror_filter_rule __resource);
-  let __resource_attributes =
+let make ?description ?id ?protocol ~destination_cidr_block
+    ~rule_action ~rule_number ~source_cidr_block ~traffic_direction
+    ~traffic_mirror_filter_id ~destination_port_range
+    ~source_port_range __id =
+  let __type = "aws_ec2_traffic_mirror_filter_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        destination_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "destination_cidr_block";
-       id = Prop.computed __resource_type __resource_id "id";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       rule_action =
-         Prop.computed __resource_type __resource_id "rule_action";
-       rule_number =
-         Prop.computed __resource_type __resource_id "rule_number";
+         Prop.computed __type __id "destination_cidr_block";
+       id = Prop.computed __type __id "id";
+       protocol = Prop.computed __type __id "protocol";
+       rule_action = Prop.computed __type __id "rule_action";
+       rule_number = Prop.computed __type __id "rule_number";
        source_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "source_cidr_block";
+         Prop.computed __type __id "source_cidr_block";
        traffic_direction =
-         Prop.computed __resource_type __resource_id
-           "traffic_direction";
+         Prop.computed __type __id "traffic_direction";
        traffic_mirror_filter_id =
-         Prop.computed __resource_type __resource_id
-           "traffic_mirror_filter_id";
+         Prop.computed __type __id "traffic_mirror_filter_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_traffic_mirror_filter_rule
+        (aws_ec2_traffic_mirror_filter_rule ?description ?id
+           ?protocol ~destination_cidr_block ~rule_action
+           ~rule_number ~source_cidr_block ~traffic_direction
+           ~traffic_mirror_filter_id ~destination_port_range
+           ~source_port_range ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?protocol
+    ~destination_cidr_block ~rule_action ~rule_number
+    ~source_cidr_block ~traffic_direction ~traffic_mirror_filter_id
+    ~destination_port_range ~source_port_range __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?protocol ~destination_cidr_block
+      ~rule_action ~rule_number ~source_cidr_block ~traffic_direction
+      ~traffic_mirror_filter_id ~destination_port_range
+      ~source_port_range __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

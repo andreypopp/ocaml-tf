@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   volume_id:float prop ->
   string ->
   t
+
+val make :
+  ?automount:bool prop ->
+  ?id:string prop ->
+  server_id:float prop ->
+  volume_id:float prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,14 @@ val register :
   streaming_config:streaming_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  config_id:string prop ->
+  organization:string prop ->
+  pubsub_topic:string prop ->
+  streaming_config:streaming_config list ->
+  string ->
+  t Tf_core.resource

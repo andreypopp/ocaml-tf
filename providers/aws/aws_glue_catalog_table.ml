@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type open_table_format_input__iceberg_input = {
   metadata_operation : string prop;  (** metadata_operation *)
@@ -252,46 +250,53 @@ type t = {
   view_original_text : string prop;
 }
 
+let make ?catalog_id ?description ?id ?owner ?parameters ?retention
+    ?table_type ?view_expanded_text ?view_original_text
+    ~database_name ~name ~open_table_format_input ~partition_index
+    ~partition_keys ~storage_descriptor ~target_table __id =
+  let __type = "aws_glue_catalog_table" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       catalog_id = Prop.computed __type __id "catalog_id";
+       database_name = Prop.computed __type __id "database_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       owner = Prop.computed __type __id "owner";
+       parameters = Prop.computed __type __id "parameters";
+       retention = Prop.computed __type __id "retention";
+       table_type = Prop.computed __type __id "table_type";
+       view_expanded_text =
+         Prop.computed __type __id "view_expanded_text";
+       view_original_text =
+         Prop.computed __type __id "view_original_text";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_catalog_table
+        (aws_glue_catalog_table ?catalog_id ?description ?id ?owner
+           ?parameters ?retention ?table_type ?view_expanded_text
+           ?view_original_text ~database_name ~name
+           ~open_table_format_input ~partition_index ~partition_keys
+           ~storage_descriptor ~target_table ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?catalog_id ?description ?id ?owner
     ?parameters ?retention ?table_type ?view_expanded_text
     ?view_original_text ~database_name ~name ~open_table_format_input
     ~partition_index ~partition_keys ~storage_descriptor
-    ~target_table __resource_id =
-  let __resource_type = "aws_glue_catalog_table" in
-  let __resource =
-    aws_glue_catalog_table ?catalog_id ?description ?id ?owner
-      ?parameters ?retention ?table_type ?view_expanded_text
-      ?view_original_text ~database_name ~name
-      ~open_table_format_input ~partition_index ~partition_keys
-      ~storage_descriptor ~target_table ()
+    ~target_table __id =
+  let (r : _ Tf_core.resource) =
+    make ?catalog_id ?description ?id ?owner ?parameters ?retention
+      ?table_type ?view_expanded_text ?view_original_text
+      ~database_name ~name ~open_table_format_input ~partition_index
+      ~partition_keys ~storage_descriptor ~target_table __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_catalog_table __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       catalog_id =
-         Prop.computed __resource_type __resource_id "catalog_id";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       retention =
-         Prop.computed __resource_type __resource_id "retention";
-       table_type =
-         Prop.computed __resource_type __resource_id "table_type";
-       view_expanded_text =
-         Prop.computed __resource_type __resource_id
-           "view_expanded_text";
-       view_original_text =
-         Prop.computed __resource_type __resource_id
-           "view_original_text";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

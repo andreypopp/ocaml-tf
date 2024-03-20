@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_healthcare_dataset_iam_policy = {
   dataset_id : string prop;  (** dataset_id *)
@@ -23,23 +21,30 @@ type t = {
   policy_data : string prop;
 }
 
-let register ?tf_module ?id ~dataset_id ~policy_data __resource_id =
-  let __resource_type = "google_healthcare_dataset_iam_policy" in
-  let __resource =
-    google_healthcare_dataset_iam_policy ?id ~dataset_id ~policy_data
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_healthcare_dataset_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ~dataset_id ~policy_data __id =
+  let __type = "google_healthcare_dataset_iam_policy" in
+  let __attrs =
     ({
-       dataset_id =
-         Prop.computed __resource_type __resource_id "dataset_id";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
+       dataset_id = Prop.computed __type __id "dataset_id";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       policy_data = Prop.computed __type __id "policy_data";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_healthcare_dataset_iam_policy
+        (google_healthcare_dataset_iam_policy ?id ~dataset_id
+           ~policy_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~dataset_id ~policy_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~dataset_id ~policy_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

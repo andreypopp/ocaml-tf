@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_bgp_addresses = {
   primary : string prop;  (** primary *)
@@ -175,6 +173,77 @@ type t = {
   virtual_network_gateway_id : string prop;
 }
 
+let make ?authorization_key ?connection_mode ?connection_protocol
+    ?dpd_timeout_seconds ?egress_nat_rule_ids ?enable_bgp
+    ?express_route_circuit_id ?express_route_gateway_bypass ?id
+    ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
+    ?local_network_gateway_id ?peer_virtual_network_gateway_id
+    ?routing_weight ?shared_key ?tags
+    ?use_policy_based_traffic_selectors ?timeouts ~location ~name
+    ~resource_group_name ~type_ ~virtual_network_gateway_id
+    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy __id
+    =
+  let __type = "azurerm_virtual_network_gateway_connection" in
+  let __attrs =
+    ({
+       authorization_key =
+         Prop.computed __type __id "authorization_key";
+       connection_mode = Prop.computed __type __id "connection_mode";
+       connection_protocol =
+         Prop.computed __type __id "connection_protocol";
+       dpd_timeout_seconds =
+         Prop.computed __type __id "dpd_timeout_seconds";
+       egress_nat_rule_ids =
+         Prop.computed __type __id "egress_nat_rule_ids";
+       enable_bgp = Prop.computed __type __id "enable_bgp";
+       express_route_circuit_id =
+         Prop.computed __type __id "express_route_circuit_id";
+       express_route_gateway_bypass =
+         Prop.computed __type __id "express_route_gateway_bypass";
+       id = Prop.computed __type __id "id";
+       ingress_nat_rule_ids =
+         Prop.computed __type __id "ingress_nat_rule_ids";
+       local_azure_ip_address_enabled =
+         Prop.computed __type __id "local_azure_ip_address_enabled";
+       local_network_gateway_id =
+         Prop.computed __type __id "local_network_gateway_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       peer_virtual_network_gateway_id =
+         Prop.computed __type __id "peer_virtual_network_gateway_id";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       routing_weight = Prop.computed __type __id "routing_weight";
+       shared_key = Prop.computed __type __id "shared_key";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       use_policy_based_traffic_selectors =
+         Prop.computed __type __id
+           "use_policy_based_traffic_selectors";
+       virtual_network_gateway_id =
+         Prop.computed __type __id "virtual_network_gateway_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_network_gateway_connection
+        (azurerm_virtual_network_gateway_connection
+           ?authorization_key ?connection_mode ?connection_protocol
+           ?dpd_timeout_seconds ?egress_nat_rule_ids ?enable_bgp
+           ?express_route_circuit_id ?express_route_gateway_bypass
+           ?id ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
+           ?local_network_gateway_id ?peer_virtual_network_gateway_id
+           ?routing_weight ?shared_key ?tags
+           ?use_policy_based_traffic_selectors ?timeouts ~location
+           ~name ~resource_group_name ~type_
+           ~virtual_network_gateway_id ~custom_bgp_addresses
+           ~ipsec_policy ~traffic_selector_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authorization_key ?connection_mode
     ?connection_protocol ?dpd_timeout_seconds ?egress_nat_rule_ids
     ?enable_bgp ?express_route_circuit_id
@@ -183,81 +252,19 @@ let register ?tf_module ?authorization_key ?connection_mode
     ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
     ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
     ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
-    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy
-    __resource_id =
-  let __resource_type =
-    "azurerm_virtual_network_gateway_connection"
+    ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?authorization_key ?connection_mode ?connection_protocol
+      ?dpd_timeout_seconds ?egress_nat_rule_ids ?enable_bgp
+      ?express_route_circuit_id ?express_route_gateway_bypass ?id
+      ?ingress_nat_rule_ids ?local_azure_ip_address_enabled
+      ?local_network_gateway_id ?peer_virtual_network_gateway_id
+      ?routing_weight ?shared_key ?tags
+      ?use_policy_based_traffic_selectors ?timeouts ~location ~name
+      ~resource_group_name ~type_ ~virtual_network_gateway_id
+      ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy
+      __id
   in
-  let __resource =
-    azurerm_virtual_network_gateway_connection ?authorization_key
-      ?connection_mode ?connection_protocol ?dpd_timeout_seconds
-      ?egress_nat_rule_ids ?enable_bgp ?express_route_circuit_id
-      ?express_route_gateway_bypass ?id ?ingress_nat_rule_ids
-      ?local_azure_ip_address_enabled ?local_network_gateway_id
-      ?peer_virtual_network_gateway_id ?routing_weight ?shared_key
-      ?tags ?use_policy_based_traffic_selectors ?timeouts ~location
-      ~name ~resource_group_name ~type_ ~virtual_network_gateway_id
-      ~custom_bgp_addresses ~ipsec_policy ~traffic_selector_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_network_gateway_connection __resource);
-  let __resource_attributes =
-    ({
-       authorization_key =
-         Prop.computed __resource_type __resource_id
-           "authorization_key";
-       connection_mode =
-         Prop.computed __resource_type __resource_id
-           "connection_mode";
-       connection_protocol =
-         Prop.computed __resource_type __resource_id
-           "connection_protocol";
-       dpd_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "dpd_timeout_seconds";
-       egress_nat_rule_ids =
-         Prop.computed __resource_type __resource_id
-           "egress_nat_rule_ids";
-       enable_bgp =
-         Prop.computed __resource_type __resource_id "enable_bgp";
-       express_route_circuit_id =
-         Prop.computed __resource_type __resource_id
-           "express_route_circuit_id";
-       express_route_gateway_bypass =
-         Prop.computed __resource_type __resource_id
-           "express_route_gateway_bypass";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingress_nat_rule_ids =
-         Prop.computed __resource_type __resource_id
-           "ingress_nat_rule_ids";
-       local_azure_ip_address_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_azure_ip_address_enabled";
-       local_network_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "local_network_gateway_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       peer_virtual_network_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "peer_virtual_network_gateway_id";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       routing_weight =
-         Prop.computed __resource_type __resource_id "routing_weight";
-       shared_key =
-         Prop.computed __resource_type __resource_id "shared_key";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       use_policy_based_traffic_selectors =
-         Prop.computed __resource_type __resource_id
-           "use_policy_based_traffic_selectors";
-       virtual_network_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_gateway_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

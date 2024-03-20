@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,23 +36,30 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~key ~value
-    __resource_id =
-  let __resource_type = "google_compute_project_metadata_item" in
-  let __resource =
-    google_compute_project_metadata_item ?id ?project ?timeouts ~key
-      ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_project_metadata_item __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~key ~value __id =
+  let __type = "google_compute_project_metadata_item" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       value = Prop.computed __resource_type __resource_id "value";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       project = Prop.computed __type __id "project";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_project_metadata_item
+        (google_compute_project_metadata_item ?id ?project ?timeouts
+           ~key ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~key ~value __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~key ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type content_config = {
   bucket : string prop option; [@option]  (** bucket *)
@@ -107,33 +105,43 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?aws_kms_key_arn ?id ?name ?output_bucket
-    ~input_bucket ~role ~content_config ~content_config_permissions
-    ~notifications ~thumbnail_config ~thumbnail_config_permissions
-    __resource_id =
-  let __resource_type = "aws_elastictranscoder_pipeline" in
-  let __resource =
-    aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
-      ?output_bucket ~input_bucket ~role ~content_config
-      ~content_config_permissions ~notifications ~thumbnail_config
-      ~thumbnail_config_permissions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elastictranscoder_pipeline __resource);
-  let __resource_attributes =
+let make ?aws_kms_key_arn ?id ?name ?output_bucket ~input_bucket
+    ~role ~content_config ~content_config_permissions ~notifications
+    ~thumbnail_config ~thumbnail_config_permissions __id =
+  let __type = "aws_elastictranscoder_pipeline" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       aws_kms_key_arn =
-         Prop.computed __resource_type __resource_id
-           "aws_kms_key_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       input_bucket =
-         Prop.computed __resource_type __resource_id "input_bucket";
-       name = Prop.computed __resource_type __resource_id "name";
-       output_bucket =
-         Prop.computed __resource_type __resource_id "output_bucket";
-       role = Prop.computed __resource_type __resource_id "role";
+       arn = Prop.computed __type __id "arn";
+       aws_kms_key_arn = Prop.computed __type __id "aws_kms_key_arn";
+       id = Prop.computed __type __id "id";
+       input_bucket = Prop.computed __type __id "input_bucket";
+       name = Prop.computed __type __id "name";
+       output_bucket = Prop.computed __type __id "output_bucket";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elastictranscoder_pipeline
+        (aws_elastictranscoder_pipeline ?aws_kms_key_arn ?id ?name
+           ?output_bucket ~input_bucket ~role ~content_config
+           ~content_config_permissions ~notifications
+           ~thumbnail_config ~thumbnail_config_permissions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?aws_kms_key_arn ?id ?name ?output_bucket
+    ~input_bucket ~role ~content_config ~content_config_permissions
+    ~notifications ~thumbnail_config ~thumbnail_config_permissions
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?aws_kms_key_arn ?id ?name ?output_bucket ~input_bucket
+      ~role ~content_config ~content_config_permissions
+      ~notifications ~thumbnail_config ~thumbnail_config_permissions
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

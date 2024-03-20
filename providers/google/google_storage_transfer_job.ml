@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_stream = {
   event_stream_expiration_time : string prop option; [@option]
@@ -356,34 +354,40 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ?name ?project ?status ~description
-    ~event_stream ~notification_config ~schedule ~transfer_spec
-    __resource_id =
-  let __resource_type = "google_storage_transfer_job" in
-  let __resource =
-    google_storage_transfer_job ?id ?name ?project ?status
-      ~description ~event_stream ~notification_config ~schedule
-      ~transfer_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_transfer_job __resource);
-  let __resource_attributes =
+let make ?id ?name ?project ?status ~description ~event_stream
+    ~notification_config ~schedule ~transfer_spec __id =
+  let __type = "google_storage_transfer_job" in
+  let __attrs =
     ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       deletion_time =
-         Prop.computed __resource_type __resource_id "deletion_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       creation_time = Prop.computed __type __id "creation_time";
+       deletion_time = Prop.computed __type __id "deletion_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        last_modification_time =
-         Prop.computed __resource_type __resource_id
-           "last_modification_time";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "last_modification_time";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_transfer_job
+        (google_storage_transfer_job ?id ?name ?project ?status
+           ~description ~event_stream ~notification_config ~schedule
+           ~transfer_spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?project ?status ~description
+    ~event_stream ~notification_config ~schedule ~transfer_spec __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?project ?status ~description ~event_stream
+      ~notification_config ~schedule ~transfer_spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

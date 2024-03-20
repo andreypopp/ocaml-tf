@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -49,39 +47,39 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~certificate ~private_key
-    ~type_ ~zone_id __resource_id =
-  let __resource_type =
-    "cloudflare_authenticated_origin_pulls_certificate"
-  in
-  let __resource =
-    cloudflare_authenticated_origin_pulls_certificate ?id ?timeouts
-      ~certificate ~private_key ~type_ ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_authenticated_origin_pulls_certificate
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~certificate ~private_key ~type_ ~zone_id __id
+    =
+  let __type = "cloudflare_authenticated_origin_pulls_certificate" in
+  let __attrs =
     ({
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       expires_on =
-         Prop.computed __resource_type __resource_id "expires_on";
-       id = Prop.computed __resource_type __resource_id "id";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       serial_number =
-         Prop.computed __resource_type __resource_id "serial_number";
-       signature =
-         Prop.computed __resource_type __resource_id "signature";
-       status = Prop.computed __resource_type __resource_id "status";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uploaded_on =
-         Prop.computed __resource_type __resource_id "uploaded_on";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       certificate = Prop.computed __type __id "certificate";
+       expires_on = Prop.computed __type __id "expires_on";
+       id = Prop.computed __type __id "id";
+       issuer = Prop.computed __type __id "issuer";
+       private_key = Prop.computed __type __id "private_key";
+       serial_number = Prop.computed __type __id "serial_number";
+       signature = Prop.computed __type __id "signature";
+       status = Prop.computed __type __id "status";
+       type_ = Prop.computed __type __id "type";
+       uploaded_on = Prop.computed __type __id "uploaded_on";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_authenticated_origin_pulls_certificate
+        (cloudflare_authenticated_origin_pulls_certificate ?id
+           ?timeouts ~certificate ~private_key ~type_ ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~certificate ~private_key
+    ~type_ ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~certificate ~private_key ~type_ ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

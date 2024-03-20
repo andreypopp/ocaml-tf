@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,43 +60,49 @@ type t = {
   thumbprint : string prop;
 }
 
-let register ?tf_module ?data ?id ?key_vault_identity_client_id
-    ?key_vault_secret_id ?password ?timeouts ~api_management_name
-    ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_api_management_certificate" in
-  let __resource =
-    azurerm_api_management_certificate ?data ?id
-      ?key_vault_identity_client_id ?key_vault_secret_id ?password
-      ?timeouts ~api_management_name ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_certificate __resource);
-  let __resource_attributes =
+let make ?data ?id ?key_vault_identity_client_id ?key_vault_secret_id
+    ?password ?timeouts ~api_management_name ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_api_management_certificate" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       data = Prop.computed __resource_type __resource_id "data";
-       expiration =
-         Prop.computed __resource_type __resource_id "expiration";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "api_management_name";
+       data = Prop.computed __type __id "data";
+       expiration = Prop.computed __type __id "expiration";
+       id = Prop.computed __type __id "id";
        key_vault_identity_client_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_identity_client_id";
+         Prop.computed __type __id "key_vault_identity_client_id";
        key_vault_secret_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_secret_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "key_vault_secret_id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subject =
-         Prop.computed __resource_type __resource_id "subject";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
+         Prop.computed __type __id "resource_group_name";
+       subject = Prop.computed __type __id "subject";
+       thumbprint = Prop.computed __type __id "thumbprint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_certificate
+        (azurerm_api_management_certificate ?data ?id
+           ?key_vault_identity_client_id ?key_vault_secret_id
+           ?password ?timeouts ~api_management_name ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data ?id ?key_vault_identity_client_id
+    ?key_vault_secret_id ?password ?timeouts ~api_management_name
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?data ?id ?key_vault_identity_client_id ?key_vault_secret_id
+      ?password ?timeouts ~api_management_name ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

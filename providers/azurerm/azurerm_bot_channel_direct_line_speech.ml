@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,45 +64,53 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?cognitive_account_id ?custom_speech_model_id
+let make ?cognitive_account_id ?custom_speech_model_id
     ?custom_voice_deployment_id ?id ?timeouts ~bot_name
     ~cognitive_service_access_key ~cognitive_service_location
-    ~location ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_bot_channel_direct_line_speech" in
-  let __resource =
-    azurerm_bot_channel_direct_line_speech ?cognitive_account_id
-      ?custom_speech_model_id ?custom_voice_deployment_id ?id
-      ?timeouts ~bot_name ~cognitive_service_access_key
-      ~cognitive_service_location ~location ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channel_direct_line_speech __resource);
-  let __resource_attributes =
+    ~location ~resource_group_name __id =
+  let __type = "azurerm_bot_channel_direct_line_speech" in
+  let __attrs =
     ({
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
+       bot_name = Prop.computed __type __id "bot_name";
        cognitive_account_id =
-         Prop.computed __resource_type __resource_id
-           "cognitive_account_id";
+         Prop.computed __type __id "cognitive_account_id";
        cognitive_service_access_key =
-         Prop.computed __resource_type __resource_id
-           "cognitive_service_access_key";
+         Prop.computed __type __id "cognitive_service_access_key";
        cognitive_service_location =
-         Prop.computed __resource_type __resource_id
-           "cognitive_service_location";
+         Prop.computed __type __id "cognitive_service_location";
        custom_speech_model_id =
-         Prop.computed __resource_type __resource_id
-           "custom_speech_model_id";
+         Prop.computed __type __id "custom_speech_model_id";
        custom_voice_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "custom_voice_deployment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "custom_voice_deployment_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channel_direct_line_speech
+        (azurerm_bot_channel_direct_line_speech ?cognitive_account_id
+           ?custom_speech_model_id ?custom_voice_deployment_id ?id
+           ?timeouts ~bot_name ~cognitive_service_access_key
+           ~cognitive_service_location ~location ~resource_group_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cognitive_account_id ?custom_speech_model_id
+    ?custom_voice_deployment_id ?id ?timeouts ~bot_name
+    ~cognitive_service_access_key ~cognitive_service_location
+    ~location ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?cognitive_account_id ?custom_speech_model_id
+      ?custom_voice_deployment_id ?id ?timeouts ~bot_name
+      ~cognitive_service_access_key ~cognitive_service_location
+      ~location ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

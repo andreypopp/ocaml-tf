@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,17 @@ val register :
   peer_network:string prop ->
   string ->
   t
+
+val make :
+  ?export_custom_routes:bool prop ->
+  ?export_subnet_routes_with_public_ip:bool prop ->
+  ?id:string prop ->
+  ?import_custom_routes:bool prop ->
+  ?import_subnet_routes_with_public_ip:bool prop ->
+  ?stack_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  peer_network:string prop ->
+  string ->
+  t Tf_core.resource

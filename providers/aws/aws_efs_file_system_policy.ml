@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_efs_file_system_policy = {
   bypass_policy_lockout_safety_check : bool prop option; [@option]
@@ -25,25 +23,36 @@ type t = {
   policy : string prop;
 }
 
-let register ?tf_module ?bypass_policy_lockout_safety_check ?id
-    ~file_system_id ~policy __resource_id =
-  let __resource_type = "aws_efs_file_system_policy" in
-  let __resource =
-    aws_efs_file_system_policy ?bypass_policy_lockout_safety_check
-      ?id ~file_system_id ~policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_efs_file_system_policy __resource);
-  let __resource_attributes =
+let make ?bypass_policy_lockout_safety_check ?id ~file_system_id
+    ~policy __id =
+  let __type = "aws_efs_file_system_policy" in
+  let __attrs =
     ({
        bypass_policy_lockout_safety_check =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "bypass_policy_lockout_safety_check";
-       file_system_id =
-         Prop.computed __resource_type __resource_id "file_system_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
+       file_system_id = Prop.computed __type __id "file_system_id";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_efs_file_system_policy
+        (aws_efs_file_system_policy
+           ?bypass_policy_lockout_safety_check ?id ~file_system_id
+           ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bypass_policy_lockout_safety_check ?id
+    ~file_system_id ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass_policy_lockout_safety_check ?id ~file_system_id
+      ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

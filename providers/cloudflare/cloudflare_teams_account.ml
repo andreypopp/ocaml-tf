@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type antivirus__notification_settings = {
   enabled : bool prop option; [@option]
@@ -253,44 +251,58 @@ type t = {
   url_browser_isolation_enabled : bool prop;
 }
 
+let make ?activity_log_enabled ?id
+    ?non_identity_browser_isolation_enabled
+    ?protocol_detection_enabled ?tls_decrypt_enabled
+    ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
+    ~body_scanning ~extended_email_matching ~fips ~logging
+    ~payload_log ~proxy ~ssh_session_log __id =
+  let __type = "cloudflare_teams_account" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       activity_log_enabled =
+         Prop.computed __type __id "activity_log_enabled";
+       id = Prop.computed __type __id "id";
+       non_identity_browser_isolation_enabled =
+         Prop.computed __type __id
+           "non_identity_browser_isolation_enabled";
+       protocol_detection_enabled =
+         Prop.computed __type __id "protocol_detection_enabled";
+       tls_decrypt_enabled =
+         Prop.computed __type __id "tls_decrypt_enabled";
+       url_browser_isolation_enabled =
+         Prop.computed __type __id "url_browser_isolation_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_teams_account
+        (cloudflare_teams_account ?activity_log_enabled ?id
+           ?non_identity_browser_isolation_enabled
+           ?protocol_detection_enabled ?tls_decrypt_enabled
+           ?url_browser_isolation_enabled ~account_id ~antivirus
+           ~block_page ~body_scanning ~extended_email_matching ~fips
+           ~logging ~payload_log ~proxy ~ssh_session_log ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?activity_log_enabled ?id
     ?non_identity_browser_isolation_enabled
     ?protocol_detection_enabled ?tls_decrypt_enabled
     ?url_browser_isolation_enabled ~account_id ~antivirus ~block_page
     ~body_scanning ~extended_email_matching ~fips ~logging
-    ~payload_log ~proxy ~ssh_session_log __resource_id =
-  let __resource_type = "cloudflare_teams_account" in
-  let __resource =
-    cloudflare_teams_account ?activity_log_enabled ?id
+    ~payload_log ~proxy ~ssh_session_log __id =
+  let (r : _ Tf_core.resource) =
+    make ?activity_log_enabled ?id
       ?non_identity_browser_isolation_enabled
       ?protocol_detection_enabled ?tls_decrypt_enabled
       ?url_browser_isolation_enabled ~account_id ~antivirus
       ~block_page ~body_scanning ~extended_email_matching ~fips
-      ~logging ~payload_log ~proxy ~ssh_session_log ()
+      ~logging ~payload_log ~proxy ~ssh_session_log __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_teams_account __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       activity_log_enabled =
-         Prop.computed __resource_type __resource_id
-           "activity_log_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       non_identity_browser_isolation_enabled =
-         Prop.computed __resource_type __resource_id
-           "non_identity_browser_isolation_enabled";
-       protocol_detection_enabled =
-         Prop.computed __resource_type __resource_id
-           "protocol_detection_enabled";
-       tls_decrypt_enabled =
-         Prop.computed __resource_type __resource_id
-           "tls_decrypt_enabled";
-       url_browser_isolation_enabled =
-         Prop.computed __resource_type __resource_id
-           "url_browser_isolation_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

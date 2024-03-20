@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   role_arn:string prop ->
   string ->
   t
+
+val make :
+  ?disable_all_logs:bool prop ->
+  ?id:string prop ->
+  default_log_level:string prop ->
+  role_arn:string prop ->
+  string ->
+  t Tf_core.resource

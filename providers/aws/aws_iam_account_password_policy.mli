@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,17 @@ val register :
   ?require_uppercase_characters:bool prop ->
   string ->
   t
+
+val make :
+  ?allow_users_to_change_password:bool prop ->
+  ?hard_expiry:bool prop ->
+  ?id:string prop ->
+  ?max_password_age:float prop ->
+  ?minimum_password_length:float prop ->
+  ?password_reuse_prevention:float prop ->
+  ?require_lowercase_characters:bool prop ->
+  ?require_numbers:bool prop ->
+  ?require_symbols:bool prop ->
+  ?require_uppercase_characters:bool prop ->
+  string ->
+  t Tf_core.resource

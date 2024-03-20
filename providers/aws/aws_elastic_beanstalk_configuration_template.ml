@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type setting = {
   name : string prop;  (** name *)
@@ -52,33 +50,37 @@ type t = {
   solution_stack_name : string prop;
 }
 
-let register ?tf_module ?description ?environment_id ?id
-    ?solution_stack_name ~application ~name ~setting __resource_id =
-  let __resource_type =
-    "aws_elastic_beanstalk_configuration_template"
-  in
-  let __resource =
-    aws_elastic_beanstalk_configuration_template ?description
-      ?environment_id ?id ?solution_stack_name ~application ~name
-      ~setting ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elastic_beanstalk_configuration_template
-       __resource);
-  let __resource_attributes =
+let make ?description ?environment_id ?id ?solution_stack_name
+    ~application ~name ~setting __id =
+  let __type = "aws_elastic_beanstalk_configuration_template" in
+  let __attrs =
     ({
-       application =
-         Prop.computed __resource_type __resource_id "application";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       application = Prop.computed __type __id "application";
+       description = Prop.computed __type __id "description";
+       environment_id = Prop.computed __type __id "environment_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        solution_stack_name =
-         Prop.computed __resource_type __resource_id
-           "solution_stack_name";
+         Prop.computed __type __id "solution_stack_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elastic_beanstalk_configuration_template
+        (aws_elastic_beanstalk_configuration_template ?description
+           ?environment_id ?id ?solution_stack_name ~application
+           ~name ~setting ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?environment_id ?id
+    ?solution_stack_name ~application ~name ~setting __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?environment_id ?id ?solution_stack_name
+      ~application ~name ~setting __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

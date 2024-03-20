@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_logs__cloudwatch_logs = {
   enabled : bool prop;  (** enabled *)
@@ -80,25 +78,30 @@ type t = {
   verifiedaccess_instance_id : string prop;
 }
 
-let register ?tf_module ?id ~verifiedaccess_instance_id ~access_logs
-    __resource_id =
-  let __resource_type =
-    "aws_verifiedaccess_instance_logging_configuration"
-  in
-  let __resource =
-    aws_verifiedaccess_instance_logging_configuration ?id
-      ~verifiedaccess_instance_id ~access_logs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedaccess_instance_logging_configuration
-       __resource);
-  let __resource_attributes =
+let make ?id ~verifiedaccess_instance_id ~access_logs __id =
+  let __type = "aws_verifiedaccess_instance_logging_configuration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        verifiedaccess_instance_id =
-         Prop.computed __resource_type __resource_id
-           "verifiedaccess_instance_id";
+         Prop.computed __type __id "verifiedaccess_instance_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedaccess_instance_logging_configuration
+        (aws_verifiedaccess_instance_logging_configuration ?id
+           ~verifiedaccess_instance_id ~access_logs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~verifiedaccess_instance_id ~access_logs
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~verifiedaccess_instance_id ~access_logs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

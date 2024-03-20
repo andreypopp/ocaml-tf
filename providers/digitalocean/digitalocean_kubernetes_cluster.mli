@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -126,3 +126,21 @@ val register :
   node_pool:node_pool list ->
   string ->
   t
+
+val make :
+  ?auto_upgrade:bool prop ->
+  ?destroy_all_associated_resources:bool prop ->
+  ?ha:bool prop ->
+  ?id:string prop ->
+  ?registry_integration:bool prop ->
+  ?surge_upgrade:bool prop ->
+  ?tags:string prop list ->
+  ?vpc_uuid:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  region:string prop ->
+  version:string prop ->
+  maintenance_policy:maintenance_policy list ->
+  node_pool:node_pool list ->
+  string ->
+  t Tf_core.resource

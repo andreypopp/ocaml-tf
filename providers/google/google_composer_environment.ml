@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config__data_retention_config__task_logs_retention_config = {
   storage_mode : string prop option; [@option]
@@ -484,30 +482,38 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?labels ?project ?region ?timeouts ~name
-    ~config ~storage_config __resource_id =
-  let __resource_type = "google_composer_environment" in
-  let __resource =
-    google_composer_environment ?id ?labels ?project ?region
-      ?timeouts ~name ~config ~storage_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_composer_environment __resource);
-  let __resource_attributes =
+let make ?id ?labels ?project ?region ?timeouts ~name ~config
+    ~storage_config __id =
+  let __type = "google_composer_environment" in
+  let __attrs =
     ({
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_composer_environment
+        (google_composer_environment ?id ?labels ?project ?region
+           ?timeouts ~name ~config ~storage_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?project ?region ?timeouts ~name
+    ~config ~storage_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?project ?region ?timeouts ~name ~config
+      ~storage_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iot_authorizer = {
   authorizer_function_arn : string prop;
@@ -49,39 +47,47 @@ type t = {
   token_signing_public_keys : (string * string) list prop;
 }
 
-let register ?tf_module ?enable_caching_for_http ?id
-    ?signing_disabled ?status ?token_key_name
-    ?token_signing_public_keys ~authorizer_function_arn ~name
-    __resource_id =
-  let __resource_type = "aws_iot_authorizer" in
-  let __resource =
-    aws_iot_authorizer ?enable_caching_for_http ?id ?signing_disabled
-      ?status ?token_key_name ?token_signing_public_keys
-      ~authorizer_function_arn ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_authorizer __resource);
-  let __resource_attributes =
+let make ?enable_caching_for_http ?id ?signing_disabled ?status
+    ?token_key_name ?token_signing_public_keys
+    ~authorizer_function_arn ~name __id =
+  let __type = "aws_iot_authorizer" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        authorizer_function_arn =
-         Prop.computed __resource_type __resource_id
-           "authorizer_function_arn";
+         Prop.computed __type __id "authorizer_function_arn";
        enable_caching_for_http =
-         Prop.computed __resource_type __resource_id
-           "enable_caching_for_http";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enable_caching_for_http";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        signing_disabled =
-         Prop.computed __resource_type __resource_id
-           "signing_disabled";
-       status = Prop.computed __resource_type __resource_id "status";
-       token_key_name =
-         Prop.computed __resource_type __resource_id "token_key_name";
+         Prop.computed __type __id "signing_disabled";
+       status = Prop.computed __type __id "status";
+       token_key_name = Prop.computed __type __id "token_key_name";
        token_signing_public_keys =
-         Prop.computed __resource_type __resource_id
-           "token_signing_public_keys";
+         Prop.computed __type __id "token_signing_public_keys";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_authorizer
+        (aws_iot_authorizer ?enable_caching_for_http ?id
+           ?signing_disabled ?status ?token_key_name
+           ?token_signing_public_keys ~authorizer_function_arn ~name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_caching_for_http ?id
+    ?signing_disabled ?status ?token_key_name
+    ?token_signing_public_keys ~authorizer_function_arn ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_caching_for_http ?id ?signing_disabled ?status
+      ?token_key_name ?token_signing_public_keys
+      ~authorizer_function_arn ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

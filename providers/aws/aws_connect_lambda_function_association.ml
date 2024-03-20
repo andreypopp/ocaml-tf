@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_connect_lambda_function_association = {
   function_arn : string prop;  (** function_arn *)
@@ -22,23 +20,29 @@ type t = {
   instance_id : string prop;
 }
 
-let register ?tf_module ?id ~function_arn ~instance_id __resource_id
-    =
-  let __resource_type = "aws_connect_lambda_function_association" in
-  let __resource =
-    aws_connect_lambda_function_association ?id ~function_arn
-      ~instance_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_lambda_function_association __resource);
-  let __resource_attributes =
+let make ?id ~function_arn ~instance_id __id =
+  let __type = "aws_connect_lambda_function_association" in
+  let __attrs =
     ({
-       function_arn =
-         Prop.computed __resource_type __resource_id "function_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
+       function_arn = Prop.computed __type __id "function_arn";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_lambda_function_association
+        (aws_connect_lambda_function_association ?id ~function_arn
+           ~instance_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~function_arn ~instance_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~function_arn ~instance_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

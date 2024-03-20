@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type managed__authorization_attempt_info = {
   details : string prop;  (** details *)
@@ -139,35 +137,41 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?location ?project
-    ?scope ?timeouts ~name ~managed ~self_managed __resource_id =
-  let __resource_type = "google_certificate_manager_certificate" in
-  let __resource =
-    google_certificate_manager_certificate ?description ?id ?labels
-      ?location ?project ?scope ?timeouts ~name ~managed
-      ~self_managed ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_certificate_manager_certificate __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?location ?project ?scope ?timeouts
+    ~name ~managed ~self_managed __id =
+  let __type = "google_certificate_manager_certificate" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       scope = Prop.computed __type __id "scope";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_certificate_manager_certificate
+        (google_certificate_manager_certificate ?description ?id
+           ?labels ?location ?project ?scope ?timeouts ~name ~managed
+           ~self_managed ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?location ?project
+    ?scope ?timeouts ~name ~managed ~self_managed __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?location ?project ?scope ?timeouts
+      ~name ~managed ~self_managed __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

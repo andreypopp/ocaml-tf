@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data = {
   algorithm : float prop option; [@option]  (** algorithm *)
@@ -175,47 +173,47 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?allow_overwrite ?comment ?id ?priority
-    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
-    __resource_id =
-  let __resource_type = "cloudflare_record" in
-  let __resource =
-    cloudflare_record ?allow_overwrite ?comment ?id ?priority
-      ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id
-      ~data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_record __resource);
-  let __resource_attributes =
+let make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
+    ?value ?timeouts ~name ~type_ ~zone_id ~data __id =
+  let __type = "cloudflare_record" in
+  let __attrs =
     ({
-       allow_overwrite =
-         Prop.computed __resource_type __resource_id
-           "allow_overwrite";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       proxiable =
-         Prop.computed __resource_type __resource_id "proxiable";
-       proxied =
-         Prop.computed __resource_type __resource_id "proxied";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       value = Prop.computed __resource_type __resource_id "value";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       allow_overwrite = Prop.computed __type __id "allow_overwrite";
+       comment = Prop.computed __type __id "comment";
+       created_on = Prop.computed __type __id "created_on";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       modified_on = Prop.computed __type __id "modified_on";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       proxiable = Prop.computed __type __id "proxiable";
+       proxied = Prop.computed __type __id "proxied";
+       tags = Prop.computed __type __id "tags";
+       ttl = Prop.computed __type __id "ttl";
+       type_ = Prop.computed __type __id "type";
+       value = Prop.computed __type __id "value";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_record
+        (cloudflare_record ?allow_overwrite ?comment ?id ?priority
+           ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id
+           ~data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_overwrite ?comment ?id ?priority
+    ?proxied ?tags ?ttl ?value ?timeouts ~name ~type_ ~zone_id ~data
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_overwrite ?comment ?id ?priority ?proxied ?tags ?ttl
+      ?value ?timeouts ~name ~type_ ~zone_id ~data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

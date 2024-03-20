@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,14 @@ val register :
   point_in_time_restore:point_in_time_restore list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?short_term_retention_days:float prop ->
+  ?timeouts:timeouts ->
+  managed_instance_id:string prop ->
+  name:string prop ->
+  long_term_retention_policy:long_term_retention_policy list ->
+  point_in_time_restore:point_in_time_restore list ->
+  string ->
+  t Tf_core.resource

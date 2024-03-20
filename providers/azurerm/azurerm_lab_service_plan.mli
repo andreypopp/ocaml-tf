@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -94,3 +94,19 @@ val register :
   support:support list ->
   string ->
   t
+
+val make :
+  ?default_network_subnet_id:string prop ->
+  ?id:string prop ->
+  ?shared_gallery_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  allowed_regions:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  default_auto_shutdown:default_auto_shutdown list ->
+  default_connection:default_connection list ->
+  support:support list ->
+  string ->
+  t Tf_core.resource

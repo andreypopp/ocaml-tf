@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,14 @@ val register :
   service_name:string prop ->
   string ->
   t
+
+val make :
+  ?grpc_config:string prop ->
+  ?id:string prop ->
+  ?openapi_config:string prop ->
+  ?project:string prop ->
+  ?protoc_output_base64:string prop ->
+  ?timeouts:timeouts ->
+  service_name:string prop ->
+  string ->
+  t Tf_core.resource

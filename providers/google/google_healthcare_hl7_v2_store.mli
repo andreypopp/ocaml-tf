@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,16 @@ val register :
   parser_config:parser_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?reject_duplicate_message:bool prop ->
+  ?timeouts:timeouts ->
+  dataset:string prop ->
+  name:string prop ->
+  notification_config:notification_config list ->
+  notification_configs:notification_configs list ->
+  parser_config:parser_config list ->
+  string ->
+  t Tf_core.resource

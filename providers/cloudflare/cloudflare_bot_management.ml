@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_bot_management = {
   auto_update_model : bool prop option; [@option]
@@ -71,54 +69,58 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?auto_update_model ?enable_js ?fight_mode ?id
+let make ?auto_update_model ?enable_js ?fight_mode ?id
     ?optimize_wordpress ?sbfm_definitely_automated
     ?sbfm_likely_automated ?sbfm_static_resource_protection
-    ?sbfm_verified_bots ?suppress_session_score ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_bot_management" in
-  let __resource =
-    cloudflare_bot_management ?auto_update_model ?enable_js
-      ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated
-      ?sbfm_likely_automated ?sbfm_static_resource_protection
-      ?sbfm_verified_bots ?suppress_session_score ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_bot_management __resource);
-  let __resource_attributes =
+    ?sbfm_verified_bots ?suppress_session_score ~zone_id __id =
+  let __type = "cloudflare_bot_management" in
+  let __attrs =
     ({
        auto_update_model =
-         Prop.computed __resource_type __resource_id
-           "auto_update_model";
-       enable_js =
-         Prop.computed __resource_type __resource_id "enable_js";
-       fight_mode =
-         Prop.computed __resource_type __resource_id "fight_mode";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "auto_update_model";
+       enable_js = Prop.computed __type __id "enable_js";
+       fight_mode = Prop.computed __type __id "fight_mode";
+       id = Prop.computed __type __id "id";
        optimize_wordpress =
-         Prop.computed __resource_type __resource_id
-           "optimize_wordpress";
+         Prop.computed __type __id "optimize_wordpress";
        sbfm_definitely_automated =
-         Prop.computed __resource_type __resource_id
-           "sbfm_definitely_automated";
+         Prop.computed __type __id "sbfm_definitely_automated";
        sbfm_likely_automated =
-         Prop.computed __resource_type __resource_id
-           "sbfm_likely_automated";
+         Prop.computed __type __id "sbfm_likely_automated";
        sbfm_static_resource_protection =
-         Prop.computed __resource_type __resource_id
-           "sbfm_static_resource_protection";
+         Prop.computed __type __id "sbfm_static_resource_protection";
        sbfm_verified_bots =
-         Prop.computed __resource_type __resource_id
-           "sbfm_verified_bots";
+         Prop.computed __type __id "sbfm_verified_bots";
        suppress_session_score =
-         Prop.computed __resource_type __resource_id
-           "suppress_session_score";
+         Prop.computed __type __id "suppress_session_score";
        using_latest_model =
-         Prop.computed __resource_type __resource_id
-           "using_latest_model";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "using_latest_model";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_bot_management
+        (cloudflare_bot_management ?auto_update_model ?enable_js
+           ?fight_mode ?id ?optimize_wordpress
+           ?sbfm_definitely_automated ?sbfm_likely_automated
+           ?sbfm_static_resource_protection ?sbfm_verified_bots
+           ?suppress_session_score ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_update_model ?enable_js ?fight_mode ?id
+    ?optimize_wordpress ?sbfm_definitely_automated
+    ?sbfm_likely_automated ?sbfm_static_resource_protection
+    ?sbfm_verified_bots ?suppress_session_score ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_update_model ?enable_js ?fight_mode ?id
+      ?optimize_wordpress ?sbfm_definitely_automated
+      ?sbfm_likely_automated ?sbfm_static_resource_protection
+      ?sbfm_verified_bots ?suppress_session_score ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

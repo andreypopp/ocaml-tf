@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appsync_api_key = {
   api_id : string prop;  (** api_id *)
@@ -25,24 +23,30 @@ type t = {
   key : string prop;
 }
 
-let register ?tf_module ?description ?expires ?id ~api_id
-    __resource_id =
-  let __resource_type = "aws_appsync_api_key" in
-  let __resource =
-    aws_appsync_api_key ?description ?expires ?id ~api_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_api_key __resource);
-  let __resource_attributes =
+let make ?description ?expires ?id ~api_id __id =
+  let __type = "aws_appsync_api_key" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expires =
-         Prop.computed __resource_type __resource_id "expires";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
+       api_id = Prop.computed __type __id "api_id";
+       description = Prop.computed __type __id "description";
+       expires = Prop.computed __type __id "expires";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_api_key
+        (aws_appsync_api_key ?description ?expires ?id ~api_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?expires ?id ~api_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?expires ?id ~api_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

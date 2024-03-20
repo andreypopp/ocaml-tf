@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_apigee_environment_iam_policy = {
   env_id : string prop;  (** env_id *)
@@ -25,24 +23,31 @@ type t = {
   policy_data : string prop;
 }
 
-let register ?tf_module ?id ~env_id ~org_id ~policy_data
-    __resource_id =
-  let __resource_type = "google_apigee_environment_iam_policy" in
-  let __resource =
-    google_apigee_environment_iam_policy ?id ~env_id ~org_id
-      ~policy_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_environment_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ~env_id ~org_id ~policy_data __id =
+  let __type = "google_apigee_environment_iam_policy" in
+  let __attrs =
     ({
-       env_id = Prop.computed __resource_type __resource_id "env_id";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
+       env_id = Prop.computed __type __id "env_id";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       org_id = Prop.computed __type __id "org_id";
+       policy_data = Prop.computed __type __id "policy_data";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_environment_iam_policy
+        (google_apigee_environment_iam_policy ?id ~env_id ~org_id
+           ~policy_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~env_id ~org_id ~policy_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~env_id ~org_id ~policy_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

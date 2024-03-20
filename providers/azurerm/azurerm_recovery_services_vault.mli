@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,23 @@ val register :
   monitoring:monitoring list ->
   string ->
   t
+
+val make :
+  ?classic_vmware_replication_enabled:bool prop ->
+  ?cross_region_restore_enabled:bool prop ->
+  ?id:string prop ->
+  ?immutability:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?soft_delete_enabled:bool prop ->
+  ?storage_mode_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  encryption:encryption list ->
+  identity:identity list ->
+  monitoring:monitoring list ->
+  string ->
+  t Tf_core.resource

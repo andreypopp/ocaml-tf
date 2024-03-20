@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,21 @@ val register :
   pipeline:pipeline list ->
   string ->
   t
+
+val make :
+  ?activated:bool prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?blob_path_begins_with:string prop ->
+  ?blob_path_ends_with:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ignore_empty_blobs:bool prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  events:string prop list ->
+  name:string prop ->
+  storage_account_id:string prop ->
+  pipeline:pipeline list ->
+  string ->
+  t Tf_core.resource

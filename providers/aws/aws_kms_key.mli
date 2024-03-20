@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,22 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?bypass_policy_lockout_safety_check:bool prop ->
+  ?custom_key_store_id:string prop ->
+  ?customer_master_key_spec:string prop ->
+  ?deletion_window_in_days:float prop ->
+  ?description:string prop ->
+  ?enable_key_rotation:bool prop ->
+  ?id:string prop ->
+  ?is_enabled:bool prop ->
+  ?key_usage:string prop ->
+  ?multi_region:bool prop ->
+  ?policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?xks_key_id:string prop ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

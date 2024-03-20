@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -126,56 +124,58 @@ type t = {
   tags : string list prop;
 }
 
-let register ?tf_module ?description ?id ?next_hop_gateway
-    ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
-    ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
-    ?timeouts ~dest_range ~name ~network __resource_id =
-  let __resource_type = "google_compute_route" in
-  let __resource =
-    google_compute_route ?description ?id ?next_hop_gateway
-      ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
-      ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
-      ?timeouts ~dest_range ~name ~network ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_route __resource);
-  let __resource_attributes =
+let make ?description ?id ?next_hop_gateway ?next_hop_ilb
+    ?next_hop_instance ?next_hop_instance_zone ?next_hop_ip
+    ?next_hop_vpn_tunnel ?priority ?project ?tags ?timeouts
+    ~dest_range ~name ~network __id =
+  let __type = "google_compute_route" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dest_range =
-         Prop.computed __resource_type __resource_id "dest_range";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
+       description = Prop.computed __type __id "description";
+       dest_range = Prop.computed __type __id "dest_range";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
        next_hop_gateway =
-         Prop.computed __resource_type __resource_id
-           "next_hop_gateway";
-       next_hop_ilb =
-         Prop.computed __resource_type __resource_id "next_hop_ilb";
+         Prop.computed __type __id "next_hop_gateway";
+       next_hop_ilb = Prop.computed __type __id "next_hop_ilb";
        next_hop_instance =
-         Prop.computed __resource_type __resource_id
-           "next_hop_instance";
+         Prop.computed __type __id "next_hop_instance";
        next_hop_instance_zone =
-         Prop.computed __resource_type __resource_id
-           "next_hop_instance_zone";
-       next_hop_ip =
-         Prop.computed __resource_type __resource_id "next_hop_ip";
+         Prop.computed __type __id "next_hop_instance_zone";
+       next_hop_ip = Prop.computed __type __id "next_hop_ip";
        next_hop_network =
-         Prop.computed __resource_type __resource_id
-           "next_hop_network";
+         Prop.computed __type __id "next_hop_network";
        next_hop_vpn_tunnel =
-         Prop.computed __resource_type __resource_id
-           "next_hop_vpn_tunnel";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "next_hop_vpn_tunnel";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_route
+        (google_compute_route ?description ?id ?next_hop_gateway
+           ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
+           ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
+           ?timeouts ~dest_range ~name ~network ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?next_hop_gateway
+    ?next_hop_ilb ?next_hop_instance ?next_hop_instance_zone
+    ?next_hop_ip ?next_hop_vpn_tunnel ?priority ?project ?tags
+    ?timeouts ~dest_range ~name ~network __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?next_hop_gateway ?next_hop_ilb
+      ?next_hop_instance ?next_hop_instance_zone ?next_hop_ip
+      ?next_hop_vpn_tunnel ?priority ?project ?tags ?timeouts
+      ~dest_range ~name ~network __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

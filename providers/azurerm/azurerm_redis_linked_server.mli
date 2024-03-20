@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,14 @@ val register :
   target_redis_cache_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  linked_redis_cache_id:string prop ->
+  linked_redis_cache_location:string prop ->
+  resource_group_name:string prop ->
+  server_role:string prop ->
+  target_redis_cache_name:string prop ->
+  string ->
+  t Tf_core.resource

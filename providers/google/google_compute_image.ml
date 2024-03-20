@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type guest_os_features = {
   type_ : string prop; [@key "type"]
@@ -173,62 +171,61 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?disk_size_gb ?family ?id
-    ?labels ?licenses ?project ?source_disk ?source_image
-    ?source_snapshot ?storage_locations ?timeouts ~name
-    ~guest_os_features ~image_encryption_key ~raw_disk __resource_id
-    =
-  let __resource_type = "google_compute_image" in
-  let __resource =
-    google_compute_image ?description ?disk_size_gb ?family ?id
-      ?labels ?licenses ?project ?source_disk ?source_image
-      ?source_snapshot ?storage_locations ?timeouts ~name
-      ~guest_os_features ~image_encryption_key ~raw_disk ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_image __resource);
-  let __resource_attributes =
+let make ?description ?disk_size_gb ?family ?id ?labels ?licenses
+    ?project ?source_disk ?source_image ?source_snapshot
+    ?storage_locations ?timeouts ~name ~guest_os_features
+    ~image_encryption_key ~raw_disk __id =
+  let __type = "google_compute_image" in
+  let __attrs =
     ({
        archive_size_bytes =
-         Prop.computed __resource_type __resource_id
-           "archive_size_bytes";
+         Prop.computed __type __id "archive_size_bytes";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disk_size_gb =
-         Prop.computed __resource_type __resource_id "disk_size_gb";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       disk_size_gb = Prop.computed __type __id "disk_size_gb";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       family = Prop.computed __resource_type __resource_id "family";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "effective_labels";
+       family = Prop.computed __type __id "family";
+       id = Prop.computed __type __id "id";
        label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       licenses =
-         Prop.computed __resource_type __resource_id "licenses";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       source_disk =
-         Prop.computed __resource_type __resource_id "source_disk";
-       source_image =
-         Prop.computed __resource_type __resource_id "source_image";
-       source_snapshot =
-         Prop.computed __resource_type __resource_id
-           "source_snapshot";
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       licenses = Prop.computed __type __id "licenses";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       source_disk = Prop.computed __type __id "source_disk";
+       source_image = Prop.computed __type __id "source_image";
+       source_snapshot = Prop.computed __type __id "source_snapshot";
        storage_locations =
-         Prop.computed __resource_type __resource_id
-           "storage_locations";
+         Prop.computed __type __id "storage_locations";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_image
+        (google_compute_image ?description ?disk_size_gb ?family ?id
+           ?labels ?licenses ?project ?source_disk ?source_image
+           ?source_snapshot ?storage_locations ?timeouts ~name
+           ~guest_os_features ~image_encryption_key ~raw_disk ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?disk_size_gb ?family ?id
+    ?labels ?licenses ?project ?source_disk ?source_image
+    ?source_snapshot ?storage_locations ?timeouts ~name
+    ~guest_os_features ~image_encryption_key ~raw_disk __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disk_size_gb ?family ?id ?labels ?licenses
+      ?project ?source_disk ?source_image ?source_snapshot
+      ?storage_locations ?timeouts ~name ~guest_os_features
+      ~image_encryption_key ~raw_disk __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

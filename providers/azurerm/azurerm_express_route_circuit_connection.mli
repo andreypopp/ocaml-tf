@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   peering_id:string prop ->
   string ->
   t
+
+val make :
+  ?address_prefix_ipv6:string prop ->
+  ?authorization_key:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  address_prefix_ipv4:string prop ->
+  name:string prop ->
+  peer_peering_id:string prop ->
+  peering_id:string prop ->
+  string ->
+  t Tf_core.resource

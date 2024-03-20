@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -378,3 +378,22 @@ val register :
   target_tracking_configuration:target_tracking_configuration list ->
   string ->
   t
+
+val make :
+  ?adjustment_type:string prop ->
+  ?cooldown:float prop ->
+  ?enabled:bool prop ->
+  ?estimated_instance_warmup:float prop ->
+  ?id:string prop ->
+  ?metric_aggregation_type:string prop ->
+  ?min_adjustment_magnitude:float prop ->
+  ?policy_type:string prop ->
+  ?scaling_adjustment:float prop ->
+  autoscaling_group_name:string prop ->
+  name:string prop ->
+  predictive_scaling_configuration:
+    predictive_scaling_configuration list ->
+  step_adjustment:step_adjustment list ->
+  target_tracking_configuration:target_tracking_configuration list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,37 +52,42 @@ type t = {
   x_ms_client_id : string prop;
 }
 
-let register ?tf_module ?id ?local_authentication_enabled ?tags
-    ?timeouts ~name ~resource_group_name ~sku_name __resource_id =
-  let __resource_type = "azurerm_maps_account" in
-  let __resource =
-    azurerm_maps_account ?id ?local_authentication_enabled ?tags
-      ?timeouts ~name ~resource_group_name ~sku_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_maps_account __resource);
-  let __resource_attributes =
+let make ?id ?local_authentication_enabled ?tags ?timeouts ~name
+    ~resource_group_name ~sku_name __id =
+  let __type = "azurerm_maps_account" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        local_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "local_authentication_enabled";
+       name = Prop.computed __type __id "name";
        primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
+         Prop.computed __type __id "primary_access_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       x_ms_client_id =
-         Prop.computed __resource_type __resource_id "x_ms_client_id";
+         Prop.computed __type __id "secondary_access_key";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+       x_ms_client_id = Prop.computed __type __id "x_ms_client_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_maps_account
+        (azurerm_maps_account ?id ?local_authentication_enabled ?tags
+           ?timeouts ~name ~resource_group_name ~sku_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?local_authentication_enabled ?tags
+    ?timeouts ~name ~resource_group_name ~sku_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?local_authentication_enabled ?tags ?timeouts ~name
+      ~resource_group_name ~sku_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

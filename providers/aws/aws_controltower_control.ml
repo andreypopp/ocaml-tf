@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -32,25 +30,32 @@ type t = {
   target_identifier : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~control_identifier
-    ~target_identifier __resource_id =
-  let __resource_type = "aws_controltower_control" in
-  let __resource =
-    aws_controltower_control ?id ?timeouts ~control_identifier
-      ~target_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_controltower_control __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~control_identifier ~target_identifier __id =
+  let __type = "aws_controltower_control" in
+  let __attrs =
     ({
        control_identifier =
-         Prop.computed __resource_type __resource_id
-           "control_identifier";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "control_identifier";
+       id = Prop.computed __type __id "id";
        target_identifier =
-         Prop.computed __resource_type __resource_id
-           "target_identifier";
+         Prop.computed __type __id "target_identifier";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_controltower_control
+        (aws_controltower_control ?id ?timeouts ~control_identifier
+           ~target_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~control_identifier
+    ~target_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~control_identifier ~target_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

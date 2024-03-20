@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type disk_iops_configuration = {
   iops : float prop option; [@option]  (** iops *)
@@ -141,88 +139,88 @@ type t = {
   weekly_maintenance_start_time : string prop;
 }
 
+let make ?automatic_backup_retention_days
+    ?daily_automatic_backup_start_time ?endpoint_ip_address_range
+    ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
+    ?security_group_ids ?storage_capacity ?storage_type ?tags
+    ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
+    ?weekly_maintenance_start_time ?timeouts ~deployment_type
+    ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration __id =
+  let __type = "aws_fsx_ontap_file_system" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       automatic_backup_retention_days =
+         Prop.computed __type __id "automatic_backup_retention_days";
+       daily_automatic_backup_start_time =
+         Prop.computed __type __id
+           "daily_automatic_backup_start_time";
+       deployment_type = Prop.computed __type __id "deployment_type";
+       dns_name = Prop.computed __type __id "dns_name";
+       endpoint_ip_address_range =
+         Prop.computed __type __id "endpoint_ip_address_range";
+       endpoints = Prop.computed __type __id "endpoints";
+       fsx_admin_password =
+         Prop.computed __type __id "fsx_admin_password";
+       ha_pairs = Prop.computed __type __id "ha_pairs";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
+       preferred_subnet_id =
+         Prop.computed __type __id "preferred_subnet_id";
+       route_table_ids = Prop.computed __type __id "route_table_ids";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       storage_capacity =
+         Prop.computed __type __id "storage_capacity";
+       storage_type = Prop.computed __type __id "storage_type";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       throughput_capacity =
+         Prop.computed __type __id "throughput_capacity";
+       throughput_capacity_per_ha_pair =
+         Prop.computed __type __id "throughput_capacity_per_ha_pair";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       weekly_maintenance_start_time =
+         Prop.computed __type __id "weekly_maintenance_start_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_ontap_file_system
+        (aws_fsx_ontap_file_system ?automatic_backup_retention_days
+           ?daily_automatic_backup_start_time
+           ?endpoint_ip_address_range ?fsx_admin_password ?ha_pairs
+           ?id ?kms_key_id ?route_table_ids ?security_group_ids
+           ?storage_capacity ?storage_type ?tags ?tags_all
+           ?throughput_capacity ?throughput_capacity_per_ha_pair
+           ?weekly_maintenance_start_time ?timeouts ~deployment_type
+           ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?automatic_backup_retention_days
     ?daily_automatic_backup_start_time ?endpoint_ip_address_range
     ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
     ?security_group_ids ?storage_capacity ?storage_type ?tags
     ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
     ?weekly_maintenance_start_time ?timeouts ~deployment_type
-    ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration
-    __resource_id =
-  let __resource_type = "aws_fsx_ontap_file_system" in
-  let __resource =
-    aws_fsx_ontap_file_system ?automatic_backup_retention_days
+    ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_backup_retention_days
       ?daily_automatic_backup_start_time ?endpoint_ip_address_range
       ?fsx_admin_password ?ha_pairs ?id ?kms_key_id ?route_table_ids
       ?security_group_ids ?storage_capacity ?storage_type ?tags
       ?tags_all ?throughput_capacity ?throughput_capacity_per_ha_pair
       ?weekly_maintenance_start_time ?timeouts ~deployment_type
-      ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration ()
+      ~preferred_subnet_id ~subnet_ids ~disk_iops_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_ontap_file_system __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       automatic_backup_retention_days =
-         Prop.computed __resource_type __resource_id
-           "automatic_backup_retention_days";
-       daily_automatic_backup_start_time =
-         Prop.computed __resource_type __resource_id
-           "daily_automatic_backup_start_time";
-       deployment_type =
-         Prop.computed __resource_type __resource_id
-           "deployment_type";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       endpoint_ip_address_range =
-         Prop.computed __resource_type __resource_id
-           "endpoint_ip_address_range";
-       endpoints =
-         Prop.computed __resource_type __resource_id "endpoints";
-       fsx_admin_password =
-         Prop.computed __resource_type __resource_id
-           "fsx_admin_password";
-       ha_pairs =
-         Prop.computed __resource_type __resource_id "ha_pairs";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       preferred_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "preferred_subnet_id";
-       route_table_ids =
-         Prop.computed __resource_type __resource_id
-           "route_table_ids";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       storage_capacity =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       throughput_capacity =
-         Prop.computed __resource_type __resource_id
-           "throughput_capacity";
-       throughput_capacity_per_ha_pair =
-         Prop.computed __resource_type __resource_id
-           "throughput_capacity_per_ha_pair";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       weekly_maintenance_start_time =
-         Prop.computed __resource_type __resource_id
-           "weekly_maintenance_start_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

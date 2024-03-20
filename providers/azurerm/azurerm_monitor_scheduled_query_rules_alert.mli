@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,26 @@ val register :
   trigger:trigger list ->
   string ->
   t
+
+val make :
+  ?authorized_resource_ids:string prop list ->
+  ?auto_mitigation_enabled:bool prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?query_type:string prop ->
+  ?severity:float prop ->
+  ?tags:(string * string prop) list ->
+  ?throttling:float prop ->
+  ?timeouts:timeouts ->
+  data_source_id:string prop ->
+  frequency:float prop ->
+  location:string prop ->
+  name:string prop ->
+  query:string prop ->
+  resource_group_name:string prop ->
+  time_window:float prop ->
+  action:action list ->
+  trigger:trigger list ->
+  string ->
+  t Tf_core.resource

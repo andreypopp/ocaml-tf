@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -47,28 +45,36 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?device_name ?id ?mode ?project ?zone
-    ?timeouts ~disk ~instance __resource_id =
-  let __resource_type = "google_compute_attached_disk" in
-  let __resource =
-    google_compute_attached_disk ?device_name ?id ?mode ?project
-      ?zone ?timeouts ~disk ~instance ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_attached_disk __resource);
-  let __resource_attributes =
+let make ?device_name ?id ?mode ?project ?zone ?timeouts ~disk
+    ~instance __id =
+  let __type = "google_compute_attached_disk" in
+  let __attrs =
     ({
-       device_name =
-         Prop.computed __resource_type __resource_id "device_name";
-       disk = Prop.computed __resource_type __resource_id "disk";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       zone = Prop.computed __resource_type __resource_id "zone";
+       device_name = Prop.computed __type __id "device_name";
+       disk = Prop.computed __type __id "disk";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
+       mode = Prop.computed __type __id "mode";
+       project = Prop.computed __type __id "project";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_attached_disk
+        (google_compute_attached_disk ?device_name ?id ?mode ?project
+           ?zone ?timeouts ~disk ~instance ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?device_name ?id ?mode ?project ?zone
+    ?timeouts ~disk ~instance __id =
+  let (r : _ Tf_core.resource) =
+    make ?device_name ?id ?mode ?project ?zone ?timeouts ~disk
+      ~instance __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_header = {
   name : string prop;  (** name *)
@@ -101,51 +99,61 @@ type t = {
   weight : float prop;
 }
 
+let make ?enabled ?endpoint_location ?geo_mappings ?id
+    ?minimum_required_child_endpoints_ipv4
+    ?minimum_required_child_endpoints_ipv6 ?priority ?weight
+    ?timeouts ~minimum_child_endpoints ~name ~profile_id
+    ~target_resource_id ~custom_header ~subnet __id =
+  let __type = "azurerm_traffic_manager_nested_endpoint" in
+  let __attrs =
+    ({
+       enabled = Prop.computed __type __id "enabled";
+       endpoint_location =
+         Prop.computed __type __id "endpoint_location";
+       geo_mappings = Prop.computed __type __id "geo_mappings";
+       id = Prop.computed __type __id "id";
+       minimum_child_endpoints =
+         Prop.computed __type __id "minimum_child_endpoints";
+       minimum_required_child_endpoints_ipv4 =
+         Prop.computed __type __id
+           "minimum_required_child_endpoints_ipv4";
+       minimum_required_child_endpoints_ipv6 =
+         Prop.computed __type __id
+           "minimum_required_child_endpoints_ipv6";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       profile_id = Prop.computed __type __id "profile_id";
+       target_resource_id =
+         Prop.computed __type __id "target_resource_id";
+       weight = Prop.computed __type __id "weight";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_traffic_manager_nested_endpoint
+        (azurerm_traffic_manager_nested_endpoint ?enabled
+           ?endpoint_location ?geo_mappings ?id
+           ?minimum_required_child_endpoints_ipv4
+           ?minimum_required_child_endpoints_ipv6 ?priority ?weight
+           ?timeouts ~minimum_child_endpoints ~name ~profile_id
+           ~target_resource_id ~custom_header ~subnet ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enabled ?endpoint_location ?geo_mappings ?id
     ?minimum_required_child_endpoints_ipv4
     ?minimum_required_child_endpoints_ipv6 ?priority ?weight
     ?timeouts ~minimum_child_endpoints ~name ~profile_id
-    ~target_resource_id ~custom_header ~subnet __resource_id =
-  let __resource_type = "azurerm_traffic_manager_nested_endpoint" in
-  let __resource =
-    azurerm_traffic_manager_nested_endpoint ?enabled
-      ?endpoint_location ?geo_mappings ?id
+    ~target_resource_id ~custom_header ~subnet __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?endpoint_location ?geo_mappings ?id
       ?minimum_required_child_endpoints_ipv4
       ?minimum_required_child_endpoints_ipv6 ?priority ?weight
       ?timeouts ~minimum_child_endpoints ~name ~profile_id
-      ~target_resource_id ~custom_header ~subnet ()
+      ~target_resource_id ~custom_header ~subnet __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_traffic_manager_nested_endpoint __resource);
-  let __resource_attributes =
-    ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       endpoint_location =
-         Prop.computed __resource_type __resource_id
-           "endpoint_location";
-       geo_mappings =
-         Prop.computed __resource_type __resource_id "geo_mappings";
-       id = Prop.computed __resource_type __resource_id "id";
-       minimum_child_endpoints =
-         Prop.computed __resource_type __resource_id
-           "minimum_child_endpoints";
-       minimum_required_child_endpoints_ipv4 =
-         Prop.computed __resource_type __resource_id
-           "minimum_required_child_endpoints_ipv4";
-       minimum_required_child_endpoints_ipv6 =
-         Prop.computed __resource_type __resource_id
-           "minimum_required_child_endpoints_ipv6";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       profile_id =
-         Prop.computed __resource_type __resource_id "profile_id";
-       target_resource_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_id";
-       weight = Prop.computed __resource_type __resource_id "weight";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

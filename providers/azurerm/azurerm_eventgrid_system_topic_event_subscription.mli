@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -349,3 +349,32 @@ val register :
   webhook_endpoint:webhook_endpoint list ->
   string ->
   t
+
+val make :
+  ?advanced_filtering_on_arrays_enabled:bool prop ->
+  ?event_delivery_schema:string prop ->
+  ?eventhub_endpoint_id:string prop ->
+  ?expiration_time_utc:string prop ->
+  ?hybrid_connection_endpoint_id:string prop ->
+  ?id:string prop ->
+  ?included_event_types:string prop list ->
+  ?labels:string prop list ->
+  ?service_bus_queue_endpoint_id:string prop ->
+  ?service_bus_topic_endpoint_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  system_topic:string prop ->
+  advanced_filter:advanced_filter list ->
+  azure_function_endpoint:azure_function_endpoint list ->
+  dead_letter_identity:dead_letter_identity list ->
+  delivery_identity:delivery_identity list ->
+  delivery_property:delivery_property list ->
+  retry_policy:retry_policy list ->
+  storage_blob_dead_letter_destination:
+    storage_blob_dead_letter_destination list ->
+  storage_queue_endpoint:storage_queue_endpoint list ->
+  subject_filter:subject_filter list ->
+  webhook_endpoint:webhook_endpoint list ->
+  string ->
+  t Tf_core.resource

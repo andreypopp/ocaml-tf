@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type storage_config__kinesis_firehose_config = {
   firehose_arn : string prop;  (** firehose_arn *)
@@ -119,25 +117,31 @@ type t = {
   resource_type : string prop;
 }
 
-let register ?tf_module ?id ~instance_id ~resource_type
-    ~storage_config __resource_id =
-  let __resource_type = "aws_connect_instance_storage_config" in
-  let __resource =
-    aws_connect_instance_storage_config ?id ~instance_id
-      ~resource_type ~storage_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_instance_storage_config __resource);
-  let __resource_attributes =
+let make ?id ~instance_id ~resource_type ~storage_config __id =
+  let __type = "aws_connect_instance_storage_config" in
+  let __attrs =
     ({
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
+       association_id = Prop.computed __type __id "association_id";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       resource_type = Prop.computed __type __id "resource_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_instance_storage_config
+        (aws_connect_instance_storage_config ?id ~instance_id
+           ~resource_type ~storage_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~instance_id ~resource_type
+    ~storage_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~instance_id ~resource_type ~storage_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

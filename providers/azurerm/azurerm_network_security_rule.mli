@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,27 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?destination_address_prefix:string prop ->
+  ?destination_address_prefixes:string prop list ->
+  ?destination_application_security_group_ids:string prop list ->
+  ?destination_port_range:string prop ->
+  ?destination_port_ranges:string prop list ->
+  ?id:string prop ->
+  ?source_address_prefix:string prop ->
+  ?source_address_prefixes:string prop list ->
+  ?source_application_security_group_ids:string prop list ->
+  ?source_port_range:string prop ->
+  ?source_port_ranges:string prop list ->
+  ?timeouts:timeouts ->
+  access:string prop ->
+  direction:string prop ->
+  name:string prop ->
+  network_security_group_name:string prop ->
+  priority:float prop ->
+  protocol:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

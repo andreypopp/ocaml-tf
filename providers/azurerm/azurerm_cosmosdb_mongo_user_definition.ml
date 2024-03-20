@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -49,29 +47,37 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?id ?inherited_role_names ?timeouts
-    ~cosmos_mongo_database_id ~password ~username __resource_id =
-  let __resource_type = "azurerm_cosmosdb_mongo_user_definition" in
-  let __resource =
-    azurerm_cosmosdb_mongo_user_definition ?id ?inherited_role_names
-      ?timeouts ~cosmos_mongo_database_id ~password ~username ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_mongo_user_definition __resource);
-  let __resource_attributes =
+let make ?id ?inherited_role_names ?timeouts
+    ~cosmos_mongo_database_id ~password ~username __id =
+  let __type = "azurerm_cosmosdb_mongo_user_definition" in
+  let __attrs =
     ({
        cosmos_mongo_database_id =
-         Prop.computed __resource_type __resource_id
-           "cosmos_mongo_database_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "cosmos_mongo_database_id";
+       id = Prop.computed __type __id "id";
        inherited_role_names =
-         Prop.computed __resource_type __resource_id
-           "inherited_role_names";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "inherited_role_names";
+       password = Prop.computed __type __id "password";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_mongo_user_definition
+        (azurerm_cosmosdb_mongo_user_definition ?id
+           ?inherited_role_names ?timeouts ~cosmos_mongo_database_id
+           ~password ~username ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?inherited_role_names ?timeouts
+    ~cosmos_mongo_database_id ~password ~username __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?inherited_role_names ?timeouts
+      ~cosmos_mongo_database_id ~password ~username __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

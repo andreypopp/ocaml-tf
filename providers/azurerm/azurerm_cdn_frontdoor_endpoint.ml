@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -42,28 +40,36 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?enabled ?id ?tags ?timeouts
-    ~cdn_frontdoor_profile_id ~name __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_endpoint" in
-  let __resource =
-    azurerm_cdn_frontdoor_endpoint ?enabled ?id ?tags ?timeouts
-      ~cdn_frontdoor_profile_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_endpoint __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?tags ?timeouts ~cdn_frontdoor_profile_id ~name
+    __id =
+  let __type = "azurerm_cdn_frontdoor_endpoint" in
+  let __attrs =
     ({
        cdn_frontdoor_profile_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_profile_id";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "cdn_frontdoor_profile_id";
+       enabled = Prop.computed __type __id "enabled";
+       host_name = Prop.computed __type __id "host_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_endpoint
+        (azurerm_cdn_frontdoor_endpoint ?enabled ?id ?tags ?timeouts
+           ~cdn_frontdoor_profile_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?tags ?timeouts
+    ~cdn_frontdoor_profile_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?tags ?timeouts ~cdn_frontdoor_profile_id ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

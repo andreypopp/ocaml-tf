@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_organizations_policy = {
   content : string prop;  (** content *)
@@ -43,31 +41,38 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?skip_destroy ?tags
-    ?tags_all ?type_ ~content ~name __resource_id =
-  let __resource_type = "aws_organizations_policy" in
-  let __resource =
-    aws_organizations_policy ?description ?id ?skip_destroy ?tags
-      ?tags_all ?type_ ~content ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_organizations_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ?skip_destroy ?tags ?tags_all ?type_
+    ~content ~name __id =
+  let __type = "aws_organizations_policy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       content = Prop.computed __type __id "content";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_organizations_policy
+        (aws_organizations_policy ?description ?id ?skip_destroy
+           ?tags ?tags_all ?type_ ~content ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?skip_destroy ?tags
+    ?tags_all ?type_ ~content ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?skip_destroy ?tags ?tags_all ?type_
+      ~content ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination = {
   address_prefix : string prop;  (** address_prefix *)
@@ -92,42 +90,47 @@ type t = {
   source_port_ranges : string list prop;
 }
 
-let register ?tf_module ?description ?destination_port_ranges ?id
+let make ?description ?destination_port_ranges ?id
     ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
-    ~direction ~name ~priority ~protocol ~destination ~source
-    __resource_id =
-  let __resource_type = "azurerm_network_manager_admin_rule" in
-  let __resource =
-    azurerm_network_manager_admin_rule ?description
-      ?destination_port_ranges ?id ?source_port_ranges ?timeouts
-      ~action ~admin_rule_collection_id ~direction ~name ~priority
-      ~protocol ~destination ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_manager_admin_rule __resource);
-  let __resource_attributes =
+    ~direction ~name ~priority ~protocol ~destination ~source __id =
+  let __type = "azurerm_network_manager_admin_rule" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
+       action = Prop.computed __type __id "action";
        admin_rule_collection_id =
-         Prop.computed __resource_type __resource_id
-           "admin_rule_collection_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "admin_rule_collection_id";
+       description = Prop.computed __type __id "description";
        destination_port_ranges =
-         Prop.computed __resource_type __resource_id
-           "destination_port_ranges";
-       direction =
-         Prop.computed __resource_type __resource_id "direction";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+         Prop.computed __type __id "destination_port_ranges";
+       direction = Prop.computed __type __id "direction";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       protocol = Prop.computed __type __id "protocol";
        source_port_ranges =
-         Prop.computed __resource_type __resource_id
-           "source_port_ranges";
+         Prop.computed __type __id "source_port_ranges";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_manager_admin_rule
+        (azurerm_network_manager_admin_rule ?description
+           ?destination_port_ranges ?id ?source_port_ranges ?timeouts
+           ~action ~admin_rule_collection_id ~direction ~name
+           ~priority ~protocol ~destination ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?destination_port_ranges ?id
+    ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
+    ~direction ~name ~priority ~protocol ~destination ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?destination_port_ranges ?id
+      ?source_port_ranges ?timeouts ~action ~admin_rule_collection_id
+      ~direction ~name ~priority ~protocol ~destination ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

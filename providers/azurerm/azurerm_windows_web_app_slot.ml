@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auth_settings__active_directory = {
   allowed_audiences : string prop list option; [@option]
@@ -1216,6 +1214,90 @@ type t = {
   zip_deploy_file : string prop;
 }
 
+let make ?app_settings ?client_affinity_enabled
+    ?client_certificate_enabled ?client_certificate_exclusion_paths
+    ?client_certificate_mode ?enabled
+    ?ftp_publish_basic_authentication_enabled ?https_only ?id
+    ?key_vault_reference_identity_id ?public_network_access_enabled
+    ?service_plan_id ?tags ?virtual_network_subnet_id
+    ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
+    ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
+    ~backup ~connection_string ~identity ~logs ~site_config
+    ~storage_account __id =
+  let __type = "azurerm_windows_web_app_slot" in
+  let __attrs =
+    ({
+       app_service_id = Prop.computed __type __id "app_service_id";
+       app_settings = Prop.computed __type __id "app_settings";
+       client_affinity_enabled =
+         Prop.computed __type __id "client_affinity_enabled";
+       client_certificate_enabled =
+         Prop.computed __type __id "client_certificate_enabled";
+       client_certificate_exclusion_paths =
+         Prop.computed __type __id
+           "client_certificate_exclusion_paths";
+       client_certificate_mode =
+         Prop.computed __type __id "client_certificate_mode";
+       custom_domain_verification_id =
+         Prop.computed __type __id "custom_domain_verification_id";
+       default_hostname =
+         Prop.computed __type __id "default_hostname";
+       enabled = Prop.computed __type __id "enabled";
+       ftp_publish_basic_authentication_enabled =
+         Prop.computed __type __id
+           "ftp_publish_basic_authentication_enabled";
+       hosting_environment_id =
+         Prop.computed __type __id "hosting_environment_id";
+       https_only = Prop.computed __type __id "https_only";
+       id = Prop.computed __type __id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __type __id "key_vault_reference_identity_id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
+       outbound_ip_address_list =
+         Prop.computed __type __id "outbound_ip_address_list";
+       outbound_ip_addresses =
+         Prop.computed __type __id "outbound_ip_addresses";
+       possible_outbound_ip_address_list =
+         Prop.computed __type __id
+           "possible_outbound_ip_address_list";
+       possible_outbound_ip_addresses =
+         Prop.computed __type __id "possible_outbound_ip_addresses";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       service_plan_id = Prop.computed __type __id "service_plan_id";
+       site_credential = Prop.computed __type __id "site_credential";
+       tags = Prop.computed __type __id "tags";
+       virtual_network_subnet_id =
+         Prop.computed __type __id "virtual_network_subnet_id";
+       webdeploy_publish_basic_authentication_enabled =
+         Prop.computed __type __id
+           "webdeploy_publish_basic_authentication_enabled";
+       zip_deploy_file = Prop.computed __type __id "zip_deploy_file";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_windows_web_app_slot
+        (azurerm_windows_web_app_slot ?app_settings
+           ?client_affinity_enabled ?client_certificate_enabled
+           ?client_certificate_exclusion_paths
+           ?client_certificate_mode ?enabled
+           ?ftp_publish_basic_authentication_enabled ?https_only ?id
+           ?key_vault_reference_identity_id
+           ?public_network_access_enabled ?service_plan_id ?tags
+           ?virtual_network_subnet_id
+           ?webdeploy_publish_basic_authentication_enabled
+           ?zip_deploy_file ?timeouts ~app_service_id ~name
+           ~auth_settings ~auth_settings_v2 ~backup
+           ~connection_string ~identity ~logs ~site_config
+           ~storage_account ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?app_settings ?client_affinity_enabled
     ?client_certificate_enabled ?client_certificate_exclusion_paths
     ?client_certificate_mode ?enabled
@@ -1225,95 +1307,18 @@ let register ?tf_module ?app_settings ?client_affinity_enabled
     ?webdeploy_publish_basic_authentication_enabled ?zip_deploy_file
     ?timeouts ~app_service_id ~name ~auth_settings ~auth_settings_v2
     ~backup ~connection_string ~identity ~logs ~site_config
-    ~storage_account __resource_id =
-  let __resource_type = "azurerm_windows_web_app_slot" in
-  let __resource =
-    azurerm_windows_web_app_slot ?app_settings
-      ?client_affinity_enabled ?client_certificate_enabled
-      ?client_certificate_exclusion_paths ?client_certificate_mode
-      ?enabled ?ftp_publish_basic_authentication_enabled ?https_only
-      ?id ?key_vault_reference_identity_id
-      ?public_network_access_enabled ?service_plan_id ?tags
-      ?virtual_network_subnet_id
+    ~storage_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_settings ?client_affinity_enabled
+      ?client_certificate_enabled ?client_certificate_exclusion_paths
+      ?client_certificate_mode ?enabled
+      ?ftp_publish_basic_authentication_enabled ?https_only ?id
+      ?key_vault_reference_identity_id ?public_network_access_enabled
+      ?service_plan_id ?tags ?virtual_network_subnet_id
       ?webdeploy_publish_basic_authentication_enabled
       ?zip_deploy_file ?timeouts ~app_service_id ~name ~auth_settings
       ~auth_settings_v2 ~backup ~connection_string ~identity ~logs
-      ~site_config ~storage_account ()
+      ~site_config ~storage_account __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_windows_web_app_slot __resource);
-  let __resource_attributes =
-    ({
-       app_service_id =
-         Prop.computed __resource_type __resource_id "app_service_id";
-       app_settings =
-         Prop.computed __resource_type __resource_id "app_settings";
-       client_affinity_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_affinity_enabled";
-       client_certificate_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_enabled";
-       client_certificate_exclusion_paths =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_exclusion_paths";
-       client_certificate_mode =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_mode";
-       custom_domain_verification_id =
-         Prop.computed __resource_type __resource_id
-           "custom_domain_verification_id";
-       default_hostname =
-         Prop.computed __resource_type __resource_id
-           "default_hostname";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       ftp_publish_basic_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "ftp_publish_basic_authentication_enabled";
-       hosting_environment_id =
-         Prop.computed __resource_type __resource_id
-           "hosting_environment_id";
-       https_only =
-         Prop.computed __resource_type __resource_id "https_only";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_reference_identity_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_reference_identity_id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_ip_address_list =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_address_list";
-       outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_addresses";
-       possible_outbound_ip_address_list =
-         Prop.computed __resource_type __resource_id
-           "possible_outbound_ip_address_list";
-       possible_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "possible_outbound_ip_addresses";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       service_plan_id =
-         Prop.computed __resource_type __resource_id
-           "service_plan_id";
-       site_credential =
-         Prop.computed __resource_type __resource_id
-           "site_credential";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_network_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_subnet_id";
-       webdeploy_publish_basic_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "webdeploy_publish_basic_authentication_enabled";
-       zip_deploy_file =
-         Prop.computed __resource_type __resource_id
-           "zip_deploy_file";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

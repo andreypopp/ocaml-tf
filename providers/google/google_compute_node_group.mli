@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -96,3 +96,19 @@ val register :
   share_settings:share_settings list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?initial_size:float prop ->
+  ?maintenance_policy:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  node_template:string prop ->
+  autoscaling_policy:autoscaling_policy list ->
+  maintenance_window:maintenance_window list ->
+  share_settings:share_settings list ->
+  string ->
+  t Tf_core.resource

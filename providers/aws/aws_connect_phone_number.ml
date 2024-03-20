@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -65,34 +63,40 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?prefix ?tags ?tags_all
-    ?timeouts ~country_code ~target_arn ~type_ __resource_id =
-  let __resource_type = "aws_connect_phone_number" in
-  let __resource =
-    aws_connect_phone_number ?description ?id ?prefix ?tags ?tags_all
-      ?timeouts ~country_code ~target_arn ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_phone_number __resource);
-  let __resource_attributes =
+let make ?description ?id ?prefix ?tags ?tags_all ?timeouts
+    ~country_code ~target_arn ~type_ __id =
+  let __type = "aws_connect_phone_number" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       country_code =
-         Prop.computed __resource_type __resource_id "country_code";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       phone_number =
-         Prop.computed __resource_type __resource_id "phone_number";
-       prefix = Prop.computed __resource_type __resource_id "prefix";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_arn =
-         Prop.computed __resource_type __resource_id "target_arn";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       country_code = Prop.computed __type __id "country_code";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       phone_number = Prop.computed __type __id "phone_number";
+       prefix = Prop.computed __type __id "prefix";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_arn = Prop.computed __type __id "target_arn";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_phone_number
+        (aws_connect_phone_number ?description ?id ?prefix ?tags
+           ?tags_all ?timeouts ~country_code ~target_arn ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?prefix ?tags ?tags_all
+    ?timeouts ~country_code ~target_arn ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?prefix ?tags ?tags_all ?timeouts
+      ~country_code ~target_arn ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

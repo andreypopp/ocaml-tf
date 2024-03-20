@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,15 @@ val register :
   data_masking_policy:data_masking_policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  data_policy_id:string prop ->
+  data_policy_type:string prop ->
+  location:string prop ->
+  policy_tag:string prop ->
+  data_masking_policy:data_masking_policy list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_volume = {
   automount : bool prop option; [@option]  (** automount *)
@@ -47,34 +45,40 @@ type t = {
   size : float prop;
 }
 
-let register ?tf_module ?automount ?delete_protection ?format ?id
-    ?labels ?location ?server_id ~name ~size __resource_id =
-  let __resource_type = "hcloud_volume" in
-  let __resource =
-    hcloud_volume ?automount ?delete_protection ?format ?id ?labels
-      ?location ?server_id ~name ~size ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_volume __resource);
-  let __resource_attributes =
+let make ?automount ?delete_protection ?format ?id ?labels ?location
+    ?server_id ~name ~size __id =
+  let __type = "hcloud_volume" in
+  let __attrs =
     ({
-       automount =
-         Prop.computed __resource_type __resource_id "automount";
+       automount = Prop.computed __type __id "automount";
        delete_protection =
-         Prop.computed __resource_type __resource_id
-           "delete_protection";
-       format = Prop.computed __resource_type __resource_id "format";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       linux_device =
-         Prop.computed __resource_type __resource_id "linux_device";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       size = Prop.computed __resource_type __resource_id "size";
+         Prop.computed __type __id "delete_protection";
+       format = Prop.computed __type __id "format";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       linux_device = Prop.computed __type __id "linux_device";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       server_id = Prop.computed __type __id "server_id";
+       size = Prop.computed __type __id "size";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_volume
+        (hcloud_volume ?automount ?delete_protection ?format ?id
+           ?labels ?location ?server_id ~name ~size ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automount ?delete_protection ?format ?id
+    ?labels ?location ?server_id ~name ~size __id =
+  let (r : _ Tf_core.resource) =
+    make ?automount ?delete_protection ?format ?id ?labels ?location
+      ?server_id ~name ~size __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

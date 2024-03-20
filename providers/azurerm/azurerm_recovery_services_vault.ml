@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption = {
   infrastructure_encryption_enabled : bool prop;
@@ -132,52 +130,65 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?classic_vmware_replication_enabled
+    ?cross_region_restore_enabled ?id ?immutability
+    ?public_network_access_enabled ?soft_delete_enabled
+    ?storage_mode_type ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~encryption ~identity ~monitoring __id
+    =
+  let __type = "azurerm_recovery_services_vault" in
+  let __attrs =
+    ({
+       classic_vmware_replication_enabled =
+         Prop.computed __type __id
+           "classic_vmware_replication_enabled";
+       cross_region_restore_enabled =
+         Prop.computed __type __id "cross_region_restore_enabled";
+       id = Prop.computed __type __id "id";
+       immutability = Prop.computed __type __id "immutability";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       soft_delete_enabled =
+         Prop.computed __type __id "soft_delete_enabled";
+       storage_mode_type =
+         Prop.computed __type __id "storage_mode_type";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_recovery_services_vault
+        (azurerm_recovery_services_vault
+           ?classic_vmware_replication_enabled
+           ?cross_region_restore_enabled ?id ?immutability
+           ?public_network_access_enabled ?soft_delete_enabled
+           ?storage_mode_type ?tags ?timeouts ~location ~name
+           ~resource_group_name ~sku ~encryption ~identity
+           ~monitoring ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?classic_vmware_replication_enabled
     ?cross_region_restore_enabled ?id ?immutability
     ?public_network_access_enabled ?soft_delete_enabled
     ?storage_mode_type ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~encryption ~identity ~monitoring
-    __resource_id =
-  let __resource_type = "azurerm_recovery_services_vault" in
-  let __resource =
-    azurerm_recovery_services_vault
-      ?classic_vmware_replication_enabled
+    ~resource_group_name ~sku ~encryption ~identity ~monitoring __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?classic_vmware_replication_enabled
       ?cross_region_restore_enabled ?id ?immutability
       ?public_network_access_enabled ?soft_delete_enabled
       ?storage_mode_type ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~encryption ~identity ~monitoring ()
+      ~resource_group_name ~sku ~encryption ~identity ~monitoring
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_recovery_services_vault __resource);
-  let __resource_attributes =
-    ({
-       classic_vmware_replication_enabled =
-         Prop.computed __resource_type __resource_id
-           "classic_vmware_replication_enabled";
-       cross_region_restore_enabled =
-         Prop.computed __resource_type __resource_id
-           "cross_region_restore_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       immutability =
-         Prop.computed __resource_type __resource_id "immutability";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       soft_delete_enabled =
-         Prop.computed __resource_type __resource_id
-           "soft_delete_enabled";
-       storage_mode_type =
-         Prop.computed __resource_type __resource_id
-           "storage_mode_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

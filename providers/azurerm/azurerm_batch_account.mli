@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -135,3 +135,23 @@ val register :
   network_profile:network_profile list ->
   string ->
   t
+
+val make :
+  ?allowed_authentication_modes:string prop list ->
+  ?encryption:encryption list ->
+  ?id:string prop ->
+  ?pool_allocation_mode:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?storage_account_authentication_mode:string prop ->
+  ?storage_account_id:string prop ->
+  ?storage_account_node_identity:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  key_vault_reference:key_vault_reference list ->
+  network_profile:network_profile list ->
+  string ->
+  t Tf_core.resource

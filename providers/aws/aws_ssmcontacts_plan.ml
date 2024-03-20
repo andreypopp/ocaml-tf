@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type stage__target__channel_target_info = {
   contact_channel_id : string prop;  (** contact_channel_id *)
@@ -62,17 +60,25 @@ let aws_ssmcontacts_plan ?id ~contact_id ~stage () :
 
 type t = { contact_id : string prop; id : string prop }
 
-let register ?tf_module ?id ~contact_id ~stage __resource_id =
-  let __resource_type = "aws_ssmcontacts_plan" in
-  let __resource = aws_ssmcontacts_plan ?id ~contact_id ~stage () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssmcontacts_plan __resource);
-  let __resource_attributes =
+let make ?id ~contact_id ~stage __id =
+  let __type = "aws_ssmcontacts_plan" in
+  let __attrs =
     ({
-       contact_id =
-         Prop.computed __resource_type __resource_id "contact_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       contact_id = Prop.computed __type __id "contact_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssmcontacts_plan
+        (aws_ssmcontacts_plan ?id ~contact_id ~stage ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~contact_id ~stage __id =
+  let (r : _ Tf_core.resource) = make ?id ~contact_id ~stage __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

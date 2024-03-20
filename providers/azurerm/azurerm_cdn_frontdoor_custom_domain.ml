@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,33 +65,39 @@ type t = {
   validation_token : string prop;
 }
 
-let register ?tf_module ?dns_zone_id ?id ?timeouts
-    ~cdn_frontdoor_profile_id ~host_name ~name ~tls __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_custom_domain" in
-  let __resource =
-    azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id ?timeouts
-      ~cdn_frontdoor_profile_id ~host_name ~name ~tls ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_custom_domain __resource);
-  let __resource_attributes =
+let make ?dns_zone_id ?id ?timeouts ~cdn_frontdoor_profile_id
+    ~host_name ~name ~tls __id =
+  let __type = "azurerm_cdn_frontdoor_custom_domain" in
+  let __attrs =
     ({
        cdn_frontdoor_profile_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_profile_id";
-       dns_zone_id =
-         Prop.computed __resource_type __resource_id "dns_zone_id";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "cdn_frontdoor_profile_id";
+       dns_zone_id = Prop.computed __type __id "dns_zone_id";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       host_name = Prop.computed __type __id "host_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        validation_token =
-         Prop.computed __resource_type __resource_id
-           "validation_token";
+         Prop.computed __type __id "validation_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_custom_domain
+        (azurerm_cdn_frontdoor_custom_domain ?dns_zone_id ?id
+           ?timeouts ~cdn_frontdoor_profile_id ~host_name ~name ~tls
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?dns_zone_id ?id ?timeouts
+    ~cdn_frontdoor_profile_id ~host_name ~name ~tls __id =
+  let (r : _ Tf_core.resource) =
+    make ?dns_zone_id ?id ?timeouts ~cdn_frontdoor_profile_id
+      ~host_name ~name ~tls __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

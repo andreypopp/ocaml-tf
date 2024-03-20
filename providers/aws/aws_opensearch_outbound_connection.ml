@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connection_properties__cross_cluster_search = {
   skip_unavailable : string prop option; [@option]
@@ -97,34 +95,42 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?accept_connection ?connection_mode ?id
-    ?timeouts ~connection_alias ~connection_properties
-    ~local_domain_info ~remote_domain_info __resource_id =
-  let __resource_type = "aws_opensearch_outbound_connection" in
-  let __resource =
-    aws_opensearch_outbound_connection ?accept_connection
-      ?connection_mode ?id ?timeouts ~connection_alias
-      ~connection_properties ~local_domain_info ~remote_domain_info
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opensearch_outbound_connection __resource);
-  let __resource_attributes =
+let make ?accept_connection ?connection_mode ?id ?timeouts
+    ~connection_alias ~connection_properties ~local_domain_info
+    ~remote_domain_info __id =
+  let __type = "aws_opensearch_outbound_connection" in
+  let __attrs =
     ({
        accept_connection =
-         Prop.computed __resource_type __resource_id
-           "accept_connection";
+         Prop.computed __type __id "accept_connection";
        connection_alias =
-         Prop.computed __resource_type __resource_id
-           "connection_alias";
-       connection_mode =
-         Prop.computed __resource_type __resource_id
-           "connection_mode";
+         Prop.computed __type __id "connection_alias";
+       connection_mode = Prop.computed __type __id "connection_mode";
        connection_status =
-         Prop.computed __resource_type __resource_id
-           "connection_status";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "connection_status";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opensearch_outbound_connection
+        (aws_opensearch_outbound_connection ?accept_connection
+           ?connection_mode ?id ?timeouts ~connection_alias
+           ~connection_properties ~local_domain_info
+           ~remote_domain_info ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accept_connection ?connection_mode ?id
+    ?timeouts ~connection_alias ~connection_properties
+    ~local_domain_info ~remote_domain_info __id =
+  let (r : _ Tf_core.resource) =
+    make ?accept_connection ?connection_mode ?id ?timeouts
+      ~connection_alias ~connection_properties ~local_domain_info
+      ~remote_domain_info __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

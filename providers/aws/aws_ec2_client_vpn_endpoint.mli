@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -111,3 +111,25 @@ val register :
   connection_log_options:connection_log_options list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?dns_servers:string prop list ->
+  ?id:string prop ->
+  ?security_group_ids:string prop list ->
+  ?self_service_portal:string prop ->
+  ?session_timeout_hours:float prop ->
+  ?split_tunnel:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?transport_protocol:string prop ->
+  ?vpc_id:string prop ->
+  ?vpn_port:float prop ->
+  client_cidr_block:string prop ->
+  server_certificate_arn:string prop ->
+  authentication_options:authentication_options list ->
+  client_connect_options:client_connect_options list ->
+  client_login_banner_options:client_login_banner_options list ->
+  connection_log_options:connection_log_options list ->
+  string ->
+  t Tf_core.resource

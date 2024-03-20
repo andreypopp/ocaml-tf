@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delivery_config = {
   delivery_requirement : string prop;
@@ -63,25 +61,35 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?id ?project ?region ?zone ?timeouts ~name
-    ~topic ~delivery_config __resource_id =
-  let __resource_type = "google_pubsub_lite_subscription" in
-  let __resource =
-    google_pubsub_lite_subscription ?id ?project ?region ?zone
-      ?timeouts ~name ~topic ~delivery_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_pubsub_lite_subscription __resource);
-  let __resource_attributes =
+let make ?id ?project ?region ?zone ?timeouts ~name ~topic
+    ~delivery_config __id =
+  let __type = "google_pubsub_lite_subscription" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       topic = Prop.computed __resource_type __resource_id "topic";
-       zone = Prop.computed __resource_type __resource_id "zone";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       topic = Prop.computed __type __id "topic";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_pubsub_lite_subscription
+        (google_pubsub_lite_subscription ?id ?project ?region ?zone
+           ?timeouts ~name ~topic ~delivery_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?region ?zone ?timeouts ~name
+    ~topic ~delivery_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?region ?zone ?timeouts ~name ~topic
+      ~delivery_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

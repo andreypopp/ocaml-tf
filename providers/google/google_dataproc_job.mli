@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -225,3 +225,23 @@ val register :
   sparksql_config:sparksql_config list ->
   string ->
   t
+
+val make :
+  ?force_delete:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  hadoop_config:hadoop_config list ->
+  hive_config:hive_config list ->
+  pig_config:pig_config list ->
+  placement:placement list ->
+  presto_config:presto_config list ->
+  pyspark_config:pyspark_config list ->
+  reference:reference list ->
+  scheduling:scheduling list ->
+  spark_config:spark_config list ->
+  sparksql_config:sparksql_config list ->
+  string ->
+  t Tf_core.resource

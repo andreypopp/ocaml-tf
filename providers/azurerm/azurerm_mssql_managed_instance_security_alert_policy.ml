@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -71,53 +69,55 @@ type t = {
   storage_endpoint : string prop;
 }
 
-let register ?tf_module ?disabled_alerts
-    ?email_account_admins_enabled ?email_addresses ?enabled ?id
-    ?retention_days ?storage_account_access_key ?storage_endpoint
-    ?timeouts ~managed_instance_name ~resource_group_name
-    __resource_id =
-  let __resource_type =
+let make ?disabled_alerts ?email_account_admins_enabled
+    ?email_addresses ?enabled ?id ?retention_days
+    ?storage_account_access_key ?storage_endpoint ?timeouts
+    ~managed_instance_name ~resource_group_name __id =
+  let __type =
     "azurerm_mssql_managed_instance_security_alert_policy"
   in
-  let __resource =
-    azurerm_mssql_managed_instance_security_alert_policy
-      ?disabled_alerts ?email_account_admins_enabled ?email_addresses
-      ?enabled ?id ?retention_days ?storage_account_access_key
-      ?storage_endpoint ?timeouts ~managed_instance_name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_managed_instance_security_alert_policy
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       disabled_alerts =
-         Prop.computed __resource_type __resource_id
-           "disabled_alerts";
+       disabled_alerts = Prop.computed __type __id "disabled_alerts";
        email_account_admins_enabled =
-         Prop.computed __resource_type __resource_id
-           "email_account_admins_enabled";
-       email_addresses =
-         Prop.computed __resource_type __resource_id
-           "email_addresses";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "email_account_admins_enabled";
+       email_addresses = Prop.computed __type __id "email_addresses";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        managed_instance_name =
-         Prop.computed __resource_type __resource_id
-           "managed_instance_name";
+         Prop.computed __type __id "managed_instance_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retention_days =
-         Prop.computed __resource_type __resource_id "retention_days";
+         Prop.computed __type __id "resource_group_name";
+       retention_days = Prop.computed __type __id "retention_days";
        storage_account_access_key =
-         Prop.computed __resource_type __resource_id
-           "storage_account_access_key";
+         Prop.computed __type __id "storage_account_access_key";
        storage_endpoint =
-         Prop.computed __resource_type __resource_id
-           "storage_endpoint";
+         Prop.computed __type __id "storage_endpoint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_managed_instance_security_alert_policy
+        (azurerm_mssql_managed_instance_security_alert_policy
+           ?disabled_alerts ?email_account_admins_enabled
+           ?email_addresses ?enabled ?id ?retention_days
+           ?storage_account_access_key ?storage_endpoint ?timeouts
+           ~managed_instance_name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled_alerts
+    ?email_account_admins_enabled ?email_addresses ?enabled ?id
+    ?retention_days ?storage_account_access_key ?storage_endpoint
+    ?timeouts ~managed_instance_name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled_alerts ?email_account_admins_enabled
+      ?email_addresses ?enabled ?id ?retention_days
+      ?storage_account_access_key ?storage_endpoint ?timeouts
+      ~managed_instance_name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

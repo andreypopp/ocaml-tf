@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,15 @@ val register :
   ticket:ticket list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?justification:string prop ->
+  ?timeouts:timeouts ->
+  principal_id:string prop ->
+  role_definition_id:string prop ->
+  scope:string prop ->
+  schedule:schedule list ->
+  ticket:ticket list ->
+  string ->
+  t Tf_core.resource

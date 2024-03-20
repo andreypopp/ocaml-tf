@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -104,3 +104,19 @@ val register :
   systems_manager_agent:systems_manager_agent list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_data_base64:string prop ->
+  ?working_directory:string prop ->
+  name:string prop ->
+  parent_image:string prop ->
+  version:string prop ->
+  block_device_mapping:block_device_mapping list ->
+  component:component list ->
+  systems_manager_agent:systems_manager_agent list ->
+  string ->
+  t Tf_core.resource

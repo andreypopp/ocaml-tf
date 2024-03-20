@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,20 @@ val register :
   cluster_id:string prop ->
   string ->
   t
+
+val make :
+  ?acl_channels_default:string prop ->
+  ?id:string prop ->
+  ?io_threads:float prop ->
+  ?lfu_decay_time:float prop ->
+  ?lfu_log_factor:float prop ->
+  ?maxmemory_policy:string prop ->
+  ?notify_keyspace_events:string prop ->
+  ?number_of_databases:float prop ->
+  ?persistence:string prop ->
+  ?pubsub_client_output_buffer_limit:float prop ->
+  ?ssl:bool prop ->
+  ?timeout:float prop ->
+  cluster_id:string prop ->
+  string ->
+  t Tf_core.resource

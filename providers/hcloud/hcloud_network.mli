@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -39,3 +39,13 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?delete_protection:bool prop ->
+  ?expose_routes_to_vswitch:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ip_range:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

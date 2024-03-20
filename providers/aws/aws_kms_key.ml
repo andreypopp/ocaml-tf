@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -80,56 +78,61 @@ type t = {
   xks_key_id : string prop;
 }
 
+let make ?bypass_policy_lockout_safety_check ?custom_key_store_id
+    ?customer_master_key_spec ?deletion_window_in_days ?description
+    ?enable_key_rotation ?id ?is_enabled ?key_usage ?multi_region
+    ?policy ?tags ?tags_all ?xks_key_id ?timeouts __id =
+  let __type = "aws_kms_key" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       bypass_policy_lockout_safety_check =
+         Prop.computed __type __id
+           "bypass_policy_lockout_safety_check";
+       custom_key_store_id =
+         Prop.computed __type __id "custom_key_store_id";
+       customer_master_key_spec =
+         Prop.computed __type __id "customer_master_key_spec";
+       deletion_window_in_days =
+         Prop.computed __type __id "deletion_window_in_days";
+       description = Prop.computed __type __id "description";
+       enable_key_rotation =
+         Prop.computed __type __id "enable_key_rotation";
+       id = Prop.computed __type __id "id";
+       is_enabled = Prop.computed __type __id "is_enabled";
+       key_id = Prop.computed __type __id "key_id";
+       key_usage = Prop.computed __type __id "key_usage";
+       multi_region = Prop.computed __type __id "multi_region";
+       policy = Prop.computed __type __id "policy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       xks_key_id = Prop.computed __type __id "xks_key_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kms_key
+        (aws_kms_key ?bypass_policy_lockout_safety_check
+           ?custom_key_store_id ?customer_master_key_spec
+           ?deletion_window_in_days ?description ?enable_key_rotation
+           ?id ?is_enabled ?key_usage ?multi_region ?policy ?tags
+           ?tags_all ?xks_key_id ?timeouts ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?bypass_policy_lockout_safety_check
     ?custom_key_store_id ?customer_master_key_spec
     ?deletion_window_in_days ?description ?enable_key_rotation ?id
     ?is_enabled ?key_usage ?multi_region ?policy ?tags ?tags_all
-    ?xks_key_id ?timeouts __resource_id =
-  let __resource_type = "aws_kms_key" in
-  let __resource =
-    aws_kms_key ?bypass_policy_lockout_safety_check
-      ?custom_key_store_id ?customer_master_key_spec
-      ?deletion_window_in_days ?description ?enable_key_rotation ?id
-      ?is_enabled ?key_usage ?multi_region ?policy ?tags ?tags_all
-      ?xks_key_id ?timeouts ()
+    ?xks_key_id ?timeouts __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass_policy_lockout_safety_check ?custom_key_store_id
+      ?customer_master_key_spec ?deletion_window_in_days ?description
+      ?enable_key_rotation ?id ?is_enabled ?key_usage ?multi_region
+      ?policy ?tags ?tags_all ?xks_key_id ?timeouts __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kms_key __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bypass_policy_lockout_safety_check =
-         Prop.computed __resource_type __resource_id
-           "bypass_policy_lockout_safety_check";
-       custom_key_store_id =
-         Prop.computed __resource_type __resource_id
-           "custom_key_store_id";
-       customer_master_key_spec =
-         Prop.computed __resource_type __resource_id
-           "customer_master_key_spec";
-       deletion_window_in_days =
-         Prop.computed __resource_type __resource_id
-           "deletion_window_in_days";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable_key_rotation =
-         Prop.computed __resource_type __resource_id
-           "enable_key_rotation";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_enabled =
-         Prop.computed __resource_type __resource_id "is_enabled";
-       key_id = Prop.computed __resource_type __resource_id "key_id";
-       key_usage =
-         Prop.computed __resource_type __resource_id "key_usage";
-       multi_region =
-         Prop.computed __resource_type __resource_id "multi_region";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       xks_key_id =
-         Prop.computed __resource_type __resource_id "xks_key_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

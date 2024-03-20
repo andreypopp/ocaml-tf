@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,37 +61,39 @@ type t = {
   tenant : string prop;
 }
 
-let register ?tf_module ?client_secret ?enabled ?id ?project
-    ?timeouts ~client_id ~display_name ~issuer ~name ~tenant
-    __resource_id =
-  let __resource_type =
-    "google_identity_platform_tenant_oauth_idp_config"
-  in
-  let __resource =
-    google_identity_platform_tenant_oauth_idp_config ?client_secret
-      ?enabled ?id ?project ?timeouts ~client_id ~display_name
-      ~issuer ~name ~tenant ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_identity_platform_tenant_oauth_idp_config
-       __resource);
-  let __resource_attributes =
+let make ?client_secret ?enabled ?id ?project ?timeouts ~client_id
+    ~display_name ~issuer ~name ~tenant __id =
+  let __type = "google_identity_platform_tenant_oauth_idp_config" in
+  let __attrs =
     ({
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       tenant = Prop.computed __resource_type __resource_id "tenant";
+       client_id = Prop.computed __type __id "client_id";
+       client_secret = Prop.computed __type __id "client_secret";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       issuer = Prop.computed __type __id "issuer";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       tenant = Prop.computed __type __id "tenant";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_identity_platform_tenant_oauth_idp_config
+        (google_identity_platform_tenant_oauth_idp_config
+           ?client_secret ?enabled ?id ?project ?timeouts ~client_id
+           ~display_name ~issuer ~name ~tenant ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_secret ?enabled ?id ?project
+    ?timeouts ~client_id ~display_name ~issuer ~name ~tenant __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_secret ?enabled ?id ?project ?timeouts ~client_id
+      ~display_name ~issuer ~name ~tenant __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

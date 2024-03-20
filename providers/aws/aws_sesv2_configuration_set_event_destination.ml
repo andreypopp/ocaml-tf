@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_destination__cloud_watch_destination__dimension_configuration = {
   default_dimension_value : string prop;
@@ -120,29 +118,35 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ~configuration_set_name
-    ~event_destination_name ~event_destination __resource_id =
-  let __resource_type =
-    "aws_sesv2_configuration_set_event_destination"
-  in
-  let __resource =
-    aws_sesv2_configuration_set_event_destination ?id
-      ~configuration_set_name ~event_destination_name
-      ~event_destination ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_configuration_set_event_destination
-       __resource);
-  let __resource_attributes =
+let make ?id ~configuration_set_name ~event_destination_name
+    ~event_destination __id =
+  let __type = "aws_sesv2_configuration_set_event_destination" in
+  let __attrs =
     ({
        configuration_set_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_set_name";
+         Prop.computed __type __id "configuration_set_name";
        event_destination_name =
-         Prop.computed __resource_type __resource_id
-           "event_destination_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "event_destination_name";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_configuration_set_event_destination
+        (aws_sesv2_configuration_set_event_destination ?id
+           ~configuration_set_name ~event_destination_name
+           ~event_destination ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~configuration_set_name
+    ~event_destination_name ~event_destination __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~configuration_set_name ~event_destination_name
+      ~event_destination __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

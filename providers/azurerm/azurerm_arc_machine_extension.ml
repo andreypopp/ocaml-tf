@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,46 +71,53 @@ type t = {
   type_handler_version : string prop;
 }
 
-let register ?tf_module ?automatic_upgrade_enabled ?force_update_tag
-    ?id ?protected_settings ?settings ?tags ?type_handler_version
-    ?timeouts ~arc_machine_id ~location ~name ~publisher ~type_
-    __resource_id =
-  let __resource_type = "azurerm_arc_machine_extension" in
-  let __resource =
-    azurerm_arc_machine_extension ?automatic_upgrade_enabled
-      ?force_update_tag ?id ?protected_settings ?settings ?tags
-      ?type_handler_version ?timeouts ~arc_machine_id ~location ~name
-      ~publisher ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_arc_machine_extension __resource);
-  let __resource_attributes =
+let make ?automatic_upgrade_enabled ?force_update_tag ?id
+    ?protected_settings ?settings ?tags ?type_handler_version
+    ?timeouts ~arc_machine_id ~location ~name ~publisher ~type_ __id
+    =
+  let __type = "azurerm_arc_machine_extension" in
+  let __attrs =
     ({
-       arc_machine_id =
-         Prop.computed __resource_type __resource_id "arc_machine_id";
+       arc_machine_id = Prop.computed __type __id "arc_machine_id";
        automatic_upgrade_enabled =
-         Prop.computed __resource_type __resource_id
-           "automatic_upgrade_enabled";
+         Prop.computed __type __id "automatic_upgrade_enabled";
        force_update_tag =
-         Prop.computed __resource_type __resource_id
-           "force_update_tag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "force_update_tag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        protected_settings =
-         Prop.computed __resource_type __resource_id
-           "protected_settings";
-       publisher =
-         Prop.computed __resource_type __resource_id "publisher";
-       settings =
-         Prop.computed __resource_type __resource_id "settings";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "protected_settings";
+       publisher = Prop.computed __type __id "publisher";
+       settings = Prop.computed __type __id "settings";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
        type_handler_version =
-         Prop.computed __resource_type __resource_id
-           "type_handler_version";
+         Prop.computed __type __id "type_handler_version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_arc_machine_extension
+        (azurerm_arc_machine_extension ?automatic_upgrade_enabled
+           ?force_update_tag ?id ?protected_settings ?settings ?tags
+           ?type_handler_version ?timeouts ~arc_machine_id ~location
+           ~name ~publisher ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automatic_upgrade_enabled ?force_update_tag
+    ?id ?protected_settings ?settings ?tags ?type_handler_version
+    ?timeouts ~arc_machine_id ~location ~name ~publisher ~type_ __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_upgrade_enabled ?force_update_tag ?id
+      ?protected_settings ?settings ?tags ?type_handler_version
+      ?timeouts ~arc_machine_id ~location ~name ~publisher ~type_
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

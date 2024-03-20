@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type schedule = {
   at_these_hours : float prop list option; [@option]
@@ -70,31 +68,37 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?id ?start_time ?time_zone ?timeouts
-    ~frequency ~interval ~logic_app_id ~name ~schedule __resource_id
-    =
-  let __resource_type = "azurerm_logic_app_trigger_recurrence" in
-  let __resource =
-    azurerm_logic_app_trigger_recurrence ?id ?start_time ?time_zone
-      ?timeouts ~frequency ~interval ~logic_app_id ~name ~schedule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_trigger_recurrence __resource);
-  let __resource_attributes =
+let make ?id ?start_time ?time_zone ?timeouts ~frequency ~interval
+    ~logic_app_id ~name ~schedule __id =
+  let __type = "azurerm_logic_app_trigger_recurrence" in
+  let __attrs =
     ({
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       logic_app_id =
-         Prop.computed __resource_type __resource_id "logic_app_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       logic_app_id = Prop.computed __type __id "logic_app_id";
+       name = Prop.computed __type __id "name";
+       start_time = Prop.computed __type __id "start_time";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_trigger_recurrence
+        (azurerm_logic_app_trigger_recurrence ?id ?start_time
+           ?time_zone ?timeouts ~frequency ~interval ~logic_app_id
+           ~name ~schedule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?start_time ?time_zone ?timeouts
+    ~frequency ~interval ~logic_app_id ~name ~schedule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?start_time ?time_zone ?timeouts ~frequency ~interval
+      ~logic_app_id ~name ~schedule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

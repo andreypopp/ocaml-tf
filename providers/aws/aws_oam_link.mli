@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,14 @@ val register :
   sink_identifier:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  label_template:string prop ->
+  resource_types:string prop list ->
+  sink_identifier:string prop ->
+  string ->
+  t Tf_core.resource

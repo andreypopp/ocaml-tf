@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,17 @@ val register :
   sas_configuration:sas_configuration list ->
   string ->
   t
+
+val make :
+  ?access_tier:string prop ->
+  ?blob_type:string prop ->
+  ?id:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
+  authentication_type:string prop ->
+  container_url:string prop ->
+  sas_configuration:sas_configuration list ->
+  string ->
+  t Tf_core.resource

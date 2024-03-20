@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,13 @@ val register :
   properties:properties list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?parent_group_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  properties:properties list ->
+  string ->
+  t Tf_core.resource

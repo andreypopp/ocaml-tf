@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,14 @@ val register :
   tenant_id:string prop ->
   string ->
   t
+
+val make :
+  ?azuread_authentication_only:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  login_username:string prop ->
+  managed_instance_id:string prop ->
+  object_id:string prop ->
+  tenant_id:string prop ->
+  string ->
+  t Tf_core.resource

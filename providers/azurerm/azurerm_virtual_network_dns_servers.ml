@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,24 +34,31 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let register ?tf_module ?dns_servers ?id ?timeouts
-    ~virtual_network_id __resource_id =
-  let __resource_type = "azurerm_virtual_network_dns_servers" in
-  let __resource =
-    azurerm_virtual_network_dns_servers ?dns_servers ?id ?timeouts
-      ~virtual_network_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_network_dns_servers __resource);
-  let __resource_attributes =
+let make ?dns_servers ?id ?timeouts ~virtual_network_id __id =
+  let __type = "azurerm_virtual_network_dns_servers" in
+  let __attrs =
     ({
-       dns_servers =
-         Prop.computed __resource_type __resource_id "dns_servers";
-       id = Prop.computed __resource_type __resource_id "id";
+       dns_servers = Prop.computed __type __id "dns_servers";
+       id = Prop.computed __type __id "id";
        virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_id";
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_network_dns_servers
+        (azurerm_virtual_network_dns_servers ?dns_servers ?id
+           ?timeouts ~virtual_network_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?dns_servers ?id ?timeouts
+    ~virtual_network_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?dns_servers ?id ?timeouts ~virtual_network_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -115,6 +113,64 @@ type t = {
   token_endpoint : string prop;
 }
 
+let make ?bearer_token_sending_methods ?client_authentication_method
+    ?client_secret ?default_scope ?description ?id
+    ?resource_owner_password ?resource_owner_username ?support_state
+    ?token_endpoint ?timeouts ~api_management_name
+    ~authorization_endpoint ~authorization_methods ~client_id
+    ~client_registration_endpoint ~display_name ~grant_types ~name
+    ~resource_group_name ~token_body_parameter __id =
+  let __type = "azurerm_api_management_authorization_server" in
+  let __attrs =
+    ({
+       api_management_name =
+         Prop.computed __type __id "api_management_name";
+       authorization_endpoint =
+         Prop.computed __type __id "authorization_endpoint";
+       authorization_methods =
+         Prop.computed __type __id "authorization_methods";
+       bearer_token_sending_methods =
+         Prop.computed __type __id "bearer_token_sending_methods";
+       client_authentication_method =
+         Prop.computed __type __id "client_authentication_method";
+       client_id = Prop.computed __type __id "client_id";
+       client_registration_endpoint =
+         Prop.computed __type __id "client_registration_endpoint";
+       client_secret = Prop.computed __type __id "client_secret";
+       default_scope = Prop.computed __type __id "default_scope";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       grant_types = Prop.computed __type __id "grant_types";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       resource_owner_password =
+         Prop.computed __type __id "resource_owner_password";
+       resource_owner_username =
+         Prop.computed __type __id "resource_owner_username";
+       support_state = Prop.computed __type __id "support_state";
+       token_endpoint = Prop.computed __type __id "token_endpoint";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_authorization_server
+        (azurerm_api_management_authorization_server
+           ?bearer_token_sending_methods
+           ?client_authentication_method ?client_secret
+           ?default_scope ?description ?id ?resource_owner_password
+           ?resource_owner_username ?support_state ?token_endpoint
+           ?timeouts ~api_management_name ~authorization_endpoint
+           ~authorization_methods ~client_id
+           ~client_registration_endpoint ~display_name ~grant_types
+           ~name ~resource_group_name ~token_body_parameter ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?bearer_token_sending_methods
     ?client_authentication_method ?client_secret ?default_scope
     ?description ?id ?resource_owner_password
@@ -122,70 +178,15 @@ let register ?tf_module ?bearer_token_sending_methods
     ~api_management_name ~authorization_endpoint
     ~authorization_methods ~client_id ~client_registration_endpoint
     ~display_name ~grant_types ~name ~resource_group_name
-    ~token_body_parameter __resource_id =
-  let __resource_type =
-    "azurerm_api_management_authorization_server"
-  in
-  let __resource =
-    azurerm_api_management_authorization_server
-      ?bearer_token_sending_methods ?client_authentication_method
+    ~token_body_parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?bearer_token_sending_methods ?client_authentication_method
       ?client_secret ?default_scope ?description ?id
       ?resource_owner_password ?resource_owner_username
       ?support_state ?token_endpoint ?timeouts ~api_management_name
       ~authorization_endpoint ~authorization_methods ~client_id
       ~client_registration_endpoint ~display_name ~grant_types ~name
-      ~resource_group_name ~token_body_parameter ()
+      ~resource_group_name ~token_body_parameter __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_authorization_server __resource);
-  let __resource_attributes =
-    ({
-       api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       authorization_endpoint =
-         Prop.computed __resource_type __resource_id
-           "authorization_endpoint";
-       authorization_methods =
-         Prop.computed __resource_type __resource_id
-           "authorization_methods";
-       bearer_token_sending_methods =
-         Prop.computed __resource_type __resource_id
-           "bearer_token_sending_methods";
-       client_authentication_method =
-         Prop.computed __resource_type __resource_id
-           "client_authentication_method";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_registration_endpoint =
-         Prop.computed __resource_type __resource_id
-           "client_registration_endpoint";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       default_scope =
-         Prop.computed __resource_type __resource_id "default_scope";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       grant_types =
-         Prop.computed __resource_type __resource_id "grant_types";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       resource_owner_password =
-         Prop.computed __resource_type __resource_id
-           "resource_owner_password";
-       resource_owner_username =
-         Prop.computed __resource_type __resource_id
-           "resource_owner_username";
-       support_state =
-         Prop.computed __resource_type __resource_id "support_state";
-       token_endpoint =
-         Prop.computed __resource_type __resource_id "token_endpoint";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

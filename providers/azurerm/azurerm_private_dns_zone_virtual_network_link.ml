@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,39 +53,45 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let register ?tf_module ?id ?registration_enabled ?tags ?timeouts
-    ~name ~private_dns_zone_name ~resource_group_name
-    ~virtual_network_id __resource_id =
-  let __resource_type =
-    "azurerm_private_dns_zone_virtual_network_link"
-  in
-  let __resource =
-    azurerm_private_dns_zone_virtual_network_link ?id
-      ?registration_enabled ?tags ?timeouts ~name
-      ~private_dns_zone_name ~resource_group_name ~virtual_network_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_dns_zone_virtual_network_link
-       __resource);
-  let __resource_attributes =
+let make ?id ?registration_enabled ?tags ?timeouts ~name
+    ~private_dns_zone_name ~resource_group_name ~virtual_network_id
+    __id =
+  let __type = "azurerm_private_dns_zone_virtual_network_link" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        private_dns_zone_name =
-         Prop.computed __resource_type __resource_id
-           "private_dns_zone_name";
+         Prop.computed __type __id "private_dns_zone_name";
        registration_enabled =
-         Prop.computed __resource_type __resource_id
-           "registration_enabled";
+         Prop.computed __type __id "registration_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
        virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_id";
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_dns_zone_virtual_network_link
+        (azurerm_private_dns_zone_virtual_network_link ?id
+           ?registration_enabled ?tags ?timeouts ~name
+           ~private_dns_zone_name ~resource_group_name
+           ~virtual_network_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?registration_enabled ?tags ?timeouts
+    ~name ~private_dns_zone_name ~resource_group_name
+    ~virtual_network_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?registration_enabled ?tags ?timeouts ~name
+      ~private_dns_zone_name ~resource_group_name ~virtual_network_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

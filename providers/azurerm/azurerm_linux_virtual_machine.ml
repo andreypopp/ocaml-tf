@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_capabilities = {
   ultra_ssd_enabled : bool prop option; [@option]
@@ -391,6 +389,128 @@ type t = {
   zone : string prop;
 }
 
+let make ?admin_password ?allow_extension_operations
+    ?availability_set_id
+    ?bypass_platform_safety_checks_on_user_schedule_enabled
+    ?capacity_reservation_group_id ?computer_name ?custom_data
+    ?dedicated_host_group_id ?dedicated_host_id
+    ?disable_password_authentication ?disk_controller_type ?edge_zone
+    ?encryption_at_host_enabled ?eviction_policy
+    ?extensions_time_budget ?id ?license_type ?max_bid_price
+    ?patch_assessment_mode ?patch_mode ?platform_fault_domain
+    ?priority ?provision_vm_agent ?proximity_placement_group_id
+    ?reboot_setting ?secure_boot_enabled ?source_image_id ?tags
+    ?user_data ?virtual_machine_scale_set_id
+    ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone ?timeouts
+    ~admin_username ~location ~name ~network_interface_ids
+    ~resource_group_name ~size ~additional_capabilities
+    ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
+    ~os_disk ~os_image_notification ~plan ~secret
+    ~source_image_reference ~termination_notification __id =
+  let __type = "azurerm_linux_virtual_machine" in
+  let __attrs =
+    ({
+       admin_password = Prop.computed __type __id "admin_password";
+       admin_username = Prop.computed __type __id "admin_username";
+       allow_extension_operations =
+         Prop.computed __type __id "allow_extension_operations";
+       availability_set_id =
+         Prop.computed __type __id "availability_set_id";
+       bypass_platform_safety_checks_on_user_schedule_enabled =
+         Prop.computed __type __id
+           "bypass_platform_safety_checks_on_user_schedule_enabled";
+       capacity_reservation_group_id =
+         Prop.computed __type __id "capacity_reservation_group_id";
+       computer_name = Prop.computed __type __id "computer_name";
+       custom_data = Prop.computed __type __id "custom_data";
+       dedicated_host_group_id =
+         Prop.computed __type __id "dedicated_host_group_id";
+       dedicated_host_id =
+         Prop.computed __type __id "dedicated_host_id";
+       disable_password_authentication =
+         Prop.computed __type __id "disable_password_authentication";
+       disk_controller_type =
+         Prop.computed __type __id "disk_controller_type";
+       edge_zone = Prop.computed __type __id "edge_zone";
+       encryption_at_host_enabled =
+         Prop.computed __type __id "encryption_at_host_enabled";
+       eviction_policy = Prop.computed __type __id "eviction_policy";
+       extensions_time_budget =
+         Prop.computed __type __id "extensions_time_budget";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
+       max_bid_price = Prop.computed __type __id "max_bid_price";
+       name = Prop.computed __type __id "name";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       patch_assessment_mode =
+         Prop.computed __type __id "patch_assessment_mode";
+       patch_mode = Prop.computed __type __id "patch_mode";
+       platform_fault_domain =
+         Prop.computed __type __id "platform_fault_domain";
+       priority = Prop.computed __type __id "priority";
+       private_ip_address =
+         Prop.computed __type __id "private_ip_address";
+       private_ip_addresses =
+         Prop.computed __type __id "private_ip_addresses";
+       provision_vm_agent =
+         Prop.computed __type __id "provision_vm_agent";
+       proximity_placement_group_id =
+         Prop.computed __type __id "proximity_placement_group_id";
+       public_ip_address =
+         Prop.computed __type __id "public_ip_address";
+       public_ip_addresses =
+         Prop.computed __type __id "public_ip_addresses";
+       reboot_setting = Prop.computed __type __id "reboot_setting";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secure_boot_enabled =
+         Prop.computed __type __id "secure_boot_enabled";
+       size = Prop.computed __type __id "size";
+       source_image_id = Prop.computed __type __id "source_image_id";
+       tags = Prop.computed __type __id "tags";
+       user_data = Prop.computed __type __id "user_data";
+       virtual_machine_id =
+         Prop.computed __type __id "virtual_machine_id";
+       virtual_machine_scale_set_id =
+         Prop.computed __type __id "virtual_machine_scale_set_id";
+       vm_agent_platform_updates_enabled =
+         Prop.computed __type __id
+           "vm_agent_platform_updates_enabled";
+       vtpm_enabled = Prop.computed __type __id "vtpm_enabled";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_linux_virtual_machine
+        (azurerm_linux_virtual_machine ?admin_password
+           ?allow_extension_operations ?availability_set_id
+           ?bypass_platform_safety_checks_on_user_schedule_enabled
+           ?capacity_reservation_group_id ?computer_name ?custom_data
+           ?dedicated_host_group_id ?dedicated_host_id
+           ?disable_password_authentication ?disk_controller_type
+           ?edge_zone ?encryption_at_host_enabled ?eviction_policy
+           ?extensions_time_budget ?id ?license_type ?max_bid_price
+           ?patch_assessment_mode ?patch_mode ?platform_fault_domain
+           ?priority ?provision_vm_agent
+           ?proximity_placement_group_id ?reboot_setting
+           ?secure_boot_enabled ?source_image_id ?tags ?user_data
+           ?virtual_machine_scale_set_id
+           ?vm_agent_platform_updates_enabled ?vtpm_enabled ?zone
+           ?timeouts ~admin_username ~location ~name
+           ~network_interface_ids ~resource_group_name ~size
+           ~additional_capabilities ~admin_ssh_key ~boot_diagnostics
+           ~gallery_application ~identity ~os_disk
+           ~os_image_notification ~plan ~secret
+           ~source_image_reference ~termination_notification ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?admin_password ?allow_extension_operations
     ?availability_set_id
     ?bypass_platform_safety_checks_on_user_schedule_enabled
@@ -408,11 +528,10 @@ let register ?tf_module ?admin_password ?allow_extension_operations
     ~resource_group_name ~size ~additional_capabilities
     ~admin_ssh_key ~boot_diagnostics ~gallery_application ~identity
     ~os_disk ~os_image_notification ~plan ~secret
-    ~source_image_reference ~termination_notification __resource_id =
-  let __resource_type = "azurerm_linux_virtual_machine" in
-  let __resource =
-    azurerm_linux_virtual_machine ?admin_password
-      ?allow_extension_operations ?availability_set_id
+    ~source_image_reference ~termination_notification __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_password ?allow_extension_operations
+      ?availability_set_id
       ?bypass_platform_safety_checks_on_user_schedule_enabled
       ?capacity_reservation_group_id ?computer_name ?custom_data
       ?dedicated_host_group_id ?dedicated_host_id
@@ -429,122 +548,7 @@ let register ?tf_module ?admin_password ?allow_extension_operations
       ~additional_capabilities ~admin_ssh_key ~boot_diagnostics
       ~gallery_application ~identity ~os_disk ~os_image_notification
       ~plan ~secret ~source_image_reference ~termination_notification
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_linux_virtual_machine __resource);
-  let __resource_attributes =
-    ({
-       admin_password =
-         Prop.computed __resource_type __resource_id "admin_password";
-       admin_username =
-         Prop.computed __resource_type __resource_id "admin_username";
-       allow_extension_operations =
-         Prop.computed __resource_type __resource_id
-           "allow_extension_operations";
-       availability_set_id =
-         Prop.computed __resource_type __resource_id
-           "availability_set_id";
-       bypass_platform_safety_checks_on_user_schedule_enabled =
-         Prop.computed __resource_type __resource_id
-           "bypass_platform_safety_checks_on_user_schedule_enabled";
-       capacity_reservation_group_id =
-         Prop.computed __resource_type __resource_id
-           "capacity_reservation_group_id";
-       computer_name =
-         Prop.computed __resource_type __resource_id "computer_name";
-       custom_data =
-         Prop.computed __resource_type __resource_id "custom_data";
-       dedicated_host_group_id =
-         Prop.computed __resource_type __resource_id
-           "dedicated_host_group_id";
-       dedicated_host_id =
-         Prop.computed __resource_type __resource_id
-           "dedicated_host_id";
-       disable_password_authentication =
-         Prop.computed __resource_type __resource_id
-           "disable_password_authentication";
-       disk_controller_type =
-         Prop.computed __resource_type __resource_id
-           "disk_controller_type";
-       edge_zone =
-         Prop.computed __resource_type __resource_id "edge_zone";
-       encryption_at_host_enabled =
-         Prop.computed __resource_type __resource_id
-           "encryption_at_host_enabled";
-       eviction_policy =
-         Prop.computed __resource_type __resource_id
-           "eviction_policy";
-       extensions_time_budget =
-         Prop.computed __resource_type __resource_id
-           "extensions_time_budget";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       max_bid_price =
-         Prop.computed __resource_type __resource_id "max_bid_price";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       patch_assessment_mode =
-         Prop.computed __resource_type __resource_id
-           "patch_assessment_mode";
-       patch_mode =
-         Prop.computed __resource_type __resource_id "patch_mode";
-       platform_fault_domain =
-         Prop.computed __resource_type __resource_id
-           "platform_fault_domain";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
-       private_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "private_ip_addresses";
-       provision_vm_agent =
-         Prop.computed __resource_type __resource_id
-           "provision_vm_agent";
-       proximity_placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "proximity_placement_group_id";
-       public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address";
-       public_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "public_ip_addresses";
-       reboot_setting =
-         Prop.computed __resource_type __resource_id "reboot_setting";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secure_boot_enabled =
-         Prop.computed __resource_type __resource_id
-           "secure_boot_enabled";
-       size = Prop.computed __resource_type __resource_id "size";
-       source_image_id =
-         Prop.computed __resource_type __resource_id
-           "source_image_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
-       virtual_machine_scale_set_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_scale_set_id";
-       vm_agent_platform_updates_enabled =
-         Prop.computed __resource_type __resource_id
-           "vm_agent_platform_updates_enabled";
-       vtpm_enabled =
-         Prop.computed __resource_type __resource_id "vtpm_enabled";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

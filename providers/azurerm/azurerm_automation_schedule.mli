@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,21 @@ val register :
   monthly_occurrence:monthly_occurrence list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?expiry_time:string prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?month_days:float prop list ->
+  ?start_time:string prop ->
+  ?timezone:string prop ->
+  ?week_days:string prop list ->
+  ?timeouts:timeouts ->
+  automation_account_name:string prop ->
+  frequency:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  monthly_occurrence:monthly_occurrence list ->
+  string ->
+  t Tf_core.resource

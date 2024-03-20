@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,35 +59,42 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~database ~name ~password
-    ~resource_group_name ~server ~stream_analytics_job_name ~table
-    ~user __resource_id =
-  let __resource_type = "azurerm_stream_analytics_output_synapse" in
-  let __resource =
-    azurerm_stream_analytics_output_synapse ?id ?timeouts ~database
-      ~name ~password ~resource_group_name ~server
-      ~stream_analytics_job_name ~table ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_synapse __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~database ~name ~password ~resource_group_name
+    ~server ~stream_analytics_job_name ~table ~user __id =
+  let __type = "azurerm_stream_analytics_output_synapse" in
+  let __attrs =
     ({
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+       database = Prop.computed __type __id "database";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server = Prop.computed __resource_type __resource_id "server";
+         Prop.computed __type __id "resource_group_name";
+       server = Prop.computed __type __id "server";
        stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
-       table = Prop.computed __resource_type __resource_id "table";
-       user = Prop.computed __resource_type __resource_id "user";
+         Prop.computed __type __id "stream_analytics_job_name";
+       table = Prop.computed __type __id "table";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_synapse
+        (azurerm_stream_analytics_output_synapse ?id ?timeouts
+           ~database ~name ~password ~resource_group_name ~server
+           ~stream_analytics_job_name ~table ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~database ~name ~password
+    ~resource_group_name ~server ~stream_analytics_job_name ~table
+    ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~database ~name ~password ~resource_group_name
+      ~server ~stream_analytics_job_name ~table ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

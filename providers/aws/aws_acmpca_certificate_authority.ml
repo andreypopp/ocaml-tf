@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type certificate_authority_configuration__subject = {
   common_name : string prop option; [@option]  (** common_name *)
@@ -172,52 +170,57 @@ type t = {
   usage_mode : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?key_storage_security_standard
+let make ?enabled ?id ?key_storage_security_standard
     ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
     ?usage_mode ?timeouts ~certificate_authority_configuration
-    ~revocation_configuration __resource_id =
-  let __resource_type = "aws_acmpca_certificate_authority" in
-  let __resource =
-    aws_acmpca_certificate_authority ?enabled ?id
-      ?key_storage_security_standard ?permanent_deletion_time_in_days
-      ?tags ?tags_all ?type_ ?usage_mode ?timeouts
-      ~certificate_authority_configuration ~revocation_configuration
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acmpca_certificate_authority __resource);
-  let __resource_attributes =
+    ~revocation_configuration __id =
+  let __type = "aws_acmpca_certificate_authority" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
+       arn = Prop.computed __type __id "arn";
+       certificate = Prop.computed __type __id "certificate";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
+         Prop.computed __type __id "certificate_chain";
        certificate_signing_request =
-         Prop.computed __resource_type __resource_id
-           "certificate_signing_request";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "certificate_signing_request";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        key_storage_security_standard =
-         Prop.computed __resource_type __resource_id
-           "key_storage_security_standard";
-       not_after =
-         Prop.computed __resource_type __resource_id "not_after";
-       not_before =
-         Prop.computed __resource_type __resource_id "not_before";
+         Prop.computed __type __id "key_storage_security_standard";
+       not_after = Prop.computed __type __id "not_after";
+       not_before = Prop.computed __type __id "not_before";
        permanent_deletion_time_in_days =
-         Prop.computed __resource_type __resource_id
-           "permanent_deletion_time_in_days";
-       serial = Prop.computed __resource_type __resource_id "serial";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       usage_mode =
-         Prop.computed __resource_type __resource_id "usage_mode";
+         Prop.computed __type __id "permanent_deletion_time_in_days";
+       serial = Prop.computed __type __id "serial";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       usage_mode = Prop.computed __type __id "usage_mode";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acmpca_certificate_authority
+        (aws_acmpca_certificate_authority ?enabled ?id
+           ?key_storage_security_standard
+           ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
+           ?usage_mode ?timeouts ~certificate_authority_configuration
+           ~revocation_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?key_storage_security_standard
+    ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
+    ?usage_mode ?timeouts ~certificate_authority_configuration
+    ~revocation_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?key_storage_security_standard
+      ?permanent_deletion_time_in_days ?tags ?tags_all ?type_
+      ?usage_mode ?timeouts ~certificate_authority_configuration
+      ~revocation_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_tag = {
   id : string prop option; [@option]  (** id *)
@@ -24,31 +22,31 @@ type t = {
   volumes_count : float prop;
 }
 
-let register ?tf_module ?id ~name __resource_id =
-  let __resource_type = "digitalocean_tag" in
-  let __resource = digitalocean_tag ?id ~name () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_tag __resource);
-  let __resource_attributes =
+let make ?id ~name __id =
+  let __type = "digitalocean_tag" in
+  let __attrs =
     ({
-       databases_count =
-         Prop.computed __resource_type __resource_id
-           "databases_count";
-       droplets_count =
-         Prop.computed __resource_type __resource_id "droplets_count";
-       id = Prop.computed __resource_type __resource_id "id";
-       images_count =
-         Prop.computed __resource_type __resource_id "images_count";
-       name = Prop.computed __resource_type __resource_id "name";
+       databases_count = Prop.computed __type __id "databases_count";
+       droplets_count = Prop.computed __type __id "droplets_count";
+       id = Prop.computed __type __id "id";
+       images_count = Prop.computed __type __id "images_count";
+       name = Prop.computed __type __id "name";
        total_resource_count =
-         Prop.computed __resource_type __resource_id
-           "total_resource_count";
+         Prop.computed __type __id "total_resource_count";
        volume_snapshots_count =
-         Prop.computed __resource_type __resource_id
-           "volume_snapshots_count";
-       volumes_count =
-         Prop.computed __resource_type __resource_id "volumes_count";
+         Prop.computed __type __id "volume_snapshots_count";
+       volumes_count = Prop.computed __type __id "volumes_count";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json = yojson_of_digitalocean_tag (digitalocean_tag ?id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

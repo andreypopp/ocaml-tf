@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type step_scaling_policy_configuration__step_adjustment = {
   metric_interval_lower_bound : string prop option; [@option]
@@ -235,37 +233,45 @@ type t = {
   service_namespace : string prop;
 }
 
-let register ?tf_module ?id ?policy_type ~name ~resource_id
-    ~scalable_dimension ~service_namespace
-    ~step_scaling_policy_configuration
-    ~target_tracking_scaling_policy_configuration __resource_id =
-  let __resource_type = "aws_appautoscaling_policy" in
-  let __resource =
-    aws_appautoscaling_policy ?id ?policy_type ~name ~resource_id
-      ~scalable_dimension ~service_namespace
-      ~step_scaling_policy_configuration
-      ~target_tracking_scaling_policy_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appautoscaling_policy __resource);
-  let __resource_attributes =
+let make ?id ?policy_type ~name ~resource_id ~scalable_dimension
+    ~service_namespace ~step_scaling_policy_configuration
+    ~target_tracking_scaling_policy_configuration __id =
+  let __type = "aws_appautoscaling_policy" in
+  let __attrs =
     ({
-       alarm_arns =
-         Prop.computed __resource_type __resource_id "alarm_arns";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_type =
-         Prop.computed __resource_type __resource_id "policy_type";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+       alarm_arns = Prop.computed __type __id "alarm_arns";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       policy_type = Prop.computed __type __id "policy_type";
+       resource_id = Prop.computed __type __id "resource_id";
        scalable_dimension =
-         Prop.computed __resource_type __resource_id
-           "scalable_dimension";
+         Prop.computed __type __id "scalable_dimension";
        service_namespace =
-         Prop.computed __resource_type __resource_id
-           "service_namespace";
+         Prop.computed __type __id "service_namespace";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appautoscaling_policy
+        (aws_appautoscaling_policy ?id ?policy_type ~name
+           ~resource_id ~scalable_dimension ~service_namespace
+           ~step_scaling_policy_configuration
+           ~target_tracking_scaling_policy_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?policy_type ~name ~resource_id
+    ~scalable_dimension ~service_namespace
+    ~step_scaling_policy_configuration
+    ~target_tracking_scaling_policy_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?policy_type ~name ~resource_id ~scalable_dimension
+      ~service_namespace ~step_scaling_policy_configuration
+      ~target_tracking_scaling_policy_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

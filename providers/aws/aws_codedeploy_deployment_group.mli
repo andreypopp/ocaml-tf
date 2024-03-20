@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -242,3 +242,27 @@ val register :
   trigger_configuration:trigger_configuration list ->
   string ->
   t
+
+val make :
+  ?autoscaling_groups:string prop list ->
+  ?deployment_config_name:string prop ->
+  ?id:string prop ->
+  ?outdated_instances_strategy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  app_name:string prop ->
+  deployment_group_name:string prop ->
+  service_role_arn:string prop ->
+  alarm_configuration:alarm_configuration list ->
+  auto_rollback_configuration:auto_rollback_configuration list ->
+  blue_green_deployment_config:blue_green_deployment_config list ->
+  deployment_style:deployment_style list ->
+  ec2_tag_filter:ec2_tag_filter list ->
+  ec2_tag_set:ec2_tag_set list ->
+  ecs_service:ecs_service list ->
+  load_balancer_info:load_balancer_info list ->
+  on_premises_instance_tag_filter:
+    on_premises_instance_tag_filter list ->
+  trigger_configuration:trigger_configuration list ->
+  string ->
+  t Tf_core.resource

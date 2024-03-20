@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -144,3 +144,14 @@ val register :
   job_template_data:job_template_data list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  job_template_data:job_template_data list ->
+  string ->
+  t Tf_core.resource

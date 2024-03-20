@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type addresses = {
   country : string prop option; [@option]  (** country *)
@@ -142,47 +140,50 @@ type t = {
   user_type : string prop;
 }
 
-let register ?tf_module ?id ?locale ?nickname ?preferred_language
-    ?profile_url ?timezone ?title ?user_type ~display_name
-    ~identity_store_id ~user_name ~addresses ~emails ~name
-    ~phone_numbers __resource_id =
-  let __resource_type = "aws_identitystore_user" in
-  let __resource =
-    aws_identitystore_user ?id ?locale ?nickname ?preferred_language
-      ?profile_url ?timezone ?title ?user_type ~display_name
-      ~identity_store_id ~user_name ~addresses ~emails ~name
-      ~phone_numbers ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_identitystore_user __resource);
-  let __resource_attributes =
+let make ?id ?locale ?nickname ?preferred_language ?profile_url
+    ?timezone ?title ?user_type ~display_name ~identity_store_id
+    ~user_name ~addresses ~emails ~name ~phone_numbers __id =
+  let __type = "aws_identitystore_user" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       external_ids =
-         Prop.computed __resource_type __resource_id "external_ids";
-       id = Prop.computed __resource_type __resource_id "id";
+       display_name = Prop.computed __type __id "display_name";
+       external_ids = Prop.computed __type __id "external_ids";
+       id = Prop.computed __type __id "id";
        identity_store_id =
-         Prop.computed __resource_type __resource_id
-           "identity_store_id";
-       locale = Prop.computed __resource_type __resource_id "locale";
-       nickname =
-         Prop.computed __resource_type __resource_id "nickname";
+         Prop.computed __type __id "identity_store_id";
+       locale = Prop.computed __type __id "locale";
+       nickname = Prop.computed __type __id "nickname";
        preferred_language =
-         Prop.computed __resource_type __resource_id
-           "preferred_language";
-       profile_url =
-         Prop.computed __resource_type __resource_id "profile_url";
-       timezone =
-         Prop.computed __resource_type __resource_id "timezone";
-       title = Prop.computed __resource_type __resource_id "title";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
-       user_type =
-         Prop.computed __resource_type __resource_id "user_type";
+         Prop.computed __type __id "preferred_language";
+       profile_url = Prop.computed __type __id "profile_url";
+       timezone = Prop.computed __type __id "timezone";
+       title = Prop.computed __type __id "title";
+       user_id = Prop.computed __type __id "user_id";
+       user_name = Prop.computed __type __id "user_name";
+       user_type = Prop.computed __type __id "user_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_identitystore_user
+        (aws_identitystore_user ?id ?locale ?nickname
+           ?preferred_language ?profile_url ?timezone ?title
+           ?user_type ~display_name ~identity_store_id ~user_name
+           ~addresses ~emails ~name ~phone_numbers ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?locale ?nickname ?preferred_language
+    ?profile_url ?timezone ?title ?user_type ~display_name
+    ~identity_store_id ~user_name ~addresses ~emails ~name
+    ~phone_numbers __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?locale ?nickname ?preferred_language ?profile_url
+      ?timezone ?title ?user_type ~display_name ~identity_store_id
+      ~user_name ~addresses ~emails ~name ~phone_numbers __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

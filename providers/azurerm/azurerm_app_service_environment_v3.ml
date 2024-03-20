@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cluster_setting = {
   name : string prop;  (** name *)
@@ -98,69 +96,69 @@ type t = {
   zone_redundant : bool prop;
 }
 
-let register ?tf_module ?allow_new_private_endpoint_connections
+let make ?allow_new_private_endpoint_connections
     ?dedicated_host_count ?id ?internal_load_balancing_mode
     ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
-    ~resource_group_name ~subnet_id ~cluster_setting __resource_id =
-  let __resource_type = "azurerm_app_service_environment_v3" in
-  let __resource =
-    azurerm_app_service_environment_v3
-      ?allow_new_private_endpoint_connections ?dedicated_host_count
-      ?id ?internal_load_balancing_mode ?remote_debugging_enabled
-      ?tags ?zone_redundant ?timeouts ~name ~resource_group_name
-      ~subnet_id ~cluster_setting ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_environment_v3 __resource);
-  let __resource_attributes =
+    ~resource_group_name ~subnet_id ~cluster_setting __id =
+  let __type = "azurerm_app_service_environment_v3" in
+  let __attrs =
     ({
        allow_new_private_endpoint_connections =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "allow_new_private_endpoint_connections";
        dedicated_host_count =
-         Prop.computed __resource_type __resource_id
-           "dedicated_host_count";
-       dns_suffix =
-         Prop.computed __resource_type __resource_id "dns_suffix";
+         Prop.computed __type __id "dedicated_host_count";
+       dns_suffix = Prop.computed __type __id "dns_suffix";
        external_inbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "external_inbound_ip_addresses";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "external_inbound_ip_addresses";
+       id = Prop.computed __type __id "id";
        inbound_network_dependencies =
-         Prop.computed __resource_type __resource_id
-           "inbound_network_dependencies";
+         Prop.computed __type __id "inbound_network_dependencies";
        internal_inbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "internal_inbound_ip_addresses";
+         Prop.computed __type __id "internal_inbound_ip_addresses";
        internal_load_balancing_mode =
-         Prop.computed __resource_type __resource_id
-           "internal_load_balancing_mode";
+         Prop.computed __type __id "internal_load_balancing_mode";
        ip_ssl_address_count =
-         Prop.computed __resource_type __resource_id
-           "ip_ssl_address_count";
+         Prop.computed __type __id "ip_ssl_address_count";
        linux_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "linux_outbound_ip_addresses";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       pricing_tier =
-         Prop.computed __resource_type __resource_id "pricing_tier";
+         Prop.computed __type __id "linux_outbound_ip_addresses";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       pricing_tier = Prop.computed __type __id "pricing_tier";
        remote_debugging_enabled =
-         Prop.computed __resource_type __resource_id
-           "remote_debugging_enabled";
+         Prop.computed __type __id "remote_debugging_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
        windows_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "windows_outbound_ip_addresses";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
+         Prop.computed __type __id "windows_outbound_ip_addresses";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_environment_v3
+        (azurerm_app_service_environment_v3
+           ?allow_new_private_endpoint_connections
+           ?dedicated_host_count ?id ?internal_load_balancing_mode
+           ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts
+           ~name ~resource_group_name ~subnet_id ~cluster_setting ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_new_private_endpoint_connections
+    ?dedicated_host_count ?id ?internal_load_balancing_mode
+    ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
+    ~resource_group_name ~subnet_id ~cluster_setting __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_new_private_endpoint_connections
+      ?dedicated_host_count ?id ?internal_load_balancing_mode
+      ?remote_debugging_enabled ?tags ?zone_redundant ?timeouts ~name
+      ~resource_group_name ~subnet_id ~cluster_setting __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

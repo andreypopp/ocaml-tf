@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type private_link_access = {
   endpoint_resource_id : string prop;  (** endpoint_resource_id *)
@@ -66,32 +64,39 @@ type t = {
   virtual_network_subnet_ids : string list prop;
 }
 
-let register ?tf_module ?bypass ?id ?ip_rules
-    ?virtual_network_subnet_ids ?timeouts ~default_action
-    ~storage_account_id ~private_link_access __resource_id =
-  let __resource_type = "azurerm_storage_account_network_rules" in
-  let __resource =
-    azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
-      ?virtual_network_subnet_ids ?timeouts ~default_action
-      ~storage_account_id ~private_link_access ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_account_network_rules __resource);
-  let __resource_attributes =
+let make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids ?timeouts
+    ~default_action ~storage_account_id ~private_link_access __id =
+  let __type = "azurerm_storage_account_network_rules" in
+  let __attrs =
     ({
-       bypass = Prop.computed __resource_type __resource_id "bypass";
-       default_action =
-         Prop.computed __resource_type __resource_id "default_action";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_rules =
-         Prop.computed __resource_type __resource_id "ip_rules";
+       bypass = Prop.computed __type __id "bypass";
+       default_action = Prop.computed __type __id "default_action";
+       id = Prop.computed __type __id "id";
+       ip_rules = Prop.computed __type __id "ip_rules";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
        virtual_network_subnet_ids =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_subnet_ids";
+         Prop.computed __type __id "virtual_network_subnet_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_account_network_rules
+        (azurerm_storage_account_network_rules ?bypass ?id ?ip_rules
+           ?virtual_network_subnet_ids ?timeouts ~default_action
+           ~storage_account_id ~private_link_access ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bypass ?id ?ip_rules
+    ?virtual_network_subnet_ids ?timeouts ~default_action
+    ~storage_account_id ~private_link_access __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass ?id ?ip_rules ?virtual_network_subnet_ids ?timeouts
+      ~default_action ~storage_account_id ~private_link_access __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

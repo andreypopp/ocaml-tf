@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,11 @@ val register :
   audit_log_config:audit_log_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  org_id:string prop ->
+  service:string prop ->
+  audit_log_config:audit_log_config list ->
+  string ->
+  t Tf_core.resource

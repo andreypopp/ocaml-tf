@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,19 @@ val register :
   zone:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ipv4_cidr:string prop list ->
+  ?ipv6_cidr:string prop list ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?vlan_id:float prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  network:string prop ->
+  subnet_id:string prop ->
+  zone:string prop ->
+  string ->
+  t Tf_core.resource

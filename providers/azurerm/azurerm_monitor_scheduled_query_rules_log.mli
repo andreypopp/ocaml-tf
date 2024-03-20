@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,18 @@ val register :
   criteria:criteria list ->
   string ->
   t
+
+val make :
+  ?authorized_resource_ids:string prop list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_source_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  criteria:criteria list ->
+  string ->
+  t Tf_core.resource

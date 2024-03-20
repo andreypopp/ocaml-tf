@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,35 +49,40 @@ type t = {
   target_network_cidr : string prop;
 }
 
-let register ?tf_module ?access_group_id ?authorize_all_groups
-    ?description ?id ?timeouts ~client_vpn_endpoint_id
-    ~target_network_cidr __resource_id =
-  let __resource_type = "aws_ec2_client_vpn_authorization_rule" in
-  let __resource =
-    aws_ec2_client_vpn_authorization_rule ?access_group_id
-      ?authorize_all_groups ?description ?id ?timeouts
-      ~client_vpn_endpoint_id ~target_network_cidr ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_client_vpn_authorization_rule __resource);
-  let __resource_attributes =
+let make ?access_group_id ?authorize_all_groups ?description ?id
+    ?timeouts ~client_vpn_endpoint_id ~target_network_cidr __id =
+  let __type = "aws_ec2_client_vpn_authorization_rule" in
+  let __attrs =
     ({
-       access_group_id =
-         Prop.computed __resource_type __resource_id
-           "access_group_id";
+       access_group_id = Prop.computed __type __id "access_group_id";
        authorize_all_groups =
-         Prop.computed __resource_type __resource_id
-           "authorize_all_groups";
+         Prop.computed __type __id "authorize_all_groups";
        client_vpn_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "client_vpn_endpoint_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "client_vpn_endpoint_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        target_network_cidr =
-         Prop.computed __resource_type __resource_id
-           "target_network_cidr";
+         Prop.computed __type __id "target_network_cidr";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_client_vpn_authorization_rule
+        (aws_ec2_client_vpn_authorization_rule ?access_group_id
+           ?authorize_all_groups ?description ?id ?timeouts
+           ~client_vpn_endpoint_id ~target_network_cidr ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_group_id ?authorize_all_groups
+    ?description ?id ?timeouts ~client_vpn_endpoint_id
+    ~target_network_cidr __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_group_id ?authorize_all_groups ?description ?id
+      ?timeouts ~client_vpn_endpoint_id ~target_network_cidr __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

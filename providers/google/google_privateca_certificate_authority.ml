@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config__subject_config__subject = {
   common_name : string prop;
@@ -505,71 +503,73 @@ type t = {
   update_time : string prop;
 }
 
+let make ?deletion_protection ?desired_state ?gcs_bucket ?id
+    ?ignore_active_certificates_on_deletion ?labels ?lifetime
+    ?pem_ca_certificate ?project ?skip_grace_period ?type_ ?timeouts
+    ~certificate_authority_id ~location ~pool ~config ~key_spec
+    ~subordinate_config __id =
+  let __type = "google_privateca_certificate_authority" in
+  let __attrs =
+    ({
+       access_urls = Prop.computed __type __id "access_urls";
+       certificate_authority_id =
+         Prop.computed __type __id "certificate_authority_id";
+       create_time = Prop.computed __type __id "create_time";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       desired_state = Prop.computed __type __id "desired_state";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       gcs_bucket = Prop.computed __type __id "gcs_bucket";
+       id = Prop.computed __type __id "id";
+       ignore_active_certificates_on_deletion =
+         Prop.computed __type __id
+           "ignore_active_certificates_on_deletion";
+       labels = Prop.computed __type __id "labels";
+       lifetime = Prop.computed __type __id "lifetime";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       pem_ca_certificate =
+         Prop.computed __type __id "pem_ca_certificate";
+       pem_ca_certificates =
+         Prop.computed __type __id "pem_ca_certificates";
+       pool = Prop.computed __type __id "pool";
+       project = Prop.computed __type __id "project";
+       skip_grace_period =
+         Prop.computed __type __id "skip_grace_period";
+       state = Prop.computed __type __id "state";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_privateca_certificate_authority
+        (google_privateca_certificate_authority ?deletion_protection
+           ?desired_state ?gcs_bucket ?id
+           ?ignore_active_certificates_on_deletion ?labels ?lifetime
+           ?pem_ca_certificate ?project ?skip_grace_period ?type_
+           ?timeouts ~certificate_authority_id ~location ~pool
+           ~config ~key_spec ~subordinate_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?deletion_protection ?desired_state
     ?gcs_bucket ?id ?ignore_active_certificates_on_deletion ?labels
     ?lifetime ?pem_ca_certificate ?project ?skip_grace_period ?type_
     ?timeouts ~certificate_authority_id ~location ~pool ~config
-    ~key_spec ~subordinate_config __resource_id =
-  let __resource_type = "google_privateca_certificate_authority" in
-  let __resource =
-    google_privateca_certificate_authority ?deletion_protection
-      ?desired_state ?gcs_bucket ?id
+    ~key_spec ~subordinate_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_protection ?desired_state ?gcs_bucket ?id
       ?ignore_active_certificates_on_deletion ?labels ?lifetime
       ?pem_ca_certificate ?project ?skip_grace_period ?type_
       ?timeouts ~certificate_authority_id ~location ~pool ~config
-      ~key_spec ~subordinate_config ()
+      ~key_spec ~subordinate_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_privateca_certificate_authority __resource);
-  let __resource_attributes =
-    ({
-       access_urls =
-         Prop.computed __resource_type __resource_id "access_urls";
-       certificate_authority_id =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority_id";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       desired_state =
-         Prop.computed __resource_type __resource_id "desired_state";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       gcs_bucket =
-         Prop.computed __resource_type __resource_id "gcs_bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_active_certificates_on_deletion =
-         Prop.computed __resource_type __resource_id
-           "ignore_active_certificates_on_deletion";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       lifetime =
-         Prop.computed __resource_type __resource_id "lifetime";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       pem_ca_certificate =
-         Prop.computed __resource_type __resource_id
-           "pem_ca_certificate";
-       pem_ca_certificates =
-         Prop.computed __resource_type __resource_id
-           "pem_ca_certificates";
-       pool = Prop.computed __resource_type __resource_id "pool";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       skip_grace_period =
-         Prop.computed __resource_type __resource_id
-           "skip_grace_period";
-       state = Prop.computed __resource_type __resource_id "state";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

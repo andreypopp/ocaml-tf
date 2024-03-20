@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,46 +56,47 @@ type t = {
   service_bus_suffix : string prop;
 }
 
-let register ?tf_module ?id ?send_key_name ?timeouts
-    ~app_service_name ~hostname ~port ~relay_id ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_app_service_hybrid_connection" in
-  let __resource =
-    azurerm_app_service_hybrid_connection ?id ?send_key_name
-      ?timeouts ~app_service_name ~hostname ~port ~relay_id
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_hybrid_connection __resource);
-  let __resource_attributes =
+let make ?id ?send_key_name ?timeouts ~app_service_name ~hostname
+    ~port ~relay_id ~resource_group_name __id =
+  let __type = "azurerm_app_service_hybrid_connection" in
+  let __attrs =
     ({
        app_service_name =
-         Prop.computed __resource_type __resource_id
-           "app_service_name";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       relay_id =
-         Prop.computed __resource_type __resource_id "relay_id";
-       relay_name =
-         Prop.computed __resource_type __resource_id "relay_name";
+         Prop.computed __type __id "app_service_name";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       namespace_name = Prop.computed __type __id "namespace_name";
+       port = Prop.computed __type __id "port";
+       relay_id = Prop.computed __type __id "relay_id";
+       relay_name = Prop.computed __type __id "relay_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       send_key_name =
-         Prop.computed __resource_type __resource_id "send_key_name";
-       send_key_value =
-         Prop.computed __resource_type __resource_id "send_key_value";
+         Prop.computed __type __id "resource_group_name";
+       send_key_name = Prop.computed __type __id "send_key_name";
+       send_key_value = Prop.computed __type __id "send_key_value";
        service_bus_namespace =
-         Prop.computed __resource_type __resource_id
-           "service_bus_namespace";
+         Prop.computed __type __id "service_bus_namespace";
        service_bus_suffix =
-         Prop.computed __resource_type __resource_id
-           "service_bus_suffix";
+         Prop.computed __type __id "service_bus_suffix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_hybrid_connection
+        (azurerm_app_service_hybrid_connection ?id ?send_key_name
+           ?timeouts ~app_service_name ~hostname ~port ~relay_id
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?send_key_name ?timeouts
+    ~app_service_name ~hostname ~port ~relay_id ~resource_group_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?send_key_name ?timeouts ~app_service_name ~hostname
+      ~port ~relay_id ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

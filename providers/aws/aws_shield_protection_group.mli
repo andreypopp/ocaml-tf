@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,15 @@ val register :
   protection_group_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?members:string prop list ->
+  ?resource_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  aggregation:string prop ->
+  pattern:string prop ->
+  protection_group_id:string prop ->
+  string ->
+  t Tf_core.resource

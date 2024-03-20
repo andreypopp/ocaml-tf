@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,17 @@ val register :
   bgp_settings:bgp_settings list ->
   string ->
   t
+
+val make :
+  ?address_space:string prop list ->
+  ?gateway_address:string prop ->
+  ?gateway_fqdn:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  bgp_settings:bgp_settings list ->
+  string ->
+  t Tf_core.resource

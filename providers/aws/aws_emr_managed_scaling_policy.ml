@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type compute_limits = {
   maximum_capacity_units : float prop;  (** maximum_capacity_units *)
@@ -41,20 +39,28 @@ let aws_emr_managed_scaling_policy ?id ~cluster_id ~compute_limits ()
 
 type t = { cluster_id : string prop; id : string prop }
 
-let register ?tf_module ?id ~cluster_id ~compute_limits __resource_id
-    =
-  let __resource_type = "aws_emr_managed_scaling_policy" in
-  let __resource =
-    aws_emr_managed_scaling_policy ?id ~cluster_id ~compute_limits ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_managed_scaling_policy __resource);
-  let __resource_attributes =
+let make ?id ~cluster_id ~compute_limits __id =
+  let __type = "aws_emr_managed_scaling_policy" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_managed_scaling_policy
+        (aws_emr_managed_scaling_policy ?id ~cluster_id
+           ~compute_limits ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cluster_id ~compute_limits __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~cluster_id ~compute_limits __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

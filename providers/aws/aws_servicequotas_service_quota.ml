@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type usage_metric__metric_dimensions = {
   class_ : string prop; [@key "class"]  (** class *)
@@ -50,39 +48,38 @@ type t = {
   value : float prop;
 }
 
-let register ?tf_module ?id ~quota_code ~service_code ~value
-    __resource_id =
-  let __resource_type = "aws_servicequotas_service_quota" in
-  let __resource =
-    aws_servicequotas_service_quota ?id ~quota_code ~service_code
-      ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicequotas_service_quota __resource);
-  let __resource_attributes =
+let make ?id ~quota_code ~service_code ~value __id =
+  let __type = "aws_servicequotas_service_quota" in
+  let __attrs =
     ({
-       adjustable =
-         Prop.computed __resource_type __resource_id "adjustable";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       default_value =
-         Prop.computed __resource_type __resource_id "default_value";
-       id = Prop.computed __resource_type __resource_id "id";
-       quota_code =
-         Prop.computed __resource_type __resource_id "quota_code";
-       quota_name =
-         Prop.computed __resource_type __resource_id "quota_name";
-       request_id =
-         Prop.computed __resource_type __resource_id "request_id";
-       request_status =
-         Prop.computed __resource_type __resource_id "request_status";
-       service_code =
-         Prop.computed __resource_type __resource_id "service_code";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       usage_metric =
-         Prop.computed __resource_type __resource_id "usage_metric";
-       value = Prop.computed __resource_type __resource_id "value";
+       adjustable = Prop.computed __type __id "adjustable";
+       arn = Prop.computed __type __id "arn";
+       default_value = Prop.computed __type __id "default_value";
+       id = Prop.computed __type __id "id";
+       quota_code = Prop.computed __type __id "quota_code";
+       quota_name = Prop.computed __type __id "quota_name";
+       request_id = Prop.computed __type __id "request_id";
+       request_status = Prop.computed __type __id "request_status";
+       service_code = Prop.computed __type __id "service_code";
+       service_name = Prop.computed __type __id "service_name";
+       usage_metric = Prop.computed __type __id "usage_metric";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicequotas_service_quota
+        (aws_servicequotas_service_quota ?id ~quota_code
+           ~service_code ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~quota_code ~service_code ~value __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~quota_code ~service_code ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

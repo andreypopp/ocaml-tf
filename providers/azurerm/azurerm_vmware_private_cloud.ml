@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type management_cluster = { size : float prop  (** size *) }
 [@@deriving yojson_of]
@@ -91,68 +89,67 @@ type t = {
   vmotion_subnet_cidr : string prop;
 }
 
-let register ?tf_module ?id ?internet_connection_enabled
-    ?nsxt_password ?tags ?vcenter_password ?timeouts ~location ~name
-    ~network_subnet_cidr ~resource_group_name ~sku_name
-    ~management_cluster __resource_id =
-  let __resource_type = "azurerm_vmware_private_cloud" in
-  let __resource =
-    azurerm_vmware_private_cloud ?id ?internet_connection_enabled
-      ?nsxt_password ?tags ?vcenter_password ?timeouts ~location
-      ~name ~network_subnet_cidr ~resource_group_name ~sku_name
-      ~management_cluster ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_vmware_private_cloud __resource);
-  let __resource_attributes =
+let make ?id ?internet_connection_enabled ?nsxt_password ?tags
+    ?vcenter_password ?timeouts ~location ~name ~network_subnet_cidr
+    ~resource_group_name ~sku_name ~management_cluster __id =
+  let __type = "azurerm_vmware_private_cloud" in
+  let __attrs =
     ({
-       circuit =
-         Prop.computed __resource_type __resource_id "circuit";
+       circuit = Prop.computed __type __id "circuit";
        hcx_cloud_manager_endpoint =
-         Prop.computed __resource_type __resource_id
-           "hcx_cloud_manager_endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "hcx_cloud_manager_endpoint";
+       id = Prop.computed __type __id "id";
        internet_connection_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_connection_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "internet_connection_enabled";
+       location = Prop.computed __type __id "location";
        management_subnet_cidr =
-         Prop.computed __resource_type __resource_id
-           "management_subnet_cidr";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "management_subnet_cidr";
+       name = Prop.computed __type __id "name";
        network_subnet_cidr =
-         Prop.computed __resource_type __resource_id
-           "network_subnet_cidr";
+         Prop.computed __type __id "network_subnet_cidr";
        nsxt_certificate_thumbprint =
-         Prop.computed __resource_type __resource_id
-           "nsxt_certificate_thumbprint";
+         Prop.computed __type __id "nsxt_certificate_thumbprint";
        nsxt_manager_endpoint =
-         Prop.computed __resource_type __resource_id
-           "nsxt_manager_endpoint";
-       nsxt_password =
-         Prop.computed __resource_type __resource_id "nsxt_password";
+         Prop.computed __type __id "nsxt_manager_endpoint";
+       nsxt_password = Prop.computed __type __id "nsxt_password";
        provisioning_subnet_cidr =
-         Prop.computed __resource_type __resource_id
-           "provisioning_subnet_cidr";
+         Prop.computed __type __id "provisioning_subnet_cidr";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
        vcenter_certificate_thumbprint =
-         Prop.computed __resource_type __resource_id
-           "vcenter_certificate_thumbprint";
+         Prop.computed __type __id "vcenter_certificate_thumbprint";
        vcenter_password =
-         Prop.computed __resource_type __resource_id
-           "vcenter_password";
-       vcsa_endpoint =
-         Prop.computed __resource_type __resource_id "vcsa_endpoint";
+         Prop.computed __type __id "vcenter_password";
+       vcsa_endpoint = Prop.computed __type __id "vcsa_endpoint";
        vmotion_subnet_cidr =
-         Prop.computed __resource_type __resource_id
-           "vmotion_subnet_cidr";
+         Prop.computed __type __id "vmotion_subnet_cidr";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_vmware_private_cloud
+        (azurerm_vmware_private_cloud ?id
+           ?internet_connection_enabled ?nsxt_password ?tags
+           ?vcenter_password ?timeouts ~location ~name
+           ~network_subnet_cidr ~resource_group_name ~sku_name
+           ~management_cluster ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?internet_connection_enabled
+    ?nsxt_password ?tags ?vcenter_password ?timeouts ~location ~name
+    ~network_subnet_cidr ~resource_group_name ~sku_name
+    ~management_cluster __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?internet_connection_enabled ?nsxt_password ?tags
+      ?vcenter_password ?timeouts ~location ~name
+      ~network_subnet_cidr ~resource_group_name ~sku_name
+      ~management_cluster __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,20 @@ val register :
   session_matcher:string prop ->
   string ->
   t
+
+val make :
+  ?application_matcher:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?tls_inspection_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  basic_profile:string prop ->
+  enabled:bool prop ->
+  gateway_security_policy:string prop ->
+  location:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  session_matcher:string prop ->
+  string ->
+  t Tf_core.resource

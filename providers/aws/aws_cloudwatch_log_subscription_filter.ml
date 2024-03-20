@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloudwatch_log_subscription_filter = {
   destination_arn : string prop;  (** destination_arn *)
@@ -39,32 +37,37 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?distribution ?id ?role_arn ~destination_arn
-    ~filter_pattern ~log_group_name ~name __resource_id =
-  let __resource_type = "aws_cloudwatch_log_subscription_filter" in
-  let __resource =
-    aws_cloudwatch_log_subscription_filter ?distribution ?id
-      ?role_arn ~destination_arn ~filter_pattern ~log_group_name
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_log_subscription_filter __resource);
-  let __resource_attributes =
+let make ?distribution ?id ?role_arn ~destination_arn ~filter_pattern
+    ~log_group_name ~name __id =
+  let __type = "aws_cloudwatch_log_subscription_filter" in
+  let __attrs =
     ({
-       destination_arn =
-         Prop.computed __resource_type __resource_id
-           "destination_arn";
-       distribution =
-         Prop.computed __resource_type __resource_id "distribution";
-       filter_pattern =
-         Prop.computed __resource_type __resource_id "filter_pattern";
-       id = Prop.computed __resource_type __resource_id "id";
-       log_group_name =
-         Prop.computed __resource_type __resource_id "log_group_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       destination_arn = Prop.computed __type __id "destination_arn";
+       distribution = Prop.computed __type __id "distribution";
+       filter_pattern = Prop.computed __type __id "filter_pattern";
+       id = Prop.computed __type __id "id";
+       log_group_name = Prop.computed __type __id "log_group_name";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_log_subscription_filter
+        (aws_cloudwatch_log_subscription_filter ?distribution ?id
+           ?role_arn ~destination_arn ~filter_pattern ~log_group_name
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?distribution ?id ?role_arn ~destination_arn
+    ~filter_pattern ~log_group_name ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?distribution ?id ?role_arn ~destination_arn ~filter_pattern
+      ~log_group_name ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

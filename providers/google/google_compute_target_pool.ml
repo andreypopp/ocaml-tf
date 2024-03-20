@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -72,40 +70,45 @@ type t = {
   session_affinity : string prop;
 }
 
-let register ?tf_module ?backup_pool ?description ?failover_ratio
-    ?health_checks ?id ?instances ?project ?region ?session_affinity
-    ?timeouts ~name __resource_id =
-  let __resource_type = "google_compute_target_pool" in
-  let __resource =
-    google_compute_target_pool ?backup_pool ?description
-      ?failover_ratio ?health_checks ?id ?instances ?project ?region
-      ?session_affinity ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_target_pool __resource);
-  let __resource_attributes =
+let make ?backup_pool ?description ?failover_ratio ?health_checks ?id
+    ?instances ?project ?region ?session_affinity ?timeouts ~name
+    __id =
+  let __type = "google_compute_target_pool" in
+  let __attrs =
     ({
-       backup_pool =
-         Prop.computed __resource_type __resource_id "backup_pool";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       failover_ratio =
-         Prop.computed __resource_type __resource_id "failover_ratio";
-       health_checks =
-         Prop.computed __resource_type __resource_id "health_checks";
-       id = Prop.computed __resource_type __resource_id "id";
-       instances =
-         Prop.computed __resource_type __resource_id "instances";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+       backup_pool = Prop.computed __type __id "backup_pool";
+       description = Prop.computed __type __id "description";
+       failover_ratio = Prop.computed __type __id "failover_ratio";
+       health_checks = Prop.computed __type __id "health_checks";
+       id = Prop.computed __type __id "id";
+       instances = Prop.computed __type __id "instances";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
        session_affinity =
-         Prop.computed __resource_type __resource_id
-           "session_affinity";
+         Prop.computed __type __id "session_affinity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_target_pool
+        (google_compute_target_pool ?backup_pool ?description
+           ?failover_ratio ?health_checks ?id ?instances ?project
+           ?region ?session_affinity ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?backup_pool ?description ?failover_ratio
+    ?health_checks ?id ?instances ?project ?region ?session_affinity
+    ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?backup_pool ?description ?failover_ratio ?health_checks ?id
+      ?instances ?project ?region ?session_affinity ?timeouts ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

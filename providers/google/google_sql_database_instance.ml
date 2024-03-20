@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type clone = {
   allocated_ip_range : string prop option; [@option]
@@ -558,77 +556,73 @@ type t = {
   service_account_email_address : string prop;
 }
 
+let make ?deletion_protection ?encryption_key_name ?id ?instance_type
+    ?maintenance_version ?master_instance_name ?name ?project ?region
+    ?root_password ?timeouts ~database_version ~clone
+    ~replica_configuration ~restore_backup_context ~settings __id =
+  let __type = "google_sql_database_instance" in
+  let __attrs =
+    ({
+       available_maintenance_versions =
+         Prop.computed __type __id "available_maintenance_versions";
+       connection_name = Prop.computed __type __id "connection_name";
+       database_version =
+         Prop.computed __type __id "database_version";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       dns_name = Prop.computed __type __id "dns_name";
+       encryption_key_name =
+         Prop.computed __type __id "encryption_key_name";
+       first_ip_address =
+         Prop.computed __type __id "first_ip_address";
+       id = Prop.computed __type __id "id";
+       instance_type = Prop.computed __type __id "instance_type";
+       ip_address = Prop.computed __type __id "ip_address";
+       maintenance_version =
+         Prop.computed __type __id "maintenance_version";
+       master_instance_name =
+         Prop.computed __type __id "master_instance_name";
+       name = Prop.computed __type __id "name";
+       private_ip_address =
+         Prop.computed __type __id "private_ip_address";
+       project = Prop.computed __type __id "project";
+       psc_service_attachment_link =
+         Prop.computed __type __id "psc_service_attachment_link";
+       public_ip_address =
+         Prop.computed __type __id "public_ip_address";
+       region = Prop.computed __type __id "region";
+       root_password = Prop.computed __type __id "root_password";
+       self_link = Prop.computed __type __id "self_link";
+       server_ca_cert = Prop.computed __type __id "server_ca_cert";
+       service_account_email_address =
+         Prop.computed __type __id "service_account_email_address";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sql_database_instance
+        (google_sql_database_instance ?deletion_protection
+           ?encryption_key_name ?id ?instance_type
+           ?maintenance_version ?master_instance_name ?name ?project
+           ?region ?root_password ?timeouts ~database_version ~clone
+           ~replica_configuration ~restore_backup_context ~settings
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?deletion_protection ?encryption_key_name ?id
     ?instance_type ?maintenance_version ?master_instance_name ?name
     ?project ?region ?root_password ?timeouts ~database_version
     ~clone ~replica_configuration ~restore_backup_context ~settings
-    __resource_id =
-  let __resource_type = "google_sql_database_instance" in
-  let __resource =
-    google_sql_database_instance ?deletion_protection
-      ?encryption_key_name ?id ?instance_type ?maintenance_version
-      ?master_instance_name ?name ?project ?region ?root_password
-      ?timeouts ~database_version ~clone ~replica_configuration
-      ~restore_backup_context ~settings ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_protection ?encryption_key_name ?id ?instance_type
+      ?maintenance_version ?master_instance_name ?name ?project
+      ?region ?root_password ?timeouts ~database_version ~clone
+      ~replica_configuration ~restore_backup_context ~settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sql_database_instance __resource);
-  let __resource_attributes =
-    ({
-       available_maintenance_versions =
-         Prop.computed __resource_type __resource_id
-           "available_maintenance_versions";
-       connection_name =
-         Prop.computed __resource_type __resource_id
-           "connection_name";
-       database_version =
-         Prop.computed __resource_type __resource_id
-           "database_version";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       encryption_key_name =
-         Prop.computed __resource_type __resource_id
-           "encryption_key_name";
-       first_ip_address =
-         Prop.computed __resource_type __resource_id
-           "first_ip_address";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       maintenance_version =
-         Prop.computed __resource_type __resource_id
-           "maintenance_version";
-       master_instance_name =
-         Prop.computed __resource_type __resource_id
-           "master_instance_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       psc_service_attachment_link =
-         Prop.computed __resource_type __resource_id
-           "psc_service_attachment_link";
-       public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address";
-       region = Prop.computed __resource_type __resource_id "region";
-       root_password =
-         Prop.computed __resource_type __resource_id "root_password";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       server_ca_cert =
-         Prop.computed __resource_type __resource_id "server_ca_cert";
-       service_account_email_address =
-         Prop.computed __resource_type __resource_id
-           "service_account_email_address";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

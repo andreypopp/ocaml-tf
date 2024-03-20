@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,17 @@ val register :
   operation_preferences:operation_preferences list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?call_as:string prop ->
+  ?id:string prop ->
+  ?parameter_overrides:(string * string prop) list ->
+  ?region:string prop ->
+  ?retain_stack:bool prop ->
+  ?timeouts:timeouts ->
+  stack_set_name:string prop ->
+  deployment_targets:deployment_targets list ->
+  operation_preferences:operation_preferences list ->
+  string ->
+  t Tf_core.resource

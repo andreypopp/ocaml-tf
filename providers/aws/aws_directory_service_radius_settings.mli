@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,18 @@ val register :
   shared_secret:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?use_same_username:bool prop ->
+  ?timeouts:timeouts ->
+  authentication_protocol:string prop ->
+  directory_id:string prop ->
+  display_label:string prop ->
+  radius_port:float prop ->
+  radius_retries:float prop ->
+  radius_servers:string prop list ->
+  radius_timeout:float prop ->
+  shared_secret:string prop ->
+  string ->
+  t Tf_core.resource

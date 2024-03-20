@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -46,38 +44,43 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?standby_replicas ?tags ?type_
-    ?timeouts ~name __resource_id =
-  let __resource_type = "aws_opensearchserverless_collection" in
-  let __resource =
-    aws_opensearchserverless_collection ?description
-      ?standby_replicas ?tags ?type_ ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opensearchserverless_collection __resource);
-  let __resource_attributes =
+let make ?description ?standby_replicas ?tags ?type_ ?timeouts ~name
+    __id =
+  let __type = "aws_opensearchserverless_collection" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        collection_endpoint =
-         Prop.computed __resource_type __resource_id
-           "collection_endpoint";
+         Prop.computed __type __id "collection_endpoint";
        dashboard_endpoint =
-         Prop.computed __resource_type __resource_id
-           "dashboard_endpoint";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "dashboard_endpoint";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       name = Prop.computed __type __id "name";
        standby_replicas =
-         Prop.computed __resource_type __resource_id
-           "standby_replicas";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "standby_replicas";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opensearchserverless_collection
+        (aws_opensearchserverless_collection ?description
+           ?standby_replicas ?tags ?type_ ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?standby_replicas ?tags ?type_
+    ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?standby_replicas ?tags ?type_ ?timeouts ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

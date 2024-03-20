@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshift_partner = {
   account_id : string prop;  (** account_id *)
@@ -28,31 +26,37 @@ type t = {
   status_message : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~cluster_identifier
-    ~database_name ~partner_name __resource_id =
-  let __resource_type = "aws_redshift_partner" in
-  let __resource =
-    aws_redshift_partner ?id ~account_id ~cluster_identifier
-      ~database_name ~partner_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_partner __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~cluster_identifier ~database_name
+    ~partner_name __id =
+  let __type = "aws_redshift_partner" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       partner_name =
-         Prop.computed __resource_type __resource_id "partner_name";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_message =
-         Prop.computed __resource_type __resource_id "status_message";
+         Prop.computed __type __id "cluster_identifier";
+       database_name = Prop.computed __type __id "database_name";
+       id = Prop.computed __type __id "id";
+       partner_name = Prop.computed __type __id "partner_name";
+       status = Prop.computed __type __id "status";
+       status_message = Prop.computed __type __id "status_message";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_partner
+        (aws_redshift_partner ?id ~account_id ~cluster_identifier
+           ~database_name ~partner_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~cluster_identifier
+    ~database_name ~partner_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~cluster_identifier ~database_name
+      ~partner_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

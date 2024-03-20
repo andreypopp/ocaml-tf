@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type signing_attributes = {
   algorithm : float prop;  (** algorithm *)
@@ -46,25 +44,30 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?timeouts ~domain_name ~signing_attributes
-    __resource_id =
-  let __resource_type =
-    "aws_route53domains_delegation_signer_record"
-  in
-  let __resource =
-    aws_route53domains_delegation_signer_record ?timeouts
-      ~domain_name ~signing_attributes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53domains_delegation_signer_record __resource);
-  let __resource_attributes =
+let make ?timeouts ~domain_name ~signing_attributes __id =
+  let __type = "aws_route53domains_delegation_signer_record" in
+  let __attrs =
     ({
-       dnssec_key_id =
-         Prop.computed __resource_type __resource_id "dnssec_key_id";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       dnssec_key_id = Prop.computed __type __id "dnssec_key_id";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53domains_delegation_signer_record
+        (aws_route53domains_delegation_signer_record ?timeouts
+           ~domain_name ~signing_attributes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~domain_name ~signing_attributes
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?timeouts ~domain_name ~signing_attributes __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

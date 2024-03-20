@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type customer_managed_key = {
   identity_client_id : string prop option; [@option]
@@ -184,6 +182,83 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?custom_question_answering_search_service_id
+    ?custom_question_answering_search_service_key
+    ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns ?id
+    ?local_auth_enabled ?metrics_advisor_aad_client_id
+    ?metrics_advisor_aad_tenant_id ?metrics_advisor_super_user_name
+    ?metrics_advisor_website_name ?outbound_network_access_restricted
+    ?public_network_access_enabled ?qna_runtime_endpoint ?tags
+    ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
+    ~customer_managed_key ~identity ~network_acls ~storage __id =
+  let __type = "azurerm_cognitive_account" in
+  let __attrs =
+    ({
+       custom_question_answering_search_service_id =
+         Prop.computed __type __id
+           "custom_question_answering_search_service_id";
+       custom_question_answering_search_service_key =
+         Prop.computed __type __id
+           "custom_question_answering_search_service_key";
+       custom_subdomain_name =
+         Prop.computed __type __id "custom_subdomain_name";
+       dynamic_throttling_enabled =
+         Prop.computed __type __id "dynamic_throttling_enabled";
+       endpoint = Prop.computed __type __id "endpoint";
+       fqdns = Prop.computed __type __id "fqdns";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       local_auth_enabled =
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       metrics_advisor_aad_client_id =
+         Prop.computed __type __id "metrics_advisor_aad_client_id";
+       metrics_advisor_aad_tenant_id =
+         Prop.computed __type __id "metrics_advisor_aad_tenant_id";
+       metrics_advisor_super_user_name =
+         Prop.computed __type __id "metrics_advisor_super_user_name";
+       metrics_advisor_website_name =
+         Prop.computed __type __id "metrics_advisor_website_name";
+       name = Prop.computed __type __id "name";
+       outbound_network_access_restricted =
+         Prop.computed __type __id
+           "outbound_network_access_restricted";
+       primary_access_key =
+         Prop.computed __type __id "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       qna_runtime_endpoint =
+         Prop.computed __type __id "qna_runtime_endpoint";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secondary_access_key =
+         Prop.computed __type __id "secondary_access_key";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cognitive_account
+        (azurerm_cognitive_account
+           ?custom_question_answering_search_service_id
+           ?custom_question_answering_search_service_key
+           ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns
+           ?id ?local_auth_enabled ?metrics_advisor_aad_client_id
+           ?metrics_advisor_aad_tenant_id
+           ?metrics_advisor_super_user_name
+           ?metrics_advisor_website_name
+           ?outbound_network_access_restricted
+           ?public_network_access_enabled ?qna_runtime_endpoint ?tags
+           ?timeouts ~kind ~location ~name ~resource_group_name
+           ~sku_name ~customer_managed_key ~identity ~network_acls
+           ~storage ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?custom_question_answering_search_service_id
     ?custom_question_answering_search_service_key
     ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns ?id
@@ -192,12 +267,9 @@ let register ?tf_module ?custom_question_answering_search_service_id
     ?metrics_advisor_website_name ?outbound_network_access_restricted
     ?public_network_access_enabled ?qna_runtime_endpoint ?tags
     ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-    ~customer_managed_key ~identity ~network_acls ~storage
-    __resource_id =
-  let __resource_type = "azurerm_cognitive_account" in
-  let __resource =
-    azurerm_cognitive_account
-      ?custom_question_answering_search_service_id
+    ~customer_managed_key ~identity ~network_acls ~storage __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_question_answering_search_service_id
       ?custom_question_answering_search_service_key
       ?custom_subdomain_name ?dynamic_throttling_enabled ?fqdns ?id
       ?local_auth_enabled ?metrics_advisor_aad_client_id
@@ -206,69 +278,7 @@ let register ?tf_module ?custom_question_answering_search_service_id
       ?outbound_network_access_restricted
       ?public_network_access_enabled ?qna_runtime_endpoint ?tags
       ?timeouts ~kind ~location ~name ~resource_group_name ~sku_name
-      ~customer_managed_key ~identity ~network_acls ~storage ()
+      ~customer_managed_key ~identity ~network_acls ~storage __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cognitive_account __resource);
-  let __resource_attributes =
-    ({
-       custom_question_answering_search_service_id =
-         Prop.computed __resource_type __resource_id
-           "custom_question_answering_search_service_id";
-       custom_question_answering_search_service_key =
-         Prop.computed __resource_type __resource_id
-           "custom_question_answering_search_service_key";
-       custom_subdomain_name =
-         Prop.computed __resource_type __resource_id
-           "custom_subdomain_name";
-       dynamic_throttling_enabled =
-         Prop.computed __resource_type __resource_id
-           "dynamic_throttling_enabled";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       fqdns = Prop.computed __resource_type __resource_id "fqdns";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       metrics_advisor_aad_client_id =
-         Prop.computed __resource_type __resource_id
-           "metrics_advisor_aad_client_id";
-       metrics_advisor_aad_tenant_id =
-         Prop.computed __resource_type __resource_id
-           "metrics_advisor_aad_tenant_id";
-       metrics_advisor_super_user_name =
-         Prop.computed __resource_type __resource_id
-           "metrics_advisor_super_user_name";
-       metrics_advisor_website_name =
-         Prop.computed __resource_type __resource_id
-           "metrics_advisor_website_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_network_access_restricted =
-         Prop.computed __resource_type __resource_id
-           "outbound_network_access_restricted";
-       primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       qna_runtime_endpoint =
-         Prop.computed __resource_type __resource_id
-           "qna_runtime_endpoint";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

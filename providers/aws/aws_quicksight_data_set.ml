@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type column_groups__geo_spatial_column_group = {
   columns: string  prop list;  (** columns *)
@@ -553,21 +551,28 @@ type t = {
   tags_all: (string * string) list prop;
 }
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __resource_id =
-  let __resource_type = "aws_quicksight_data_set" in
-  let __resource = aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_data_set __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    data_set_id = Prop.computed __resource_type __resource_id "data_set_id";
-    id = Prop.computed __resource_type __resource_id "id";
-    import_mode = Prop.computed __resource_type __resource_id "import_mode";
-    name = Prop.computed __resource_type __resource_id "name";
-    output_columns = Prop.computed __resource_type __resource_id "output_columns";
-    tags = Prop.computed __resource_type __resource_id "tags";
-    tags_all = Prop.computed __resource_type __resource_id "tags_all";
+let make ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id =
+  let __type = "aws_quicksight_data_set" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    data_set_id = Prop.computed __type __id "data_set_id";
+    id = Prop.computed __type __id "id";
+    import_mode = Prop.computed __type __id "import_mode";
+    name = Prop.computed __type __id "name";
+    output_columns = Prop.computed __type __id "output_columns";
+    tags = Prop.computed __type __id "tags";
+    tags_all = Prop.computed __type __id "tags_all";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_data_set (aws_quicksight_data_set ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~data_set_id ~import_mode ~name ~column_groups ~column_level_permission_rules ~data_set_usage_configuration ~field_folders ~logical_table_map ~permissions ~physical_table_map ~refresh_properties ~row_level_permission_data_set ~row_level_permission_tag_configuration __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

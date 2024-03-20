@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,15 @@ val register :
   remote_uri:string prop ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent_connection:string prop ->
+  remote_uri:string prop ->
+  string ->
+  t Tf_core.resource

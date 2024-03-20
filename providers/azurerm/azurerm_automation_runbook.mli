@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -139,3 +139,23 @@ val register :
   publish_content_link:publish_content_link list ->
   string ->
   t
+
+val make :
+  ?content:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?job_schedule:job_schedule list ->
+  ?log_activity_trace_level:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  automation_account_name:string prop ->
+  location:string prop ->
+  log_progress:bool prop ->
+  log_verbose:bool prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  runbook_type:string prop ->
+  draft:draft list ->
+  publish_content_link:publish_content_link list ->
+  string ->
+  t Tf_core.resource

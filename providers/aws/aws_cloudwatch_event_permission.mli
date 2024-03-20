@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,13 @@ val register :
   condition:condition list ->
   string ->
   t
+
+val make :
+  ?action:string prop ->
+  ?event_bus_name:string prop ->
+  ?id:string prop ->
+  principal:string prop ->
+  statement_id:string prop ->
+  condition:condition list ->
+  string ->
+  t Tf_core.resource

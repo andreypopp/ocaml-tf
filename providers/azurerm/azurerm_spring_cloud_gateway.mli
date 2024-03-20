@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -143,3 +143,26 @@ val register :
   sso:sso list ->
   string ->
   t
+
+val make :
+  ?application_performance_monitoring_ids:string prop list ->
+  ?application_performance_monitoring_types:string prop list ->
+  ?environment_variables:(string * string prop) list ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sensitive_environment_variables:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  api_metadata:api_metadata list ->
+  client_authorization:client_authorization list ->
+  cors:cors list ->
+  local_response_cache_per_instance:
+    local_response_cache_per_instance list ->
+  local_response_cache_per_route:local_response_cache_per_route list ->
+  quota:quota list ->
+  sso:sso list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,14 @@ val register :
   validity:validity list ->
   string ->
   t
+
+val make :
+  ?api_passthrough:string prop ->
+  ?id:string prop ->
+  ?template_arn:string prop ->
+  certificate_authority_arn:string prop ->
+  certificate_signing_request:string prop ->
+  signing_algorithm:string prop ->
+  validity:validity list ->
+  string ->
+  t Tf_core.resource

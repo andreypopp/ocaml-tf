@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type request_parameter = {
   request_parameter_key : string prop;  (** request_parameter_key *)
@@ -76,50 +74,57 @@ type t = {
   target : string prop;
 }
 
+let make ?api_key_required ?authorization_scopes ?authorization_type
+    ?authorizer_id ?id ?model_selection_expression ?operation_name
+    ?request_models ?route_response_selection_expression ?target
+    ~api_id ~route_key ~request_parameter __id =
+  let __type = "aws_apigatewayv2_route" in
+  let __attrs =
+    ({
+       api_id = Prop.computed __type __id "api_id";
+       api_key_required =
+         Prop.computed __type __id "api_key_required";
+       authorization_scopes =
+         Prop.computed __type __id "authorization_scopes";
+       authorization_type =
+         Prop.computed __type __id "authorization_type";
+       authorizer_id = Prop.computed __type __id "authorizer_id";
+       id = Prop.computed __type __id "id";
+       model_selection_expression =
+         Prop.computed __type __id "model_selection_expression";
+       operation_name = Prop.computed __type __id "operation_name";
+       request_models = Prop.computed __type __id "request_models";
+       route_key = Prop.computed __type __id "route_key";
+       route_response_selection_expression =
+         Prop.computed __type __id
+           "route_response_selection_expression";
+       target = Prop.computed __type __id "target";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_route
+        (aws_apigatewayv2_route ?api_key_required
+           ?authorization_scopes ?authorization_type ?authorizer_id
+           ?id ?model_selection_expression ?operation_name
+           ?request_models ?route_response_selection_expression
+           ?target ~api_id ~route_key ~request_parameter ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?api_key_required ?authorization_scopes
     ?authorization_type ?authorizer_id ?id
     ?model_selection_expression ?operation_name ?request_models
     ?route_response_selection_expression ?target ~api_id ~route_key
-    ~request_parameter __resource_id =
-  let __resource_type = "aws_apigatewayv2_route" in
-  let __resource =
-    aws_apigatewayv2_route ?api_key_required ?authorization_scopes
-      ?authorization_type ?authorizer_id ?id
-      ?model_selection_expression ?operation_name ?request_models
-      ?route_response_selection_expression ?target ~api_id ~route_key
-      ~request_parameter ()
+    ~request_parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_key_required ?authorization_scopes ?authorization_type
+      ?authorizer_id ?id ?model_selection_expression ?operation_name
+      ?request_models ?route_response_selection_expression ?target
+      ~api_id ~route_key ~request_parameter __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_route __resource);
-  let __resource_attributes =
-    ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       api_key_required =
-         Prop.computed __resource_type __resource_id
-           "api_key_required";
-       authorization_scopes =
-         Prop.computed __resource_type __resource_id
-           "authorization_scopes";
-       authorization_type =
-         Prop.computed __resource_type __resource_id
-           "authorization_type";
-       authorizer_id =
-         Prop.computed __resource_type __resource_id "authorizer_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       model_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "model_selection_expression";
-       operation_name =
-         Prop.computed __resource_type __resource_id "operation_name";
-       request_models =
-         Prop.computed __resource_type __resource_id "request_models";
-       route_key =
-         Prop.computed __resource_type __resource_id "route_key";
-       route_response_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "route_response_selection_expression";
-       target = Prop.computed __resource_type __resource_id "target";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

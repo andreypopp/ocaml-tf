@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -68,36 +66,42 @@ type t = {
   topic_type : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~source_arm_resource_id ~topic_type
-    ~identity __resource_id =
-  let __resource_type = "azurerm_eventgrid_system_topic" in
-  let __resource =
-    azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
-      ~name ~resource_group_name ~source_arm_resource_id ~topic_type
-      ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventgrid_system_topic __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~source_arm_resource_id ~topic_type ~identity __id =
+  let __type = "azurerm_eventgrid_system_topic" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        metric_arm_resource_id =
-         Prop.computed __resource_type __resource_id
-           "metric_arm_resource_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "metric_arm_resource_id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        source_arm_resource_id =
-         Prop.computed __resource_type __resource_id
-           "source_arm_resource_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       topic_type =
-         Prop.computed __resource_type __resource_id "topic_type";
+         Prop.computed __type __id "source_arm_resource_id";
+       tags = Prop.computed __type __id "tags";
+       topic_type = Prop.computed __type __id "topic_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventgrid_system_topic
+        (azurerm_eventgrid_system_topic ?id ?tags ?timeouts ~location
+           ~name ~resource_group_name ~source_arm_resource_id
+           ~topic_type ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~source_arm_resource_id ~topic_type
+    ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+      ~source_arm_resource_id ~topic_type ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

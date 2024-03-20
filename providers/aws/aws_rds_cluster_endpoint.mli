@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,15 @@ val register :
   custom_endpoint_type:string prop ->
   string ->
   t
+
+val make :
+  ?excluded_members:string prop list ->
+  ?id:string prop ->
+  ?static_members:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  cluster_endpoint_identifier:string prop ->
+  cluster_identifier:string prop ->
+  custom_endpoint_type:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type add_header_action = {
   header_name : string prop;  (** header_name *)
@@ -161,36 +159,46 @@ type t = {
   tls_policy : string prop;
 }
 
-let register ?tf_module ?after ?enabled ?id ?recipients ?scan_enabled
-    ?tls_policy ~name ~rule_set_name ~add_header_action
-    ~bounce_action ~lambda_action ~s3_action ~sns_action ~stop_action
-    ~workmail_action __resource_id =
-  let __resource_type = "aws_ses_receipt_rule" in
-  let __resource =
-    aws_ses_receipt_rule ?after ?enabled ?id ?recipients
-      ?scan_enabled ?tls_policy ~name ~rule_set_name
-      ~add_header_action ~bounce_action ~lambda_action ~s3_action
-      ~sns_action ~stop_action ~workmail_action ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ses_receipt_rule __resource);
-  let __resource_attributes =
+let make ?after ?enabled ?id ?recipients ?scan_enabled ?tls_policy
+    ~name ~rule_set_name ~add_header_action ~bounce_action
+    ~lambda_action ~s3_action ~sns_action ~stop_action
+    ~workmail_action __id =
+  let __type = "aws_ses_receipt_rule" in
+  let __attrs =
     ({
-       after = Prop.computed __resource_type __resource_id "after";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       recipients =
-         Prop.computed __resource_type __resource_id "recipients";
-       rule_set_name =
-         Prop.computed __resource_type __resource_id "rule_set_name";
-       scan_enabled =
-         Prop.computed __resource_type __resource_id "scan_enabled";
-       tls_policy =
-         Prop.computed __resource_type __resource_id "tls_policy";
+       after = Prop.computed __type __id "after";
+       arn = Prop.computed __type __id "arn";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       recipients = Prop.computed __type __id "recipients";
+       rule_set_name = Prop.computed __type __id "rule_set_name";
+       scan_enabled = Prop.computed __type __id "scan_enabled";
+       tls_policy = Prop.computed __type __id "tls_policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ses_receipt_rule
+        (aws_ses_receipt_rule ?after ?enabled ?id ?recipients
+           ?scan_enabled ?tls_policy ~name ~rule_set_name
+           ~add_header_action ~bounce_action ~lambda_action
+           ~s3_action ~sns_action ~stop_action ~workmail_action ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?after ?enabled ?id ?recipients ?scan_enabled
+    ?tls_policy ~name ~rule_set_name ~add_header_action
+    ~bounce_action ~lambda_action ~s3_action ~sns_action ~stop_action
+    ~workmail_action __id =
+  let (r : _ Tf_core.resource) =
+    make ?after ?enabled ?id ?recipients ?scan_enabled ?tls_policy
+      ~name ~rule_set_name ~add_header_action ~bounce_action
+      ~lambda_action ~s3_action ~sns_action ~stop_action
+      ~workmail_action __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

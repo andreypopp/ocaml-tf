@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_s3_account_public_access_block = {
   account_id : string prop option; [@option]  (** account_id *)
@@ -41,35 +39,41 @@ type t = {
   restrict_public_buckets : bool prop;
 }
 
-let register ?tf_module ?account_id ?block_public_acls
-    ?block_public_policy ?id ?ignore_public_acls
-    ?restrict_public_buckets __resource_id =
-  let __resource_type = "aws_s3_account_public_access_block" in
-  let __resource =
-    aws_s3_account_public_access_block ?account_id ?block_public_acls
-      ?block_public_policy ?id ?ignore_public_acls
-      ?restrict_public_buckets ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_account_public_access_block __resource);
-  let __resource_attributes =
+let make ?account_id ?block_public_acls ?block_public_policy ?id
+    ?ignore_public_acls ?restrict_public_buckets __id =
+  let __type = "aws_s3_account_public_access_block" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        block_public_acls =
-         Prop.computed __resource_type __resource_id
-           "block_public_acls";
+         Prop.computed __type __id "block_public_acls";
        block_public_policy =
-         Prop.computed __resource_type __resource_id
-           "block_public_policy";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "block_public_policy";
+       id = Prop.computed __type __id "id";
        ignore_public_acls =
-         Prop.computed __resource_type __resource_id
-           "ignore_public_acls";
+         Prop.computed __type __id "ignore_public_acls";
        restrict_public_buckets =
-         Prop.computed __resource_type __resource_id
-           "restrict_public_buckets";
+         Prop.computed __type __id "restrict_public_buckets";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_account_public_access_block
+        (aws_s3_account_public_access_block ?account_id
+           ?block_public_acls ?block_public_policy ?id
+           ?ignore_public_acls ?restrict_public_buckets ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?block_public_acls
+    ?block_public_policy ?id ?ignore_public_acls
+    ?restrict_public_buckets __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?block_public_acls ?block_public_policy ?id
+      ?ignore_public_acls ?restrict_public_buckets __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

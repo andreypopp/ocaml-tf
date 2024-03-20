@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,39 +57,50 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?dead_letter_storage_secret ?id ?timeouts
-    ~digital_twins_id ~eventgrid_topic_endpoint
-    ~eventgrid_topic_primary_access_key
-    ~eventgrid_topic_secondary_access_key ~name __resource_id =
-  let __resource_type = "azurerm_digital_twins_endpoint_eventgrid" in
-  let __resource =
-    azurerm_digital_twins_endpoint_eventgrid
-      ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
-      ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
-      ~eventgrid_topic_secondary_access_key ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_digital_twins_endpoint_eventgrid __resource);
-  let __resource_attributes =
+let make ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
+    ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
+    ~eventgrid_topic_secondary_access_key ~name __id =
+  let __type = "azurerm_digital_twins_endpoint_eventgrid" in
+  let __attrs =
     ({
        dead_letter_storage_secret =
-         Prop.computed __resource_type __resource_id
-           "dead_letter_storage_secret";
+         Prop.computed __type __id "dead_letter_storage_secret";
        digital_twins_id =
-         Prop.computed __resource_type __resource_id
-           "digital_twins_id";
+         Prop.computed __type __id "digital_twins_id";
        eventgrid_topic_endpoint =
-         Prop.computed __resource_type __resource_id
-           "eventgrid_topic_endpoint";
+         Prop.computed __type __id "eventgrid_topic_endpoint";
        eventgrid_topic_primary_access_key =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "eventgrid_topic_primary_access_key";
        eventgrid_topic_secondary_access_key =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "eventgrid_topic_secondary_access_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_digital_twins_endpoint_eventgrid
+        (azurerm_digital_twins_endpoint_eventgrid
+           ?dead_letter_storage_secret ?id ?timeouts
+           ~digital_twins_id ~eventgrid_topic_endpoint
+           ~eventgrid_topic_primary_access_key
+           ~eventgrid_topic_secondary_access_key ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?dead_letter_storage_secret ?id ?timeouts
+    ~digital_twins_id ~eventgrid_topic_endpoint
+    ~eventgrid_topic_primary_access_key
+    ~eventgrid_topic_secondary_access_key ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?dead_letter_storage_secret ?id ?timeouts ~digital_twins_id
+      ~eventgrid_topic_endpoint ~eventgrid_topic_primary_access_key
+      ~eventgrid_topic_secondary_access_key ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

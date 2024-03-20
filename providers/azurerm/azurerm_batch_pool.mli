@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -396,3 +396,38 @@ val register :
   windows:windows list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?inter_node_communication:string prop ->
+  ?license_type:string prop ->
+  ?max_tasks_per_node:float prop ->
+  ?metadata:(string * string prop) list ->
+  ?os_disk_placement:string prop ->
+  ?stop_pending_resize_operation:bool prop ->
+  ?target_node_communication_mode:string prop ->
+  ?timeouts:timeouts ->
+  account_name:string prop ->
+  name:string prop ->
+  node_agent_sku_id:string prop ->
+  resource_group_name:string prop ->
+  vm_size:string prop ->
+  auto_scale:auto_scale list ->
+  certificate:certificate list ->
+  container_configuration:container_configuration list ->
+  data_disks:data_disks list ->
+  disk_encryption:disk_encryption list ->
+  extensions:extensions list ->
+  fixed_scale:fixed_scale list ->
+  identity:identity list ->
+  mount:mount list ->
+  network_configuration:network_configuration list ->
+  node_placement:node_placement list ->
+  start_task:start_task list ->
+  storage_image_reference:storage_image_reference list ->
+  task_scheduling_policy:task_scheduling_policy list ->
+  user_accounts:user_accounts list ->
+  windows:windows list ->
+  string ->
+  t Tf_core.resource

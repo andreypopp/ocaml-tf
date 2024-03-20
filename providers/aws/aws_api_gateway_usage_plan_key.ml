@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_api_gateway_usage_plan_key = {
   id : string prop option; [@option]  (** id *)
@@ -26,26 +24,32 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?id ~key_id ~key_type ~usage_plan_id
-    __resource_id =
-  let __resource_type = "aws_api_gateway_usage_plan_key" in
-  let __resource =
-    aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
-      ~usage_plan_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_usage_plan_key __resource);
-  let __resource_attributes =
+let make ?id ~key_id ~key_type ~usage_plan_id __id =
+  let __type = "aws_api_gateway_usage_plan_key" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       key_id = Prop.computed __resource_type __resource_id "key_id";
-       key_type =
-         Prop.computed __resource_type __resource_id "key_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       usage_plan_id =
-         Prop.computed __resource_type __resource_id "usage_plan_id";
-       value = Prop.computed __resource_type __resource_id "value";
+       id = Prop.computed __type __id "id";
+       key_id = Prop.computed __type __id "key_id";
+       key_type = Prop.computed __type __id "key_type";
+       name = Prop.computed __type __id "name";
+       usage_plan_id = Prop.computed __type __id "usage_plan_id";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_usage_plan_key
+        (aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
+           ~usage_plan_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~key_id ~key_type ~usage_plan_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~key_id ~key_type ~usage_plan_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

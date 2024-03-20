@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,18 @@ val register :
   oidc_options:oidc_options list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?device_trust_provider_type:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?user_trust_provider_type:string prop ->
+  ?timeouts:timeouts ->
+  policy_reference_name:string prop ->
+  trust_provider_type:string prop ->
+  device_options:device_options list ->
+  oidc_options:oidc_options list ->
+  string ->
+  t Tf_core.resource

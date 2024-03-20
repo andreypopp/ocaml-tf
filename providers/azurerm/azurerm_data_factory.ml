@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type github_configuration = {
   account_name : string prop;  (** account_name *)
@@ -149,48 +147,58 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?customer_managed_key_id ?customer_managed_key_identity_id
+    ?id ?managed_virtual_network_enabled ?public_network_enabled
+    ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~github_configuration ~global_parameter ~identity
+    ~vsts_configuration __id =
+  let __type = "azurerm_data_factory" in
+  let __attrs =
+    ({
+       customer_managed_key_id =
+         Prop.computed __type __id "customer_managed_key_id";
+       customer_managed_key_identity_id =
+         Prop.computed __type __id "customer_managed_key_identity_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       managed_virtual_network_enabled =
+         Prop.computed __type __id "managed_virtual_network_enabled";
+       name = Prop.computed __type __id "name";
+       public_network_enabled =
+         Prop.computed __type __id "public_network_enabled";
+       purview_id = Prop.computed __type __id "purview_id";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory
+        (azurerm_data_factory ?customer_managed_key_id
+           ?customer_managed_key_identity_id ?id
+           ?managed_virtual_network_enabled ?public_network_enabled
+           ?purview_id ?tags ?timeouts ~location ~name
+           ~resource_group_name ~github_configuration
+           ~global_parameter ~identity ~vsts_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?customer_managed_key_id
     ?customer_managed_key_identity_id ?id
     ?managed_virtual_network_enabled ?public_network_enabled
     ?purview_id ?tags ?timeouts ~location ~name ~resource_group_name
     ~github_configuration ~global_parameter ~identity
-    ~vsts_configuration __resource_id =
-  let __resource_type = "azurerm_data_factory" in
-  let __resource =
-    azurerm_data_factory ?customer_managed_key_id
-      ?customer_managed_key_identity_id ?id
-      ?managed_virtual_network_enabled ?public_network_enabled
+    ~vsts_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?customer_managed_key_id ?customer_managed_key_identity_id
+      ?id ?managed_virtual_network_enabled ?public_network_enabled
       ?purview_id ?tags ?timeouts ~location ~name
       ~resource_group_name ~github_configuration ~global_parameter
-      ~identity ~vsts_configuration ()
+      ~identity ~vsts_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory __resource);
-  let __resource_attributes =
-    ({
-       customer_managed_key_id =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key_id";
-       customer_managed_key_identity_id =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key_identity_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_virtual_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "managed_virtual_network_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_enabled";
-       purview_id =
-         Prop.computed __resource_type __resource_id "purview_id";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

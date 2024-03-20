@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alert_strategy__notification_channel_strategy = {
   notification_channel_names : string prop list option; [@option]
@@ -844,41 +842,45 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?enabled ?id ?notification_channels ?project
-    ?severity ?user_labels ?timeouts ~combiner ~display_name
-    ~alert_strategy ~conditions ~documentation __resource_id =
-  let __resource_type = "google_monitoring_alert_policy" in
-  let __resource =
-    google_monitoring_alert_policy ?enabled ?id
-      ?notification_channels ?project ?severity ?user_labels
-      ?timeouts ~combiner ~display_name ~alert_strategy ~conditions
-      ~documentation ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_alert_policy __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?notification_channels ?project ?severity
+    ?user_labels ?timeouts ~combiner ~display_name ~alert_strategy
+    ~conditions ~documentation __id =
+  let __type = "google_monitoring_alert_policy" in
+  let __attrs =
     ({
-       combiner =
-         Prop.computed __resource_type __resource_id "combiner";
-       creation_record =
-         Prop.computed __resource_type __resource_id
-           "creation_record";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       combiner = Prop.computed __type __id "combiner";
+       creation_record = Prop.computed __type __id "creation_record";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        notification_channels =
-         Prop.computed __resource_type __resource_id
-           "notification_channels";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       user_labels =
-         Prop.computed __resource_type __resource_id "user_labels";
+         Prop.computed __type __id "notification_channels";
+       project = Prop.computed __type __id "project";
+       severity = Prop.computed __type __id "severity";
+       user_labels = Prop.computed __type __id "user_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_alert_policy
+        (google_monitoring_alert_policy ?enabled ?id
+           ?notification_channels ?project ?severity ?user_labels
+           ?timeouts ~combiner ~display_name ~alert_strategy
+           ~conditions ~documentation ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?notification_channels ?project
+    ?severity ?user_labels ?timeouts ~combiner ~display_name
+    ~alert_strategy ~conditions ~documentation __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?notification_channels ?project ?severity
+      ?user_labels ?timeouts ~combiner ~display_name ~alert_strategy
+      ~conditions ~documentation __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

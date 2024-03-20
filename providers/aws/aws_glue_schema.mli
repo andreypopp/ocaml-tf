@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,16 @@ val register :
   schema_name:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?registry_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  compatibility:string prop ->
+  data_format:string prop ->
+  schema_definition:string prop ->
+  schema_name:string prop ->
+  string ->
+  t Tf_core.resource

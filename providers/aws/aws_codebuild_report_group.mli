@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,14 @@ val register :
   export_config:export_config list ->
   string ->
   t
+
+val make :
+  ?delete_reports:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  type_:string prop ->
+  export_config:export_config list ->
+  string ->
+  t Tf_core.resource

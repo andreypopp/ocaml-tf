@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,20 @@ val register :
   segment_configurations:segment_configurations list ->
   string ->
   t
+
+val make :
+  ?availability_zone_id:string prop ->
+  ?changeset_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  auto_update:bool prop ->
+  az_mode:string prop ->
+  database_name:string prop ->
+  environment_id:string prop ->
+  name:string prop ->
+  segment_configurations:segment_configurations list ->
+  string ->
+  t Tf_core.resource

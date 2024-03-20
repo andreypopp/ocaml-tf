@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,45 +65,52 @@ type t = {
   state_details : string prop;
 }
 
-let register ?tf_module ?export_custom_routes
-    ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
-    ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
-    ~network ~peer_network __resource_id =
-  let __resource_type = "google_compute_network_peering" in
-  let __resource =
-    google_compute_network_peering ?export_custom_routes
-      ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
-      ?import_subnet_routes_with_public_ip ?stack_type ?timeouts
-      ~name ~network ~peer_network ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_network_peering __resource);
-  let __resource_attributes =
+let make ?export_custom_routes ?export_subnet_routes_with_public_ip
+    ?id ?import_custom_routes ?import_subnet_routes_with_public_ip
+    ?stack_type ?timeouts ~name ~network ~peer_network __id =
+  let __type = "google_compute_network_peering" in
+  let __attrs =
     ({
        export_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "export_custom_routes";
+         Prop.computed __type __id "export_custom_routes";
        export_subnet_routes_with_public_ip =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "export_subnet_routes_with_public_ip";
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        import_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "import_custom_routes";
+         Prop.computed __type __id "import_custom_routes";
        import_subnet_routes_with_public_ip =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "import_subnet_routes_with_public_ip";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       peer_network =
-         Prop.computed __resource_type __resource_id "peer_network";
-       stack_type =
-         Prop.computed __resource_type __resource_id "stack_type";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_details =
-         Prop.computed __resource_type __resource_id "state_details";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       peer_network = Prop.computed __type __id "peer_network";
+       stack_type = Prop.computed __type __id "stack_type";
+       state = Prop.computed __type __id "state";
+       state_details = Prop.computed __type __id "state_details";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_network_peering
+        (google_compute_network_peering ?export_custom_routes
+           ?export_subnet_routes_with_public_ip ?id
+           ?import_custom_routes ?import_subnet_routes_with_public_ip
+           ?stack_type ?timeouts ~name ~network ~peer_network ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?export_custom_routes
+    ?export_subnet_routes_with_public_ip ?id ?import_custom_routes
+    ?import_subnet_routes_with_public_ip ?stack_type ?timeouts ~name
+    ~network ~peer_network __id =
+  let (r : _ Tf_core.resource) =
+    make ?export_custom_routes ?export_subnet_routes_with_public_ip
+      ?id ?import_custom_routes ?import_subnet_routes_with_public_ip
+      ?stack_type ?timeouts ~name ~network ~peer_network __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,12 @@ val register :
   pipeline_object:pipeline_object list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  pipeline_id:string prop ->
+  parameter_object:parameter_object list ->
+  parameter_value:parameter_value list ->
+  pipeline_object:pipeline_object list ->
+  string ->
+  t Tf_core.resource

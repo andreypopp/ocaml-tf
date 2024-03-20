@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption = {
   key_id : string prop;  (** key_id *)
@@ -168,6 +166,71 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?container_registry_id ?description ?friendly_name
+    ?high_business_impact ?id ?image_build_compute_name ?kind
+    ?primary_user_assigned_identity
+    ?public_access_behind_virtual_network_enabled
+    ?public_network_access_enabled ?sku_name ?tags
+    ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+    ~key_vault_id ~location ~name ~resource_group_name
+    ~storage_account_id ~encryption ~feature_store ~identity
+    ~managed_network __id =
+  let __type = "azurerm_machine_learning_workspace" in
+  let __attrs =
+    ({
+       application_insights_id =
+         Prop.computed __type __id "application_insights_id";
+       container_registry_id =
+         Prop.computed __type __id "container_registry_id";
+       description = Prop.computed __type __id "description";
+       discovery_url = Prop.computed __type __id "discovery_url";
+       friendly_name = Prop.computed __type __id "friendly_name";
+       high_business_impact =
+         Prop.computed __type __id "high_business_impact";
+       id = Prop.computed __type __id "id";
+       image_build_compute_name =
+         Prop.computed __type __id "image_build_compute_name";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       primary_user_assigned_identity =
+         Prop.computed __type __id "primary_user_assigned_identity";
+       public_access_behind_virtual_network_enabled =
+         Prop.computed __type __id
+           "public_access_behind_virtual_network_enabled";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+       tags = Prop.computed __type __id "tags";
+       v1_legacy_mode_enabled =
+         Prop.computed __type __id "v1_legacy_mode_enabled";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_machine_learning_workspace
+        (azurerm_machine_learning_workspace ?container_registry_id
+           ?description ?friendly_name ?high_business_impact ?id
+           ?image_build_compute_name ?kind
+           ?primary_user_assigned_identity
+           ?public_access_behind_virtual_network_enabled
+           ?public_network_access_enabled ?sku_name ?tags
+           ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
+           ~key_vault_id ~location ~name ~resource_group_name
+           ~storage_account_id ~encryption ~feature_store ~identity
+           ~managed_network ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?container_registry_id ?description
     ?friendly_name ?high_business_impact ?id
     ?image_build_compute_name ?kind ?primary_user_assigned_identity
@@ -176,72 +239,17 @@ let register ?tf_module ?container_registry_id ?description
     ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
     ~key_vault_id ~location ~name ~resource_group_name
     ~storage_account_id ~encryption ~feature_store ~identity
-    ~managed_network __resource_id =
-  let __resource_type = "azurerm_machine_learning_workspace" in
-  let __resource =
-    azurerm_machine_learning_workspace ?container_registry_id
-      ?description ?friendly_name ?high_business_impact ?id
-      ?image_build_compute_name ?kind ?primary_user_assigned_identity
+    ~managed_network __id =
+  let (r : _ Tf_core.resource) =
+    make ?container_registry_id ?description ?friendly_name
+      ?high_business_impact ?id ?image_build_compute_name ?kind
+      ?primary_user_assigned_identity
       ?public_access_behind_virtual_network_enabled
       ?public_network_access_enabled ?sku_name ?tags
       ?v1_legacy_mode_enabled ?timeouts ~application_insights_id
       ~key_vault_id ~location ~name ~resource_group_name
       ~storage_account_id ~encryption ~feature_store ~identity
-      ~managed_network ()
+      ~managed_network __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_machine_learning_workspace __resource);
-  let __resource_attributes =
-    ({
-       application_insights_id =
-         Prop.computed __resource_type __resource_id
-           "application_insights_id";
-       container_registry_id =
-         Prop.computed __resource_type __resource_id
-           "container_registry_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       discovery_url =
-         Prop.computed __resource_type __resource_id "discovery_url";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
-       high_business_impact =
-         Prop.computed __resource_type __resource_id
-           "high_business_impact";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_build_compute_name =
-         Prop.computed __resource_type __resource_id
-           "image_build_compute_name";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary_user_assigned_identity =
-         Prop.computed __resource_type __resource_id
-           "primary_user_assigned_identity";
-       public_access_behind_virtual_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_access_behind_virtual_network_enabled";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       v1_legacy_mode_enabled =
-         Prop.computed __resource_type __resource_id
-           "v1_legacy_mode_enabled";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

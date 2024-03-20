@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,13 @@ val register :
   secret:secret list ->
   string ->
   t
+
+val make :
+  ?automount_service_account_token:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  image_pull_secret:image_pull_secret list ->
+  metadata:metadata list ->
+  secret:secret list ->
+  string ->
+  t Tf_core.resource

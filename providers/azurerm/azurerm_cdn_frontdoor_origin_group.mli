@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,16 @@ val register :
   load_balancing:load_balancing list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes:
+    float prop ->
+  ?session_affinity_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_profile_id:string prop ->
+  name:string prop ->
+  health_probe:health_probe list ->
+  load_balancing:load_balancing list ->
+  string ->
+  t Tf_core.resource

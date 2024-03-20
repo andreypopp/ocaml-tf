@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,32 +57,38 @@ type t = {
   taxonomy : string prop;
 }
 
-let register ?tf_module ?description ?id ?parent_policy_tag ?timeouts
-    ~display_name ~taxonomy __resource_id =
-  let __resource_type = "google_data_catalog_policy_tag" in
-  let __resource =
-    google_data_catalog_policy_tag ?description ?id
-      ?parent_policy_tag ?timeouts ~display_name ~taxonomy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_catalog_policy_tag __resource);
-  let __resource_attributes =
+let make ?description ?id ?parent_policy_tag ?timeouts ~display_name
+    ~taxonomy __id =
+  let __type = "google_data_catalog_policy_tag" in
+  let __attrs =
     ({
        child_policy_tags =
-         Prop.computed __resource_type __resource_id
-           "child_policy_tags";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "child_policy_tags";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        parent_policy_tag =
-         Prop.computed __resource_type __resource_id
-           "parent_policy_tag";
-       taxonomy =
-         Prop.computed __resource_type __resource_id "taxonomy";
+         Prop.computed __type __id "parent_policy_tag";
+       taxonomy = Prop.computed __type __id "taxonomy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_catalog_policy_tag
+        (google_data_catalog_policy_tag ?description ?id
+           ?parent_policy_tag ?timeouts ~display_name ~taxonomy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?parent_policy_tag ?timeouts
+    ~display_name ~taxonomy __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?parent_policy_tag ?timeouts ~display_name
+      ~taxonomy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

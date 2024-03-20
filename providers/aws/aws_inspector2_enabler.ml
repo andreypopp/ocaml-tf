@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -34,23 +32,30 @@ type t = {
   resource_types : string list prop;
 }
 
-let register ?tf_module ?id ?timeouts ~account_ids ~resource_types
-    __resource_id =
-  let __resource_type = "aws_inspector2_enabler" in
-  let __resource =
-    aws_inspector2_enabler ?id ?timeouts ~account_ids ~resource_types
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_inspector2_enabler __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~account_ids ~resource_types __id =
+  let __type = "aws_inspector2_enabler" in
+  let __attrs =
     ({
-       account_ids =
-         Prop.computed __resource_type __resource_id "account_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_types =
-         Prop.computed __resource_type __resource_id "resource_types";
+       account_ids = Prop.computed __type __id "account_ids";
+       id = Prop.computed __type __id "id";
+       resource_types = Prop.computed __type __id "resource_types";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_inspector2_enabler
+        (aws_inspector2_enabler ?id ?timeouts ~account_ids
+           ~resource_types ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~account_ids ~resource_types
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~account_ids ~resource_types __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

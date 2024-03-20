@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -193,3 +193,18 @@ val register :
   source_configuration:source_configuration list ->
   string ->
   t
+
+val make :
+  ?auto_scaling_configuration_arn:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  service_name:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  health_check_configuration:health_check_configuration list ->
+  instance_configuration:instance_configuration list ->
+  network_configuration:network_configuration list ->
+  observability_configuration:observability_configuration list ->
+  source_configuration:source_configuration list ->
+  string ->
+  t Tf_core.resource

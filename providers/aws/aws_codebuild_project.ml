@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type artifacts = {
   artifact_identifier : string prop option; [@option]
@@ -437,62 +435,71 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?badge_enabled ?build_timeout ?concurrent_build_limit
+    ?description ?encryption_key ?id ?project_visibility
+    ?queued_timeout ?resource_access_role ?source_version ?tags
+    ?tags_all ~name ~service_role ~artifacts ~build_batch_config
+    ~cache ~environment ~file_system_locations ~logs_config
+    ~secondary_artifacts ~secondary_source_version ~secondary_sources
+    ~source ~vpc_config __id =
+  let __type = "aws_codebuild_project" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       badge_enabled = Prop.computed __type __id "badge_enabled";
+       badge_url = Prop.computed __type __id "badge_url";
+       build_timeout = Prop.computed __type __id "build_timeout";
+       concurrent_build_limit =
+         Prop.computed __type __id "concurrent_build_limit";
+       description = Prop.computed __type __id "description";
+       encryption_key = Prop.computed __type __id "encryption_key";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project_visibility =
+         Prop.computed __type __id "project_visibility";
+       public_project_alias =
+         Prop.computed __type __id "public_project_alias";
+       queued_timeout = Prop.computed __type __id "queued_timeout";
+       resource_access_role =
+         Prop.computed __type __id "resource_access_role";
+       service_role = Prop.computed __type __id "service_role";
+       source_version = Prop.computed __type __id "source_version";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codebuild_project
+        (aws_codebuild_project ?badge_enabled ?build_timeout
+           ?concurrent_build_limit ?description ?encryption_key ?id
+           ?project_visibility ?queued_timeout ?resource_access_role
+           ?source_version ?tags ?tags_all ~name ~service_role
+           ~artifacts ~build_batch_config ~cache ~environment
+           ~file_system_locations ~logs_config ~secondary_artifacts
+           ~secondary_source_version ~secondary_sources ~source
+           ~vpc_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?badge_enabled ?build_timeout
     ?concurrent_build_limit ?description ?encryption_key ?id
     ?project_visibility ?queued_timeout ?resource_access_role
     ?source_version ?tags ?tags_all ~name ~service_role ~artifacts
     ~build_batch_config ~cache ~environment ~file_system_locations
     ~logs_config ~secondary_artifacts ~secondary_source_version
-    ~secondary_sources ~source ~vpc_config __resource_id =
-  let __resource_type = "aws_codebuild_project" in
-  let __resource =
-    aws_codebuild_project ?badge_enabled ?build_timeout
-      ?concurrent_build_limit ?description ?encryption_key ?id
-      ?project_visibility ?queued_timeout ?resource_access_role
-      ?source_version ?tags ?tags_all ~name ~service_role ~artifacts
-      ~build_batch_config ~cache ~environment ~file_system_locations
-      ~logs_config ~secondary_artifacts ~secondary_source_version
-      ~secondary_sources ~source ~vpc_config ()
+    ~secondary_sources ~source ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?badge_enabled ?build_timeout ?concurrent_build_limit
+      ?description ?encryption_key ?id ?project_visibility
+      ?queued_timeout ?resource_access_role ?source_version ?tags
+      ?tags_all ~name ~service_role ~artifacts ~build_batch_config
+      ~cache ~environment ~file_system_locations ~logs_config
+      ~secondary_artifacts ~secondary_source_version
+      ~secondary_sources ~source ~vpc_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codebuild_project __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       badge_enabled =
-         Prop.computed __resource_type __resource_id "badge_enabled";
-       badge_url =
-         Prop.computed __resource_type __resource_id "badge_url";
-       build_timeout =
-         Prop.computed __resource_type __resource_id "build_timeout";
-       concurrent_build_limit =
-         Prop.computed __resource_type __resource_id
-           "concurrent_build_limit";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encryption_key =
-         Prop.computed __resource_type __resource_id "encryption_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project_visibility =
-         Prop.computed __resource_type __resource_id
-           "project_visibility";
-       public_project_alias =
-         Prop.computed __resource_type __resource_id
-           "public_project_alias";
-       queued_timeout =
-         Prop.computed __resource_type __resource_id "queued_timeout";
-       resource_access_role =
-         Prop.computed __resource_type __resource_id
-           "resource_access_role";
-       service_role =
-         Prop.computed __resource_type __resource_id "service_role";
-       source_version =
-         Prop.computed __resource_type __resource_id "source_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

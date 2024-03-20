@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -83,61 +81,65 @@ type t = {
   vmware_engine_network_canonical : string prop;
 }
 
-let register ?tf_module ?description ?export_custom_routes
+let make ?description ?export_custom_routes
     ?export_custom_routes_with_public_ip ?id ?import_custom_routes
     ?import_custom_routes_with_public_ip ?project ?timeouts ~name
-    ~peer_network ~peer_network_type ~vmware_engine_network
-    __resource_id =
-  let __resource_type = "google_vmwareengine_network_peering" in
-  let __resource =
-    google_vmwareengine_network_peering ?description
-      ?export_custom_routes ?export_custom_routes_with_public_ip ?id
-      ?import_custom_routes ?import_custom_routes_with_public_ip
-      ?project ?timeouts ~name ~peer_network ~peer_network_type
-      ~vmware_engine_network ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vmwareengine_network_peering __resource);
-  let __resource_attributes =
+    ~peer_network ~peer_network_type ~vmware_engine_network __id =
+  let __type = "google_vmwareengine_network_peering" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        export_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "export_custom_routes";
+         Prop.computed __type __id "export_custom_routes";
        export_custom_routes_with_public_ip =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "export_custom_routes_with_public_ip";
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        import_custom_routes =
-         Prop.computed __resource_type __resource_id
-           "import_custom_routes";
+         Prop.computed __type __id "import_custom_routes";
        import_custom_routes_with_public_ip =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "import_custom_routes_with_public_ip";
-       name = Prop.computed __resource_type __resource_id "name";
-       peer_network =
-         Prop.computed __resource_type __resource_id "peer_network";
+       name = Prop.computed __type __id "name";
+       peer_network = Prop.computed __type __id "peer_network";
        peer_network_type =
-         Prop.computed __resource_type __resource_id
-           "peer_network_type";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_details =
-         Prop.computed __resource_type __resource_id "state_details";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "peer_network_type";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
+       state_details = Prop.computed __type __id "state_details";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
        vmware_engine_network =
-         Prop.computed __resource_type __resource_id
-           "vmware_engine_network";
+         Prop.computed __type __id "vmware_engine_network";
        vmware_engine_network_canonical =
-         Prop.computed __resource_type __resource_id
-           "vmware_engine_network_canonical";
+         Prop.computed __type __id "vmware_engine_network_canonical";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vmwareengine_network_peering
+        (google_vmwareengine_network_peering ?description
+           ?export_custom_routes ?export_custom_routes_with_public_ip
+           ?id ?import_custom_routes
+           ?import_custom_routes_with_public_ip ?project ?timeouts
+           ~name ~peer_network ~peer_network_type
+           ~vmware_engine_network ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?export_custom_routes
+    ?export_custom_routes_with_public_ip ?id ?import_custom_routes
+    ?import_custom_routes_with_public_ip ?project ?timeouts ~name
+    ~peer_network ~peer_network_type ~vmware_engine_network __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?export_custom_routes
+      ?export_custom_routes_with_public_ip ?id ?import_custom_routes
+      ?import_custom_routes_with_public_ip ?project ?timeouts ~name
+      ~peer_network ~peer_network_type ~vmware_engine_network __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

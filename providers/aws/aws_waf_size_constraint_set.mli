@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,10 @@ val register :
   size_constraints:size_constraints list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  size_constraints:size_constraints list ->
+  string ->
+  t Tf_core.resource

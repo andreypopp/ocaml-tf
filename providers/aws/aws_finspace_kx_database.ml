@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,34 +42,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~environment_id ~name __resource_id =
-  let __resource_type = "aws_finspace_kx_database" in
-  let __resource =
-    aws_finspace_kx_database ?description ?id ?tags ?tags_all
-      ?timeouts ~environment_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_finspace_kx_database __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ?timeouts ~environment_id
+    ~name __id =
+  let __type = "aws_finspace_kx_database" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        created_timestamp =
-         Prop.computed __resource_type __resource_id
-           "created_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "created_timestamp";
+       description = Prop.computed __type __id "description";
+       environment_id = Prop.computed __type __id "environment_id";
+       id = Prop.computed __type __id "id";
        last_modified_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_modified_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_modified_timestamp";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_finspace_kx_database
+        (aws_finspace_kx_database ?description ?id ?tags ?tags_all
+           ?timeouts ~environment_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~environment_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ?timeouts ~environment_id
+      ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

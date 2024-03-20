@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,18 @@ val register :
   ssl:ssl list ->
   string ->
   t
+
+val make :
+  ?cluster_purpose:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  kubernetes_cluster_id:string prop ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
+  identity:identity list ->
+  ssl:ssl list ->
+  string ->
+  t Tf_core.resource

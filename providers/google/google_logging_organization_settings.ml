@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,36 +51,42 @@ type t = {
   storage_location : string prop;
 }
 
-let register ?tf_module ?disable_default_sink ?id ?kms_key_name
-    ?storage_location ?timeouts ~organization __resource_id =
-  let __resource_type = "google_logging_organization_settings" in
-  let __resource =
-    google_logging_organization_settings ?disable_default_sink ?id
-      ?kms_key_name ?storage_location ?timeouts ~organization ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_organization_settings __resource);
-  let __resource_attributes =
+let make ?disable_default_sink ?id ?kms_key_name ?storage_location
+    ?timeouts ~organization __id =
+  let __type = "google_logging_organization_settings" in
+  let __attrs =
     ({
        disable_default_sink =
-         Prop.computed __resource_type __resource_id
-           "disable_default_sink";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_name =
-         Prop.computed __resource_type __resource_id "kms_key_name";
+         Prop.computed __type __id "disable_default_sink";
+       id = Prop.computed __type __id "id";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
        kms_service_account_id =
-         Prop.computed __resource_type __resource_id
-           "kms_service_account_id";
+         Prop.computed __type __id "kms_service_account_id";
        logging_service_account_id =
-         Prop.computed __resource_type __resource_id
-           "logging_service_account_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       organization =
-         Prop.computed __resource_type __resource_id "organization";
+         Prop.computed __type __id "logging_service_account_id";
+       name = Prop.computed __type __id "name";
+       organization = Prop.computed __type __id "organization";
        storage_location =
-         Prop.computed __resource_type __resource_id
-           "storage_location";
+         Prop.computed __type __id "storage_location";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_organization_settings
+        (google_logging_organization_settings ?disable_default_sink
+           ?id ?kms_key_name ?storage_location ?timeouts
+           ~organization ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disable_default_sink ?id ?kms_key_name
+    ?storage_location ?timeouts ~organization __id =
+  let (r : _ Tf_core.resource) =
+    make ?disable_default_sink ?id ?kms_key_name ?storage_location
+      ?timeouts ~organization __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

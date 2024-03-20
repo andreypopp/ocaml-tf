@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type s3_job_definition__bucket_criteria__excludes__and__simple_criterion = {
   comparator : string prop option; [@option]  (** comparator *)
@@ -396,51 +394,53 @@ type t = {
   user_paused_details : user_paused_details list prop;
 }
 
-let register ?tf_module ?custom_data_identifier_ids ?description ?id
-    ?initial_run ?job_status ?name ?name_prefix ?sampling_percentage
-    ?tags ?tags_all ~job_type ~s3_job_definition ~schedule_frequency
-    __resource_id =
-  let __resource_type = "aws_macie2_classification_job" in
-  let __resource =
-    aws_macie2_classification_job ?custom_data_identifier_ids
-      ?description ?id ?initial_run ?job_status ?name ?name_prefix
-      ?sampling_percentage ?tags ?tags_all ~job_type
-      ~s3_job_definition ~schedule_frequency ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_macie2_classification_job __resource);
-  let __resource_attributes =
+let make ?custom_data_identifier_ids ?description ?id ?initial_run
+    ?job_status ?name ?name_prefix ?sampling_percentage ?tags
+    ?tags_all ~job_type ~s3_job_definition ~schedule_frequency __id =
+  let __type = "aws_macie2_classification_job" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
+       created_at = Prop.computed __type __id "created_at";
        custom_data_identifier_ids =
-         Prop.computed __resource_type __resource_id
-           "custom_data_identifier_ids";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       initial_run =
-         Prop.computed __resource_type __resource_id "initial_run";
-       job_arn =
-         Prop.computed __resource_type __resource_id "job_arn";
-       job_id = Prop.computed __resource_type __resource_id "job_id";
-       job_status =
-         Prop.computed __resource_type __resource_id "job_status";
-       job_type =
-         Prop.computed __resource_type __resource_id "job_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
+         Prop.computed __type __id "custom_data_identifier_ids";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       initial_run = Prop.computed __type __id "initial_run";
+       job_arn = Prop.computed __type __id "job_arn";
+       job_id = Prop.computed __type __id "job_id";
+       job_status = Prop.computed __type __id "job_status";
+       job_type = Prop.computed __type __id "job_type";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
        sampling_percentage =
-         Prop.computed __resource_type __resource_id
-           "sampling_percentage";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "sampling_percentage";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        user_paused_details =
-         Prop.computed __resource_type __resource_id
-           "user_paused_details";
+         Prop.computed __type __id "user_paused_details";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_macie2_classification_job
+        (aws_macie2_classification_job ?custom_data_identifier_ids
+           ?description ?id ?initial_run ?job_status ?name
+           ?name_prefix ?sampling_percentage ?tags ?tags_all
+           ~job_type ~s3_job_definition ~schedule_frequency ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_data_identifier_ids ?description ?id
+    ?initial_run ?job_status ?name ?name_prefix ?sampling_percentage
+    ?tags ?tags_all ~job_type ~s3_job_definition ~schedule_frequency
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_data_identifier_ids ?description ?id ?initial_run
+      ?job_status ?name ?name_prefix ?sampling_percentage ?tags
+      ?tags_all ~job_type ~s3_job_definition ~schedule_frequency __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,18 @@ val register :
   preserved_state:preserved_state list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?minimal_action:string prop ->
+  ?most_disruptive_allowed_action:string prop ->
+  ?project:string prop ->
+  ?remove_instance_on_destroy:bool prop ->
+  ?remove_instance_state_on_destroy:bool prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  instance_group_manager:string prop ->
+  name:string prop ->
+  preserved_state:preserved_state list ->
+  string ->
+  t Tf_core.resource

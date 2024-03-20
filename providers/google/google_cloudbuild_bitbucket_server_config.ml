@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connected_repositories = {
   project_key : string prop;
@@ -110,41 +108,45 @@ type t = {
   webhook_key : string prop;
 }
 
-let register ?tf_module ?id ?peered_network ?project ?ssl_ca
-    ?timeouts ~api_key ~config_id ~host_uri ~location ~username
-    ~connected_repositories ~secrets __resource_id =
-  let __resource_type =
-    "google_cloudbuild_bitbucket_server_config"
-  in
-  let __resource =
-    google_cloudbuild_bitbucket_server_config ?id ?peered_network
-      ?project ?ssl_ca ?timeouts ~api_key ~config_id ~host_uri
-      ~location ~username ~connected_repositories ~secrets ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloudbuild_bitbucket_server_config __resource);
-  let __resource_attributes =
+let make ?id ?peered_network ?project ?ssl_ca ?timeouts ~api_key
+    ~config_id ~host_uri ~location ~username ~connected_repositories
+    ~secrets __id =
+  let __type = "google_cloudbuild_bitbucket_server_config" in
+  let __attrs =
     ({
-       api_key =
-         Prop.computed __resource_type __resource_id "api_key";
-       config_id =
-         Prop.computed __resource_type __resource_id "config_id";
-       host_uri =
-         Prop.computed __resource_type __resource_id "host_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       peered_network =
-         Prop.computed __resource_type __resource_id "peered_network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       ssl_ca = Prop.computed __resource_type __resource_id "ssl_ca";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-       webhook_key =
-         Prop.computed __resource_type __resource_id "webhook_key";
+       api_key = Prop.computed __type __id "api_key";
+       config_id = Prop.computed __type __id "config_id";
+       host_uri = Prop.computed __type __id "host_uri";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       peered_network = Prop.computed __type __id "peered_network";
+       project = Prop.computed __type __id "project";
+       ssl_ca = Prop.computed __type __id "ssl_ca";
+       username = Prop.computed __type __id "username";
+       webhook_key = Prop.computed __type __id "webhook_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloudbuild_bitbucket_server_config
+        (google_cloudbuild_bitbucket_server_config ?id
+           ?peered_network ?project ?ssl_ca ?timeouts ~api_key
+           ~config_id ~host_uri ~location ~username
+           ~connected_repositories ~secrets ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?peered_network ?project ?ssl_ca
+    ?timeouts ~api_key ~config_id ~host_uri ~location ~username
+    ~connected_repositories ~secrets __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?peered_network ?project ?ssl_ca ?timeouts ~api_key
+      ~config_id ~host_uri ~location ~username
+      ~connected_repositories ~secrets __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

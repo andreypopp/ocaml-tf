@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,13 @@ val register :
   server_id:float prop ->
   string ->
   t
+
+val make :
+  ?alias_ips:string prop list ->
+  ?id:string prop ->
+  ?ip:string prop ->
+  ?network_id:float prop ->
+  ?subnet_id:string prop ->
+  server_id:float prop ->
+  string ->
+  t Tf_core.resource

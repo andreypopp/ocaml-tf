@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type status = {
   cause : string prop option; [@option]  (** cause *)
@@ -58,28 +56,36 @@ type t = {
   target_resource_id : string prop;
 }
 
-let register ?tf_module ?additional_data ?id ?timeouts
-    ~assessment_policy_id ~target_resource_id ~status __resource_id =
-  let __resource_type = "azurerm_security_center_assessment" in
-  let __resource =
-    azurerm_security_center_assessment ?additional_data ?id ?timeouts
-      ~assessment_policy_id ~target_resource_id ~status ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_assessment __resource);
-  let __resource_attributes =
+let make ?additional_data ?id ?timeouts ~assessment_policy_id
+    ~target_resource_id ~status __id =
+  let __type = "azurerm_security_center_assessment" in
+  let __attrs =
     ({
-       additional_data =
-         Prop.computed __resource_type __resource_id
-           "additional_data";
+       additional_data = Prop.computed __type __id "additional_data";
        assessment_policy_id =
-         Prop.computed __resource_type __resource_id
-           "assessment_policy_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "assessment_policy_id";
+       id = Prop.computed __type __id "id";
        target_resource_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_id";
+         Prop.computed __type __id "target_resource_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_assessment
+        (azurerm_security_center_assessment ?additional_data ?id
+           ?timeouts ~assessment_policy_id ~target_resource_id
+           ~status ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_data ?id ?timeouts
+    ~assessment_policy_id ~target_resource_id ~status __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_data ?id ?timeouts ~assessment_policy_id
+      ~target_resource_id ~status __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

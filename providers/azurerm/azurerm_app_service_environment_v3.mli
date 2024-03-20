@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,19 @@ val register :
   cluster_setting:cluster_setting list ->
   string ->
   t
+
+val make :
+  ?allow_new_private_endpoint_connections:bool prop ->
+  ?dedicated_host_count:float prop ->
+  ?id:string prop ->
+  ?internal_load_balancing_mode:string prop ->
+  ?remote_debugging_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet_id:string prop ->
+  cluster_setting:cluster_setting list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -306,3 +306,21 @@ val register :
   routing:routing list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disable_http2:bool prop ->
+  ?disable_quic:bool prop ->
+  ?edge_security_policy:string prop ->
+  ?edge_ssl_certificates:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?require_tls:bool prop ->
+  ?ssl_policy:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  log_config:log_config list ->
+  routing:routing list ->
+  string ->
+  t Tf_core.resource

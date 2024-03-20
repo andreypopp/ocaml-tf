@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,13 @@ val register :
   public_network:public_network list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  default_action:string prop ->
+  signalr_service_id:string prop ->
+  private_endpoint:private_endpoint list ->
+  public_network:public_network list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -117,3 +117,24 @@ val register :
   custom_parameters:custom_parameters list ->
   string ->
   t
+
+val make :
+  ?customer_managed_key_enabled:bool prop ->
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?load_balancer_backend_address_pool_id:string prop ->
+  ?managed_disk_cmk_key_vault_key_id:string prop ->
+  ?managed_disk_cmk_rotation_to_latest_version_enabled:bool prop ->
+  ?managed_resource_group_name:string prop ->
+  ?managed_services_cmk_key_vault_key_id:string prop ->
+  ?network_security_group_rules_required:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  custom_parameters:custom_parameters list ->
+  string ->
+  t Tf_core.resource

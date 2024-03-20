@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type key_property = {
   name : string prop;  (** name *)
@@ -64,34 +62,45 @@ type t = {
   time_series_insights_environment_id : string prop;
 }
 
-let register ?tf_module ?data_string_comparison_behavior ?id ?tags
-    ?timeouts ~location ~name ~time_series_insights_environment_id
-    ~key_property __resource_id =
-  let __resource_type =
+let make ?data_string_comparison_behavior ?id ?tags ?timeouts
+    ~location ~name ~time_series_insights_environment_id
+    ~key_property __id =
+  let __type =
     "azurerm_iot_time_series_insights_reference_data_set"
   in
-  let __resource =
-    azurerm_iot_time_series_insights_reference_data_set
-      ?data_string_comparison_behavior ?id ?tags ?timeouts ~location
-      ~name ~time_series_insights_environment_id ~key_property ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iot_time_series_insights_reference_data_set
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        data_string_comparison_behavior =
-         Prop.computed __resource_type __resource_id
-           "data_string_comparison_behavior";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "data_string_comparison_behavior";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
        time_series_insights_environment_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "time_series_insights_environment_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iot_time_series_insights_reference_data_set
+        (azurerm_iot_time_series_insights_reference_data_set
+           ?data_string_comparison_behavior ?id ?tags ?timeouts
+           ~location ~name ~time_series_insights_environment_id
+           ~key_property ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data_string_comparison_behavior ?id ?tags
+    ?timeouts ~location ~name ~time_series_insights_environment_id
+    ~key_property __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_string_comparison_behavior ?id ?tags ?timeouts
+      ~location ~name ~time_series_insights_environment_id
+      ~key_property __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

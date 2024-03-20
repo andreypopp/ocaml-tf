@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   name : string prop;
@@ -89,38 +87,43 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?id ?ignore_errors ?init_timeout ?scopes
-    ?timeouts ~component_type ~container_app_environment_id ~name
-    ~version ~metadata ~secret __resource_id =
-  let __resource_type =
-    "azurerm_container_app_environment_dapr_component"
-  in
-  let __resource =
-    azurerm_container_app_environment_dapr_component ?id
-      ?ignore_errors ?init_timeout ?scopes ?timeouts ~component_type
-      ~container_app_environment_id ~name ~version ~metadata ~secret
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_app_environment_dapr_component
-       __resource);
-  let __resource_attributes =
+let make ?id ?ignore_errors ?init_timeout ?scopes ?timeouts
+    ~component_type ~container_app_environment_id ~name ~version
+    ~metadata ~secret __id =
+  let __type = "azurerm_container_app_environment_dapr_component" in
+  let __attrs =
     ({
-       component_type =
-         Prop.computed __resource_type __resource_id "component_type";
+       component_type = Prop.computed __type __id "component_type";
        container_app_environment_id =
-         Prop.computed __resource_type __resource_id
-           "container_app_environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_errors =
-         Prop.computed __resource_type __resource_id "ignore_errors";
-       init_timeout =
-         Prop.computed __resource_type __resource_id "init_timeout";
-       name = Prop.computed __resource_type __resource_id "name";
-       scopes = Prop.computed __resource_type __resource_id "scopes";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "container_app_environment_id";
+       id = Prop.computed __type __id "id";
+       ignore_errors = Prop.computed __type __id "ignore_errors";
+       init_timeout = Prop.computed __type __id "init_timeout";
+       name = Prop.computed __type __id "name";
+       scopes = Prop.computed __type __id "scopes";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_app_environment_dapr_component
+        (azurerm_container_app_environment_dapr_component ?id
+           ?ignore_errors ?init_timeout ?scopes ?timeouts
+           ~component_type ~container_app_environment_id ~name
+           ~version ~metadata ~secret ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ignore_errors ?init_timeout ?scopes
+    ?timeouts ~component_type ~container_app_environment_id ~name
+    ~version ~metadata ~secret __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ignore_errors ?init_timeout ?scopes ?timeouts
+      ~component_type ~container_app_environment_id ~name ~version
+      ~metadata ~secret __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

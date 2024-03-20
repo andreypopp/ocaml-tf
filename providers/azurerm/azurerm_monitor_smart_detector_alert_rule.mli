@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,20 @@ val register :
   action_group:action_group list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?throttling_duration:string prop ->
+  ?timeouts:timeouts ->
+  detector_type:string prop ->
+  frequency:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope_resource_ids:string prop list ->
+  severity:string prop ->
+  action_group:action_group list ->
+  string ->
+  t Tf_core.resource

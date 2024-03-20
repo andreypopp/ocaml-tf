@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,22 @@ val register :
   input_mapping_fields:input_mapping_fields list ->
   string ->
   t
+
+val make :
+  ?auto_create_topic_with_first_subscription:bool prop ->
+  ?auto_delete_topic_with_last_subscription:bool prop ->
+  ?id:string prop ->
+  ?inbound_ip_rule:inbound_ip_rule list ->
+  ?input_schema:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  input_mapping_default_values:input_mapping_default_values list ->
+  input_mapping_fields:input_mapping_fields list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type key_vault_key = {
   key_name : string prop;  (** key_name *)
@@ -67,36 +65,43 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?metadata ?public_certificate ?timeouts
+let make ?id ?metadata ?public_certificate ?timeouts
     ~integration_account_name ~name ~resource_group_name
-    ~key_vault_key __resource_id =
-  let __resource_type =
-    "azurerm_logic_app_integration_account_certificate"
-  in
-  let __resource =
-    azurerm_logic_app_integration_account_certificate ?id ?metadata
-      ?public_certificate ?timeouts ~integration_account_name ~name
-      ~resource_group_name ~key_vault_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_integration_account_certificate
-       __resource);
-  let __resource_attributes =
+    ~key_vault_key __id =
+  let __type = "azurerm_logic_app_integration_account_certificate" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        integration_account_name =
-         Prop.computed __resource_type __resource_id
-           "integration_account_name";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "integration_account_name";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
        public_certificate =
-         Prop.computed __resource_type __resource_id
-           "public_certificate";
+         Prop.computed __type __id "public_certificate";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_integration_account_certificate
+        (azurerm_logic_app_integration_account_certificate ?id
+           ?metadata ?public_certificate ?timeouts
+           ~integration_account_name ~name ~resource_group_name
+           ~key_vault_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?metadata ?public_certificate ?timeouts
+    ~integration_account_name ~name ~resource_group_name
+    ~key_vault_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?metadata ?public_certificate ?timeouts
+      ~integration_account_name ~name ~resource_group_name
+      ~key_vault_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

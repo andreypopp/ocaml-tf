@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type basic_auth = {
   environments : string prop;  (** environments *)
@@ -94,49 +92,54 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?app_settings
-    ?configuration_file_changes_enabled ?id
+let make ?app_settings ?configuration_file_changes_enabled ?id
     ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~basic_auth ~identity
-    __resource_id =
-  let __resource_type = "azurerm_static_web_app" in
-  let __resource =
-    azurerm_static_web_app ?app_settings
-      ?configuration_file_changes_enabled ?id
-      ?preview_environments_enabled ?sku_size ?sku_tier ?tags
-      ?timeouts ~location ~name ~resource_group_name ~basic_auth
-      ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_static_web_app __resource);
-  let __resource_attributes =
+    ~location ~name ~resource_group_name ~basic_auth ~identity __id =
+  let __type = "azurerm_static_web_app" in
+  let __attrs =
     ({
-       api_key =
-         Prop.computed __resource_type __resource_id "api_key";
-       app_settings =
-         Prop.computed __resource_type __resource_id "app_settings";
+       api_key = Prop.computed __type __id "api_key";
+       app_settings = Prop.computed __type __id "app_settings";
        configuration_file_changes_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "configuration_file_changes_enabled";
        default_host_name =
-         Prop.computed __resource_type __resource_id
-           "default_host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_host_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        preview_environments_enabled =
-         Prop.computed __resource_type __resource_id
-           "preview_environments_enabled";
+         Prop.computed __type __id "preview_environments_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_size =
-         Prop.computed __resource_type __resource_id "sku_size";
-       sku_tier =
-         Prop.computed __resource_type __resource_id "sku_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku_size = Prop.computed __type __id "sku_size";
+       sku_tier = Prop.computed __type __id "sku_tier";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_static_web_app
+        (azurerm_static_web_app ?app_settings
+           ?configuration_file_changes_enabled ?id
+           ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+           ?timeouts ~location ~name ~resource_group_name ~basic_auth
+           ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?app_settings
+    ?configuration_file_changes_enabled ?id
+    ?preview_environments_enabled ?sku_size ?sku_tier ?tags ?timeouts
+    ~location ~name ~resource_group_name ~basic_auth ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_settings ?configuration_file_changes_enabled ?id
+      ?preview_environments_enabled ?sku_size ?sku_tier ?tags
+      ?timeouts ~location ~name ~resource_group_name ~basic_auth
+      ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

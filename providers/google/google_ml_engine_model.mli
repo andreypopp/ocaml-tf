@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,17 @@ val register :
   default_version:default_version list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?online_prediction_console_logging:bool prop ->
+  ?online_prediction_logging:bool prop ->
+  ?project:string prop ->
+  ?regions:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  default_version:default_version list ->
+  string ->
+  t Tf_core.resource

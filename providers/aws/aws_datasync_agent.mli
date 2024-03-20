@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,18 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?activation_key:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?name:string prop ->
+  ?private_link_endpoint:string prop ->
+  ?security_group_arns:string prop list ->
+  ?subnet_arns:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_endpoint_id:string prop ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

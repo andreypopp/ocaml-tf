@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -31,3 +31,10 @@ val register :
   resource_type_opt_in_preference:(string * bool prop) list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?resource_type_management_preference:(string * bool prop) list ->
+  resource_type_opt_in_preference:(string * bool prop) list ->
+  string ->
+  t Tf_core.resource

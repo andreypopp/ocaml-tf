@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -105,54 +103,59 @@ type t = {
   self_link : string prop;
 }
 
+let make ?auto_create_subnetworks ?delete_default_routes_on_create
+    ?description ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range
+    ?mtu ?network_firewall_policy_enforcement_order ?project
+    ?routing_mode ?timeouts ~name __id =
+  let __type = "google_compute_network" in
+  let __attrs =
+    ({
+       auto_create_subnetworks =
+         Prop.computed __type __id "auto_create_subnetworks";
+       delete_default_routes_on_create =
+         Prop.computed __type __id "delete_default_routes_on_create";
+       description = Prop.computed __type __id "description";
+       enable_ula_internal_ipv6 =
+         Prop.computed __type __id "enable_ula_internal_ipv6";
+       gateway_ipv4 = Prop.computed __type __id "gateway_ipv4";
+       id = Prop.computed __type __id "id";
+       internal_ipv6_range =
+         Prop.computed __type __id "internal_ipv6_range";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
+       network_firewall_policy_enforcement_order =
+         Prop.computed __type __id
+           "network_firewall_policy_enforcement_order";
+       numeric_id = Prop.computed __type __id "numeric_id";
+       project = Prop.computed __type __id "project";
+       routing_mode = Prop.computed __type __id "routing_mode";
+       self_link = Prop.computed __type __id "self_link";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_network
+        (google_compute_network ?auto_create_subnetworks
+           ?delete_default_routes_on_create ?description
+           ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
+           ?network_firewall_policy_enforcement_order ?project
+           ?routing_mode ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_create_subnetworks
     ?delete_default_routes_on_create ?description
     ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
     ?network_firewall_policy_enforcement_order ?project ?routing_mode
-    ?timeouts ~name __resource_id =
-  let __resource_type = "google_compute_network" in
-  let __resource =
-    google_compute_network ?auto_create_subnetworks
-      ?delete_default_routes_on_create ?description
-      ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range ?mtu
-      ?network_firewall_policy_enforcement_order ?project
-      ?routing_mode ?timeouts ~name ()
+    ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_create_subnetworks ?delete_default_routes_on_create
+      ?description ?enable_ula_internal_ipv6 ?id ?internal_ipv6_range
+      ?mtu ?network_firewall_policy_enforcement_order ?project
+      ?routing_mode ?timeouts ~name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_network __resource);
-  let __resource_attributes =
-    ({
-       auto_create_subnetworks =
-         Prop.computed __resource_type __resource_id
-           "auto_create_subnetworks";
-       delete_default_routes_on_create =
-         Prop.computed __resource_type __resource_id
-           "delete_default_routes_on_create";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable_ula_internal_ipv6 =
-         Prop.computed __resource_type __resource_id
-           "enable_ula_internal_ipv6";
-       gateway_ipv4 =
-         Prop.computed __resource_type __resource_id "gateway_ipv4";
-       id = Prop.computed __resource_type __resource_id "id";
-       internal_ipv6_range =
-         Prop.computed __resource_type __resource_id
-           "internal_ipv6_range";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_firewall_policy_enforcement_order =
-         Prop.computed __resource_type __resource_id
-           "network_firewall_policy_enforcement_order";
-       numeric_id =
-         Prop.computed __resource_type __resource_id "numeric_id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       routing_mode =
-         Prop.computed __resource_type __resource_id "routing_mode";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

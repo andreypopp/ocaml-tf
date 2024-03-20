@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -46,31 +44,37 @@ type t = {
   values : string list prop;
 }
 
-let register ?tf_module ?description ?id ?project ?timeouts ~location
-    ~name ~values __resource_id =
-  let __resource_type = "google_network_security_url_lists" in
-  let __resource =
-    google_network_security_url_lists ?description ?id ?project
-      ?timeouts ~location ~name ~values ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_security_url_lists __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?timeouts ~location ~name ~values
+    __id =
+  let __type = "google_network_security_url_lists" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       values = Prop.computed __resource_type __resource_id "values";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       update_time = Prop.computed __type __id "update_time";
+       values = Prop.computed __type __id "values";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_security_url_lists
+        (google_network_security_url_lists ?description ?id ?project
+           ?timeouts ~location ~name ~values ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?timeouts ~location
+    ~name ~values __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?timeouts ~location ~name ~values
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

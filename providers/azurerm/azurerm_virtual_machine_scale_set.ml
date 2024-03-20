@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type boot_diagnostics = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -477,6 +475,60 @@ type t = {
   zones : string list prop;
 }
 
+let make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
+    ?license_type ?overprovision ?priority
+    ?proximity_placement_group_id ?single_placement_group ?tags
+    ?zones ?timeouts ~location ~name ~resource_group_name
+    ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
+    ~network_profile ~os_profile ~os_profile_linux_config
+    ~os_profile_secrets ~os_profile_windows_config ~plan
+    ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+    ~storage_profile_image_reference ~storage_profile_os_disk __id =
+  let __type = "azurerm_virtual_machine_scale_set" in
+  let __attrs =
+    ({
+       automatic_os_upgrade =
+         Prop.computed __type __id "automatic_os_upgrade";
+       eviction_policy = Prop.computed __type __id "eviction_policy";
+       health_probe_id = Prop.computed __type __id "health_probe_id";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       overprovision = Prop.computed __type __id "overprovision";
+       priority = Prop.computed __type __id "priority";
+       proximity_placement_group_id =
+         Prop.computed __type __id "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       single_placement_group =
+         Prop.computed __type __id "single_placement_group";
+       tags = Prop.computed __type __id "tags";
+       upgrade_policy_mode =
+         Prop.computed __type __id "upgrade_policy_mode";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine_scale_set
+        (azurerm_virtual_machine_scale_set ?automatic_os_upgrade
+           ?eviction_policy ?health_probe_id ?id ?license_type
+           ?overprovision ?priority ?proximity_placement_group_id
+           ?single_placement_group ?tags ?zones ?timeouts ~location
+           ~name ~resource_group_name ~upgrade_policy_mode
+           ~boot_diagnostics ~extension ~identity ~network_profile
+           ~os_profile ~os_profile_linux_config ~os_profile_secrets
+           ~os_profile_windows_config ~plan ~rolling_upgrade_policy
+           ~sku ~storage_profile_data_disk
+           ~storage_profile_image_reference ~storage_profile_os_disk
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?automatic_os_upgrade ?eviction_policy
     ?health_probe_id ?id ?license_type ?overprovision ?priority
     ?proximity_placement_group_id ?single_placement_group ?tags
@@ -485,59 +537,17 @@ let register ?tf_module ?automatic_os_upgrade ?eviction_policy
     ~network_profile ~os_profile ~os_profile_linux_config
     ~os_profile_secrets ~os_profile_windows_config ~plan
     ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
-    ~storage_profile_image_reference ~storage_profile_os_disk
-    __resource_id =
-  let __resource_type = "azurerm_virtual_machine_scale_set" in
-  let __resource =
-    azurerm_virtual_machine_scale_set ?automatic_os_upgrade
-      ?eviction_policy ?health_probe_id ?id ?license_type
-      ?overprovision ?priority ?proximity_placement_group_id
-      ?single_placement_group ?tags ?zones ?timeouts ~location ~name
-      ~resource_group_name ~upgrade_policy_mode ~boot_diagnostics
-      ~extension ~identity ~network_profile ~os_profile
-      ~os_profile_linux_config ~os_profile_secrets
-      ~os_profile_windows_config ~plan ~rolling_upgrade_policy ~sku
-      ~storage_profile_data_disk ~storage_profile_image_reference
-      ~storage_profile_os_disk ()
+    ~storage_profile_image_reference ~storage_profile_os_disk __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_os_upgrade ?eviction_policy ?health_probe_id ?id
+      ?license_type ?overprovision ?priority
+      ?proximity_placement_group_id ?single_placement_group ?tags
+      ?zones ?timeouts ~location ~name ~resource_group_name
+      ~upgrade_policy_mode ~boot_diagnostics ~extension ~identity
+      ~network_profile ~os_profile ~os_profile_linux_config
+      ~os_profile_secrets ~os_profile_windows_config ~plan
+      ~rolling_upgrade_policy ~sku ~storage_profile_data_disk
+      ~storage_profile_image_reference ~storage_profile_os_disk __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine_scale_set __resource);
-  let __resource_attributes =
-    ({
-       automatic_os_upgrade =
-         Prop.computed __resource_type __resource_id
-           "automatic_os_upgrade";
-       eviction_policy =
-         Prop.computed __resource_type __resource_id
-           "eviction_policy";
-       health_probe_id =
-         Prop.computed __resource_type __resource_id
-           "health_probe_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       overprovision =
-         Prop.computed __resource_type __resource_id "overprovision";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       proximity_placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "proximity_placement_group_id";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       single_placement_group =
-         Prop.computed __resource_type __resource_id
-           "single_placement_group";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       upgrade_policy_mode =
-         Prop.computed __resource_type __resource_id
-           "upgrade_policy_mode";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

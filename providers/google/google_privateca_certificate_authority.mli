@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -265,3 +265,25 @@ val register :
   subordinate_config:subordinate_config list ->
   string ->
   t
+
+val make :
+  ?deletion_protection:bool prop ->
+  ?desired_state:string prop ->
+  ?gcs_bucket:string prop ->
+  ?id:string prop ->
+  ?ignore_active_certificates_on_deletion:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?lifetime:string prop ->
+  ?pem_ca_certificate:string prop ->
+  ?project:string prop ->
+  ?skip_grace_period:bool prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  certificate_authority_id:string prop ->
+  location:string prop ->
+  pool:string prop ->
+  config:config list ->
+  key_spec:key_spec list ->
+  subordinate_config:subordinate_config list ->
+  string ->
+  t Tf_core.resource

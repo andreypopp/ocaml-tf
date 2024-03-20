@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,64 +83,65 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
+let make ?agent_application_name ?agent_node_name ?agent_tier_name
+    ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
+    ?globally_enabled ?id ?timeouts ~agent_account_access_key
+    ~agent_account_name ~controller_host_name ~name
+    ~spring_cloud_service_id __id =
+  let __type =
+    "azurerm_spring_cloud_app_dynamics_application_performance_monitoring"
+  in
+  let __attrs =
+    ({
+       agent_account_access_key =
+         Prop.computed __type __id "agent_account_access_key";
+       agent_account_name =
+         Prop.computed __type __id "agent_account_name";
+       agent_application_name =
+         Prop.computed __type __id "agent_application_name";
+       agent_node_name = Prop.computed __type __id "agent_node_name";
+       agent_tier_name = Prop.computed __type __id "agent_tier_name";
+       agent_unique_host_id =
+         Prop.computed __type __id "agent_unique_host_id";
+       controller_host_name =
+         Prop.computed __type __id "controller_host_name";
+       controller_port = Prop.computed __type __id "controller_port";
+       controller_ssl_enabled =
+         Prop.computed __type __id "controller_ssl_enabled";
+       globally_enabled =
+         Prop.computed __type __id "globally_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       spring_cloud_service_id =
+         Prop.computed __type __id "spring_cloud_service_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_app_dynamics_application_performance_monitoring
+        (azurerm_spring_cloud_app_dynamics_application_performance_monitoring
+           ?agent_application_name ?agent_node_name ?agent_tier_name
+           ?agent_unique_host_id ?controller_port
+           ?controller_ssl_enabled ?globally_enabled ?id ?timeouts
+           ~agent_account_access_key ~agent_account_name
+           ~controller_host_name ~name ~spring_cloud_service_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?agent_application_name ?agent_node_name
     ?agent_tier_name ?agent_unique_host_id ?controller_port
     ?controller_ssl_enabled ?globally_enabled ?id ?timeouts
     ~agent_account_access_key ~agent_account_name
-    ~controller_host_name ~name ~spring_cloud_service_id
-    __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_app_dynamics_application_performance_monitoring"
-  in
-  let __resource =
-    azurerm_spring_cloud_app_dynamics_application_performance_monitoring
-      ?agent_application_name ?agent_node_name ?agent_tier_name
+    ~controller_host_name ~name ~spring_cloud_service_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_application_name ?agent_node_name ?agent_tier_name
       ?agent_unique_host_id ?controller_port ?controller_ssl_enabled
       ?globally_enabled ?id ?timeouts ~agent_account_access_key
       ~agent_account_name ~controller_host_name ~name
-      ~spring_cloud_service_id ()
+      ~spring_cloud_service_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_app_dynamics_application_performance_monitoring
-       __resource);
-  let __resource_attributes =
-    ({
-       agent_account_access_key =
-         Prop.computed __resource_type __resource_id
-           "agent_account_access_key";
-       agent_account_name =
-         Prop.computed __resource_type __resource_id
-           "agent_account_name";
-       agent_application_name =
-         Prop.computed __resource_type __resource_id
-           "agent_application_name";
-       agent_node_name =
-         Prop.computed __resource_type __resource_id
-           "agent_node_name";
-       agent_tier_name =
-         Prop.computed __resource_type __resource_id
-           "agent_tier_name";
-       agent_unique_host_id =
-         Prop.computed __resource_type __resource_id
-           "agent_unique_host_id";
-       controller_host_name =
-         Prop.computed __resource_type __resource_id
-           "controller_host_name";
-       controller_port =
-         Prop.computed __resource_type __resource_id
-           "controller_port";
-       controller_ssl_enabled =
-         Prop.computed __resource_type __resource_id
-           "controller_ssl_enabled";
-       globally_enabled =
-         Prop.computed __resource_type __resource_id
-           "globally_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

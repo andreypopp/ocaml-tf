@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -82,74 +80,72 @@ type t = {
   vpc_id : string prop;
 }
 
+let make ?copy_tags ?destination_region ?id ?kms_key_id
+    ?option_group_name ?presigned_url ?tags ?tags_all
+    ?target_custom_availability_zone ?timeouts
+    ~source_db_snapshot_identifier ~target_db_snapshot_identifier
+    __id =
+  let __type = "aws_db_snapshot_copy" in
+  let __attrs =
+    ({
+       allocated_storage =
+         Prop.computed __type __id "allocated_storage";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       copy_tags = Prop.computed __type __id "copy_tags";
+       db_snapshot_arn = Prop.computed __type __id "db_snapshot_arn";
+       destination_region =
+         Prop.computed __type __id "destination_region";
+       encrypted = Prop.computed __type __id "encrypted";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       id = Prop.computed __type __id "id";
+       iops = Prop.computed __type __id "iops";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       license_model = Prop.computed __type __id "license_model";
+       option_group_name =
+         Prop.computed __type __id "option_group_name";
+       port = Prop.computed __type __id "port";
+       presigned_url = Prop.computed __type __id "presigned_url";
+       snapshot_type = Prop.computed __type __id "snapshot_type";
+       source_db_snapshot_identifier =
+         Prop.computed __type __id "source_db_snapshot_identifier";
+       source_region = Prop.computed __type __id "source_region";
+       storage_type = Prop.computed __type __id "storage_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_custom_availability_zone =
+         Prop.computed __type __id "target_custom_availability_zone";
+       target_db_snapshot_identifier =
+         Prop.computed __type __id "target_db_snapshot_identifier";
+       vpc_id = Prop.computed __type __id "vpc_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_snapshot_copy
+        (aws_db_snapshot_copy ?copy_tags ?destination_region ?id
+           ?kms_key_id ?option_group_name ?presigned_url ?tags
+           ?tags_all ?target_custom_availability_zone ?timeouts
+           ~source_db_snapshot_identifier
+           ~target_db_snapshot_identifier ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?copy_tags ?destination_region ?id
     ?kms_key_id ?option_group_name ?presigned_url ?tags ?tags_all
     ?target_custom_availability_zone ?timeouts
     ~source_db_snapshot_identifier ~target_db_snapshot_identifier
-    __resource_id =
-  let __resource_type = "aws_db_snapshot_copy" in
-  let __resource =
-    aws_db_snapshot_copy ?copy_tags ?destination_region ?id
-      ?kms_key_id ?option_group_name ?presigned_url ?tags ?tags_all
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?copy_tags ?destination_region ?id ?kms_key_id
+      ?option_group_name ?presigned_url ?tags ?tags_all
       ?target_custom_availability_zone ?timeouts
       ~source_db_snapshot_identifier ~target_db_snapshot_identifier
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_snapshot_copy __resource);
-  let __resource_attributes =
-    ({
-       allocated_storage =
-         Prop.computed __resource_type __resource_id
-           "allocated_storage";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       copy_tags =
-         Prop.computed __resource_type __resource_id "copy_tags";
-       db_snapshot_arn =
-         Prop.computed __resource_type __resource_id
-           "db_snapshot_arn";
-       destination_region =
-         Prop.computed __resource_type __resource_id
-           "destination_region";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       iops = Prop.computed __resource_type __resource_id "iops";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       license_model =
-         Prop.computed __resource_type __resource_id "license_model";
-       option_group_name =
-         Prop.computed __resource_type __resource_id
-           "option_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       presigned_url =
-         Prop.computed __resource_type __resource_id "presigned_url";
-       snapshot_type =
-         Prop.computed __resource_type __resource_id "snapshot_type";
-       source_db_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "source_db_snapshot_identifier";
-       source_region =
-         Prop.computed __resource_type __resource_id "source_region";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_custom_availability_zone =
-         Prop.computed __resource_type __resource_id
-           "target_custom_availability_zone";
-       target_db_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "target_db_snapshot_identifier";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

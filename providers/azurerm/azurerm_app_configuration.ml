@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption = {
   identity_client_id : string prop option; [@option]
@@ -140,58 +138,62 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?local_auth_enabled
-    ?public_network_access ?purge_protection_enabled ?sku
-    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-    ~resource_group_name ~encryption ~identity ~replica __resource_id
-    =
-  let __resource_type = "azurerm_app_configuration" in
-  let __resource =
-    azurerm_app_configuration ?id ?local_auth_enabled
-      ?public_network_access ?purge_protection_enabled ?sku
-      ?soft_delete_retention_days ?tags ?timeouts ~location ~name
-      ~resource_group_name ~encryption ~identity ~replica ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_configuration __resource);
-  let __resource_attributes =
+let make ?id ?local_auth_enabled ?public_network_access
+    ?purge_protection_enabled ?sku ?soft_delete_retention_days ?tags
+    ?timeouts ~location ~name ~resource_group_name ~encryption
+    ~identity ~replica __id =
+  let __type = "azurerm_app_configuration" in
+  let __attrs =
     ({
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
        local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        primary_read_key =
-         Prop.computed __resource_type __resource_id
-           "primary_read_key";
+         Prop.computed __type __id "primary_read_key";
        primary_write_key =
-         Prop.computed __resource_type __resource_id
-           "primary_write_key";
+         Prop.computed __type __id "primary_write_key";
        public_network_access =
-         Prop.computed __resource_type __resource_id
-           "public_network_access";
+         Prop.computed __type __id "public_network_access";
        purge_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "purge_protection_enabled";
+         Prop.computed __type __id "purge_protection_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_read_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_read_key";
+         Prop.computed __type __id "secondary_read_key";
        secondary_write_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_write_key";
-       sku = Prop.computed __resource_type __resource_id "sku";
+         Prop.computed __type __id "secondary_write_key";
+       sku = Prop.computed __type __id "sku";
        soft_delete_retention_days =
-         Prop.computed __resource_type __resource_id
-           "soft_delete_retention_days";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "soft_delete_retention_days";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_configuration
+        (azurerm_app_configuration ?id ?local_auth_enabled
+           ?public_network_access ?purge_protection_enabled ?sku
+           ?soft_delete_retention_days ?tags ?timeouts ~location
+           ~name ~resource_group_name ~encryption ~identity ~replica
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?local_auth_enabled
+    ?public_network_access ?purge_protection_enabled ?sku
+    ?soft_delete_retention_days ?tags ?timeouts ~location ~name
+    ~resource_group_name ~encryption ~identity ~replica __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?local_auth_enabled ?public_network_access
+      ?purge_protection_enabled ?sku ?soft_delete_retention_days
+      ?tags ?timeouts ~location ~name ~resource_group_name
+      ~encryption ~identity ~replica __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

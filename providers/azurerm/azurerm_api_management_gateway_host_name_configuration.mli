@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?http2_enabled:bool prop ->
+  ?id:string prop ->
+  ?request_client_certificate_enabled:bool prop ->
+  ?tls10_enabled:bool prop ->
+  ?tls11_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  api_management_id:string prop ->
+  certificate_id:string prop ->
+  gateway_name:string prop ->
+  host_name:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,24 @@ val register :
   network_interface:network_interface list ->
   string ->
   t
+
+val make :
+  ?automatic_upgrade_channel:string prop ->
+  ?capacity:float prop ->
+  ?diagnose_support_enabled:bool prop ->
+  ?email:string prop ->
+  ?id:string prop ->
+  ?managed_resource_group:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  frontend_private:frontend_private list ->
+  frontend_public:frontend_public list ->
+  identity:identity list ->
+  logging_storage_account:logging_storage_account list ->
+  network_interface:network_interface list ->
+  string ->
+  t Tf_core.resource

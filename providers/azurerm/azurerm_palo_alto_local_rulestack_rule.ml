@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type category = {
   custom_urls : string prop list;  (** custom_urls *)
@@ -145,60 +143,63 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?audit_comment ?decryption_rule_type ?description ?enabled
+    ?id ?inspection_certificate_id ?logging_enabled
+    ?negate_destination ?negate_source ?protocol ?protocol_ports
+    ?tags ?timeouts ~action ~applications ~name ~priority
+    ~rulestack_id ~category ~destination ~source __id =
+  let __type = "azurerm_palo_alto_local_rulestack_rule" in
+  let __attrs =
+    ({
+       action = Prop.computed __type __id "action";
+       applications = Prop.computed __type __id "applications";
+       audit_comment = Prop.computed __type __id "audit_comment";
+       decryption_rule_type =
+         Prop.computed __type __id "decryption_rule_type";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       inspection_certificate_id =
+         Prop.computed __type __id "inspection_certificate_id";
+       logging_enabled = Prop.computed __type __id "logging_enabled";
+       name = Prop.computed __type __id "name";
+       negate_destination =
+         Prop.computed __type __id "negate_destination";
+       negate_source = Prop.computed __type __id "negate_source";
+       priority = Prop.computed __type __id "priority";
+       protocol = Prop.computed __type __id "protocol";
+       protocol_ports = Prop.computed __type __id "protocol_ports";
+       rulestack_id = Prop.computed __type __id "rulestack_id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_palo_alto_local_rulestack_rule
+        (azurerm_palo_alto_local_rulestack_rule ?audit_comment
+           ?decryption_rule_type ?description ?enabled ?id
+           ?inspection_certificate_id ?logging_enabled
+           ?negate_destination ?negate_source ?protocol
+           ?protocol_ports ?tags ?timeouts ~action ~applications
+           ~name ~priority ~rulestack_id ~category ~destination
+           ~source ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?audit_comment ?decryption_rule_type
     ?description ?enabled ?id ?inspection_certificate_id
     ?logging_enabled ?negate_destination ?negate_source ?protocol
     ?protocol_ports ?tags ?timeouts ~action ~applications ~name
-    ~priority ~rulestack_id ~category ~destination ~source
-    __resource_id =
-  let __resource_type = "azurerm_palo_alto_local_rulestack_rule" in
-  let __resource =
-    azurerm_palo_alto_local_rulestack_rule ?audit_comment
-      ?decryption_rule_type ?description ?enabled ?id
-      ?inspection_certificate_id ?logging_enabled ?negate_destination
-      ?negate_source ?protocol ?protocol_ports ?tags ?timeouts
-      ~action ~applications ~name ~priority ~rulestack_id ~category
-      ~destination ~source ()
+    ~priority ~rulestack_id ~category ~destination ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?audit_comment ?decryption_rule_type ?description ?enabled
+      ?id ?inspection_certificate_id ?logging_enabled
+      ?negate_destination ?negate_source ?protocol ?protocol_ports
+      ?tags ?timeouts ~action ~applications ~name ~priority
+      ~rulestack_id ~category ~destination ~source __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_palo_alto_local_rulestack_rule __resource);
-  let __resource_attributes =
-    ({
-       action = Prop.computed __resource_type __resource_id "action";
-       applications =
-         Prop.computed __resource_type __resource_id "applications";
-       audit_comment =
-         Prop.computed __resource_type __resource_id "audit_comment";
-       decryption_rule_type =
-         Prop.computed __resource_type __resource_id
-           "decryption_rule_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       inspection_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "inspection_certificate_id";
-       logging_enabled =
-         Prop.computed __resource_type __resource_id
-           "logging_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       negate_destination =
-         Prop.computed __resource_type __resource_id
-           "negate_destination";
-       negate_source =
-         Prop.computed __resource_type __resource_id "negate_source";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       protocol_ports =
-         Prop.computed __resource_type __resource_id "protocol_ports";
-       rulestack_id =
-         Prop.computed __resource_type __resource_id "rulestack_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

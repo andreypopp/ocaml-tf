@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_swf_domain = {
   description : string prop option; [@option]  (** description *)
@@ -42,32 +40,39 @@ type t = {
   workflow_execution_retention_period_in_days : string prop;
 }
 
-let register ?tf_module ?description ?id ?name ?name_prefix ?tags
-    ?tags_all ~workflow_execution_retention_period_in_days
-    __resource_id =
-  let __resource_type = "aws_swf_domain" in
-  let __resource =
-    aws_swf_domain ?description ?id ?name ?name_prefix ?tags
-      ?tags_all ~workflow_execution_retention_period_in_days ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_swf_domain __resource);
-  let __resource_attributes =
+let make ?description ?id ?name ?name_prefix ?tags ?tags_all
+    ~workflow_execution_retention_period_in_days __id =
+  let __type = "aws_swf_domain" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        workflow_execution_retention_period_in_days =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "workflow_execution_retention_period_in_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_swf_domain
+        (aws_swf_domain ?description ?id ?name ?name_prefix ?tags
+           ?tags_all ~workflow_execution_retention_period_in_days ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?name ?name_prefix ?tags
+    ?tags_all ~workflow_execution_retention_period_in_days __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?name ?name_prefix ?tags ?tags_all
+      ~workflow_execution_retention_period_in_days __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

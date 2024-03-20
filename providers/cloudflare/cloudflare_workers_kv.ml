@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_workers_kv = {
   account_id : string prop;
@@ -29,25 +27,32 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~key ~namespace_id ~value
-    __resource_id =
-  let __resource_type = "cloudflare_workers_kv" in
-  let __resource =
-    cloudflare_workers_kv ?id ~account_id ~key ~namespace_id ~value
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_workers_kv __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~key ~namespace_id ~value __id =
+  let __type = "cloudflare_workers_kv" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       namespace_id =
-         Prop.computed __resource_type __resource_id "namespace_id";
-       value = Prop.computed __resource_type __resource_id "value";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       namespace_id = Prop.computed __type __id "namespace_id";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_workers_kv
+        (cloudflare_workers_kv ?id ~account_id ~key ~namespace_id
+           ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~key ~namespace_id ~value
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~key ~namespace_id ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

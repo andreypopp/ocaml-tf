@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -121,3 +121,21 @@ val register :
   retention_yearly:retention_yearly list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?instant_restore_retention_days:float prop ->
+  ?policy_type:string prop ->
+  ?timezone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
+  backup:backup list ->
+  instant_restore_resource_group:instant_restore_resource_group list ->
+  retention_daily:retention_daily list ->
+  retention_monthly:retention_monthly list ->
+  retention_weekly:retention_weekly list ->
+  retention_yearly:retention_yearly list ->
+  string ->
+  t Tf_core.resource

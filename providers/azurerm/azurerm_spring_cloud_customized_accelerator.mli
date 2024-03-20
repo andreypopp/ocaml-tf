@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -92,3 +92,17 @@ val register :
   git_repository:git_repository list ->
   string ->
   t
+
+val make :
+  ?accelerator_tags:string prop list ->
+  ?accelerator_type:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?icon_url:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_accelerator_id:string prop ->
+  git_repository:git_repository list ->
+  string ->
+  t Tf_core.resource

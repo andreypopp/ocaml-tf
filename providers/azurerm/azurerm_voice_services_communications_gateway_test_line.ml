@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,35 +53,42 @@ type t = {
   voice_services_communications_gateway_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~phone_number ~purpose ~voice_services_communications_gateway_id
-    __resource_id =
-  let __resource_type =
+let make ?id ?tags ?timeouts ~location ~name ~phone_number ~purpose
+    ~voice_services_communications_gateway_id __id =
+  let __type =
     "azurerm_voice_services_communications_gateway_test_line"
   in
-  let __resource =
-    azurerm_voice_services_communications_gateway_test_line ?id ?tags
-      ?timeouts ~location ~name ~phone_number ~purpose
-      ~voice_services_communications_gateway_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_voice_services_communications_gateway_test_line
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       phone_number =
-         Prop.computed __resource_type __resource_id "phone_number";
-       purpose =
-         Prop.computed __resource_type __resource_id "purpose";
-       tags = Prop.computed __resource_type __resource_id "tags";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       phone_number = Prop.computed __type __id "phone_number";
+       purpose = Prop.computed __type __id "purpose";
+       tags = Prop.computed __type __id "tags";
        voice_services_communications_gateway_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "voice_services_communications_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_voice_services_communications_gateway_test_line
+        (azurerm_voice_services_communications_gateway_test_line ?id
+           ?tags ?timeouts ~location ~name ~phone_number ~purpose
+           ~voice_services_communications_gateway_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~phone_number ~purpose ~voice_services_communications_gateway_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~phone_number ~purpose
+      ~voice_services_communications_gateway_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

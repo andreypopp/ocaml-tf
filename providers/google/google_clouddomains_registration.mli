@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -203,3 +203,19 @@ val register :
   yearly_price:yearly_price list ->
   string ->
   t
+
+val make :
+  ?contact_notices:string prop list ->
+  ?domain_notices:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  location:string prop ->
+  contact_settings:contact_settings list ->
+  dns_settings:dns_settings list ->
+  management_settings:management_settings list ->
+  yearly_price:yearly_price list ->
+  string ->
+  t Tf_core.resource

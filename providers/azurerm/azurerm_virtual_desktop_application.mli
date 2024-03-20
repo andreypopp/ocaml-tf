@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   path:string prop ->
   string ->
   t
+
+val make :
+  ?command_line_arguments:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?icon_index:float prop ->
+  ?icon_path:string prop ->
+  ?id:string prop ->
+  ?show_in_portal:bool prop ->
+  ?timeouts:timeouts ->
+  application_group_id:string prop ->
+  command_line_argument_policy:string prop ->
+  name:string prop ->
+  path:string prop ->
+  string ->
+  t Tf_core.resource

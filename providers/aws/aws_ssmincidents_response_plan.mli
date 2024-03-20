@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -108,3 +108,17 @@ val register :
   integration:integration list ->
   string ->
   t
+
+val make :
+  ?chat_channel:string prop list ->
+  ?display_name:string prop ->
+  ?engagements:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  action:action list ->
+  incident_template:incident_template list ->
+  integration:integration list ->
+  string ->
+  t Tf_core.resource

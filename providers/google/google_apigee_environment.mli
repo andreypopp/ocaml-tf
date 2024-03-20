@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,17 @@ val register :
   node_config:node_config list ->
   string ->
   t
+
+val make :
+  ?api_proxy_type:string prop ->
+  ?deployment_type:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  org_id:string prop ->
+  node_config:node_config list ->
+  string ->
+  t Tf_core.resource

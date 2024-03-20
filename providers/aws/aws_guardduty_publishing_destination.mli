@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,3 +37,12 @@ val register :
   kms_key_arn:string prop ->
   string ->
   t
+
+val make :
+  ?destination_type:string prop ->
+  ?id:string prop ->
+  destination_arn:string prop ->
+  detector_id:string prop ->
+  kms_key_arn:string prop ->
+  string ->
+  t Tf_core.resource

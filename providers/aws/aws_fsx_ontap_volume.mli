@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -149,3 +149,25 @@ val register :
   tiering_policy:tiering_policy list ->
   string ->
   t
+
+val make :
+  ?bypass_snaplock_enterprise_retention:bool prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?id:string prop ->
+  ?junction_path:string prop ->
+  ?ontap_volume_type:string prop ->
+  ?security_style:string prop ->
+  ?skip_final_backup:bool prop ->
+  ?snapshot_policy:string prop ->
+  ?storage_efficiency_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?volume_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  size_in_megabytes:float prop ->
+  storage_virtual_machine_id:string prop ->
+  snaplock_configuration:snaplock_configuration list ->
+  tiering_policy:tiering_policy list ->
+  string ->
+  t Tf_core.resource

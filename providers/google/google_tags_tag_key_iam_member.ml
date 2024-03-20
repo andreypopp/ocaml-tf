@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]  (** description *)
@@ -37,24 +35,31 @@ type t = {
   tag_key : string prop;
 }
 
-let register ?tf_module ?id ~member ~role ~tag_key ~condition
-    __resource_id =
-  let __resource_type = "google_tags_tag_key_iam_member" in
-  let __resource =
-    google_tags_tag_key_iam_member ?id ~member ~role ~tag_key
-      ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_tags_tag_key_iam_member __resource);
-  let __resource_attributes =
+let make ?id ~member ~role ~tag_key ~condition __id =
+  let __type = "google_tags_tag_key_iam_member" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       member = Prop.computed __resource_type __resource_id "member";
-       role = Prop.computed __resource_type __resource_id "role";
-       tag_key =
-         Prop.computed __resource_type __resource_id "tag_key";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       member = Prop.computed __type __id "member";
+       role = Prop.computed __type __id "role";
+       tag_key = Prop.computed __type __id "tag_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_tags_tag_key_iam_member
+        (google_tags_tag_key_iam_member ?id ~member ~role ~tag_key
+           ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~member ~role ~tag_key ~condition __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~member ~role ~tag_key ~condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

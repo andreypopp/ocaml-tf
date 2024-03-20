@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_control__akamai_signature_header_authentication_key = {
   base64_key : string prop option; [@option]  (** base64_key *)
@@ -144,58 +142,63 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
+    ?custom_host_names ?description ?id ?max_cache_age_seconds ?tags
+    ?timeouts ~location ~media_services_account_name ~name
+    ~resource_group_name ~scale_units ~access_control
+    ~cross_site_access_policy __id =
+  let __type = "azurerm_media_streaming_endpoint" in
+  let __attrs =
+    ({
+       auto_start_enabled =
+         Prop.computed __type __id "auto_start_enabled";
+       cdn_enabled = Prop.computed __type __id "cdn_enabled";
+       cdn_profile = Prop.computed __type __id "cdn_profile";
+       cdn_provider = Prop.computed __type __id "cdn_provider";
+       custom_host_names =
+         Prop.computed __type __id "custom_host_names";
+       description = Prop.computed __type __id "description";
+       host_name = Prop.computed __type __id "host_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       max_cache_age_seconds =
+         Prop.computed __type __id "max_cache_age_seconds";
+       media_services_account_name =
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       scale_units = Prop.computed __type __id "scale_units";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_streaming_endpoint
+        (azurerm_media_streaming_endpoint ?auto_start_enabled
+           ?cdn_enabled ?cdn_profile ?cdn_provider ?custom_host_names
+           ?description ?id ?max_cache_age_seconds ?tags ?timeouts
+           ~location ~media_services_account_name ~name
+           ~resource_group_name ~scale_units ~access_control
+           ~cross_site_access_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_start_enabled ?cdn_enabled ?cdn_profile
     ?cdn_provider ?custom_host_names ?description ?id
     ?max_cache_age_seconds ?tags ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
-    ~scale_units ~access_control ~cross_site_access_policy
-    __resource_id =
-  let __resource_type = "azurerm_media_streaming_endpoint" in
-  let __resource =
-    azurerm_media_streaming_endpoint ?auto_start_enabled ?cdn_enabled
-      ?cdn_profile ?cdn_provider ?custom_host_names ?description ?id
-      ?max_cache_age_seconds ?tags ?timeouts ~location
-      ~media_services_account_name ~name ~resource_group_name
-      ~scale_units ~access_control ~cross_site_access_policy ()
+    ~scale_units ~access_control ~cross_site_access_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_start_enabled ?cdn_enabled ?cdn_profile ?cdn_provider
+      ?custom_host_names ?description ?id ?max_cache_age_seconds
+      ?tags ?timeouts ~location ~media_services_account_name ~name
+      ~resource_group_name ~scale_units ~access_control
+      ~cross_site_access_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_streaming_endpoint __resource);
-  let __resource_attributes =
-    ({
-       auto_start_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_start_enabled";
-       cdn_enabled =
-         Prop.computed __resource_type __resource_id "cdn_enabled";
-       cdn_profile =
-         Prop.computed __resource_type __resource_id "cdn_profile";
-       cdn_provider =
-         Prop.computed __resource_type __resource_id "cdn_provider";
-       custom_host_names =
-         Prop.computed __resource_type __resource_id
-           "custom_host_names";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       max_cache_age_seconds =
-         Prop.computed __resource_type __resource_id
-           "max_cache_age_seconds";
-       media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scale_units =
-         Prop.computed __resource_type __resource_id "scale_units";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

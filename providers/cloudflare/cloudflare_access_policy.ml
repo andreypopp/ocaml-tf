@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type approval_group = {
   approvals_needed : float prop;  (** Number of approvals needed. *)
@@ -541,51 +539,56 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?account_id ?approval_required ?id ?isolation_required
+    ?purpose_justification_prompt ?purpose_justification_required
+    ?session_duration ?zone_id ~application_id ~decision ~name
+    ~precedence ~approval_group ~exclude ~include_ ~require __id =
+  let __type = "cloudflare_access_policy" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       application_id = Prop.computed __type __id "application_id";
+       approval_required =
+         Prop.computed __type __id "approval_required";
+       decision = Prop.computed __type __id "decision";
+       id = Prop.computed __type __id "id";
+       isolation_required =
+         Prop.computed __type __id "isolation_required";
+       name = Prop.computed __type __id "name";
+       precedence = Prop.computed __type __id "precedence";
+       purpose_justification_prompt =
+         Prop.computed __type __id "purpose_justification_prompt";
+       purpose_justification_required =
+         Prop.computed __type __id "purpose_justification_required";
+       session_duration =
+         Prop.computed __type __id "session_duration";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_policy
+        (cloudflare_access_policy ?account_id ?approval_required ?id
+           ?isolation_required ?purpose_justification_prompt
+           ?purpose_justification_required ?session_duration ?zone_id
+           ~application_id ~decision ~name ~precedence
+           ~approval_group ~exclude ~include_ ~require ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?account_id ?approval_required ?id
     ?isolation_required ?purpose_justification_prompt
     ?purpose_justification_required ?session_duration ?zone_id
     ~application_id ~decision ~name ~precedence ~approval_group
-    ~exclude ~include_ ~require __resource_id =
-  let __resource_type = "cloudflare_access_policy" in
-  let __resource =
-    cloudflare_access_policy ?account_id ?approval_required ?id
-      ?isolation_required ?purpose_justification_prompt
-      ?purpose_justification_required ?session_duration ?zone_id
-      ~application_id ~decision ~name ~precedence ~approval_group
-      ~exclude ~include_ ~require ()
+    ~exclude ~include_ ~require __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?approval_required ?id ?isolation_required
+      ?purpose_justification_prompt ?purpose_justification_required
+      ?session_duration ?zone_id ~application_id ~decision ~name
+      ~precedence ~approval_group ~exclude ~include_ ~require __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_policy __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       approval_required =
-         Prop.computed __resource_type __resource_id
-           "approval_required";
-       decision =
-         Prop.computed __resource_type __resource_id "decision";
-       id = Prop.computed __resource_type __resource_id "id";
-       isolation_required =
-         Prop.computed __resource_type __resource_id
-           "isolation_required";
-       name = Prop.computed __resource_type __resource_id "name";
-       precedence =
-         Prop.computed __resource_type __resource_id "precedence";
-       purpose_justification_prompt =
-         Prop.computed __resource_type __resource_id
-           "purpose_justification_prompt";
-       purpose_justification_required =
-         Prop.computed __resource_type __resource_id
-           "purpose_justification_required";
-       session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

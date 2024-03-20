@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,19 @@ val register :
   ipv4_firewall_rule:ipv4_firewall_rule list ->
   string ->
   t
+
+val make :
+  ?admin_users:string prop list ->
+  ?backup_blob_container_uri:string prop ->
+  ?enable_power_bi_service:bool prop ->
+  ?id:string prop ->
+  ?querypool_connection_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  ipv4_firewall_rule:ipv4_firewall_rule list ->
+  string ->
+  t Tf_core.resource

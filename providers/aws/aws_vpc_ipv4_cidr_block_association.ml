@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -46,28 +44,37 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?cidr_block ?id ?ipv4_ipam_pool_id
-    ?ipv4_netmask_length ?timeouts ~vpc_id __resource_id =
-  let __resource_type = "aws_vpc_ipv4_cidr_block_association" in
-  let __resource =
-    aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
-      ?ipv4_ipam_pool_id ?ipv4_netmask_length ?timeouts ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipv4_cidr_block_association __resource);
-  let __resource_attributes =
+let make ?cidr_block ?id ?ipv4_ipam_pool_id ?ipv4_netmask_length
+    ?timeouts ~vpc_id __id =
+  let __type = "aws_vpc_ipv4_cidr_block_association" in
+  let __attrs =
     ({
-       cidr_block =
-         Prop.computed __resource_type __resource_id "cidr_block";
-       id = Prop.computed __resource_type __resource_id "id";
+       cidr_block = Prop.computed __type __id "cidr_block";
+       id = Prop.computed __type __id "id";
        ipv4_ipam_pool_id =
-         Prop.computed __resource_type __resource_id
-           "ipv4_ipam_pool_id";
+         Prop.computed __type __id "ipv4_ipam_pool_id";
        ipv4_netmask_length =
-         Prop.computed __resource_type __resource_id
-           "ipv4_netmask_length";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "ipv4_netmask_length";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipv4_cidr_block_association
+        (aws_vpc_ipv4_cidr_block_association ?cidr_block ?id
+           ?ipv4_ipam_pool_id ?ipv4_netmask_length ?timeouts ~vpc_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cidr_block ?id ?ipv4_ipam_pool_id
+    ?ipv4_netmask_length ?timeouts ~vpc_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?cidr_block ?id ?ipv4_ipam_pool_id ?ipv4_netmask_length
+      ?timeouts ~vpc_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

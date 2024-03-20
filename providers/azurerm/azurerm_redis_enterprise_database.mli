@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,19 @@ val register :
   module_:module_ list ->
   string ->
   t
+
+val make :
+  ?client_protocol:string prop ->
+  ?clustering_policy:string prop ->
+  ?eviction_policy:string prop ->
+  ?id:string prop ->
+  ?linked_database_group_nickname:string prop ->
+  ?linked_database_id:string prop list ->
+  ?name:string prop ->
+  ?port:float prop ->
+  ?resource_group_name:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  module_:module_ list ->
+  string ->
+  t Tf_core.resource

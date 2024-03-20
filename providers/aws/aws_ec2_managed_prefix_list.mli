@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,14 @@ val register :
   entry:entry list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  address_family:string prop ->
+  max_entries:float prop ->
+  name:string prop ->
+  entry:entry list ->
+  string ->
+  t Tf_core.resource

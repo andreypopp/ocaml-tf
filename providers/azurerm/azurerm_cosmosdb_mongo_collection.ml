@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscale_settings = {
   max_throughput : float prop option; [@option]  (** max_throughput *)
@@ -92,43 +90,47 @@ type t = {
   throughput : float prop;
 }
 
-let register ?tf_module ?analytical_storage_ttl ?default_ttl_seconds
-    ?id ?shard_key ?throughput ?timeouts ~account_name ~database_name
-    ~name ~resource_group_name ~autoscale_settings ~index
-    __resource_id =
-  let __resource_type = "azurerm_cosmosdb_mongo_collection" in
-  let __resource =
-    azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
-      ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
-      ~account_name ~database_name ~name ~resource_group_name
-      ~autoscale_settings ~index ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_mongo_collection __resource);
-  let __resource_attributes =
+let make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
+    ?throughput ?timeouts ~account_name ~database_name ~name
+    ~resource_group_name ~autoscale_settings ~index __id =
+  let __type = "azurerm_cosmosdb_mongo_collection" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
+       account_name = Prop.computed __type __id "account_name";
        analytical_storage_ttl =
-         Prop.computed __resource_type __resource_id
-           "analytical_storage_ttl";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
+         Prop.computed __type __id "analytical_storage_ttl";
+       database_name = Prop.computed __type __id "database_name";
        default_ttl_seconds =
-         Prop.computed __resource_type __resource_id
-           "default_ttl_seconds";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_ttl_seconds";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       shard_key =
-         Prop.computed __resource_type __resource_id "shard_key";
-       system_indexes =
-         Prop.computed __resource_type __resource_id "system_indexes";
-       throughput =
-         Prop.computed __resource_type __resource_id "throughput";
+         Prop.computed __type __id "resource_group_name";
+       shard_key = Prop.computed __type __id "shard_key";
+       system_indexes = Prop.computed __type __id "system_indexes";
+       throughput = Prop.computed __type __id "throughput";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_mongo_collection
+        (azurerm_cosmosdb_mongo_collection ?analytical_storage_ttl
+           ?default_ttl_seconds ?id ?shard_key ?throughput ?timeouts
+           ~account_name ~database_name ~name ~resource_group_name
+           ~autoscale_settings ~index ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?analytical_storage_ttl ?default_ttl_seconds
+    ?id ?shard_key ?throughput ?timeouts ~account_name ~database_name
+    ~name ~resource_group_name ~autoscale_settings ~index __id =
+  let (r : _ Tf_core.resource) =
+    make ?analytical_storage_ttl ?default_ttl_seconds ?id ?shard_key
+      ?throughput ?timeouts ~account_name ~database_name ~name
+      ~resource_group_name ~autoscale_settings ~index __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

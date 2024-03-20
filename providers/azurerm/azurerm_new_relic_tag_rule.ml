@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_tag_filter = {
   action : string prop;  (** action *)
@@ -80,36 +78,45 @@ type t = {
   subscription_log_enabled : bool prop;
 }
 
-let register ?tf_module ?activity_log_enabled
-    ?azure_active_directory_log_enabled ?id ?metric_enabled
-    ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
-    ~metric_tag_filter __resource_id =
-  let __resource_type = "azurerm_new_relic_tag_rule" in
-  let __resource =
-    azurerm_new_relic_tag_rule ?activity_log_enabled
-      ?azure_active_directory_log_enabled ?id ?metric_enabled
-      ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
-      ~metric_tag_filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_new_relic_tag_rule __resource);
-  let __resource_attributes =
+let make ?activity_log_enabled ?azure_active_directory_log_enabled
+    ?id ?metric_enabled ?subscription_log_enabled ?timeouts
+    ~monitor_id ~log_tag_filter ~metric_tag_filter __id =
+  let __type = "azurerm_new_relic_tag_rule" in
+  let __attrs =
     ({
        activity_log_enabled =
-         Prop.computed __resource_type __resource_id
-           "activity_log_enabled";
+         Prop.computed __type __id "activity_log_enabled";
        azure_active_directory_log_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "azure_active_directory_log_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       metric_enabled =
-         Prop.computed __resource_type __resource_id "metric_enabled";
-       monitor_id =
-         Prop.computed __resource_type __resource_id "monitor_id";
+       id = Prop.computed __type __id "id";
+       metric_enabled = Prop.computed __type __id "metric_enabled";
+       monitor_id = Prop.computed __type __id "monitor_id";
        subscription_log_enabled =
-         Prop.computed __resource_type __resource_id
-           "subscription_log_enabled";
+         Prop.computed __type __id "subscription_log_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_new_relic_tag_rule
+        (azurerm_new_relic_tag_rule ?activity_log_enabled
+           ?azure_active_directory_log_enabled ?id ?metric_enabled
+           ?subscription_log_enabled ?timeouts ~monitor_id
+           ~log_tag_filter ~metric_tag_filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?activity_log_enabled
+    ?azure_active_directory_log_enabled ?id ?metric_enabled
+    ?subscription_log_enabled ?timeouts ~monitor_id ~log_tag_filter
+    ~metric_tag_filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?activity_log_enabled ?azure_active_directory_log_enabled
+      ?id ?metric_enabled ?subscription_log_enabled ?timeouts
+      ~monitor_id ~log_tag_filter ~metric_tag_filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -98,50 +96,53 @@ type t = {
   value_type : string prop;
 }
 
-let register ?tf_module ?default_variation ?description
-    ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
-    ?timeouts ~name ~project ~variations __resource_id =
-  let __resource_type = "aws_evidently_feature" in
-  let __resource =
-    aws_evidently_feature ?default_variation ?description
-      ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
-      ?timeouts ~name ~project ~variations ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_evidently_feature __resource);
-  let __resource_attributes =
+let make ?default_variation ?description ?entity_overrides
+    ?evaluation_strategy ?id ?tags ?tags_all ?timeouts ~name ~project
+    ~variations __id =
+  let __type = "aws_evidently_feature" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
+       arn = Prop.computed __type __id "arn";
+       created_time = Prop.computed __type __id "created_time";
        default_variation =
-         Prop.computed __resource_type __resource_id
-           "default_variation";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "default_variation";
+       description = Prop.computed __type __id "description";
        entity_overrides =
-         Prop.computed __resource_type __resource_id
-           "entity_overrides";
+         Prop.computed __type __id "entity_overrides";
        evaluation_rules =
-         Prop.computed __resource_type __resource_id
-           "evaluation_rules";
+         Prop.computed __type __id "evaluation_rules";
        evaluation_strategy =
-         Prop.computed __resource_type __resource_id
-           "evaluation_strategy";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "evaluation_strategy";
+       id = Prop.computed __type __id "id";
        last_updated_time =
-         Prop.computed __resource_type __resource_id
-           "last_updated_time";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       value_type =
-         Prop.computed __resource_type __resource_id "value_type";
+         Prop.computed __type __id "last_updated_time";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       value_type = Prop.computed __type __id "value_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_evidently_feature
+        (aws_evidently_feature ?default_variation ?description
+           ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
+           ?timeouts ~name ~project ~variations ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_variation ?description
+    ?entity_overrides ?evaluation_strategy ?id ?tags ?tags_all
+    ?timeouts ~name ~project ~variations __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_variation ?description ?entity_overrides
+      ?evaluation_strategy ?id ?tags ?tags_all ?timeouts ~name
+      ~project ~variations __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

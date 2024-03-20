@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,20 @@ val register :
   view:view list ->
   string ->
   t
+
+val make :
+  ?domain:string prop ->
+  ?group_by_email:string prop ->
+  ?iam_member:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?role:string prop ->
+  ?special_group:string prop ->
+  ?user_by_email:string prop ->
+  ?timeouts:timeouts ->
+  dataset_id:string prop ->
+  dataset:dataset list ->
+  routine:routine list ->
+  view:view list ->
+  string ->
+  t Tf_core.resource

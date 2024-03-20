@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type field = {
   is_encrypted : bool prop option; [@option]  (** is_encrypted *)
@@ -61,29 +59,37 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?is_global ?timeouts
-    ~automation_account_name ~name ~resource_group_name ~field
-    __resource_id =
-  let __resource_type = "azurerm_automation_connection_type" in
-  let __resource =
-    azurerm_automation_connection_type ?id ?is_global ?timeouts
-      ~automation_account_name ~name ~resource_group_name ~field ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_connection_type __resource);
-  let __resource_attributes =
+let make ?id ?is_global ?timeouts ~automation_account_name ~name
+    ~resource_group_name ~field __id =
+  let __type = "azurerm_automation_connection_type" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_global =
-         Prop.computed __resource_type __resource_id "is_global";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automation_account_name";
+       id = Prop.computed __type __id "id";
+       is_global = Prop.computed __type __id "is_global";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_connection_type
+        (azurerm_automation_connection_type ?id ?is_global ?timeouts
+           ~automation_account_name ~name ~resource_group_name ~field
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_global ?timeouts
+    ~automation_account_name ~name ~resource_group_name ~field __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_global ?timeouts ~automation_account_name ~name
+      ~resource_group_name ~field __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -413,3 +413,48 @@ val register :
   warm_pool:warm_pool list ->
   string ->
   t
+
+val make :
+  ?availability_zones:string prop list ->
+  ?capacity_rebalance:bool prop ->
+  ?context:string prop ->
+  ?default_cooldown:float prop ->
+  ?default_instance_warmup:float prop ->
+  ?desired_capacity:float prop ->
+  ?desired_capacity_type:string prop ->
+  ?enabled_metrics:string prop list ->
+  ?force_delete:bool prop ->
+  ?force_delete_warm_pool:bool prop ->
+  ?health_check_grace_period:float prop ->
+  ?health_check_type:string prop ->
+  ?id:string prop ->
+  ?ignore_failed_scaling_activities:bool prop ->
+  ?launch_configuration:string prop ->
+  ?load_balancers:string prop list ->
+  ?max_instance_lifetime:float prop ->
+  ?metrics_granularity:string prop ->
+  ?min_elb_capacity:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?placement_group:string prop ->
+  ?protect_from_scale_in:bool prop ->
+  ?service_linked_role_arn:string prop ->
+  ?suspended_processes:string prop list ->
+  ?target_group_arns:string prop list ->
+  ?termination_policies:string prop list ->
+  ?vpc_zone_identifier:string prop list ->
+  ?wait_for_capacity_timeout:string prop ->
+  ?wait_for_elb_capacity:float prop ->
+  ?timeouts:timeouts ->
+  max_size:float prop ->
+  min_size:float prop ->
+  initial_lifecycle_hook:initial_lifecycle_hook list ->
+  instance_maintenance_policy:instance_maintenance_policy list ->
+  instance_refresh:instance_refresh list ->
+  launch_template:launch_template list ->
+  mixed_instances_policy:mixed_instances_policy list ->
+  tag:tag list ->
+  traffic_source:traffic_source list ->
+  warm_pool:warm_pool list ->
+  string ->
+  t Tf_core.resource

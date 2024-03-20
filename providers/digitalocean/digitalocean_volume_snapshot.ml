@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_volume_snapshot = {
   id : string prop option; [@option]  (** id *)
@@ -28,28 +26,33 @@ type t = {
   volume_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ~name ~volume_id __resource_id =
-  let __resource_type = "digitalocean_volume_snapshot" in
-  let __resource =
-    digitalocean_volume_snapshot ?id ?tags ~name ~volume_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_volume_snapshot __resource);
-  let __resource_attributes =
+let make ?id ?tags ~name ~volume_id __id =
+  let __type = "digitalocean_volume_snapshot" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       min_disk_size =
-         Prop.computed __resource_type __resource_id "min_disk_size";
-       name = Prop.computed __resource_type __resource_id "name";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
-       size = Prop.computed __resource_type __resource_id "size";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       volume_id =
-         Prop.computed __resource_type __resource_id "volume_id";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       min_disk_size = Prop.computed __type __id "min_disk_size";
+       name = Prop.computed __type __id "name";
+       regions = Prop.computed __type __id "regions";
+       size = Prop.computed __type __id "size";
+       tags = Prop.computed __type __id "tags";
+       volume_id = Prop.computed __type __id "volume_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_volume_snapshot
+        (digitalocean_volume_snapshot ?id ?tags ~name ~volume_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ~name ~volume_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ~name ~volume_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

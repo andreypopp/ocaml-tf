@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -134,3 +134,25 @@ val register :
   webassembly_binding:webassembly_binding list ->
   string ->
   t
+
+val make :
+  ?compatibility_date:string prop ->
+  ?compatibility_flags:string prop list ->
+  ?id:string prop ->
+  ?logpush:bool prop ->
+  ?module_:bool prop ->
+  account_id:string prop ->
+  content:string prop ->
+  name:string prop ->
+  analytics_engine_binding:analytics_engine_binding list ->
+  d1_database_binding:d1_database_binding list ->
+  kv_namespace_binding:kv_namespace_binding list ->
+  placement:placement list ->
+  plain_text_binding:plain_text_binding list ->
+  queue_binding:queue_binding list ->
+  r2_bucket_binding:r2_bucket_binding list ->
+  secret_text_binding:secret_text_binding list ->
+  service_binding:service_binding list ->
+  webassembly_binding:webassembly_binding list ->
+  string ->
+  t Tf_core.resource

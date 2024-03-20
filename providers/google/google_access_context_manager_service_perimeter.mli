@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -306,3 +306,17 @@ val register :
   status:status list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?perimeter_type:string prop ->
+  ?use_explicit_dry_run_spec:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent:string prop ->
+  title:string prop ->
+  spec:spec list ->
+  status:status list ->
+  string ->
+  t Tf_core.resource

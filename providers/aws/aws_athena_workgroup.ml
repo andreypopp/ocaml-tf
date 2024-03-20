@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration__engine_version = {
   selected_engine_version : string prop option; [@option]
@@ -132,29 +130,37 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?force_destroy ?id ?state ?tags
-    ?tags_all ~name ~configuration __resource_id =
-  let __resource_type = "aws_athena_workgroup" in
-  let __resource =
-    aws_athena_workgroup ?description ?force_destroy ?id ?state ?tags
-      ?tags_all ~name ~configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_athena_workgroup __resource);
-  let __resource_attributes =
+let make ?description ?force_destroy ?id ?state ?tags ?tags_all ~name
+    ~configuration __id =
+  let __type = "aws_athena_workgroup" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_athena_workgroup
+        (aws_athena_workgroup ?description ?force_destroy ?id ?state
+           ?tags ?tags_all ~name ~configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_destroy ?id ?state ?tags
+    ?tags_all ~name ~configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_destroy ?id ?state ?tags ?tags_all ~name
+      ~configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

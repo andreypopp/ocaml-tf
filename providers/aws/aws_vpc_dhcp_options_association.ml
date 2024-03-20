@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpc_dhcp_options_association = {
   dhcp_options_id : string prop;  (** dhcp_options_id *)
@@ -22,21 +20,29 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ~dhcp_options_id ~vpc_id __resource_id =
-  let __resource_type = "aws_vpc_dhcp_options_association" in
-  let __resource =
-    aws_vpc_dhcp_options_association ?id ~dhcp_options_id ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_dhcp_options_association __resource);
-  let __resource_attributes =
+let make ?id ~dhcp_options_id ~vpc_id __id =
+  let __type = "aws_vpc_dhcp_options_association" in
+  let __attrs =
     ({
-       dhcp_options_id =
-         Prop.computed __resource_type __resource_id
-           "dhcp_options_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+       dhcp_options_id = Prop.computed __type __id "dhcp_options_id";
+       id = Prop.computed __type __id "id";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_dhcp_options_association
+        (aws_vpc_dhcp_options_association ?id ~dhcp_options_id
+           ~vpc_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~dhcp_options_id ~vpc_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~dhcp_options_id ~vpc_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

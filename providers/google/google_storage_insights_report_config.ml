@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type csv_options = {
   delimiter : string prop option; [@option]
@@ -154,28 +152,36 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?display_name ?id ?project ?timeouts
-    ~location ~csv_options ~frequency_options
-    ~object_metadata_report_options __resource_id =
-  let __resource_type = "google_storage_insights_report_config" in
-  let __resource =
-    google_storage_insights_report_config ?display_name ?id ?project
-      ?timeouts ~location ~csv_options ~frequency_options
-      ~object_metadata_report_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_insights_report_config __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?project ?timeouts ~location ~csv_options
+    ~frequency_options ~object_metadata_report_options __id =
+  let __type = "google_storage_insights_report_config" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_insights_report_config
+        (google_storage_insights_report_config ?display_name ?id
+           ?project ?timeouts ~location ~csv_options
+           ~frequency_options ~object_metadata_report_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?project ?timeouts
+    ~location ~csv_options ~frequency_options
+    ~object_metadata_report_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?project ?timeouts ~location ~csv_options
+      ~frequency_options ~object_metadata_report_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -298,3 +298,14 @@ val register :
   require:require list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
+  exclude:exclude list ->
+  include_:include_ list ->
+  require:require list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type import = {
   administrator_login : string prop;  (** administrator_login *)
@@ -166,77 +164,80 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?collation ?create_mode ?edition ?elastic_pool_name ?id
+    ?max_size_bytes ?max_size_gb ?read_scale
+    ?requested_service_objective_id ?requested_service_objective_name
+    ?restore_point_in_time ?source_database_deletion_date
+    ?source_database_id ?tags ?zone_redundant ?timeouts ~location
+    ~name ~resource_group_name ~server_name ~import
+    ~threat_detection_policy __id =
+  let __type = "azurerm_sql_database" in
+  let __attrs =
+    ({
+       collation = Prop.computed __type __id "collation";
+       create_mode = Prop.computed __type __id "create_mode";
+       creation_date = Prop.computed __type __id "creation_date";
+       default_secondary_location =
+         Prop.computed __type __id "default_secondary_location";
+       edition = Prop.computed __type __id "edition";
+       elastic_pool_name =
+         Prop.computed __type __id "elastic_pool_name";
+       encryption = Prop.computed __type __id "encryption";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       max_size_bytes = Prop.computed __type __id "max_size_bytes";
+       max_size_gb = Prop.computed __type __id "max_size_gb";
+       name = Prop.computed __type __id "name";
+       read_scale = Prop.computed __type __id "read_scale";
+       requested_service_objective_id =
+         Prop.computed __type __id "requested_service_objective_id";
+       requested_service_objective_name =
+         Prop.computed __type __id "requested_service_objective_name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       restore_point_in_time =
+         Prop.computed __type __id "restore_point_in_time";
+       server_name = Prop.computed __type __id "server_name";
+       source_database_deletion_date =
+         Prop.computed __type __id "source_database_deletion_date";
+       source_database_id =
+         Prop.computed __type __id "source_database_id";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_database
+        (azurerm_sql_database ?collation ?create_mode ?edition
+           ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb
+           ?read_scale ?requested_service_objective_id
+           ?requested_service_objective_name ?restore_point_in_time
+           ?source_database_deletion_date ?source_database_id ?tags
+           ?zone_redundant ?timeouts ~location ~name
+           ~resource_group_name ~server_name ~import
+           ~threat_detection_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?collation ?create_mode ?edition
     ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
     ?requested_service_objective_id ?requested_service_objective_name
     ?restore_point_in_time ?source_database_deletion_date
     ?source_database_id ?tags ?zone_redundant ?timeouts ~location
     ~name ~resource_group_name ~server_name ~import
-    ~threat_detection_policy __resource_id =
-  let __resource_type = "azurerm_sql_database" in
-  let __resource =
-    azurerm_sql_database ?collation ?create_mode ?edition
-      ?elastic_pool_name ?id ?max_size_bytes ?max_size_gb ?read_scale
+    ~threat_detection_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?collation ?create_mode ?edition ?elastic_pool_name ?id
+      ?max_size_bytes ?max_size_gb ?read_scale
       ?requested_service_objective_id
       ?requested_service_objective_name ?restore_point_in_time
       ?source_database_deletion_date ?source_database_id ?tags
       ?zone_redundant ?timeouts ~location ~name ~resource_group_name
-      ~server_name ~import ~threat_detection_policy ()
+      ~server_name ~import ~threat_detection_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_database __resource);
-  let __resource_attributes =
-    ({
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       default_secondary_location =
-         Prop.computed __resource_type __resource_id
-           "default_secondary_location";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       elastic_pool_name =
-         Prop.computed __resource_type __resource_id
-           "elastic_pool_name";
-       encryption =
-         Prop.computed __resource_type __resource_id "encryption";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       max_size_bytes =
-         Prop.computed __resource_type __resource_id "max_size_bytes";
-       max_size_gb =
-         Prop.computed __resource_type __resource_id "max_size_gb";
-       name = Prop.computed __resource_type __resource_id "name";
-       read_scale =
-         Prop.computed __resource_type __resource_id "read_scale";
-       requested_service_objective_id =
-         Prop.computed __resource_type __resource_id
-           "requested_service_objective_id";
-       requested_service_objective_name =
-         Prop.computed __resource_type __resource_id
-           "requested_service_objective_name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       restore_point_in_time =
-         Prop.computed __resource_type __resource_id
-           "restore_point_in_time";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
-       source_database_deletion_date =
-         Prop.computed __resource_type __resource_id
-           "source_database_deletion_date";
-       source_database_id =
-         Prop.computed __resource_type __resource_id
-           "source_database_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

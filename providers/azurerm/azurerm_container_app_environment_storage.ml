@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,35 +56,39 @@ type t = {
   share_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~access_key ~access_mode
-    ~account_name ~container_app_environment_id ~name ~share_name
-    __resource_id =
-  let __resource_type =
-    "azurerm_container_app_environment_storage"
-  in
-  let __resource =
-    azurerm_container_app_environment_storage ?id ?timeouts
-      ~access_key ~access_mode ~account_name
-      ~container_app_environment_id ~name ~share_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_app_environment_storage __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~access_key ~access_mode ~account_name
+    ~container_app_environment_id ~name ~share_name __id =
+  let __type = "azurerm_container_app_environment_storage" in
+  let __attrs =
     ({
-       access_key =
-         Prop.computed __resource_type __resource_id "access_key";
-       access_mode =
-         Prop.computed __resource_type __resource_id "access_mode";
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
+       access_key = Prop.computed __type __id "access_key";
+       access_mode = Prop.computed __type __id "access_mode";
+       account_name = Prop.computed __type __id "account_name";
        container_app_environment_id =
-         Prop.computed __resource_type __resource_id
-           "container_app_environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       share_name =
-         Prop.computed __resource_type __resource_id "share_name";
+         Prop.computed __type __id "container_app_environment_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       share_name = Prop.computed __type __id "share_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_app_environment_storage
+        (azurerm_container_app_environment_storage ?id ?timeouts
+           ~access_key ~access_mode ~account_name
+           ~container_app_environment_id ~name ~share_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~access_key ~access_mode
+    ~account_name ~container_app_environment_id ~name ~share_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~access_key ~access_mode ~account_name
+      ~container_app_environment_id ~name ~share_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

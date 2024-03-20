@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,10 @@ val register :
   data_share_arn:string prop ->
   string ->
   t
+
+val make :
+  ?allow_writes:bool prop ->
+  consumer_identifier:string prop ->
+  data_share_arn:string prop ->
+  string ->
+  t Tf_core.resource

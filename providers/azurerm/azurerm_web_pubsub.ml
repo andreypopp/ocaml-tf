@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -117,67 +115,66 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?aad_auth_enabled ?capacity ?id
-    ?local_auth_enabled ?public_network_access_enabled ?tags
-    ?tls_client_cert_enabled ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity ~live_trace __resource_id =
-  let __resource_type = "azurerm_web_pubsub" in
-  let __resource =
-    azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
-      ?local_auth_enabled ?public_network_access_enabled ?tags
-      ?tls_client_cert_enabled ?timeouts ~location ~name
-      ~resource_group_name ~sku ~identity ~live_trace ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_web_pubsub __resource);
-  let __resource_attributes =
+let make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
+    ?public_network_access_enabled ?tags ?tls_client_cert_enabled
+    ?timeouts ~location ~name ~resource_group_name ~sku ~identity
+    ~live_trace __id =
+  let __type = "azurerm_web_pubsub" in
+  let __attrs =
     ({
        aad_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "aad_auth_enabled";
-       capacity =
-         Prop.computed __resource_type __resource_id "capacity";
-       external_ip =
-         Prop.computed __resource_type __resource_id "external_ip";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "aad_auth_enabled";
+       capacity = Prop.computed __type __id "capacity";
+       external_ip = Prop.computed __type __id "external_ip";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
        local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
+         Prop.computed __type __id "primary_access_key";
        primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string";
+         Prop.computed __type __id "primary_connection_string";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       public_port =
-         Prop.computed __resource_type __resource_id "public_port";
+         Prop.computed __type __id "public_network_access_enabled";
+       public_port = Prop.computed __type __id "public_port";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
+         Prop.computed __type __id "secondary_access_key";
        secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_connection_string";
-       server_port =
-         Prop.computed __resource_type __resource_id "server_port";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "secondary_connection_string";
+       server_port = Prop.computed __type __id "server_port";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
        tls_client_cert_enabled =
-         Prop.computed __resource_type __resource_id
-           "tls_client_cert_enabled";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "tls_client_cert_enabled";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_web_pubsub
+        (azurerm_web_pubsub ?aad_auth_enabled ?capacity ?id
+           ?local_auth_enabled ?public_network_access_enabled ?tags
+           ?tls_client_cert_enabled ?timeouts ~location ~name
+           ~resource_group_name ~sku ~identity ~live_trace ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?aad_auth_enabled ?capacity ?id
+    ?local_auth_enabled ?public_network_access_enabled ?tags
+    ?tls_client_cert_enabled ?timeouts ~location ~name
+    ~resource_group_name ~sku ~identity ~live_trace __id =
+  let (r : _ Tf_core.resource) =
+    make ?aad_auth_enabled ?capacity ?id ?local_auth_enabled
+      ?public_network_access_enabled ?tags ?tls_client_cert_enabled
+      ?timeouts ~location ~name ~resource_group_name ~sku ~identity
+      ~live_trace __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

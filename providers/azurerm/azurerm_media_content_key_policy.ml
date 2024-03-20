@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy_option__fairplay_configuration__offline_rental_configuration = {
   playback_duration_seconds : float prop option; [@option]
@@ -331,30 +329,38 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~media_services_account_name ~name ~resource_group_name
-    ~policy_option __resource_id =
-  let __resource_type = "azurerm_media_content_key_policy" in
-  let __resource =
-    azurerm_media_content_key_policy ?description ?id ?timeouts
-      ~media_services_account_name ~name ~resource_group_name
-      ~policy_option ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_content_key_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~media_services_account_name
+    ~name ~resource_group_name ~policy_option __id =
+  let __type = "azurerm_media_content_key_policy" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_content_key_policy
+        (azurerm_media_content_key_policy ?description ?id ?timeouts
+           ~media_services_account_name ~name ~resource_group_name
+           ~policy_option ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts
+    ~media_services_account_name ~name ~resource_group_name
+    ~policy_option __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~media_services_account_name
+      ~name ~resource_group_name ~policy_option __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

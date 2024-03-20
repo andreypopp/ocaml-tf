@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication__active_directory = {
   client_application_id : string prop;  (** client_application_id *)
@@ -233,53 +231,61 @@ type t = {
   username : string prop;
 }
 
+let make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
+    ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
+    ~client_connection_port ~http_gateway_port ~location ~name
+    ~resource_group_name ~authentication ~custom_fabric_setting
+    ~lb_rule ~node_type __id =
+  let __type = "azurerm_service_fabric_managed_cluster" in
+  let __attrs =
+    ({
+       backup_service_enabled =
+         Prop.computed __type __id "backup_service_enabled";
+       client_connection_port =
+         Prop.computed __type __id "client_connection_port";
+       dns_name = Prop.computed __type __id "dns_name";
+       dns_service_enabled =
+         Prop.computed __type __id "dns_service_enabled";
+       http_gateway_port =
+         Prop.computed __type __id "http_gateway_port";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       upgrade_wave = Prop.computed __type __id "upgrade_wave";
+       username = Prop.computed __type __id "username";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_service_fabric_managed_cluster
+        (azurerm_service_fabric_managed_cluster
+           ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
+           ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
+           ~client_connection_port ~http_gateway_port ~location ~name
+           ~resource_group_name ~authentication
+           ~custom_fabric_setting ~lb_rule ~node_type ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?backup_service_enabled ?dns_name
     ?dns_service_enabled ?id ?password ?sku ?tags ?upgrade_wave
     ?username ?timeouts ~client_connection_port ~http_gateway_port
     ~location ~name ~resource_group_name ~authentication
-    ~custom_fabric_setting ~lb_rule ~node_type __resource_id =
-  let __resource_type = "azurerm_service_fabric_managed_cluster" in
-  let __resource =
-    azurerm_service_fabric_managed_cluster ?backup_service_enabled
-      ?dns_name ?dns_service_enabled ?id ?password ?sku ?tags
-      ?upgrade_wave ?username ?timeouts ~client_connection_port
-      ~http_gateway_port ~location ~name ~resource_group_name
-      ~authentication ~custom_fabric_setting ~lb_rule ~node_type ()
+    ~custom_fabric_setting ~lb_rule ~node_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?backup_service_enabled ?dns_name ?dns_service_enabled ?id
+      ?password ?sku ?tags ?upgrade_wave ?username ?timeouts
+      ~client_connection_port ~http_gateway_port ~location ~name
+      ~resource_group_name ~authentication ~custom_fabric_setting
+      ~lb_rule ~node_type __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_service_fabric_managed_cluster __resource);
-  let __resource_attributes =
-    ({
-       backup_service_enabled =
-         Prop.computed __resource_type __resource_id
-           "backup_service_enabled";
-       client_connection_port =
-         Prop.computed __resource_type __resource_id
-           "client_connection_port";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       dns_service_enabled =
-         Prop.computed __resource_type __resource_id
-           "dns_service_enabled";
-       http_gateway_port =
-         Prop.computed __resource_type __resource_id
-           "http_gateway_port";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       upgrade_wave =
-         Prop.computed __resource_type __resource_id "upgrade_wave";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type human_loop_activation_config__human_loop_activation_conditions_config = {
   human_loop_activation_conditions : string prop;
@@ -152,30 +150,41 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~flow_definition_name
-    ~role_arn ~human_loop_activation_config ~human_loop_config
-    ~human_loop_request_source ~output_config __resource_id =
-  let __resource_type = "aws_sagemaker_flow_definition" in
-  let __resource =
-    aws_sagemaker_flow_definition ?id ?tags ?tags_all
-      ~flow_definition_name ~role_arn ~human_loop_activation_config
-      ~human_loop_config ~human_loop_request_source ~output_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_flow_definition __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~flow_definition_name ~role_arn
+    ~human_loop_activation_config ~human_loop_config
+    ~human_loop_request_source ~output_config __id =
+  let __type = "aws_sagemaker_flow_definition" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        flow_definition_name =
-         Prop.computed __resource_type __resource_id
-           "flow_definition_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "flow_definition_name";
+       id = Prop.computed __type __id "id";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_flow_definition
+        (aws_sagemaker_flow_definition ?id ?tags ?tags_all
+           ~flow_definition_name ~role_arn
+           ~human_loop_activation_config ~human_loop_config
+           ~human_loop_request_source ~output_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~flow_definition_name
+    ~role_arn ~human_loop_activation_config ~human_loop_config
+    ~human_loop_request_source ~output_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~flow_definition_name ~role_arn
+      ~human_loop_activation_config ~human_loop_config
+      ~human_loop_request_source ~output_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

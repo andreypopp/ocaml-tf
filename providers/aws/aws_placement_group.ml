@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_placement_group = {
   id : string prop option; [@option]  (** id *)
@@ -42,34 +40,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?partition_count ?spread_level ?tags
-    ?tags_all ~name ~strategy __resource_id =
-  let __resource_type = "aws_placement_group" in
-  let __resource =
-    aws_placement_group ?id ?partition_count ?spread_level ?tags
-      ?tags_all ~name ~strategy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_placement_group __resource);
-  let __resource_attributes =
+let make ?id ?partition_count ?spread_level ?tags ?tags_all ~name
+    ~strategy __id =
+  let __type = "aws_placement_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_count =
-         Prop.computed __resource_type __resource_id
-           "partition_count";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       partition_count = Prop.computed __type __id "partition_count";
        placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "placement_group_id";
-       spread_level =
-         Prop.computed __resource_type __resource_id "spread_level";
-       strategy =
-         Prop.computed __resource_type __resource_id "strategy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "placement_group_id";
+       spread_level = Prop.computed __type __id "spread_level";
+       strategy = Prop.computed __type __id "strategy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_placement_group
+        (aws_placement_group ?id ?partition_count ?spread_level ?tags
+           ?tags_all ~name ~strategy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?partition_count ?spread_level ?tags
+    ?tags_all ~name ~strategy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?partition_count ?spread_level ?tags ?tags_all ~name
+      ~strategy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

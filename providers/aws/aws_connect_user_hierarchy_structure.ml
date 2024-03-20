@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hierarchy_structure__level_five = {
   name : string prop;  (** name *)
@@ -82,21 +80,28 @@ let aws_connect_user_hierarchy_structure ?id ~instance_id
 
 type t = { id : string prop; instance_id : string prop }
 
-let register ?tf_module ?id ~instance_id ~hierarchy_structure
-    __resource_id =
-  let __resource_type = "aws_connect_user_hierarchy_structure" in
-  let __resource =
-    aws_connect_user_hierarchy_structure ?id ~instance_id
-      ~hierarchy_structure ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_user_hierarchy_structure __resource);
-  let __resource_attributes =
+let make ?id ~instance_id ~hierarchy_structure __id =
+  let __type = "aws_connect_user_hierarchy_structure" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_user_hierarchy_structure
+        (aws_connect_user_hierarchy_structure ?id ~instance_id
+           ~hierarchy_structure ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~instance_id ~hierarchy_structure __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~instance_id ~hierarchy_structure __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

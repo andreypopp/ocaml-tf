@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,16 @@ val register :
   log:log list ->
   string ->
   t
+
+val make :
+  ?eventhub_authorization_rule_id:string prop ->
+  ?eventhub_name:string prop ->
+  ?id:string prop ->
+  ?log_analytics_workspace_id:string prop ->
+  ?storage_account_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  enabled_log:enabled_log list ->
+  log:log list ->
+  string ->
+  t Tf_core.resource

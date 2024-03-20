@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,38 +60,41 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?deletion_policy ?enabled ?id
-    ?is_secret_data_base64 ?timeouts ~secret ~secret_data
-    __resource_id =
-  let __resource_type = "google_secret_manager_secret_version" in
-  let __resource =
-    google_secret_manager_secret_version ?deletion_policy ?enabled
-      ?id ?is_secret_data_base64 ?timeouts ~secret ~secret_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_secret_manager_secret_version __resource);
-  let __resource_attributes =
+let make ?deletion_policy ?enabled ?id ?is_secret_data_base64
+    ?timeouts ~secret ~secret_data __id =
+  let __type = "google_secret_manager_secret_version" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       destroy_time =
-         Prop.computed __resource_type __resource_id "destroy_time";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       create_time = Prop.computed __type __id "create_time";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       destroy_time = Prop.computed __type __id "destroy_time";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        is_secret_data_base64 =
-         Prop.computed __resource_type __resource_id
-           "is_secret_data_base64";
-       name = Prop.computed __resource_type __resource_id "name";
-       secret = Prop.computed __resource_type __resource_id "secret";
-       secret_data =
-         Prop.computed __resource_type __resource_id "secret_data";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "is_secret_data_base64";
+       name = Prop.computed __type __id "name";
+       secret = Prop.computed __type __id "secret";
+       secret_data = Prop.computed __type __id "secret_data";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_secret_manager_secret_version
+        (google_secret_manager_secret_version ?deletion_policy
+           ?enabled ?id ?is_secret_data_base64 ?timeouts ~secret
+           ~secret_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deletion_policy ?enabled ?id
+    ?is_secret_data_base64 ?timeouts ~secret ~secret_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_policy ?enabled ?id ?is_secret_data_base64
+      ?timeouts ~secret ~secret_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

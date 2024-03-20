@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,13 @@ val register :
   matcher:matcher list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  name:string prop ->
+  zone_id:string prop ->
+  action:action list ->
+  matcher:matcher list ->
+  string ->
+  t Tf_core.resource

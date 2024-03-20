@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_spaces_bucket_policy = {
   bucket : string prop;  (** bucket *)
@@ -24,20 +22,30 @@ type t = {
   region : string prop;
 }
 
-let register ?tf_module ?id ~bucket ~policy ~region __resource_id =
-  let __resource_type = "digitalocean_spaces_bucket_policy" in
-  let __resource =
-    digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_spaces_bucket_policy __resource);
-  let __resource_attributes =
+let make ?id ~bucket ~policy ~region __id =
+  let __type = "digitalocean_spaces_bucket_policy" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       region = Prop.computed __resource_type __resource_id "region";
+       bucket = Prop.computed __type __id "bucket";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       region = Prop.computed __type __id "region";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_spaces_bucket_policy
+        (digitalocean_spaces_bucket_policy ?id ~bucket ~policy
+           ~region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~bucket ~policy ~region __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~bucket ~policy ~region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

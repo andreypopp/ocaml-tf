@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,44 +57,46 @@ type t = {
   subscription_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~automation_account_name ~certificate_asset_name ~name
-    ~resource_group_name ~subscription_id ~subscription_name
-    __resource_id =
-  let __resource_type =
-    "azurerm_automation_connection_classic_certificate"
-  in
-  let __resource =
-    azurerm_automation_connection_classic_certificate ?description
-      ?id ?timeouts ~automation_account_name ~certificate_asset_name
-      ~name ~resource_group_name ~subscription_id ~subscription_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_connection_classic_certificate
-       __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~automation_account_name
+    ~certificate_asset_name ~name ~resource_group_name
+    ~subscription_id ~subscription_name __id =
+  let __type = "azurerm_automation_connection_classic_certificate" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
+         Prop.computed __type __id "automation_account_name";
        certificate_asset_name =
-         Prop.computed __resource_type __resource_id
-           "certificate_asset_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "certificate_asset_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subscription_id =
-         Prop.computed __resource_type __resource_id
-           "subscription_id";
+         Prop.computed __type __id "resource_group_name";
+       subscription_id = Prop.computed __type __id "subscription_id";
        subscription_name =
-         Prop.computed __resource_type __resource_id
-           "subscription_name";
+         Prop.computed __type __id "subscription_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_connection_classic_certificate
+        (azurerm_automation_connection_classic_certificate
+           ?description ?id ?timeouts ~automation_account_name
+           ~certificate_asset_name ~name ~resource_group_name
+           ~subscription_id ~subscription_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts
+    ~automation_account_name ~certificate_asset_name ~name
+    ~resource_group_name ~subscription_id ~subscription_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~automation_account_name
+      ~certificate_asset_name ~name ~resource_group_name
+      ~subscription_id ~subscription_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

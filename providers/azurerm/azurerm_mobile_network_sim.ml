@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type static_ip_configuration = {
   attached_data_network_id : string prop;
@@ -84,53 +82,62 @@ type t = {
   vendor_name : string prop;
 }
 
+let make ?device_type ?id ?sim_policy_id ?timeouts
+    ~authentication_key ~integrated_circuit_card_identifier
+    ~international_mobile_subscriber_identity
+    ~mobile_network_sim_group_id ~name ~operator_key_code
+    ~static_ip_configuration __id =
+  let __type = "azurerm_mobile_network_sim" in
+  let __attrs =
+    ({
+       authentication_key =
+         Prop.computed __type __id "authentication_key";
+       device_type = Prop.computed __type __id "device_type";
+       id = Prop.computed __type __id "id";
+       integrated_circuit_card_identifier =
+         Prop.computed __type __id
+           "integrated_circuit_card_identifier";
+       international_mobile_subscriber_identity =
+         Prop.computed __type __id
+           "international_mobile_subscriber_identity";
+       mobile_network_sim_group_id =
+         Prop.computed __type __id "mobile_network_sim_group_id";
+       name = Prop.computed __type __id "name";
+       operator_key_code =
+         Prop.computed __type __id "operator_key_code";
+       sim_policy_id = Prop.computed __type __id "sim_policy_id";
+       sim_state = Prop.computed __type __id "sim_state";
+       vendor_key_fingerprint =
+         Prop.computed __type __id "vendor_key_fingerprint";
+       vendor_name = Prop.computed __type __id "vendor_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mobile_network_sim
+        (azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
+           ?timeouts ~authentication_key
+           ~integrated_circuit_card_identifier
+           ~international_mobile_subscriber_identity
+           ~mobile_network_sim_group_id ~name ~operator_key_code
+           ~static_ip_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?device_type ?id ?sim_policy_id ?timeouts
     ~authentication_key ~integrated_circuit_card_identifier
     ~international_mobile_subscriber_identity
     ~mobile_network_sim_group_id ~name ~operator_key_code
-    ~static_ip_configuration __resource_id =
-  let __resource_type = "azurerm_mobile_network_sim" in
-  let __resource =
-    azurerm_mobile_network_sim ?device_type ?id ?sim_policy_id
-      ?timeouts ~authentication_key
-      ~integrated_circuit_card_identifier
+    ~static_ip_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?device_type ?id ?sim_policy_id ?timeouts
+      ~authentication_key ~integrated_circuit_card_identifier
       ~international_mobile_subscriber_identity
       ~mobile_network_sim_group_id ~name ~operator_key_code
-      ~static_ip_configuration ()
+      ~static_ip_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mobile_network_sim __resource);
-  let __resource_attributes =
-    ({
-       authentication_key =
-         Prop.computed __resource_type __resource_id
-           "authentication_key";
-       device_type =
-         Prop.computed __resource_type __resource_id "device_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       integrated_circuit_card_identifier =
-         Prop.computed __resource_type __resource_id
-           "integrated_circuit_card_identifier";
-       international_mobile_subscriber_identity =
-         Prop.computed __resource_type __resource_id
-           "international_mobile_subscriber_identity";
-       mobile_network_sim_group_id =
-         Prop.computed __resource_type __resource_id
-           "mobile_network_sim_group_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       operator_key_code =
-         Prop.computed __resource_type __resource_id
-           "operator_key_code";
-       sim_policy_id =
-         Prop.computed __resource_type __resource_id "sim_policy_id";
-       sim_state =
-         Prop.computed __resource_type __resource_id "sim_state";
-       vendor_key_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "vendor_key_fingerprint";
-       vendor_name =
-         Prop.computed __resource_type __resource_id "vendor_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

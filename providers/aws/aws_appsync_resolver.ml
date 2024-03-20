@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type caching_config = {
   caching_keys : string prop list option; [@option]
@@ -121,38 +119,47 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?code ?data_source ?id ?kind ?max_batch_size
+let make ?code ?data_source ?id ?kind ?max_batch_size
     ?request_template ?response_template ~api_id ~field ~type_
-    ~caching_config ~pipeline_config ~runtime ~sync_config
-    __resource_id =
-  let __resource_type = "aws_appsync_resolver" in
-  let __resource =
-    aws_appsync_resolver ?code ?data_source ?id ?kind ?max_batch_size
-      ?request_template ?response_template ~api_id ~field ~type_
-      ~caching_config ~pipeline_config ~runtime ~sync_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_resolver __resource);
-  let __resource_attributes =
+    ~caching_config ~pipeline_config ~runtime ~sync_config __id =
+  let __type = "aws_appsync_resolver" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       code = Prop.computed __resource_type __resource_id "code";
-       data_source =
-         Prop.computed __resource_type __resource_id "data_source";
-       field = Prop.computed __resource_type __resource_id "field";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       max_batch_size =
-         Prop.computed __resource_type __resource_id "max_batch_size";
+       api_id = Prop.computed __type __id "api_id";
+       arn = Prop.computed __type __id "arn";
+       code = Prop.computed __type __id "code";
+       data_source = Prop.computed __type __id "data_source";
+       field = Prop.computed __type __id "field";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       max_batch_size = Prop.computed __type __id "max_batch_size";
        request_template =
-         Prop.computed __resource_type __resource_id
-           "request_template";
+         Prop.computed __type __id "request_template";
        response_template =
-         Prop.computed __resource_type __resource_id
-           "response_template";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "response_template";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_resolver
+        (aws_appsync_resolver ?code ?data_source ?id ?kind
+           ?max_batch_size ?request_template ?response_template
+           ~api_id ~field ~type_ ~caching_config ~pipeline_config
+           ~runtime ~sync_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?code ?data_source ?id ?kind ?max_batch_size
+    ?request_template ?response_template ~api_id ~field ~type_
+    ~caching_config ~pipeline_config ~runtime ~sync_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?code ?data_source ?id ?kind ?max_batch_size
+      ?request_template ?response_template ~api_id ~field ~type_
+      ~caching_config ~pipeline_config ~runtime ~sync_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -81,53 +79,54 @@ type t = {
   weeks_of_month : string list prop;
 }
 
-let register ?tf_module ?day_of_month ?days_of_week ?hour_of_day ?id
-    ?message ?weeks_of_month ?timeouts ~display_name
-    ~email_address_sender ~email_addresses ~email_subject ~end_date
-    ~frequency ~name ~start_date ~view_id __resource_id =
-  let __resource_type = "azurerm_cost_management_scheduled_action" in
-  let __resource =
-    azurerm_cost_management_scheduled_action ?day_of_month
-      ?days_of_week ?hour_of_day ?id ?message ?weeks_of_month
-      ?timeouts ~display_name ~email_address_sender ~email_addresses
-      ~email_subject ~end_date ~frequency ~name ~start_date ~view_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cost_management_scheduled_action __resource);
-  let __resource_attributes =
+let make ?day_of_month ?days_of_week ?hour_of_day ?id ?message
+    ?weeks_of_month ?timeouts ~display_name ~email_address_sender
+    ~email_addresses ~email_subject ~end_date ~frequency ~name
+    ~start_date ~view_id __id =
+  let __type = "azurerm_cost_management_scheduled_action" in
+  let __attrs =
     ({
-       day_of_month =
-         Prop.computed __resource_type __resource_id "day_of_month";
-       days_of_week =
-         Prop.computed __resource_type __resource_id "days_of_week";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       day_of_month = Prop.computed __type __id "day_of_month";
+       days_of_week = Prop.computed __type __id "days_of_week";
+       display_name = Prop.computed __type __id "display_name";
        email_address_sender =
-         Prop.computed __resource_type __resource_id
-           "email_address_sender";
-       email_addresses =
-         Prop.computed __resource_type __resource_id
-           "email_addresses";
-       email_subject =
-         Prop.computed __resource_type __resource_id "email_subject";
-       end_date =
-         Prop.computed __resource_type __resource_id "end_date";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       hour_of_day =
-         Prop.computed __resource_type __resource_id "hour_of_day";
-       id = Prop.computed __resource_type __resource_id "id";
-       message =
-         Prop.computed __resource_type __resource_id "message";
-       name = Prop.computed __resource_type __resource_id "name";
-       start_date =
-         Prop.computed __resource_type __resource_id "start_date";
-       view_id =
-         Prop.computed __resource_type __resource_id "view_id";
-       weeks_of_month =
-         Prop.computed __resource_type __resource_id "weeks_of_month";
+         Prop.computed __type __id "email_address_sender";
+       email_addresses = Prop.computed __type __id "email_addresses";
+       email_subject = Prop.computed __type __id "email_subject";
+       end_date = Prop.computed __type __id "end_date";
+       frequency = Prop.computed __type __id "frequency";
+       hour_of_day = Prop.computed __type __id "hour_of_day";
+       id = Prop.computed __type __id "id";
+       message = Prop.computed __type __id "message";
+       name = Prop.computed __type __id "name";
+       start_date = Prop.computed __type __id "start_date";
+       view_id = Prop.computed __type __id "view_id";
+       weeks_of_month = Prop.computed __type __id "weeks_of_month";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cost_management_scheduled_action
+        (azurerm_cost_management_scheduled_action ?day_of_month
+           ?days_of_week ?hour_of_day ?id ?message ?weeks_of_month
+           ?timeouts ~display_name ~email_address_sender
+           ~email_addresses ~email_subject ~end_date ~frequency ~name
+           ~start_date ~view_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?day_of_month ?days_of_week ?hour_of_day ?id
+    ?message ?weeks_of_month ?timeouts ~display_name
+    ~email_address_sender ~email_addresses ~email_subject ~end_date
+    ~frequency ~name ~start_date ~view_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?day_of_month ?days_of_week ?hour_of_day ?id ?message
+      ?weeks_of_month ?timeouts ~display_name ~email_address_sender
+      ~email_addresses ~email_subject ~end_date ~frequency ~name
+      ~start_date ~view_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

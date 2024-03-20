@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,17 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
+  synapse_spark_pool_id:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

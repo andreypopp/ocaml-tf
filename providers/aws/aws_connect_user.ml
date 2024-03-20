@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity_info = {
   email : string prop option; [@option]  (** email *)
@@ -90,46 +88,50 @@ type t = {
   user_id : string prop;
 }
 
-let register ?tf_module ?directory_user_id ?hierarchy_group_id ?id
-    ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
-    ~security_profile_ids ~identity_info ~phone_config __resource_id
-    =
-  let __resource_type = "aws_connect_user" in
-  let __resource =
-    aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
-      ?password ?tags ?tags_all ~instance_id ~name
-      ~routing_profile_id ~security_profile_ids ~identity_info
-      ~phone_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_user __resource);
-  let __resource_attributes =
+let make ?directory_user_id ?hierarchy_group_id ?id ?password ?tags
+    ?tags_all ~instance_id ~name ~routing_profile_id
+    ~security_profile_ids ~identity_info ~phone_config __id =
+  let __type = "aws_connect_user" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        directory_user_id =
-         Prop.computed __resource_type __resource_id
-           "directory_user_id";
+         Prop.computed __type __id "directory_user_id";
        hierarchy_group_id =
-         Prop.computed __resource_type __resource_id
-           "hierarchy_group_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "hierarchy_group_id";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        routing_profile_id =
-         Prop.computed __resource_type __resource_id
-           "routing_profile_id";
+         Prop.computed __type __id "routing_profile_id";
        security_profile_ids =
-         Prop.computed __resource_type __resource_id
-           "security_profile_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
+         Prop.computed __type __id "security_profile_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_id = Prop.computed __type __id "user_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_user
+        (aws_connect_user ?directory_user_id ?hierarchy_group_id ?id
+           ?password ?tags ?tags_all ~instance_id ~name
+           ~routing_profile_id ~security_profile_ids ~identity_info
+           ~phone_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?directory_user_id ?hierarchy_group_id ?id
+    ?password ?tags ?tags_all ~instance_id ~name ~routing_profile_id
+    ~security_profile_ids ~identity_info ~phone_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?directory_user_id ?hierarchy_group_id ?id ?password ?tags
+      ?tags_all ~instance_id ~name ~routing_profile_id
+      ~security_profile_ids ~identity_info ~phone_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

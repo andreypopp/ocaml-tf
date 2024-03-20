@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpc_ipam_organization_admin_account = {
   delegated_admin_account_id : string prop;
@@ -26,28 +24,34 @@ type t = {
   service_principal : string prop;
 }
 
-let register ?tf_module ?id ~delegated_admin_account_id __resource_id
-    =
-  let __resource_type = "aws_vpc_ipam_organization_admin_account" in
-  let __resource =
-    aws_vpc_ipam_organization_admin_account ?id
-      ~delegated_admin_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam_organization_admin_account __resource);
-  let __resource_attributes =
+let make ?id ~delegated_admin_account_id __id =
+  let __type = "aws_vpc_ipam_organization_admin_account" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        delegated_admin_account_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_admin_account_id";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "delegated_admin_account_id";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        service_principal =
-         Prop.computed __resource_type __resource_id
-           "service_principal";
+         Prop.computed __type __id "service_principal";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam_organization_admin_account
+        (aws_vpc_ipam_organization_admin_account ?id
+           ~delegated_admin_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~delegated_admin_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~delegated_admin_account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

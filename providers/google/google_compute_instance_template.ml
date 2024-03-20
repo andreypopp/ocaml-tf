@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_machine_features = {
   enable_nested_virtualization : bool prop option; [@option]
@@ -511,6 +509,69 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
+let make ?can_ip_forward ?description ?id ?instance_description
+    ?labels ?metadata ?metadata_startup_script ?min_cpu_platform
+    ?name ?name_prefix ?project ?region ?resource_manager_tags
+    ?resource_policies ?tags ?timeouts ~machine_type
+    ~advanced_machine_features ~confidential_instance_config ~disk
+    ~guest_accelerator ~network_interface ~network_performance_config
+    ~reservation_affinity ~scheduling ~service_account
+    ~shielded_instance_config __id =
+  let __type = "google_compute_instance_template" in
+  let __attrs =
+    ({
+       can_ip_forward = Prop.computed __type __id "can_ip_forward";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       instance_description =
+         Prop.computed __type __id "instance_description";
+       labels = Prop.computed __type __id "labels";
+       machine_type = Prop.computed __type __id "machine_type";
+       metadata = Prop.computed __type __id "metadata";
+       metadata_fingerprint =
+         Prop.computed __type __id "metadata_fingerprint";
+       metadata_startup_script =
+         Prop.computed __type __id "metadata_startup_script";
+       min_cpu_platform =
+         Prop.computed __type __id "min_cpu_platform";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       resource_manager_tags =
+         Prop.computed __type __id "resource_manager_tags";
+       resource_policies =
+         Prop.computed __type __id "resource_policies";
+       self_link = Prop.computed __type __id "self_link";
+       self_link_unique =
+         Prop.computed __type __id "self_link_unique";
+       tags = Prop.computed __type __id "tags";
+       tags_fingerprint =
+         Prop.computed __type __id "tags_fingerprint";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_instance_template
+        (google_compute_instance_template ?can_ip_forward
+           ?description ?id ?instance_description ?labels ?metadata
+           ?metadata_startup_script ?min_cpu_platform ?name
+           ?name_prefix ?project ?region ?resource_manager_tags
+           ?resource_policies ?tags ?timeouts ~machine_type
+           ~advanced_machine_features ~confidential_instance_config
+           ~disk ~guest_accelerator ~network_interface
+           ~network_performance_config ~reservation_affinity
+           ~scheduling ~service_account ~shielded_instance_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?can_ip_forward ?description ?id
     ?instance_description ?labels ?metadata ?metadata_startup_script
     ?min_cpu_platform ?name ?name_prefix ?project ?region
@@ -519,73 +580,16 @@ let register ?tf_module ?can_ip_forward ?description ?id
     ~confidential_instance_config ~disk ~guest_accelerator
     ~network_interface ~network_performance_config
     ~reservation_affinity ~scheduling ~service_account
-    ~shielded_instance_config __resource_id =
-  let __resource_type = "google_compute_instance_template" in
-  let __resource =
-    google_compute_instance_template ?can_ip_forward ?description ?id
-      ?instance_description ?labels ?metadata
-      ?metadata_startup_script ?min_cpu_platform ?name ?name_prefix
-      ?project ?region ?resource_manager_tags ?resource_policies
-      ?tags ?timeouts ~machine_type ~advanced_machine_features
-      ~confidential_instance_config ~disk ~guest_accelerator
-      ~network_interface ~network_performance_config
-      ~reservation_affinity ~scheduling ~service_account
-      ~shielded_instance_config ()
+    ~shielded_instance_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?can_ip_forward ?description ?id ?instance_description
+      ?labels ?metadata ?metadata_startup_script ?min_cpu_platform
+      ?name ?name_prefix ?project ?region ?resource_manager_tags
+      ?resource_policies ?tags ?timeouts ~machine_type
+      ~advanced_machine_features ~confidential_instance_config ~disk
+      ~guest_accelerator ~network_interface
+      ~network_performance_config ~reservation_affinity ~scheduling
+      ~service_account ~shielded_instance_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_instance_template __resource);
-  let __resource_attributes =
-    ({
-       can_ip_forward =
-         Prop.computed __resource_type __resource_id "can_ip_forward";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_description =
-         Prop.computed __resource_type __resource_id
-           "instance_description";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       machine_type =
-         Prop.computed __resource_type __resource_id "machine_type";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       metadata_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "metadata_fingerprint";
-       metadata_startup_script =
-         Prop.computed __resource_type __resource_id
-           "metadata_startup_script";
-       min_cpu_platform =
-         Prop.computed __resource_type __resource_id
-           "min_cpu_platform";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       resource_manager_tags =
-         Prop.computed __resource_type __resource_id
-           "resource_manager_tags";
-       resource_policies =
-         Prop.computed __resource_type __resource_id
-           "resource_policies";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       self_link_unique =
-         Prop.computed __resource_type __resource_id
-           "self_link_unique";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "tags_fingerprint";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,41 +58,45 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~service_identifier ~service_network_identifier __resource_id =
-  let __resource_type =
+let make ?id ?tags ?tags_all ?timeouts ~service_identifier
+    ~service_network_identifier __id =
+  let __type =
     "aws_vpclattice_service_network_service_association"
   in
-  let __resource =
-    aws_vpclattice_service_network_service_association ?id ?tags
-      ?tags_all ?timeouts ~service_identifier
-      ~service_network_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_service_network_service_association
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_by =
-         Prop.computed __resource_type __resource_id "created_by";
+       arn = Prop.computed __type __id "arn";
+       created_by = Prop.computed __type __id "created_by";
        custom_domain_name =
-         Prop.computed __resource_type __resource_id
-           "custom_domain_name";
-       dns_entry =
-         Prop.computed __resource_type __resource_id "dns_entry";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "custom_domain_name";
+       dns_entry = Prop.computed __type __id "dns_entry";
+       id = Prop.computed __type __id "id";
        service_identifier =
-         Prop.computed __resource_type __resource_id
-           "service_identifier";
+         Prop.computed __type __id "service_identifier";
        service_network_identifier =
-         Prop.computed __resource_type __resource_id
-           "service_network_identifier";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "service_network_identifier";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_service_network_service_association
+        (aws_vpclattice_service_network_service_association ?id ?tags
+           ?tags_all ?timeouts ~service_identifier
+           ~service_network_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~service_identifier ~service_network_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~service_identifier
+      ~service_network_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

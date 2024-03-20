@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destinations = { stream_name : string prop  (** stream_name *) }
 [@@deriving yojson_of]
@@ -111,43 +109,49 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?input_security_groups ?role_arn ?tags
-    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
-    ~media_connect_flows ~sources ~vpc __resource_id =
-  let __resource_type = "aws_medialive_input" in
-  let __resource =
-    aws_medialive_input ?id ?input_security_groups ?role_arn ?tags
-      ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
-      ~media_connect_flows ~sources ~vpc ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_medialive_input __resource);
-  let __resource_attributes =
+let make ?id ?input_security_groups ?role_arn ?tags ?tags_all
+    ?timeouts ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources ~vpc __id =
+  let __type = "aws_medialive_input" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        attached_channels =
-         Prop.computed __resource_type __resource_id
-           "attached_channels";
-       id = Prop.computed __resource_type __resource_id "id";
-       input_class =
-         Prop.computed __resource_type __resource_id "input_class";
+         Prop.computed __type __id "attached_channels";
+       id = Prop.computed __type __id "id";
+       input_class = Prop.computed __type __id "input_class";
        input_partner_ids =
-         Prop.computed __resource_type __resource_id
-           "input_partner_ids";
+         Prop.computed __type __id "input_partner_ids";
        input_security_groups =
-         Prop.computed __resource_type __resource_id
-           "input_security_groups";
+         Prop.computed __type __id "input_security_groups";
        input_source_type =
-         Prop.computed __resource_type __resource_id
-           "input_source_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "input_source_type";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_medialive_input
+        (aws_medialive_input ?id ?input_security_groups ?role_arn
+           ?tags ?tags_all ?timeouts ~name ~type_ ~destinations
+           ~input_devices ~media_connect_flows ~sources ~vpc ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?input_security_groups ?role_arn ?tags
+    ?tags_all ?timeouts ~name ~type_ ~destinations ~input_devices
+    ~media_connect_flows ~sources ~vpc __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?input_security_groups ?role_arn ?tags ?tags_all
+      ?timeouts ~name ~type_ ~destinations ~input_devices
+      ~media_connect_flows ~sources ~vpc __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type location = {
   method_ : string prop option; [@option] [@key "method"]
@@ -37,23 +35,29 @@ type t = {
   rest_api_id : string prop;
 }
 
-let register ?tf_module ?id ~properties ~rest_api_id ~location
-    __resource_id =
-  let __resource_type = "aws_api_gateway_documentation_part" in
-  let __resource =
-    aws_api_gateway_documentation_part ?id ~properties ~rest_api_id
-      ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_documentation_part __resource);
-  let __resource_attributes =
+let make ?id ~properties ~rest_api_id ~location __id =
+  let __type = "aws_api_gateway_documentation_part" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       properties =
-         Prop.computed __resource_type __resource_id "properties";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
+       id = Prop.computed __type __id "id";
+       properties = Prop.computed __type __id "properties";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_documentation_part
+        (aws_api_gateway_documentation_part ?id ~properties
+           ~rest_api_id ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~properties ~rest_api_id ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~properties ~rest_api_id ~location __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

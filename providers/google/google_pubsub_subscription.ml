@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bigquery_config = {
   drop_unknown_fields : bool prop option; [@option]
@@ -366,54 +364,65 @@ type t = {
   topic : string prop;
 }
 
+let make ?ack_deadline_seconds ?enable_exactly_once_delivery
+    ?enable_message_ordering ?filter ?id ?labels
+    ?message_retention_duration ?project ?retain_acked_messages
+    ?timeouts ~name ~topic ~bigquery_config ~cloud_storage_config
+    ~dead_letter_policy ~expiration_policy ~push_config ~retry_policy
+    __id =
+  let __type = "google_pubsub_subscription" in
+  let __attrs =
+    ({
+       ack_deadline_seconds =
+         Prop.computed __type __id "ack_deadline_seconds";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       enable_exactly_once_delivery =
+         Prop.computed __type __id "enable_exactly_once_delivery";
+       enable_message_ordering =
+         Prop.computed __type __id "enable_message_ordering";
+       filter = Prop.computed __type __id "filter";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       message_retention_duration =
+         Prop.computed __type __id "message_retention_duration";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       retain_acked_messages =
+         Prop.computed __type __id "retain_acked_messages";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       topic = Prop.computed __type __id "topic";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_pubsub_subscription
+        (google_pubsub_subscription ?ack_deadline_seconds
+           ?enable_exactly_once_delivery ?enable_message_ordering
+           ?filter ?id ?labels ?message_retention_duration ?project
+           ?retain_acked_messages ?timeouts ~name ~topic
+           ~bigquery_config ~cloud_storage_config ~dead_letter_policy
+           ~expiration_policy ~push_config ~retry_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?ack_deadline_seconds
     ?enable_exactly_once_delivery ?enable_message_ordering ?filter
     ?id ?labels ?message_retention_duration ?project
     ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
     ~cloud_storage_config ~dead_letter_policy ~expiration_policy
-    ~push_config ~retry_policy __resource_id =
-  let __resource_type = "google_pubsub_subscription" in
-  let __resource =
-    google_pubsub_subscription ?ack_deadline_seconds
-      ?enable_exactly_once_delivery ?enable_message_ordering ?filter
-      ?id ?labels ?message_retention_duration ?project
-      ?retain_acked_messages ?timeouts ~name ~topic ~bigquery_config
-      ~cloud_storage_config ~dead_letter_policy ~expiration_policy
-      ~push_config ~retry_policy ()
+    ~push_config ~retry_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?ack_deadline_seconds ?enable_exactly_once_delivery
+      ?enable_message_ordering ?filter ?id ?labels
+      ?message_retention_duration ?project ?retain_acked_messages
+      ?timeouts ~name ~topic ~bigquery_config ~cloud_storage_config
+      ~dead_letter_policy ~expiration_policy ~push_config
+      ~retry_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_pubsub_subscription __resource);
-  let __resource_attributes =
-    ({
-       ack_deadline_seconds =
-         Prop.computed __resource_type __resource_id
-           "ack_deadline_seconds";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       enable_exactly_once_delivery =
-         Prop.computed __resource_type __resource_id
-           "enable_exactly_once_delivery";
-       enable_message_ordering =
-         Prop.computed __resource_type __resource_id
-           "enable_message_ordering";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       message_retention_duration =
-         Prop.computed __resource_type __resource_id
-           "message_retention_duration";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       retain_acked_messages =
-         Prop.computed __resource_type __resource_id
-           "retain_acked_messages";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       topic = Prop.computed __resource_type __resource_id "topic";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

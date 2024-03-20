@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -504,3 +504,15 @@ val register :
   criteria:criteria list ->
   string ->
   t
+
+val make :
+  ?is_terminal:bool prop ->
+  ?rule_status:string prop ->
+  ?tags:(string * string prop) list ->
+  description:string prop ->
+  rule_name:string prop ->
+  rule_order:float prop ->
+  actions:actions list ->
+  criteria:criteria list ->
+  string ->
+  t Tf_core.resource

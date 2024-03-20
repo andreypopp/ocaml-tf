@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscale = {
   max_slots : float prop option; [@option]
@@ -82,38 +80,44 @@ type t = {
   slot_capacity : float prop;
 }
 
-let register ?tf_module ?concurrency ?edition ?id ?ignore_idle_slots
-    ?location ?multi_region_auxiliary ?project ?timeouts ~name
-    ~slot_capacity ~autoscale __resource_id =
-  let __resource_type = "google_bigquery_reservation" in
-  let __resource =
-    google_bigquery_reservation ?concurrency ?edition ?id
-      ?ignore_idle_slots ?location ?multi_region_auxiliary ?project
-      ?timeouts ~name ~slot_capacity ~autoscale ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_reservation __resource);
-  let __resource_attributes =
+let make ?concurrency ?edition ?id ?ignore_idle_slots ?location
+    ?multi_region_auxiliary ?project ?timeouts ~name ~slot_capacity
+    ~autoscale __id =
+  let __type = "google_bigquery_reservation" in
+  let __attrs =
     ({
-       concurrency =
-         Prop.computed __resource_type __resource_id "concurrency";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       id = Prop.computed __resource_type __resource_id "id";
+       concurrency = Prop.computed __type __id "concurrency";
+       edition = Prop.computed __type __id "edition";
+       id = Prop.computed __type __id "id";
        ignore_idle_slots =
-         Prop.computed __resource_type __resource_id
-           "ignore_idle_slots";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "ignore_idle_slots";
+       location = Prop.computed __type __id "location";
        multi_region_auxiliary =
-         Prop.computed __resource_type __resource_id
-           "multi_region_auxiliary";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       slot_capacity =
-         Prop.computed __resource_type __resource_id "slot_capacity";
+         Prop.computed __type __id "multi_region_auxiliary";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       slot_capacity = Prop.computed __type __id "slot_capacity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_reservation
+        (google_bigquery_reservation ?concurrency ?edition ?id
+           ?ignore_idle_slots ?location ?multi_region_auxiliary
+           ?project ?timeouts ~name ~slot_capacity ~autoscale ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?concurrency ?edition ?id ?ignore_idle_slots
+    ?location ?multi_region_auxiliary ?project ?timeouts ~name
+    ~slot_capacity ~autoscale __id =
+  let (r : _ Tf_core.resource) =
+    make ?concurrency ?edition ?id ?ignore_idle_slots ?location
+      ?multi_region_auxiliary ?project ?timeouts ~name ~slot_capacity
+      ~autoscale __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

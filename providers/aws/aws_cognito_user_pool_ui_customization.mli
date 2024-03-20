@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,12 @@ val register :
   user_pool_id:string prop ->
   string ->
   t
+
+val make :
+  ?client_id:string prop ->
+  ?css:string prop ->
+  ?id:string prop ->
+  ?image_file:string prop ->
+  user_pool_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sas_configuration = { token : string prop  (** token *) }
 [@@deriving yojson_of]
@@ -57,39 +55,45 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?access_tier ?blob_type ?id ?subdirectory
-    ?tags ?tags_all ~agent_arns ~authentication_type ~container_url
-    ~sas_configuration __resource_id =
-  let __resource_type = "aws_datasync_location_azure_blob" in
-  let __resource =
-    aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
-      ?subdirectory ?tags ?tags_all ~agent_arns ~authentication_type
-      ~container_url ~sas_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_location_azure_blob __resource);
-  let __resource_attributes =
+let make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
+    ~agent_arns ~authentication_type ~container_url
+    ~sas_configuration __id =
+  let __type = "aws_datasync_location_azure_blob" in
+  let __attrs =
     ({
-       access_tier =
-         Prop.computed __resource_type __resource_id "access_tier";
-       agent_arns =
-         Prop.computed __resource_type __resource_id "agent_arns";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       access_tier = Prop.computed __type __id "access_tier";
+       agent_arns = Prop.computed __type __id "agent_arns";
+       arn = Prop.computed __type __id "arn";
        authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       blob_type =
-         Prop.computed __resource_type __resource_id "blob_type";
-       container_url =
-         Prop.computed __resource_type __resource_id "container_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       subdirectory =
-         Prop.computed __resource_type __resource_id "subdirectory";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uri = Prop.computed __resource_type __resource_id "uri";
+         Prop.computed __type __id "authentication_type";
+       blob_type = Prop.computed __type __id "blob_type";
+       container_url = Prop.computed __type __id "container_url";
+       id = Prop.computed __type __id "id";
+       subdirectory = Prop.computed __type __id "subdirectory";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_location_azure_blob
+        (aws_datasync_location_azure_blob ?access_tier ?blob_type ?id
+           ?subdirectory ?tags ?tags_all ~agent_arns
+           ~authentication_type ~container_url ~sas_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_tier ?blob_type ?id ?subdirectory
+    ?tags ?tags_all ~agent_arns ~authentication_type ~container_url
+    ~sas_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_tier ?blob_type ?id ?subdirectory ?tags ?tags_all
+      ~agent_arns ~authentication_type ~container_url
+      ~sas_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

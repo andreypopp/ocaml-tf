@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -184,3 +184,26 @@ val register :
   vnet_integration:vnet_integration list ->
   string ->
   t
+
+val make :
+  ?credential_name:string prop ->
+  ?description:string prop ->
+  ?edition:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?max_parallel_executions_per_node:float prop ->
+  ?number_of_nodes:float prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  node_size:string prop ->
+  catalog_info:catalog_info list ->
+  custom_setup_script:custom_setup_script list ->
+  express_custom_setup:express_custom_setup list ->
+  express_vnet_integration:express_vnet_integration list ->
+  package_store:package_store list ->
+  proxy:proxy list ->
+  vnet_integration:vnet_integration list ->
+  string ->
+  t Tf_core.resource

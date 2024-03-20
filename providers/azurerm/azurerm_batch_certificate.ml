@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,39 +56,43 @@ type t = {
   thumbprint_algorithm : string prop;
 }
 
-let register ?tf_module ?id ?password ?timeouts ~account_name
-    ~certificate ~format ~resource_group_name ~thumbprint
-    ~thumbprint_algorithm __resource_id =
-  let __resource_type = "azurerm_batch_certificate" in
-  let __resource =
-    azurerm_batch_certificate ?id ?password ?timeouts ~account_name
-      ~certificate ~format ~resource_group_name ~thumbprint
-      ~thumbprint_algorithm ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_batch_certificate __resource);
-  let __resource_attributes =
+let make ?id ?password ?timeouts ~account_name ~certificate ~format
+    ~resource_group_name ~thumbprint ~thumbprint_algorithm __id =
+  let __type = "azurerm_batch_certificate" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       format = Prop.computed __resource_type __resource_id "format";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       public_data =
-         Prop.computed __resource_type __resource_id "public_data";
+       account_name = Prop.computed __type __id "account_name";
+       certificate = Prop.computed __type __id "certificate";
+       format = Prop.computed __type __id "format";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       public_data = Prop.computed __type __id "public_data";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
+         Prop.computed __type __id "resource_group_name";
+       thumbprint = Prop.computed __type __id "thumbprint";
        thumbprint_algorithm =
-         Prop.computed __resource_type __resource_id
-           "thumbprint_algorithm";
+         Prop.computed __type __id "thumbprint_algorithm";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_batch_certificate
+        (azurerm_batch_certificate ?id ?password ?timeouts
+           ~account_name ~certificate ~format ~resource_group_name
+           ~thumbprint ~thumbprint_algorithm ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?password ?timeouts ~account_name
+    ~certificate ~format ~resource_group_name ~thumbprint
+    ~thumbprint_algorithm __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?password ?timeouts ~account_name ~certificate ~format
+      ~resource_group_name ~thumbprint ~thumbprint_algorithm __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

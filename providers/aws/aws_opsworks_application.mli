@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -103,3 +103,25 @@ val register :
   ssl_configuration:ssl_configuration list ->
   string ->
   t
+
+val make :
+  ?auto_bundle_on_deploy:string prop ->
+  ?aws_flow_ruby_settings:string prop ->
+  ?data_source_arn:string prop ->
+  ?data_source_database_name:string prop ->
+  ?data_source_type:string prop ->
+  ?description:string prop ->
+  ?document_root:string prop ->
+  ?domains:string prop list ->
+  ?enable_ssl:bool prop ->
+  ?id:string prop ->
+  ?rails_env:string prop ->
+  ?short_name:string prop ->
+  name:string prop ->
+  stack_id:string prop ->
+  type_:string prop ->
+  app_source:app_source list ->
+  environment:environment list ->
+  ssl_configuration:ssl_configuration list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   signup_policy:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?password_reset_policy:string prop ->
+  ?profile_editing_policy:string prop ->
+  ?timeouts:timeouts ->
+  allowed_tenant:string prop ->
+  api_management_name:string prop ->
+  authority:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  resource_group_name:string prop ->
+  signin_policy:string prop ->
+  signin_tenant:string prop ->
+  signup_policy:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,12 @@ val register :
   recording_mode:recording_mode list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  role_arn:string prop ->
+  recording_group:recording_group list ->
+  recording_mode:recording_mode list ->
+  string ->
+  t Tf_core.resource

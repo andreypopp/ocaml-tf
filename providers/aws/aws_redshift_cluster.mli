@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -196,3 +196,53 @@ val register :
   snapshot_copy:snapshot_copy list ->
   string ->
   t
+
+val make :
+  ?allow_version_upgrade:bool prop ->
+  ?apply_immediately:bool prop ->
+  ?aqua_configuration_status:string prop ->
+  ?automated_snapshot_retention_period:float prop ->
+  ?availability_zone:string prop ->
+  ?availability_zone_relocation_enabled:bool prop ->
+  ?cluster_parameter_group_name:string prop ->
+  ?cluster_public_key:string prop ->
+  ?cluster_revision_number:string prop ->
+  ?cluster_subnet_group_name:string prop ->
+  ?cluster_type:string prop ->
+  ?cluster_version:string prop ->
+  ?database_name:string prop ->
+  ?default_iam_role_arn:string prop ->
+  ?elastic_ip:string prop ->
+  ?encrypted:bool prop ->
+  ?endpoint:string prop ->
+  ?enhanced_vpc_routing:bool prop ->
+  ?final_snapshot_identifier:string prop ->
+  ?iam_roles:string prop list ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?maintenance_track_name:string prop ->
+  ?manage_master_password:bool prop ->
+  ?manual_snapshot_retention_period:float prop ->
+  ?master_password:string prop ->
+  ?master_password_secret_kms_key_id:string prop ->
+  ?master_username:string prop ->
+  ?multi_az:bool prop ->
+  ?number_of_nodes:float prop ->
+  ?owner_account:string prop ->
+  ?port:float prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?publicly_accessible:bool prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?snapshot_arn:string prop ->
+  ?snapshot_cluster_identifier:string prop ->
+  ?snapshot_identifier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  cluster_identifier:string prop ->
+  node_type:string prop ->
+  logging:logging list ->
+  snapshot_copy:snapshot_copy list ->
+  string ->
+  t Tf_core.resource

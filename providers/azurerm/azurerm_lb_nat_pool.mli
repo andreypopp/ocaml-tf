@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?floating_ip_enabled:bool prop ->
+  ?id:string prop ->
+  ?idle_timeout_in_minutes:float prop ->
+  ?tcp_reset_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  backend_port:float prop ->
+  frontend_ip_configuration_name:string prop ->
+  frontend_port_end:float prop ->
+  frontend_port_start:float prop ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  protocol:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

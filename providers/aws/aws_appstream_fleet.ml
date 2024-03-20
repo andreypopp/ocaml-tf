@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type compute_capacity = {
   desired_instances : float prop;  (** desired_instances *)
@@ -117,63 +115,70 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?description ?disconnect_timeout_in_seconds ?display_name
+    ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
+    ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
+    ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
+    ~instance_type ~name ~compute_capacity ~domain_join_info
+    ~vpc_config __id =
+  let __type = "aws_appstream_fleet" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       created_time = Prop.computed __type __id "created_time";
+       description = Prop.computed __type __id "description";
+       disconnect_timeout_in_seconds =
+         Prop.computed __type __id "disconnect_timeout_in_seconds";
+       display_name = Prop.computed __type __id "display_name";
+       enable_default_internet_access =
+         Prop.computed __type __id "enable_default_internet_access";
+       fleet_type = Prop.computed __type __id "fleet_type";
+       iam_role_arn = Prop.computed __type __id "iam_role_arn";
+       id = Prop.computed __type __id "id";
+       idle_disconnect_timeout_in_seconds =
+         Prop.computed __type __id
+           "idle_disconnect_timeout_in_seconds";
+       image_arn = Prop.computed __type __id "image_arn";
+       image_name = Prop.computed __type __id "image_name";
+       instance_type = Prop.computed __type __id "instance_type";
+       max_user_duration_in_seconds =
+         Prop.computed __type __id "max_user_duration_in_seconds";
+       name = Prop.computed __type __id "name";
+       state = Prop.computed __type __id "state";
+       stream_view = Prop.computed __type __id "stream_view";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_fleet
+        (aws_appstream_fleet ?description
+           ?disconnect_timeout_in_seconds ?display_name
+           ?enable_default_internet_access ?fleet_type ?iam_role_arn
+           ?id ?idle_disconnect_timeout_in_seconds ?image_arn
+           ?image_name ?max_user_duration_in_seconds ?stream_view
+           ?tags ?tags_all ~instance_type ~name ~compute_capacity
+           ~domain_join_info ~vpc_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?disconnect_timeout_in_seconds
     ?display_name ?enable_default_internet_access ?fleet_type
     ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds ?image_arn
     ?image_name ?max_user_duration_in_seconds ?stream_view ?tags
     ?tags_all ~instance_type ~name ~compute_capacity
-    ~domain_join_info ~vpc_config __resource_id =
-  let __resource_type = "aws_appstream_fleet" in
-  let __resource =
-    aws_appstream_fleet ?description ?disconnect_timeout_in_seconds
-      ?display_name ?enable_default_internet_access ?fleet_type
-      ?iam_role_arn ?id ?idle_disconnect_timeout_in_seconds
-      ?image_arn ?image_name ?max_user_duration_in_seconds
-      ?stream_view ?tags ?tags_all ~instance_type ~name
-      ~compute_capacity ~domain_join_info ~vpc_config ()
+    ~domain_join_info ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disconnect_timeout_in_seconds ?display_name
+      ?enable_default_internet_access ?fleet_type ?iam_role_arn ?id
+      ?idle_disconnect_timeout_in_seconds ?image_arn ?image_name
+      ?max_user_duration_in_seconds ?stream_view ?tags ?tags_all
+      ~instance_type ~name ~compute_capacity ~domain_join_info
+      ~vpc_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_fleet __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disconnect_timeout_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "disconnect_timeout_in_seconds";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enable_default_internet_access =
-         Prop.computed __resource_type __resource_id
-           "enable_default_internet_access";
-       fleet_type =
-         Prop.computed __resource_type __resource_id "fleet_type";
-       iam_role_arn =
-         Prop.computed __resource_type __resource_id "iam_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       idle_disconnect_timeout_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "idle_disconnect_timeout_in_seconds";
-       image_arn =
-         Prop.computed __resource_type __resource_id "image_arn";
-       image_name =
-         Prop.computed __resource_type __resource_id "image_name";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       max_user_duration_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "max_user_duration_in_seconds";
-       name = Prop.computed __resource_type __resource_id "name";
-       state = Prop.computed __resource_type __resource_id "state";
-       stream_view =
-         Prop.computed __resource_type __resource_id "stream_view";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

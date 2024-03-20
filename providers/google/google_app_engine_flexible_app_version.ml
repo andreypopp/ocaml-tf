@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type api_config = {
   auth_fail_action : string prop option; [@option]
@@ -605,6 +603,65 @@ type t = {
   version_id : string prop;
 }
 
+let make ?beta_settings ?default_expiration
+    ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+    ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
+    ?runtime_api_version ?runtime_channel
+    ?runtime_main_executable_path ?service_account ?serving_status
+    ?version_id ?timeouts ~runtime ~service ~api_config
+    ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
+    ~handlers ~liveness_check ~manual_scaling ~network
+    ~readiness_check ~resources ~vpc_access_connector __id =
+  let __type = "google_app_engine_flexible_app_version" in
+  let __attrs =
+    ({
+       beta_settings = Prop.computed __type __id "beta_settings";
+       default_expiration =
+         Prop.computed __type __id "default_expiration";
+       delete_service_on_destroy =
+         Prop.computed __type __id "delete_service_on_destroy";
+       env_variables = Prop.computed __type __id "env_variables";
+       id = Prop.computed __type __id "id";
+       inbound_services =
+         Prop.computed __type __id "inbound_services";
+       instance_class = Prop.computed __type __id "instance_class";
+       name = Prop.computed __type __id "name";
+       nobuild_files_regex =
+         Prop.computed __type __id "nobuild_files_regex";
+       noop_on_destroy = Prop.computed __type __id "noop_on_destroy";
+       project = Prop.computed __type __id "project";
+       runtime = Prop.computed __type __id "runtime";
+       runtime_api_version =
+         Prop.computed __type __id "runtime_api_version";
+       runtime_channel = Prop.computed __type __id "runtime_channel";
+       runtime_main_executable_path =
+         Prop.computed __type __id "runtime_main_executable_path";
+       service = Prop.computed __type __id "service";
+       service_account = Prop.computed __type __id "service_account";
+       serving_status = Prop.computed __type __id "serving_status";
+       version_id = Prop.computed __type __id "version_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_app_engine_flexible_app_version
+        (google_app_engine_flexible_app_version ?beta_settings
+           ?default_expiration ?delete_service_on_destroy
+           ?env_variables ?id ?inbound_services ?instance_class
+           ?nobuild_files_regex ?noop_on_destroy ?project
+           ?runtime_api_version ?runtime_channel
+           ?runtime_main_executable_path ?service_account
+           ?serving_status ?version_id ?timeouts ~runtime ~service
+           ~api_config ~automatic_scaling ~deployment
+           ~endpoints_api_service ~entrypoint ~handlers
+           ~liveness_check ~manual_scaling ~network ~readiness_check
+           ~resources ~vpc_access_connector ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?beta_settings ?default_expiration
     ?delete_service_on_destroy ?env_variables ?id ?inbound_services
     ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
@@ -613,69 +670,17 @@ let register ?tf_module ?beta_settings ?default_expiration
     ?version_id ?timeouts ~runtime ~service ~api_config
     ~automatic_scaling ~deployment ~endpoints_api_service ~entrypoint
     ~handlers ~liveness_check ~manual_scaling ~network
-    ~readiness_check ~resources ~vpc_access_connector __resource_id =
-  let __resource_type = "google_app_engine_flexible_app_version" in
-  let __resource =
-    google_app_engine_flexible_app_version ?beta_settings
-      ?default_expiration ?delete_service_on_destroy ?env_variables
-      ?id ?inbound_services ?instance_class ?nobuild_files_regex
-      ?noop_on_destroy ?project ?runtime_api_version ?runtime_channel
+    ~readiness_check ~resources ~vpc_access_connector __id =
+  let (r : _ Tf_core.resource) =
+    make ?beta_settings ?default_expiration
+      ?delete_service_on_destroy ?env_variables ?id ?inbound_services
+      ?instance_class ?nobuild_files_regex ?noop_on_destroy ?project
+      ?runtime_api_version ?runtime_channel
       ?runtime_main_executable_path ?service_account ?serving_status
       ?version_id ?timeouts ~runtime ~service ~api_config
       ~automatic_scaling ~deployment ~endpoints_api_service
       ~entrypoint ~handlers ~liveness_check ~manual_scaling ~network
-      ~readiness_check ~resources ~vpc_access_connector ()
+      ~readiness_check ~resources ~vpc_access_connector __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_app_engine_flexible_app_version __resource);
-  let __resource_attributes =
-    ({
-       beta_settings =
-         Prop.computed __resource_type __resource_id "beta_settings";
-       default_expiration =
-         Prop.computed __resource_type __resource_id
-           "default_expiration";
-       delete_service_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "delete_service_on_destroy";
-       env_variables =
-         Prop.computed __resource_type __resource_id "env_variables";
-       id = Prop.computed __resource_type __resource_id "id";
-       inbound_services =
-         Prop.computed __resource_type __resource_id
-           "inbound_services";
-       instance_class =
-         Prop.computed __resource_type __resource_id "instance_class";
-       name = Prop.computed __resource_type __resource_id "name";
-       nobuild_files_regex =
-         Prop.computed __resource_type __resource_id
-           "nobuild_files_regex";
-       noop_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "noop_on_destroy";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       runtime =
-         Prop.computed __resource_type __resource_id "runtime";
-       runtime_api_version =
-         Prop.computed __resource_type __resource_id
-           "runtime_api_version";
-       runtime_channel =
-         Prop.computed __resource_type __resource_id
-           "runtime_channel";
-       runtime_main_executable_path =
-         Prop.computed __resource_type __resource_id
-           "runtime_main_executable_path";
-       service =
-         Prop.computed __resource_type __resource_id "service";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       serving_status =
-         Prop.computed __resource_type __resource_id "serving_status";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

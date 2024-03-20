@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target_grant__grantee = {
   email_address : string prop option; [@option]  (** email_address *)
@@ -89,29 +87,37 @@ type t = {
   target_prefix : string prop;
 }
 
-let register ?tf_module ?expected_bucket_owner ?id ~bucket
-    ~target_bucket ~target_prefix ~target_grant
-    ~target_object_key_format __resource_id =
-  let __resource_type = "aws_s3_bucket_logging" in
-  let __resource =
-    aws_s3_bucket_logging ?expected_bucket_owner ?id ~bucket
-      ~target_bucket ~target_prefix ~target_grant
-      ~target_object_key_format ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket_logging __resource);
-  let __resource_attributes =
+let make ?expected_bucket_owner ?id ~bucket ~target_bucket
+    ~target_prefix ~target_grant ~target_object_key_format __id =
+  let __type = "aws_s3_bucket_logging" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
+       bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       id = Prop.computed __resource_type __resource_id "id";
-       target_bucket =
-         Prop.computed __resource_type __resource_id "target_bucket";
-       target_prefix =
-         Prop.computed __resource_type __resource_id "target_prefix";
+         Prop.computed __type __id "expected_bucket_owner";
+       id = Prop.computed __type __id "id";
+       target_bucket = Prop.computed __type __id "target_bucket";
+       target_prefix = Prop.computed __type __id "target_prefix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket_logging
+        (aws_s3_bucket_logging ?expected_bucket_owner ?id ~bucket
+           ~target_bucket ~target_prefix ~target_grant
+           ~target_object_key_format ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?expected_bucket_owner ?id ~bucket
+    ~target_bucket ~target_prefix ~target_grant
+    ~target_object_key_format __id =
+  let (r : _ Tf_core.resource) =
+    make ?expected_bucket_owner ?id ~bucket ~target_bucket
+      ~target_prefix ~target_grant ~target_object_key_format __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

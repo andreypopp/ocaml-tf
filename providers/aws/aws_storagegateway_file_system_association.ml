@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
@@ -59,38 +57,41 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?audit_destination_arn ?id ?tags ?tags_all
-    ~gateway_arn ~location_arn ~password ~username ~cache_attributes
-    __resource_id =
-  let __resource_type =
-    "aws_storagegateway_file_system_association"
-  in
-  let __resource =
-    aws_storagegateway_file_system_association ?audit_destination_arn
-      ?id ?tags ?tags_all ~gateway_arn ~location_arn ~password
-      ~username ~cache_attributes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_storagegateway_file_system_association __resource);
-  let __resource_attributes =
+let make ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
+    ~location_arn ~password ~username ~cache_attributes __id =
+  let __type = "aws_storagegateway_file_system_association" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        audit_destination_arn =
-         Prop.computed __resource_type __resource_id
-           "audit_destination_arn";
-       gateway_arn =
-         Prop.computed __resource_type __resource_id "gateway_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       location_arn =
-         Prop.computed __resource_type __resource_id "location_arn";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "audit_destination_arn";
+       gateway_arn = Prop.computed __type __id "gateway_arn";
+       id = Prop.computed __type __id "id";
+       location_arn = Prop.computed __type __id "location_arn";
+       password = Prop.computed __type __id "password";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_storagegateway_file_system_association
+        (aws_storagegateway_file_system_association
+           ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
+           ~location_arn ~password ~username ~cache_attributes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?audit_destination_arn ?id ?tags ?tags_all
+    ~gateway_arn ~location_arn ~password ~username ~cache_attributes
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?audit_destination_arn ?id ?tags ?tags_all ~gateway_arn
+      ~location_arn ~password ~username ~cache_attributes __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

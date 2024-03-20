@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_endpoints_service_consumers_iam_policy = {
   consumer_project : string prop;  (** consumer_project *)
@@ -26,30 +24,33 @@ type t = {
   service_name : string prop;
 }
 
-let register ?tf_module ?id ~consumer_project ~policy_data
-    ~service_name __resource_id =
-  let __resource_type =
-    "google_endpoints_service_consumers_iam_policy"
-  in
-  let __resource =
-    google_endpoints_service_consumers_iam_policy ?id
-      ~consumer_project ~policy_data ~service_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_endpoints_service_consumers_iam_policy
-       __resource);
-  let __resource_attributes =
+let make ?id ~consumer_project ~policy_data ~service_name __id =
+  let __type = "google_endpoints_service_consumers_iam_policy" in
+  let __attrs =
     ({
        consumer_project =
-         Prop.computed __resource_type __resource_id
-           "consumer_project";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
+         Prop.computed __type __id "consumer_project";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       policy_data = Prop.computed __type __id "policy_data";
+       service_name = Prop.computed __type __id "service_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_endpoints_service_consumers_iam_policy
+        (google_endpoints_service_consumers_iam_policy ?id
+           ~consumer_project ~policy_data ~service_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~consumer_project ~policy_data
+    ~service_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~consumer_project ~policy_data ~service_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

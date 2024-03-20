@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorization = {
   role_definition_id : string prop;  (** role_definition_id *)
@@ -86,47 +84,52 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?create_ui_definition ?description ?id
-    ?main_template ?package_enabled ?package_file_uri ?tags ?timeouts
-    ~display_name ~location ~lock_level ~name ~resource_group_name
-    ~authorization __resource_id =
-  let __resource_type = "azurerm_managed_application_definition" in
-  let __resource =
-    azurerm_managed_application_definition ?create_ui_definition
-      ?description ?id ?main_template ?package_enabled
-      ?package_file_uri ?tags ?timeouts ~display_name ~location
-      ~lock_level ~name ~resource_group_name ~authorization ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_managed_application_definition __resource);
-  let __resource_attributes =
+let make ?create_ui_definition ?description ?id ?main_template
+    ?package_enabled ?package_file_uri ?tags ?timeouts ~display_name
+    ~location ~lock_level ~name ~resource_group_name ~authorization
+    __id =
+  let __type = "azurerm_managed_application_definition" in
+  let __attrs =
     ({
        create_ui_definition =
-         Prop.computed __resource_type __resource_id
-           "create_ui_definition";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       lock_level =
-         Prop.computed __resource_type __resource_id "lock_level";
-       main_template =
-         Prop.computed __resource_type __resource_id "main_template";
-       name = Prop.computed __resource_type __resource_id "name";
-       package_enabled =
-         Prop.computed __resource_type __resource_id
-           "package_enabled";
+         Prop.computed __type __id "create_ui_definition";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       lock_level = Prop.computed __type __id "lock_level";
+       main_template = Prop.computed __type __id "main_template";
+       name = Prop.computed __type __id "name";
+       package_enabled = Prop.computed __type __id "package_enabled";
        package_file_uri =
-         Prop.computed __resource_type __resource_id
-           "package_file_uri";
+         Prop.computed __type __id "package_file_uri";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_managed_application_definition
+        (azurerm_managed_application_definition ?create_ui_definition
+           ?description ?id ?main_template ?package_enabled
+           ?package_file_uri ?tags ?timeouts ~display_name ~location
+           ~lock_level ~name ~resource_group_name ~authorization ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?create_ui_definition ?description ?id
+    ?main_template ?package_enabled ?package_file_uri ?tags ?timeouts
+    ~display_name ~location ~lock_level ~name ~resource_group_name
+    ~authorization __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_ui_definition ?description ?id ?main_template
+      ?package_enabled ?package_file_uri ?tags ?timeouts
+      ~display_name ~location ~lock_level ~name ~resource_group_name
+      ~authorization __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

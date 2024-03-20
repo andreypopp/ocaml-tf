@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type subnet = {
   name : string prop option; [@option]
@@ -88,45 +86,49 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?id ?ip_cidr_range ?machine_type
-    ?max_instances ?max_throughput ?min_instances ?min_throughput
-    ?network ?project ?region ?timeouts ~name ~subnet __resource_id =
-  let __resource_type = "google_vpc_access_connector" in
-  let __resource =
-    google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
-      ?max_instances ?max_throughput ?min_instances ?min_throughput
-      ?network ?project ?region ?timeouts ~name ~subnet ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vpc_access_connector __resource);
-  let __resource_attributes =
+let make ?id ?ip_cidr_range ?machine_type ?max_instances
+    ?max_throughput ?min_instances ?min_throughput ?network ?project
+    ?region ?timeouts ~name ~subnet __id =
+  let __type = "google_vpc_access_connector" in
+  let __attrs =
     ({
        connected_projects =
-         Prop.computed __resource_type __resource_id
-           "connected_projects";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_cidr_range =
-         Prop.computed __resource_type __resource_id "ip_cidr_range";
-       machine_type =
-         Prop.computed __resource_type __resource_id "machine_type";
-       max_instances =
-         Prop.computed __resource_type __resource_id "max_instances";
-       max_throughput =
-         Prop.computed __resource_type __resource_id "max_throughput";
-       min_instances =
-         Prop.computed __resource_type __resource_id "min_instances";
-       min_throughput =
-         Prop.computed __resource_type __resource_id "min_throughput";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "connected_projects";
+       id = Prop.computed __type __id "id";
+       ip_cidr_range = Prop.computed __type __id "ip_cidr_range";
+       machine_type = Prop.computed __type __id "machine_type";
+       max_instances = Prop.computed __type __id "max_instances";
+       max_throughput = Prop.computed __type __id "max_throughput";
+       min_instances = Prop.computed __type __id "min_instances";
+       min_throughput = Prop.computed __type __id "min_throughput";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vpc_access_connector
+        (google_vpc_access_connector ?id ?ip_cidr_range ?machine_type
+           ?max_instances ?max_throughput ?min_instances
+           ?min_throughput ?network ?project ?region ?timeouts ~name
+           ~subnet ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_cidr_range ?machine_type
+    ?max_instances ?max_throughput ?min_instances ?min_throughput
+    ?network ?project ?region ?timeouts ~name ~subnet __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_cidr_range ?machine_type ?max_instances
+      ?max_throughput ?min_instances ?min_throughput ?network
+      ?project ?region ?timeouts ~name ~subnet __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delegation__service_delegation = {
   actions : string prop list option; [@option]  (** actions *)
@@ -102,6 +100,59 @@ type t = {
   virtual_network_name : string prop;
 }
 
+let make ?enforce_private_link_endpoint_network_policies
+    ?enforce_private_link_service_network_policies ?id
+    ?private_endpoint_network_policies_enabled
+    ?private_link_service_network_policies_enabled
+    ?service_endpoint_policy_ids ?service_endpoints ?timeouts
+    ~address_prefixes ~name ~resource_group_name
+    ~virtual_network_name ~delegation __id =
+  let __type = "azurerm_subnet" in
+  let __attrs =
+    ({
+       address_prefixes =
+         Prop.computed __type __id "address_prefixes";
+       enforce_private_link_endpoint_network_policies =
+         Prop.computed __type __id
+           "enforce_private_link_endpoint_network_policies";
+       enforce_private_link_service_network_policies =
+         Prop.computed __type __id
+           "enforce_private_link_service_network_policies";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       private_endpoint_network_policies_enabled =
+         Prop.computed __type __id
+           "private_endpoint_network_policies_enabled";
+       private_link_service_network_policies_enabled =
+         Prop.computed __type __id
+           "private_link_service_network_policies_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       service_endpoint_policy_ids =
+         Prop.computed __type __id "service_endpoint_policy_ids";
+       service_endpoints =
+         Prop.computed __type __id "service_endpoints";
+       virtual_network_name =
+         Prop.computed __type __id "virtual_network_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_subnet
+        (azurerm_subnet
+           ?enforce_private_link_endpoint_network_policies
+           ?enforce_private_link_service_network_policies ?id
+           ?private_endpoint_network_policies_enabled
+           ?private_link_service_network_policies_enabled
+           ?service_endpoint_policy_ids ?service_endpoints ?timeouts
+           ~address_prefixes ~name ~resource_group_name
+           ~virtual_network_name ~delegation ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module
     ?enforce_private_link_endpoint_network_policies
     ?enforce_private_link_service_network_policies ?id
@@ -109,51 +160,15 @@ let register ?tf_module
     ?private_link_service_network_policies_enabled
     ?service_endpoint_policy_ids ?service_endpoints ?timeouts
     ~address_prefixes ~name ~resource_group_name
-    ~virtual_network_name ~delegation __resource_id =
-  let __resource_type = "azurerm_subnet" in
-  let __resource =
-    azurerm_subnet ?enforce_private_link_endpoint_network_policies
+    ~virtual_network_name ~delegation __id =
+  let (r : _ Tf_core.resource) =
+    make ?enforce_private_link_endpoint_network_policies
       ?enforce_private_link_service_network_policies ?id
       ?private_endpoint_network_policies_enabled
       ?private_link_service_network_policies_enabled
       ?service_endpoint_policy_ids ?service_endpoints ?timeouts
       ~address_prefixes ~name ~resource_group_name
-      ~virtual_network_name ~delegation ()
+      ~virtual_network_name ~delegation __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_subnet __resource);
-  let __resource_attributes =
-    ({
-       address_prefixes =
-         Prop.computed __resource_type __resource_id
-           "address_prefixes";
-       enforce_private_link_endpoint_network_policies =
-         Prop.computed __resource_type __resource_id
-           "enforce_private_link_endpoint_network_policies";
-       enforce_private_link_service_network_policies =
-         Prop.computed __resource_type __resource_id
-           "enforce_private_link_service_network_policies";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_endpoint_network_policies_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_endpoint_network_policies_enabled";
-       private_link_service_network_policies_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_link_service_network_policies_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_endpoint_policy_ids =
-         Prop.computed __resource_type __resource_id
-           "service_endpoint_policy_ids";
-       service_endpoints =
-         Prop.computed __resource_type __resource_id
-           "service_endpoints";
-       virtual_network_name =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

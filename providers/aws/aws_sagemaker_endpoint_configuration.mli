@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -199,3 +199,17 @@ val register :
   shadow_production_variants:shadow_production_variants list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  async_inference_config:async_inference_config list ->
+  data_capture_config:data_capture_config list ->
+  production_variants:production_variants list ->
+  shadow_production_variants:shadow_production_variants list ->
+  string ->
+  t Tf_core.resource

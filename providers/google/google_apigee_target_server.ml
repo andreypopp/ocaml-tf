@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type s_sl_info__common_name = {
   value : string prop option; [@option]
@@ -115,29 +113,38 @@ type t = {
   protocol : string prop;
 }
 
-let register ?tf_module ?description ?id ?is_enabled ?protocol
-    ?timeouts ~env_id ~host ~name ~port ~s_sl_info __resource_id =
-  let __resource_type = "google_apigee_target_server" in
-  let __resource =
-    google_apigee_target_server ?description ?id ?is_enabled
-      ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_target_server __resource);
-  let __resource_attributes =
+let make ?description ?id ?is_enabled ?protocol ?timeouts ~env_id
+    ~host ~name ~port ~s_sl_info __id =
+  let __type = "google_apigee_target_server" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       env_id = Prop.computed __resource_type __resource_id "env_id";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_enabled =
-         Prop.computed __resource_type __resource_id "is_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+       description = Prop.computed __type __id "description";
+       env_id = Prop.computed __type __id "env_id";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       is_enabled = Prop.computed __type __id "is_enabled";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
+       protocol = Prop.computed __type __id "protocol";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_target_server
+        (google_apigee_target_server ?description ?id ?is_enabled
+           ?protocol ?timeouts ~env_id ~host ~name ~port ~s_sl_info
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?is_enabled ?protocol
+    ?timeouts ~env_id ~host ~name ~port ~s_sl_info __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?is_enabled ?protocol ?timeouts ~env_id
+      ~host ~name ~port ~s_sl_info __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

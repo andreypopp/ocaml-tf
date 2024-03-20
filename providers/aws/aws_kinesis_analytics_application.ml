@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudwatch_logging_options = {
   log_stream_arn : string prop;  (** log_stream_arn *)
@@ -385,42 +383,49 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?code ?description ?id ?start_application
-    ?tags ?tags_all ~name ~cloudwatch_logging_options ~inputs
-    ~outputs ~reference_data_sources __resource_id =
-  let __resource_type = "aws_kinesis_analytics_application" in
-  let __resource =
-    aws_kinesis_analytics_application ?code ?description ?id
-      ?start_application ?tags ?tags_all ~name
-      ~cloudwatch_logging_options ~inputs ~outputs
-      ~reference_data_sources ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesis_analytics_application __resource);
-  let __resource_attributes =
+let make ?code ?description ?id ?start_application ?tags ?tags_all
+    ~name ~cloudwatch_logging_options ~inputs ~outputs
+    ~reference_data_sources __id =
+  let __type = "aws_kinesis_analytics_application" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       code = Prop.computed __resource_type __resource_id "code";
+       arn = Prop.computed __type __id "arn";
+       code = Prop.computed __type __id "code";
        create_timestamp =
-         Prop.computed __resource_type __resource_id
-           "create_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "create_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        last_update_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_update_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_update_timestamp";
+       name = Prop.computed __type __id "name";
        start_application =
-         Prop.computed __resource_type __resource_id
-           "start_application";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "start_application";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesis_analytics_application
+        (aws_kinesis_analytics_application ?code ?description ?id
+           ?start_application ?tags ?tags_all ~name
+           ~cloudwatch_logging_options ~inputs ~outputs
+           ~reference_data_sources ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?code ?description ?id ?start_application
+    ?tags ?tags_all ~name ~cloudwatch_logging_options ~inputs
+    ~outputs ~reference_data_sources __id =
+  let (r : _ Tf_core.resource) =
+    make ?code ?description ?id ?start_application ?tags ?tags_all
+      ~name ~cloudwatch_logging_options ~inputs ~outputs
+      ~reference_data_sources __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

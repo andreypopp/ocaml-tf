@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type image_scanning_configuration__ecr_configuration = {
   container_tags : string prop list option; [@option]
@@ -132,56 +130,62 @@ type t = {
   version : string prop;
 }
 
+let make ?container_recipe_arn ?distribution_configuration_arn
+    ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
+    ?tags_all ?timeouts ~infrastructure_configuration_arn
+    ~image_scanning_configuration ~image_tests_configuration __id =
+  let __type = "aws_imagebuilder_image" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       container_recipe_arn =
+         Prop.computed __type __id "container_recipe_arn";
+       date_created = Prop.computed __type __id "date_created";
+       distribution_configuration_arn =
+         Prop.computed __type __id "distribution_configuration_arn";
+       enhanced_image_metadata_enabled =
+         Prop.computed __type __id "enhanced_image_metadata_enabled";
+       id = Prop.computed __type __id "id";
+       image_recipe_arn =
+         Prop.computed __type __id "image_recipe_arn";
+       infrastructure_configuration_arn =
+         Prop.computed __type __id "infrastructure_configuration_arn";
+       name = Prop.computed __type __id "name";
+       os_version = Prop.computed __type __id "os_version";
+       output_resources =
+         Prop.computed __type __id "output_resources";
+       platform = Prop.computed __type __id "platform";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_image
+        (aws_imagebuilder_image ?container_recipe_arn
+           ?distribution_configuration_arn
+           ?enhanced_image_metadata_enabled ?id ?image_recipe_arn
+           ?tags ?tags_all ?timeouts
+           ~infrastructure_configuration_arn
+           ~image_scanning_configuration ~image_tests_configuration
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?container_recipe_arn
     ?distribution_configuration_arn ?enhanced_image_metadata_enabled
     ?id ?image_recipe_arn ?tags ?tags_all ?timeouts
     ~infrastructure_configuration_arn ~image_scanning_configuration
-    ~image_tests_configuration __resource_id =
-  let __resource_type = "aws_imagebuilder_image" in
-  let __resource =
-    aws_imagebuilder_image ?container_recipe_arn
-      ?distribution_configuration_arn
+    ~image_tests_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?container_recipe_arn ?distribution_configuration_arn
       ?enhanced_image_metadata_enabled ?id ?image_recipe_arn ?tags
       ?tags_all ?timeouts ~infrastructure_configuration_arn
-      ~image_scanning_configuration ~image_tests_configuration ()
+      ~image_scanning_configuration ~image_tests_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_image __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       container_recipe_arn =
-         Prop.computed __resource_type __resource_id
-           "container_recipe_arn";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       distribution_configuration_arn =
-         Prop.computed __resource_type __resource_id
-           "distribution_configuration_arn";
-       enhanced_image_metadata_enabled =
-         Prop.computed __resource_type __resource_id
-           "enhanced_image_metadata_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_recipe_arn =
-         Prop.computed __resource_type __resource_id
-           "image_recipe_arn";
-       infrastructure_configuration_arn =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_configuration_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       os_version =
-         Prop.computed __resource_type __resource_id "os_version";
-       output_resources =
-         Prop.computed __resource_type __resource_id
-           "output_resources";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

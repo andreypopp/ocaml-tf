@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,13 @@ val register :
   vmware_cloud_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_node_count:float prop ->
+  name:string prop ->
+  sku_name:string prop ->
+  vmware_cloud_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_rolesanywhere_profile = {
   duration_seconds : float prop option; [@option]
@@ -54,41 +52,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?duration_seconds ?enabled ?id
-    ?managed_policy_arns ?require_instance_properties ?session_policy
-    ?tags ?tags_all ~name ~role_arns __resource_id =
-  let __resource_type = "aws_rolesanywhere_profile" in
-  let __resource =
-    aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
-      ?managed_policy_arns ?require_instance_properties
-      ?session_policy ?tags ?tags_all ~name ~role_arns ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rolesanywhere_profile __resource);
-  let __resource_attributes =
+let make ?duration_seconds ?enabled ?id ?managed_policy_arns
+    ?require_instance_properties ?session_policy ?tags ?tags_all
+    ~name ~role_arns __id =
+  let __type = "aws_rolesanywhere_profile" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        duration_seconds =
-         Prop.computed __resource_type __resource_id
-           "duration_seconds";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "duration_seconds";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        managed_policy_arns =
-         Prop.computed __resource_type __resource_id
-           "managed_policy_arns";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "managed_policy_arns";
+       name = Prop.computed __type __id "name";
        require_instance_properties =
-         Prop.computed __resource_type __resource_id
-           "require_instance_properties";
-       role_arns =
-         Prop.computed __resource_type __resource_id "role_arns";
-       session_policy =
-         Prop.computed __resource_type __resource_id "session_policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "require_instance_properties";
+       role_arns = Prop.computed __type __id "role_arns";
+       session_policy = Prop.computed __type __id "session_policy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rolesanywhere_profile
+        (aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
+           ?managed_policy_arns ?require_instance_properties
+           ?session_policy ?tags ?tags_all ~name ~role_arns ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?duration_seconds ?enabled ?id
+    ?managed_policy_arns ?require_instance_properties ?session_policy
+    ?tags ?tags_all ~name ~role_arns __id =
+  let (r : _ Tf_core.resource) =
+    make ?duration_seconds ?enabled ?id ?managed_policy_arns
+      ?require_instance_properties ?session_policy ?tags ?tags_all
+      ~name ~role_arns __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

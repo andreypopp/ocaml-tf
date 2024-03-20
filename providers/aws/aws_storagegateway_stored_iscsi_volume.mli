@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,18 @@ val register :
   target_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_encrypted:bool prop ->
+  ?kms_key:string prop ->
+  ?snapshot_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  disk_id:string prop ->
+  gateway_arn:string prop ->
+  network_interface_id:string prop ->
+  preserve_existing_data:bool prop ->
+  target_name:string prop ->
+  string ->
+  t Tf_core.resource

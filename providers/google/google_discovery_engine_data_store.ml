@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,45 +71,49 @@ type t = {
   solution_types : string list prop;
 }
 
-let register ?tf_module ?create_advanced_site_search ?id ?project
-    ?solution_types ?timeouts ~content_config ~data_store_id
-    ~display_name ~industry_vertical ~location __resource_id =
-  let __resource_type = "google_discovery_engine_data_store" in
-  let __resource =
-    google_discovery_engine_data_store ?create_advanced_site_search
-      ?id ?project ?solution_types ?timeouts ~content_config
-      ~data_store_id ~display_name ~industry_vertical ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_discovery_engine_data_store __resource);
-  let __resource_attributes =
+let make ?create_advanced_site_search ?id ?project ?solution_types
+    ?timeouts ~content_config ~data_store_id ~display_name
+    ~industry_vertical ~location __id =
+  let __type = "google_discovery_engine_data_store" in
+  let __attrs =
     ({
-       content_config =
-         Prop.computed __resource_type __resource_id "content_config";
+       content_config = Prop.computed __type __id "content_config";
        create_advanced_site_search =
-         Prop.computed __resource_type __resource_id
-           "create_advanced_site_search";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       data_store_id =
-         Prop.computed __resource_type __resource_id "data_store_id";
+         Prop.computed __type __id "create_advanced_site_search";
+       create_time = Prop.computed __type __id "create_time";
+       data_store_id = Prop.computed __type __id "data_store_id";
        default_schema_id =
-         Prop.computed __resource_type __resource_id
-           "default_schema_id";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "default_schema_id";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
        industry_vertical =
-         Prop.computed __resource_type __resource_id
-           "industry_vertical";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       solution_types =
-         Prop.computed __resource_type __resource_id "solution_types";
+         Prop.computed __type __id "industry_vertical";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       solution_types = Prop.computed __type __id "solution_types";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_discovery_engine_data_store
+        (google_discovery_engine_data_store
+           ?create_advanced_site_search ?id ?project ?solution_types
+           ?timeouts ~content_config ~data_store_id ~display_name
+           ~industry_vertical ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?create_advanced_site_search ?id ?project
+    ?solution_types ?timeouts ~content_config ~data_store_id
+    ~display_name ~industry_vertical ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_advanced_site_search ?id ?project ?solution_types
+      ?timeouts ~content_config ~data_store_id ~display_name
+      ~industry_vertical ~location __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

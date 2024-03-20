@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,15 @@ val register :
   correlation_filter:correlation_filter list ->
   string ->
   t
+
+val make :
+  ?action:string prop ->
+  ?id:string prop ->
+  ?sql_filter:string prop ->
+  ?timeouts:timeouts ->
+  filter_type:string prop ->
+  name:string prop ->
+  subscription_id:string prop ->
+  correlation_filter:correlation_filter list ->
+  string ->
+  t Tf_core.resource

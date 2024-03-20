@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorization = {
   admin_groups : string prop list option; [@option]
@@ -237,62 +235,63 @@ type t = {
   workload_identity_config : workload_identity_config list prop;
 }
 
+let make ?annotations ?deletion_policy ?description ?id ?project
+    ?timeouts ~distribution ~location ~name ~platform_version
+    ~authorization ~binary_authorization ~fleet ~logging_config
+    ~monitoring_config ~oidc_config ~proxy_config __id =
+  let __type = "google_container_attached_cluster" in
+  let __attrs =
+    ({
+       annotations = Prop.computed __type __id "annotations";
+       cluster_region = Prop.computed __type __id "cluster_region";
+       create_time = Prop.computed __type __id "create_time";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       description = Prop.computed __type __id "description";
+       distribution = Prop.computed __type __id "distribution";
+       effective_annotations =
+         Prop.computed __type __id "effective_annotations";
+       errors = Prop.computed __type __id "errors";
+       id = Prop.computed __type __id "id";
+       kubernetes_version =
+         Prop.computed __type __id "kubernetes_version";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       platform_version =
+         Prop.computed __type __id "platform_version";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
+       workload_identity_config =
+         Prop.computed __type __id "workload_identity_config";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_attached_cluster
+        (google_container_attached_cluster ?annotations
+           ?deletion_policy ?description ?id ?project ?timeouts
+           ~distribution ~location ~name ~platform_version
+           ~authorization ~binary_authorization ~fleet
+           ~logging_config ~monitoring_config ~oidc_config
+           ~proxy_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?annotations ?deletion_policy ?description
     ?id ?project ?timeouts ~distribution ~location ~name
     ~platform_version ~authorization ~binary_authorization ~fleet
     ~logging_config ~monitoring_config ~oidc_config ~proxy_config
-    __resource_id =
-  let __resource_type = "google_container_attached_cluster" in
-  let __resource =
-    google_container_attached_cluster ?annotations ?deletion_policy
-      ?description ?id ?project ?timeouts ~distribution ~location
-      ~name ~platform_version ~authorization ~binary_authorization
-      ~fleet ~logging_config ~monitoring_config ~oidc_config
-      ~proxy_config ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?deletion_policy ?description ?id ?project
+      ?timeouts ~distribution ~location ~name ~platform_version
+      ~authorization ~binary_authorization ~fleet ~logging_config
+      ~monitoring_config ~oidc_config ~proxy_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_attached_cluster __resource);
-  let __resource_attributes =
-    ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       cluster_region =
-         Prop.computed __resource_type __resource_id "cluster_region";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       distribution =
-         Prop.computed __resource_type __resource_id "distribution";
-       effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       errors = Prop.computed __resource_type __resource_id "errors";
-       id = Prop.computed __resource_type __resource_id "id";
-       kubernetes_version =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_version";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       platform_version =
-         Prop.computed __resource_type __resource_id
-           "platform_version";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       workload_identity_config =
-         Prop.computed __resource_type __resource_id
-           "workload_identity_config";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_config_retention_configuration = {
   retention_period_in_days : float prop;
@@ -21,21 +19,30 @@ type t = {
   retention_period_in_days : float prop;
 }
 
-let register ?tf_module ~retention_period_in_days __resource_id =
-  let __resource_type = "aws_config_retention_configuration" in
-  let __resource =
-    aws_config_retention_configuration ~retention_period_in_days ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_retention_configuration __resource);
-  let __resource_attributes =
+let make ~retention_period_in_days __id =
+  let __type = "aws_config_retention_configuration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        retention_period_in_days =
-         Prop.computed __resource_type __resource_id
-           "retention_period_in_days";
+         Prop.computed __type __id "retention_period_in_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_retention_configuration
+        (aws_config_retention_configuration ~retention_period_in_days
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~retention_period_in_days __id =
+  let (r : _ Tf_core.resource) =
+    make ~retention_period_in_days __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

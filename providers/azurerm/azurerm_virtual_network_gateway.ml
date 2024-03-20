@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bgp_settings__peering_addresses = {
   apipa_addresses : string prop list option; [@option]
@@ -317,6 +315,66 @@ type t = {
   vpn_type : string prop;
 }
 
+let make ?active_active ?bgp_route_translation_for_nat_enabled
+    ?default_local_network_gateway_id ?dns_forwarding_enabled
+    ?edge_zone ?enable_bgp ?generation ?id
+    ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
+    ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
+    ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
+    ~type_ ~bgp_settings ~custom_route ~ip_configuration
+    ~policy_group ~vpn_client_configuration __id =
+  let __type = "azurerm_virtual_network_gateway" in
+  let __attrs =
+    ({
+       active_active = Prop.computed __type __id "active_active";
+       bgp_route_translation_for_nat_enabled =
+         Prop.computed __type __id
+           "bgp_route_translation_for_nat_enabled";
+       default_local_network_gateway_id =
+         Prop.computed __type __id "default_local_network_gateway_id";
+       dns_forwarding_enabled =
+         Prop.computed __type __id "dns_forwarding_enabled";
+       edge_zone = Prop.computed __type __id "edge_zone";
+       enable_bgp = Prop.computed __type __id "enable_bgp";
+       generation = Prop.computed __type __id "generation";
+       id = Prop.computed __type __id "id";
+       ip_sec_replay_protection_enabled =
+         Prop.computed __type __id "ip_sec_replay_protection_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       private_ip_address_enabled =
+         Prop.computed __type __id "private_ip_address_enabled";
+       remote_vnet_traffic_enabled =
+         Prop.computed __type __id "remote_vnet_traffic_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       virtual_wan_traffic_enabled =
+         Prop.computed __type __id "virtual_wan_traffic_enabled";
+       vpn_type = Prop.computed __type __id "vpn_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_network_gateway
+        (azurerm_virtual_network_gateway ?active_active
+           ?bgp_route_translation_for_nat_enabled
+           ?default_local_network_gateway_id ?dns_forwarding_enabled
+           ?edge_zone ?enable_bgp ?generation ?id
+           ?ip_sec_replay_protection_enabled
+           ?private_ip_address_enabled ?remote_vnet_traffic_enabled
+           ?tags ?virtual_wan_traffic_enabled ?vpn_type ?timeouts
+           ~location ~name ~resource_group_name ~sku ~type_
+           ~bgp_settings ~custom_route ~ip_configuration
+           ~policy_group ~vpn_client_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?active_active
     ?bgp_route_translation_for_nat_enabled
     ?default_local_network_gateway_id ?dns_forwarding_enabled
@@ -325,65 +383,16 @@ let register ?tf_module ?active_active
     ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
     ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
     ~type_ ~bgp_settings ~custom_route ~ip_configuration
-    ~policy_group ~vpn_client_configuration __resource_id =
-  let __resource_type = "azurerm_virtual_network_gateway" in
-  let __resource =
-    azurerm_virtual_network_gateway ?active_active
-      ?bgp_route_translation_for_nat_enabled
+    ~policy_group ~vpn_client_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?active_active ?bgp_route_translation_for_nat_enabled
       ?default_local_network_gateway_id ?dns_forwarding_enabled
       ?edge_zone ?enable_bgp ?generation ?id
       ?ip_sec_replay_protection_enabled ?private_ip_address_enabled
       ?remote_vnet_traffic_enabled ?tags ?virtual_wan_traffic_enabled
       ?vpn_type ?timeouts ~location ~name ~resource_group_name ~sku
       ~type_ ~bgp_settings ~custom_route ~ip_configuration
-      ~policy_group ~vpn_client_configuration ()
+      ~policy_group ~vpn_client_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_network_gateway __resource);
-  let __resource_attributes =
-    ({
-       active_active =
-         Prop.computed __resource_type __resource_id "active_active";
-       bgp_route_translation_for_nat_enabled =
-         Prop.computed __resource_type __resource_id
-           "bgp_route_translation_for_nat_enabled";
-       default_local_network_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "default_local_network_gateway_id";
-       dns_forwarding_enabled =
-         Prop.computed __resource_type __resource_id
-           "dns_forwarding_enabled";
-       edge_zone =
-         Prop.computed __resource_type __resource_id "edge_zone";
-       enable_bgp =
-         Prop.computed __resource_type __resource_id "enable_bgp";
-       generation =
-         Prop.computed __resource_type __resource_id "generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_sec_replay_protection_enabled =
-         Prop.computed __resource_type __resource_id
-           "ip_sec_replay_protection_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_ip_address_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address_enabled";
-       remote_vnet_traffic_enabled =
-         Prop.computed __resource_type __resource_id
-           "remote_vnet_traffic_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       virtual_wan_traffic_enabled =
-         Prop.computed __resource_type __resource_id
-           "virtual_wan_traffic_enabled";
-       vpn_type =
-         Prop.computed __resource_type __resource_id "vpn_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

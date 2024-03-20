@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   workspace_id:string prop ->
   string ->
   t
+
+val make :
+  ?account_key:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?service_data_auth_identity:string prop ->
+  ?shared_access_signature:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  storage_container_id:string prop ->
+  workspace_id:string prop ->
+  string ->
+  t Tf_core.resource

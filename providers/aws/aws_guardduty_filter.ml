@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type finding_criteria__criterion = {
   equals : string prop list option; [@option]  (** equals *)
@@ -81,30 +79,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~action
-    ~detector_id ~name ~rank ~finding_criteria __resource_id =
-  let __resource_type = "aws_guardduty_filter" in
-  let __resource =
-    aws_guardduty_filter ?description ?id ?tags ?tags_all ~action
-      ~detector_id ~name ~rank ~finding_criteria ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_guardduty_filter __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~action ~detector_id ~name
+    ~rank ~finding_criteria __id =
+  let __type = "aws_guardduty_filter" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       detector_id =
-         Prop.computed __resource_type __resource_id "detector_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       rank = Prop.computed __resource_type __resource_id "rank";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       action = Prop.computed __type __id "action";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       detector_id = Prop.computed __type __id "detector_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       rank = Prop.computed __type __id "rank";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_guardduty_filter
+        (aws_guardduty_filter ?description ?id ?tags ?tags_all
+           ~action ~detector_id ~name ~rank ~finding_criteria ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ~action
+    ~detector_id ~name ~rank ~finding_criteria __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~action ~detector_id ~name
+      ~rank ~finding_criteria __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

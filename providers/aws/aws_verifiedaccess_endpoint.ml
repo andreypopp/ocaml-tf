@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type load_balancer_options = {
   load_balancer_arn : string prop option; [@option]
@@ -124,63 +122,65 @@ type t = {
   verified_access_instance_id : string prop;
 }
 
+let make ?description ?id ?policy_document ?security_group_ids ?tags
+    ?tags_all ?timeouts ~application_domain ~attachment_type
+    ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
+    ~verified_access_group_id ~load_balancer_options
+    ~network_interface_options ~sse_specification __id =
+  let __type = "aws_verifiedaccess_endpoint" in
+  let __attrs =
+    ({
+       application_domain =
+         Prop.computed __type __id "application_domain";
+       attachment_type = Prop.computed __type __id "attachment_type";
+       description = Prop.computed __type __id "description";
+       device_validation_domain =
+         Prop.computed __type __id "device_validation_domain";
+       domain_certificate_arn =
+         Prop.computed __type __id "domain_certificate_arn";
+       endpoint_domain = Prop.computed __type __id "endpoint_domain";
+       endpoint_domain_prefix =
+         Prop.computed __type __id "endpoint_domain_prefix";
+       endpoint_type = Prop.computed __type __id "endpoint_type";
+       id = Prop.computed __type __id "id";
+       policy_document = Prop.computed __type __id "policy_document";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       verified_access_group_id =
+         Prop.computed __type __id "verified_access_group_id";
+       verified_access_instance_id =
+         Prop.computed __type __id "verified_access_instance_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedaccess_endpoint
+        (aws_verifiedaccess_endpoint ?description ?id
+           ?policy_document ?security_group_ids ?tags ?tags_all
+           ?timeouts ~application_domain ~attachment_type
+           ~domain_certificate_arn ~endpoint_domain_prefix
+           ~endpoint_type ~verified_access_group_id
+           ~load_balancer_options ~network_interface_options
+           ~sse_specification ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?policy_document
     ?security_group_ids ?tags ?tags_all ?timeouts ~application_domain
     ~attachment_type ~domain_certificate_arn ~endpoint_domain_prefix
     ~endpoint_type ~verified_access_group_id ~load_balancer_options
-    ~network_interface_options ~sse_specification __resource_id =
-  let __resource_type = "aws_verifiedaccess_endpoint" in
-  let __resource =
-    aws_verifiedaccess_endpoint ?description ?id ?policy_document
-      ?security_group_ids ?tags ?tags_all ?timeouts
-      ~application_domain ~attachment_type ~domain_certificate_arn
-      ~endpoint_domain_prefix ~endpoint_type
+    ~network_interface_options ~sse_specification __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?policy_document ?security_group_ids ?tags
+      ?tags_all ?timeouts ~application_domain ~attachment_type
+      ~domain_certificate_arn ~endpoint_domain_prefix ~endpoint_type
       ~verified_access_group_id ~load_balancer_options
-      ~network_interface_options ~sse_specification ()
+      ~network_interface_options ~sse_specification __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedaccess_endpoint __resource);
-  let __resource_attributes =
-    ({
-       application_domain =
-         Prop.computed __resource_type __resource_id
-           "application_domain";
-       attachment_type =
-         Prop.computed __resource_type __resource_id
-           "attachment_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       device_validation_domain =
-         Prop.computed __resource_type __resource_id
-           "device_validation_domain";
-       domain_certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "domain_certificate_arn";
-       endpoint_domain =
-         Prop.computed __resource_type __resource_id
-           "endpoint_domain";
-       endpoint_domain_prefix =
-         Prop.computed __resource_type __resource_id
-           "endpoint_domain_prefix";
-       endpoint_type =
-         Prop.computed __resource_type __resource_id "endpoint_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_document =
-         Prop.computed __resource_type __resource_id
-           "policy_document";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       verified_access_group_id =
-         Prop.computed __resource_type __resource_id
-           "verified_access_group_id";
-       verified_access_instance_id =
-         Prop.computed __resource_type __resource_id
-           "verified_access_instance_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,23 +36,31 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?token_secret ?timeouts ~token ~type_
-    __resource_id =
-  let __resource_type = "azurerm_app_service_source_control_token" in
-  let __resource =
-    azurerm_app_service_source_control_token ?id ?token_secret
-      ?timeouts ~token ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_source_control_token __resource);
-  let __resource_attributes =
+let make ?id ?token_secret ?timeouts ~token ~type_ __id =
+  let __type = "azurerm_app_service_source_control_token" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       token = Prop.computed __resource_type __resource_id "token";
-       token_secret =
-         Prop.computed __resource_type __resource_id "token_secret";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       id = Prop.computed __type __id "id";
+       token = Prop.computed __type __id "token";
+       token_secret = Prop.computed __type __id "token_secret";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_source_control_token
+        (azurerm_app_service_source_control_token ?id ?token_secret
+           ?timeouts ~token ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?token_secret ?timeouts ~token ~type_
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?token_secret ?timeouts ~token ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

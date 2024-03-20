@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -37,26 +35,32 @@ type t = {
   space_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~display_name
-    ~space_name __resource_id =
-  let __resource_type = "aws_codecatalyst_project" in
-  let __resource =
-    aws_codecatalyst_project ?description ?id ?timeouts ~display_name
-      ~space_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codecatalyst_project __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~display_name ~space_name __id =
+  let __type = "aws_codecatalyst_project" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       space_name =
-         Prop.computed __resource_type __resource_id "space_name";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       space_name = Prop.computed __type __id "space_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codecatalyst_project
+        (aws_codecatalyst_project ?description ?id ?timeouts
+           ~display_name ~space_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~display_name
+    ~space_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~display_name ~space_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

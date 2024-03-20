@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sse_configuration = {
   customer_managed_key_enabled : bool prop option; [@option]
@@ -59,45 +57,46 @@ type t = {
   verifiedaccess_instance_id : string prop;
 }
 
-let register ?tf_module ?description ?id ?policy_document ?tags
-    ?tags_all ~verifiedaccess_instance_id ~sse_configuration
-    __resource_id =
-  let __resource_type = "aws_verifiedaccess_group" in
-  let __resource =
-    aws_verifiedaccess_group ?description ?id ?policy_document ?tags
-      ?tags_all ~verifiedaccess_instance_id ~sse_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedaccess_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?policy_document ?tags ?tags_all
+    ~verifiedaccess_instance_id ~sse_configuration __id =
+  let __type = "aws_verifiedaccess_group" in
+  let __attrs =
     ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       deletion_time =
-         Prop.computed __resource_type __resource_id "deletion_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       creation_time = Prop.computed __type __id "creation_time";
+       deletion_time = Prop.computed __type __id "deletion_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        last_updated_time =
-         Prop.computed __resource_type __resource_id
-           "last_updated_time";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       policy_document =
-         Prop.computed __resource_type __resource_id
-           "policy_document";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_updated_time";
+       owner = Prop.computed __type __id "owner";
+       policy_document = Prop.computed __type __id "policy_document";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        verifiedaccess_group_arn =
-         Prop.computed __resource_type __resource_id
-           "verifiedaccess_group_arn";
+         Prop.computed __type __id "verifiedaccess_group_arn";
        verifiedaccess_group_id =
-         Prop.computed __resource_type __resource_id
-           "verifiedaccess_group_id";
+         Prop.computed __type __id "verifiedaccess_group_id";
        verifiedaccess_instance_id =
-         Prop.computed __resource_type __resource_id
-           "verifiedaccess_instance_id";
+         Prop.computed __type __id "verifiedaccess_instance_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedaccess_group
+        (aws_verifiedaccess_group ?description ?id ?policy_document
+           ?tags ?tags_all ~verifiedaccess_instance_id
+           ~sse_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?policy_document ?tags
+    ?tags_all ~verifiedaccess_instance_id ~sse_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?policy_document ?tags ?tags_all
+      ~verifiedaccess_instance_id ~sse_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

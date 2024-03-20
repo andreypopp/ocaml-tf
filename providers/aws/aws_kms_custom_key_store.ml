@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -47,33 +45,40 @@ type t = {
   trust_anchor_certificate : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cloud_hsm_cluster_id
-    ~custom_key_store_name ~key_store_password
-    ~trust_anchor_certificate __resource_id =
-  let __resource_type = "aws_kms_custom_key_store" in
-  let __resource =
-    aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
-      ~custom_key_store_name ~key_store_password
-      ~trust_anchor_certificate ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kms_custom_key_store __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cloud_hsm_cluster_id ~custom_key_store_name
+    ~key_store_password ~trust_anchor_certificate __id =
+  let __type = "aws_kms_custom_key_store" in
+  let __attrs =
     ({
        cloud_hsm_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "cloud_hsm_cluster_id";
+         Prop.computed __type __id "cloud_hsm_cluster_id";
        custom_key_store_name =
-         Prop.computed __resource_type __resource_id
-           "custom_key_store_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "custom_key_store_name";
+       id = Prop.computed __type __id "id";
        key_store_password =
-         Prop.computed __resource_type __resource_id
-           "key_store_password";
+         Prop.computed __type __id "key_store_password";
        trust_anchor_certificate =
-         Prop.computed __resource_type __resource_id
-           "trust_anchor_certificate";
+         Prop.computed __type __id "trust_anchor_certificate";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kms_custom_key_store
+        (aws_kms_custom_key_store ?id ?timeouts ~cloud_hsm_cluster_id
+           ~custom_key_store_name ~key_store_password
+           ~trust_anchor_certificate ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cloud_hsm_cluster_id
+    ~custom_key_store_name ~key_store_password
+    ~trust_anchor_certificate __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cloud_hsm_cluster_id ~custom_key_store_name
+      ~key_store_password ~trust_anchor_certificate __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

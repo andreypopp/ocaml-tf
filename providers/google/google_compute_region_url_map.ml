@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
@@ -1781,39 +1779,44 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?default_service ?description ?id ?project
-    ?region ?timeouts ~name ~default_route_action
-    ~default_url_redirect ~host_rule ~path_matcher ~test
-    __resource_id =
-  let __resource_type = "google_compute_region_url_map" in
-  let __resource =
-    google_compute_region_url_map ?default_service ?description ?id
-      ?project ?region ?timeouts ~name ~default_route_action
-      ~default_url_redirect ~host_rule ~path_matcher ~test ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_url_map __resource);
-  let __resource_attributes =
+let make ?default_service ?description ?id ?project ?region ?timeouts
+    ~name ~default_route_action ~default_url_redirect ~host_rule
+    ~path_matcher ~test __id =
+  let __type = "google_compute_region_url_map" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       default_service =
-         Prop.computed __resource_type __resource_id
-           "default_service";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       map_id = Prop.computed __resource_type __resource_id "map_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       default_service = Prop.computed __type __id "default_service";
+       description = Prop.computed __type __id "description";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       map_id = Prop.computed __type __id "map_id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_url_map
+        (google_compute_region_url_map ?default_service ?description
+           ?id ?project ?region ?timeouts ~name ~default_route_action
+           ~default_url_redirect ~host_rule ~path_matcher ~test ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_service ?description ?id ?project
+    ?region ?timeouts ~name ~default_route_action
+    ~default_url_redirect ~host_rule ~path_matcher ~test __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_service ?description ?id ?project ?region ?timeouts
+      ~name ~default_route_action ~default_url_redirect ~host_rule
+      ~path_matcher ~test __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

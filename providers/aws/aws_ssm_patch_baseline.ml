@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type approval_rule__patch_filter = {
   key : string prop;  (** key *)
@@ -125,52 +123,64 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?approved_patches ?approved_patches_compliance_level
+    ?approved_patches_enable_non_security ?description ?id
+    ?operating_system ?rejected_patches ?rejected_patches_action
+    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source __id
+    =
+  let __type = "aws_ssm_patch_baseline" in
+  let __attrs =
+    ({
+       approved_patches =
+         Prop.computed __type __id "approved_patches";
+       approved_patches_compliance_level =
+         Prop.computed __type __id
+           "approved_patches_compliance_level";
+       approved_patches_enable_non_security =
+         Prop.computed __type __id
+           "approved_patches_enable_non_security";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       json = Prop.computed __type __id "json";
+       name = Prop.computed __type __id "name";
+       operating_system =
+         Prop.computed __type __id "operating_system";
+       rejected_patches =
+         Prop.computed __type __id "rejected_patches";
+       rejected_patches_action =
+         Prop.computed __type __id "rejected_patches_action";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_patch_baseline
+        (aws_ssm_patch_baseline ?approved_patches
+           ?approved_patches_compliance_level
+           ?approved_patches_enable_non_security ?description ?id
+           ?operating_system ?rejected_patches
+           ?rejected_patches_action ?tags ?tags_all ~name
+           ~approval_rule ~global_filter ~source ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?approved_patches
     ?approved_patches_compliance_level
     ?approved_patches_enable_non_security ?description ?id
     ?operating_system ?rejected_patches ?rejected_patches_action
-    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source
-    __resource_id =
-  let __resource_type = "aws_ssm_patch_baseline" in
-  let __resource =
-    aws_ssm_patch_baseline ?approved_patches
-      ?approved_patches_compliance_level
+    ?tags ?tags_all ~name ~approval_rule ~global_filter ~source __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?approved_patches ?approved_patches_compliance_level
       ?approved_patches_enable_non_security ?description ?id
       ?operating_system ?rejected_patches ?rejected_patches_action
-      ?tags ?tags_all ~name ~approval_rule ~global_filter ~source ()
+      ?tags ?tags_all ~name ~approval_rule ~global_filter ~source
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_patch_baseline __resource);
-  let __resource_attributes =
-    ({
-       approved_patches =
-         Prop.computed __resource_type __resource_id
-           "approved_patches";
-       approved_patches_compliance_level =
-         Prop.computed __resource_type __resource_id
-           "approved_patches_compliance_level";
-       approved_patches_enable_non_security =
-         Prop.computed __resource_type __resource_id
-           "approved_patches_enable_non_security";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       json = Prop.computed __resource_type __resource_id "json";
-       name = Prop.computed __resource_type __resource_id "name";
-       operating_system =
-         Prop.computed __resource_type __resource_id
-           "operating_system";
-       rejected_patches =
-         Prop.computed __resource_type __resource_id
-           "rejected_patches";
-       rejected_patches_action =
-         Prop.computed __resource_type __resource_id
-           "rejected_patches_action";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

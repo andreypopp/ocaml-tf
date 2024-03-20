@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -118,3 +118,10 @@ val register :
   webhook:webhook list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  metadata:metadata list ->
+  webhook:webhook list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule_config = {
   inverted : bool prop;  (** inverted *)
@@ -58,41 +56,42 @@ type t = {
   wait_period_ms : float prop;
 }
 
-let register ?tf_module ?asserted_controls ?gating_controls ?id
-    ?target_controls ~control_panel_arn ~name ~wait_period_ms
-    ~rule_config __resource_id =
-  let __resource_type =
-    "aws_route53recoverycontrolconfig_safety_rule"
-  in
-  let __resource =
-    aws_route53recoverycontrolconfig_safety_rule ?asserted_controls
-      ?gating_controls ?id ?target_controls ~control_panel_arn ~name
-      ~wait_period_ms ~rule_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53recoverycontrolconfig_safety_rule
-       __resource);
-  let __resource_attributes =
+let make ?asserted_controls ?gating_controls ?id ?target_controls
+    ~control_panel_arn ~name ~wait_period_ms ~rule_config __id =
+  let __type = "aws_route53recoverycontrolconfig_safety_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        asserted_controls =
-         Prop.computed __resource_type __resource_id
-           "asserted_controls";
+         Prop.computed __type __id "asserted_controls";
        control_panel_arn =
-         Prop.computed __resource_type __resource_id
-           "control_panel_arn";
-       gating_controls =
-         Prop.computed __resource_type __resource_id
-           "gating_controls";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       target_controls =
-         Prop.computed __resource_type __resource_id
-           "target_controls";
-       wait_period_ms =
-         Prop.computed __resource_type __resource_id "wait_period_ms";
+         Prop.computed __type __id "control_panel_arn";
+       gating_controls = Prop.computed __type __id "gating_controls";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       target_controls = Prop.computed __type __id "target_controls";
+       wait_period_ms = Prop.computed __type __id "wait_period_ms";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53recoverycontrolconfig_safety_rule
+        (aws_route53recoverycontrolconfig_safety_rule
+           ?asserted_controls ?gating_controls ?id ?target_controls
+           ~control_panel_arn ~name ~wait_period_ms ~rule_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?asserted_controls ?gating_controls ?id
+    ?target_controls ~control_panel_arn ~name ~wait_period_ms
+    ~rule_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?asserted_controls ?gating_controls ?id ?target_controls
+      ~control_panel_arn ~name ~wait_period_ms ~rule_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

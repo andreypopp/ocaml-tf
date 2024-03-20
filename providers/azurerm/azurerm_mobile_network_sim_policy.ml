@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type slice__data_network__session_aggregate_maximum_bit_rate = {
   downlink : string prop;  (** downlink *)
@@ -147,40 +145,51 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?rat_frequency_selection_priority_index
+let make ?id ?rat_frequency_selection_priority_index
     ?registration_timer_in_seconds ?tags ?timeouts ~default_slice_id
     ~location ~mobile_network_id ~name ~slice
-    ~user_equipment_aggregate_maximum_bit_rate __resource_id =
-  let __resource_type = "azurerm_mobile_network_sim_policy" in
-  let __resource =
-    azurerm_mobile_network_sim_policy ?id
-      ?rat_frequency_selection_priority_index
-      ?registration_timer_in_seconds ?tags ?timeouts
-      ~default_slice_id ~location ~mobile_network_id ~name ~slice
-      ~user_equipment_aggregate_maximum_bit_rate ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mobile_network_sim_policy __resource);
-  let __resource_attributes =
+    ~user_equipment_aggregate_maximum_bit_rate __id =
+  let __type = "azurerm_mobile_network_sim_policy" in
+  let __attrs =
     ({
        default_slice_id =
-         Prop.computed __resource_type __resource_id
-           "default_slice_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "default_slice_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        mobile_network_id =
-         Prop.computed __resource_type __resource_id
-           "mobile_network_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "mobile_network_id";
+       name = Prop.computed __type __id "name";
        rat_frequency_selection_priority_index =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "rat_frequency_selection_priority_index";
        registration_timer_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "registration_timer_in_seconds";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "registration_timer_in_seconds";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mobile_network_sim_policy
+        (azurerm_mobile_network_sim_policy ?id
+           ?rat_frequency_selection_priority_index
+           ?registration_timer_in_seconds ?tags ?timeouts
+           ~default_slice_id ~location ~mobile_network_id ~name
+           ~slice ~user_equipment_aggregate_maximum_bit_rate ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?rat_frequency_selection_priority_index
+    ?registration_timer_in_seconds ?tags ?timeouts ~default_slice_id
+    ~location ~mobile_network_id ~name ~slice
+    ~user_equipment_aggregate_maximum_bit_rate __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?rat_frequency_selection_priority_index
+      ?registration_timer_in_seconds ?tags ?timeouts
+      ~default_slice_id ~location ~mobile_network_id ~name ~slice
+      ~user_equipment_aggregate_maximum_bit_rate __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

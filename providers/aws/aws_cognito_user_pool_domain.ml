@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cognito_user_pool_domain = {
   certificate_arn : string prop option; [@option]
@@ -31,40 +29,40 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?certificate_arn ?id ~domain ~user_pool_id
-    __resource_id =
-  let __resource_type = "aws_cognito_user_pool_domain" in
-  let __resource =
-    aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
-      ~user_pool_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_user_pool_domain __resource);
-  let __resource_attributes =
+let make ?certificate_arn ?id ~domain ~user_pool_id __id =
+  let __type = "aws_cognito_user_pool_domain" in
+  let __attrs =
     ({
-       aws_account_id =
-         Prop.computed __resource_type __resource_id "aws_account_id";
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
+       aws_account_id = Prop.computed __type __id "aws_account_id";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
        cloudfront_distribution =
-         Prop.computed __resource_type __resource_id
-           "cloudfront_distribution";
+         Prop.computed __type __id "cloudfront_distribution";
        cloudfront_distribution_arn =
-         Prop.computed __resource_type __resource_id
-           "cloudfront_distribution_arn";
+         Prop.computed __type __id "cloudfront_distribution_arn";
        cloudfront_distribution_zone_id =
-         Prop.computed __resource_type __resource_id
-           "cloudfront_distribution_zone_id";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       id = Prop.computed __resource_type __resource_id "id";
-       s3_bucket =
-         Prop.computed __resource_type __resource_id "s3_bucket";
-       user_pool_id =
-         Prop.computed __resource_type __resource_id "user_pool_id";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "cloudfront_distribution_zone_id";
+       domain = Prop.computed __type __id "domain";
+       id = Prop.computed __type __id "id";
+       s3_bucket = Prop.computed __type __id "s3_bucket";
+       user_pool_id = Prop.computed __type __id "user_pool_id";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_user_pool_domain
+        (aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
+           ~user_pool_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_arn ?id ~domain ~user_pool_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_arn ?id ~domain ~user_pool_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

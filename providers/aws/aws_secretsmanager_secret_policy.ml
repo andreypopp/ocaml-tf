@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_secretsmanager_secret_policy = {
   block_public_policy : bool prop option; [@option]
@@ -25,25 +23,32 @@ type t = {
   secret_arn : string prop;
 }
 
-let register ?tf_module ?block_public_policy ?id ~policy ~secret_arn
-    __resource_id =
-  let __resource_type = "aws_secretsmanager_secret_policy" in
-  let __resource =
-    aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
-      ~secret_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_secretsmanager_secret_policy __resource);
-  let __resource_attributes =
+let make ?block_public_policy ?id ~policy ~secret_arn __id =
+  let __type = "aws_secretsmanager_secret_policy" in
+  let __attrs =
     ({
        block_public_policy =
-         Prop.computed __resource_type __resource_id
-           "block_public_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       secret_arn =
-         Prop.computed __resource_type __resource_id "secret_arn";
+         Prop.computed __type __id "block_public_policy";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       secret_arn = Prop.computed __type __id "secret_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_secretsmanager_secret_policy
+        (aws_secretsmanager_secret_policy ?block_public_policy ?id
+           ~policy ~secret_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?block_public_policy ?id ~policy ~secret_arn
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?block_public_policy ?id ~policy ~secret_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

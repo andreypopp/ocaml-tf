@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type output_config = {
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
@@ -56,37 +54,41 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?enable_iot_role_alias ?id ?tags
-    ?tags_all ~device_fleet_name ~role_arn ~output_config
-    __resource_id =
-  let __resource_type = "aws_sagemaker_device_fleet" in
-  let __resource =
-    aws_sagemaker_device_fleet ?description ?enable_iot_role_alias
-      ?id ?tags ?tags_all ~device_fleet_name ~role_arn ~output_config
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_device_fleet __resource);
-  let __resource_attributes =
+let make ?description ?enable_iot_role_alias ?id ?tags ?tags_all
+    ~device_fleet_name ~role_arn ~output_config __id =
+  let __type = "aws_sagemaker_device_fleet" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        device_fleet_name =
-         Prop.computed __resource_type __resource_id
-           "device_fleet_name";
+         Prop.computed __type __id "device_fleet_name";
        enable_iot_role_alias =
-         Prop.computed __resource_type __resource_id
-           "enable_iot_role_alias";
-       id = Prop.computed __resource_type __resource_id "id";
-       iot_role_alias =
-         Prop.computed __resource_type __resource_id "iot_role_alias";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "enable_iot_role_alias";
+       id = Prop.computed __type __id "id";
+       iot_role_alias = Prop.computed __type __id "iot_role_alias";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_device_fleet
+        (aws_sagemaker_device_fleet ?description
+           ?enable_iot_role_alias ?id ?tags ?tags_all
+           ~device_fleet_name ~role_arn ~output_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enable_iot_role_alias ?id ?tags
+    ?tags_all ~device_fleet_name ~role_arn ~output_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enable_iot_role_alias ?id ?tags ?tags_all
+      ~device_fleet_name ~role_arn ~output_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

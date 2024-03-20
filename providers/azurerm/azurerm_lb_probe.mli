@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   port:float prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?interval_in_seconds:float prop ->
+  ?number_of_probes:float prop ->
+  ?probe_threshold:float prop ->
+  ?protocol:string prop ->
+  ?request_path:string prop ->
+  ?timeouts:timeouts ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  port:float prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,17 @@ val register :
   bgp_options:bgp_options list ->
   string ->
   t
+
+val make :
+  ?core_network_address:string prop ->
+  ?id:string prop ->
+  ?inside_cidr_blocks:string prop list ->
+  ?subnet_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  connect_attachment_id:string prop ->
+  peer_address:string prop ->
+  bgp_options:bgp_options list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -33,23 +31,31 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~internet_gateway_id ~vpc_id
-    __resource_id =
-  let __resource_type = "aws_internet_gateway_attachment" in
-  let __resource =
-    aws_internet_gateway_attachment ?id ?timeouts
-      ~internet_gateway_id ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_internet_gateway_attachment __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~internet_gateway_id ~vpc_id __id =
+  let __type = "aws_internet_gateway_attachment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        internet_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "internet_gateway_id";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "internet_gateway_id";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_internet_gateway_attachment
+        (aws_internet_gateway_attachment ?id ?timeouts
+           ~internet_gateway_id ~vpc_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~internet_gateway_id ~vpc_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~internet_gateway_id ~vpc_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -112,3 +112,21 @@ val register :
   linked_vpn_tunnels:linked_vpn_tunnels list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  hub:string prop ->
+  location:string prop ->
+  name:string prop ->
+  linked_interconnect_attachments:
+    linked_interconnect_attachments list ->
+  linked_router_appliance_instances:
+    linked_router_appliance_instances list ->
+  linked_vpc_network:linked_vpc_network list ->
+  linked_vpn_tunnels:linked_vpn_tunnels list ->
+  string ->
+  t Tf_core.resource

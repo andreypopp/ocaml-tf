@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   thing_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?override_dynamic_group:bool prop ->
+  thing_group_name:string prop ->
+  thing_name:string prop ->
+  string ->
+  t Tf_core.resource

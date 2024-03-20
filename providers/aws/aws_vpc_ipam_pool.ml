@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -95,69 +93,74 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?allocation_default_netmask_length
+    ?allocation_max_netmask_length ?allocation_min_netmask_length
+    ?allocation_resource_tags ?auto_import ?aws_service ?description
+    ?id ?locale ?public_ip_source ?publicly_advertisable
+    ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
+    ~ipam_scope_id __id =
+  let __type = "aws_vpc_ipam_pool" in
+  let __attrs =
+    ({
+       address_family = Prop.computed __type __id "address_family";
+       allocation_default_netmask_length =
+         Prop.computed __type __id
+           "allocation_default_netmask_length";
+       allocation_max_netmask_length =
+         Prop.computed __type __id "allocation_max_netmask_length";
+       allocation_min_netmask_length =
+         Prop.computed __type __id "allocation_min_netmask_length";
+       allocation_resource_tags =
+         Prop.computed __type __id "allocation_resource_tags";
+       arn = Prop.computed __type __id "arn";
+       auto_import = Prop.computed __type __id "auto_import";
+       aws_service = Prop.computed __type __id "aws_service";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ipam_scope_id = Prop.computed __type __id "ipam_scope_id";
+       ipam_scope_type = Prop.computed __type __id "ipam_scope_type";
+       locale = Prop.computed __type __id "locale";
+       pool_depth = Prop.computed __type __id "pool_depth";
+       public_ip_source =
+         Prop.computed __type __id "public_ip_source";
+       publicly_advertisable =
+         Prop.computed __type __id "publicly_advertisable";
+       source_ipam_pool_id =
+         Prop.computed __type __id "source_ipam_pool_id";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam_pool
+        (aws_vpc_ipam_pool ?allocation_default_netmask_length
+           ?allocation_max_netmask_length
+           ?allocation_min_netmask_length ?allocation_resource_tags
+           ?auto_import ?aws_service ?description ?id ?locale
+           ?public_ip_source ?publicly_advertisable
+           ?source_ipam_pool_id ?tags ?tags_all ?timeouts
+           ~address_family ~ipam_scope_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allocation_default_netmask_length
     ?allocation_max_netmask_length ?allocation_min_netmask_length
     ?allocation_resource_tags ?auto_import ?aws_service ?description
     ?id ?locale ?public_ip_source ?publicly_advertisable
     ?source_ipam_pool_id ?tags ?tags_all ?timeouts ~address_family
-    ~ipam_scope_id __resource_id =
-  let __resource_type = "aws_vpc_ipam_pool" in
-  let __resource =
-    aws_vpc_ipam_pool ?allocation_default_netmask_length
+    ~ipam_scope_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?allocation_default_netmask_length
       ?allocation_max_netmask_length ?allocation_min_netmask_length
       ?allocation_resource_tags ?auto_import ?aws_service
       ?description ?id ?locale ?public_ip_source
       ?publicly_advertisable ?source_ipam_pool_id ?tags ?tags_all
-      ?timeouts ~address_family ~ipam_scope_id ()
+      ?timeouts ~address_family ~ipam_scope_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam_pool __resource);
-  let __resource_attributes =
-    ({
-       address_family =
-         Prop.computed __resource_type __resource_id "address_family";
-       allocation_default_netmask_length =
-         Prop.computed __resource_type __resource_id
-           "allocation_default_netmask_length";
-       allocation_max_netmask_length =
-         Prop.computed __resource_type __resource_id
-           "allocation_max_netmask_length";
-       allocation_min_netmask_length =
-         Prop.computed __resource_type __resource_id
-           "allocation_min_netmask_length";
-       allocation_resource_tags =
-         Prop.computed __resource_type __resource_id
-           "allocation_resource_tags";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_import =
-         Prop.computed __resource_type __resource_id "auto_import";
-       aws_service =
-         Prop.computed __resource_type __resource_id "aws_service";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipam_scope_id =
-         Prop.computed __resource_type __resource_id "ipam_scope_id";
-       ipam_scope_type =
-         Prop.computed __resource_type __resource_id
-           "ipam_scope_type";
-       locale = Prop.computed __resource_type __resource_id "locale";
-       pool_depth =
-         Prop.computed __resource_type __resource_id "pool_depth";
-       public_ip_source =
-         Prop.computed __resource_type __resource_id
-           "public_ip_source";
-       publicly_advertisable =
-         Prop.computed __resource_type __resource_id
-           "publicly_advertisable";
-       source_ipam_pool_id =
-         Prop.computed __resource_type __resource_id
-           "source_ipam_pool_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

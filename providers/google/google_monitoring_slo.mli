@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -244,3 +244,20 @@ val register :
   windows_based_sli:windows_based_sli list ->
   string ->
   t
+
+val make :
+  ?calendar_period:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?rolling_period_days:float prop ->
+  ?slo_id:string prop ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  goal:float prop ->
+  service:string prop ->
+  basic_sli:basic_sli list ->
+  request_based_sli:request_based_sli list ->
+  windows_based_sli:windows_based_sli list ->
+  string ->
+  t Tf_core.resource

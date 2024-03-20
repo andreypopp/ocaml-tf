@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -117,3 +117,30 @@ val register :
   nfs_file_share_defaults:nfs_file_share_defaults list ->
   string ->
   t
+
+val make :
+  ?audit_destination_arn:string prop ->
+  ?bucket_region:string prop ->
+  ?default_storage_class:string prop ->
+  ?file_share_name:string prop ->
+  ?guess_mime_type_enabled:bool prop ->
+  ?id:string prop ->
+  ?kms_encrypted:bool prop ->
+  ?kms_key_arn:string prop ->
+  ?notification_policy:string prop ->
+  ?object_acl:string prop ->
+  ?read_only:bool prop ->
+  ?requester_pays:bool prop ->
+  ?squash:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_endpoint_dns_name:string prop ->
+  ?timeouts:timeouts ->
+  client_list:string prop list ->
+  gateway_arn:string prop ->
+  location_arn:string prop ->
+  role_arn:string prop ->
+  cache_attributes:cache_attributes list ->
+  nfs_file_share_defaults:nfs_file_share_defaults list ->
+  string ->
+  t Tf_core.resource

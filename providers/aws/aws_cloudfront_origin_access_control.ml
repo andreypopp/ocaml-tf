@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloudfront_origin_access_control = {
   description : string prop option; [@option]  (** description *)
@@ -38,34 +36,42 @@ type t = {
   signing_protocol : string prop;
 }
 
-let register ?tf_module ?description ?id ~name
-    ~origin_access_control_origin_type ~signing_behavior
-    ~signing_protocol __resource_id =
-  let __resource_type = "aws_cloudfront_origin_access_control" in
-  let __resource =
-    aws_cloudfront_origin_access_control ?description ?id ~name
-      ~origin_access_control_origin_type ~signing_behavior
-      ~signing_protocol ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_origin_access_control __resource);
-  let __resource_attributes =
+let make ?description ?id ~name ~origin_access_control_origin_type
+    ~signing_behavior ~signing_protocol __id =
+  let __type = "aws_cloudfront_origin_access_control" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        origin_access_control_origin_type =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "origin_access_control_origin_type";
        signing_behavior =
-         Prop.computed __resource_type __resource_id
-           "signing_behavior";
+         Prop.computed __type __id "signing_behavior";
        signing_protocol =
-         Prop.computed __resource_type __resource_id
-           "signing_protocol";
+         Prop.computed __type __id "signing_protocol";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_origin_access_control
+        (aws_cloudfront_origin_access_control ?description ?id ~name
+           ~origin_access_control_origin_type ~signing_behavior
+           ~signing_protocol ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ~name
+    ~origin_access_control_origin_type ~signing_behavior
+    ~signing_protocol __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ~name ~origin_access_control_origin_type
+      ~signing_behavior ~signing_protocol __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

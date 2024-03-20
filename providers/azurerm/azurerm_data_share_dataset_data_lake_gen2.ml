@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,38 +52,40 @@ type t = {
   storage_account_id : string prop;
 }
 
-let register ?tf_module ?file_path ?folder_path ?id ?timeouts
-    ~file_system_name ~name ~share_id ~storage_account_id
-    __resource_id =
-  let __resource_type =
-    "azurerm_data_share_dataset_data_lake_gen2"
-  in
-  let __resource =
-    azurerm_data_share_dataset_data_lake_gen2 ?file_path ?folder_path
-      ?id ?timeouts ~file_system_name ~name ~share_id
-      ~storage_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_share_dataset_data_lake_gen2 __resource);
-  let __resource_attributes =
+let make ?file_path ?folder_path ?id ?timeouts ~file_system_name
+    ~name ~share_id ~storage_account_id __id =
+  let __type = "azurerm_data_share_dataset_data_lake_gen2" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       file_path =
-         Prop.computed __resource_type __resource_id "file_path";
+       display_name = Prop.computed __type __id "display_name";
+       file_path = Prop.computed __type __id "file_path";
        file_system_name =
-         Prop.computed __resource_type __resource_id
-           "file_system_name";
-       folder_path =
-         Prop.computed __resource_type __resource_id "folder_path";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       share_id =
-         Prop.computed __resource_type __resource_id "share_id";
+         Prop.computed __type __id "file_system_name";
+       folder_path = Prop.computed __type __id "folder_path";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       share_id = Prop.computed __type __id "share_id";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_share_dataset_data_lake_gen2
+        (azurerm_data_share_dataset_data_lake_gen2 ?file_path
+           ?folder_path ?id ?timeouts ~file_system_name ~name
+           ~share_id ~storage_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?file_path ?folder_path ?id ?timeouts
+    ~file_system_name ~name ~share_id ~storage_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?file_path ?folder_path ?id ?timeouts ~file_system_name
+      ~name ~share_id ~storage_account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

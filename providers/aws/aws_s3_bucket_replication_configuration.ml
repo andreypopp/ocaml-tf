@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule__delete_marker_replication = {
   status : string prop;  (** status *)
@@ -229,22 +227,30 @@ type t = {
   token : string prop;
 }
 
-let register ?tf_module ?id ?token ~bucket ~role ~rule __resource_id
-    =
-  let __resource_type = "aws_s3_bucket_replication_configuration" in
-  let __resource =
-    aws_s3_bucket_replication_configuration ?id ?token ~bucket ~role
-      ~rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket_replication_configuration __resource);
-  let __resource_attributes =
+let make ?id ?token ~bucket ~role ~rule __id =
+  let __type = "aws_s3_bucket_replication_configuration" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       role = Prop.computed __resource_type __resource_id "role";
-       token = Prop.computed __resource_type __resource_id "token";
+       bucket = Prop.computed __type __id "bucket";
+       id = Prop.computed __type __id "id";
+       role = Prop.computed __type __id "role";
+       token = Prop.computed __type __id "token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket_replication_configuration
+        (aws_s3_bucket_replication_configuration ?id ?token ~bucket
+           ~role ~rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?token ~bucket ~role ~rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?token ~bucket ~role ~rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

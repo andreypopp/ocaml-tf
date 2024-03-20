@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,25 @@ val register :
   scheduled_agent_updates:scheduled_agent_updates list ->
   string ->
   t
+
+val make :
+  ?custom_rdp_properties:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?maximum_sessions_allowed:float prop ->
+  ?personal_desktop_assignment_type:string prop ->
+  ?preferred_app_group_type:string prop ->
+  ?start_vm_on_connect:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?validate_environment:bool prop ->
+  ?vm_template:string prop ->
+  ?timeouts:timeouts ->
+  load_balancer_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  type_:string prop ->
+  scheduled_agent_updates:scheduled_agent_updates list ->
+  string ->
+  t Tf_core.resource

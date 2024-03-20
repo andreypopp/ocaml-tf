@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssoadmin_application_assignment_configuration = {
   application_arn : string prop;  (** application_arn *)
@@ -22,28 +20,30 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ~application_arn ~assignment_required
-    __resource_id =
-  let __resource_type =
-    "aws_ssoadmin_application_assignment_configuration"
-  in
-  let __resource =
-    aws_ssoadmin_application_assignment_configuration
-      ~application_arn ~assignment_required ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_application_assignment_configuration
-       __resource);
-  let __resource_attributes =
+let make ~application_arn ~assignment_required __id =
+  let __type = "aws_ssoadmin_application_assignment_configuration" in
+  let __attrs =
     ({
-       application_arn =
-         Prop.computed __resource_type __resource_id
-           "application_arn";
+       application_arn = Prop.computed __type __id "application_arn";
        assignment_required =
-         Prop.computed __resource_type __resource_id
-           "assignment_required";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "assignment_required";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_application_assignment_configuration
+        (aws_ssoadmin_application_assignment_configuration
+           ~application_arn ~assignment_required ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~application_arn ~assignment_required __id =
+  let (r : _ Tf_core.resource) =
+    make ~application_arn ~assignment_required __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type external_ip = {
   enabled : bool prop option; [@option]
@@ -89,42 +87,47 @@ type t = {
   vmware_engine_network_canonical : string prop;
 }
 
-let register ?tf_module ?description ?id ?project ?timeouts
-    ~edge_services_cidr ~location ~name ~vmware_engine_network
-    ~external_ip ~internet_access __resource_id =
-  let __resource_type = "google_vmwareengine_network_policy" in
-  let __resource =
-    google_vmwareengine_network_policy ?description ?id ?project
-      ?timeouts ~edge_services_cidr ~location ~name
-      ~vmware_engine_network ~external_ip ~internet_access ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vmwareengine_network_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?timeouts ~edge_services_cidr
+    ~location ~name ~vmware_engine_network ~external_ip
+    ~internet_access __id =
+  let __type = "google_vmwareengine_network_policy" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        edge_services_cidr =
-         Prop.computed __resource_type __resource_id
-           "edge_services_cidr";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "edge_services_cidr";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
        vmware_engine_network =
-         Prop.computed __resource_type __resource_id
-           "vmware_engine_network";
+         Prop.computed __type __id "vmware_engine_network";
        vmware_engine_network_canonical =
-         Prop.computed __resource_type __resource_id
-           "vmware_engine_network_canonical";
+         Prop.computed __type __id "vmware_engine_network_canonical";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vmwareengine_network_policy
+        (google_vmwareengine_network_policy ?description ?id ?project
+           ?timeouts ~edge_services_cidr ~location ~name
+           ~vmware_engine_network ~external_ip ~internet_access ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?timeouts
+    ~edge_services_cidr ~location ~name ~vmware_engine_network
+    ~external_ip ~internet_access __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?timeouts ~edge_services_cidr
+      ~location ~name ~vmware_engine_network ~external_ip
+      ~internet_access __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

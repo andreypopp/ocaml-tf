@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -113,3 +113,15 @@ val register :
     parameters_in_cache_key_and_forwarded_to_origin list ->
   string ->
   t
+
+val make :
+  ?comment:string prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?max_ttl:float prop ->
+  ?min_ttl:float prop ->
+  name:string prop ->
+  parameters_in_cache_key_and_forwarded_to_origin:
+    parameters_in_cache_key_and_forwarded_to_origin list ->
+  string ->
+  t Tf_core.resource

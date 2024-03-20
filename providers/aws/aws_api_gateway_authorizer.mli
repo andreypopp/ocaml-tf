@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,17 @@ val register :
   rest_api_id:string prop ->
   string ->
   t
+
+val make :
+  ?authorizer_credentials:string prop ->
+  ?authorizer_result_ttl_in_seconds:float prop ->
+  ?authorizer_uri:string prop ->
+  ?id:string prop ->
+  ?identity_source:string prop ->
+  ?identity_validation_expression:string prop ->
+  ?provider_arns:string prop list ->
+  ?type_:string prop ->
+  name:string prop ->
+  rest_api_id:string prop ->
+  string ->
+  t Tf_core.resource

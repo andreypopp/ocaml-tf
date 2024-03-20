@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_database_redis_config = {
   acl_channels_default : string prop option; [@option]
@@ -66,52 +64,61 @@ type t = {
   timeout : float prop;
 }
 
-let register ?tf_module ?acl_channels_default ?id ?io_threads
-    ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
-    ?notify_keyspace_events ?number_of_databases ?persistence
-    ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id
-    __resource_id =
-  let __resource_type = "digitalocean_database_redis_config" in
-  let __resource =
-    digitalocean_database_redis_config ?acl_channels_default ?id
-      ?io_threads ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
-      ?notify_keyspace_events ?number_of_databases ?persistence
-      ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_redis_config __resource);
-  let __resource_attributes =
+let make ?acl_channels_default ?id ?io_threads ?lfu_decay_time
+    ?lfu_log_factor ?maxmemory_policy ?notify_keyspace_events
+    ?number_of_databases ?persistence
+    ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id __id
+    =
+  let __type = "digitalocean_database_redis_config" in
+  let __attrs =
     ({
        acl_channels_default =
-         Prop.computed __resource_type __resource_id
-           "acl_channels_default";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       io_threads =
-         Prop.computed __resource_type __resource_id "io_threads";
-       lfu_decay_time =
-         Prop.computed __resource_type __resource_id "lfu_decay_time";
-       lfu_log_factor =
-         Prop.computed __resource_type __resource_id "lfu_log_factor";
+         Prop.computed __type __id "acl_channels_default";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
+       io_threads = Prop.computed __type __id "io_threads";
+       lfu_decay_time = Prop.computed __type __id "lfu_decay_time";
+       lfu_log_factor = Prop.computed __type __id "lfu_log_factor";
        maxmemory_policy =
-         Prop.computed __resource_type __resource_id
-           "maxmemory_policy";
+         Prop.computed __type __id "maxmemory_policy";
        notify_keyspace_events =
-         Prop.computed __resource_type __resource_id
-           "notify_keyspace_events";
+         Prop.computed __type __id "notify_keyspace_events";
        number_of_databases =
-         Prop.computed __resource_type __resource_id
-           "number_of_databases";
-       persistence =
-         Prop.computed __resource_type __resource_id "persistence";
+         Prop.computed __type __id "number_of_databases";
+       persistence = Prop.computed __type __id "persistence";
        pubsub_client_output_buffer_limit =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "pubsub_client_output_buffer_limit";
-       ssl = Prop.computed __resource_type __resource_id "ssl";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
+       ssl = Prop.computed __type __id "ssl";
+       timeout = Prop.computed __type __id "timeout";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_redis_config
+        (digitalocean_database_redis_config ?acl_channels_default ?id
+           ?io_threads ?lfu_decay_time ?lfu_log_factor
+           ?maxmemory_policy ?notify_keyspace_events
+           ?number_of_databases ?persistence
+           ?pubsub_client_output_buffer_limit ?ssl ?timeout
+           ~cluster_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?acl_channels_default ?id ?io_threads
+    ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy
+    ?notify_keyspace_events ?number_of_databases ?persistence
+    ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?acl_channels_default ?id ?io_threads ?lfu_decay_time
+      ?lfu_log_factor ?maxmemory_policy ?notify_keyspace_events
+      ?number_of_databases ?persistence
+      ?pubsub_client_output_buffer_limit ?ssl ?timeout ~cluster_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

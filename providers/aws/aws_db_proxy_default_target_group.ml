@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connection_pool_config = {
   connection_borrow_timeout : float prop option; [@option]
@@ -58,23 +56,31 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~db_proxy_name
-    ~connection_pool_config __resource_id =
-  let __resource_type = "aws_db_proxy_default_target_group" in
-  let __resource =
-    aws_db_proxy_default_target_group ?id ?timeouts ~db_proxy_name
-      ~connection_pool_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_proxy_default_target_group __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~db_proxy_name ~connection_pool_config __id =
+  let __type = "aws_db_proxy_default_target_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       db_proxy_name =
-         Prop.computed __resource_type __resource_id "db_proxy_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       db_proxy_name = Prop.computed __type __id "db_proxy_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_proxy_default_target_group
+        (aws_db_proxy_default_target_group ?id ?timeouts
+           ~db_proxy_name ~connection_pool_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~db_proxy_name
+    ~connection_pool_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~db_proxy_name ~connection_pool_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

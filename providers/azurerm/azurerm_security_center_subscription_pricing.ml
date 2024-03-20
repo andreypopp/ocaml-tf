@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type extension = {
   additional_extension_properties :
@@ -52,27 +50,32 @@ type t = {
   tier : string prop;
 }
 
-let register ?tf_module ?id ?resource_type ?subplan ?timeouts ~tier
-    ~extension __resource_id =
-  let __resource_type =
-    "azurerm_security_center_subscription_pricing"
-  in
-  let __resource =
-    azurerm_security_center_subscription_pricing ?id ?resource_type
-      ?subplan ?timeouts ~tier ~extension ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_subscription_pricing
-       __resource);
-  let __resource_attributes =
+let make ?id ?resource_type ?subplan ?timeouts ~tier ~extension __id
+    =
+  let __type = "azurerm_security_center_subscription_pricing" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
-       subplan =
-         Prop.computed __resource_type __resource_id "subplan";
-       tier = Prop.computed __resource_type __resource_id "tier";
+       id = Prop.computed __type __id "id";
+       resource_type = Prop.computed __type __id "resource_type";
+       subplan = Prop.computed __type __id "subplan";
+       tier = Prop.computed __type __id "tier";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_subscription_pricing
+        (azurerm_security_center_subscription_pricing ?id
+           ?resource_type ?subplan ?timeouts ~tier ~extension ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?resource_type ?subplan ?timeouts ~tier
+    ~extension __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?resource_type ?subplan ?timeouts ~tier ~extension __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

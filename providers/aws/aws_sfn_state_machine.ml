@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type logging_configuration = {
   include_execution_data : bool prop option; [@option]
@@ -94,48 +92,51 @@ type t = {
   version_description : string prop;
 }
 
-let register ?tf_module ?id ?name ?name_prefix ?publish ?tags
-    ?tags_all ?type_ ?timeouts ~definition ~role_arn
-    ~logging_configuration ~tracing_configuration __resource_id =
-  let __resource_type = "aws_sfn_state_machine" in
-  let __resource =
-    aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
-      ?tags_all ?type_ ?timeouts ~definition ~role_arn
-      ~logging_configuration ~tracing_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sfn_state_machine __resource);
-  let __resource_attributes =
+let make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
+    ?timeouts ~definition ~role_arn ~logging_configuration
+    ~tracing_configuration __id =
+  let __type = "aws_sfn_state_machine" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       definition =
-         Prop.computed __resource_type __resource_id "definition";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       publish =
-         Prop.computed __resource_type __resource_id "publish";
-       revision_id =
-         Prop.computed __resource_type __resource_id "revision_id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       arn = Prop.computed __type __id "arn";
+       creation_date = Prop.computed __type __id "creation_date";
+       definition = Prop.computed __type __id "definition";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       publish = Prop.computed __type __id "publish";
+       revision_id = Prop.computed __type __id "revision_id";
+       role_arn = Prop.computed __type __id "role_arn";
        state_machine_version_arn =
-         Prop.computed __resource_type __resource_id
-           "state_machine_version_arn";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "state_machine_version_arn";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
        version_description =
-         Prop.computed __resource_type __resource_id
-           "version_description";
+         Prop.computed __type __id "version_description";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sfn_state_machine
+        (aws_sfn_state_machine ?id ?name ?name_prefix ?publish ?tags
+           ?tags_all ?type_ ?timeouts ~definition ~role_arn
+           ~logging_configuration ~tracing_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?name_prefix ?publish ?tags
+    ?tags_all ?type_ ?timeouts ~definition ~role_arn
+    ~logging_configuration ~tracing_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?name_prefix ?publish ?tags ?tags_all ?type_
+      ?timeouts ~definition ~role_arn ~logging_configuration
+      ~tracing_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

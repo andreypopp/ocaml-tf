@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,13 @@ val register :
   config:config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?partition_count:float prop ->
+  ?replication_factor:float prop ->
+  cluster_id:string prop ->
+  name:string prop ->
+  config:config list ->
+  string ->
+  t Tf_core.resource

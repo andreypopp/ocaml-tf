@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_account = {
   enforce_twofactor : bool prop option; [@option]
@@ -29,23 +27,30 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?enforce_twofactor ?id ?type_ ~name
-    __resource_id =
-  let __resource_type = "cloudflare_account" in
-  let __resource =
-    cloudflare_account ?enforce_twofactor ?id ?type_ ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_account __resource);
-  let __resource_attributes =
+let make ?enforce_twofactor ?id ?type_ ~name __id =
+  let __type = "cloudflare_account" in
+  let __attrs =
     ({
        enforce_twofactor =
-         Prop.computed __resource_type __resource_id
-           "enforce_twofactor";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "enforce_twofactor";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_account
+        (cloudflare_account ?enforce_twofactor ?id ?type_ ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enforce_twofactor ?id ?type_ ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?enforce_twofactor ?id ?type_ ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

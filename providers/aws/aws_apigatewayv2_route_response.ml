@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_apigatewayv2_route_response = {
   api_id : string prop;  (** api_id *)
@@ -38,32 +36,38 @@ type t = {
   route_response_key : string prop;
 }
 
-let register ?tf_module ?id ?model_selection_expression
-    ?response_models ~api_id ~route_id ~route_response_key
-    __resource_id =
-  let __resource_type = "aws_apigatewayv2_route_response" in
-  let __resource =
-    aws_apigatewayv2_route_response ?id ?model_selection_expression
-      ?response_models ~api_id ~route_id ~route_response_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_route_response __resource);
-  let __resource_attributes =
+let make ?id ?model_selection_expression ?response_models ~api_id
+    ~route_id ~route_response_key __id =
+  let __type = "aws_apigatewayv2_route_response" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       api_id = Prop.computed __type __id "api_id";
+       id = Prop.computed __type __id "id";
        model_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "model_selection_expression";
-       response_models =
-         Prop.computed __resource_type __resource_id
-           "response_models";
-       route_id =
-         Prop.computed __resource_type __resource_id "route_id";
+         Prop.computed __type __id "model_selection_expression";
+       response_models = Prop.computed __type __id "response_models";
+       route_id = Prop.computed __type __id "route_id";
        route_response_key =
-         Prop.computed __resource_type __resource_id
-           "route_response_key";
+         Prop.computed __type __id "route_response_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_route_response
+        (aws_apigatewayv2_route_response ?id
+           ?model_selection_expression ?response_models ~api_id
+           ~route_id ~route_response_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?model_selection_expression
+    ?response_models ~api_id ~route_id ~route_response_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?model_selection_expression ?response_models ~api_id
+      ~route_id ~route_response_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

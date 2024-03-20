@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type draft__content_link__hash = {
   algorithm : string prop;  (** algorithm *)
@@ -163,50 +161,57 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?content ?description ?id ?job_schedule
+    ?log_activity_trace_level ?tags ?timeouts
+    ~automation_account_name ~location ~log_progress ~log_verbose
+    ~name ~resource_group_name ~runbook_type ~draft
+    ~publish_content_link __id =
+  let __type = "azurerm_automation_runbook" in
+  let __attrs =
+    ({
+       automation_account_name =
+         Prop.computed __type __id "automation_account_name";
+       content = Prop.computed __type __id "content";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       job_schedule = Prop.computed __type __id "job_schedule";
+       location = Prop.computed __type __id "location";
+       log_activity_trace_level =
+         Prop.computed __type __id "log_activity_trace_level";
+       log_progress = Prop.computed __type __id "log_progress";
+       log_verbose = Prop.computed __type __id "log_verbose";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       runbook_type = Prop.computed __type __id "runbook_type";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_runbook
+        (azurerm_automation_runbook ?content ?description ?id
+           ?job_schedule ?log_activity_trace_level ?tags ?timeouts
+           ~automation_account_name ~location ~log_progress
+           ~log_verbose ~name ~resource_group_name ~runbook_type
+           ~draft ~publish_content_link ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?content ?description ?id ?job_schedule
     ?log_activity_trace_level ?tags ?timeouts
     ~automation_account_name ~location ~log_progress ~log_verbose
     ~name ~resource_group_name ~runbook_type ~draft
-    ~publish_content_link __resource_id =
-  let __resource_type = "azurerm_automation_runbook" in
-  let __resource =
-    azurerm_automation_runbook ?content ?description ?id
-      ?job_schedule ?log_activity_trace_level ?tags ?timeouts
+    ~publish_content_link __id =
+  let (r : _ Tf_core.resource) =
+    make ?content ?description ?id ?job_schedule
+      ?log_activity_trace_level ?tags ?timeouts
       ~automation_account_name ~location ~log_progress ~log_verbose
       ~name ~resource_group_name ~runbook_type ~draft
-      ~publish_content_link ()
+      ~publish_content_link __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_runbook __resource);
-  let __resource_attributes =
-    ({
-       automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       job_schedule =
-         Prop.computed __resource_type __resource_id "job_schedule";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       log_activity_trace_level =
-         Prop.computed __resource_type __resource_id
-           "log_activity_trace_level";
-       log_progress =
-         Prop.computed __resource_type __resource_id "log_progress";
-       log_verbose =
-         Prop.computed __resource_type __resource_id "log_verbose";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       runbook_type =
-         Prop.computed __resource_type __resource_id "runbook_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

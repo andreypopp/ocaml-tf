@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type daily_recurrence = unit [@@deriving yojson_of]
 
@@ -66,26 +64,35 @@ type t = {
   retention : string prop;
 }
 
-let register ?tf_module ?database ?id ?project ?timeouts ~retention
-    ~daily_recurrence ~weekly_recurrence __resource_id =
-  let __resource_type = "google_firestore_backup_schedule" in
-  let __resource =
-    google_firestore_backup_schedule ?database ?id ?project ?timeouts
-      ~retention ~daily_recurrence ~weekly_recurrence ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firestore_backup_schedule __resource);
-  let __resource_attributes =
+let make ?database ?id ?project ?timeouts ~retention
+    ~daily_recurrence ~weekly_recurrence __id =
+  let __type = "google_firestore_backup_schedule" in
+  let __attrs =
     ({
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       retention =
-         Prop.computed __resource_type __resource_id "retention";
+       database = Prop.computed __type __id "database";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       retention = Prop.computed __type __id "retention";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firestore_backup_schedule
+        (google_firestore_backup_schedule ?database ?id ?project
+           ?timeouts ~retention ~daily_recurrence ~weekly_recurrence
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database ?id ?project ?timeouts ~retention
+    ~daily_recurrence ~weekly_recurrence __id =
+  let (r : _ Tf_core.resource) =
+    make ?database ?id ?project ?timeouts ~retention
+      ~daily_recurrence ~weekly_recurrence __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

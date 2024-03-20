@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule_settings__audit_ssh = {
   command_logging : bool prop;  (** Log all SSH commands. *)
@@ -229,41 +227,45 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?device_posture ?enabled ?filters ?id
-    ?identity ?traffic ~account_id ~action ~description ~name
-    ~precedence ~rule_settings __resource_id =
-  let __resource_type = "cloudflare_teams_rule" in
-  let __resource =
-    cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
-      ?identity ?traffic ~account_id ~action ~description ~name
-      ~precedence ~rule_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_teams_rule __resource);
-  let __resource_attributes =
+let make ?device_posture ?enabled ?filters ?id ?identity ?traffic
+    ~account_id ~action ~description ~name ~precedence ~rule_settings
+    __id =
+  let __type = "cloudflare_teams_rule" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       action = Prop.computed __resource_type __resource_id "action";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       device_posture =
-         Prop.computed __resource_type __resource_id "device_posture";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       filters =
-         Prop.computed __resource_type __resource_id "filters";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity =
-         Prop.computed __resource_type __resource_id "identity";
-       name = Prop.computed __resource_type __resource_id "name";
-       precedence =
-         Prop.computed __resource_type __resource_id "precedence";
-       traffic =
-         Prop.computed __resource_type __resource_id "traffic";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       account_id = Prop.computed __type __id "account_id";
+       action = Prop.computed __type __id "action";
+       description = Prop.computed __type __id "description";
+       device_posture = Prop.computed __type __id "device_posture";
+       enabled = Prop.computed __type __id "enabled";
+       filters = Prop.computed __type __id "filters";
+       id = Prop.computed __type __id "id";
+       identity = Prop.computed __type __id "identity";
+       name = Prop.computed __type __id "name";
+       precedence = Prop.computed __type __id "precedence";
+       traffic = Prop.computed __type __id "traffic";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_teams_rule
+        (cloudflare_teams_rule ?device_posture ?enabled ?filters ?id
+           ?identity ?traffic ~account_id ~action ~description ~name
+           ~precedence ~rule_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?device_posture ?enabled ?filters ?id
+    ?identity ?traffic ~account_id ~action ~description ~name
+    ~precedence ~rule_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?device_posture ?enabled ?filters ?id ?identity ?traffic
+      ~account_id ~action ~description ~name ~precedence
+      ~rule_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

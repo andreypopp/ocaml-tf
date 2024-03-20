@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,20 @@ val register :
   user:user list ->
   string ->
   t
+
+val make :
+  ?account_creation_source:string prop ->
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?ingestion_key:string prop ->
+  ?org_creation_source:string prop ->
+  ?organization_id:string prop ->
+  ?user_id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  plan:plan list ->
+  user:user list ->
+  string ->
+  t Tf_core.resource

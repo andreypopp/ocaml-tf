@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_rules__match_conditions__match_variables = {
   selector : string prop option; [@option]  (** selector *)
@@ -278,34 +276,41 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name ~custom_rules ~managed_rules
-    ~policy_settings __resource_id =
-  let __resource_type = "azurerm_web_application_firewall_policy" in
-  let __resource =
-    azurerm_web_application_firewall_policy ?id ?tags ?timeouts
-      ~location ~name ~resource_group_name ~custom_rules
-      ~managed_rules ~policy_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_web_application_firewall_policy __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    ~custom_rules ~managed_rules ~policy_settings __id =
+  let __type = "azurerm_web_application_firewall_policy" in
+  let __attrs =
     ({
        http_listener_ids =
-         Prop.computed __resource_type __resource_id
-           "http_listener_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "http_listener_ids";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        path_based_rule_ids =
-         Prop.computed __resource_type __resource_id
-           "path_based_rule_ids";
+         Prop.computed __type __id "path_based_rule_ids";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_web_application_firewall_policy
+        (azurerm_web_application_firewall_policy ?id ?tags ?timeouts
+           ~location ~name ~resource_group_name ~custom_rules
+           ~managed_rules ~policy_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~custom_rules ~managed_rules
+    ~policy_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+      ~custom_rules ~managed_rules ~policy_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

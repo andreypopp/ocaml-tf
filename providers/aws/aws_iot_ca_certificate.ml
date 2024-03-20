@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type registration_config = {
   role_arn : string prop option; [@option]  (** role_arn *)
@@ -71,45 +69,51 @@ type t = {
   verification_certificate_pem : string prop;
 }
 
-let register ?tf_module ?certificate_mode ?id ?tags ?tags_all
+let make ?certificate_mode ?id ?tags ?tags_all
     ?verification_certificate_pem ~active ~allow_auto_registration
-    ~ca_certificate_pem ~registration_config __resource_id =
-  let __resource_type = "aws_iot_ca_certificate" in
-  let __resource =
-    aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
-      ?verification_certificate_pem ~active ~allow_auto_registration
-      ~ca_certificate_pem ~registration_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_ca_certificate __resource);
-  let __resource_attributes =
+    ~ca_certificate_pem ~registration_config __id =
+  let __type = "aws_iot_ca_certificate" in
+  let __attrs =
     ({
-       active = Prop.computed __resource_type __resource_id "active";
+       active = Prop.computed __type __id "active";
        allow_auto_registration =
-         Prop.computed __resource_type __resource_id
-           "allow_auto_registration";
-       arn = Prop.computed __resource_type __resource_id "arn";
+         Prop.computed __type __id "allow_auto_registration";
+       arn = Prop.computed __type __id "arn";
        ca_certificate_pem =
-         Prop.computed __resource_type __resource_id
-           "ca_certificate_pem";
+         Prop.computed __type __id "ca_certificate_pem";
        certificate_mode =
-         Prop.computed __resource_type __resource_id
-           "certificate_mode";
+         Prop.computed __type __id "certificate_mode";
        customer_version =
-         Prop.computed __resource_type __resource_id
-           "customer_version";
-       generation_id =
-         Prop.computed __resource_type __resource_id "generation_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       validity =
-         Prop.computed __resource_type __resource_id "validity";
+         Prop.computed __type __id "customer_version";
+       generation_id = Prop.computed __type __id "generation_id";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       validity = Prop.computed __type __id "validity";
        verification_certificate_pem =
-         Prop.computed __resource_type __resource_id
-           "verification_certificate_pem";
+         Prop.computed __type __id "verification_certificate_pem";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_ca_certificate
+        (aws_iot_ca_certificate ?certificate_mode ?id ?tags ?tags_all
+           ?verification_certificate_pem ~active
+           ~allow_auto_registration ~ca_certificate_pem
+           ~registration_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_mode ?id ?tags ?tags_all
+    ?verification_certificate_pem ~active ~allow_auto_registration
+    ~ca_certificate_pem ~registration_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_mode ?id ?tags ?tags_all
+      ?verification_certificate_pem ~active ~allow_auto_registration
+      ~ca_certificate_pem ~registration_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

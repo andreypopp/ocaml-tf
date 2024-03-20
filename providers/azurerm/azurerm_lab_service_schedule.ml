@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type recurrence = {
   expiration_date : string prop;  (** expiration_date *)
@@ -68,28 +66,37 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?id ?notes ?start_time ?timeouts ~lab_id
-    ~name ~stop_time ~time_zone ~recurrence __resource_id =
-  let __resource_type = "azurerm_lab_service_schedule" in
-  let __resource =
-    azurerm_lab_service_schedule ?id ?notes ?start_time ?timeouts
-      ~lab_id ~name ~stop_time ~time_zone ~recurrence ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lab_service_schedule __resource);
-  let __resource_attributes =
+let make ?id ?notes ?start_time ?timeouts ~lab_id ~name ~stop_time
+    ~time_zone ~recurrence __id =
+  let __type = "azurerm_lab_service_schedule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_id = Prop.computed __resource_type __resource_id "lab_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       notes = Prop.computed __resource_type __resource_id "notes";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       stop_time =
-         Prop.computed __resource_type __resource_id "stop_time";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+       id = Prop.computed __type __id "id";
+       lab_id = Prop.computed __type __id "lab_id";
+       name = Prop.computed __type __id "name";
+       notes = Prop.computed __type __id "notes";
+       start_time = Prop.computed __type __id "start_time";
+       stop_time = Prop.computed __type __id "stop_time";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lab_service_schedule
+        (azurerm_lab_service_schedule ?id ?notes ?start_time
+           ?timeouts ~lab_id ~name ~stop_time ~time_zone ~recurrence
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?notes ?start_time ?timeouts ~lab_id
+    ~name ~stop_time ~time_zone ~recurrence __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?notes ?start_time ?timeouts ~lab_id ~name ~stop_time
+      ~time_zone ~recurrence __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

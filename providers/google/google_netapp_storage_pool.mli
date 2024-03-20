@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,20 @@ val register :
   service_level:string prop ->
   string ->
   t
+
+val make :
+  ?active_directory:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_config:string prop ->
+  ?labels:(string * string prop) list ->
+  ?ldap_enabled:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  capacity_gib:string prop ->
+  location:string prop ->
+  name:string prop ->
+  network:string prop ->
+  service_level:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,15 @@ val register :
   custom_events:custom_events list ->
   string ->
   t
+
+val make :
+  ?cw_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain:string prop ->
+  name:string prop ->
+  app_monitor_configuration:app_monitor_configuration list ->
+  custom_events:custom_events list ->
+  string ->
+  t Tf_core.resource

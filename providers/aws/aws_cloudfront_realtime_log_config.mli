@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,12 @@ val register :
   endpoint:endpoint list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  fields:string prop list ->
+  name:string prop ->
+  sampling_rate:float prop ->
+  endpoint:endpoint list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,28 +46,37 @@ type t = {
   subnet_id : string prop;
 }
 
-let register ?tf_module ?id ?ignore_missing_vnet_service_endpoint
-    ?timeouts ~name ~server_id ~subnet_id __resource_id =
-  let __resource_type = "azurerm_mssql_virtual_network_rule" in
-  let __resource =
-    azurerm_mssql_virtual_network_rule ?id
-      ?ignore_missing_vnet_service_endpoint ?timeouts ~name
-      ~server_id ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_virtual_network_rule __resource);
-  let __resource_attributes =
+let make ?id ?ignore_missing_vnet_service_endpoint ?timeouts ~name
+    ~server_id ~subnet_id __id =
+  let __type = "azurerm_mssql_virtual_network_rule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        ignore_missing_vnet_service_endpoint =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "ignore_missing_vnet_service_endpoint";
-       name = Prop.computed __resource_type __resource_id "name";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
+       name = Prop.computed __type __id "name";
+       server_id = Prop.computed __type __id "server_id";
+       subnet_id = Prop.computed __type __id "subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_virtual_network_rule
+        (azurerm_mssql_virtual_network_rule ?id
+           ?ignore_missing_vnet_service_endpoint ?timeouts ~name
+           ~server_id ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ignore_missing_vnet_service_endpoint
+    ?timeouts ~name ~server_id ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ignore_missing_vnet_service_endpoint ?timeouts ~name
+      ~server_id ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

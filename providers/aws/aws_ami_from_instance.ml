@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ebs_block_device = unit [@@deriving yojson_of]
 type ephemeral_block_device = unit [@@deriving yojson_of]
@@ -91,88 +89,75 @@ type t = {
   virtualization_type : string prop;
 }
 
-let register ?tf_module ?deprecation_time ?description ?id
-    ?snapshot_without_reboot ?tags ?tags_all ?timeouts ~name
-    ~source_instance_id ~ebs_block_device ~ephemeral_block_device
-    __resource_id =
-  let __resource_type = "aws_ami_from_instance" in
-  let __resource =
-    aws_ami_from_instance ?deprecation_time ?description ?id
-      ?snapshot_without_reboot ?tags ?tags_all ?timeouts ~name
-      ~source_instance_id ~ebs_block_device ~ephemeral_block_device
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ami_from_instance __resource);
-  let __resource_attributes =
+let make ?deprecation_time ?description ?id ?snapshot_without_reboot
+    ?tags ?tags_all ?timeouts ~name ~source_instance_id
+    ~ebs_block_device ~ephemeral_block_device __id =
+  let __type = "aws_ami_from_instance" in
+  let __attrs =
     ({
-       architecture =
-         Prop.computed __resource_type __resource_id "architecture";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       boot_mode =
-         Prop.computed __resource_type __resource_id "boot_mode";
+       architecture = Prop.computed __type __id "architecture";
+       arn = Prop.computed __type __id "arn";
+       boot_mode = Prop.computed __type __id "boot_mode";
        deprecation_time =
-         Prop.computed __resource_type __resource_id
-           "deprecation_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       ena_support =
-         Prop.computed __resource_type __resource_id "ena_support";
-       hypervisor =
-         Prop.computed __resource_type __resource_id "hypervisor";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_location =
-         Prop.computed __resource_type __resource_id "image_location";
+         Prop.computed __type __id "deprecation_time";
+       description = Prop.computed __type __id "description";
+       ena_support = Prop.computed __type __id "ena_support";
+       hypervisor = Prop.computed __type __id "hypervisor";
+       id = Prop.computed __type __id "id";
+       image_location = Prop.computed __type __id "image_location";
        image_owner_alias =
-         Prop.computed __resource_type __resource_id
-           "image_owner_alias";
-       image_type =
-         Prop.computed __resource_type __resource_id "image_type";
-       imds_support =
-         Prop.computed __resource_type __resource_id "imds_support";
-       kernel_id =
-         Prop.computed __resource_type __resource_id "kernel_id";
+         Prop.computed __type __id "image_owner_alias";
+       image_type = Prop.computed __type __id "image_type";
+       imds_support = Prop.computed __type __id "imds_support";
+       kernel_id = Prop.computed __type __id "kernel_id";
        manage_ebs_snapshots =
-         Prop.computed __resource_type __resource_id
-           "manage_ebs_snapshots";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
+         Prop.computed __type __id "manage_ebs_snapshots";
+       name = Prop.computed __type __id "name";
+       owner_id = Prop.computed __type __id "owner_id";
+       platform = Prop.computed __type __id "platform";
        platform_details =
-         Prop.computed __resource_type __resource_id
-           "platform_details";
-       public = Prop.computed __resource_type __resource_id "public";
-       ramdisk_id =
-         Prop.computed __resource_type __resource_id "ramdisk_id";
+         Prop.computed __type __id "platform_details";
+       public = Prop.computed __type __id "public";
+       ramdisk_id = Prop.computed __type __id "ramdisk_id";
        root_device_name =
-         Prop.computed __resource_type __resource_id
-           "root_device_name";
+         Prop.computed __type __id "root_device_name";
        root_snapshot_id =
-         Prop.computed __resource_type __resource_id
-           "root_snapshot_id";
+         Prop.computed __type __id "root_snapshot_id";
        snapshot_without_reboot =
-         Prop.computed __resource_type __resource_id
-           "snapshot_without_reboot";
+         Prop.computed __type __id "snapshot_without_reboot";
        source_instance_id =
-         Prop.computed __resource_type __resource_id
-           "source_instance_id";
+         Prop.computed __type __id "source_instance_id";
        sriov_net_support =
-         Prop.computed __resource_type __resource_id
-           "sriov_net_support";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tpm_support =
-         Prop.computed __resource_type __resource_id "tpm_support";
-       usage_operation =
-         Prop.computed __resource_type __resource_id
-           "usage_operation";
+         Prop.computed __type __id "sriov_net_support";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tpm_support = Prop.computed __type __id "tpm_support";
+       usage_operation = Prop.computed __type __id "usage_operation";
        virtualization_type =
-         Prop.computed __resource_type __resource_id
-           "virtualization_type";
+         Prop.computed __type __id "virtualization_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ami_from_instance
+        (aws_ami_from_instance ?deprecation_time ?description ?id
+           ?snapshot_without_reboot ?tags ?tags_all ?timeouts ~name
+           ~source_instance_id ~ebs_block_device
+           ~ephemeral_block_device ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deprecation_time ?description ?id
+    ?snapshot_without_reboot ?tags ?tags_all ?timeouts ~name
+    ~source_instance_id ~ebs_block_device ~ephemeral_block_device
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?deprecation_time ?description ?id ?snapshot_without_reboot
+      ?tags ?tags_all ?timeouts ~name ~source_instance_id
+      ~ebs_block_device ~ephemeral_block_device __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

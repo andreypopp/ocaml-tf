@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -99,70 +97,70 @@ type t = {
   vpc_uuid : string prop;
 }
 
-let register ?tf_module ?backups ?droplet_agent ?graceful_shutdown
-    ?id ?ipv6 ?ipv6_address ?monitoring ?private_networking ?region
+let make ?backups ?droplet_agent ?graceful_shutdown ?id ?ipv6
+    ?ipv6_address ?monitoring ?private_networking ?region
     ?resize_disk ?ssh_keys ?tags ?user_data ?volume_ids ?vpc_uuid
-    ?timeouts ~image ~name ~size __resource_id =
-  let __resource_type = "digitalocean_droplet" in
-  let __resource =
-    digitalocean_droplet ?backups ?droplet_agent ?graceful_shutdown
-      ?id ?ipv6 ?ipv6_address ?monitoring ?private_networking ?region
-      ?resize_disk ?ssh_keys ?tags ?user_data ?volume_ids ?vpc_uuid
-      ?timeouts ~image ~name ~size ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_droplet __resource);
-  let __resource_attributes =
+    ?timeouts ~image ~name ~size __id =
+  let __type = "digitalocean_droplet" in
+  let __attrs =
     ({
-       backups =
-         Prop.computed __resource_type __resource_id "backups";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       disk = Prop.computed __resource_type __resource_id "disk";
-       droplet_agent =
-         Prop.computed __resource_type __resource_id "droplet_agent";
+       backups = Prop.computed __type __id "backups";
+       created_at = Prop.computed __type __id "created_at";
+       disk = Prop.computed __type __id "disk";
+       droplet_agent = Prop.computed __type __id "droplet_agent";
        graceful_shutdown =
-         Prop.computed __resource_type __resource_id
-           "graceful_shutdown";
-       id = Prop.computed __resource_type __resource_id "id";
-       image = Prop.computed __resource_type __resource_id "image";
-       ipv4_address =
-         Prop.computed __resource_type __resource_id "ipv4_address";
+         Prop.computed __type __id "graceful_shutdown";
+       id = Prop.computed __type __id "id";
+       image = Prop.computed __type __id "image";
+       ipv4_address = Prop.computed __type __id "ipv4_address";
        ipv4_address_private =
-         Prop.computed __resource_type __resource_id
-           "ipv4_address_private";
-       ipv6 = Prop.computed __resource_type __resource_id "ipv6";
-       ipv6_address =
-         Prop.computed __resource_type __resource_id "ipv6_address";
-       locked = Prop.computed __resource_type __resource_id "locked";
-       memory = Prop.computed __resource_type __resource_id "memory";
-       monitoring =
-         Prop.computed __resource_type __resource_id "monitoring";
-       name = Prop.computed __resource_type __resource_id "name";
-       price_hourly =
-         Prop.computed __resource_type __resource_id "price_hourly";
-       price_monthly =
-         Prop.computed __resource_type __resource_id "price_monthly";
+         Prop.computed __type __id "ipv4_address_private";
+       ipv6 = Prop.computed __type __id "ipv6";
+       ipv6_address = Prop.computed __type __id "ipv6_address";
+       locked = Prop.computed __type __id "locked";
+       memory = Prop.computed __type __id "memory";
+       monitoring = Prop.computed __type __id "monitoring";
+       name = Prop.computed __type __id "name";
+       price_hourly = Prop.computed __type __id "price_hourly";
+       price_monthly = Prop.computed __type __id "price_monthly";
        private_networking =
-         Prop.computed __resource_type __resource_id
-           "private_networking";
-       region = Prop.computed __resource_type __resource_id "region";
-       resize_disk =
-         Prop.computed __resource_type __resource_id "resize_disk";
-       size = Prop.computed __resource_type __resource_id "size";
-       ssh_keys =
-         Prop.computed __resource_type __resource_id "ssh_keys";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       urn = Prop.computed __resource_type __resource_id "urn";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       vcpus = Prop.computed __resource_type __resource_id "vcpus";
-       volume_ids =
-         Prop.computed __resource_type __resource_id "volume_ids";
-       vpc_uuid =
-         Prop.computed __resource_type __resource_id "vpc_uuid";
+         Prop.computed __type __id "private_networking";
+       region = Prop.computed __type __id "region";
+       resize_disk = Prop.computed __type __id "resize_disk";
+       size = Prop.computed __type __id "size";
+       ssh_keys = Prop.computed __type __id "ssh_keys";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       urn = Prop.computed __type __id "urn";
+       user_data = Prop.computed __type __id "user_data";
+       vcpus = Prop.computed __type __id "vcpus";
+       volume_ids = Prop.computed __type __id "volume_ids";
+       vpc_uuid = Prop.computed __type __id "vpc_uuid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_droplet
+        (digitalocean_droplet ?backups ?droplet_agent
+           ?graceful_shutdown ?id ?ipv6 ?ipv6_address ?monitoring
+           ?private_networking ?region ?resize_disk ?ssh_keys ?tags
+           ?user_data ?volume_ids ?vpc_uuid ?timeouts ~image ~name
+           ~size ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?backups ?droplet_agent ?graceful_shutdown
+    ?id ?ipv6 ?ipv6_address ?monitoring ?private_networking ?region
+    ?resize_disk ?ssh_keys ?tags ?user_data ?volume_ids ?vpc_uuid
+    ?timeouts ~image ~name ~size __id =
+  let (r : _ Tf_core.resource) =
+    make ?backups ?droplet_agent ?graceful_shutdown ?id ?ipv6
+      ?ipv6_address ?monitoring ?private_networking ?region
+      ?resize_disk ?ssh_keys ?tags ?user_data ?volume_ids ?vpc_uuid
+      ?timeouts ~image ~name ~size __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -118,3 +118,24 @@ val register :
   runtime_configuration:runtime_configuration list ->
   string ->
   t
+
+val make :
+  ?build_id:string prop ->
+  ?description:string prop ->
+  ?fleet_type:string prop ->
+  ?id:string prop ->
+  ?instance_role_arn:string prop ->
+  ?metric_groups:string prop list ->
+  ?new_game_session_protection_policy:string prop ->
+  ?script_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  ec2_instance_type:string prop ->
+  name:string prop ->
+  certificate_configuration:certificate_configuration list ->
+  ec2_inbound_permission:ec2_inbound_permission list ->
+  resource_creation_limit_policy:resource_creation_limit_policy list ->
+  runtime_configuration:runtime_configuration list ->
+  string ->
+  t Tf_core.resource

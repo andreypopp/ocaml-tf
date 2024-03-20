@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type header = {
   header : string prop;  (** The header name. *)
@@ -125,65 +123,67 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?allow_insecure ?check_regions ?consecutive_fails
+    ?consecutive_successes ?description ?expected_body
+    ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
+    ?port ?retries ?suspended ?timeout ?timeouts ~address ~name
+    ~type_ ~zone_id ~header __id =
+  let __type = "cloudflare_healthcheck" in
+  let __attrs =
+    ({
+       address = Prop.computed __type __id "address";
+       allow_insecure = Prop.computed __type __id "allow_insecure";
+       check_regions = Prop.computed __type __id "check_regions";
+       consecutive_fails =
+         Prop.computed __type __id "consecutive_fails";
+       consecutive_successes =
+         Prop.computed __type __id "consecutive_successes";
+       created_on = Prop.computed __type __id "created_on";
+       description = Prop.computed __type __id "description";
+       expected_body = Prop.computed __type __id "expected_body";
+       expected_codes = Prop.computed __type __id "expected_codes";
+       follow_redirects =
+         Prop.computed __type __id "follow_redirects";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       method_ = Prop.computed __type __id "method";
+       modified_on = Prop.computed __type __id "modified_on";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
+       port = Prop.computed __type __id "port";
+       retries = Prop.computed __type __id "retries";
+       suspended = Prop.computed __type __id "suspended";
+       timeout = Prop.computed __type __id "timeout";
+       type_ = Prop.computed __type __id "type";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_healthcheck
+        (cloudflare_healthcheck ?allow_insecure ?check_regions
+           ?consecutive_fails ?consecutive_successes ?description
+           ?expected_body ?expected_codes ?follow_redirects ?id
+           ?interval ?method_ ?path ?port ?retries ?suspended
+           ?timeout ?timeouts ~address ~name ~type_ ~zone_id ~header
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_insecure ?check_regions
     ?consecutive_fails ?consecutive_successes ?description
     ?expected_body ?expected_codes ?follow_redirects ?id ?interval
     ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
-    ~address ~name ~type_ ~zone_id ~header __resource_id =
-  let __resource_type = "cloudflare_healthcheck" in
-  let __resource =
-    cloudflare_healthcheck ?allow_insecure ?check_regions
-      ?consecutive_fails ?consecutive_successes ?description
-      ?expected_body ?expected_codes ?follow_redirects ?id ?interval
-      ?method_ ?path ?port ?retries ?suspended ?timeout ?timeouts
-      ~address ~name ~type_ ~zone_id ~header ()
+    ~address ~name ~type_ ~zone_id ~header __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_insecure ?check_regions ?consecutive_fails
+      ?consecutive_successes ?description ?expected_body
+      ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
+      ?port ?retries ?suspended ?timeout ?timeouts ~address ~name
+      ~type_ ~zone_id ~header __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_healthcheck __resource);
-  let __resource_attributes =
-    ({
-       address =
-         Prop.computed __resource_type __resource_id "address";
-       allow_insecure =
-         Prop.computed __resource_type __resource_id "allow_insecure";
-       check_regions =
-         Prop.computed __resource_type __resource_id "check_regions";
-       consecutive_fails =
-         Prop.computed __resource_type __resource_id
-           "consecutive_fails";
-       consecutive_successes =
-         Prop.computed __resource_type __resource_id
-           "consecutive_successes";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expected_body =
-         Prop.computed __resource_type __resource_id "expected_body";
-       expected_codes =
-         Prop.computed __resource_type __resource_id "expected_codes";
-       follow_redirects =
-         Prop.computed __resource_type __resource_id
-           "follow_redirects";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       method_ = Prop.computed __resource_type __resource_id "method";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
-       port = Prop.computed __resource_type __resource_id "port";
-       retries =
-         Prop.computed __resource_type __resource_id "retries";
-       suspended =
-         Prop.computed __resource_type __resource_id "suspended";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

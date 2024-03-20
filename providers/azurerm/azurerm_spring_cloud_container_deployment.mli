@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,21 @@ val register :
   quota:quota list ->
   string ->
   t
+
+val make :
+  ?addon_json:string prop ->
+  ?application_performance_monitoring_ids:string prop list ->
+  ?arguments:string prop list ->
+  ?commands:string prop list ->
+  ?environment_variables:(string * string prop) list ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?language_framework:string prop ->
+  ?timeouts:timeouts ->
+  image:string prop ->
+  name:string prop ->
+  server:string prop ->
+  spring_cloud_app_id:string prop ->
+  quota:quota list ->
+  string ->
+  t Tf_core.resource

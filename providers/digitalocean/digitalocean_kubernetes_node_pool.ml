@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type taint = {
   effect : string prop;  (** effect *)
@@ -83,39 +81,43 @@ type t = {
   tags : string list prop;
 }
 
-let register ?tf_module ?auto_scale ?id ?labels ?max_nodes ?min_nodes
-    ?node_count ?tags ?timeouts ~cluster_id ~name ~size ~taint
-    __resource_id =
-  let __resource_type = "digitalocean_kubernetes_node_pool" in
-  let __resource =
-    digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
-      ?max_nodes ?min_nodes ?node_count ?tags ?timeouts ~cluster_id
-      ~name ~size ~taint ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_kubernetes_node_pool __resource);
-  let __resource_attributes =
+let make ?auto_scale ?id ?labels ?max_nodes ?min_nodes ?node_count
+    ?tags ?timeouts ~cluster_id ~name ~size ~taint __id =
+  let __type = "digitalocean_kubernetes_node_pool" in
+  let __attrs =
     ({
        actual_node_count =
-         Prop.computed __resource_type __resource_id
-           "actual_node_count";
-       auto_scale =
-         Prop.computed __resource_type __resource_id "auto_scale";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       max_nodes =
-         Prop.computed __resource_type __resource_id "max_nodes";
-       min_nodes =
-         Prop.computed __resource_type __resource_id "min_nodes";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       nodes = Prop.computed __resource_type __resource_id "nodes";
-       size = Prop.computed __resource_type __resource_id "size";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "actual_node_count";
+       auto_scale = Prop.computed __type __id "auto_scale";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       max_nodes = Prop.computed __type __id "max_nodes";
+       min_nodes = Prop.computed __type __id "min_nodes";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       nodes = Prop.computed __type __id "nodes";
+       size = Prop.computed __type __id "size";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_kubernetes_node_pool
+        (digitalocean_kubernetes_node_pool ?auto_scale ?id ?labels
+           ?max_nodes ?min_nodes ?node_count ?tags ?timeouts
+           ~cluster_id ~name ~size ~taint ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_scale ?id ?labels ?max_nodes ?min_nodes
+    ?node_count ?tags ?timeouts ~cluster_id ~name ~size ~taint __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_scale ?id ?labels ?max_nodes ?min_nodes ?node_count
+      ?tags ?timeouts ~cluster_id ~name ~size ~taint __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

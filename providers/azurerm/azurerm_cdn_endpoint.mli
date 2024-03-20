@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -406,3 +406,27 @@ val register :
   origin:origin list ->
   string ->
   t
+
+val make :
+  ?content_types_to_compress:string prop list ->
+  ?id:string prop ->
+  ?is_compression_enabled:bool prop ->
+  ?is_http_allowed:bool prop ->
+  ?is_https_allowed:bool prop ->
+  ?optimization_type:string prop ->
+  ?origin_host_header:string prop ->
+  ?origin_path:string prop ->
+  ?probe_path:string prop ->
+  ?querystring_caching_behaviour:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  profile_name:string prop ->
+  resource_group_name:string prop ->
+  delivery_rule:delivery_rule list ->
+  geo_filter:geo_filter list ->
+  global_delivery_rule:global_delivery_rule list ->
+  origin:origin list ->
+  string ->
+  t Tf_core.resource

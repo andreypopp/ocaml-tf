@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,31 +51,38 @@ type t = {
   source : string prop;
 }
 
-let register ?tf_module ?condition ?id ?source ?timeouts ~enabled
-    ~endpoint_names ~iothub_name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_iothub_fallback_route" in
-  let __resource =
-    azurerm_iothub_fallback_route ?condition ?id ?source ?timeouts
-      ~enabled ~endpoint_names ~iothub_name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_fallback_route __resource);
-  let __resource_attributes =
+let make ?condition ?id ?source ?timeouts ~enabled ~endpoint_names
+    ~iothub_name ~resource_group_name __id =
+  let __type = "azurerm_iothub_fallback_route" in
+  let __attrs =
     ({
-       condition =
-         Prop.computed __resource_type __resource_id "condition";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       endpoint_names =
-         Prop.computed __resource_type __resource_id "endpoint_names";
-       id = Prop.computed __resource_type __resource_id "id";
-       iothub_name =
-         Prop.computed __resource_type __resource_id "iothub_name";
+       condition = Prop.computed __type __id "condition";
+       enabled = Prop.computed __type __id "enabled";
+       endpoint_names = Prop.computed __type __id "endpoint_names";
+       id = Prop.computed __type __id "id";
+       iothub_name = Prop.computed __type __id "iothub_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       source = Prop.computed __resource_type __resource_id "source";
+         Prop.computed __type __id "resource_group_name";
+       source = Prop.computed __type __id "source";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_fallback_route
+        (azurerm_iothub_fallback_route ?condition ?id ?source
+           ?timeouts ~enabled ~endpoint_names ~iothub_name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?condition ?id ?source ?timeouts ~enabled
+    ~endpoint_names ~iothub_name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?condition ?id ?source ?timeouts ~enabled ~endpoint_names
+      ~iothub_name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

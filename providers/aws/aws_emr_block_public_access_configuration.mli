@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,11 @@ val register :
     permitted_public_security_group_rule_range list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  block_public_security_group_rules:bool prop ->
+  permitted_public_security_group_rule_range:
+    permitted_public_security_group_rule_range list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,14 @@ val register :
   protocol:protocol list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  fsx_filesystem_arn:string prop ->
+  security_group_arns:string prop list ->
+  protocol:protocol list ->
+  string ->
+  t Tf_core.resource

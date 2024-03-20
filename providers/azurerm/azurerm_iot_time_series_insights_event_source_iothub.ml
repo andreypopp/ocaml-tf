@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,49 +68,56 @@ type t = {
   timestamp_property_name : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timestamp_property_name ?timeouts
+let make ?id ?tags ?timestamp_property_name ?timeouts
     ~consumer_group_name ~environment_id ~event_source_resource_id
     ~iothub_name ~location ~name ~shared_access_key
-    ~shared_access_key_name __resource_id =
-  let __resource_type =
+    ~shared_access_key_name __id =
+  let __type =
     "azurerm_iot_time_series_insights_event_source_iothub"
   in
-  let __resource =
-    azurerm_iot_time_series_insights_event_source_iothub ?id ?tags
-      ?timestamp_property_name ?timeouts ~consumer_group_name
-      ~environment_id ~event_source_resource_id ~iothub_name
-      ~location ~name ~shared_access_key ~shared_access_key_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iot_time_series_insights_event_source_iothub
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        consumer_group_name =
-         Prop.computed __resource_type __resource_id
-           "consumer_group_name";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
+         Prop.computed __type __id "consumer_group_name";
+       environment_id = Prop.computed __type __id "environment_id";
        event_source_resource_id =
-         Prop.computed __resource_type __resource_id
-           "event_source_resource_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       iothub_name =
-         Prop.computed __resource_type __resource_id "iothub_name";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "event_source_resource_id";
+       id = Prop.computed __type __id "id";
+       iothub_name = Prop.computed __type __id "iothub_name";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        shared_access_key =
-         Prop.computed __resource_type __resource_id
-           "shared_access_key";
+         Prop.computed __type __id "shared_access_key";
        shared_access_key_name =
-         Prop.computed __resource_type __resource_id
-           "shared_access_key_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "shared_access_key_name";
+       tags = Prop.computed __type __id "tags";
        timestamp_property_name =
-         Prop.computed __resource_type __resource_id
-           "timestamp_property_name";
+         Prop.computed __type __id "timestamp_property_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iot_time_series_insights_event_source_iothub
+        (azurerm_iot_time_series_insights_event_source_iothub ?id
+           ?tags ?timestamp_property_name ?timeouts
+           ~consumer_group_name ~environment_id
+           ~event_source_resource_id ~iothub_name ~location ~name
+           ~shared_access_key ~shared_access_key_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timestamp_property_name ?timeouts
+    ~consumer_group_name ~environment_id ~event_source_resource_id
+    ~iothub_name ~location ~name ~shared_access_key
+    ~shared_access_key_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timestamp_property_name ?timeouts
+      ~consumer_group_name ~environment_id ~event_source_resource_id
+      ~iothub_name ~location ~name ~shared_access_key
+      ~shared_access_key_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

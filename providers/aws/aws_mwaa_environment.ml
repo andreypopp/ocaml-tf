@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type logging_configuration__dag_processing_logs = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -232,6 +230,82 @@ type t = {
   weekly_maintenance_window_start : string prop;
 }
 
+let make ?airflow_configuration_options ?airflow_version
+    ?endpoint_management ?environment_class ?id ?kms_key ?max_workers
+    ?min_workers ?plugins_s3_object_version ?plugins_s3_path
+    ?requirements_s3_object_version ?requirements_s3_path ?schedulers
+    ?startup_script_s3_object_version ?startup_script_s3_path ?tags
+    ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
+    ?timeouts ~dag_s3_path ~execution_role_arn ~name
+    ~source_bucket_arn ~logging_configuration ~network_configuration
+    __id =
+  let __type = "aws_mwaa_environment" in
+  let __attrs =
+    ({
+       airflow_configuration_options =
+         Prop.computed __type __id "airflow_configuration_options";
+       airflow_version = Prop.computed __type __id "airflow_version";
+       arn = Prop.computed __type __id "arn";
+       created_at = Prop.computed __type __id "created_at";
+       dag_s3_path = Prop.computed __type __id "dag_s3_path";
+       endpoint_management =
+         Prop.computed __type __id "endpoint_management";
+       environment_class =
+         Prop.computed __type __id "environment_class";
+       execution_role_arn =
+         Prop.computed __type __id "execution_role_arn";
+       id = Prop.computed __type __id "id";
+       kms_key = Prop.computed __type __id "kms_key";
+       last_updated = Prop.computed __type __id "last_updated";
+       max_workers = Prop.computed __type __id "max_workers";
+       min_workers = Prop.computed __type __id "min_workers";
+       name = Prop.computed __type __id "name";
+       plugins_s3_object_version =
+         Prop.computed __type __id "plugins_s3_object_version";
+       plugins_s3_path = Prop.computed __type __id "plugins_s3_path";
+       requirements_s3_object_version =
+         Prop.computed __type __id "requirements_s3_object_version";
+       requirements_s3_path =
+         Prop.computed __type __id "requirements_s3_path";
+       schedulers = Prop.computed __type __id "schedulers";
+       service_role_arn =
+         Prop.computed __type __id "service_role_arn";
+       source_bucket_arn =
+         Prop.computed __type __id "source_bucket_arn";
+       startup_script_s3_object_version =
+         Prop.computed __type __id "startup_script_s3_object_version";
+       startup_script_s3_path =
+         Prop.computed __type __id "startup_script_s3_path";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       webserver_access_mode =
+         Prop.computed __type __id "webserver_access_mode";
+       webserver_url = Prop.computed __type __id "webserver_url";
+       weekly_maintenance_window_start =
+         Prop.computed __type __id "weekly_maintenance_window_start";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_mwaa_environment
+        (aws_mwaa_environment ?airflow_configuration_options
+           ?airflow_version ?endpoint_management ?environment_class
+           ?id ?kms_key ?max_workers ?min_workers
+           ?plugins_s3_object_version ?plugins_s3_path
+           ?requirements_s3_object_version ?requirements_s3_path
+           ?schedulers ?startup_script_s3_object_version
+           ?startup_script_s3_path ?tags ?tags_all
+           ?webserver_access_mode ?weekly_maintenance_window_start
+           ?timeouts ~dag_s3_path ~execution_role_arn ~name
+           ~source_bucket_arn ~logging_configuration
+           ~network_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?airflow_configuration_options
     ?airflow_version ?endpoint_management ?environment_class ?id
     ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
@@ -241,93 +315,18 @@ let register ?tf_module ?airflow_configuration_options
     ?tags_all ?webserver_access_mode ?weekly_maintenance_window_start
     ?timeouts ~dag_s3_path ~execution_role_arn ~name
     ~source_bucket_arn ~logging_configuration ~network_configuration
-    __resource_id =
-  let __resource_type = "aws_mwaa_environment" in
-  let __resource =
-    aws_mwaa_environment ?airflow_configuration_options
-      ?airflow_version ?endpoint_management ?environment_class ?id
-      ?kms_key ?max_workers ?min_workers ?plugins_s3_object_version
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?airflow_configuration_options ?airflow_version
+      ?endpoint_management ?environment_class ?id ?kms_key
+      ?max_workers ?min_workers ?plugins_s3_object_version
       ?plugins_s3_path ?requirements_s3_object_version
       ?requirements_s3_path ?schedulers
       ?startup_script_s3_object_version ?startup_script_s3_path ?tags
       ?tags_all ?webserver_access_mode
       ?weekly_maintenance_window_start ?timeouts ~dag_s3_path
       ~execution_role_arn ~name ~source_bucket_arn
-      ~logging_configuration ~network_configuration ()
+      ~logging_configuration ~network_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_mwaa_environment __resource);
-  let __resource_attributes =
-    ({
-       airflow_configuration_options =
-         Prop.computed __resource_type __resource_id
-           "airflow_configuration_options";
-       airflow_version =
-         Prop.computed __resource_type __resource_id
-           "airflow_version";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       dag_s3_path =
-         Prop.computed __resource_type __resource_id "dag_s3_path";
-       endpoint_management =
-         Prop.computed __resource_type __resource_id
-           "endpoint_management";
-       environment_class =
-         Prop.computed __resource_type __resource_id
-           "environment_class";
-       execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "execution_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key =
-         Prop.computed __resource_type __resource_id "kms_key";
-       last_updated =
-         Prop.computed __resource_type __resource_id "last_updated";
-       max_workers =
-         Prop.computed __resource_type __resource_id "max_workers";
-       min_workers =
-         Prop.computed __resource_type __resource_id "min_workers";
-       name = Prop.computed __resource_type __resource_id "name";
-       plugins_s3_object_version =
-         Prop.computed __resource_type __resource_id
-           "plugins_s3_object_version";
-       plugins_s3_path =
-         Prop.computed __resource_type __resource_id
-           "plugins_s3_path";
-       requirements_s3_object_version =
-         Prop.computed __resource_type __resource_id
-           "requirements_s3_object_version";
-       requirements_s3_path =
-         Prop.computed __resource_type __resource_id
-           "requirements_s3_path";
-       schedulers =
-         Prop.computed __resource_type __resource_id "schedulers";
-       service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_role_arn";
-       source_bucket_arn =
-         Prop.computed __resource_type __resource_id
-           "source_bucket_arn";
-       startup_script_s3_object_version =
-         Prop.computed __resource_type __resource_id
-           "startup_script_s3_object_version";
-       startup_script_s3_path =
-         Prop.computed __resource_type __resource_id
-           "startup_script_s3_path";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       webserver_access_mode =
-         Prop.computed __resource_type __resource_id
-           "webserver_access_mode";
-       webserver_url =
-         Prop.computed __resource_type __resource_id "webserver_url";
-       weekly_maintenance_window_start =
-         Prop.computed __resource_type __resource_id
-           "weekly_maintenance_window_start";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

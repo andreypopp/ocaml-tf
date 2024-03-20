@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -96,3 +96,21 @@ val register :
   timewindow_filter:timewindow_filter list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?key:string prop ->
+  ?label:string prop ->
+  ?locked:bool prop ->
+  ?percentage_filter_value:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  configuration_store_id:string prop ->
+  name:string prop ->
+  targeting_filter:targeting_filter list ->
+  timewindow_filter:timewindow_filter list ->
+  string ->
+  t Tf_core.resource

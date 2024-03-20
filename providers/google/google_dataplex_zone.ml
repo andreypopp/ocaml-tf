@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type discovery_spec__csv_options = {
   delimiter : string prop option; [@option]
@@ -151,47 +149,51 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id ?labels
-    ?project ?timeouts ~lake ~location ~name ~type_ ~discovery_spec
-    ~resource_spec __resource_id =
-  let __resource_type = "google_dataplex_zone" in
-  let __resource =
-    google_dataplex_zone ?description ?display_name ?id ?labels
-      ?project ?timeouts ~lake ~location ~name ~type_ ~discovery_spec
-      ~resource_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dataplex_zone __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?labels ?project ?timeouts
+    ~lake ~location ~name ~type_ ~discovery_spec ~resource_spec __id
+    =
+  let __type = "google_dataplex_zone" in
+  let __attrs =
     ({
-       asset_status =
-         Prop.computed __resource_type __resource_id "asset_status";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       asset_status = Prop.computed __type __id "asset_status";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       lake = Prop.computed __resource_type __resource_id "lake";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       lake = Prop.computed __type __id "lake";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dataplex_zone
+        (google_dataplex_zone ?description ?display_name ?id ?labels
+           ?project ?timeouts ~lake ~location ~name ~type_
+           ~discovery_spec ~resource_spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id ?labels
+    ?project ?timeouts ~lake ~location ~name ~type_ ~discovery_spec
+    ~resource_spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?labels ?project ?timeouts
+      ~lake ~location ~name ~type_ ~discovery_spec ~resource_spec
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

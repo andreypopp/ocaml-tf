@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type approval_config = {
   approval_required : bool prop option; [@option]
@@ -967,58 +965,64 @@ type t = {
   trigger_id : string prop;
 }
 
+let make ?description ?disabled ?filename ?filter ?id ?ignored_files
+    ?include_build_logs ?included_files ?location ?name ?project
+    ?service_account ?substitutions ?tags ?timeouts ~approval_config
+    ~bitbucket_server_trigger_config ~build ~git_file_source ~github
+    ~pubsub_config ~repository_event_config ~source_to_build
+    ~trigger_template ~webhook_config __id =
+  let __type = "google_cloudbuild_trigger" in
+  let __attrs =
+    ({
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       filename = Prop.computed __type __id "filename";
+       filter = Prop.computed __type __id "filter";
+       id = Prop.computed __type __id "id";
+       ignored_files = Prop.computed __type __id "ignored_files";
+       include_build_logs =
+         Prop.computed __type __id "include_build_logs";
+       included_files = Prop.computed __type __id "included_files";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       service_account = Prop.computed __type __id "service_account";
+       substitutions = Prop.computed __type __id "substitutions";
+       tags = Prop.computed __type __id "tags";
+       trigger_id = Prop.computed __type __id "trigger_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloudbuild_trigger
+        (google_cloudbuild_trigger ?description ?disabled ?filename
+           ?filter ?id ?ignored_files ?include_build_logs
+           ?included_files ?location ?name ?project ?service_account
+           ?substitutions ?tags ?timeouts ~approval_config
+           ~bitbucket_server_trigger_config ~build ~git_file_source
+           ~github ~pubsub_config ~repository_event_config
+           ~source_to_build ~trigger_template ~webhook_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?disabled ?filename ?filter ?id
     ?ignored_files ?include_build_logs ?included_files ?location
     ?name ?project ?service_account ?substitutions ?tags ?timeouts
     ~approval_config ~bitbucket_server_trigger_config ~build
     ~git_file_source ~github ~pubsub_config ~repository_event_config
-    ~source_to_build ~trigger_template ~webhook_config __resource_id
-    =
-  let __resource_type = "google_cloudbuild_trigger" in
-  let __resource =
-    google_cloudbuild_trigger ?description ?disabled ?filename
-      ?filter ?id ?ignored_files ?include_build_logs ?included_files
-      ?location ?name ?project ?service_account ?substitutions ?tags
-      ?timeouts ~approval_config ~bitbucket_server_trigger_config
-      ~build ~git_file_source ~github ~pubsub_config
+    ~source_to_build ~trigger_template ~webhook_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disabled ?filename ?filter ?id ?ignored_files
+      ?include_build_logs ?included_files ?location ?name ?project
+      ?service_account ?substitutions ?tags ?timeouts
+      ~approval_config ~bitbucket_server_trigger_config ~build
+      ~git_file_source ~github ~pubsub_config
       ~repository_event_config ~source_to_build ~trigger_template
-      ~webhook_config ()
+      ~webhook_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloudbuild_trigger __resource);
-  let __resource_attributes =
-    ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       filename =
-         Prop.computed __resource_type __resource_id "filename";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignored_files =
-         Prop.computed __resource_type __resource_id "ignored_files";
-       include_build_logs =
-         Prop.computed __resource_type __resource_id
-           "include_build_logs";
-       included_files =
-         Prop.computed __resource_type __resource_id "included_files";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       substitutions =
-         Prop.computed __resource_type __resource_id "substitutions";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       trigger_id =
-         Prop.computed __resource_type __resource_id "trigger_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

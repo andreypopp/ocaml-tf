@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata_filters__filter_labels = {
   name : string prop;
@@ -288,74 +286,73 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
+let make ?description ?id ?ip_address ?ip_protocol ?ip_version
+    ?labels ?load_balancing_scheme ?network ?no_automate_dns_zone
+    ?port_range ?project ?source_ip_ranges ?subnetwork ?timeouts
+    ~name ~target ~metadata_filters ~service_directory_registrations
+    __id =
+  let __type = "google_compute_global_forwarding_rule" in
+  let __attrs =
+    ({
+       base_forwarding_rule =
+         Prop.computed __type __id "base_forwarding_rule";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       ip_protocol = Prop.computed __type __id "ip_protocol";
+       ip_version = Prop.computed __type __id "ip_version";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       load_balancing_scheme =
+         Prop.computed __type __id "load_balancing_scheme";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       no_automate_dns_zone =
+         Prop.computed __type __id "no_automate_dns_zone";
+       port_range = Prop.computed __type __id "port_range";
+       project = Prop.computed __type __id "project";
+       psc_connection_id =
+         Prop.computed __type __id "psc_connection_id";
+       psc_connection_status =
+         Prop.computed __type __id "psc_connection_status";
+       self_link = Prop.computed __type __id "self_link";
+       source_ip_ranges =
+         Prop.computed __type __id "source_ip_ranges";
+       subnetwork = Prop.computed __type __id "subnetwork";
+       target = Prop.computed __type __id "target";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_global_forwarding_rule
+        (google_compute_global_forwarding_rule ?description ?id
+           ?ip_address ?ip_protocol ?ip_version ?labels
+           ?load_balancing_scheme ?network ?no_automate_dns_zone
+           ?port_range ?project ?source_ip_ranges ?subnetwork
+           ?timeouts ~name ~target ~metadata_filters
+           ~service_directory_registrations ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?ip_address ?ip_protocol
     ?ip_version ?labels ?load_balancing_scheme ?network
     ?no_automate_dns_zone ?port_range ?project ?source_ip_ranges
     ?subnetwork ?timeouts ~name ~target ~metadata_filters
-    ~service_directory_registrations __resource_id =
-  let __resource_type = "google_compute_global_forwarding_rule" in
-  let __resource =
-    google_compute_global_forwarding_rule ?description ?id
-      ?ip_address ?ip_protocol ?ip_version ?labels
-      ?load_balancing_scheme ?network ?no_automate_dns_zone
+    ~service_directory_registrations __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?ip_address ?ip_protocol ?ip_version
+      ?labels ?load_balancing_scheme ?network ?no_automate_dns_zone
       ?port_range ?project ?source_ip_ranges ?subnetwork ?timeouts
       ~name ~target ~metadata_filters
-      ~service_directory_registrations ()
+      ~service_directory_registrations __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_global_forwarding_rule __resource);
-  let __resource_attributes =
-    ({
-       base_forwarding_rule =
-         Prop.computed __resource_type __resource_id
-           "base_forwarding_rule";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       ip_protocol =
-         Prop.computed __resource_type __resource_id "ip_protocol";
-       ip_version =
-         Prop.computed __resource_type __resource_id "ip_version";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       load_balancing_scheme =
-         Prop.computed __resource_type __resource_id
-           "load_balancing_scheme";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       no_automate_dns_zone =
-         Prop.computed __resource_type __resource_id
-           "no_automate_dns_zone";
-       port_range =
-         Prop.computed __resource_type __resource_id "port_range";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       psc_connection_id =
-         Prop.computed __resource_type __resource_id
-           "psc_connection_id";
-       psc_connection_status =
-         Prop.computed __resource_type __resource_id
-           "psc_connection_status";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       source_ip_ranges =
-         Prop.computed __resource_type __resource_id
-           "source_ip_ranges";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
-       target = Prop.computed __resource_type __resource_id "target";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

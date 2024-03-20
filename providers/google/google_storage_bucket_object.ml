@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type customer_encryption = {
   encryption_algorithm : string prop option; [@option]
@@ -130,65 +128,67 @@ type t = {
   temporary_hold : bool prop;
 }
 
+let make ?cache_control ?content ?content_disposition
+    ?content_encoding ?content_language ?content_type ?detect_md5hash
+    ?event_based_hold ?id ?kms_key_name ?metadata ?source
+    ?storage_class ?temporary_hold ?timeouts ~bucket ~name
+    ~customer_encryption ~retention __id =
+  let __type = "google_storage_bucket_object" in
+  let __attrs =
+    ({
+       bucket = Prop.computed __type __id "bucket";
+       cache_control = Prop.computed __type __id "cache_control";
+       content = Prop.computed __type __id "content";
+       content_disposition =
+         Prop.computed __type __id "content_disposition";
+       content_encoding =
+         Prop.computed __type __id "content_encoding";
+       content_language =
+         Prop.computed __type __id "content_language";
+       content_type = Prop.computed __type __id "content_type";
+       crc32c = Prop.computed __type __id "crc32c";
+       detect_md5hash = Prop.computed __type __id "detect_md5hash";
+       event_based_hold =
+         Prop.computed __type __id "event_based_hold";
+       id = Prop.computed __type __id "id";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
+       md5hash = Prop.computed __type __id "md5hash";
+       media_link = Prop.computed __type __id "media_link";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       output_name = Prop.computed __type __id "output_name";
+       self_link = Prop.computed __type __id "self_link";
+       source = Prop.computed __type __id "source";
+       storage_class = Prop.computed __type __id "storage_class";
+       temporary_hold = Prop.computed __type __id "temporary_hold";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_bucket_object
+        (google_storage_bucket_object ?cache_control ?content
+           ?content_disposition ?content_encoding ?content_language
+           ?content_type ?detect_md5hash ?event_based_hold ?id
+           ?kms_key_name ?metadata ?source ?storage_class
+           ?temporary_hold ?timeouts ~bucket ~name
+           ~customer_encryption ~retention ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cache_control ?content ?content_disposition
     ?content_encoding ?content_language ?content_type ?detect_md5hash
     ?event_based_hold ?id ?kms_key_name ?metadata ?source
     ?storage_class ?temporary_hold ?timeouts ~bucket ~name
-    ~customer_encryption ~retention __resource_id =
-  let __resource_type = "google_storage_bucket_object" in
-  let __resource =
-    google_storage_bucket_object ?cache_control ?content
-      ?content_disposition ?content_encoding ?content_language
-      ?content_type ?detect_md5hash ?event_based_hold ?id
-      ?kms_key_name ?metadata ?source ?storage_class ?temporary_hold
-      ?timeouts ~bucket ~name ~customer_encryption ~retention ()
+    ~customer_encryption ~retention __id =
+  let (r : _ Tf_core.resource) =
+    make ?cache_control ?content ?content_disposition
+      ?content_encoding ?content_language ?content_type
+      ?detect_md5hash ?event_based_hold ?id ?kms_key_name ?metadata
+      ?source ?storage_class ?temporary_hold ?timeouts ~bucket ~name
+      ~customer_encryption ~retention __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_bucket_object __resource);
-  let __resource_attributes =
-    ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       cache_control =
-         Prop.computed __resource_type __resource_id "cache_control";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       content_disposition =
-         Prop.computed __resource_type __resource_id
-           "content_disposition";
-       content_encoding =
-         Prop.computed __resource_type __resource_id
-           "content_encoding";
-       content_language =
-         Prop.computed __resource_type __resource_id
-           "content_language";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       crc32c = Prop.computed __resource_type __resource_id "crc32c";
-       detect_md5hash =
-         Prop.computed __resource_type __resource_id "detect_md5hash";
-       event_based_hold =
-         Prop.computed __resource_type __resource_id
-           "event_based_hold";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_name =
-         Prop.computed __resource_type __resource_id "kms_key_name";
-       md5hash =
-         Prop.computed __resource_type __resource_id "md5hash";
-       media_link =
-         Prop.computed __resource_type __resource_id "media_link";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       output_name =
-         Prop.computed __resource_type __resource_id "output_name";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       source = Prop.computed __resource_type __resource_id "source";
-       storage_class =
-         Prop.computed __resource_type __resource_id "storage_class";
-       temporary_hold =
-         Prop.computed __resource_type __resource_id "temporary_hold";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

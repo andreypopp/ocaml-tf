@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -134,3 +134,28 @@ val register :
   criteria:criteria list ->
   string ->
   t
+
+val make :
+  ?auto_mitigation_enabled:bool prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enabled:bool prop ->
+  ?evaluation_frequency:string prop ->
+  ?id:string prop ->
+  ?mute_actions_after_alert_duration:string prop ->
+  ?query_time_range_override:string prop ->
+  ?skip_query_validation:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?target_resource_types:string prop list ->
+  ?workspace_alerts_storage_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
+  severity:float prop ->
+  window_duration:string prop ->
+  action:action list ->
+  criteria:criteria list ->
+  string ->
+  t Tf_core.resource

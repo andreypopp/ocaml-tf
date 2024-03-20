@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type routing_policy__geo__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
@@ -312,28 +310,36 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?project ?rrdatas ?ttl ~managed_zone
-    ~name ~type_ ~routing_policy __resource_id =
-  let __resource_type = "google_dns_record_set" in
-  let __resource =
-    google_dns_record_set ?id ?project ?rrdatas ?ttl ~managed_zone
-      ~name ~type_ ~routing_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dns_record_set __resource);
-  let __resource_attributes =
+let make ?id ?project ?rrdatas ?ttl ~managed_zone ~name ~type_
+    ~routing_policy __id =
+  let __type = "google_dns_record_set" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       managed_zone =
-         Prop.computed __resource_type __resource_id "managed_zone";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       rrdatas =
-         Prop.computed __resource_type __resource_id "rrdatas";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       id = Prop.computed __type __id "id";
+       managed_zone = Prop.computed __type __id "managed_zone";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       rrdatas = Prop.computed __type __id "rrdatas";
+       ttl = Prop.computed __type __id "ttl";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dns_record_set
+        (google_dns_record_set ?id ?project ?rrdatas ?ttl
+           ~managed_zone ~name ~type_ ~routing_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?rrdatas ?ttl ~managed_zone
+    ~name ~type_ ~routing_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?rrdatas ?ttl ~managed_zone ~name ~type_
+      ~routing_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

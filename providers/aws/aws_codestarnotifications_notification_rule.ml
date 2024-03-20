@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target = {
   address : string prop;  (** address *)
@@ -55,34 +53,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?status ?tags ?tags_all ~detail_type
-    ~event_type_ids ~name ~resource ~target __resource_id =
-  let __resource_type =
-    "aws_codestarnotifications_notification_rule"
-  in
-  let __resource =
-    aws_codestarnotifications_notification_rule ?id ?status ?tags
-      ?tags_all ~detail_type ~event_type_ids ~name ~resource ~target
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codestarnotifications_notification_rule __resource);
-  let __resource_attributes =
+let make ?id ?status ?tags ?tags_all ~detail_type ~event_type_ids
+    ~name ~resource ~target __id =
+  let __type = "aws_codestarnotifications_notification_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       detail_type =
-         Prop.computed __resource_type __resource_id "detail_type";
-       event_type_ids =
-         Prop.computed __resource_type __resource_id "event_type_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource =
-         Prop.computed __resource_type __resource_id "resource";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       detail_type = Prop.computed __type __id "detail_type";
+       event_type_ids = Prop.computed __type __id "event_type_ids";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       resource = Prop.computed __type __id "resource";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codestarnotifications_notification_rule
+        (aws_codestarnotifications_notification_rule ?id ?status
+           ?tags ?tags_all ~detail_type ~event_type_ids ~name
+           ~resource ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?status ?tags ?tags_all ~detail_type
+    ~event_type_ids ~name ~resource ~target __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?status ?tags ?tags_all ~detail_type ~event_type_ids
+      ~name ~resource ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

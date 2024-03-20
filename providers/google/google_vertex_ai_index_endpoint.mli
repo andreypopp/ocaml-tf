@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,17 @@ val register :
   private_service_connect_config:private_service_connect_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?public_endpoint_enabled:bool prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  private_service_connect_config:private_service_connect_config list ->
+  string ->
+  t Tf_core.resource

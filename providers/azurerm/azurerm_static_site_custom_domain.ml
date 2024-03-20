@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -39,29 +37,35 @@ type t = {
   validation_type : string prop;
 }
 
-let register ?tf_module ?id ?validation_type ?timeouts ~domain_name
-    ~static_site_id __resource_id =
-  let __resource_type = "azurerm_static_site_custom_domain" in
-  let __resource =
-    azurerm_static_site_custom_domain ?id ?validation_type ?timeouts
-      ~domain_name ~static_site_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_static_site_custom_domain __resource);
-  let __resource_attributes =
+let make ?id ?validation_type ?timeouts ~domain_name ~static_site_id
+    __id =
+  let __type = "azurerm_static_site_custom_domain" in
+  let __attrs =
     ({
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       static_site_id =
-         Prop.computed __resource_type __resource_id "static_site_id";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       static_site_id = Prop.computed __type __id "static_site_id";
        validation_token =
-         Prop.computed __resource_type __resource_id
-           "validation_token";
-       validation_type =
-         Prop.computed __resource_type __resource_id
-           "validation_type";
+         Prop.computed __type __id "validation_token";
+       validation_type = Prop.computed __type __id "validation_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_static_site_custom_domain
+        (azurerm_static_site_custom_domain ?id ?validation_type
+           ?timeouts ~domain_name ~static_site_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?validation_type ?timeouts ~domain_name
+    ~static_site_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?validation_type ?timeouts ~domain_name ~static_site_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

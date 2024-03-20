@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type security_policies__firewall__association__domain = {
   cdn_frontdoor_domain_id : string prop;
@@ -80,23 +78,33 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cdn_frontdoor_profile_id ~name
-    ~security_policies __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_security_policy" in
-  let __resource =
-    azurerm_cdn_frontdoor_security_policy ?id ?timeouts
-      ~cdn_frontdoor_profile_id ~name ~security_policies ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_security_policy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cdn_frontdoor_profile_id ~name
+    ~security_policies __id =
+  let __type = "azurerm_cdn_frontdoor_security_policy" in
+  let __attrs =
     ({
        cdn_frontdoor_profile_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_profile_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "cdn_frontdoor_profile_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_security_policy
+        (azurerm_cdn_frontdoor_security_policy ?id ?timeouts
+           ~cdn_frontdoor_profile_id ~name ~security_policies ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cdn_frontdoor_profile_id ~name
+    ~security_policies __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cdn_frontdoor_profile_id ~name
+      ~security_policies __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

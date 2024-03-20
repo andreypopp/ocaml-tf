@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,41 +57,43 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?crypto_key_name ?id ?project
-    ?third_party_provider ?timeouts ~location ~name __resource_id =
-  let __resource_type = "google_eventarc_channel" in
-  let __resource =
-    google_eventarc_channel ?crypto_key_name ?id ?project
-      ?third_party_provider ?timeouts ~location ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_eventarc_channel __resource);
-  let __resource_attributes =
+let make ?crypto_key_name ?id ?project ?third_party_provider
+    ?timeouts ~location ~name __id =
+  let __type = "google_eventarc_channel" in
+  let __attrs =
     ({
        activation_token =
-         Prop.computed __resource_type __resource_id
-           "activation_token";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       crypto_key_name =
-         Prop.computed __resource_type __resource_id
-           "crypto_key_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       pubsub_topic =
-         Prop.computed __resource_type __resource_id "pubsub_topic";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "activation_token";
+       create_time = Prop.computed __type __id "create_time";
+       crypto_key_name = Prop.computed __type __id "crypto_key_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       pubsub_topic = Prop.computed __type __id "pubsub_topic";
+       state = Prop.computed __type __id "state";
        third_party_provider =
-         Prop.computed __resource_type __resource_id
-           "third_party_provider";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "third_party_provider";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_eventarc_channel
+        (google_eventarc_channel ?crypto_key_name ?id ?project
+           ?third_party_provider ?timeouts ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?crypto_key_name ?id ?project
+    ?third_party_provider ?timeouts ~location ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?crypto_key_name ?id ?project ?third_party_provider
+      ?timeouts ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sqs_queue_policy = {
   id : string prop option; [@option]  (** id *)
@@ -22,18 +20,26 @@ type t = {
   queue_url : string prop;
 }
 
-let register ?tf_module ?id ~policy ~queue_url __resource_id =
-  let __resource_type = "aws_sqs_queue_policy" in
-  let __resource = aws_sqs_queue_policy ?id ~policy ~queue_url () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sqs_queue_policy __resource);
-  let __resource_attributes =
+let make ?id ~policy ~queue_url __id =
+  let __type = "aws_sqs_queue_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       queue_url =
-         Prop.computed __resource_type __resource_id "queue_url";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       queue_url = Prop.computed __type __id "queue_url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sqs_queue_policy
+        (aws_sqs_queue_policy ?id ~policy ~queue_url ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~policy ~queue_url __id =
+  let (r : _ Tf_core.resource) = make ?id ~policy ~queue_url __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

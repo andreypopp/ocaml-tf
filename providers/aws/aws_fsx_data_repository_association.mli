@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,18 @@ val register :
   s3:s3 list ->
   string ->
   t
+
+val make :
+  ?batch_import_meta_data_on_create:bool prop ->
+  ?delete_data_in_filesystem:bool prop ->
+  ?id:string prop ->
+  ?imported_file_chunk_size:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_repository_path:string prop ->
+  file_system_id:string prop ->
+  file_system_path:string prop ->
+  s3:s3 list ->
+  string ->
+  t Tf_core.resource

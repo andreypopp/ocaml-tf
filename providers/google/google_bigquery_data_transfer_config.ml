@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type email_preferences = {
   enable_failure_email : bool prop;
@@ -159,53 +157,60 @@ type t = {
   service_account_name : string prop;
 }
 
+let make ?data_refresh_window_days ?destination_dataset_id ?disabled
+    ?id ?location ?notification_pubsub_topic ?project ?schedule
+    ?service_account_name ?timeouts ~data_source_id ~display_name
+    ~params ~email_preferences ~schedule_options ~sensitive_params
+    __id =
+  let __type = "google_bigquery_data_transfer_config" in
+  let __attrs =
+    ({
+       data_refresh_window_days =
+         Prop.computed __type __id "data_refresh_window_days";
+       data_source_id = Prop.computed __type __id "data_source_id";
+       destination_dataset_id =
+         Prop.computed __type __id "destination_dataset_id";
+       disabled = Prop.computed __type __id "disabled";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       notification_pubsub_topic =
+         Prop.computed __type __id "notification_pubsub_topic";
+       params = Prop.computed __type __id "params";
+       project = Prop.computed __type __id "project";
+       schedule = Prop.computed __type __id "schedule";
+       service_account_name =
+         Prop.computed __type __id "service_account_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_data_transfer_config
+        (google_bigquery_data_transfer_config
+           ?data_refresh_window_days ?destination_dataset_id
+           ?disabled ?id ?location ?notification_pubsub_topic
+           ?project ?schedule ?service_account_name ?timeouts
+           ~data_source_id ~display_name ~params ~email_preferences
+           ~schedule_options ~sensitive_params ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?data_refresh_window_days
     ?destination_dataset_id ?disabled ?id ?location
     ?notification_pubsub_topic ?project ?schedule
     ?service_account_name ?timeouts ~data_source_id ~display_name
     ~params ~email_preferences ~schedule_options ~sensitive_params
-    __resource_id =
-  let __resource_type = "google_bigquery_data_transfer_config" in
-  let __resource =
-    google_bigquery_data_transfer_config ?data_refresh_window_days
-      ?destination_dataset_id ?disabled ?id ?location
-      ?notification_pubsub_topic ?project ?schedule
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_refresh_window_days ?destination_dataset_id ?disabled
+      ?id ?location ?notification_pubsub_topic ?project ?schedule
       ?service_account_name ?timeouts ~data_source_id ~display_name
       ~params ~email_preferences ~schedule_options ~sensitive_params
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_data_transfer_config __resource);
-  let __resource_attributes =
-    ({
-       data_refresh_window_days =
-         Prop.computed __resource_type __resource_id
-           "data_refresh_window_days";
-       data_source_id =
-         Prop.computed __resource_type __resource_id "data_source_id";
-       destination_dataset_id =
-         Prop.computed __resource_type __resource_id
-           "destination_dataset_id";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       notification_pubsub_topic =
-         Prop.computed __resource_type __resource_id
-           "notification_pubsub_topic";
-       params = Prop.computed __resource_type __resource_id "params";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
-       service_account_name =
-         Prop.computed __resource_type __resource_id
-           "service_account_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_glue_dev_endpoint = {
   arguments : (string * string prop) list option; [@option]
@@ -90,80 +88,75 @@ type t = {
   zeppelin_remote_spark_interpreter_port : float prop;
 }
 
-let register ?tf_module ?arguments ?extra_jars_s3_path
-    ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
-    ?number_of_workers ?public_key ?public_keys
-    ?security_configuration ?security_group_ids ?subnet_id ?tags
-    ?tags_all ?worker_type ~name ~role_arn __resource_id =
-  let __resource_type = "aws_glue_dev_endpoint" in
-  let __resource =
-    aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
-      ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
-      ?number_of_workers ?public_key ?public_keys
-      ?security_configuration ?security_group_ids ?subnet_id ?tags
-      ?tags_all ?worker_type ~name ~role_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_dev_endpoint __resource);
-  let __resource_attributes =
+let make ?arguments ?extra_jars_s3_path ?extra_python_libs_s3_path
+    ?glue_version ?id ?number_of_nodes ?number_of_workers ?public_key
+    ?public_keys ?security_configuration ?security_group_ids
+    ?subnet_id ?tags ?tags_all ?worker_type ~name ~role_arn __id =
+  let __type = "aws_glue_dev_endpoint" in
+  let __attrs =
     ({
-       arguments =
-         Prop.computed __resource_type __resource_id "arguments";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arguments = Prop.computed __type __id "arguments";
+       arn = Prop.computed __type __id "arn";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
+         Prop.computed __type __id "availability_zone";
        extra_jars_s3_path =
-         Prop.computed __resource_type __resource_id
-           "extra_jars_s3_path";
+         Prop.computed __type __id "extra_jars_s3_path";
        extra_python_libs_s3_path =
-         Prop.computed __resource_type __resource_id
-           "extra_python_libs_s3_path";
-       failure_reason =
-         Prop.computed __resource_type __resource_id "failure_reason";
-       glue_version =
-         Prop.computed __resource_type __resource_id "glue_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       number_of_nodes =
-         Prop.computed __resource_type __resource_id
-           "number_of_nodes";
+         Prop.computed __type __id "extra_python_libs_s3_path";
+       failure_reason = Prop.computed __type __id "failure_reason";
+       glue_version = Prop.computed __type __id "glue_version";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       number_of_nodes = Prop.computed __type __id "number_of_nodes";
        number_of_workers =
-         Prop.computed __resource_type __resource_id
-           "number_of_workers";
-       private_address =
-         Prop.computed __resource_type __resource_id
-           "private_address";
-       public_address =
-         Prop.computed __resource_type __resource_id "public_address";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
-       public_keys =
-         Prop.computed __resource_type __resource_id "public_keys";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+         Prop.computed __type __id "number_of_workers";
+       private_address = Prop.computed __type __id "private_address";
+       public_address = Prop.computed __type __id "public_address";
+       public_key = Prop.computed __type __id "public_key";
+       public_keys = Prop.computed __type __id "public_keys";
+       role_arn = Prop.computed __type __id "role_arn";
        security_configuration =
-         Prop.computed __resource_type __resource_id
-           "security_configuration";
+         Prop.computed __type __id "security_configuration";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       status = Prop.computed __resource_type __resource_id "status";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       worker_type =
-         Prop.computed __resource_type __resource_id "worker_type";
+         Prop.computed __type __id "security_group_ids";
+       status = Prop.computed __type __id "status";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       worker_type = Prop.computed __type __id "worker_type";
        yarn_endpoint_address =
-         Prop.computed __resource_type __resource_id
-           "yarn_endpoint_address";
+         Prop.computed __type __id "yarn_endpoint_address";
        zeppelin_remote_spark_interpreter_port =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "zeppelin_remote_spark_interpreter_port";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_dev_endpoint
+        (aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
+           ?extra_python_libs_s3_path ?glue_version ?id
+           ?number_of_nodes ?number_of_workers ?public_key
+           ?public_keys ?security_configuration ?security_group_ids
+           ?subnet_id ?tags ?tags_all ?worker_type ~name ~role_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?arguments ?extra_jars_s3_path
+    ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes
+    ?number_of_workers ?public_key ?public_keys
+    ?security_configuration ?security_group_ids ?subnet_id ?tags
+    ?tags_all ?worker_type ~name ~role_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?arguments ?extra_jars_s3_path ?extra_python_libs_s3_path
+      ?glue_version ?id ?number_of_nodes ?number_of_workers
+      ?public_key ?public_keys ?security_configuration
+      ?security_group_ids ?subnet_id ?tags ?tags_all ?worker_type
+      ~name ~role_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

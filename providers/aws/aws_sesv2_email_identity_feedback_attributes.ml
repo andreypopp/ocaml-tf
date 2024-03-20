@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sesv2_email_identity_feedback_attributes = {
   email_forwarding_enabled : bool prop option; [@option]
@@ -24,27 +22,31 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?email_forwarding_enabled ?id ~email_identity
-    __resource_id =
-  let __resource_type =
-    "aws_sesv2_email_identity_feedback_attributes"
-  in
-  let __resource =
-    aws_sesv2_email_identity_feedback_attributes
-      ?email_forwarding_enabled ?id ~email_identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_email_identity_feedback_attributes
-       __resource);
-  let __resource_attributes =
+let make ?email_forwarding_enabled ?id ~email_identity __id =
+  let __type = "aws_sesv2_email_identity_feedback_attributes" in
+  let __attrs =
     ({
        email_forwarding_enabled =
-         Prop.computed __resource_type __resource_id
-           "email_forwarding_enabled";
-       email_identity =
-         Prop.computed __resource_type __resource_id "email_identity";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "email_forwarding_enabled";
+       email_identity = Prop.computed __type __id "email_identity";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_email_identity_feedback_attributes
+        (aws_sesv2_email_identity_feedback_attributes
+           ?email_forwarding_enabled ?id ~email_identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?email_forwarding_enabled ?id ~email_identity
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?email_forwarding_enabled ?id ~email_identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

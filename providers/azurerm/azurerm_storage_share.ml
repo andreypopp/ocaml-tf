@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type acl__access_policy = {
   expiry : string prop option; [@option]  (** expiry *)
@@ -80,35 +78,42 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?access_tier ?enabled_protocol ?id ?metadata
-    ?timeouts ~name ~quota ~storage_account_name ~acl __resource_id =
-  let __resource_type = "azurerm_storage_share" in
-  let __resource =
-    azurerm_storage_share ?access_tier ?enabled_protocol ?id
-      ?metadata ?timeouts ~name ~quota ~storage_account_name ~acl ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_share __resource);
-  let __resource_attributes =
+let make ?access_tier ?enabled_protocol ?id ?metadata ?timeouts ~name
+    ~quota ~storage_account_name ~acl __id =
+  let __type = "azurerm_storage_share" in
+  let __attrs =
     ({
-       access_tier =
-         Prop.computed __resource_type __resource_id "access_tier";
+       access_tier = Prop.computed __type __id "access_tier";
        enabled_protocol =
-         Prop.computed __resource_type __resource_id
-           "enabled_protocol";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       quota = Prop.computed __resource_type __resource_id "quota";
+         Prop.computed __type __id "enabled_protocol";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       quota = Prop.computed __type __id "quota";
        resource_manager_id =
-         Prop.computed __resource_type __resource_id
-           "resource_manager_id";
+         Prop.computed __type __id "resource_manager_id";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "storage_account_name";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_share
+        (azurerm_storage_share ?access_tier ?enabled_protocol ?id
+           ?metadata ?timeouts ~name ~quota ~storage_account_name
+           ~acl ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_tier ?enabled_protocol ?id ?metadata
+    ?timeouts ~name ~quota ~storage_account_name ~acl __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_tier ?enabled_protocol ?id ?metadata ?timeouts ~name
+      ~quota ~storage_account_name ~acl __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

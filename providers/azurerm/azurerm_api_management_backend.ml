@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type credentials__authorization = {
   parameter : string prop option; [@option]  (** parameter *)
@@ -161,38 +159,46 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?description ?id ?resource_id ?title
-    ?timeouts ~api_management_name ~name ~protocol
-    ~resource_group_name ~url ~credentials ~proxy
-    ~service_fabric_cluster ~tls __resource_id =
-  let __resource_type = "azurerm_api_management_backend" in
-  let __resource =
-    azurerm_api_management_backend ?description ?id ?resource_id
-      ?title ?timeouts ~api_management_name ~name ~protocol
-      ~resource_group_name ~url ~credentials ~proxy
-      ~service_fabric_cluster ~tls ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_backend __resource);
-  let __resource_attributes =
+let make ?description ?id ?resource_id ?title ?timeouts
+    ~api_management_name ~name ~protocol ~resource_group_name ~url
+    ~credentials ~proxy ~service_fabric_cluster ~tls __id =
+  let __type = "azurerm_api_management_backend" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+         Prop.computed __type __id "api_management_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       protocol = Prop.computed __type __id "protocol";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       title = Prop.computed __resource_type __resource_id "title";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "resource_group_name";
+       resource_id = Prop.computed __type __id "resource_id";
+       title = Prop.computed __type __id "title";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_backend
+        (azurerm_api_management_backend ?description ?id ?resource_id
+           ?title ?timeouts ~api_management_name ~name ~protocol
+           ~resource_group_name ~url ~credentials ~proxy
+           ~service_fabric_cluster ~tls ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?resource_id ?title
+    ?timeouts ~api_management_name ~name ~protocol
+    ~resource_group_name ~url ~credentials ~proxy
+    ~service_fabric_cluster ~tls __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?resource_id ?title ?timeouts
+      ~api_management_name ~name ~protocol ~resource_group_name ~url
+      ~credentials ~proxy ~service_fabric_cluster ~tls __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

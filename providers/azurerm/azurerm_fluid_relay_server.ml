@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -69,43 +67,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?storage_sku ?tags ?timeouts ~location
-    ~name ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_fluid_relay_server" in
-  let __resource =
-    azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
-      ~location ~name ~resource_group_name ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_fluid_relay_server __resource);
-  let __resource_attributes =
+let make ?id ?storage_sku ?tags ?timeouts ~location ~name
+    ~resource_group_name ~identity __id =
+  let __type = "azurerm_fluid_relay_server" in
+  let __attrs =
     ({
-       frs_tenant_id =
-         Prop.computed __resource_type __resource_id "frs_tenant_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       frs_tenant_id = Prop.computed __type __id "frs_tenant_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        orderer_endpoints =
-         Prop.computed __resource_type __resource_id
-           "orderer_endpoints";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
+         Prop.computed __type __id "orderer_endpoints";
+       primary_key = Prop.computed __type __id "primary_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
+         Prop.computed __type __id "resource_group_name";
+       secondary_key = Prop.computed __type __id "secondary_key";
        service_endpoints =
-         Prop.computed __resource_type __resource_id
-           "service_endpoints";
+         Prop.computed __type __id "service_endpoints";
        storage_endpoints =
-         Prop.computed __resource_type __resource_id
-           "storage_endpoints";
-       storage_sku =
-         Prop.computed __resource_type __resource_id "storage_sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "storage_endpoints";
+       storage_sku = Prop.computed __type __id "storage_sku";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_fluid_relay_server
+        (azurerm_fluid_relay_server ?id ?storage_sku ?tags ?timeouts
+           ~location ~name ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?storage_sku ?tags ?timeouts ~location
+    ~name ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?storage_sku ?tags ?timeouts ~location ~name
+      ~resource_group_name ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

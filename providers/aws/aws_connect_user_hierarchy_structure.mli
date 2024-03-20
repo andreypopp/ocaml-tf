@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,10 @@ val register :
   hierarchy_structure:hierarchy_structure list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  instance_id:string prop ->
+  hierarchy_structure:hierarchy_structure list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -388,4 +388,25 @@ val register :
     row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
+    data_set_id:string prop ->
+    import_mode:string prop ->
+    name:string prop ->
+    column_groups:column_groups list ->
+    column_level_permission_rules:column_level_permission_rules list ->
+    data_set_usage_configuration:data_set_usage_configuration list ->
+    field_folders:field_folders list ->
+    logical_table_map:logical_table_map list ->
+    permissions:permissions list ->
+    physical_table_map:physical_table_map list ->
+    refresh_properties:refresh_properties list ->
+    row_level_permission_data_set:row_level_permission_data_set list ->
+    row_level_permission_tag_configuration:row_level_permission_tag_configuration list ->
+    string ->
+    t Tf_core.resource
 

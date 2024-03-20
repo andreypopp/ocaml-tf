@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type env__value_from__config_map_key_ref = {
   key : string prop option; [@option]  (** The key to select. *)
@@ -143,29 +141,36 @@ type t = {
   kind : string prop;
 }
 
-let register ?tf_module ?container ?field_manager ?force ?id
-    ?init_container ~api_version ~kind ~env ~metadata __resource_id =
-  let __resource_type = "kubernetes_env" in
-  let __resource =
-    kubernetes_env ?container ?field_manager ?force ?id
-      ?init_container ~api_version ~kind ~env ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_env __resource);
-  let __resource_attributes =
+let make ?container ?field_manager ?force ?id ?init_container
+    ~api_version ~kind ~env ~metadata __id =
+  let __type = "kubernetes_env" in
+  let __attrs =
     ({
-       api_version =
-         Prop.computed __resource_type __resource_id "api_version";
-       container =
-         Prop.computed __resource_type __resource_id "container";
-       field_manager =
-         Prop.computed __resource_type __resource_id "field_manager";
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
-       init_container =
-         Prop.computed __resource_type __resource_id "init_container";
-       kind = Prop.computed __resource_type __resource_id "kind";
+       api_version = Prop.computed __type __id "api_version";
+       container = Prop.computed __type __id "container";
+       field_manager = Prop.computed __type __id "field_manager";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
+       init_container = Prop.computed __type __id "init_container";
+       kind = Prop.computed __type __id "kind";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_env
+        (kubernetes_env ?container ?field_manager ?force ?id
+           ?init_container ~api_version ~kind ~env ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?container ?field_manager ?force ?id
+    ?init_container ~api_version ~kind ~env ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?container ?field_manager ?force ?id ?init_container
+      ~api_version ~kind ~env ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

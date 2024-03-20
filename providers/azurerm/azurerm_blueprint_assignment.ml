@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -86,52 +84,54 @@ type t = {
   version_id : string prop;
 }
 
-let register ?tf_module ?id ?lock_exclude_actions
-    ?lock_exclude_principals ?lock_mode ?parameter_values
-    ?resource_groups ?timeouts ~location ~name
-    ~target_subscription_id ~version_id ~identity __resource_id =
-  let __resource_type = "azurerm_blueprint_assignment" in
-  let __resource =
-    azurerm_blueprint_assignment ?id ?lock_exclude_actions
-      ?lock_exclude_principals ?lock_mode ?parameter_values
-      ?resource_groups ?timeouts ~location ~name
-      ~target_subscription_id ~version_id ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_blueprint_assignment __resource);
-  let __resource_attributes =
+let make ?id ?lock_exclude_actions ?lock_exclude_principals
+    ?lock_mode ?parameter_values ?resource_groups ?timeouts ~location
+    ~name ~target_subscription_id ~version_id ~identity __id =
+  let __type = "azurerm_blueprint_assignment" in
+  let __attrs =
     ({
-       blueprint_name =
-         Prop.computed __resource_type __resource_id "blueprint_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       blueprint_name = Prop.computed __type __id "blueprint_name";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        lock_exclude_actions =
-         Prop.computed __resource_type __resource_id
-           "lock_exclude_actions";
+         Prop.computed __type __id "lock_exclude_actions";
        lock_exclude_principals =
-         Prop.computed __resource_type __resource_id
-           "lock_exclude_principals";
-       lock_mode =
-         Prop.computed __resource_type __resource_id "lock_mode";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "lock_exclude_principals";
+       lock_mode = Prop.computed __type __id "lock_mode";
+       name = Prop.computed __type __id "name";
        parameter_values =
-         Prop.computed __resource_type __resource_id
-           "parameter_values";
-       resource_groups =
-         Prop.computed __resource_type __resource_id
-           "resource_groups";
+         Prop.computed __type __id "parameter_values";
+       resource_groups = Prop.computed __type __id "resource_groups";
        target_subscription_id =
-         Prop.computed __resource_type __resource_id
-           "target_subscription_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
+         Prop.computed __type __id "target_subscription_id";
+       type_ = Prop.computed __type __id "type";
+       version_id = Prop.computed __type __id "version_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_blueprint_assignment
+        (azurerm_blueprint_assignment ?id ?lock_exclude_actions
+           ?lock_exclude_principals ?lock_mode ?parameter_values
+           ?resource_groups ?timeouts ~location ~name
+           ~target_subscription_id ~version_id ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?lock_exclude_actions
+    ?lock_exclude_principals ?lock_mode ?parameter_values
+    ?resource_groups ?timeouts ~location ~name
+    ~target_subscription_id ~version_id ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?lock_exclude_actions ?lock_exclude_principals
+      ?lock_mode ?parameter_values ?resource_groups ?timeouts
+      ~location ~name ~target_subscription_id ~version_id ~identity
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

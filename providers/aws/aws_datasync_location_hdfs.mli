@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,22 @@ val register :
   qop_configuration:qop_configuration list ->
   string ->
   t
+
+val make :
+  ?authentication_type:string prop ->
+  ?block_size:float prop ->
+  ?id:string prop ->
+  ?kerberos_keytab:string prop ->
+  ?kerberos_krb5_conf:string prop ->
+  ?kerberos_principal:string prop ->
+  ?kms_key_provider_uri:string prop ->
+  ?replication_factor:float prop ->
+  ?simple_user:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
+  name_node:name_node list ->
+  qop_configuration:qop_configuration list ->
+  string ->
+  t Tf_core.resource

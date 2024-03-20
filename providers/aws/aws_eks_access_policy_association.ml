@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_scope = {
   namespaces : string prop list option; [@option]  (** namespaces *)
@@ -55,29 +53,35 @@ type t = {
   principal_arn : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cluster_name ~policy_arn
-    ~principal_arn ~access_scope __resource_id =
-  let __resource_type = "aws_eks_access_policy_association" in
-  let __resource =
-    aws_eks_access_policy_association ?id ?timeouts ~cluster_name
-      ~policy_arn ~principal_arn ~access_scope ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_access_policy_association __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cluster_name ~policy_arn ~principal_arn
+    ~access_scope __id =
+  let __type = "aws_eks_access_policy_association" in
+  let __attrs =
     ({
-       associated_at =
-         Prop.computed __resource_type __resource_id "associated_at";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified_at =
-         Prop.computed __resource_type __resource_id "modified_at";
-       policy_arn =
-         Prop.computed __resource_type __resource_id "policy_arn";
-       principal_arn =
-         Prop.computed __resource_type __resource_id "principal_arn";
+       associated_at = Prop.computed __type __id "associated_at";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       id = Prop.computed __type __id "id";
+       modified_at = Prop.computed __type __id "modified_at";
+       policy_arn = Prop.computed __type __id "policy_arn";
+       principal_arn = Prop.computed __type __id "principal_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_access_policy_association
+        (aws_eks_access_policy_association ?id ?timeouts
+           ~cluster_name ~policy_arn ~principal_arn ~access_scope ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cluster_name ~policy_arn
+    ~principal_arn ~access_scope __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cluster_name ~policy_arn ~principal_arn
+      ~access_scope __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

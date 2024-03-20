@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -102,48 +100,52 @@ type t = {
   vpc : string prop;
 }
 
-let register ?tf_module ?enable_high_availability ?id ?labels
-    ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
-    ~location ~name ~vpc_project __resource_id =
-  let __resource_type = "google_edgecontainer_vpn_connection" in
-  let __resource =
-    google_edgecontainer_vpn_connection ?enable_high_availability ?id
-      ?labels ?nat_gateway_ip ?project ?router ?vpc ?timeouts
-      ~cluster ~location ~name ~vpc_project ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_edgecontainer_vpn_connection __resource);
-  let __resource_attributes =
+let make ?enable_high_availability ?id ?labels ?nat_gateway_ip
+    ?project ?router ?vpc ?timeouts ~cluster ~location ~name
+    ~vpc_project __id =
+  let __type = "google_edgecontainer_vpn_connection" in
+  let __attrs =
     ({
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       details =
-         Prop.computed __resource_type __resource_id "details";
+       cluster = Prop.computed __type __id "cluster";
+       create_time = Prop.computed __type __id "create_time";
+       details = Prop.computed __type __id "details";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
+         Prop.computed __type __id "effective_labels";
        enable_high_availability =
-         Prop.computed __resource_type __resource_id
-           "enable_high_availability";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       nat_gateway_ip =
-         Prop.computed __resource_type __resource_id "nat_gateway_ip";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       router = Prop.computed __resource_type __resource_id "router";
+         Prop.computed __type __id "enable_high_availability";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       nat_gateway_ip = Prop.computed __type __id "nat_gateway_ip";
+       project = Prop.computed __type __id "project";
+       router = Prop.computed __type __id "router";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       vpc = Prop.computed __resource_type __resource_id "vpc";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
+       vpc = Prop.computed __type __id "vpc";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_edgecontainer_vpn_connection
+        (google_edgecontainer_vpn_connection
+           ?enable_high_availability ?id ?labels ?nat_gateway_ip
+           ?project ?router ?vpc ?timeouts ~cluster ~location ~name
+           ~vpc_project ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_high_availability ?id ?labels
+    ?nat_gateway_ip ?project ?router ?vpc ?timeouts ~cluster
+    ~location ~name ~vpc_project __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_high_availability ?id ?labels ?nat_gateway_ip
+      ?project ?router ?vpc ?timeouts ~cluster ~location ~name
+      ~vpc_project __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

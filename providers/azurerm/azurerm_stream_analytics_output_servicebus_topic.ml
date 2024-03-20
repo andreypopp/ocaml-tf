@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type serialization = {
   encoding : string prop option; [@option]  (** encoding *)
@@ -92,56 +90,61 @@ type t = {
   topic_name : string prop;
 }
 
+let make ?authentication_mode ?id ?property_columns
+    ?shared_access_policy_key ?shared_access_policy_name
+    ?system_property_columns ?timeouts ~name ~resource_group_name
+    ~servicebus_namespace ~stream_analytics_job_name ~topic_name
+    ~serialization __id =
+  let __type = "azurerm_stream_analytics_output_servicebus_topic" in
+  let __attrs =
+    ({
+       authentication_mode =
+         Prop.computed __type __id "authentication_mode";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       property_columns =
+         Prop.computed __type __id "property_columns";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       servicebus_namespace =
+         Prop.computed __type __id "servicebus_namespace";
+       shared_access_policy_key =
+         Prop.computed __type __id "shared_access_policy_key";
+       shared_access_policy_name =
+         Prop.computed __type __id "shared_access_policy_name";
+       stream_analytics_job_name =
+         Prop.computed __type __id "stream_analytics_job_name";
+       system_property_columns =
+         Prop.computed __type __id "system_property_columns";
+       topic_name = Prop.computed __type __id "topic_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_servicebus_topic
+        (azurerm_stream_analytics_output_servicebus_topic
+           ?authentication_mode ?id ?property_columns
+           ?shared_access_policy_key ?shared_access_policy_name
+           ?system_property_columns ?timeouts ~name
+           ~resource_group_name ~servicebus_namespace
+           ~stream_analytics_job_name ~topic_name ~serialization ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authentication_mode ?id ?property_columns
     ?shared_access_policy_key ?shared_access_policy_name
     ?system_property_columns ?timeouts ~name ~resource_group_name
     ~servicebus_namespace ~stream_analytics_job_name ~topic_name
-    ~serialization __resource_id =
-  let __resource_type =
-    "azurerm_stream_analytics_output_servicebus_topic"
-  in
-  let __resource =
-    azurerm_stream_analytics_output_servicebus_topic
-      ?authentication_mode ?id ?property_columns
+    ~serialization __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_mode ?id ?property_columns
       ?shared_access_policy_key ?shared_access_policy_name
       ?system_property_columns ?timeouts ~name ~resource_group_name
       ~servicebus_namespace ~stream_analytics_job_name ~topic_name
-      ~serialization ()
+      ~serialization __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_servicebus_topic
-       __resource);
-  let __resource_attributes =
-    ({
-       authentication_mode =
-         Prop.computed __resource_type __resource_id
-           "authentication_mode";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       property_columns =
-         Prop.computed __resource_type __resource_id
-           "property_columns";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       servicebus_namespace =
-         Prop.computed __resource_type __resource_id
-           "servicebus_namespace";
-       shared_access_policy_key =
-         Prop.computed __resource_type __resource_id
-           "shared_access_policy_key";
-       shared_access_policy_name =
-         Prop.computed __resource_type __resource_id
-           "shared_access_policy_name";
-       stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
-       system_property_columns =
-         Prop.computed __resource_type __resource_id
-           "system_property_columns";
-       topic_name =
-         Prop.computed __resource_type __resource_id "topic_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

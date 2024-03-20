@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_pinpoint_sms_channel = {
   application_id : string prop;  (** application_id *)
@@ -28,33 +26,37 @@ type t = {
   transactional_messages_per_second : float prop;
 }
 
-let register ?tf_module ?enabled ?id ?sender_id ?short_code
-    ~application_id __resource_id =
-  let __resource_type = "aws_pinpoint_sms_channel" in
-  let __resource =
-    aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
-      ~application_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_pinpoint_sms_channel __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?sender_id ?short_code ~application_id __id =
+  let __type = "aws_pinpoint_sms_channel" in
+  let __attrs =
     ({
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       application_id = Prop.computed __type __id "application_id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        promotional_messages_per_second =
-         Prop.computed __resource_type __resource_id
-           "promotional_messages_per_second";
-       sender_id =
-         Prop.computed __resource_type __resource_id "sender_id";
-       short_code =
-         Prop.computed __resource_type __resource_id "short_code";
+         Prop.computed __type __id "promotional_messages_per_second";
+       sender_id = Prop.computed __type __id "sender_id";
+       short_code = Prop.computed __type __id "short_code";
        transactional_messages_per_second =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "transactional_messages_per_second";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_pinpoint_sms_channel
+        (aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
+           ~application_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?sender_id ?short_code
+    ~application_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?sender_id ?short_code ~application_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

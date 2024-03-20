@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,12 @@ val register :
   custom_https_configuration:custom_https_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  custom_https_provisioning_enabled:bool prop ->
+  frontend_endpoint_id:string prop ->
+  custom_https_configuration:custom_https_configuration list ->
+  string ->
+  t Tf_core.resource

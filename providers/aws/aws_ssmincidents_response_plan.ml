@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action__ssm_automation__parameter = {
   name : string prop;  (** name *)
@@ -143,32 +141,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?chat_channel ?display_name ?engagements ?id
-    ?tags ?tags_all ~name ~action ~incident_template ~integration
-    __resource_id =
-  let __resource_type = "aws_ssmincidents_response_plan" in
-  let __resource =
-    aws_ssmincidents_response_plan ?chat_channel ?display_name
-      ?engagements ?id ?tags ?tags_all ~name ~action
-      ~incident_template ~integration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssmincidents_response_plan __resource);
-  let __resource_attributes =
+let make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
+    ~name ~action ~incident_template ~integration __id =
+  let __type = "aws_ssmincidents_response_plan" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       chat_channel =
-         Prop.computed __resource_type __resource_id "chat_channel";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       engagements =
-         Prop.computed __resource_type __resource_id "engagements";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       chat_channel = Prop.computed __type __id "chat_channel";
+       display_name = Prop.computed __type __id "display_name";
+       engagements = Prop.computed __type __id "engagements";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssmincidents_response_plan
+        (aws_ssmincidents_response_plan ?chat_channel ?display_name
+           ?engagements ?id ?tags ?tags_all ~name ~action
+           ~incident_template ~integration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?chat_channel ?display_name ?engagements ?id
+    ?tags ?tags_all ~name ~action ~incident_template ~integration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?chat_channel ?display_name ?engagements ?id ?tags ?tags_all
+      ~name ~action ~incident_template ~integration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

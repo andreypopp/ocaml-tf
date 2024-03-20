@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network = {
   alias_ips : string prop list option; [@option]  (** alias_ips *)
@@ -133,78 +131,78 @@ type t = {
   user_data : string prop;
 }
 
+let make ?allow_deprecated_images ?backups ?datacenter
+    ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
+    ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
+    ?rebuild_protection ?rescue ?shutdown_before_deletion ?ssh_keys
+    ?user_data ?timeouts ~name ~server_type ~network ~public_net __id
+    =
+  let __type = "hcloud_server" in
+  let __attrs =
+    ({
+       allow_deprecated_images =
+         Prop.computed __type __id "allow_deprecated_images";
+       backup_window = Prop.computed __type __id "backup_window";
+       backups = Prop.computed __type __id "backups";
+       datacenter = Prop.computed __type __id "datacenter";
+       delete_protection =
+         Prop.computed __type __id "delete_protection";
+       firewall_ids = Prop.computed __type __id "firewall_ids";
+       id = Prop.computed __type __id "id";
+       ignore_remote_firewall_ids =
+         Prop.computed __type __id "ignore_remote_firewall_ids";
+       image = Prop.computed __type __id "image";
+       ipv4_address = Prop.computed __type __id "ipv4_address";
+       ipv6_address = Prop.computed __type __id "ipv6_address";
+       ipv6_network = Prop.computed __type __id "ipv6_network";
+       iso = Prop.computed __type __id "iso";
+       keep_disk = Prop.computed __type __id "keep_disk";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       placement_group_id =
+         Prop.computed __type __id "placement_group_id";
+       primary_disk_size =
+         Prop.computed __type __id "primary_disk_size";
+       rebuild_protection =
+         Prop.computed __type __id "rebuild_protection";
+       rescue = Prop.computed __type __id "rescue";
+       server_type = Prop.computed __type __id "server_type";
+       shutdown_before_deletion =
+         Prop.computed __type __id "shutdown_before_deletion";
+       ssh_keys = Prop.computed __type __id "ssh_keys";
+       status = Prop.computed __type __id "status";
+       user_data = Prop.computed __type __id "user_data";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_server
+        (hcloud_server ?allow_deprecated_images ?backups ?datacenter
+           ?delete_protection ?firewall_ids ?id
+           ?ignore_remote_firewall_ids ?image ?iso ?keep_disk ?labels
+           ?location ?placement_group_id ?rebuild_protection ?rescue
+           ?shutdown_before_deletion ?ssh_keys ?user_data ?timeouts
+           ~name ~server_type ~network ~public_net ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_deprecated_images ?backups ?datacenter
     ?delete_protection ?firewall_ids ?id ?ignore_remote_firewall_ids
     ?image ?iso ?keep_disk ?labels ?location ?placement_group_id
     ?rebuild_protection ?rescue ?shutdown_before_deletion ?ssh_keys
-    ?user_data ?timeouts ~name ~server_type ~network ~public_net
-    __resource_id =
-  let __resource_type = "hcloud_server" in
-  let __resource =
-    hcloud_server ?allow_deprecated_images ?backups ?datacenter
+    ?user_data ?timeouts ~name ~server_type ~network ~public_net __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?allow_deprecated_images ?backups ?datacenter
       ?delete_protection ?firewall_ids ?id
       ?ignore_remote_firewall_ids ?image ?iso ?keep_disk ?labels
       ?location ?placement_group_id ?rebuild_protection ?rescue
       ?shutdown_before_deletion ?ssh_keys ?user_data ?timeouts ~name
-      ~server_type ~network ~public_net ()
+      ~server_type ~network ~public_net __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_server __resource);
-  let __resource_attributes =
-    ({
-       allow_deprecated_images =
-         Prop.computed __resource_type __resource_id
-           "allow_deprecated_images";
-       backup_window =
-         Prop.computed __resource_type __resource_id "backup_window";
-       backups =
-         Prop.computed __resource_type __resource_id "backups";
-       datacenter =
-         Prop.computed __resource_type __resource_id "datacenter";
-       delete_protection =
-         Prop.computed __resource_type __resource_id
-           "delete_protection";
-       firewall_ids =
-         Prop.computed __resource_type __resource_id "firewall_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_remote_firewall_ids =
-         Prop.computed __resource_type __resource_id
-           "ignore_remote_firewall_ids";
-       image = Prop.computed __resource_type __resource_id "image";
-       ipv4_address =
-         Prop.computed __resource_type __resource_id "ipv4_address";
-       ipv6_address =
-         Prop.computed __resource_type __resource_id "ipv6_address";
-       ipv6_network =
-         Prop.computed __resource_type __resource_id "ipv6_network";
-       iso = Prop.computed __resource_type __resource_id "iso";
-       keep_disk =
-         Prop.computed __resource_type __resource_id "keep_disk";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "placement_group_id";
-       primary_disk_size =
-         Prop.computed __resource_type __resource_id
-           "primary_disk_size";
-       rebuild_protection =
-         Prop.computed __resource_type __resource_id
-           "rebuild_protection";
-       rescue = Prop.computed __resource_type __resource_id "rescue";
-       server_type =
-         Prop.computed __resource_type __resource_id "server_type";
-       shutdown_before_deletion =
-         Prop.computed __resource_type __resource_id
-           "shutdown_before_deletion";
-       ssh_keys =
-         Prop.computed __resource_type __resource_id "ssh_keys";
-       status = Prop.computed __resource_type __resource_id "status";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

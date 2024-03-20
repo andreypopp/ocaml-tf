@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -167,3 +167,32 @@ val register :
   sentinel_entity_mapping:sentinel_entity_mapping list ->
   string ->
   t
+
+val make :
+  ?alert_rule_template_guid:string prop ->
+  ?alert_rule_template_version:string prop ->
+  ?custom_details:(string * string prop) list ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?query_frequency:string prop ->
+  ?query_period:string prop ->
+  ?suppression_duration:string prop ->
+  ?suppression_enabled:bool prop ->
+  ?tactics:string prop list ->
+  ?techniques:string prop list ->
+  ?trigger_operator:string prop ->
+  ?trigger_threshold:float prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  query:string prop ->
+  severity:string prop ->
+  alert_details_override:alert_details_override list ->
+  entity_mapping:entity_mapping list ->
+  event_grouping:event_grouping list ->
+  incident_configuration:incident_configuration list ->
+  sentinel_entity_mapping:sentinel_entity_mapping list ->
+  string ->
+  t Tf_core.resource

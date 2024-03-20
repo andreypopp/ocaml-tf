@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,23 @@ val register :
   cors_configuration:cors_configuration list ->
   string ->
   t
+
+val make :
+  ?api_key_selection_expression:string prop ->
+  ?body:string prop ->
+  ?credentials_arn:string prop ->
+  ?description:string prop ->
+  ?disable_execute_api_endpoint:bool prop ->
+  ?fail_on_warnings:bool prop ->
+  ?id:string prop ->
+  ?route_key:string prop ->
+  ?route_selection_expression:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target:string prop ->
+  ?version:string prop ->
+  name:string prop ->
+  protocol_type:string prop ->
+  cors_configuration:cors_configuration list ->
+  string ->
+  t Tf_core.resource

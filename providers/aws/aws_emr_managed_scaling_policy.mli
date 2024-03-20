@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -38,3 +38,10 @@ val register :
   compute_limits:compute_limits list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  cluster_id:string prop ->
+  compute_limits:compute_limits list ->
+  string ->
+  t Tf_core.resource

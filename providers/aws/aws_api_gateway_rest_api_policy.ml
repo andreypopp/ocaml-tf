@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_api_gateway_rest_api_policy = {
   id : string prop option; [@option]  (** id *)
@@ -22,20 +20,28 @@ type t = {
   rest_api_id : string prop;
 }
 
-let register ?tf_module ?id ~policy ~rest_api_id __resource_id =
-  let __resource_type = "aws_api_gateway_rest_api_policy" in
-  let __resource =
-    aws_api_gateway_rest_api_policy ?id ~policy ~rest_api_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_rest_api_policy __resource);
-  let __resource_attributes =
+let make ?id ~policy ~rest_api_id __id =
+  let __type = "aws_api_gateway_rest_api_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_rest_api_policy
+        (aws_api_gateway_rest_api_policy ?id ~policy ~rest_api_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~policy ~rest_api_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~policy ~rest_api_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

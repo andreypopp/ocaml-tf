@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -43,27 +41,33 @@ type t = {
   service_accounts : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?restore_policy ?timeouts ~action
-    ~project __resource_id =
-  let __resource_type = "google_project_default_service_accounts" in
-  let __resource =
-    google_project_default_service_accounts ?id ?restore_policy
-      ?timeouts ~action ~project ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_project_default_service_accounts __resource);
-  let __resource_attributes =
+let make ?id ?restore_policy ?timeouts ~action ~project __id =
+  let __type = "google_project_default_service_accounts" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       restore_policy =
-         Prop.computed __resource_type __resource_id "restore_policy";
+       action = Prop.computed __type __id "action";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       restore_policy = Prop.computed __type __id "restore_policy";
        service_accounts =
-         Prop.computed __resource_type __resource_id
-           "service_accounts";
+         Prop.computed __type __id "service_accounts";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_project_default_service_accounts
+        (google_project_default_service_accounts ?id ?restore_policy
+           ?timeouts ~action ~project ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?restore_policy ?timeouts ~action
+    ~project __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?restore_policy ?timeouts ~action ~project __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

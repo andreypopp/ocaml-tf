@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bigquery_options = {
   use_partitioned_tables : bool prop;
@@ -75,35 +73,39 @@ type t = {
   writer_identity : string prop;
 }
 
-let register ?tf_module ?description ?disabled ?filter ?id
-    ~billing_account ~destination ~name ~bigquery_options ~exclusions
-    __resource_id =
-  let __resource_type = "google_logging_billing_account_sink" in
-  let __resource =
-    google_logging_billing_account_sink ?description ?disabled
-      ?filter ?id ~billing_account ~destination ~name
-      ~bigquery_options ~exclusions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_billing_account_sink __resource);
-  let __resource_attributes =
+let make ?description ?disabled ?filter ?id ~billing_account
+    ~destination ~name ~bigquery_options ~exclusions __id =
+  let __type = "google_logging_billing_account_sink" in
+  let __attrs =
     ({
-       billing_account =
-         Prop.computed __resource_type __resource_id
-           "billing_account";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       destination =
-         Prop.computed __resource_type __resource_id "destination";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       writer_identity =
-         Prop.computed __resource_type __resource_id
-           "writer_identity";
+       billing_account = Prop.computed __type __id "billing_account";
+       description = Prop.computed __type __id "description";
+       destination = Prop.computed __type __id "destination";
+       disabled = Prop.computed __type __id "disabled";
+       filter = Prop.computed __type __id "filter";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       writer_identity = Prop.computed __type __id "writer_identity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_billing_account_sink
+        (google_logging_billing_account_sink ?description ?disabled
+           ?filter ?id ~billing_account ~destination ~name
+           ~bigquery_options ~exclusions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?disabled ?filter ?id
+    ~billing_account ~destination ~name ~bigquery_options ~exclusions
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disabled ?filter ?id ~billing_account
+      ~destination ~name ~bigquery_options ~exclusions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

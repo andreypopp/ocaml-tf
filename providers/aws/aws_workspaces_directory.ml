@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type self_service_permissions = {
   change_compute_type : bool prop option; [@option]
@@ -141,50 +139,53 @@ type t = {
   workspace_security_group_id : string prop;
 }
 
-let register ?tf_module ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
-    ~directory_id ~self_service_permissions
-    ~workspace_access_properties ~workspace_creation_properties
-    __resource_id =
-  let __resource_type = "aws_workspaces_directory" in
-  let __resource =
-    aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
-      ?tags_all ~directory_id ~self_service_permissions
-      ~workspace_access_properties ~workspace_creation_properties ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_workspaces_directory __resource);
-  let __resource_attributes =
+let make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all ~directory_id
+    ~self_service_permissions ~workspace_access_properties
+    ~workspace_creation_properties __id =
+  let __type = "aws_workspaces_directory" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
+       alias = Prop.computed __type __id "alias";
        customer_user_name =
-         Prop.computed __resource_type __resource_id
-           "customer_user_name";
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       directory_name =
-         Prop.computed __resource_type __resource_id "directory_name";
-       directory_type =
-         Prop.computed __resource_type __resource_id "directory_type";
+         Prop.computed __type __id "customer_user_name";
+       directory_id = Prop.computed __type __id "directory_id";
+       directory_name = Prop.computed __type __id "directory_name";
+       directory_type = Prop.computed __type __id "directory_type";
        dns_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "dns_ip_addresses";
-       iam_role_id =
-         Prop.computed __resource_type __resource_id "iam_role_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_group_ids =
-         Prop.computed __resource_type __resource_id "ip_group_ids";
+         Prop.computed __type __id "dns_ip_addresses";
+       iam_role_id = Prop.computed __type __id "iam_role_id";
+       id = Prop.computed __type __id "id";
+       ip_group_ids = Prop.computed __type __id "ip_group_ids";
        registration_code =
-         Prop.computed __resource_type __resource_id
-           "registration_code";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "registration_code";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        workspace_security_group_id =
-         Prop.computed __resource_type __resource_id
-           "workspace_security_group_id";
+         Prop.computed __type __id "workspace_security_group_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_workspaces_directory
+        (aws_workspaces_directory ?id ?ip_group_ids ?subnet_ids ?tags
+           ?tags_all ~directory_id ~self_service_permissions
+           ~workspace_access_properties
+           ~workspace_creation_properties ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all
+    ~directory_id ~self_service_permissions
+    ~workspace_access_properties ~workspace_creation_properties __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_group_ids ?subnet_ids ?tags ?tags_all ~directory_id
+      ~self_service_permissions ~workspace_access_properties
+      ~workspace_creation_properties __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

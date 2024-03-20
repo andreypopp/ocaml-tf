@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   output_config:output_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enable_iot_role_alias:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  device_fleet_name:string prop ->
+  role_arn:string prop ->
+  output_config:output_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type build_config = {
   build_caching : bool prop option; [@option]
@@ -287,31 +285,38 @@ type t = {
   subdomain : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~name ~production_branch
-    ~build_config ~deployment_configs ~source __resource_id =
-  let __resource_type = "cloudflare_pages_project" in
-  let __resource =
-    cloudflare_pages_project ?id ~account_id ~name ~production_branch
-      ~build_config ~deployment_configs ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_pages_project __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~name ~production_branch ~build_config
+    ~deployment_configs ~source __id =
+  let __type = "cloudflare_pages_project" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       domains =
-         Prop.computed __resource_type __resource_id "domains";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_id = Prop.computed __type __id "account_id";
+       created_on = Prop.computed __type __id "created_on";
+       domains = Prop.computed __type __id "domains";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        production_branch =
-         Prop.computed __resource_type __resource_id
-           "production_branch";
-       subdomain =
-         Prop.computed __resource_type __resource_id "subdomain";
+         Prop.computed __type __id "production_branch";
+       subdomain = Prop.computed __type __id "subdomain";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_pages_project
+        (cloudflare_pages_project ?id ~account_id ~name
+           ~production_branch ~build_config ~deployment_configs
+           ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~name ~production_branch
+    ~build_config ~deployment_configs ~source __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~name ~production_branch ~build_config
+      ~deployment_configs ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

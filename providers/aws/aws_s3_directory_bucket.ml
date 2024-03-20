@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type location = {
   name : string prop;  (** name *)
@@ -37,27 +35,35 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?data_redundancy ?force_destroy ?type_
-    ~bucket ~location __resource_id =
-  let __resource_type = "aws_s3_directory_bucket" in
-  let __resource =
-    aws_s3_directory_bucket ?data_redundancy ?force_destroy ?type_
-      ~bucket ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_directory_bucket __resource);
-  let __resource_attributes =
+let make ?data_redundancy ?force_destroy ?type_ ~bucket ~location
+    __id =
+  let __type = "aws_s3_directory_bucket" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       data_redundancy =
-         Prop.computed __resource_type __resource_id
-           "data_redundancy";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       bucket = Prop.computed __type __id "bucket";
+       data_redundancy = Prop.computed __type __id "data_redundancy";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_directory_bucket
+        (aws_s3_directory_bucket ?data_redundancy ?force_destroy
+           ?type_ ~bucket ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?data_redundancy ?force_destroy ?type_
+    ~bucket ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?data_redundancy ?force_destroy ?type_ ~bucket ~location
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,15 @@ val register :
   diagnostic_storage_account:diagnostic_storage_account list ->
   string ->
   t
+
+val make :
+  ?diagnostic_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  device_update_account_id:string prop ->
+  iothub_id:string prop ->
+  name:string prop ->
+  diagnostic_storage_account:diagnostic_storage_account list ->
+  string ->
+  t Tf_core.resource

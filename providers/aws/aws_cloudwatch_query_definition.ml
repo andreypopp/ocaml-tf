@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloudwatch_query_definition = {
   id : string prop option; [@option]  (** id *)
@@ -26,28 +24,33 @@ type t = {
   query_string : string prop;
 }
 
-let register ?tf_module ?id ?log_group_names ~name ~query_string
-    __resource_id =
-  let __resource_type = "aws_cloudwatch_query_definition" in
-  let __resource =
-    aws_cloudwatch_query_definition ?id ?log_group_names ~name
-      ~query_string ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_query_definition __resource);
-  let __resource_attributes =
+let make ?id ?log_group_names ~name ~query_string __id =
+  let __type = "aws_cloudwatch_query_definition" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       log_group_names =
-         Prop.computed __resource_type __resource_id
-           "log_group_names";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       log_group_names = Prop.computed __type __id "log_group_names";
+       name = Prop.computed __type __id "name";
        query_definition_id =
-         Prop.computed __resource_type __resource_id
-           "query_definition_id";
-       query_string =
-         Prop.computed __resource_type __resource_id "query_string";
+         Prop.computed __type __id "query_definition_id";
+       query_string = Prop.computed __type __id "query_string";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_query_definition
+        (aws_cloudwatch_query_definition ?id ?log_group_names ~name
+           ~query_string ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?log_group_names ~name ~query_string __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?log_group_names ~name ~query_string __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

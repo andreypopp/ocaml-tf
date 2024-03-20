@@ -1,6 +1,6 @@
 (library
  (name tf_aws)
- (public_name tf.aws)
+ (public_name tf_aws)
  (modes native)
  (modules
   :standard

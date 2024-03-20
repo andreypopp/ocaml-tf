@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -111,3 +111,21 @@ val register :
   security:security list ->
   string ->
   t
+
+val make :
+  ?domain_configuration_type:string prop ->
+  ?filtered_sync_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  initial_replica_set:initial_replica_set list ->
+  notifications:notifications list ->
+  secure_ldap:secure_ldap list ->
+  security:security list ->
+  string ->
+  t Tf_core.resource

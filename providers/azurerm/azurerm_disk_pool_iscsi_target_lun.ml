@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,28 +43,38 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts
-    ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name
-    __resource_id =
-  let __resource_type = "azurerm_disk_pool_iscsi_target_lun" in
-  let __resource =
-    azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
-      ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_disk_pool_iscsi_target_lun __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~disk_pool_managed_disk_attachment_id
+    ~iscsi_target_id ~name __id =
+  let __type = "azurerm_disk_pool_iscsi_target_lun" in
+  let __attrs =
     ({
        disk_pool_managed_disk_attachment_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "disk_pool_managed_disk_attachment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       iscsi_target_id =
-         Prop.computed __resource_type __resource_id
-           "iscsi_target_id";
-       lun = Prop.computed __resource_type __resource_id "lun";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       iscsi_target_id = Prop.computed __type __id "iscsi_target_id";
+       lun = Prop.computed __type __id "lun";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_disk_pool_iscsi_target_lun
+        (azurerm_disk_pool_iscsi_target_lun ?id ?timeouts
+           ~disk_pool_managed_disk_attachment_id ~iscsi_target_id
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts
+    ~disk_pool_managed_disk_attachment_id ~iscsi_target_id ~name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~disk_pool_managed_disk_attachment_id
+      ~iscsi_target_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

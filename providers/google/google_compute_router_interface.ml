@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,41 +71,48 @@ type t = {
   vpn_tunnel : string prop;
 }
 
-let register ?tf_module ?id ?interconnect_attachment ?ip_range
-    ?private_ip_address ?project ?redundant_interface ?region
-    ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __resource_id =
-  let __resource_type = "google_compute_router_interface" in
-  let __resource =
-    google_compute_router_interface ?id ?interconnect_attachment
-      ?ip_range ?private_ip_address ?project ?redundant_interface
-      ?region ?subnetwork ?vpn_tunnel ?timeouts ~name ~router ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_router_interface __resource);
-  let __resource_attributes =
+let make ?id ?interconnect_attachment ?ip_range ?private_ip_address
+    ?project ?redundant_interface ?region ?subnetwork ?vpn_tunnel
+    ?timeouts ~name ~router __id =
+  let __type = "google_compute_router_interface" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        interconnect_attachment =
-         Prop.computed __resource_type __resource_id
-           "interconnect_attachment";
-       ip_range =
-         Prop.computed __resource_type __resource_id "ip_range";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "interconnect_attachment";
+       ip_range = Prop.computed __type __id "ip_range";
+       name = Prop.computed __type __id "name";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "private_ip_address";
+       project = Prop.computed __type __id "project";
        redundant_interface =
-         Prop.computed __resource_type __resource_id
-           "redundant_interface";
-       region = Prop.computed __resource_type __resource_id "region";
-       router = Prop.computed __resource_type __resource_id "router";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
-       vpn_tunnel =
-         Prop.computed __resource_type __resource_id "vpn_tunnel";
+         Prop.computed __type __id "redundant_interface";
+       region = Prop.computed __type __id "region";
+       router = Prop.computed __type __id "router";
+       subnetwork = Prop.computed __type __id "subnetwork";
+       vpn_tunnel = Prop.computed __type __id "vpn_tunnel";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_router_interface
+        (google_compute_router_interface ?id ?interconnect_attachment
+           ?ip_range ?private_ip_address ?project
+           ?redundant_interface ?region ?subnetwork ?vpn_tunnel
+           ?timeouts ~name ~router ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?interconnect_attachment ?ip_range
+    ?private_ip_address ?project ?redundant_interface ?region
+    ?subnetwork ?vpn_tunnel ?timeouts ~name ~router __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?interconnect_attachment ?ip_range ?private_ip_address
+      ?project ?redundant_interface ?region ?subnetwork ?vpn_tunnel
+      ?timeouts ~name ~router __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,24 @@ val register :
   ipam_scope_id:string prop ->
   string ->
   t
+
+val make :
+  ?allocation_default_netmask_length:float prop ->
+  ?allocation_max_netmask_length:float prop ->
+  ?allocation_min_netmask_length:float prop ->
+  ?allocation_resource_tags:(string * string prop) list ->
+  ?auto_import:bool prop ->
+  ?aws_service:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?locale:string prop ->
+  ?public_ip_source:string prop ->
+  ?publicly_advertisable:bool prop ->
+  ?source_ipam_pool_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  ipam_scope_id:string prop ->
+  string ->
+  t Tf_core.resource

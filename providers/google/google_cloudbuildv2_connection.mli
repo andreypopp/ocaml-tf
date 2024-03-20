@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -141,3 +141,17 @@ val register :
   gitlab_config:gitlab_config list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  github_config:github_config list ->
+  github_enterprise_config:github_enterprise_config list ->
+  gitlab_config:gitlab_config list ->
+  string ->
+  t Tf_core.resource

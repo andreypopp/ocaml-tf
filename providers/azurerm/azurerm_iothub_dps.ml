@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_filter_rule = {
   action : string prop;  (** action *)
@@ -111,46 +109,52 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?allocation_policy ?data_residency_enabled
-    ?id ?public_network_access_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~ip_filter_rule ~linked_hub ~sku
-    __resource_id =
-  let __resource_type = "azurerm_iothub_dps" in
-  let __resource =
-    azurerm_iothub_dps ?allocation_policy ?data_residency_enabled ?id
-      ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~ip_filter_rule ~linked_hub ~sku ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_dps __resource);
-  let __resource_attributes =
+let make ?allocation_policy ?data_residency_enabled ?id
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id =
+  let __type = "azurerm_iothub_dps" in
+  let __attrs =
     ({
        allocation_policy =
-         Prop.computed __resource_type __resource_id
-           "allocation_policy";
+         Prop.computed __type __id "allocation_policy";
        data_residency_enabled =
-         Prop.computed __resource_type __resource_id
-           "data_residency_enabled";
+         Prop.computed __type __id "data_residency_enabled";
        device_provisioning_host_name =
-         Prop.computed __resource_type __resource_id
-           "device_provisioning_host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       id_scope =
-         Prop.computed __resource_type __resource_id "id_scope";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "device_provisioning_host_name";
+       id = Prop.computed __type __id "id";
+       id_scope = Prop.computed __type __id "id_scope";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
+         Prop.computed __type __id "public_network_access_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        service_operations_host_name =
-         Prop.computed __resource_type __resource_id
-           "service_operations_host_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "service_operations_host_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_dps
+        (azurerm_iothub_dps ?allocation_policy
+           ?data_residency_enabled ?id ?public_network_access_enabled
+           ?tags ?timeouts ~location ~name ~resource_group_name
+           ~ip_filter_rule ~linked_hub ~sku ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allocation_policy ?data_residency_enabled
+    ?id ?public_network_access_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?allocation_policy ?data_residency_enabled ?id
+      ?public_network_access_enabled ?tags ?timeouts ~location ~name
+      ~resource_group_name ~ip_filter_rule ~linked_hub ~sku __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sns_topic = {
   application_failure_feedback_role_arn : string prop option;
@@ -146,6 +144,112 @@ type t = {
   tracing_config : string prop;
 }
 
+let make ?application_failure_feedback_role_arn
+    ?application_success_feedback_role_arn
+    ?application_success_feedback_sample_rate ?archive_policy
+    ?content_based_deduplication ?delivery_policy ?display_name
+    ?fifo_topic ?firehose_failure_feedback_role_arn
+    ?firehose_success_feedback_role_arn
+    ?firehose_success_feedback_sample_rate
+    ?http_failure_feedback_role_arn ?http_success_feedback_role_arn
+    ?http_success_feedback_sample_rate ?id ?kms_master_key_id
+    ?lambda_failure_feedback_role_arn
+    ?lambda_success_feedback_role_arn
+    ?lambda_success_feedback_sample_rate ?name ?name_prefix ?policy
+    ?signature_version ?sqs_failure_feedback_role_arn
+    ?sqs_success_feedback_role_arn ?sqs_success_feedback_sample_rate
+    ?tags ?tags_all ?tracing_config __id =
+  let __type = "aws_sns_topic" in
+  let __attrs =
+    ({
+       application_failure_feedback_role_arn =
+         Prop.computed __type __id
+           "application_failure_feedback_role_arn";
+       application_success_feedback_role_arn =
+         Prop.computed __type __id
+           "application_success_feedback_role_arn";
+       application_success_feedback_sample_rate =
+         Prop.computed __type __id
+           "application_success_feedback_sample_rate";
+       archive_policy = Prop.computed __type __id "archive_policy";
+       arn = Prop.computed __type __id "arn";
+       beginning_archive_time =
+         Prop.computed __type __id "beginning_archive_time";
+       content_based_deduplication =
+         Prop.computed __type __id "content_based_deduplication";
+       delivery_policy = Prop.computed __type __id "delivery_policy";
+       display_name = Prop.computed __type __id "display_name";
+       fifo_topic = Prop.computed __type __id "fifo_topic";
+       firehose_failure_feedback_role_arn =
+         Prop.computed __type __id
+           "firehose_failure_feedback_role_arn";
+       firehose_success_feedback_role_arn =
+         Prop.computed __type __id
+           "firehose_success_feedback_role_arn";
+       firehose_success_feedback_sample_rate =
+         Prop.computed __type __id
+           "firehose_success_feedback_sample_rate";
+       http_failure_feedback_role_arn =
+         Prop.computed __type __id "http_failure_feedback_role_arn";
+       http_success_feedback_role_arn =
+         Prop.computed __type __id "http_success_feedback_role_arn";
+       http_success_feedback_sample_rate =
+         Prop.computed __type __id
+           "http_success_feedback_sample_rate";
+       id = Prop.computed __type __id "id";
+       kms_master_key_id =
+         Prop.computed __type __id "kms_master_key_id";
+       lambda_failure_feedback_role_arn =
+         Prop.computed __type __id "lambda_failure_feedback_role_arn";
+       lambda_success_feedback_role_arn =
+         Prop.computed __type __id "lambda_success_feedback_role_arn";
+       lambda_success_feedback_sample_rate =
+         Prop.computed __type __id
+           "lambda_success_feedback_sample_rate";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       owner = Prop.computed __type __id "owner";
+       policy = Prop.computed __type __id "policy";
+       signature_version =
+         Prop.computed __type __id "signature_version";
+       sqs_failure_feedback_role_arn =
+         Prop.computed __type __id "sqs_failure_feedback_role_arn";
+       sqs_success_feedback_role_arn =
+         Prop.computed __type __id "sqs_success_feedback_role_arn";
+       sqs_success_feedback_sample_rate =
+         Prop.computed __type __id "sqs_success_feedback_sample_rate";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tracing_config = Prop.computed __type __id "tracing_config";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sns_topic
+        (aws_sns_topic ?application_failure_feedback_role_arn
+           ?application_success_feedback_role_arn
+           ?application_success_feedback_sample_rate ?archive_policy
+           ?content_based_deduplication ?delivery_policy
+           ?display_name ?fifo_topic
+           ?firehose_failure_feedback_role_arn
+           ?firehose_success_feedback_role_arn
+           ?firehose_success_feedback_sample_rate
+           ?http_failure_feedback_role_arn
+           ?http_success_feedback_role_arn
+           ?http_success_feedback_sample_rate ?id ?kms_master_key_id
+           ?lambda_failure_feedback_role_arn
+           ?lambda_success_feedback_role_arn
+           ?lambda_success_feedback_sample_rate ?name ?name_prefix
+           ?policy ?signature_version ?sqs_failure_feedback_role_arn
+           ?sqs_success_feedback_role_arn
+           ?sqs_success_feedback_sample_rate ?tags ?tags_all
+           ?tracing_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?application_failure_feedback_role_arn
     ?application_success_feedback_role_arn
     ?application_success_feedback_sample_rate ?archive_policy
@@ -160,10 +264,9 @@ let register ?tf_module ?application_failure_feedback_role_arn
     ?lambda_success_feedback_sample_rate ?name ?name_prefix ?policy
     ?signature_version ?sqs_failure_feedback_role_arn
     ?sqs_success_feedback_role_arn ?sqs_success_feedback_sample_rate
-    ?tags ?tags_all ?tracing_config __resource_id =
-  let __resource_type = "aws_sns_topic" in
-  let __resource =
-    aws_sns_topic ?application_failure_feedback_role_arn
+    ?tags ?tags_all ?tracing_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?application_failure_feedback_role_arn
       ?application_success_feedback_role_arn
       ?application_success_feedback_sample_rate ?archive_policy
       ?content_based_deduplication ?delivery_policy ?display_name
@@ -178,91 +281,7 @@ let register ?tf_module ?application_failure_feedback_role_arn
       ?signature_version ?sqs_failure_feedback_role_arn
       ?sqs_success_feedback_role_arn
       ?sqs_success_feedback_sample_rate ?tags ?tags_all
-      ?tracing_config ()
+      ?tracing_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sns_topic __resource);
-  let __resource_attributes =
-    ({
-       application_failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "application_failure_feedback_role_arn";
-       application_success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "application_success_feedback_role_arn";
-       application_success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "application_success_feedback_sample_rate";
-       archive_policy =
-         Prop.computed __resource_type __resource_id "archive_policy";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       beginning_archive_time =
-         Prop.computed __resource_type __resource_id
-           "beginning_archive_time";
-       content_based_deduplication =
-         Prop.computed __resource_type __resource_id
-           "content_based_deduplication";
-       delivery_policy =
-         Prop.computed __resource_type __resource_id
-           "delivery_policy";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       fifo_topic =
-         Prop.computed __resource_type __resource_id "fifo_topic";
-       firehose_failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "firehose_failure_feedback_role_arn";
-       firehose_success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "firehose_success_feedback_role_arn";
-       firehose_success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "firehose_success_feedback_sample_rate";
-       http_failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "http_failure_feedback_role_arn";
-       http_success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "http_success_feedback_role_arn";
-       http_success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "http_success_feedback_sample_rate";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_master_key_id =
-         Prop.computed __resource_type __resource_id
-           "kms_master_key_id";
-       lambda_failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "lambda_failure_feedback_role_arn";
-       lambda_success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "lambda_success_feedback_role_arn";
-       lambda_success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "lambda_success_feedback_sample_rate";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       signature_version =
-         Prop.computed __resource_type __resource_id
-           "signature_version";
-       sqs_failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "sqs_failure_feedback_role_arn";
-       sqs_success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "sqs_success_feedback_role_arn";
-       sqs_success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "sqs_success_feedback_sample_rate";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tracing_config =
-         Prop.computed __resource_type __resource_id "tracing_config";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

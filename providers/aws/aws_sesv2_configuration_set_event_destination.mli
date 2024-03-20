@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,11 @@ val register :
   event_destination:event_destination list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  configuration_set_name:string prop ->
+  event_destination_name:string prop ->
+  event_destination:event_destination list ->
+  string ->
+  t Tf_core.resource

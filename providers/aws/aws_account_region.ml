@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -35,27 +33,32 @@ type t = {
   region_name : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?timeouts ~enabled
-    ~region_name __resource_id =
-  let __resource_type = "aws_account_region" in
-  let __resource =
-    aws_account_region ?account_id ?id ?timeouts ~enabled
-      ~region_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_account_region __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?timeouts ~enabled ~region_name __id =
+  let __type = "aws_account_region" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       opt_status =
-         Prop.computed __resource_type __resource_id "opt_status";
-       region_name =
-         Prop.computed __resource_type __resource_id "region_name";
+       account_id = Prop.computed __type __id "account_id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       opt_status = Prop.computed __type __id "opt_status";
+       region_name = Prop.computed __type __id "region_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_account_region
+        (aws_account_region ?account_id ?id ?timeouts ~enabled
+           ~region_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?timeouts ~enabled
+    ~region_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?timeouts ~enabled ~region_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

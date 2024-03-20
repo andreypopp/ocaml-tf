@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -156,3 +156,22 @@ val register :
   virtual_machine:virtual_machine list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?lab_plan_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  title:string prop ->
+  auto_shutdown:auto_shutdown list ->
+  connection_setting:connection_setting list ->
+  network:network list ->
+  roster:roster list ->
+  security:security list ->
+  virtual_machine:virtual_machine list ->
+  string ->
+  t Tf_core.resource

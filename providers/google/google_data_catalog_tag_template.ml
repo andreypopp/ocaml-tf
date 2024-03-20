@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type fields__type__enum_type__allowed_values = {
   display_name : string prop;
@@ -115,30 +113,36 @@ type t = {
   tag_template_id : string prop;
 }
 
-let register ?tf_module ?display_name ?force_delete ?id ?project
-    ?region ?timeouts ~tag_template_id ~fields __resource_id =
-  let __resource_type = "google_data_catalog_tag_template" in
-  let __resource =
-    google_data_catalog_tag_template ?display_name ?force_delete ?id
-      ?project ?region ?timeouts ~tag_template_id ~fields ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_catalog_tag_template __resource);
-  let __resource_attributes =
+let make ?display_name ?force_delete ?id ?project ?region ?timeouts
+    ~tag_template_id ~fields __id =
+  let __type = "google_data_catalog_tag_template" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       tag_template_id =
-         Prop.computed __resource_type __resource_id
-           "tag_template_id";
+       display_name = Prop.computed __type __id "display_name";
+       force_delete = Prop.computed __type __id "force_delete";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       tag_template_id = Prop.computed __type __id "tag_template_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_catalog_tag_template
+        (google_data_catalog_tag_template ?display_name ?force_delete
+           ?id ?project ?region ?timeouts ~tag_template_id ~fields ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?force_delete ?id ?project
+    ?region ?timeouts ~tag_template_id ~fields __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?force_delete ?id ?project ?region ?timeouts
+      ~tag_template_id ~fields __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

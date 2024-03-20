@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   table:string prop ->
   string ->
   t
+
+val make :
+  ?authentication_mode:string prop ->
+  ?id:string prop ->
+  ?max_batch_count:float prop ->
+  ?max_writer_count:float prop ->
+  ?password:string prop ->
+  ?user:string prop ->
+  ?timeouts:timeouts ->
+  database:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server:string prop ->
+  stream_analytics_job_name:string prop ->
+  table:string prop ->
+  string ->
+  t Tf_core.resource

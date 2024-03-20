@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -121,3 +121,19 @@ val register :
   revocation_configuration:revocation_configuration list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?key_storage_security_standard:string prop ->
+  ?permanent_deletion_time_in_days:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?usage_mode:string prop ->
+  ?timeouts:timeouts ->
+  certificate_authority_configuration:
+    certificate_authority_configuration list ->
+  revocation_configuration:revocation_configuration list ->
+  string ->
+  t Tf_core.resource

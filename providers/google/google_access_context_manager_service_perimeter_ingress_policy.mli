@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,12 @@ val register :
   ingress_to:ingress_to list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  perimeter:string prop ->
+  ingress_from:ingress_from list ->
+  ingress_to:ingress_to list ->
+  string ->
+  t Tf_core.resource

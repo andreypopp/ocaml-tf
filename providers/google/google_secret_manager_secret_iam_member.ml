@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]  (** description *)
@@ -40,26 +38,33 @@ type t = {
   secret_id : string prop;
 }
 
-let register ?tf_module ?id ?project ~member ~role ~secret_id
-    ~condition __resource_id =
-  let __resource_type = "google_secret_manager_secret_iam_member" in
-  let __resource =
-    google_secret_manager_secret_iam_member ?id ?project ~member
-      ~role ~secret_id ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_secret_manager_secret_iam_member __resource);
-  let __resource_attributes =
+let make ?id ?project ~member ~role ~secret_id ~condition __id =
+  let __type = "google_secret_manager_secret_iam_member" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       member = Prop.computed __resource_type __resource_id "member";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       role = Prop.computed __resource_type __resource_id "role";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       member = Prop.computed __type __id "member";
+       project = Prop.computed __type __id "project";
+       role = Prop.computed __type __id "role";
+       secret_id = Prop.computed __type __id "secret_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_secret_manager_secret_iam_member
+        (google_secret_manager_secret_iam_member ?id ?project ~member
+           ~role ~secret_id ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ~member ~role ~secret_id
+    ~condition __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ~member ~role ~secret_id ~condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

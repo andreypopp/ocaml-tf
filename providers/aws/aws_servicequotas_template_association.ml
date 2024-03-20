@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_servicequotas_template_association = {
   skip_destroy : bool prop option; [@option]  (** skip_destroy *)
@@ -20,20 +18,26 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?skip_destroy __resource_id =
-  let __resource_type = "aws_servicequotas_template_association" in
-  let __resource =
-    aws_servicequotas_template_association ?skip_destroy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicequotas_template_association __resource);
-  let __resource_attributes =
+let make ?skip_destroy __id =
+  let __type = "aws_servicequotas_template_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
-       status = Prop.computed __resource_type __resource_id "status";
+       id = Prop.computed __type __id "id";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicequotas_template_association
+        (aws_servicequotas_template_association ?skip_destroy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?skip_destroy __id =
+  let (r : _ Tf_core.resource) = make ?skip_destroy __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

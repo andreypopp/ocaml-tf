@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,16 @@ val register :
   storage_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?federated_identity_client_id:string prop ->
+  ?id:string prop ->
+  ?key_vault_id:string prop ->
+  ?key_vault_uri:string prop ->
+  ?key_version:string prop ->
+  ?user_assigned_identity_id:string prop ->
+  ?timeouts:timeouts ->
+  key_name:string prop ->
+  storage_account_id:string prop ->
+  string ->
+  t Tf_core.resource

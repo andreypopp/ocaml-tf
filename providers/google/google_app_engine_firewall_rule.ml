@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,28 +56,35 @@ type t = {
   source_range : string prop;
 }
 
-let register ?tf_module ?description ?id ?priority ?project ?timeouts
-    ~action ~source_range __resource_id =
-  let __resource_type = "google_app_engine_firewall_rule" in
-  let __resource =
-    google_app_engine_firewall_rule ?description ?id ?priority
-      ?project ?timeouts ~action ~source_range ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_app_engine_firewall_rule __resource);
-  let __resource_attributes =
+let make ?description ?id ?priority ?project ?timeouts ~action
+    ~source_range __id =
+  let __type = "google_app_engine_firewall_rule" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       source_range =
-         Prop.computed __resource_type __resource_id "source_range";
+       action = Prop.computed __type __id "action";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       source_range = Prop.computed __type __id "source_range";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_app_engine_firewall_rule
+        (google_app_engine_firewall_rule ?description ?id ?priority
+           ?project ?timeouts ~action ~source_range ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?priority ?project ?timeouts
+    ~action ~source_range __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?priority ?project ?timeouts ~action
+      ~source_range __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

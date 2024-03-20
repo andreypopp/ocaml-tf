@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,42 +60,44 @@ type t = {
   versionless_id : string prop;
 }
 
-let register ?tf_module ?content_type ?expiration_date ?id
-    ?not_before_date ?tags ?timeouts ~key_vault_id ~name ~value
-    __resource_id =
-  let __resource_type = "azurerm_key_vault_secret" in
-  let __resource =
-    azurerm_key_vault_secret ?content_type ?expiration_date ?id
-      ?not_before_date ?tags ?timeouts ~key_vault_id ~name ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault_secret __resource);
-  let __resource_attributes =
+let make ?content_type ?expiration_date ?id ?not_before_date ?tags
+    ?timeouts ~key_vault_id ~name ~value __id =
+  let __type = "azurerm_key_vault_secret" in
+  let __attrs =
     ({
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_before_date =
-         Prop.computed __resource_type __resource_id
-           "not_before_date";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+       content_type = Prop.computed __type __id "content_type";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       id = Prop.computed __type __id "id";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
+       name = Prop.computed __type __id "name";
+       not_before_date = Prop.computed __type __id "not_before_date";
+       resource_id = Prop.computed __type __id "resource_id";
        resource_versionless_id =
-         Prop.computed __resource_type __resource_id
-           "resource_versionless_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       value = Prop.computed __resource_type __resource_id "value";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       versionless_id =
-         Prop.computed __resource_type __resource_id "versionless_id";
+         Prop.computed __type __id "resource_versionless_id";
+       tags = Prop.computed __type __id "tags";
+       value = Prop.computed __type __id "value";
+       version = Prop.computed __type __id "version";
+       versionless_id = Prop.computed __type __id "versionless_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault_secret
+        (azurerm_key_vault_secret ?content_type ?expiration_date ?id
+           ?not_before_date ?tags ?timeouts ~key_vault_id ~name
+           ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?content_type ?expiration_date ?id
+    ?not_before_date ?tags ?timeouts ~key_vault_id ~name ~value __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?content_type ?expiration_date ?id ?not_before_date ?tags
+      ?timeouts ~key_vault_id ~name ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

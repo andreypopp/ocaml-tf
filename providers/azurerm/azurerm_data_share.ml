@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type snapshot_schedule = {
   name : string prop;  (** name *)
@@ -63,26 +61,35 @@ type t = {
   terms : string prop;
 }
 
-let register ?tf_module ?description ?id ?terms ?timeouts ~account_id
-    ~kind ~name ~snapshot_schedule __resource_id =
-  let __resource_type = "azurerm_data_share" in
-  let __resource =
-    azurerm_data_share ?description ?id ?terms ?timeouts ~account_id
-      ~kind ~name ~snapshot_schedule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_share __resource);
-  let __resource_attributes =
+let make ?description ?id ?terms ?timeouts ~account_id ~kind ~name
+    ~snapshot_schedule __id =
+  let __type = "azurerm_data_share" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
-       terms = Prop.computed __resource_type __resource_id "terms";
+       account_id = Prop.computed __type __id "account_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
+       terms = Prop.computed __type __id "terms";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_share
+        (azurerm_data_share ?description ?id ?terms ?timeouts
+           ~account_id ~kind ~name ~snapshot_schedule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?terms ?timeouts ~account_id
+    ~kind ~name ~snapshot_schedule __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?terms ?timeouts ~account_id ~kind ~name
+      ~snapshot_schedule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

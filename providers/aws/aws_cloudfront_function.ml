@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloudfront_function = {
   code : string prop;  (** code *)
@@ -32,33 +30,37 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?comment ?id ?publish ~code ~name ~runtime
-    __resource_id =
-  let __resource_type = "aws_cloudfront_function" in
-  let __resource =
-    aws_cloudfront_function ?comment ?id ?publish ~code ~name
-      ~runtime ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_function __resource);
-  let __resource_attributes =
+let make ?comment ?id ?publish ~code ~name ~runtime __id =
+  let __type = "aws_cloudfront_function" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       code = Prop.computed __resource_type __resource_id "code";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       live_stage_etag =
-         Prop.computed __resource_type __resource_id
-           "live_stage_etag";
-       name = Prop.computed __resource_type __resource_id "name";
-       publish =
-         Prop.computed __resource_type __resource_id "publish";
-       runtime =
-         Prop.computed __resource_type __resource_id "runtime";
-       status = Prop.computed __resource_type __resource_id "status";
+       arn = Prop.computed __type __id "arn";
+       code = Prop.computed __type __id "code";
+       comment = Prop.computed __type __id "comment";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       live_stage_etag = Prop.computed __type __id "live_stage_etag";
+       name = Prop.computed __type __id "name";
+       publish = Prop.computed __type __id "publish";
+       runtime = Prop.computed __type __id "runtime";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_function
+        (aws_cloudfront_function ?comment ?id ?publish ~code ~name
+           ~runtime ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?id ?publish ~code ~name ~runtime
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?id ?publish ~code ~name ~runtime __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

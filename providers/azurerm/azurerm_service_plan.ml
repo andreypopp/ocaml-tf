@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -76,51 +74,56 @@ type t = {
   zone_balancing_enabled : bool prop;
 }
 
-let register ?tf_module ?app_service_environment_id ?id
+let make ?app_service_environment_id ?id
     ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
     ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
-    ~os_type ~resource_group_name ~sku_name __resource_id =
-  let __resource_type = "azurerm_service_plan" in
-  let __resource =
-    azurerm_service_plan ?app_service_environment_id ?id
-      ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
-      ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
-      ~os_type ~resource_group_name ~sku_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_service_plan __resource);
-  let __resource_attributes =
+    ~os_type ~resource_group_name ~sku_name __id =
+  let __type = "azurerm_service_plan" in
+  let __attrs =
     ({
        app_service_environment_id =
-         Prop.computed __resource_type __resource_id
-           "app_service_environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "app_service_environment_id";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       location = Prop.computed __type __id "location";
        maximum_elastic_worker_count =
-         Prop.computed __resource_type __resource_id
-           "maximum_elastic_worker_count";
-       name = Prop.computed __resource_type __resource_id "name";
-       os_type =
-         Prop.computed __resource_type __resource_id "os_type";
+         Prop.computed __type __id "maximum_elastic_worker_count";
+       name = Prop.computed __type __id "name";
+       os_type = Prop.computed __type __id "os_type";
        per_site_scaling_enabled =
-         Prop.computed __resource_type __resource_id
-           "per_site_scaling_enabled";
-       reserved =
-         Prop.computed __resource_type __resource_id "reserved";
+         Prop.computed __type __id "per_site_scaling_enabled";
+       reserved = Prop.computed __type __id "reserved";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       worker_count =
-         Prop.computed __resource_type __resource_id "worker_count";
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+       worker_count = Prop.computed __type __id "worker_count";
        zone_balancing_enabled =
-         Prop.computed __resource_type __resource_id
-           "zone_balancing_enabled";
+         Prop.computed __type __id "zone_balancing_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_service_plan
+        (azurerm_service_plan ?app_service_environment_id ?id
+           ?maximum_elastic_worker_count ?per_site_scaling_enabled
+           ?tags ?worker_count ?zone_balancing_enabled ?timeouts
+           ~location ~name ~os_type ~resource_group_name ~sku_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?app_service_environment_id ?id
+    ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
+    ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
+    ~os_type ~resource_group_name ~sku_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_service_environment_id ?id
+      ?maximum_elastic_worker_count ?per_site_scaling_enabled ?tags
+      ?worker_count ?zone_balancing_enabled ?timeouts ~location ~name
+      ~os_type ~resource_group_name ~sku_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

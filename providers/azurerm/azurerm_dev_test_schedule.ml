@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type daily_recurrence = { time : string prop  (** time *) }
 [@@deriving yojson_of]
@@ -102,37 +100,47 @@ type t = {
   time_zone_id : string prop;
 }
 
-let register ?tf_module ?id ?status ?tags ?timeouts ~lab_name
-    ~location ~name ~resource_group_name ~task_type ~time_zone_id
-    ~daily_recurrence ~hourly_recurrence ~notification_settings
-    ~weekly_recurrence __resource_id =
-  let __resource_type = "azurerm_dev_test_schedule" in
-  let __resource =
-    azurerm_dev_test_schedule ?id ?status ?tags ?timeouts ~lab_name
-      ~location ~name ~resource_group_name ~task_type ~time_zone_id
-      ~daily_recurrence ~hourly_recurrence ~notification_settings
-      ~weekly_recurrence ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_test_schedule __resource);
-  let __resource_attributes =
+let make ?id ?status ?tags ?timeouts ~lab_name ~location ~name
+    ~resource_group_name ~task_type ~time_zone_id ~daily_recurrence
+    ~hourly_recurrence ~notification_settings ~weekly_recurrence __id
+    =
+  let __type = "azurerm_dev_test_schedule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_name =
-         Prop.computed __resource_type __resource_id "lab_name";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       lab_name = Prop.computed __type __id "lab_name";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       task_type =
-         Prop.computed __resource_type __resource_id "task_type";
-       time_zone_id =
-         Prop.computed __resource_type __resource_id "time_zone_id";
+         Prop.computed __type __id "resource_group_name";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       task_type = Prop.computed __type __id "task_type";
+       time_zone_id = Prop.computed __type __id "time_zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_test_schedule
+        (azurerm_dev_test_schedule ?id ?status ?tags ?timeouts
+           ~lab_name ~location ~name ~resource_group_name ~task_type
+           ~time_zone_id ~daily_recurrence ~hourly_recurrence
+           ~notification_settings ~weekly_recurrence ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?status ?tags ?timeouts ~lab_name
+    ~location ~name ~resource_group_name ~task_type ~time_zone_id
+    ~daily_recurrence ~hourly_recurrence ~notification_settings
+    ~weekly_recurrence __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?status ?tags ?timeouts ~lab_name ~location ~name
+      ~resource_group_name ~task_type ~time_zone_id ~daily_recurrence
+      ~hourly_recurrence ~notification_settings ~weekly_recurrence
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

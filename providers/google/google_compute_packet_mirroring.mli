@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,18 @@ val register :
   network:network list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  collector_ilb:collector_ilb list ->
+  filter:filter list ->
+  mirrored_resources:mirrored_resources list ->
+  network:network list ->
+  string ->
+  t Tf_core.resource

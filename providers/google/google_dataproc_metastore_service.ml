@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_config = {
   kms_key : string prop;
@@ -264,57 +262,62 @@ type t = {
   uid : string prop;
 }
 
+let make ?database_type ?id ?labels ?location ?network ?port ?project
+    ?release_channel ?tier ?timeouts ~service_id ~encryption_config
+    ~hive_metastore_config ~maintenance_window ~metadata_integration
+    ~network_config ~scaling_config ~telemetry_config __id =
+  let __type = "google_dataproc_metastore_service" in
+  let __attrs =
+    ({
+       artifact_gcs_uri =
+         Prop.computed __type __id "artifact_gcs_uri";
+       database_type = Prop.computed __type __id "database_type";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       endpoint_uri = Prop.computed __type __id "endpoint_uri";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       release_channel = Prop.computed __type __id "release_channel";
+       service_id = Prop.computed __type __id "service_id";
+       state = Prop.computed __type __id "state";
+       state_message = Prop.computed __type __id "state_message";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       tier = Prop.computed __type __id "tier";
+       uid = Prop.computed __type __id "uid";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dataproc_metastore_service
+        (google_dataproc_metastore_service ?database_type ?id ?labels
+           ?location ?network ?port ?project ?release_channel ?tier
+           ?timeouts ~service_id ~encryption_config
+           ~hive_metastore_config ~maintenance_window
+           ~metadata_integration ~network_config ~scaling_config
+           ~telemetry_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?database_type ?id ?labels ?location ?network
     ?port ?project ?release_channel ?tier ?timeouts ~service_id
     ~encryption_config ~hive_metastore_config ~maintenance_window
     ~metadata_integration ~network_config ~scaling_config
-    ~telemetry_config __resource_id =
-  let __resource_type = "google_dataproc_metastore_service" in
-  let __resource =
-    google_dataproc_metastore_service ?database_type ?id ?labels
-      ?location ?network ?port ?project ?release_channel ?tier
-      ?timeouts ~service_id ~encryption_config ~hive_metastore_config
-      ~maintenance_window ~metadata_integration ~network_config
-      ~scaling_config ~telemetry_config ()
+    ~telemetry_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?database_type ?id ?labels ?location ?network ?port ?project
+      ?release_channel ?tier ?timeouts ~service_id ~encryption_config
+      ~hive_metastore_config ~maintenance_window
+      ~metadata_integration ~network_config ~scaling_config
+      ~telemetry_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dataproc_metastore_service __resource);
-  let __resource_attributes =
-    ({
-       artifact_gcs_uri =
-         Prop.computed __resource_type __resource_id
-           "artifact_gcs_uri";
-       database_type =
-         Prop.computed __resource_type __resource_id "database_type";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       endpoint_uri =
-         Prop.computed __resource_type __resource_id "endpoint_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       release_channel =
-         Prop.computed __resource_type __resource_id
-           "release_channel";
-       service_id =
-         Prop.computed __resource_type __resource_id "service_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_message =
-         Prop.computed __resource_type __resource_id "state_message";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       uid = Prop.computed __resource_type __resource_id "uid";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

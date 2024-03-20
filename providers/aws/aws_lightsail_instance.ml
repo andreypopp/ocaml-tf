@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type add_on = {
   snapshot_time : string prop;  (** snapshot_time *)
@@ -72,58 +70,55 @@ type t = {
   username : string prop;
 }
 
-let register ?tf_module ?id ?ip_address_type ?key_pair_name ?tags
-    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
-    ~name ~add_on __resource_id =
-  let __resource_type = "aws_lightsail_instance" in
-  let __resource =
-    aws_lightsail_instance ?id ?ip_address_type ?key_pair_name ?tags
-      ?tags_all ?user_data ~availability_zone ~blueprint_id
-      ~bundle_id ~name ~add_on ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_instance __resource);
-  let __resource_attributes =
+let make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
+    ?user_data ~availability_zone ~blueprint_id ~bundle_id ~name
+    ~add_on __id =
+  let __type = "aws_lightsail_instance" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       blueprint_id =
-         Prop.computed __resource_type __resource_id "blueprint_id";
-       bundle_id =
-         Prop.computed __resource_type __resource_id "bundle_id";
-       cpu_count =
-         Prop.computed __resource_type __resource_id "cpu_count";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
-       ipv6_addresses =
-         Prop.computed __resource_type __resource_id "ipv6_addresses";
-       is_static_ip =
-         Prop.computed __resource_type __resource_id "is_static_ip";
-       key_pair_name =
-         Prop.computed __resource_type __resource_id "key_pair_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "availability_zone";
+       blueprint_id = Prop.computed __type __id "blueprint_id";
+       bundle_id = Prop.computed __type __id "bundle_id";
+       cpu_count = Prop.computed __type __id "cpu_count";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
+       ipv6_addresses = Prop.computed __type __id "ipv6_addresses";
+       is_static_ip = Prop.computed __type __id "is_static_ip";
+       key_pair_name = Prop.computed __type __id "key_pair_name";
+       name = Prop.computed __type __id "name";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
+         Prop.computed __type __id "private_ip_address";
        public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address";
-       ram_size =
-         Prop.computed __resource_type __resource_id "ram_size";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       username =
-         Prop.computed __resource_type __resource_id "username";
+         Prop.computed __type __id "public_ip_address";
+       ram_size = Prop.computed __type __id "ram_size";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_data = Prop.computed __type __id "user_data";
+       username = Prop.computed __type __id "username";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_instance
+        (aws_lightsail_instance ?id ?ip_address_type ?key_pair_name
+           ?tags ?tags_all ?user_data ~availability_zone
+           ~blueprint_id ~bundle_id ~name ~add_on ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_address_type ?key_pair_name ?tags
+    ?tags_all ?user_data ~availability_zone ~blueprint_id ~bundle_id
+    ~name ~add_on __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_address_type ?key_pair_name ?tags ?tags_all
+      ?user_data ~availability_zone ~blueprint_id ~bundle_id ~name
+      ~add_on __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

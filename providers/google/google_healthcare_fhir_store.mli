@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,21 @@ val register :
   stream_configs:stream_configs list ->
   string ->
   t
+
+val make :
+  ?complex_data_type_reference_parsing:string prop ->
+  ?default_search_handling_strict:bool prop ->
+  ?disable_referential_integrity:bool prop ->
+  ?disable_resource_versioning:bool prop ->
+  ?enable_history_import:bool prop ->
+  ?enable_update_create:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  dataset:string prop ->
+  name:string prop ->
+  version:string prop ->
+  notification_config:notification_config list ->
+  stream_configs:stream_configs list ->
+  string ->
+  t Tf_core.resource

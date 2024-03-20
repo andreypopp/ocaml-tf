@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_autoscaling_schedule = {
   autoscaling_group_name : string prop;
@@ -52,43 +50,47 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?desired_capacity ?end_time ?id ?max_size
-    ?min_size ?recurrence ?start_time ?time_zone
-    ~autoscaling_group_name ~scheduled_action_name __resource_id =
-  let __resource_type = "aws_autoscaling_schedule" in
-  let __resource =
-    aws_autoscaling_schedule ?desired_capacity ?end_time ?id
-      ?max_size ?min_size ?recurrence ?start_time ?time_zone
-      ~autoscaling_group_name ~scheduled_action_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscaling_schedule __resource);
-  let __resource_attributes =
+let make ?desired_capacity ?end_time ?id ?max_size ?min_size
+    ?recurrence ?start_time ?time_zone ~autoscaling_group_name
+    ~scheduled_action_name __id =
+  let __type = "aws_autoscaling_schedule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        autoscaling_group_name =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_group_name";
+         Prop.computed __type __id "autoscaling_group_name";
        desired_capacity =
-         Prop.computed __resource_type __resource_id
-           "desired_capacity";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_size =
-         Prop.computed __resource_type __resource_id "max_size";
-       min_size =
-         Prop.computed __resource_type __resource_id "min_size";
-       recurrence =
-         Prop.computed __resource_type __resource_id "recurrence";
+         Prop.computed __type __id "desired_capacity";
+       end_time = Prop.computed __type __id "end_time";
+       id = Prop.computed __type __id "id";
+       max_size = Prop.computed __type __id "max_size";
+       min_size = Prop.computed __type __id "min_size";
+       recurrence = Prop.computed __type __id "recurrence";
        scheduled_action_name =
-         Prop.computed __resource_type __resource_id
-           "scheduled_action_name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+         Prop.computed __type __id "scheduled_action_name";
+       start_time = Prop.computed __type __id "start_time";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscaling_schedule
+        (aws_autoscaling_schedule ?desired_capacity ?end_time ?id
+           ?max_size ?min_size ?recurrence ?start_time ?time_zone
+           ~autoscaling_group_name ~scheduled_action_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?desired_capacity ?end_time ?id ?max_size
+    ?min_size ?recurrence ?start_time ?time_zone
+    ~autoscaling_group_name ~scheduled_action_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?desired_capacity ?end_time ?id ?max_size ?min_size
+      ?recurrence ?start_time ?time_zone ~autoscaling_group_name
+      ~scheduled_action_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

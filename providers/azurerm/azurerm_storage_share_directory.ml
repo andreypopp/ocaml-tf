@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,31 +51,37 @@ type t = {
   storage_share_id : string prop;
 }
 
-let register ?tf_module ?id ?metadata ?share_name
-    ?storage_account_name ?storage_share_id ?timeouts ~name
-    __resource_id =
-  let __resource_type = "azurerm_storage_share_directory" in
-  let __resource =
-    azurerm_storage_share_directory ?id ?metadata ?share_name
-      ?storage_account_name ?storage_share_id ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_share_directory __resource);
-  let __resource_attributes =
+let make ?id ?metadata ?share_name ?storage_account_name
+    ?storage_share_id ?timeouts ~name __id =
+  let __type = "azurerm_storage_share_directory" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       share_name =
-         Prop.computed __resource_type __resource_id "share_name";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       share_name = Prop.computed __type __id "share_name";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
        storage_share_id =
-         Prop.computed __resource_type __resource_id
-           "storage_share_id";
+         Prop.computed __type __id "storage_share_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_share_directory
+        (azurerm_storage_share_directory ?id ?metadata ?share_name
+           ?storage_account_name ?storage_share_id ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?metadata ?share_name
+    ?storage_account_name ?storage_share_id ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?metadata ?share_name ?storage_account_name
+      ?storage_share_id ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

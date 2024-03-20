@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,18 @@ val register :
   service_directory:service_directory list ->
   string ->
   t
+
+val make :
+  ?disabled:bool prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?parent:string prop ->
+  ?security_settings:string prop ->
+  ?timeout:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  generic_web_service:generic_web_service list ->
+  service_directory:service_directory list ->
+  string ->
+  t Tf_core.resource

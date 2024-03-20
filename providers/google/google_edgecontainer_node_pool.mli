@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,19 @@ val register :
   node_config:node_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?machine_filter:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  node_count:float prop ->
+  node_location:string prop ->
+  local_disk_encryption:local_disk_encryption list ->
+  node_config:node_config list ->
+  string ->
+  t Tf_core.resource

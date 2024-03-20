@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type route = {
   host : string prop;  (** host *)
@@ -37,24 +35,31 @@ type t = {
   voice_connector_id : string prop;
 }
 
-let register ?tf_module ?disabled ?id ~voice_connector_id ~route
-    __resource_id =
-  let __resource_type = "aws_chime_voice_connector_origination" in
-  let __resource =
-    aws_chime_voice_connector_origination ?disabled ?id
-      ~voice_connector_id ~route ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chime_voice_connector_origination __resource);
-  let __resource_attributes =
+let make ?disabled ?id ~voice_connector_id ~route __id =
+  let __type = "aws_chime_voice_connector_origination" in
+  let __attrs =
     ({
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       disabled = Prop.computed __type __id "disabled";
+       id = Prop.computed __type __id "id";
        voice_connector_id =
-         Prop.computed __resource_type __resource_id
-           "voice_connector_id";
+         Prop.computed __type __id "voice_connector_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chime_voice_connector_origination
+        (aws_chime_voice_connector_origination ?disabled ?id
+           ~voice_connector_id ~route ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled ?id ~voice_connector_id ~route __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?disabled ?id ~voice_connector_id ~route __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

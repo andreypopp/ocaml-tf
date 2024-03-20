@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_project_resources = {
   id : string prop option; [@option]  (** id *)
@@ -23,21 +21,26 @@ type t = {
   resources : string list prop;
 }
 
-let register ?tf_module ?id ~project ~resources __resource_id =
-  let __resource_type = "digitalocean_project_resources" in
-  let __resource =
-    digitalocean_project_resources ?id ~project ~resources ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_project_resources __resource);
-  let __resource_attributes =
+let make ?id ~project ~resources __id =
+  let __type = "digitalocean_project_resources" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       resources = Prop.computed __type __id "resources";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_project_resources
+        (digitalocean_project_resources ?id ~project ~resources ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~project ~resources __id =
+  let (r : _ Tf_core.resource) = make ?id ~project ~resources __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

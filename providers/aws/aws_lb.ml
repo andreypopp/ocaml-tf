@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_logs = {
   bucket : string prop;  (** bucket *)
@@ -177,6 +175,87 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?customer_owned_ipv4_pool ?desync_mitigation_mode
+    ?dns_record_client_routing_policy ?drop_invalid_header_fields
+    ?enable_cross_zone_load_balancing ?enable_deletion_protection
+    ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
+    ?enable_waf_fail_open ?enable_xff_client_port
+    ?enforce_security_group_inbound_rules_on_private_link_traffic ?id
+    ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
+    ?name ?name_prefix ?preserve_host_header ?security_groups
+    ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
+    ~access_logs ~connection_logs ~subnet_mapping __id =
+  let __type = "aws_lb" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       arn_suffix = Prop.computed __type __id "arn_suffix";
+       customer_owned_ipv4_pool =
+         Prop.computed __type __id "customer_owned_ipv4_pool";
+       desync_mitigation_mode =
+         Prop.computed __type __id "desync_mitigation_mode";
+       dns_name = Prop.computed __type __id "dns_name";
+       dns_record_client_routing_policy =
+         Prop.computed __type __id "dns_record_client_routing_policy";
+       drop_invalid_header_fields =
+         Prop.computed __type __id "drop_invalid_header_fields";
+       enable_cross_zone_load_balancing =
+         Prop.computed __type __id "enable_cross_zone_load_balancing";
+       enable_deletion_protection =
+         Prop.computed __type __id "enable_deletion_protection";
+       enable_http2 = Prop.computed __type __id "enable_http2";
+       enable_tls_version_and_cipher_suite_headers =
+         Prop.computed __type __id
+           "enable_tls_version_and_cipher_suite_headers";
+       enable_waf_fail_open =
+         Prop.computed __type __id "enable_waf_fail_open";
+       enable_xff_client_port =
+         Prop.computed __type __id "enable_xff_client_port";
+       enforce_security_group_inbound_rules_on_private_link_traffic =
+         Prop.computed __type __id
+           "enforce_security_group_inbound_rules_on_private_link_traffic";
+       id = Prop.computed __type __id "id";
+       idle_timeout = Prop.computed __type __id "idle_timeout";
+       internal = Prop.computed __type __id "internal";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
+       load_balancer_type =
+         Prop.computed __type __id "load_balancer_type";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       preserve_host_header =
+         Prop.computed __type __id "preserve_host_header";
+       security_groups = Prop.computed __type __id "security_groups";
+       subnets = Prop.computed __type __id "subnets";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       xff_header_processing_mode =
+         Prop.computed __type __id "xff_header_processing_mode";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lb
+        (aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
+           ?dns_record_client_routing_policy
+           ?drop_invalid_header_fields
+           ?enable_cross_zone_load_balancing
+           ?enable_deletion_protection ?enable_http2
+           ?enable_tls_version_and_cipher_suite_headers
+           ?enable_waf_fail_open ?enable_xff_client_port
+           ?enforce_security_group_inbound_rules_on_private_link_traffic
+           ?id ?idle_timeout ?internal ?ip_address_type
+           ?load_balancer_type ?name ?name_prefix
+           ?preserve_host_header ?security_groups ?subnets ?tags
+           ?tags_all ?xff_header_processing_mode ?timeouts
+           ~access_logs ~connection_logs ~subnet_mapping ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?customer_owned_ipv4_pool
     ?desync_mitigation_mode ?dns_record_client_routing_policy
     ?drop_invalid_header_fields ?enable_cross_zone_load_balancing
@@ -187,10 +266,9 @@ let register ?tf_module ?customer_owned_ipv4_pool
     ?idle_timeout ?internal ?ip_address_type ?load_balancer_type
     ?name ?name_prefix ?preserve_host_header ?security_groups
     ?subnets ?tags ?tags_all ?xff_header_processing_mode ?timeouts
-    ~access_logs ~connection_logs ~subnet_mapping __resource_id =
-  let __resource_type = "aws_lb" in
-  let __resource =
-    aws_lb ?customer_owned_ipv4_pool ?desync_mitigation_mode
+    ~access_logs ~connection_logs ~subnet_mapping __id =
+  let (r : _ Tf_core.resource) =
+    make ?customer_owned_ipv4_pool ?desync_mitigation_mode
       ?dns_record_client_routing_policy ?drop_invalid_header_fields
       ?enable_cross_zone_load_balancing ?enable_deletion_protection
       ?enable_http2 ?enable_tls_version_and_cipher_suite_headers
@@ -200,81 +278,7 @@ let register ?tf_module ?customer_owned_ipv4_pool
       ?load_balancer_type ?name ?name_prefix ?preserve_host_header
       ?security_groups ?subnets ?tags ?tags_all
       ?xff_header_processing_mode ?timeouts ~access_logs
-      ~connection_logs ~subnet_mapping ()
+      ~connection_logs ~subnet_mapping __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lb __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       arn_suffix =
-         Prop.computed __resource_type __resource_id "arn_suffix";
-       customer_owned_ipv4_pool =
-         Prop.computed __resource_type __resource_id
-           "customer_owned_ipv4_pool";
-       desync_mitigation_mode =
-         Prop.computed __resource_type __resource_id
-           "desync_mitigation_mode";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       dns_record_client_routing_policy =
-         Prop.computed __resource_type __resource_id
-           "dns_record_client_routing_policy";
-       drop_invalid_header_fields =
-         Prop.computed __resource_type __resource_id
-           "drop_invalid_header_fields";
-       enable_cross_zone_load_balancing =
-         Prop.computed __resource_type __resource_id
-           "enable_cross_zone_load_balancing";
-       enable_deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "enable_deletion_protection";
-       enable_http2 =
-         Prop.computed __resource_type __resource_id "enable_http2";
-       enable_tls_version_and_cipher_suite_headers =
-         Prop.computed __resource_type __resource_id
-           "enable_tls_version_and_cipher_suite_headers";
-       enable_waf_fail_open =
-         Prop.computed __resource_type __resource_id
-           "enable_waf_fail_open";
-       enable_xff_client_port =
-         Prop.computed __resource_type __resource_id
-           "enable_xff_client_port";
-       enforce_security_group_inbound_rules_on_private_link_traffic =
-         Prop.computed __resource_type __resource_id
-           "enforce_security_group_inbound_rules_on_private_link_traffic";
-       id = Prop.computed __resource_type __resource_id "id";
-       idle_timeout =
-         Prop.computed __resource_type __resource_id "idle_timeout";
-       internal =
-         Prop.computed __resource_type __resource_id "internal";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
-       load_balancer_type =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       preserve_host_header =
-         Prop.computed __resource_type __resource_id
-           "preserve_host_header";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       subnets =
-         Prop.computed __resource_type __resource_id "subnets";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       xff_header_processing_mode =
-         Prop.computed __resource_type __resource_id
-           "xff_header_processing_mode";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

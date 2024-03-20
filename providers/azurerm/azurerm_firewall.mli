@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -104,3 +104,24 @@ val register :
   virtual_hub:virtual_hub list ->
   string ->
   t
+
+val make :
+  ?dns_proxy_enabled:bool prop ->
+  ?dns_servers:string prop list ->
+  ?firewall_policy_id:string prop ->
+  ?id:string prop ->
+  ?private_ip_ranges:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?threat_intel_mode:string prop ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  sku_tier:string prop ->
+  ip_configuration:ip_configuration list ->
+  management_ip_configuration:management_ip_configuration list ->
+  virtual_hub:virtual_hub list ->
+  string ->
+  t Tf_core.resource

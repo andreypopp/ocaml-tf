@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_securityhub_action_target = {
   description : string prop;  (** description *)
@@ -25,25 +23,31 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ~description ~identifier ~name
-    __resource_id =
-  let __resource_type = "aws_securityhub_action_target" in
-  let __resource =
-    aws_securityhub_action_target ?id ~description ~identifier ~name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securityhub_action_target __resource);
-  let __resource_attributes =
+let make ?id ~description ~identifier ~name __id =
+  let __type = "aws_securityhub_action_target" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       identifier =
-         Prop.computed __resource_type __resource_id "identifier";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       identifier = Prop.computed __type __id "identifier";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securityhub_action_target
+        (aws_securityhub_action_target ?id ~description ~identifier
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~description ~identifier ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~description ~identifier ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

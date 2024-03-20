@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type component__parameter = {
   name : string prop;  (** name *)
@@ -162,59 +160,64 @@ type t = {
   working_directory : string prop;
 }
 
+let make ?description ?dockerfile_template_data
+    ?dockerfile_template_uri ?id ?kms_key_id ?platform_override ?tags
+    ?tags_all ?working_directory ~container_type ~name ~parent_image
+    ~version ~component ~instance_configuration ~target_repository
+    __id =
+  let __type = "aws_imagebuilder_container_recipe" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       container_type = Prop.computed __type __id "container_type";
+       date_created = Prop.computed __type __id "date_created";
+       description = Prop.computed __type __id "description";
+       dockerfile_template_data =
+         Prop.computed __type __id "dockerfile_template_data";
+       dockerfile_template_uri =
+         Prop.computed __type __id "dockerfile_template_uri";
+       encrypted = Prop.computed __type __id "encrypted";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
+       owner = Prop.computed __type __id "owner";
+       parent_image = Prop.computed __type __id "parent_image";
+       platform = Prop.computed __type __id "platform";
+       platform_override =
+         Prop.computed __type __id "platform_override";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
+       working_directory =
+         Prop.computed __type __id "working_directory";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_container_recipe
+        (aws_imagebuilder_container_recipe ?description
+           ?dockerfile_template_data ?dockerfile_template_uri ?id
+           ?kms_key_id ?platform_override ?tags ?tags_all
+           ?working_directory ~container_type ~name ~parent_image
+           ~version ~component ~instance_configuration
+           ~target_repository ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?dockerfile_template_data
     ?dockerfile_template_uri ?id ?kms_key_id ?platform_override ?tags
     ?tags_all ?working_directory ~container_type ~name ~parent_image
     ~version ~component ~instance_configuration ~target_repository
-    __resource_id =
-  let __resource_type = "aws_imagebuilder_container_recipe" in
-  let __resource =
-    aws_imagebuilder_container_recipe ?description
-      ?dockerfile_template_data ?dockerfile_template_uri ?id
-      ?kms_key_id ?platform_override ?tags ?tags_all
-      ?working_directory ~container_type ~name ~parent_image ~version
-      ~component ~instance_configuration ~target_repository ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?dockerfile_template_data
+      ?dockerfile_template_uri ?id ?kms_key_id ?platform_override
+      ?tags ?tags_all ?working_directory ~container_type ~name
+      ~parent_image ~version ~component ~instance_configuration
+      ~target_repository __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_container_recipe __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       container_type =
-         Prop.computed __resource_type __resource_id "container_type";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dockerfile_template_data =
-         Prop.computed __resource_type __resource_id
-           "dockerfile_template_data";
-       dockerfile_template_uri =
-         Prop.computed __resource_type __resource_id
-           "dockerfile_template_uri";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       parent_image =
-         Prop.computed __resource_type __resource_id "parent_image";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       platform_override =
-         Prop.computed __resource_type __resource_id
-           "platform_override";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       working_directory =
-         Prop.computed __resource_type __resource_id
-           "working_directory";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

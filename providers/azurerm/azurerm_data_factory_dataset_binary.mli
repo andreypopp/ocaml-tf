@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,21 @@ val register :
   sftp_server_location:sftp_server_location list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  azure_blob_storage_location:azure_blob_storage_location list ->
+  compression:compression list ->
+  http_server_location:http_server_location list ->
+  sftp_server_location:sftp_server_location list ->
+  string ->
+  t Tf_core.resource

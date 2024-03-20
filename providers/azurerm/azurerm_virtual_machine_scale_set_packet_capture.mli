@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,18 @@ val register :
   storage_location:storage_location list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?maximum_bytes_per_packet:float prop ->
+  ?maximum_bytes_per_session:float prop ->
+  ?maximum_capture_duration_in_seconds:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network_watcher_id:string prop ->
+  virtual_machine_scale_set_id:string prop ->
+  filter:filter list ->
+  machine_scope:machine_scope list ->
+  storage_location:storage_location list ->
+  string ->
+  t Tf_core.resource

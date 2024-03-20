@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -39,3 +39,10 @@ val register :
   tag:tag list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  autoscaling_group_name:string prop ->
+  tag:tag list ->
+  string ->
+  t Tf_core.resource

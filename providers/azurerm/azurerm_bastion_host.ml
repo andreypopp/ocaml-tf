@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_configuration = {
   name : string prop;  (** name *)
@@ -90,50 +88,57 @@ type t = {
   tunneling_enabled : bool prop;
 }
 
-let register ?tf_module ?copy_paste_enabled ?file_copy_enabled ?id
+let make ?copy_paste_enabled ?file_copy_enabled ?id
     ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
     ?tags ?tunneling_enabled ?timeouts ~location ~name
-    ~resource_group_name ~ip_configuration __resource_id =
-  let __resource_type = "azurerm_bastion_host" in
-  let __resource =
-    azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled ?id
-      ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
-      ?tags ?tunneling_enabled ?timeouts ~location ~name
-      ~resource_group_name ~ip_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bastion_host __resource);
-  let __resource_attributes =
+    ~resource_group_name ~ip_configuration __id =
+  let __type = "azurerm_bastion_host" in
+  let __attrs =
     ({
        copy_paste_enabled =
-         Prop.computed __resource_type __resource_id
-           "copy_paste_enabled";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
+         Prop.computed __type __id "copy_paste_enabled";
+       dns_name = Prop.computed __type __id "dns_name";
        file_copy_enabled =
-         Prop.computed __resource_type __resource_id
-           "file_copy_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "file_copy_enabled";
+       id = Prop.computed __type __id "id";
        ip_connect_enabled =
-         Prop.computed __resource_type __resource_id
-           "ip_connect_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "ip_connect_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scale_units =
-         Prop.computed __resource_type __resource_id "scale_units";
+         Prop.computed __type __id "resource_group_name";
+       scale_units = Prop.computed __type __id "scale_units";
        shareable_link_enabled =
-         Prop.computed __resource_type __resource_id
-           "shareable_link_enabled";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "shareable_link_enabled";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
        tunneling_enabled =
-         Prop.computed __resource_type __resource_id
-           "tunneling_enabled";
+         Prop.computed __type __id "tunneling_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bastion_host
+        (azurerm_bastion_host ?copy_paste_enabled ?file_copy_enabled
+           ?id ?ip_connect_enabled ?scale_units
+           ?shareable_link_enabled ?sku ?tags ?tunneling_enabled
+           ?timeouts ~location ~name ~resource_group_name
+           ~ip_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?copy_paste_enabled ?file_copy_enabled ?id
+    ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
+    ?tags ?tunneling_enabled ?timeouts ~location ~name
+    ~resource_group_name ~ip_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?copy_paste_enabled ?file_copy_enabled ?id
+      ?ip_connect_enabled ?scale_units ?shareable_link_enabled ?sku
+      ?tags ?tunneling_enabled ?timeouts ~location ~name
+      ~resource_group_name ~ip_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

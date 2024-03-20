@@ -14,7 +14,7 @@ dune:
 
 main.ml
 ```ocaml
-open Tf.Prelude.Prop
+open Tf_core.Prop
 open Tf_digitalocean
 open Tf_digitalocean.Digitalocean_droplet
 open Tf_digitalocean.Digitalocean_reserved_ip

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,16 @@ val register :
   ec2_config:ec2_config list ->
   string ->
   t
+
+val make :
+  ?access_point_arn:string prop ->
+  ?file_system_access_role_arn:string prop ->
+  ?id:string prop ->
+  ?in_transit_encryption:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  efs_file_system_arn:string prop ->
+  ec2_config:ec2_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloud_logging_config = {
   enable_logging : bool prop;
@@ -229,48 +227,52 @@ type t = {
   visibility : string prop;
 }
 
-let register ?tf_module ?description ?force_destroy ?id ?labels
-    ?project ?visibility ?timeouts ~dns_name ~name
-    ~cloud_logging_config ~dnssec_config ~forwarding_config
-    ~peering_config ~private_visibility_config __resource_id =
-  let __resource_type = "google_dns_managed_zone" in
-  let __resource =
-    google_dns_managed_zone ?description ?force_destroy ?id ?labels
-      ?project ?visibility ?timeouts ~dns_name ~name
-      ~cloud_logging_config ~dnssec_config ~forwarding_config
-      ~peering_config ~private_visibility_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dns_managed_zone __resource);
-  let __resource_attributes =
+let make ?description ?force_destroy ?id ?labels ?project ?visibility
+    ?timeouts ~dns_name ~name ~cloud_logging_config ~dnssec_config
+    ~forwarding_config ~peering_config ~private_visibility_config
+    __id =
+  let __type = "google_dns_managed_zone" in
+  let __attrs =
     ({
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
+       creation_time = Prop.computed __type __id "creation_time";
+       description = Prop.computed __type __id "description";
+       dns_name = Prop.computed __type __id "dns_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       managed_zone_id =
-         Prop.computed __resource_type __resource_id
-           "managed_zone_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_servers =
-         Prop.computed __resource_type __resource_id "name_servers";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "effective_labels";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       managed_zone_id = Prop.computed __type __id "managed_zone_id";
+       name = Prop.computed __type __id "name";
+       name_servers = Prop.computed __type __id "name_servers";
+       project = Prop.computed __type __id "project";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       visibility =
-         Prop.computed __resource_type __resource_id "visibility";
+         Prop.computed __type __id "terraform_labels";
+       visibility = Prop.computed __type __id "visibility";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dns_managed_zone
+        (google_dns_managed_zone ?description ?force_destroy ?id
+           ?labels ?project ?visibility ?timeouts ~dns_name ~name
+           ~cloud_logging_config ~dnssec_config ~forwarding_config
+           ~peering_config ~private_visibility_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_destroy ?id ?labels
+    ?project ?visibility ?timeouts ~dns_name ~name
+    ~cloud_logging_config ~dnssec_config ~forwarding_config
+    ~peering_config ~private_visibility_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_destroy ?id ?labels ?project ?visibility
+      ?timeouts ~dns_name ~name ~cloud_logging_config ~dnssec_config
+      ~forwarding_config ~peering_config ~private_visibility_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

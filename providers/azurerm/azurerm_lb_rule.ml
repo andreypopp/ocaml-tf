@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -84,61 +82,65 @@ type t = {
   protocol : string prop;
 }
 
+let make ?backend_address_pool_ids ?disable_outbound_snat
+    ?enable_floating_ip ?enable_tcp_reset ?id
+    ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
+    ~backend_port ~frontend_ip_configuration_name ~frontend_port
+    ~loadbalancer_id ~name ~protocol __id =
+  let __type = "azurerm_lb_rule" in
+  let __attrs =
+    ({
+       backend_address_pool_ids =
+         Prop.computed __type __id "backend_address_pool_ids";
+       backend_port = Prop.computed __type __id "backend_port";
+       disable_outbound_snat =
+         Prop.computed __type __id "disable_outbound_snat";
+       enable_floating_ip =
+         Prop.computed __type __id "enable_floating_ip";
+       enable_tcp_reset =
+         Prop.computed __type __id "enable_tcp_reset";
+       frontend_ip_configuration_id =
+         Prop.computed __type __id "frontend_ip_configuration_id";
+       frontend_ip_configuration_name =
+         Prop.computed __type __id "frontend_ip_configuration_name";
+       frontend_port = Prop.computed __type __id "frontend_port";
+       id = Prop.computed __type __id "id";
+       idle_timeout_in_minutes =
+         Prop.computed __type __id "idle_timeout_in_minutes";
+       load_distribution =
+         Prop.computed __type __id "load_distribution";
+       loadbalancer_id = Prop.computed __type __id "loadbalancer_id";
+       name = Prop.computed __type __id "name";
+       probe_id = Prop.computed __type __id "probe_id";
+       protocol = Prop.computed __type __id "protocol";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lb_rule
+        (azurerm_lb_rule ?backend_address_pool_ids
+           ?disable_outbound_snat ?enable_floating_ip
+           ?enable_tcp_reset ?id ?idle_timeout_in_minutes
+           ?load_distribution ?probe_id ?timeouts ~backend_port
+           ~frontend_ip_configuration_name ~frontend_port
+           ~loadbalancer_id ~name ~protocol ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?backend_address_pool_ids
     ?disable_outbound_snat ?enable_floating_ip ?enable_tcp_reset ?id
     ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
     ~backend_port ~frontend_ip_configuration_name ~frontend_port
-    ~loadbalancer_id ~name ~protocol __resource_id =
-  let __resource_type = "azurerm_lb_rule" in
-  let __resource =
-    azurerm_lb_rule ?backend_address_pool_ids ?disable_outbound_snat
+    ~loadbalancer_id ~name ~protocol __id =
+  let (r : _ Tf_core.resource) =
+    make ?backend_address_pool_ids ?disable_outbound_snat
       ?enable_floating_ip ?enable_tcp_reset ?id
       ?idle_timeout_in_minutes ?load_distribution ?probe_id ?timeouts
       ~backend_port ~frontend_ip_configuration_name ~frontend_port
-      ~loadbalancer_id ~name ~protocol ()
+      ~loadbalancer_id ~name ~protocol __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lb_rule __resource);
-  let __resource_attributes =
-    ({
-       backend_address_pool_ids =
-         Prop.computed __resource_type __resource_id
-           "backend_address_pool_ids";
-       backend_port =
-         Prop.computed __resource_type __resource_id "backend_port";
-       disable_outbound_snat =
-         Prop.computed __resource_type __resource_id
-           "disable_outbound_snat";
-       enable_floating_ip =
-         Prop.computed __resource_type __resource_id
-           "enable_floating_ip";
-       enable_tcp_reset =
-         Prop.computed __resource_type __resource_id
-           "enable_tcp_reset";
-       frontend_ip_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "frontend_ip_configuration_id";
-       frontend_ip_configuration_name =
-         Prop.computed __resource_type __resource_id
-           "frontend_ip_configuration_name";
-       frontend_port =
-         Prop.computed __resource_type __resource_id "frontend_port";
-       id = Prop.computed __resource_type __resource_id "id";
-       idle_timeout_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "idle_timeout_in_minutes";
-       load_distribution =
-         Prop.computed __resource_type __resource_id
-           "load_distribution";
-       loadbalancer_id =
-         Prop.computed __resource_type __resource_id
-           "loadbalancer_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       probe_id =
-         Prop.computed __resource_type __resource_id "probe_id";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

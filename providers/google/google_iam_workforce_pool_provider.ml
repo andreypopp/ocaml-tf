@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type oidc__client_secret__value = {
   plain_text : string prop;
@@ -250,43 +248,48 @@ type t = {
   workforce_pool_id : string prop;
 }
 
-let register ?tf_module ?attribute_condition ?attribute_mapping
-    ?description ?disabled ?display_name ?id ?timeouts ~location
-    ~provider_id ~workforce_pool_id ~oidc ~saml __resource_id =
-  let __resource_type = "google_iam_workforce_pool_provider" in
-  let __resource =
-    google_iam_workforce_pool_provider ?attribute_condition
-      ?attribute_mapping ?description ?disabled ?display_name ?id
-      ?timeouts ~location ~provider_id ~workforce_pool_id ~oidc ~saml
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_iam_workforce_pool_provider __resource);
-  let __resource_attributes =
+let make ?attribute_condition ?attribute_mapping ?description
+    ?disabled ?display_name ?id ?timeouts ~location ~provider_id
+    ~workforce_pool_id ~oidc ~saml __id =
+  let __type = "google_iam_workforce_pool_provider" in
+  let __attrs =
     ({
        attribute_condition =
-         Prop.computed __resource_type __resource_id
-           "attribute_condition";
+         Prop.computed __type __id "attribute_condition";
        attribute_mapping =
-         Prop.computed __resource_type __resource_id
-           "attribute_mapping";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       provider_id =
-         Prop.computed __resource_type __resource_id "provider_id";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "attribute_mapping";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       provider_id = Prop.computed __type __id "provider_id";
+       state = Prop.computed __type __id "state";
        workforce_pool_id =
-         Prop.computed __resource_type __resource_id
-           "workforce_pool_id";
+         Prop.computed __type __id "workforce_pool_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_iam_workforce_pool_provider
+        (google_iam_workforce_pool_provider ?attribute_condition
+           ?attribute_mapping ?description ?disabled ?display_name
+           ?id ?timeouts ~location ~provider_id ~workforce_pool_id
+           ~oidc ~saml ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?attribute_condition ?attribute_mapping
+    ?description ?disabled ?display_name ?id ?timeouts ~location
+    ~provider_id ~workforce_pool_id ~oidc ~saml __id =
+  let (r : _ Tf_core.resource) =
+    make ?attribute_condition ?attribute_mapping ?description
+      ?disabled ?display_name ?id ?timeouts ~location ~provider_id
+      ~workforce_pool_id ~oidc ~saml __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

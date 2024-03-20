@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,36 +62,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?auth_type ?certificate_arn
-    ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name
-    __resource_id =
-  let __resource_type = "aws_vpclattice_service" in
-  let __resource =
-    aws_vpclattice_service ?auth_type ?certificate_arn
-      ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_service __resource);
-  let __resource_attributes =
+let make ?auth_type ?certificate_arn ?custom_domain_name ?id ?tags
+    ?tags_all ?timeouts ~name __id =
+  let __type = "aws_vpclattice_service" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auth_type =
-         Prop.computed __resource_type __resource_id "auth_type";
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
+       arn = Prop.computed __type __id "arn";
+       auth_type = Prop.computed __type __id "auth_type";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
        custom_domain_name =
-         Prop.computed __resource_type __resource_id
-           "custom_domain_name";
-       dns_entry =
-         Prop.computed __resource_type __resource_id "dns_entry";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "custom_domain_name";
+       dns_entry = Prop.computed __type __id "dns_entry";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_service
+        (aws_vpclattice_service ?auth_type ?certificate_arn
+           ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auth_type ?certificate_arn
+    ?custom_domain_name ?id ?tags ?tags_all ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?auth_type ?certificate_arn ?custom_domain_name ?id ?tags
+      ?tags_all ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

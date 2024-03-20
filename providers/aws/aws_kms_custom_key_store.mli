@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,13 @@ val register :
   trust_anchor_certificate:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cloud_hsm_cluster_id:string prop ->
+  custom_key_store_name:string prop ->
+  key_store_password:string prop ->
+  trust_anchor_certificate:string prop ->
+  string ->
+  t Tf_core.resource

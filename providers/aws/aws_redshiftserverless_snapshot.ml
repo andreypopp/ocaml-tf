@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshiftserverless_snapshot = {
   id : string prop option; [@option]  (** id *)
@@ -33,41 +31,42 @@ type t = {
   snapshot_name : string prop;
 }
 
-let register ?tf_module ?id ?retention_period ~namespace_name
-    ~snapshot_name __resource_id =
-  let __resource_type = "aws_redshiftserverless_snapshot" in
-  let __resource =
-    aws_redshiftserverless_snapshot ?id ?retention_period
-      ~namespace_name ~snapshot_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshiftserverless_snapshot __resource);
-  let __resource_attributes =
+let make ?id ?retention_period ~namespace_name ~snapshot_name __id =
+  let __type = "aws_redshiftserverless_snapshot" in
+  let __attrs =
     ({
        accounts_with_provisioned_restore_access =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "accounts_with_provisioned_restore_access";
        accounts_with_restore_access =
-         Prop.computed __resource_type __resource_id
-           "accounts_with_restore_access";
-       admin_username =
-         Prop.computed __resource_type __resource_id "admin_username";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       namespace_arn =
-         Prop.computed __resource_type __resource_id "namespace_arn";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
-       owner_account =
-         Prop.computed __resource_type __resource_id "owner_account";
+         Prop.computed __type __id "accounts_with_restore_access";
+       admin_username = Prop.computed __type __id "admin_username";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       namespace_arn = Prop.computed __type __id "namespace_arn";
+       namespace_name = Prop.computed __type __id "namespace_name";
+       owner_account = Prop.computed __type __id "owner_account";
        retention_period =
-         Prop.computed __resource_type __resource_id
-           "retention_period";
-       snapshot_name =
-         Prop.computed __resource_type __resource_id "snapshot_name";
+         Prop.computed __type __id "retention_period";
+       snapshot_name = Prop.computed __type __id "snapshot_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshiftserverless_snapshot
+        (aws_redshiftserverless_snapshot ?id ?retention_period
+           ~namespace_name ~snapshot_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?retention_period ~namespace_name
+    ~snapshot_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?retention_period ~namespace_name ~snapshot_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

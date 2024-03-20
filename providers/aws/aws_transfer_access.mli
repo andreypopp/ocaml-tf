@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,16 @@ val register :
   posix_profile:posix_profile list ->
   string ->
   t
+
+val make :
+  ?home_directory:string prop ->
+  ?home_directory_type:string prop ->
+  ?id:string prop ->
+  ?policy:string prop ->
+  ?role:string prop ->
+  external_id:string prop ->
+  server_id:string prop ->
+  home_directory_mappings:home_directory_mappings list ->
+  posix_profile:posix_profile list ->
+  string ->
+  t Tf_core.resource

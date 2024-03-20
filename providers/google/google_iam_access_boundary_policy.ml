@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rules__access_boundary_rule__availability_condition = {
   description : string prop option; [@option]
@@ -92,24 +90,32 @@ type t = {
   parent : string prop;
 }
 
-let register ?tf_module ?display_name ?id ?timeouts ~name ~parent
-    ~rules __resource_id =
-  let __resource_type = "google_iam_access_boundary_policy" in
-  let __resource =
-    google_iam_access_boundary_policy ?display_name ?id ?timeouts
-      ~name ~parent ~rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_iam_access_boundary_policy __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?timeouts ~name ~parent ~rules __id =
+  let __type = "google_iam_access_boundary_policy" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       display_name = Prop.computed __type __id "display_name";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_iam_access_boundary_policy
+        (google_iam_access_boundary_policy ?display_name ?id
+           ?timeouts ~name ~parent ~rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?timeouts ~name ~parent
+    ~rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?timeouts ~name ~parent ~rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

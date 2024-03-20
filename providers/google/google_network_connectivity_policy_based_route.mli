@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -98,3 +98,20 @@ val register :
   virtual_machine:virtual_machine list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?next_hop_ilb_ip:string prop ->
+  ?next_hop_other_routes:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  filter:filter list ->
+  interconnect_attachment:interconnect_attachment list ->
+  virtual_machine:virtual_machine list ->
+  string ->
+  t Tf_core.resource

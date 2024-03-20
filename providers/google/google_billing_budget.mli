@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -126,3 +126,15 @@ val register :
   threshold_rules:threshold_rules list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  billing_account:string prop ->
+  all_updates_rule:all_updates_rule list ->
+  amount:amount list ->
+  budget_filter:budget_filter list ->
+  threshold_rules:threshold_rules list ->
+  string ->
+  t Tf_core.resource

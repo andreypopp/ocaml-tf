@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_branch_creation_config = {
   basic_auth_credentials : string prop option; [@option]
@@ -158,77 +156,81 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?access_token ?auto_branch_creation_patterns
+    ?basic_auth_credentials ?build_spec ?custom_headers ?description
+    ?enable_auto_branch_creation ?enable_basic_auth
+    ?enable_branch_auto_build ?enable_branch_auto_deletion
+    ?environment_variables ?iam_service_role_arn ?id ?oauth_token
+    ?platform ?repository ?tags ?tags_all ~name
+    ~auto_branch_creation_config ~custom_rule __id =
+  let __type = "aws_amplify_app" in
+  let __attrs =
+    ({
+       access_token = Prop.computed __type __id "access_token";
+       arn = Prop.computed __type __id "arn";
+       auto_branch_creation_patterns =
+         Prop.computed __type __id "auto_branch_creation_patterns";
+       basic_auth_credentials =
+         Prop.computed __type __id "basic_auth_credentials";
+       build_spec = Prop.computed __type __id "build_spec";
+       custom_headers = Prop.computed __type __id "custom_headers";
+       default_domain = Prop.computed __type __id "default_domain";
+       description = Prop.computed __type __id "description";
+       enable_auto_branch_creation =
+         Prop.computed __type __id "enable_auto_branch_creation";
+       enable_basic_auth =
+         Prop.computed __type __id "enable_basic_auth";
+       enable_branch_auto_build =
+         Prop.computed __type __id "enable_branch_auto_build";
+       enable_branch_auto_deletion =
+         Prop.computed __type __id "enable_branch_auto_deletion";
+       environment_variables =
+         Prop.computed __type __id "environment_variables";
+       iam_service_role_arn =
+         Prop.computed __type __id "iam_service_role_arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       oauth_token = Prop.computed __type __id "oauth_token";
+       platform = Prop.computed __type __id "platform";
+       production_branch =
+         Prop.computed __type __id "production_branch";
+       repository = Prop.computed __type __id "repository";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_amplify_app
+        (aws_amplify_app ?access_token ?auto_branch_creation_patterns
+           ?basic_auth_credentials ?build_spec ?custom_headers
+           ?description ?enable_auto_branch_creation
+           ?enable_basic_auth ?enable_branch_auto_build
+           ?enable_branch_auto_deletion ?environment_variables
+           ?iam_service_role_arn ?id ?oauth_token ?platform
+           ?repository ?tags ?tags_all ~name
+           ~auto_branch_creation_config ~custom_rule ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_token ?auto_branch_creation_patterns
     ?basic_auth_credentials ?build_spec ?custom_headers ?description
     ?enable_auto_branch_creation ?enable_basic_auth
     ?enable_branch_auto_build ?enable_branch_auto_deletion
     ?environment_variables ?iam_service_role_arn ?id ?oauth_token
     ?platform ?repository ?tags ?tags_all ~name
-    ~auto_branch_creation_config ~custom_rule __resource_id =
-  let __resource_type = "aws_amplify_app" in
-  let __resource =
-    aws_amplify_app ?access_token ?auto_branch_creation_patterns
+    ~auto_branch_creation_config ~custom_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_token ?auto_branch_creation_patterns
       ?basic_auth_credentials ?build_spec ?custom_headers
       ?description ?enable_auto_branch_creation ?enable_basic_auth
       ?enable_branch_auto_build ?enable_branch_auto_deletion
       ?environment_variables ?iam_service_role_arn ?id ?oauth_token
       ?platform ?repository ?tags ?tags_all ~name
-      ~auto_branch_creation_config ~custom_rule ()
+      ~auto_branch_creation_config ~custom_rule __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_amplify_app __resource);
-  let __resource_attributes =
-    ({
-       access_token =
-         Prop.computed __resource_type __resource_id "access_token";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_branch_creation_patterns =
-         Prop.computed __resource_type __resource_id
-           "auto_branch_creation_patterns";
-       basic_auth_credentials =
-         Prop.computed __resource_type __resource_id
-           "basic_auth_credentials";
-       build_spec =
-         Prop.computed __resource_type __resource_id "build_spec";
-       custom_headers =
-         Prop.computed __resource_type __resource_id "custom_headers";
-       default_domain =
-         Prop.computed __resource_type __resource_id "default_domain";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable_auto_branch_creation =
-         Prop.computed __resource_type __resource_id
-           "enable_auto_branch_creation";
-       enable_basic_auth =
-         Prop.computed __resource_type __resource_id
-           "enable_basic_auth";
-       enable_branch_auto_build =
-         Prop.computed __resource_type __resource_id
-           "enable_branch_auto_build";
-       enable_branch_auto_deletion =
-         Prop.computed __resource_type __resource_id
-           "enable_branch_auto_deletion";
-       environment_variables =
-         Prop.computed __resource_type __resource_id
-           "environment_variables";
-       iam_service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "iam_service_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       oauth_token =
-         Prop.computed __resource_type __resource_id "oauth_token";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       production_branch =
-         Prop.computed __resource_type __resource_id
-           "production_branch";
-       repository =
-         Prop.computed __resource_type __resource_id "repository";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

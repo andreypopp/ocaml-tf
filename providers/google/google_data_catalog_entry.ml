@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type gcs_fileset_spec__sample_gcs_file_specs = {
   file_path : string prop;  (** file_path *)
@@ -144,52 +142,54 @@ type t = {
   user_specified_type : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id
-    ?linked_resource ?schema ?type_ ?user_specified_system
-    ?user_specified_type ?timeouts ~entry_group ~entry_id
-    ~gcs_fileset_spec __resource_id =
-  let __resource_type = "google_data_catalog_entry" in
-  let __resource =
-    google_data_catalog_entry ?description ?display_name ?id
-      ?linked_resource ?schema ?type_ ?user_specified_system
-      ?user_specified_type ?timeouts ~entry_group ~entry_id
-      ~gcs_fileset_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_catalog_entry __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?linked_resource ?schema
+    ?type_ ?user_specified_system ?user_specified_type ?timeouts
+    ~entry_group ~entry_id ~gcs_fileset_spec __id =
+  let __type = "google_data_catalog_entry" in
+  let __attrs =
     ({
        bigquery_date_sharded_spec =
-         Prop.computed __resource_type __resource_id
-           "bigquery_date_sharded_spec";
+         Prop.computed __type __id "bigquery_date_sharded_spec";
        bigquery_table_spec =
-         Prop.computed __resource_type __resource_id
-           "bigquery_table_spec";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       entry_group =
-         Prop.computed __resource_type __resource_id "entry_group";
-       entry_id =
-         Prop.computed __resource_type __resource_id "entry_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "bigquery_table_spec";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       entry_group = Prop.computed __type __id "entry_group";
+       entry_id = Prop.computed __type __id "entry_id";
+       id = Prop.computed __type __id "id";
        integrated_system =
-         Prop.computed __resource_type __resource_id
-           "integrated_system";
-       linked_resource =
-         Prop.computed __resource_type __resource_id
-           "linked_resource";
-       name = Prop.computed __resource_type __resource_id "name";
-       schema = Prop.computed __resource_type __resource_id "schema";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "integrated_system";
+       linked_resource = Prop.computed __type __id "linked_resource";
+       name = Prop.computed __type __id "name";
+       schema = Prop.computed __type __id "schema";
+       type_ = Prop.computed __type __id "type";
        user_specified_system =
-         Prop.computed __resource_type __resource_id
-           "user_specified_system";
+         Prop.computed __type __id "user_specified_system";
        user_specified_type =
-         Prop.computed __resource_type __resource_id
-           "user_specified_type";
+         Prop.computed __type __id "user_specified_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_catalog_entry
+        (google_data_catalog_entry ?description ?display_name ?id
+           ?linked_resource ?schema ?type_ ?user_specified_system
+           ?user_specified_type ?timeouts ~entry_group ~entry_id
+           ~gcs_fileset_spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id
+    ?linked_resource ?schema ?type_ ?user_specified_system
+    ?user_specified_type ?timeouts ~entry_group ~entry_id
+    ~gcs_fileset_spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?linked_resource ?schema
+      ?type_ ?user_specified_system ?user_specified_type ?timeouts
+      ~entry_group ~entry_id ~gcs_fileset_spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

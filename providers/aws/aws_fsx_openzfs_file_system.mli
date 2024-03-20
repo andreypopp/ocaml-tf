@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -150,3 +150,30 @@ val register :
   root_volume_configuration:root_volume_configuration list ->
   string ->
   t
+
+val make :
+  ?automatic_backup_retention_days:float prop ->
+  ?backup_id:string prop ->
+  ?copy_tags_to_backups:bool prop ->
+  ?copy_tags_to_volumes:bool prop ->
+  ?daily_automatic_backup_start_time:string prop ->
+  ?endpoint_ip_address_range:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?preferred_subnet_id:string prop ->
+  ?route_table_ids:string prop list ->
+  ?security_group_ids:string prop list ->
+  ?skip_final_backup:bool prop ->
+  ?storage_capacity:float prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?weekly_maintenance_start_time:string prop ->
+  ?timeouts:timeouts ->
+  deployment_type:string prop ->
+  subnet_ids:string prop list ->
+  throughput_capacity:float prop ->
+  disk_iops_configuration:disk_iops_configuration list ->
+  root_volume_configuration:root_volume_configuration list ->
+  string ->
+  t Tf_core.resource

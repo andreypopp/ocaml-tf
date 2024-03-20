@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -208,3 +208,27 @@ val register :
   timer_trigger:timer_trigger list ->
   string ->
   t
+
+val make :
+  ?agent_pool_name:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?is_system_task:bool prop ->
+  ?log_template:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeout_in_seconds:float prop ->
+  ?timeouts:timeouts ->
+  container_registry_id:string prop ->
+  name:string prop ->
+  agent_setting:agent_setting list ->
+  base_image_trigger:base_image_trigger list ->
+  docker_step:docker_step list ->
+  encoded_step:encoded_step list ->
+  file_step:file_step list ->
+  identity:identity list ->
+  platform:platform list ->
+  registry_credential:registry_credential list ->
+  source_trigger:source_trigger list ->
+  timer_trigger:timer_trigger list ->
+  string ->
+  t Tf_core.resource

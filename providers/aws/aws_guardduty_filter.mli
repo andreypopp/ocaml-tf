@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,16 @@ val register :
   finding_criteria:finding_criteria list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  action:string prop ->
+  detector_id:string prop ->
+  name:string prop ->
+  rank:float prop ->
+  finding_criteria:finding_criteria list ->
+  string ->
+  t Tf_core.resource

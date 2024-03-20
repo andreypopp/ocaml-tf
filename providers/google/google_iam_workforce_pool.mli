@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,17 @@ val register :
   access_restrictions:access_restrictions list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?session_duration:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  parent:string prop ->
+  workforce_pool_id:string prop ->
+  access_restrictions:access_restrictions list ->
+  string ->
+  t Tf_core.resource

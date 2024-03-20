@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_grants_location_configuration = {
   s3_sub_prefix : string prop option; [@option]  (** s3_sub_prefix *)
@@ -66,41 +64,43 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?account_id ?s3_prefix_type ?tags
-    ~access_grants_location_id ~permission
-    ~access_grants_location_configuration ~grantee __resource_id =
-  let __resource_type = "aws_s3control_access_grant" in
-  let __resource =
-    aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
-      ~access_grants_location_id ~permission
-      ~access_grants_location_configuration ~grantee ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3control_access_grant __resource);
-  let __resource_attributes =
+let make ?account_id ?s3_prefix_type ?tags ~access_grants_location_id
+    ~permission ~access_grants_location_configuration ~grantee __id =
+  let __type = "aws_s3control_access_grant" in
+  let __attrs =
     ({
        access_grant_arn =
-         Prop.computed __resource_type __resource_id
-           "access_grant_arn";
-       access_grant_id =
-         Prop.computed __resource_type __resource_id
-           "access_grant_id";
+         Prop.computed __type __id "access_grant_arn";
+       access_grant_id = Prop.computed __type __id "access_grant_id";
        access_grants_location_id =
-         Prop.computed __resource_type __resource_id
-           "access_grants_location_id";
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       grant_scope =
-         Prop.computed __resource_type __resource_id "grant_scope";
-       id = Prop.computed __resource_type __resource_id "id";
-       permission =
-         Prop.computed __resource_type __resource_id "permission";
-       s3_prefix_type =
-         Prop.computed __resource_type __resource_id "s3_prefix_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "access_grants_location_id";
+       account_id = Prop.computed __type __id "account_id";
+       grant_scope = Prop.computed __type __id "grant_scope";
+       id = Prop.computed __type __id "id";
+       permission = Prop.computed __type __id "permission";
+       s3_prefix_type = Prop.computed __type __id "s3_prefix_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3control_access_grant
+        (aws_s3control_access_grant ?account_id ?s3_prefix_type ?tags
+           ~access_grants_location_id ~permission
+           ~access_grants_location_configuration ~grantee ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?s3_prefix_type ?tags
+    ~access_grants_location_id ~permission
+    ~access_grants_location_configuration ~grantee __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?s3_prefix_type ?tags ~access_grants_location_id
+      ~permission ~access_grants_location_configuration ~grantee __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

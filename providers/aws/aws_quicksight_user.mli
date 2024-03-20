@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,4 +49,17 @@ val register :
     user_role:string prop ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    ?iam_arn:string prop ->
+    ?id:string prop ->
+    ?namespace:string prop ->
+    ?session_name:string prop ->
+    ?user_name:string prop ->
+    email:string prop ->
+    identity_type:string prop ->
+    user_role:string prop ->
+    string ->
+    t Tf_core.resource
 

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type delivery_options = {
   tls_policy : string prop option; [@option]  (** tls_policy *)
@@ -57,31 +55,38 @@ type t = {
   sending_enabled : bool prop;
 }
 
-let register ?tf_module ?id ?reputation_metrics_enabled
-    ?sending_enabled ~name ~delivery_options ~tracking_options
-    __resource_id =
-  let __resource_type = "aws_ses_configuration_set" in
-  let __resource =
-    aws_ses_configuration_set ?id ?reputation_metrics_enabled
-      ?sending_enabled ~name ~delivery_options ~tracking_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ses_configuration_set __resource);
-  let __resource_attributes =
+let make ?id ?reputation_metrics_enabled ?sending_enabled ~name
+    ~delivery_options ~tracking_options __id =
+  let __type = "aws_ses_configuration_set" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        last_fresh_start =
-         Prop.computed __resource_type __resource_id
-           "last_fresh_start";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_fresh_start";
+       name = Prop.computed __type __id "name";
        reputation_metrics_enabled =
-         Prop.computed __resource_type __resource_id
-           "reputation_metrics_enabled";
-       sending_enabled =
-         Prop.computed __resource_type __resource_id
-           "sending_enabled";
+         Prop.computed __type __id "reputation_metrics_enabled";
+       sending_enabled = Prop.computed __type __id "sending_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ses_configuration_set
+        (aws_ses_configuration_set ?id ?reputation_metrics_enabled
+           ?sending_enabled ~name ~delivery_options ~tracking_options
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?reputation_metrics_enabled
+    ?sending_enabled ~name ~delivery_options ~tracking_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?reputation_metrics_enabled ?sending_enabled ~name
+      ~delivery_options ~tracking_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

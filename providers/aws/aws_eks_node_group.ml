@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type launch_template = {
   id : string prop option; [@option]  (** id *)
@@ -173,63 +171,66 @@ type t = {
   version : string prop;
 }
 
+let make ?ami_type ?capacity_type ?disk_size ?force_update_version
+    ?id ?instance_types ?labels ?node_group_name
+    ?node_group_name_prefix ?release_version ?tags ?tags_all ?version
+    ?timeouts ~cluster_name ~node_role_arn ~subnet_ids
+    ~launch_template ~remote_access ~scaling_config ~taint
+    ~update_config __id =
+  let __type = "aws_eks_node_group" in
+  let __attrs =
+    ({
+       ami_type = Prop.computed __type __id "ami_type";
+       arn = Prop.computed __type __id "arn";
+       capacity_type = Prop.computed __type __id "capacity_type";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       disk_size = Prop.computed __type __id "disk_size";
+       force_update_version =
+         Prop.computed __type __id "force_update_version";
+       id = Prop.computed __type __id "id";
+       instance_types = Prop.computed __type __id "instance_types";
+       labels = Prop.computed __type __id "labels";
+       node_group_name = Prop.computed __type __id "node_group_name";
+       node_group_name_prefix =
+         Prop.computed __type __id "node_group_name_prefix";
+       node_role_arn = Prop.computed __type __id "node_role_arn";
+       release_version = Prop.computed __type __id "release_version";
+       resources = Prop.computed __type __id "resources";
+       status = Prop.computed __type __id "status";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_node_group
+        (aws_eks_node_group ?ami_type ?capacity_type ?disk_size
+           ?force_update_version ?id ?instance_types ?labels
+           ?node_group_name ?node_group_name_prefix ?release_version
+           ?tags ?tags_all ?version ?timeouts ~cluster_name
+           ~node_role_arn ~subnet_ids ~launch_template ~remote_access
+           ~scaling_config ~taint ~update_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?ami_type ?capacity_type ?disk_size
     ?force_update_version ?id ?instance_types ?labels
     ?node_group_name ?node_group_name_prefix ?release_version ?tags
     ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
     ~subnet_ids ~launch_template ~remote_access ~scaling_config
-    ~taint ~update_config __resource_id =
-  let __resource_type = "aws_eks_node_group" in
-  let __resource =
-    aws_eks_node_group ?ami_type ?capacity_type ?disk_size
-      ?force_update_version ?id ?instance_types ?labels
-      ?node_group_name ?node_group_name_prefix ?release_version ?tags
-      ?tags_all ?version ?timeouts ~cluster_name ~node_role_arn
-      ~subnet_ids ~launch_template ~remote_access ~scaling_config
-      ~taint ~update_config ()
+    ~taint ~update_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?ami_type ?capacity_type ?disk_size ?force_update_version
+      ?id ?instance_types ?labels ?node_group_name
+      ?node_group_name_prefix ?release_version ?tags ?tags_all
+      ?version ?timeouts ~cluster_name ~node_role_arn ~subnet_ids
+      ~launch_template ~remote_access ~scaling_config ~taint
+      ~update_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_node_group __resource);
-  let __resource_attributes =
-    ({
-       ami_type =
-         Prop.computed __resource_type __resource_id "ami_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       capacity_type =
-         Prop.computed __resource_type __resource_id "capacity_type";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       disk_size =
-         Prop.computed __resource_type __resource_id "disk_size";
-       force_update_version =
-         Prop.computed __resource_type __resource_id
-           "force_update_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_types =
-         Prop.computed __resource_type __resource_id "instance_types";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       node_group_name =
-         Prop.computed __resource_type __resource_id
-           "node_group_name";
-       node_group_name_prefix =
-         Prop.computed __resource_type __resource_id
-           "node_group_name_prefix";
-       node_role_arn =
-         Prop.computed __resource_type __resource_id "node_role_arn";
-       release_version =
-         Prop.computed __resource_type __resource_id
-           "release_version";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
-       status = Prop.computed __resource_type __resource_id "status";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

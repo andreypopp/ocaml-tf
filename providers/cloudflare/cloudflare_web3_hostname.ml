@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_web3_hostname = {
   description : string prop option; [@option]
@@ -36,32 +34,36 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?description ?dnslink ?id ~name ~target
-    ~zone_id __resource_id =
-  let __resource_type = "cloudflare_web3_hostname" in
-  let __resource =
-    cloudflare_web3_hostname ?description ?dnslink ?id ~name ~target
-      ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_web3_hostname __resource);
-  let __resource_attributes =
+let make ?description ?dnslink ?id ~name ~target ~zone_id __id =
+  let __type = "cloudflare_web3_hostname" in
+  let __attrs =
     ({
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dnslink =
-         Prop.computed __resource_type __resource_id "dnslink";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       target = Prop.computed __resource_type __resource_id "target";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       created_on = Prop.computed __type __id "created_on";
+       description = Prop.computed __type __id "description";
+       dnslink = Prop.computed __type __id "dnslink";
+       id = Prop.computed __type __id "id";
+       modified_on = Prop.computed __type __id "modified_on";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       target = Prop.computed __type __id "target";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_web3_hostname
+        (cloudflare_web3_hostname ?description ?dnslink ?id ~name
+           ~target ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?dnslink ?id ~name ~target
+    ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?dnslink ?id ~name ~target ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

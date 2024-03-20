@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,19 @@ val register :
   port_override:port_override list ->
   string ->
   t
+
+val make :
+  ?endpoint_group_region:string prop ->
+  ?health_check_interval_seconds:float prop ->
+  ?health_check_path:string prop ->
+  ?health_check_port:float prop ->
+  ?health_check_protocol:string prop ->
+  ?id:string prop ->
+  ?threshold_count:float prop ->
+  ?traffic_dial_percentage:float prop ->
+  ?timeouts:timeouts ->
+  listener_arn:string prop ->
+  endpoint_configuration:endpoint_configuration list ->
+  port_override:port_override list ->
+  string ->
+  t Tf_core.resource

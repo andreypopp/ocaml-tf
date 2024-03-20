@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,13 @@ val register :
   enrolled_services:enrolled_services list ->
   string ->
   t
+
+val make :
+  ?active_key_version:string prop ->
+  ?id:string prop ->
+  ?notification_emails:string prop list ->
+  ?timeouts:timeouts ->
+  organization_id:string prop ->
+  enrolled_services:enrolled_services list ->
+  string ->
+  t Tf_core.resource

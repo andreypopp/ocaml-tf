@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -42,30 +40,37 @@ type t = {
   support_email : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~application_title
-    ~support_email __resource_id =
-  let __resource_type = "google_iap_brand" in
-  let __resource =
-    google_iap_brand ?id ?project ?timeouts ~application_title
-      ~support_email ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_iap_brand __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~application_title ~support_email
+    __id =
+  let __type = "google_iap_brand" in
+  let __attrs =
     ({
        application_title =
-         Prop.computed __resource_type __resource_id
-           "application_title";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "application_title";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        org_internal_only =
-         Prop.computed __resource_type __resource_id
-           "org_internal_only";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       support_email =
-         Prop.computed __resource_type __resource_id "support_email";
+         Prop.computed __type __id "org_internal_only";
+       project = Prop.computed __type __id "project";
+       support_email = Prop.computed __type __id "support_email";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_iap_brand
+        (google_iap_brand ?id ?project ?timeouts ~application_title
+           ~support_email ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~application_title
+    ~support_email __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~application_title ~support_email
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

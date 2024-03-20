@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_record = {
   domain : string prop;  (** domain *)
@@ -51,31 +49,41 @@ type t = {
   weight : float prop;
 }
 
-let register ?tf_module ?flags ?id ?port ?priority ?tag ?ttl ?weight
-    ~domain ~name ~type_ ~value __resource_id =
-  let __resource_type = "digitalocean_record" in
-  let __resource =
-    digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
-      ~domain ~name ~type_ ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_record __resource);
-  let __resource_attributes =
+let make ?flags ?id ?port ?priority ?tag ?ttl ?weight ~domain ~name
+    ~type_ ~value __id =
+  let __type = "digitalocean_record" in
+  let __attrs =
     ({
-       domain = Prop.computed __resource_type __resource_id "domain";
-       flags = Prop.computed __resource_type __resource_id "flags";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       tag = Prop.computed __resource_type __resource_id "tag";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       value = Prop.computed __resource_type __resource_id "value";
-       weight = Prop.computed __resource_type __resource_id "weight";
+       domain = Prop.computed __type __id "domain";
+       flags = Prop.computed __type __id "flags";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
+       priority = Prop.computed __type __id "priority";
+       tag = Prop.computed __type __id "tag";
+       ttl = Prop.computed __type __id "ttl";
+       type_ = Prop.computed __type __id "type";
+       value = Prop.computed __type __id "value";
+       weight = Prop.computed __type __id "weight";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_record
+        (digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl
+           ?weight ~domain ~name ~type_ ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?flags ?id ?port ?priority ?tag ?ttl ?weight
+    ~domain ~name ~type_ ~value __id =
+  let (r : _ Tf_core.resource) =
+    make ?flags ?id ?port ?priority ?tag ?ttl ?weight ~domain ~name
+      ~type_ ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

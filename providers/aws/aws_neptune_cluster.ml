@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type serverless_v2_scaling_configuration = {
   max_capacity : float prop option; [@option]  (** max_capacity *)
@@ -181,6 +179,112 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
+let make ?allow_major_version_upgrade ?apply_immediately
+    ?availability_zones ?backup_retention_period ?cluster_identifier
+    ?cluster_identifier_prefix ?copy_tags_to_snapshot
+    ?deletion_protection ?enable_cloudwatch_logs_exports ?engine
+    ?engine_version ?final_snapshot_identifier
+    ?global_cluster_identifier ?iam_database_authentication_enabled
+    ?iam_roles ?id ?kms_key_arn ?neptune_cluster_parameter_group_name
+    ?neptune_instance_parameter_group_name ?neptune_subnet_group_name
+    ?port ?preferred_backup_window ?preferred_maintenance_window
+    ?replication_source_identifier ?skip_final_snapshot
+    ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
+    ?tags_all ?vpc_security_group_ids ?timeouts
+    ~serverless_v2_scaling_configuration __id =
+  let __type = "aws_neptune_cluster" in
+  let __attrs =
+    ({
+       allow_major_version_upgrade =
+         Prop.computed __type __id "allow_major_version_upgrade";
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       availability_zones =
+         Prop.computed __type __id "availability_zones";
+       backup_retention_period =
+         Prop.computed __type __id "backup_retention_period";
+       cluster_identifier =
+         Prop.computed __type __id "cluster_identifier";
+       cluster_identifier_prefix =
+         Prop.computed __type __id "cluster_identifier_prefix";
+       cluster_members = Prop.computed __type __id "cluster_members";
+       cluster_resource_id =
+         Prop.computed __type __id "cluster_resource_id";
+       copy_tags_to_snapshot =
+         Prop.computed __type __id "copy_tags_to_snapshot";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       enable_cloudwatch_logs_exports =
+         Prop.computed __type __id "enable_cloudwatch_logs_exports";
+       endpoint = Prop.computed __type __id "endpoint";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       final_snapshot_identifier =
+         Prop.computed __type __id "final_snapshot_identifier";
+       global_cluster_identifier =
+         Prop.computed __type __id "global_cluster_identifier";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       iam_database_authentication_enabled =
+         Prop.computed __type __id
+           "iam_database_authentication_enabled";
+       iam_roles = Prop.computed __type __id "iam_roles";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       neptune_cluster_parameter_group_name =
+         Prop.computed __type __id
+           "neptune_cluster_parameter_group_name";
+       neptune_instance_parameter_group_name =
+         Prop.computed __type __id
+           "neptune_instance_parameter_group_name";
+       neptune_subnet_group_name =
+         Prop.computed __type __id "neptune_subnet_group_name";
+       port = Prop.computed __type __id "port";
+       preferred_backup_window =
+         Prop.computed __type __id "preferred_backup_window";
+       preferred_maintenance_window =
+         Prop.computed __type __id "preferred_maintenance_window";
+       reader_endpoint = Prop.computed __type __id "reader_endpoint";
+       replication_source_identifier =
+         Prop.computed __type __id "replication_source_identifier";
+       skip_final_snapshot =
+         Prop.computed __type __id "skip_final_snapshot";
+       snapshot_identifier =
+         Prop.computed __type __id "snapshot_identifier";
+       storage_encrypted =
+         Prop.computed __type __id "storage_encrypted";
+       storage_type = Prop.computed __type __id "storage_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_security_group_ids =
+         Prop.computed __type __id "vpc_security_group_ids";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_neptune_cluster
+        (aws_neptune_cluster ?allow_major_version_upgrade
+           ?apply_immediately ?availability_zones
+           ?backup_retention_period ?cluster_identifier
+           ?cluster_identifier_prefix ?copy_tags_to_snapshot
+           ?deletion_protection ?enable_cloudwatch_logs_exports
+           ?engine ?engine_version ?final_snapshot_identifier
+           ?global_cluster_identifier
+           ?iam_database_authentication_enabled ?iam_roles ?id
+           ?kms_key_arn ?neptune_cluster_parameter_group_name
+           ?neptune_instance_parameter_group_name
+           ?neptune_subnet_group_name ?port ?preferred_backup_window
+           ?preferred_maintenance_window
+           ?replication_source_identifier ?skip_final_snapshot
+           ?snapshot_identifier ?storage_encrypted ?storage_type
+           ?tags ?tags_all ?vpc_security_group_ids ?timeouts
+           ~serverless_v2_scaling_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_major_version_upgrade
     ?apply_immediately ?availability_zones ?backup_retention_period
     ?cluster_identifier ?cluster_identifier_prefix
@@ -194,11 +298,10 @@ let register ?tf_module ?allow_major_version_upgrade
     ?replication_source_identifier ?skip_final_snapshot
     ?snapshot_identifier ?storage_encrypted ?storage_type ?tags
     ?tags_all ?vpc_security_group_ids ?timeouts
-    ~serverless_v2_scaling_configuration __resource_id =
-  let __resource_type = "aws_neptune_cluster" in
-  let __resource =
-    aws_neptune_cluster ?allow_major_version_upgrade
-      ?apply_immediately ?availability_zones ?backup_retention_period
+    ~serverless_v2_scaling_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_major_version_upgrade ?apply_immediately
+      ?availability_zones ?backup_retention_period
       ?cluster_identifier ?cluster_identifier_prefix
       ?copy_tags_to_snapshot ?deletion_protection
       ?enable_cloudwatch_logs_exports ?engine ?engine_version
@@ -210,107 +313,7 @@ let register ?tf_module ?allow_major_version_upgrade
       ?preferred_maintenance_window ?replication_source_identifier
       ?skip_final_snapshot ?snapshot_identifier ?storage_encrypted
       ?storage_type ?tags ?tags_all ?vpc_security_group_ids ?timeouts
-      ~serverless_v2_scaling_configuration ()
+      ~serverless_v2_scaling_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_neptune_cluster __resource);
-  let __resource_attributes =
-    ({
-       allow_major_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "allow_major_version_upgrade";
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       availability_zones =
-         Prop.computed __resource_type __resource_id
-           "availability_zones";
-       backup_retention_period =
-         Prop.computed __resource_type __resource_id
-           "backup_retention_period";
-       cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       cluster_identifier_prefix =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier_prefix";
-       cluster_members =
-         Prop.computed __resource_type __resource_id
-           "cluster_members";
-       cluster_resource_id =
-         Prop.computed __resource_type __resource_id
-           "cluster_resource_id";
-       copy_tags_to_snapshot =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_snapshot";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       enable_cloudwatch_logs_exports =
-         Prop.computed __resource_type __resource_id
-           "enable_cloudwatch_logs_exports";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       final_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "final_snapshot_identifier";
-       global_cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "global_cluster_identifier";
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       iam_database_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "iam_database_authentication_enabled";
-       iam_roles =
-         Prop.computed __resource_type __resource_id "iam_roles";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       neptune_cluster_parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "neptune_cluster_parameter_group_name";
-       neptune_instance_parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "neptune_instance_parameter_group_name";
-       neptune_subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "neptune_subnet_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       preferred_backup_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_backup_window";
-       preferred_maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_maintenance_window";
-       reader_endpoint =
-         Prop.computed __resource_type __resource_id
-           "reader_endpoint";
-       replication_source_identifier =
-         Prop.computed __resource_type __resource_id
-           "replication_source_identifier";
-       skip_final_snapshot =
-         Prop.computed __resource_type __resource_id
-           "skip_final_snapshot";
-       snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "snapshot_identifier";
-       storage_encrypted =
-         Prop.computed __resource_type __resource_id
-           "storage_encrypted";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "vpc_security_group_ids";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
@@ -159,61 +157,67 @@ type t = {
   user_data_base64 : string prop;
 }
 
+let make ?associate_public_ip_address ?ebs_optimized
+    ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
+    ?name_prefix ?placement_tenancy ?security_groups ?spot_price
+    ?user_data ?user_data_base64 ~image_id ~instance_type
+    ~ebs_block_device ~ephemeral_block_device ~metadata_options
+    ~root_block_device __id =
+  let __type = "aws_launch_configuration" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       associate_public_ip_address =
+         Prop.computed __type __id "associate_public_ip_address";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       enable_monitoring =
+         Prop.computed __type __id "enable_monitoring";
+       iam_instance_profile =
+         Prop.computed __type __id "iam_instance_profile";
+       id = Prop.computed __type __id "id";
+       image_id = Prop.computed __type __id "image_id";
+       instance_type = Prop.computed __type __id "instance_type";
+       key_name = Prop.computed __type __id "key_name";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       placement_tenancy =
+         Prop.computed __type __id "placement_tenancy";
+       security_groups = Prop.computed __type __id "security_groups";
+       spot_price = Prop.computed __type __id "spot_price";
+       user_data = Prop.computed __type __id "user_data";
+       user_data_base64 =
+         Prop.computed __type __id "user_data_base64";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_launch_configuration
+        (aws_launch_configuration ?associate_public_ip_address
+           ?ebs_optimized ?enable_monitoring ?iam_instance_profile
+           ?id ?key_name ?name ?name_prefix ?placement_tenancy
+           ?security_groups ?spot_price ?user_data ?user_data_base64
+           ~image_id ~instance_type ~ebs_block_device
+           ~ephemeral_block_device ~metadata_options
+           ~root_block_device ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?associate_public_ip_address ?ebs_optimized
     ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
     ?name_prefix ?placement_tenancy ?security_groups ?spot_price
     ?user_data ?user_data_base64 ~image_id ~instance_type
     ~ebs_block_device ~ephemeral_block_device ~metadata_options
-    ~root_block_device __resource_id =
-  let __resource_type = "aws_launch_configuration" in
-  let __resource =
-    aws_launch_configuration ?associate_public_ip_address
-      ?ebs_optimized ?enable_monitoring ?iam_instance_profile ?id
-      ?key_name ?name ?name_prefix ?placement_tenancy
-      ?security_groups ?spot_price ?user_data ?user_data_base64
-      ~image_id ~instance_type ~ebs_block_device
-      ~ephemeral_block_device ~metadata_options ~root_block_device ()
+    ~root_block_device __id =
+  let (r : _ Tf_core.resource) =
+    make ?associate_public_ip_address ?ebs_optimized
+      ?enable_monitoring ?iam_instance_profile ?id ?key_name ?name
+      ?name_prefix ?placement_tenancy ?security_groups ?spot_price
+      ?user_data ?user_data_base64 ~image_id ~instance_type
+      ~ebs_block_device ~ephemeral_block_device ~metadata_options
+      ~root_block_device __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_launch_configuration __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       associate_public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "associate_public_ip_address";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       enable_monitoring =
-         Prop.computed __resource_type __resource_id
-           "enable_monitoring";
-       iam_instance_profile =
-         Prop.computed __resource_type __resource_id
-           "iam_instance_profile";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_id =
-         Prop.computed __resource_type __resource_id "image_id";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       key_name =
-         Prop.computed __resource_type __resource_id "key_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       placement_tenancy =
-         Prop.computed __resource_type __resource_id
-           "placement_tenancy";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       spot_price =
-         Prop.computed __resource_type __resource_id "spot_price";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       user_data_base64 =
-         Prop.computed __resource_type __resource_id
-           "user_data_base64";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

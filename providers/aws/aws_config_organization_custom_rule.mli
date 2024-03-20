@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   trigger_types:string prop list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?excluded_accounts:string prop list ->
+  ?id:string prop ->
+  ?input_parameters:string prop ->
+  ?maximum_execution_frequency:string prop ->
+  ?resource_id_scope:string prop ->
+  ?resource_types_scope:string prop list ->
+  ?tag_key_scope:string prop ->
+  ?tag_value_scope:string prop ->
+  ?timeouts:timeouts ->
+  lambda_function_arn:string prop ->
+  name:string prop ->
+  trigger_types:string prop list ->
+  string ->
+  t Tf_core.resource

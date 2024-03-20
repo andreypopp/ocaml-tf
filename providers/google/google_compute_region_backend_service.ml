@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backend = {
   balancing_mode : string prop option; [@option]
@@ -694,69 +692,75 @@ type t = {
   timeout_sec : float prop;
 }
 
+let make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
+    ?description ?enable_cdn ?health_checks ?id
+    ?load_balancing_scheme ?locality_lb_policy ?network ?port_name
+    ?project ?protocol ?region ?session_affinity ?timeout_sec
+    ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
+    ~consistent_hash ~failover_policy ~iap ~log_config
+    ~outlier_detection __id =
+  let __type = "google_compute_region_backend_service" in
+  let __attrs =
+    ({
+       affinity_cookie_ttl_sec =
+         Prop.computed __type __id "affinity_cookie_ttl_sec";
+       connection_draining_timeout_sec =
+         Prop.computed __type __id "connection_draining_timeout_sec";
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       enable_cdn = Prop.computed __type __id "enable_cdn";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       health_checks = Prop.computed __type __id "health_checks";
+       id = Prop.computed __type __id "id";
+       load_balancing_scheme =
+         Prop.computed __type __id "load_balancing_scheme";
+       locality_lb_policy =
+         Prop.computed __type __id "locality_lb_policy";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       port_name = Prop.computed __type __id "port_name";
+       project = Prop.computed __type __id "project";
+       protocol = Prop.computed __type __id "protocol";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       session_affinity =
+         Prop.computed __type __id "session_affinity";
+       timeout_sec = Prop.computed __type __id "timeout_sec";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_backend_service
+        (google_compute_region_backend_service
+           ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
+           ?description ?enable_cdn ?health_checks ?id
+           ?load_balancing_scheme ?locality_lb_policy ?network
+           ?port_name ?project ?protocol ?region ?session_affinity
+           ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
+           ~circuit_breakers ~consistent_hash ~failover_policy ~iap
+           ~log_config ~outlier_detection ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?affinity_cookie_ttl_sec
     ?connection_draining_timeout_sec ?description ?enable_cdn
     ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
     ?network ?port_name ?project ?protocol ?region ?session_affinity
     ?timeout_sec ?timeouts ~name ~backend ~cdn_policy
     ~circuit_breakers ~consistent_hash ~failover_policy ~iap
-    ~log_config ~outlier_detection __resource_id =
-  let __resource_type = "google_compute_region_backend_service" in
-  let __resource =
-    google_compute_region_backend_service ?affinity_cookie_ttl_sec
-      ?connection_draining_timeout_sec ?description ?enable_cdn
-      ?health_checks ?id ?load_balancing_scheme ?locality_lb_policy
-      ?network ?port_name ?project ?protocol ?region
-      ?session_affinity ?timeout_sec ?timeouts ~name ~backend
-      ~cdn_policy ~circuit_breakers ~consistent_hash ~failover_policy
-      ~iap ~log_config ~outlier_detection ()
+    ~log_config ~outlier_detection __id =
+  let (r : _ Tf_core.resource) =
+    make ?affinity_cookie_ttl_sec ?connection_draining_timeout_sec
+      ?description ?enable_cdn ?health_checks ?id
+      ?load_balancing_scheme ?locality_lb_policy ?network ?port_name
+      ?project ?protocol ?region ?session_affinity ?timeout_sec
+      ?timeouts ~name ~backend ~cdn_policy ~circuit_breakers
+      ~consistent_hash ~failover_policy ~iap ~log_config
+      ~outlier_detection __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_backend_service __resource);
-  let __resource_attributes =
-    ({
-       affinity_cookie_ttl_sec =
-         Prop.computed __resource_type __resource_id
-           "affinity_cookie_ttl_sec";
-       connection_draining_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "connection_draining_timeout_sec";
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable_cdn =
-         Prop.computed __resource_type __resource_id "enable_cdn";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       health_checks =
-         Prop.computed __resource_type __resource_id "health_checks";
-       id = Prop.computed __resource_type __resource_id "id";
-       load_balancing_scheme =
-         Prop.computed __resource_type __resource_id
-           "load_balancing_scheme";
-       locality_lb_policy =
-         Prop.computed __resource_type __resource_id
-           "locality_lb_policy";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       port_name =
-         Prop.computed __resource_type __resource_id "port_name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       session_affinity =
-         Prop.computed __resource_type __resource_id
-           "session_affinity";
-       timeout_sec =
-         Prop.computed __resource_type __resource_id "timeout_sec";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

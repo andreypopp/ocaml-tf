@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,13 @@ val register :
   org_id:string prop ->
   string ->
   t
+
+val make :
+  ?detect_md5hash:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  config_bundle:string prop ->
+  name:string prop ->
+  org_id:string prop ->
+  string ->
+  t Tf_core.resource

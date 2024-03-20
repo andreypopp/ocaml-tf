@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type managed_cluster_update__node_image_selection = {
   type_ : string prop; [@key "type"]  (** type *)
@@ -103,28 +101,40 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?fleet_update_strategy_id ?id ?timeouts
+let make ?fleet_update_strategy_id ?id ?timeouts
     ~kubernetes_fleet_manager_id ~name ~managed_cluster_update ~stage
-    __resource_id =
-  let __resource_type = "azurerm_kubernetes_fleet_update_run" in
-  let __resource =
-    azurerm_kubernetes_fleet_update_run ?fleet_update_strategy_id ?id
-      ?timeouts ~kubernetes_fleet_manager_id ~name
-      ~managed_cluster_update ~stage ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kubernetes_fleet_update_run __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "azurerm_kubernetes_fleet_update_run" in
+  let __attrs =
     ({
        fleet_update_strategy_id =
-         Prop.computed __resource_type __resource_id
-           "fleet_update_strategy_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "fleet_update_strategy_id";
+       id = Prop.computed __type __id "id";
        kubernetes_fleet_manager_id =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_fleet_manager_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "kubernetes_fleet_manager_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kubernetes_fleet_update_run
+        (azurerm_kubernetes_fleet_update_run
+           ?fleet_update_strategy_id ?id ?timeouts
+           ~kubernetes_fleet_manager_id ~name ~managed_cluster_update
+           ~stage ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?fleet_update_strategy_id ?id ?timeouts
+    ~kubernetes_fleet_manager_id ~name ~managed_cluster_update ~stage
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?fleet_update_strategy_id ?id ?timeouts
+      ~kubernetes_fleet_manager_id ~name ~managed_cluster_update
+      ~stage __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

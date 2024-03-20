@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,23 @@ val register :
   vpc_settings:vpc_settings list ->
   string ->
   t
+
+val make :
+  ?alias:string prop ->
+  ?description:string prop ->
+  ?desired_number_of_domain_controllers:float prop ->
+  ?edition:string prop ->
+  ?enable_sso:bool prop ->
+  ?id:string prop ->
+  ?short_name:string prop ->
+  ?size:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  password:string prop ->
+  connect_settings:connect_settings list ->
+  vpc_settings:vpc_settings list ->
+  string ->
+  t Tf_core.resource

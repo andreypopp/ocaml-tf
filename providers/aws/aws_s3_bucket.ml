@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cors_rule = {
   allowed_headers : string prop list option; [@option]
@@ -472,59 +470,67 @@ type t = {
   website_endpoint : string prop;
 }
 
+let make ?acceleration_status ?acl ?bucket ?bucket_prefix
+    ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
+    ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
+    ~logging ~object_lock_configuration ~replication_configuration
+    ~server_side_encryption_configuration ~versioning ~website __id =
+  let __type = "aws_s3_bucket" in
+  let __attrs =
+    ({
+       acceleration_status =
+         Prop.computed __type __id "acceleration_status";
+       acl = Prop.computed __type __id "acl";
+       arn = Prop.computed __type __id "arn";
+       bucket = Prop.computed __type __id "bucket";
+       bucket_domain_name =
+         Prop.computed __type __id "bucket_domain_name";
+       bucket_prefix = Prop.computed __type __id "bucket_prefix";
+       bucket_regional_domain_name =
+         Prop.computed __type __id "bucket_regional_domain_name";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       id = Prop.computed __type __id "id";
+       object_lock_enabled =
+         Prop.computed __type __id "object_lock_enabled";
+       policy = Prop.computed __type __id "policy";
+       region = Prop.computed __type __id "region";
+       request_payer = Prop.computed __type __id "request_payer";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       website_domain = Prop.computed __type __id "website_domain";
+       website_endpoint =
+         Prop.computed __type __id "website_endpoint";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket
+        (aws_s3_bucket ?acceleration_status ?acl ?bucket
+           ?bucket_prefix ?force_destroy ?id ?object_lock_enabled
+           ?policy ?request_payer ?tags ?tags_all ?timeouts
+           ~cors_rule ~grant ~lifecycle_rule ~logging
+           ~object_lock_configuration ~replication_configuration
+           ~server_side_encryption_configuration ~versioning ~website
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?acceleration_status ?acl ?bucket
     ?bucket_prefix ?force_destroy ?id ?object_lock_enabled ?policy
     ?request_payer ?tags ?tags_all ?timeouts ~cors_rule ~grant
     ~lifecycle_rule ~logging ~object_lock_configuration
     ~replication_configuration ~server_side_encryption_configuration
-    ~versioning ~website __resource_id =
-  let __resource_type = "aws_s3_bucket" in
-  let __resource =
-    aws_s3_bucket ?acceleration_status ?acl ?bucket ?bucket_prefix
+    ~versioning ~website __id =
+  let (r : _ Tf_core.resource) =
+    make ?acceleration_status ?acl ?bucket ?bucket_prefix
       ?force_destroy ?id ?object_lock_enabled ?policy ?request_payer
       ?tags ?tags_all ?timeouts ~cors_rule ~grant ~lifecycle_rule
       ~logging ~object_lock_configuration ~replication_configuration
-      ~server_side_encryption_configuration ~versioning ~website ()
+      ~server_side_encryption_configuration ~versioning ~website __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket __resource);
-  let __resource_attributes =
-    ({
-       acceleration_status =
-         Prop.computed __resource_type __resource_id
-           "acceleration_status";
-       acl = Prop.computed __resource_type __resource_id "acl";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       bucket_domain_name =
-         Prop.computed __resource_type __resource_id
-           "bucket_domain_name";
-       bucket_prefix =
-         Prop.computed __resource_type __resource_id "bucket_prefix";
-       bucket_regional_domain_name =
-         Prop.computed __resource_type __resource_id
-           "bucket_regional_domain_name";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       object_lock_enabled =
-         Prop.computed __resource_type __resource_id
-           "object_lock_enabled";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       region = Prop.computed __resource_type __resource_id "region";
-       request_payer =
-         Prop.computed __resource_type __resource_id "request_payer";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       website_domain =
-         Prop.computed __resource_type __resource_id "website_domain";
-       website_endpoint =
-         Prop.computed __resource_type __resource_id
-           "website_endpoint";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

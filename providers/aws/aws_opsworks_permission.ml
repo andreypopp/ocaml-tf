@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_opsworks_permission = {
   allow_ssh : bool prop option; [@option]  (** allow_ssh *)
@@ -28,28 +26,33 @@ type t = {
   user_arn : string prop;
 }
 
-let register ?tf_module ?allow_ssh ?allow_sudo ?id ?level ~stack_id
-    ~user_arn __resource_id =
-  let __resource_type = "aws_opsworks_permission" in
-  let __resource =
-    aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
-      ~stack_id ~user_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_permission __resource);
-  let __resource_attributes =
+let make ?allow_ssh ?allow_sudo ?id ?level ~stack_id ~user_arn __id =
+  let __type = "aws_opsworks_permission" in
+  let __attrs =
     ({
-       allow_ssh =
-         Prop.computed __resource_type __resource_id "allow_ssh";
-       allow_sudo =
-         Prop.computed __resource_type __resource_id "allow_sudo";
-       id = Prop.computed __resource_type __resource_id "id";
-       level = Prop.computed __resource_type __resource_id "level";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
-       user_arn =
-         Prop.computed __resource_type __resource_id "user_arn";
+       allow_ssh = Prop.computed __type __id "allow_ssh";
+       allow_sudo = Prop.computed __type __id "allow_sudo";
+       id = Prop.computed __type __id "id";
+       level = Prop.computed __type __id "level";
+       stack_id = Prop.computed __type __id "stack_id";
+       user_arn = Prop.computed __type __id "user_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_permission
+        (aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
+           ~stack_id ~user_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_ssh ?allow_sudo ?id ?level ~stack_id
+    ~user_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_ssh ?allow_sudo ?id ?level ~stack_id ~user_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

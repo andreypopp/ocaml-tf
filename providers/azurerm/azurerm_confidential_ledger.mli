@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,18 @@ val register :
     certificate_based_security_principal list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  ledger_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  azuread_based_service_principal:
+    azuread_based_service_principal list ->
+  certificate_based_security_principal:
+    certificate_based_security_principal list ->
+  string ->
+  t Tf_core.resource

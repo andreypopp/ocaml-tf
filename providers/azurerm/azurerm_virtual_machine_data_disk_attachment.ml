@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,38 +53,40 @@ type t = {
   write_accelerator_enabled : bool prop;
 }
 
-let register ?tf_module ?create_option ?id ?write_accelerator_enabled
-    ?timeouts ~caching ~lun ~managed_disk_id ~virtual_machine_id
-    __resource_id =
-  let __resource_type =
-    "azurerm_virtual_machine_data_disk_attachment"
-  in
-  let __resource =
-    azurerm_virtual_machine_data_disk_attachment ?create_option ?id
-      ?write_accelerator_enabled ?timeouts ~caching ~lun
-      ~managed_disk_id ~virtual_machine_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine_data_disk_attachment
-       __resource);
-  let __resource_attributes =
+let make ?create_option ?id ?write_accelerator_enabled ?timeouts
+    ~caching ~lun ~managed_disk_id ~virtual_machine_id __id =
+  let __type = "azurerm_virtual_machine_data_disk_attachment" in
+  let __attrs =
     ({
-       caching =
-         Prop.computed __resource_type __resource_id "caching";
-       create_option =
-         Prop.computed __resource_type __resource_id "create_option";
-       id = Prop.computed __resource_type __resource_id "id";
-       lun = Prop.computed __resource_type __resource_id "lun";
-       managed_disk_id =
-         Prop.computed __resource_type __resource_id
-           "managed_disk_id";
+       caching = Prop.computed __type __id "caching";
+       create_option = Prop.computed __type __id "create_option";
+       id = Prop.computed __type __id "id";
+       lun = Prop.computed __type __id "lun";
+       managed_disk_id = Prop.computed __type __id "managed_disk_id";
        virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
+         Prop.computed __type __id "virtual_machine_id";
        write_accelerator_enabled =
-         Prop.computed __resource_type __resource_id
-           "write_accelerator_enabled";
+         Prop.computed __type __id "write_accelerator_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine_data_disk_attachment
+        (azurerm_virtual_machine_data_disk_attachment ?create_option
+           ?id ?write_accelerator_enabled ?timeouts ~caching ~lun
+           ~managed_disk_id ~virtual_machine_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?create_option ?id ?write_accelerator_enabled
+    ?timeouts ~caching ~lun ~managed_disk_id ~virtual_machine_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?create_option ?id ?write_accelerator_enabled ?timeouts
+      ~caching ~lun ~managed_disk_id ~virtual_machine_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

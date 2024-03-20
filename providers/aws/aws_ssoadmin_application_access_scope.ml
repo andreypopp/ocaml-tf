@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssoadmin_application_access_scope = {
   application_arn : string prop;  (** application_arn *)
@@ -25,26 +23,32 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?authorized_targets ~application_arn ~scope
-    __resource_id =
-  let __resource_type = "aws_ssoadmin_application_access_scope" in
-  let __resource =
-    aws_ssoadmin_application_access_scope ?authorized_targets
-      ~application_arn ~scope ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_application_access_scope __resource);
-  let __resource_attributes =
+let make ?authorized_targets ~application_arn ~scope __id =
+  let __type = "aws_ssoadmin_application_access_scope" in
+  let __attrs =
     ({
-       application_arn =
-         Prop.computed __resource_type __resource_id
-           "application_arn";
+       application_arn = Prop.computed __type __id "application_arn";
        authorized_targets =
-         Prop.computed __resource_type __resource_id
-           "authorized_targets";
-       id = Prop.computed __resource_type __resource_id "id";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "authorized_targets";
+       id = Prop.computed __type __id "id";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_application_access_scope
+        (aws_ssoadmin_application_access_scope ?authorized_targets
+           ~application_arn ~scope ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorized_targets ~application_arn ~scope
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorized_targets ~application_arn ~scope __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

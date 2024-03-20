@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,39 +56,41 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?function_alias ?id ?timeouts
-    ~application_insights_id ~content ~name ~scope ~type_
-    __resource_id =
-  let __resource_type =
-    "azurerm_application_insights_analytics_item"
-  in
-  let __resource =
-    azurerm_application_insights_analytics_item ?function_alias ?id
-      ?timeouts ~application_insights_id ~content ~name ~scope ~type_
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights_analytics_item __resource);
-  let __resource_attributes =
+let make ?function_alias ?id ?timeouts ~application_insights_id
+    ~content ~name ~scope ~type_ __id =
+  let __type = "azurerm_application_insights_analytics_item" in
+  let __attrs =
     ({
        application_insights_id =
-         Prop.computed __resource_type __resource_id
-           "application_insights_id";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       function_alias =
-         Prop.computed __resource_type __resource_id "function_alias";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       time_created =
-         Prop.computed __resource_type __resource_id "time_created";
-       time_modified =
-         Prop.computed __resource_type __resource_id "time_modified";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "application_insights_id";
+       content = Prop.computed __type __id "content";
+       function_alias = Prop.computed __type __id "function_alias";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       scope = Prop.computed __type __id "scope";
+       time_created = Prop.computed __type __id "time_created";
+       time_modified = Prop.computed __type __id "time_modified";
+       type_ = Prop.computed __type __id "type";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights_analytics_item
+        (azurerm_application_insights_analytics_item ?function_alias
+           ?id ?timeouts ~application_insights_id ~content ~name
+           ~scope ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?function_alias ?id ?timeouts
+    ~application_insights_id ~content ~name ~scope ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?function_alias ?id ?timeouts ~application_insights_id
+      ~content ~name ~scope ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

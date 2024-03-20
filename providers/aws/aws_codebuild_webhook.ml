@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filter_group__filter = {
   exclude_matched_pattern : bool prop option; [@option]
@@ -47,29 +45,36 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?branch_filter ?build_type ?id ~project_name
-    ~filter_group __resource_id =
-  let __resource_type = "aws_codebuild_webhook" in
-  let __resource =
-    aws_codebuild_webhook ?branch_filter ?build_type ?id
-      ~project_name ~filter_group ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codebuild_webhook __resource);
-  let __resource_attributes =
+let make ?branch_filter ?build_type ?id ~project_name ~filter_group
+    __id =
+  let __type = "aws_codebuild_webhook" in
+  let __attrs =
     ({
-       branch_filter =
-         Prop.computed __resource_type __resource_id "branch_filter";
-       build_type =
-         Prop.computed __resource_type __resource_id "build_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       payload_url =
-         Prop.computed __resource_type __resource_id "payload_url";
-       project_name =
-         Prop.computed __resource_type __resource_id "project_name";
-       secret = Prop.computed __resource_type __resource_id "secret";
-       url = Prop.computed __resource_type __resource_id "url";
+       branch_filter = Prop.computed __type __id "branch_filter";
+       build_type = Prop.computed __type __id "build_type";
+       id = Prop.computed __type __id "id";
+       payload_url = Prop.computed __type __id "payload_url";
+       project_name = Prop.computed __type __id "project_name";
+       secret = Prop.computed __type __id "secret";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codebuild_webhook
+        (aws_codebuild_webhook ?branch_filter ?build_type ?id
+           ~project_name ~filter_group ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?branch_filter ?build_type ?id ~project_name
+    ~filter_group __id =
+  let (r : _ Tf_core.resource) =
+    make ?branch_filter ?build_type ?id ~project_name ~filter_group
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

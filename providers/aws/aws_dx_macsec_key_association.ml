@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dx_macsec_key_association = {
   cak : string prop option; [@option]  (** cak *)
@@ -28,28 +26,34 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?cak ?ckn ?id ?secret_arn ~connection_id
-    __resource_id =
-  let __resource_type = "aws_dx_macsec_key_association" in
-  let __resource =
-    aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
-      ~connection_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_macsec_key_association __resource);
-  let __resource_attributes =
+let make ?cak ?ckn ?id ?secret_arn ~connection_id __id =
+  let __type = "aws_dx_macsec_key_association" in
+  let __attrs =
     ({
-       cak = Prop.computed __resource_type __resource_id "cak";
-       ckn = Prop.computed __resource_type __resource_id "ckn";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       secret_arn =
-         Prop.computed __resource_type __resource_id "secret_arn";
-       start_on =
-         Prop.computed __resource_type __resource_id "start_on";
-       state = Prop.computed __resource_type __resource_id "state";
+       cak = Prop.computed __type __id "cak";
+       ckn = Prop.computed __type __id "ckn";
+       connection_id = Prop.computed __type __id "connection_id";
+       id = Prop.computed __type __id "id";
+       secret_arn = Prop.computed __type __id "secret_arn";
+       start_on = Prop.computed __type __id "start_on";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_macsec_key_association
+        (aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
+           ~connection_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cak ?ckn ?id ?secret_arn ~connection_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?cak ?ckn ?id ?secret_arn ~connection_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

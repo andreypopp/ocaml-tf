@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata__config__algorithm_config__brute_force_config = unit
 [@@deriving yojson_of]
@@ -180,51 +178,51 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?index_update_method ?labels
-    ?project ?region ?timeouts ~display_name ~metadata __resource_id
-    =
-  let __resource_type = "google_vertex_ai_index" in
-  let __resource =
-    google_vertex_ai_index ?description ?id ?index_update_method
-      ?labels ?project ?region ?timeouts ~display_name ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vertex_ai_index __resource);
-  let __resource_attributes =
+let make ?description ?id ?index_update_method ?labels ?project
+    ?region ?timeouts ~display_name ~metadata __id =
+  let __type = "google_vertex_ai_index" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       create_time = Prop.computed __type __id "create_time";
        deployed_indexes =
-         Prop.computed __resource_type __resource_id
-           "deployed_indexes";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "deployed_indexes";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       index_stats =
-         Prop.computed __resource_type __resource_id "index_stats";
+         Prop.computed __type __id "effective_labels";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       index_stats = Prop.computed __type __id "index_stats";
        index_update_method =
-         Prop.computed __resource_type __resource_id
-           "index_update_method";
-       labels = Prop.computed __resource_type __resource_id "labels";
+         Prop.computed __type __id "index_update_method";
+       labels = Prop.computed __type __id "labels";
        metadata_schema_uri =
-         Prop.computed __resource_type __resource_id
-           "metadata_schema_uri";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "metadata_schema_uri";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vertex_ai_index
+        (google_vertex_ai_index ?description ?id ?index_update_method
+           ?labels ?project ?region ?timeouts ~display_name ~metadata
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?index_update_method ?labels
+    ?project ?region ?timeouts ~display_name ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?index_update_method ?labels ?project
+      ?region ?timeouts ~display_name ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auth_config__additional_variable__encryption_key_value = {
   kms_key_name : string prop option; [@option]
@@ -826,74 +824,73 @@ type t = {
   update_time : string prop;
 }
 
+let make ?description ?eventing_enablement_type ?id ?labels ?project
+    ?service_account ?suspended ?timeouts ~connector_version
+    ~location ~name ~auth_config ~config_variable ~destination_config
+    ~eventing_config ~lock_config ~log_config ~node_config
+    ~ssl_config __id =
+  let __type = "google_integration_connectors_connection" in
+  let __attrs =
+    ({
+       connection_revision =
+         Prop.computed __type __id "connection_revision";
+       connector_version =
+         Prop.computed __type __id "connector_version";
+       connector_version_infra_config =
+         Prop.computed __type __id "connector_version_infra_config";
+       connector_version_launch_stage =
+         Prop.computed __type __id "connector_version_launch_stage";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       eventing_enablement_type =
+         Prop.computed __type __id "eventing_enablement_type";
+       eventing_runtime_data =
+         Prop.computed __type __id "eventing_runtime_data";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       service_account = Prop.computed __type __id "service_account";
+       service_directory =
+         Prop.computed __type __id "service_directory";
+       status = Prop.computed __type __id "status";
+       subscription_type =
+         Prop.computed __type __id "subscription_type";
+       suspended = Prop.computed __type __id "suspended";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_integration_connectors_connection
+        (google_integration_connectors_connection ?description
+           ?eventing_enablement_type ?id ?labels ?project
+           ?service_account ?suspended ?timeouts ~connector_version
+           ~location ~name ~auth_config ~config_variable
+           ~destination_config ~eventing_config ~lock_config
+           ~log_config ~node_config ~ssl_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?eventing_enablement_type ?id
     ?labels ?project ?service_account ?suspended ?timeouts
     ~connector_version ~location ~name ~auth_config ~config_variable
     ~destination_config ~eventing_config ~lock_config ~log_config
-    ~node_config ~ssl_config __resource_id =
-  let __resource_type = "google_integration_connectors_connection" in
-  let __resource =
-    google_integration_connectors_connection ?description
-      ?eventing_enablement_type ?id ?labels ?project ?service_account
-      ?suspended ?timeouts ~connector_version ~location ~name
-      ~auth_config ~config_variable ~destination_config
-      ~eventing_config ~lock_config ~log_config ~node_config
-      ~ssl_config ()
+    ~node_config ~ssl_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?eventing_enablement_type ?id ?labels ?project
+      ?service_account ?suspended ?timeouts ~connector_version
+      ~location ~name ~auth_config ~config_variable
+      ~destination_config ~eventing_config ~lock_config ~log_config
+      ~node_config ~ssl_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_integration_connectors_connection __resource);
-  let __resource_attributes =
-    ({
-       connection_revision =
-         Prop.computed __resource_type __resource_id
-           "connection_revision";
-       connector_version =
-         Prop.computed __resource_type __resource_id
-           "connector_version";
-       connector_version_infra_config =
-         Prop.computed __resource_type __resource_id
-           "connector_version_infra_config";
-       connector_version_launch_stage =
-         Prop.computed __resource_type __resource_id
-           "connector_version_launch_stage";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       eventing_enablement_type =
-         Prop.computed __resource_type __resource_id
-           "eventing_enablement_type";
-       eventing_runtime_data =
-         Prop.computed __resource_type __resource_id
-           "eventing_runtime_data";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       service_directory =
-         Prop.computed __resource_type __resource_id
-           "service_directory";
-       status = Prop.computed __resource_type __resource_id "status";
-       subscription_type =
-         Prop.computed __resource_type __resource_id
-           "subscription_type";
-       suspended =
-         Prop.computed __resource_type __resource_id "suspended";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type retention_policy = {
   days : float prop;  (** days *)
@@ -100,43 +98,52 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?id ?location ?tags ?version ?timeouts
-    ~enabled ~name ~network_security_group_id ~network_watcher_name
+let make ?id ?location ?tags ?version ?timeouts ~enabled ~name
+    ~network_security_group_id ~network_watcher_name
     ~resource_group_name ~storage_account_id ~retention_policy
-    ~traffic_analytics __resource_id =
-  let __resource_type = "azurerm_network_watcher_flow_log" in
-  let __resource =
-    azurerm_network_watcher_flow_log ?id ?location ?tags ?version
-      ?timeouts ~enabled ~name ~network_security_group_id
-      ~network_watcher_name ~resource_group_name ~storage_account_id
-      ~retention_policy ~traffic_analytics ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_watcher_flow_log __resource);
-  let __resource_attributes =
+    ~traffic_analytics __id =
+  let __type = "azurerm_network_watcher_flow_log" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        network_security_group_id =
-         Prop.computed __resource_type __resource_id
-           "network_security_group_id";
+         Prop.computed __type __id "network_security_group_id";
        network_watcher_name =
-         Prop.computed __resource_type __resource_id
-           "network_watcher_name";
+         Prop.computed __type __id "network_watcher_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "storage_account_id";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_watcher_flow_log
+        (azurerm_network_watcher_flow_log ?id ?location ?tags
+           ?version ?timeouts ~enabled ~name
+           ~network_security_group_id ~network_watcher_name
+           ~resource_group_name ~storage_account_id ~retention_policy
+           ~traffic_analytics ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?location ?tags ?version ?timeouts
+    ~enabled ~name ~network_security_group_id ~network_watcher_name
+    ~resource_group_name ~storage_account_id ~retention_policy
+    ~traffic_analytics __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?location ?tags ?version ?timeouts ~enabled ~name
+      ~network_security_group_id ~network_watcher_name
+      ~resource_group_name ~storage_account_id ~retention_policy
+      ~traffic_analytics __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

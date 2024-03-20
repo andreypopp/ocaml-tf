@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,11 @@ val register :
   encryption_entities:encryption_entities list ->
   string ->
   t
+
+val make :
+  ?comment:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  encryption_entities:encryption_entities list ->
+  string ->
+  t Tf_core.resource

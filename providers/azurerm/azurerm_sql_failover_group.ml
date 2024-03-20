@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type partner_servers = { id : string prop  (** id *) }
 [@@deriving yojson_of]
@@ -89,35 +87,46 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?databases ?id ?tags ?timeouts ~name
-    ~resource_group_name ~server_name ~partner_servers
+let make ?databases ?id ?tags ?timeouts ~name ~resource_group_name
+    ~server_name ~partner_servers
     ~read_write_endpoint_failover_policy
-    ~readonly_endpoint_failover_policy __resource_id =
-  let __resource_type = "azurerm_sql_failover_group" in
-  let __resource =
-    azurerm_sql_failover_group ?databases ?id ?tags ?timeouts ~name
-      ~resource_group_name ~server_name ~partner_servers
-      ~read_write_endpoint_failover_policy
-      ~readonly_endpoint_failover_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_failover_group __resource);
-  let __resource_attributes =
+    ~readonly_endpoint_failover_policy __id =
+  let __type = "azurerm_sql_failover_group" in
+  let __attrs =
     ({
-       databases =
-         Prop.computed __resource_type __resource_id "databases";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       databases = Prop.computed __type __id "databases";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       role = Prop.computed __resource_type __resource_id "role";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       role = Prop.computed __type __id "role";
+       server_name = Prop.computed __type __id "server_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_failover_group
+        (azurerm_sql_failover_group ?databases ?id ?tags ?timeouts
+           ~name ~resource_group_name ~server_name ~partner_servers
+           ~read_write_endpoint_failover_policy
+           ~readonly_endpoint_failover_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?databases ?id ?tags ?timeouts ~name
+    ~resource_group_name ~server_name ~partner_servers
+    ~read_write_endpoint_failover_policy
+    ~readonly_endpoint_failover_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?databases ?id ?tags ?timeouts ~name ~resource_group_name
+      ~server_name ~partner_servers
+      ~read_write_endpoint_failover_policy
+      ~readonly_endpoint_failover_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

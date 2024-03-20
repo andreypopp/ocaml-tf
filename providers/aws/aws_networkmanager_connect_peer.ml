@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bgp_options = {
   peer_asn : float prop option; [@option]  (** peer_asn *)
@@ -91,51 +89,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?core_network_address ?id ?inside_cidr_blocks
-    ?subnet_arn ?tags ?tags_all ?timeouts ~connect_attachment_id
-    ~peer_address ~bgp_options __resource_id =
-  let __resource_type = "aws_networkmanager_connect_peer" in
-  let __resource =
-    aws_networkmanager_connect_peer ?core_network_address ?id
-      ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
-      ~connect_attachment_id ~peer_address ~bgp_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_connect_peer __resource);
-  let __resource_attributes =
+let make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
+    ?tags ?tags_all ?timeouts ~connect_attachment_id ~peer_address
+    ~bgp_options __id =
+  let __type = "aws_networkmanager_connect_peer" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       configuration =
-         Prop.computed __resource_type __resource_id "configuration";
+       arn = Prop.computed __type __id "arn";
+       configuration = Prop.computed __type __id "configuration";
        connect_attachment_id =
-         Prop.computed __resource_type __resource_id
-           "connect_attachment_id";
-       connect_peer_id =
-         Prop.computed __resource_type __resource_id
-           "connect_peer_id";
+         Prop.computed __type __id "connect_attachment_id";
+       connect_peer_id = Prop.computed __type __id "connect_peer_id";
        core_network_address =
-         Prop.computed __resource_type __resource_id
-           "core_network_address";
-       core_network_id =
-         Prop.computed __resource_type __resource_id
-           "core_network_id";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       edge_location =
-         Prop.computed __resource_type __resource_id "edge_location";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "core_network_address";
+       core_network_id = Prop.computed __type __id "core_network_id";
+       created_at = Prop.computed __type __id "created_at";
+       edge_location = Prop.computed __type __id "edge_location";
+       id = Prop.computed __type __id "id";
        inside_cidr_blocks =
-         Prop.computed __resource_type __resource_id
-           "inside_cidr_blocks";
-       peer_address =
-         Prop.computed __resource_type __resource_id "peer_address";
-       state = Prop.computed __resource_type __resource_id "state";
-       subnet_arn =
-         Prop.computed __resource_type __resource_id "subnet_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "inside_cidr_blocks";
+       peer_address = Prop.computed __type __id "peer_address";
+       state = Prop.computed __type __id "state";
+       subnet_arn = Prop.computed __type __id "subnet_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_connect_peer
+        (aws_networkmanager_connect_peer ?core_network_address ?id
+           ?inside_cidr_blocks ?subnet_arn ?tags ?tags_all ?timeouts
+           ~connect_attachment_id ~peer_address ~bgp_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?core_network_address ?id ?inside_cidr_blocks
+    ?subnet_arn ?tags ?tags_all ?timeouts ~connect_attachment_id
+    ~peer_address ~bgp_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?core_network_address ?id ?inside_cidr_blocks ?subnet_arn
+      ?tags ?tags_all ?timeouts ~connect_attachment_id ~peer_address
+      ~bgp_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

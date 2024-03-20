@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   cognito_identity_providers:cognito_identity_providers list ->
   string ->
   t
+
+val make :
+  ?allow_classic_flow:bool prop ->
+  ?allow_unauthenticated_identities:bool prop ->
+  ?developer_provider_name:string prop ->
+  ?id:string prop ->
+  ?openid_connect_provider_arns:string prop list ->
+  ?saml_provider_arns:string prop list ->
+  ?supported_login_providers:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  identity_pool_name:string prop ->
+  cognito_identity_providers:cognito_identity_providers list ->
+  string ->
+  t Tf_core.resource

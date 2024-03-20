@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -41,27 +39,34 @@ type t = {
   region : string prop;
 }
 
-let register ?tf_module ?id ?project ?region ?timeouts ~disk ~name
-    __resource_id =
-  let __resource_type =
+let make ?id ?project ?region ?timeouts ~disk ~name __id =
+  let __type =
     "google_compute_region_disk_resource_policy_attachment"
   in
-  let __resource =
-    google_compute_region_disk_resource_policy_attachment ?id
-      ?project ?region ?timeouts ~disk ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_disk_resource_policy_attachment
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       disk = Prop.computed __resource_type __resource_id "disk";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+       disk = Prop.computed __type __id "disk";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_disk_resource_policy_attachment
+        (google_compute_region_disk_resource_policy_attachment ?id
+           ?project ?region ?timeouts ~disk ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?region ?timeouts ~disk ~name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?region ?timeouts ~disk ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

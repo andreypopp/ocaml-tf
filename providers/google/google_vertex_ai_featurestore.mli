@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,16 @@ val register :
   online_serving_config:online_serving_config list ->
   string ->
   t
+
+val make :
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  encryption_spec:encryption_spec list ->
+  online_serving_config:online_serving_config list ->
+  string ->
+  t Tf_core.resource

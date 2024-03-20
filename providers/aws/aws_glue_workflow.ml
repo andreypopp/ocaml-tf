@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_glue_workflow = {
   default_run_properties : (string * string prop) list option;
@@ -44,32 +42,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?default_run_properties ?description ?id
-    ?max_concurrent_runs ?name ?tags ?tags_all __resource_id =
-  let __resource_type = "aws_glue_workflow" in
-  let __resource =
-    aws_glue_workflow ?default_run_properties ?description ?id
-      ?max_concurrent_runs ?name ?tags ?tags_all ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_workflow __resource);
-  let __resource_attributes =
+let make ?default_run_properties ?description ?id
+    ?max_concurrent_runs ?name ?tags ?tags_all __id =
+  let __type = "aws_glue_workflow" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        default_run_properties =
-         Prop.computed __resource_type __resource_id
-           "default_run_properties";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "default_run_properties";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        max_concurrent_runs =
-         Prop.computed __resource_type __resource_id
-           "max_concurrent_runs";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "max_concurrent_runs";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_workflow
+        (aws_glue_workflow ?default_run_properties ?description ?id
+           ?max_concurrent_runs ?name ?tags ?tags_all ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_run_properties ?description ?id
+    ?max_concurrent_runs ?name ?tags ?tags_all __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_run_properties ?description ?id
+      ?max_concurrent_runs ?name ?tags ?tags_all __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

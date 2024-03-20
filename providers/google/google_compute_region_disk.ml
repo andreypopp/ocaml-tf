@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type async_primary_disk = {
   disk : string prop;
@@ -198,71 +196,72 @@ type t = {
   users : string list prop;
 }
 
+let make ?description ?id ?labels ?licenses
+    ?physical_block_size_bytes ?project ?region ?size ?snapshot
+    ?source_disk ?type_ ?timeouts ~name ~replica_zones
+    ~async_primary_disk ~disk_encryption_key ~guest_os_features
+    ~source_snapshot_encryption_key __id =
+  let __type = "google_compute_region_disk" in
+  let __attrs =
+    ({
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       last_attach_timestamp =
+         Prop.computed __type __id "last_attach_timestamp";
+       last_detach_timestamp =
+         Prop.computed __type __id "last_detach_timestamp";
+       licenses = Prop.computed __type __id "licenses";
+       name = Prop.computed __type __id "name";
+       physical_block_size_bytes =
+         Prop.computed __type __id "physical_block_size_bytes";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       replica_zones = Prop.computed __type __id "replica_zones";
+       self_link = Prop.computed __type __id "self_link";
+       size = Prop.computed __type __id "size";
+       snapshot = Prop.computed __type __id "snapshot";
+       source_disk = Prop.computed __type __id "source_disk";
+       source_disk_id = Prop.computed __type __id "source_disk_id";
+       source_snapshot_id =
+         Prop.computed __type __id "source_snapshot_id";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       users = Prop.computed __type __id "users";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_disk
+        (google_compute_region_disk ?description ?id ?labels
+           ?licenses ?physical_block_size_bytes ?project ?region
+           ?size ?snapshot ?source_disk ?type_ ?timeouts ~name
+           ~replica_zones ~async_primary_disk ~disk_encryption_key
+           ~guest_os_features ~source_snapshot_encryption_key ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?labels ?licenses
     ?physical_block_size_bytes ?project ?region ?size ?snapshot
     ?source_disk ?type_ ?timeouts ~name ~replica_zones
     ~async_primary_disk ~disk_encryption_key ~guest_os_features
-    ~source_snapshot_encryption_key __resource_id =
-  let __resource_type = "google_compute_region_disk" in
-  let __resource =
-    google_compute_region_disk ?description ?id ?labels ?licenses
+    ~source_snapshot_encryption_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?licenses
       ?physical_block_size_bytes ?project ?region ?size ?snapshot
       ?source_disk ?type_ ?timeouts ~name ~replica_zones
       ~async_primary_disk ~disk_encryption_key ~guest_os_features
-      ~source_snapshot_encryption_key ()
+      ~source_snapshot_encryption_key __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_disk __resource);
-  let __resource_attributes =
-    ({
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       last_attach_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_attach_timestamp";
-       last_detach_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_detach_timestamp";
-       licenses =
-         Prop.computed __resource_type __resource_id "licenses";
-       name = Prop.computed __resource_type __resource_id "name";
-       physical_block_size_bytes =
-         Prop.computed __resource_type __resource_id
-           "physical_block_size_bytes";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       replica_zones =
-         Prop.computed __resource_type __resource_id "replica_zones";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       size = Prop.computed __resource_type __resource_id "size";
-       snapshot =
-         Prop.computed __resource_type __resource_id "snapshot";
-       source_disk =
-         Prop.computed __resource_type __resource_id "source_disk";
-       source_disk_id =
-         Prop.computed __resource_type __resource_id "source_disk_id";
-       source_snapshot_id =
-         Prop.computed __resource_type __resource_id
-           "source_snapshot_id";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       users = Prop.computed __resource_type __resource_id "users";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

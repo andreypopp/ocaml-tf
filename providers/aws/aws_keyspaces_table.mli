@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -136,3 +136,21 @@ val register :
   ttl:ttl list ->
   string ->
   t
+
+val make :
+  ?default_time_to_live:float prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  keyspace_name:string prop ->
+  table_name:string prop ->
+  capacity_specification:capacity_specification list ->
+  client_side_timestamps:client_side_timestamps list ->
+  comment:comment list ->
+  encryption_specification:encryption_specification list ->
+  point_in_time_recovery:point_in_time_recovery list ->
+  schema_definition:schema_definition list ->
+  ttl:ttl list ->
+  string ->
+  t Tf_core.resource

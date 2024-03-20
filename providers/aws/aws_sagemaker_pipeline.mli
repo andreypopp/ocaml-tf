@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,18 @@ val register :
     pipeline_definition_s3_location list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?pipeline_definition:string prop ->
+  ?pipeline_description:string prop ->
+  ?role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  pipeline_display_name:string prop ->
+  pipeline_name:string prop ->
+  parallelism_configuration:parallelism_configuration list ->
+  pipeline_definition_s3_location:
+    pipeline_definition_s3_location list ->
+  string ->
+  t Tf_core.resource

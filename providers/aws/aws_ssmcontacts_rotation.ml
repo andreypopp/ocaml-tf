@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type recurrence__daily_settings = {
   hour_of_day : float prop;  (** hour_of_day *)
@@ -155,30 +153,37 @@ type t = {
   time_zone_id : string prop;
 }
 
-let register ?tf_module ?start_time ?tags ~contact_ids ~name
-    ~time_zone_id ~recurrence __resource_id =
-  let __resource_type = "aws_ssmcontacts_rotation" in
-  let __resource =
-    aws_ssmcontacts_rotation ?start_time ?tags ~contact_ids ~name
-      ~time_zone_id ~recurrence ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssmcontacts_rotation __resource);
-  let __resource_attributes =
+let make ?start_time ?tags ~contact_ids ~name ~time_zone_id
+    ~recurrence __id =
+  let __type = "aws_ssmcontacts_rotation" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       contact_ids =
-         Prop.computed __resource_type __resource_id "contact_ids";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       time_zone_id =
-         Prop.computed __resource_type __resource_id "time_zone_id";
+       arn = Prop.computed __type __id "arn";
+       contact_ids = Prop.computed __type __id "contact_ids";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       start_time = Prop.computed __type __id "start_time";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       time_zone_id = Prop.computed __type __id "time_zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssmcontacts_rotation
+        (aws_ssmcontacts_rotation ?start_time ?tags ~contact_ids
+           ~name ~time_zone_id ~recurrence ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?start_time ?tags ~contact_ids ~name
+    ~time_zone_id ~recurrence __id =
+  let (r : _ Tf_core.resource) =
+    make ?start_time ?tags ~contact_ids ~name ~time_zone_id
+      ~recurrence __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

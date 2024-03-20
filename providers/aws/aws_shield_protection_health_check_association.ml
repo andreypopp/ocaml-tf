@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_shield_protection_health_check_association = {
   health_check_arn : string prop;  (** health_check_arn *)
@@ -23,28 +21,32 @@ type t = {
   shield_protection_id : string prop;
 }
 
-let register ?tf_module ?id ~health_check_arn ~shield_protection_id
-    __resource_id =
-  let __resource_type =
-    "aws_shield_protection_health_check_association"
-  in
-  let __resource =
-    aws_shield_protection_health_check_association ?id
-      ~health_check_arn ~shield_protection_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_shield_protection_health_check_association
-       __resource);
-  let __resource_attributes =
+let make ?id ~health_check_arn ~shield_protection_id __id =
+  let __type = "aws_shield_protection_health_check_association" in
+  let __attrs =
     ({
        health_check_arn =
-         Prop.computed __resource_type __resource_id
-           "health_check_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "health_check_arn";
+       id = Prop.computed __type __id "id";
        shield_protection_id =
-         Prop.computed __resource_type __resource_id
-           "shield_protection_id";
+         Prop.computed __type __id "shield_protection_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_shield_protection_health_check_association
+        (aws_shield_protection_health_check_association ?id
+           ~health_check_arn ~shield_protection_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~health_check_arn ~shield_protection_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~health_check_arn ~shield_protection_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

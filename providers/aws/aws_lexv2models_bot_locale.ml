@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -66,32 +64,39 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?name ?timeouts ~bot_id
-    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
-    ~voice_settings __resource_id =
-  let __resource_type = "aws_lexv2models_bot_locale" in
-  let __resource =
-    aws_lexv2models_bot_locale ?description ?name ?timeouts ~bot_id
-      ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
-      ~voice_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lexv2models_bot_locale __resource);
-  let __resource_attributes =
+let make ?description ?name ?timeouts ~bot_id ~bot_version ~locale_id
+    ~n_lu_intent_confidence_threshold ~voice_settings __id =
+  let __type = "aws_lexv2models_bot_locale" in
+  let __attrs =
     ({
-       bot_id = Prop.computed __resource_type __resource_id "bot_id";
-       bot_version =
-         Prop.computed __resource_type __resource_id "bot_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       locale_id =
-         Prop.computed __resource_type __resource_id "locale_id";
+       bot_id = Prop.computed __type __id "bot_id";
+       bot_version = Prop.computed __type __id "bot_version";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       locale_id = Prop.computed __type __id "locale_id";
        n_lu_intent_confidence_threshold =
-         Prop.computed __resource_type __resource_id
-           "n_lu_intent_confidence_threshold";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "n_lu_intent_confidence_threshold";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lexv2models_bot_locale
+        (aws_lexv2models_bot_locale ?description ?name ?timeouts
+           ~bot_id ~bot_version ~locale_id
+           ~n_lu_intent_confidence_threshold ~voice_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?name ?timeouts ~bot_id
+    ~bot_version ~locale_id ~n_lu_intent_confidence_threshold
+    ~voice_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?name ?timeouts ~bot_id ~bot_version ~locale_id
+      ~n_lu_intent_confidence_threshold ~voice_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

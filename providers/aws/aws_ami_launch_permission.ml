@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ami_launch_permission = {
   account_id : string prop option; [@option]  (** account_id *)
@@ -38,30 +36,37 @@ type t = {
   organizational_unit_arn : string prop;
 }
 
-let register ?tf_module ?account_id ?group ?id ?organization_arn
-    ?organizational_unit_arn ~image_id __resource_id =
-  let __resource_type = "aws_ami_launch_permission" in
-  let __resource =
-    aws_ami_launch_permission ?account_id ?group ?id
-      ?organization_arn ?organizational_unit_arn ~image_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ami_launch_permission __resource);
-  let __resource_attributes =
+let make ?account_id ?group ?id ?organization_arn
+    ?organizational_unit_arn ~image_id __id =
+  let __type = "aws_ami_launch_permission" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       group = Prop.computed __resource_type __resource_id "group";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_id =
-         Prop.computed __resource_type __resource_id "image_id";
+       account_id = Prop.computed __type __id "account_id";
+       group = Prop.computed __type __id "group";
+       id = Prop.computed __type __id "id";
+       image_id = Prop.computed __type __id "image_id";
        organization_arn =
-         Prop.computed __resource_type __resource_id
-           "organization_arn";
+         Prop.computed __type __id "organization_arn";
        organizational_unit_arn =
-         Prop.computed __resource_type __resource_id
-           "organizational_unit_arn";
+         Prop.computed __type __id "organizational_unit_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ami_launch_permission
+        (aws_ami_launch_permission ?account_id ?group ?id
+           ?organization_arn ?organizational_unit_arn ~image_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?group ?id ?organization_arn
+    ?organizational_unit_arn ~image_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?group ?id ?organization_arn
+      ?organizational_unit_arn ~image_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

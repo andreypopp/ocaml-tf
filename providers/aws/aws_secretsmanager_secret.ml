@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type replica = {
   kms_key_id : string prop option; [@option]  (** kms_key_id *)
@@ -64,40 +62,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?force_overwrite_replica_secret
-    ?id ?kms_key_id ?name ?name_prefix ?policy
-    ?recovery_window_in_days ?tags ?tags_all ~replica __resource_id =
-  let __resource_type = "aws_secretsmanager_secret" in
-  let __resource =
-    aws_secretsmanager_secret ?description
-      ?force_overwrite_replica_secret ?id ?kms_key_id ?name
-      ?name_prefix ?policy ?recovery_window_in_days ?tags ?tags_all
-      ~replica ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_secretsmanager_secret __resource);
-  let __resource_attributes =
+let make ?description ?force_overwrite_replica_secret ?id ?kms_key_id
+    ?name ?name_prefix ?policy ?recovery_window_in_days ?tags
+    ?tags_all ~replica __id =
+  let __type = "aws_secretsmanager_secret" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        force_overwrite_replica_secret =
-         Prop.computed __resource_type __resource_id
-           "force_overwrite_replica_secret";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       policy = Prop.computed __resource_type __resource_id "policy";
+         Prop.computed __type __id "force_overwrite_replica_secret";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       policy = Prop.computed __type __id "policy";
        recovery_window_in_days =
-         Prop.computed __resource_type __resource_id
-           "recovery_window_in_days";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "recovery_window_in_days";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_secretsmanager_secret
+        (aws_secretsmanager_secret ?description
+           ?force_overwrite_replica_secret ?id ?kms_key_id ?name
+           ?name_prefix ?policy ?recovery_window_in_days ?tags
+           ?tags_all ~replica ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_overwrite_replica_secret
+    ?id ?kms_key_id ?name ?name_prefix ?policy
+    ?recovery_window_in_days ?tags ?tags_all ~replica __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_overwrite_replica_secret ?id ?kms_key_id
+      ?name ?name_prefix ?policy ?recovery_window_in_days ?tags
+      ?tags_all ~replica __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

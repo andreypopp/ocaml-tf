@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type home_directory_mappings = {
   entry : string prop;  (** entry *)
@@ -86,36 +84,44 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?home_directory ?home_directory_type ?id
-    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
-    ~home_directory_mappings ~posix_profile __resource_id =
-  let __resource_type = "aws_transfer_user" in
-  let __resource =
-    aws_transfer_user ?home_directory ?home_directory_type ?id
-      ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
-      ~home_directory_mappings ~posix_profile ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_user __resource);
-  let __resource_attributes =
+let make ?home_directory ?home_directory_type ?id ?policy ?tags
+    ?tags_all ?timeouts ~role ~server_id ~user_name
+    ~home_directory_mappings ~posix_profile __id =
+  let __type = "aws_transfer_user" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       home_directory =
-         Prop.computed __resource_type __resource_id "home_directory";
+       arn = Prop.computed __type __id "arn";
+       home_directory = Prop.computed __type __id "home_directory";
        home_directory_type =
-         Prop.computed __resource_type __resource_id
-           "home_directory_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       role = Prop.computed __resource_type __resource_id "role";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "home_directory_type";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       role = Prop.computed __type __id "role";
+       server_id = Prop.computed __type __id "server_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_user
+        (aws_transfer_user ?home_directory ?home_directory_type ?id
+           ?policy ?tags ?tags_all ?timeouts ~role ~server_id
+           ~user_name ~home_directory_mappings ~posix_profile ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?home_directory ?home_directory_type ?id
+    ?policy ?tags ?tags_all ?timeouts ~role ~server_id ~user_name
+    ~home_directory_mappings ~posix_profile __id =
+  let (r : _ Tf_core.resource) =
+    make ?home_directory ?home_directory_type ?id ?policy ?tags
+      ?tags_all ?timeouts ~role ~server_id ~user_name
+      ~home_directory_mappings ~posix_profile __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

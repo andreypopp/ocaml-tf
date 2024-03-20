@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,35 +51,40 @@ type t = {
   tenant_id : string prop;
 }
 
-let register ?tf_module ?alerts_enabled ?discovery_logs_enabled ?id
-    ?tenant_id ?timeouts ~log_analytics_workspace_id ~name
-    __resource_id =
-  let __resource_type =
+let make ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
+    ?timeouts ~log_analytics_workspace_id ~name __id =
+  let __type =
     "azurerm_sentinel_data_connector_microsoft_cloud_app_security"
   in
-  let __resource =
-    azurerm_sentinel_data_connector_microsoft_cloud_app_security
-      ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
-      ?timeouts ~log_analytics_workspace_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_data_connector_microsoft_cloud_app_security
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       alerts_enabled =
-         Prop.computed __resource_type __resource_id "alerts_enabled";
+       alerts_enabled = Prop.computed __type __id "alerts_enabled";
        discovery_logs_enabled =
-         Prop.computed __resource_type __resource_id
-           "discovery_logs_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "discovery_logs_enabled";
+       id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
+       tenant_id = Prop.computed __type __id "tenant_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_data_connector_microsoft_cloud_app_security
+        (azurerm_sentinel_data_connector_microsoft_cloud_app_security
+           ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
+           ?timeouts ~log_analytics_workspace_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alerts_enabled ?discovery_logs_enabled ?id
+    ?tenant_id ?timeouts ~log_analytics_workspace_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?alerts_enabled ?discovery_logs_enabled ?id ?tenant_id
+      ?timeouts ~log_analytics_workspace_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

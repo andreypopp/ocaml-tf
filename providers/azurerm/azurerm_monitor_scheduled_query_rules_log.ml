@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type criteria__dimension = {
   name : string prop;  (** name *)
@@ -85,40 +83,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?authorized_resource_ids ?description
-    ?enabled ?id ?tags ?timeouts ~data_source_id ~location ~name
-    ~resource_group_name ~criteria __resource_id =
-  let __resource_type =
-    "azurerm_monitor_scheduled_query_rules_log"
-  in
-  let __resource =
-    azurerm_monitor_scheduled_query_rules_log
-      ?authorized_resource_ids ?description ?enabled ?id ?tags
-      ?timeouts ~data_source_id ~location ~name ~resource_group_name
-      ~criteria ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_scheduled_query_rules_log __resource);
-  let __resource_attributes =
+let make ?authorized_resource_ids ?description ?enabled ?id ?tags
+    ?timeouts ~data_source_id ~location ~name ~resource_group_name
+    ~criteria __id =
+  let __type = "azurerm_monitor_scheduled_query_rules_log" in
+  let __attrs =
     ({
        authorized_resource_ids =
-         Prop.computed __resource_type __resource_id
-           "authorized_resource_ids";
-       data_source_id =
-         Prop.computed __resource_type __resource_id "data_source_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "authorized_resource_ids";
+       data_source_id = Prop.computed __type __id "data_source_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_scheduled_query_rules_log
+        (azurerm_monitor_scheduled_query_rules_log
+           ?authorized_resource_ids ?description ?enabled ?id ?tags
+           ?timeouts ~data_source_id ~location ~name
+           ~resource_group_name ~criteria ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorized_resource_ids ?description
+    ?enabled ?id ?tags ?timeouts ~data_source_id ~location ~name
+    ~resource_group_name ~criteria __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorized_resource_ids ?description ?enabled ?id ?tags
+      ?timeouts ~data_source_id ~location ~name ~resource_group_name
+      ~criteria __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

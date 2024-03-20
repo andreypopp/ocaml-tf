@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -212,3 +212,23 @@ val register :
   worker_configuration:worker_configuration list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  connector_configuration:(string * string prop) list ->
+  kafkaconnect_version:string prop ->
+  name:string prop ->
+  service_execution_role_arn:string prop ->
+  capacity:capacity list ->
+  kafka_cluster:kafka_cluster list ->
+  kafka_cluster_client_authentication:
+    kafka_cluster_client_authentication list ->
+  kafka_cluster_encryption_in_transit:
+    kafka_cluster_encryption_in_transit list ->
+  log_delivery:log_delivery list ->
+  plugin:plugin list ->
+  worker_configuration:worker_configuration list ->
+  string ->
+  t Tf_core.resource

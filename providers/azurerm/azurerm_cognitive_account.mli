@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -146,3 +146,32 @@ val register :
   storage:storage list ->
   string ->
   t
+
+val make :
+  ?custom_question_answering_search_service_id:string prop ->
+  ?custom_question_answering_search_service_key:string prop ->
+  ?custom_subdomain_name:string prop ->
+  ?dynamic_throttling_enabled:bool prop ->
+  ?fqdns:string prop list ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?metrics_advisor_aad_client_id:string prop ->
+  ?metrics_advisor_aad_tenant_id:string prop ->
+  ?metrics_advisor_super_user_name:string prop ->
+  ?metrics_advisor_website_name:string prop ->
+  ?outbound_network_access_restricted:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?qna_runtime_endpoint:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  kind:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  customer_managed_key:customer_managed_key list ->
+  identity:identity list ->
+  network_acls:network_acls list ->
+  storage:storage list ->
+  string ->
+  t Tf_core.resource

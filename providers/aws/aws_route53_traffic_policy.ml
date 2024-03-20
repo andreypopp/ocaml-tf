@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_traffic_policy = {
   comment : string prop option; [@option]  (** comment *)
@@ -26,25 +24,31 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?comment ?id ~document ~name __resource_id =
-  let __resource_type = "aws_route53_traffic_policy" in
-  let __resource =
-    aws_route53_traffic_policy ?comment ?id ~document ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_traffic_policy __resource);
-  let __resource_attributes =
+let make ?comment ?id ~document ~name __id =
+  let __type = "aws_route53_traffic_policy" in
+  let __attrs =
     ({
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       document =
-         Prop.computed __resource_type __resource_id "document";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       comment = Prop.computed __type __id "comment";
+       document = Prop.computed __type __id "document";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_traffic_policy
+        (aws_route53_traffic_policy ?comment ?id ~document ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?id ~document ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?id ~document ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

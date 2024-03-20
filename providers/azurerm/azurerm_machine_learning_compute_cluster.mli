@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -101,3 +101,23 @@ val register :
   ssh:ssh list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?node_public_ip_enabled:bool prop ->
+  ?ssh_public_access_enabled:bool prop ->
+  ?subnet_resource_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  machine_learning_workspace_id:string prop ->
+  name:string prop ->
+  vm_priority:string prop ->
+  vm_size:string prop ->
+  identity:identity list ->
+  scale_settings:scale_settings list ->
+  ssh:ssh list ->
+  string ->
+  t Tf_core.resource

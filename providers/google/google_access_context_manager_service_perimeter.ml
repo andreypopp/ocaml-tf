@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type spec__egress_policies__egress_from__sources = {
   access_level : string prop option; [@option]
@@ -656,38 +654,41 @@ type t = {
   use_explicit_dry_run_spec : bool prop;
 }
 
-let register ?tf_module ?description ?id ?perimeter_type
-    ?use_explicit_dry_run_spec ?timeouts ~name ~parent ~title ~spec
-    ~status __resource_id =
-  let __resource_type =
-    "google_access_context_manager_service_perimeter"
-  in
-  let __resource =
-    google_access_context_manager_service_perimeter ?description ?id
-      ?perimeter_type ?use_explicit_dry_run_spec ?timeouts ~name
-      ~parent ~title ~spec ~status ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_service_perimeter
-       __resource);
-  let __resource_attributes =
+let make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
+    ?timeouts ~name ~parent ~title ~spec ~status __id =
+  let __type = "google_access_context_manager_service_perimeter" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       perimeter_type =
-         Prop.computed __resource_type __resource_id "perimeter_type";
-       title = Prop.computed __resource_type __resource_id "title";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       perimeter_type = Prop.computed __type __id "perimeter_type";
+       title = Prop.computed __type __id "title";
+       update_time = Prop.computed __type __id "update_time";
        use_explicit_dry_run_spec =
-         Prop.computed __resource_type __resource_id
-           "use_explicit_dry_run_spec";
+         Prop.computed __type __id "use_explicit_dry_run_spec";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_service_perimeter
+        (google_access_context_manager_service_perimeter ?description
+           ?id ?perimeter_type ?use_explicit_dry_run_spec ?timeouts
+           ~name ~parent ~title ~spec ~status ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?perimeter_type
+    ?use_explicit_dry_run_spec ?timeouts ~name ~parent ~title ~spec
+    ~status __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?perimeter_type ?use_explicit_dry_run_spec
+      ?timeouts ~name ~parent ~title ~spec ~status __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

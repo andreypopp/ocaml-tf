@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type diagnostic_storage_account = {
   connection_string : string prop;  (** connection_string *)
@@ -66,31 +64,41 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?diagnostic_enabled ?id ?tags ?timeouts
+let make ?diagnostic_enabled ?id ?tags ?timeouts
     ~device_update_account_id ~iothub_id ~name
-    ~diagnostic_storage_account __resource_id =
-  let __resource_type = "azurerm_iothub_device_update_instance" in
-  let __resource =
-    azurerm_iothub_device_update_instance ?diagnostic_enabled ?id
-      ?tags ?timeouts ~device_update_account_id ~iothub_id ~name
-      ~diagnostic_storage_account ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_device_update_instance __resource);
-  let __resource_attributes =
+    ~diagnostic_storage_account __id =
+  let __type = "azurerm_iothub_device_update_instance" in
+  let __attrs =
     ({
        device_update_account_id =
-         Prop.computed __resource_type __resource_id
-           "device_update_account_id";
+         Prop.computed __type __id "device_update_account_id";
        diagnostic_enabled =
-         Prop.computed __resource_type __resource_id
-           "diagnostic_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       iothub_id =
-         Prop.computed __resource_type __resource_id "iothub_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "diagnostic_enabled";
+       id = Prop.computed __type __id "id";
+       iothub_id = Prop.computed __type __id "iothub_id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_device_update_instance
+        (azurerm_iothub_device_update_instance ?diagnostic_enabled
+           ?id ?tags ?timeouts ~device_update_account_id ~iothub_id
+           ~name ~diagnostic_storage_account ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?diagnostic_enabled ?id ?tags ?timeouts
+    ~device_update_account_id ~iothub_id ~name
+    ~diagnostic_storage_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?diagnostic_enabled ?id ?tags ?timeouts
+      ~device_update_account_id ~iothub_id ~name
+      ~diagnostic_storage_account __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -140,3 +140,19 @@ val register :
   rule_settings:rule_settings list ->
   string ->
   t
+
+val make :
+  ?device_posture:string prop ->
+  ?enabled:bool prop ->
+  ?filters:string prop list ->
+  ?id:string prop ->
+  ?identity:string prop ->
+  ?traffic:string prop ->
+  account_id:string prop ->
+  action:string prop ->
+  description:string prop ->
+  name:string prop ->
+  precedence:float prop ->
+  rule_settings:rule_settings list ->
+  string ->
+  t Tf_core.resource

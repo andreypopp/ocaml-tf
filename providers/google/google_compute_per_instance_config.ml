@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type preserved_state__disk = {
   delete_rule : string prop option; [@option]
@@ -166,43 +164,52 @@ type t = {
   zone : string prop;
 }
 
+let make ?id ?minimal_action ?most_disruptive_allowed_action ?project
+    ?remove_instance_on_destroy ?remove_instance_state_on_destroy
+    ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
+    __id =
+  let __type = "google_compute_per_instance_config" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       instance_group_manager =
+         Prop.computed __type __id "instance_group_manager";
+       minimal_action = Prop.computed __type __id "minimal_action";
+       most_disruptive_allowed_action =
+         Prop.computed __type __id "most_disruptive_allowed_action";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       remove_instance_on_destroy =
+         Prop.computed __type __id "remove_instance_on_destroy";
+       remove_instance_state_on_destroy =
+         Prop.computed __type __id "remove_instance_state_on_destroy";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_per_instance_config
+        (google_compute_per_instance_config ?id ?minimal_action
+           ?most_disruptive_allowed_action ?project
+           ?remove_instance_on_destroy
+           ?remove_instance_state_on_destroy ?zone ?timeouts
+           ~instance_group_manager ~name ~preserved_state ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?minimal_action
     ?most_disruptive_allowed_action ?project
     ?remove_instance_on_destroy ?remove_instance_state_on_destroy
     ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
-    __resource_id =
-  let __resource_type = "google_compute_per_instance_config" in
-  let __resource =
-    google_compute_per_instance_config ?id ?minimal_action
-      ?most_disruptive_allowed_action ?project
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?minimal_action ?most_disruptive_allowed_action ?project
       ?remove_instance_on_destroy ?remove_instance_state_on_destroy
       ?zone ?timeouts ~instance_group_manager ~name ~preserved_state
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_per_instance_config __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_group_manager =
-         Prop.computed __resource_type __resource_id
-           "instance_group_manager";
-       minimal_action =
-         Prop.computed __resource_type __resource_id "minimal_action";
-       most_disruptive_allowed_action =
-         Prop.computed __resource_type __resource_id
-           "most_disruptive_allowed_action";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       remove_instance_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "remove_instance_on_destroy";
-       remove_instance_state_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "remove_instance_state_on_destroy";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

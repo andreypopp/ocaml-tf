@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_apigatewayv2_integration_response = {
   api_id : string prop;  (** api_id *)
@@ -44,36 +42,45 @@ type t = {
   template_selection_expression : string prop;
 }
 
-let register ?tf_module ?content_handling_strategy ?id
-    ?response_templates ?template_selection_expression ~api_id
-    ~integration_id ~integration_response_key __resource_id =
-  let __resource_type = "aws_apigatewayv2_integration_response" in
-  let __resource =
-    aws_apigatewayv2_integration_response ?content_handling_strategy
-      ?id ?response_templates ?template_selection_expression ~api_id
-      ~integration_id ~integration_response_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_integration_response __resource);
-  let __resource_attributes =
+let make ?content_handling_strategy ?id ?response_templates
+    ?template_selection_expression ~api_id ~integration_id
+    ~integration_response_key __id =
+  let __type = "aws_apigatewayv2_integration_response" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
+       api_id = Prop.computed __type __id "api_id";
        content_handling_strategy =
-         Prop.computed __resource_type __resource_id
-           "content_handling_strategy";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_id =
-         Prop.computed __resource_type __resource_id "integration_id";
+         Prop.computed __type __id "content_handling_strategy";
+       id = Prop.computed __type __id "id";
+       integration_id = Prop.computed __type __id "integration_id";
        integration_response_key =
-         Prop.computed __resource_type __resource_id
-           "integration_response_key";
+         Prop.computed __type __id "integration_response_key";
        response_templates =
-         Prop.computed __resource_type __resource_id
-           "response_templates";
+         Prop.computed __type __id "response_templates";
        template_selection_expression =
-         Prop.computed __resource_type __resource_id
-           "template_selection_expression";
+         Prop.computed __type __id "template_selection_expression";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_integration_response
+        (aws_apigatewayv2_integration_response
+           ?content_handling_strategy ?id ?response_templates
+           ?template_selection_expression ~api_id ~integration_id
+           ~integration_response_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?content_handling_strategy ?id
+    ?response_templates ?template_selection_expression ~api_id
+    ~integration_id ~integration_response_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_handling_strategy ?id ?response_templates
+      ?template_selection_expression ~api_id ~integration_id
+      ~integration_response_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint__condition = {
   ready : bool prop option; [@option]
@@ -108,21 +106,29 @@ let kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
 
 type t = { address_type : string prop; id : string prop }
 
-let register ?tf_module ?id ~address_type ~endpoint ~metadata ~port
-    __resource_id =
-  let __resource_type = "kubernetes_endpoint_slice_v1" in
-  let __resource =
-    kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
-      ~metadata ~port ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_endpoint_slice_v1 __resource);
-  let __resource_attributes =
+let make ?id ~address_type ~endpoint ~metadata ~port __id =
+  let __type = "kubernetes_endpoint_slice_v1" in
+  let __attrs =
     ({
-       address_type =
-         Prop.computed __resource_type __resource_id "address_type";
-       id = Prop.computed __resource_type __resource_id "id";
+       address_type = Prop.computed __type __id "address_type";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_endpoint_slice_v1
+        (kubernetes_endpoint_slice_v1 ?id ~address_type ~endpoint
+           ~metadata ~port ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~address_type ~endpoint ~metadata ~port
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~address_type ~endpoint ~metadata ~port __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

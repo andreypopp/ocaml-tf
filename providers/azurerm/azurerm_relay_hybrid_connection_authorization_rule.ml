@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,46 +60,49 @@ type t = {
   send : bool prop;
 }
 
-let register ?tf_module ?id ?listen ?manage ?send ?timeouts
-    ~hybrid_connection_name ~name ~namespace_name
-    ~resource_group_name __resource_id =
-  let __resource_type =
+let make ?id ?listen ?manage ?send ?timeouts ~hybrid_connection_name
+    ~name ~namespace_name ~resource_group_name __id =
+  let __type =
     "azurerm_relay_hybrid_connection_authorization_rule"
   in
-  let __resource =
-    azurerm_relay_hybrid_connection_authorization_rule ?id ?listen
-      ?manage ?send ?timeouts ~hybrid_connection_name ~name
-      ~namespace_name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_relay_hybrid_connection_authorization_rule
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        hybrid_connection_name =
-         Prop.computed __resource_type __resource_id
-           "hybrid_connection_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       listen = Prop.computed __resource_type __resource_id "listen";
-       manage = Prop.computed __resource_type __resource_id "manage";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
+         Prop.computed __type __id "hybrid_connection_name";
+       id = Prop.computed __type __id "id";
+       listen = Prop.computed __type __id "listen";
+       manage = Prop.computed __type __id "manage";
+       name = Prop.computed __type __id "name";
+       namespace_name = Prop.computed __type __id "namespace_name";
        primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
+         Prop.computed __type __id "primary_connection_string";
+       primary_key = Prop.computed __type __id "primary_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_connection_string";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       send = Prop.computed __resource_type __resource_id "send";
+         Prop.computed __type __id "secondary_connection_string";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       send = Prop.computed __type __id "send";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_relay_hybrid_connection_authorization_rule
+        (azurerm_relay_hybrid_connection_authorization_rule ?id
+           ?listen ?manage ?send ?timeouts ~hybrid_connection_name
+           ~name ~namespace_name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?listen ?manage ?send ?timeouts
+    ~hybrid_connection_name ~name ~namespace_name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?listen ?manage ?send ?timeouts ~hybrid_connection_name
+      ~name ~namespace_name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

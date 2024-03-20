@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_storage_bucket_acl = {
   bucket : string prop;  (** The name of the bucket it applies to. *)
@@ -29,26 +27,32 @@ type t = {
   role_entity : string list prop;
 }
 
-let register ?tf_module ?default_acl ?id ?predefined_acl ?role_entity
-    ~bucket __resource_id =
-  let __resource_type = "google_storage_bucket_acl" in
-  let __resource =
-    google_storage_bucket_acl ?default_acl ?id ?predefined_acl
-      ?role_entity ~bucket ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_bucket_acl __resource);
-  let __resource_attributes =
+let make ?default_acl ?id ?predefined_acl ?role_entity ~bucket __id =
+  let __type = "google_storage_bucket_acl" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       default_acl =
-         Prop.computed __resource_type __resource_id "default_acl";
-       id = Prop.computed __resource_type __resource_id "id";
-       predefined_acl =
-         Prop.computed __resource_type __resource_id "predefined_acl";
-       role_entity =
-         Prop.computed __resource_type __resource_id "role_entity";
+       bucket = Prop.computed __type __id "bucket";
+       default_acl = Prop.computed __type __id "default_acl";
+       id = Prop.computed __type __id "id";
+       predefined_acl = Prop.computed __type __id "predefined_acl";
+       role_entity = Prop.computed __type __id "role_entity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_bucket_acl
+        (google_storage_bucket_acl ?default_acl ?id ?predefined_acl
+           ?role_entity ~bucket ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_acl ?id ?predefined_acl ?role_entity
+    ~bucket __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_acl ?id ?predefined_acl ?role_entity ~bucket __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

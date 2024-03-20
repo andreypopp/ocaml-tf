@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_pinpoint_apns_channel = {
   application_id : string prop;  (** application_id *)
@@ -50,40 +48,44 @@ type t = {
   token_key_id : string prop;
 }
 
-let register ?tf_module ?bundle_id ?certificate
-    ?default_authentication_method ?enabled ?id ?private_key ?team_id
-    ?token_key ?token_key_id ~application_id __resource_id =
-  let __resource_type = "aws_pinpoint_apns_channel" in
-  let __resource =
-    aws_pinpoint_apns_channel ?bundle_id ?certificate
-      ?default_authentication_method ?enabled ?id ?private_key
-      ?team_id ?token_key ?token_key_id ~application_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_pinpoint_apns_channel __resource);
-  let __resource_attributes =
+let make ?bundle_id ?certificate ?default_authentication_method
+    ?enabled ?id ?private_key ?team_id ?token_key ?token_key_id
+    ~application_id __id =
+  let __type = "aws_pinpoint_apns_channel" in
+  let __attrs =
     ({
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       bundle_id =
-         Prop.computed __resource_type __resource_id "bundle_id";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
+       application_id = Prop.computed __type __id "application_id";
+       bundle_id = Prop.computed __type __id "bundle_id";
+       certificate = Prop.computed __type __id "certificate";
        default_authentication_method =
-         Prop.computed __resource_type __resource_id
-           "default_authentication_method";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       team_id =
-         Prop.computed __resource_type __resource_id "team_id";
-       token_key =
-         Prop.computed __resource_type __resource_id "token_key";
-       token_key_id =
-         Prop.computed __resource_type __resource_id "token_key_id";
+         Prop.computed __type __id "default_authentication_method";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       private_key = Prop.computed __type __id "private_key";
+       team_id = Prop.computed __type __id "team_id";
+       token_key = Prop.computed __type __id "token_key";
+       token_key_id = Prop.computed __type __id "token_key_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_pinpoint_apns_channel
+        (aws_pinpoint_apns_channel ?bundle_id ?certificate
+           ?default_authentication_method ?enabled ?id ?private_key
+           ?team_id ?token_key ?token_key_id ~application_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bundle_id ?certificate
+    ?default_authentication_method ?enabled ?id ?private_key ?team_id
+    ?token_key ?token_key_id ~application_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?bundle_id ?certificate ?default_authentication_method
+      ?enabled ?id ?private_key ?team_id ?token_key ?token_key_id
+      ~application_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

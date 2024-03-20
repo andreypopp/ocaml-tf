@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -77,34 +75,40 @@ type t = {
   tenant : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?project ?timeouts ~client_id
-    ~client_secret ~idp_id ~tenant __resource_id =
-  let __resource_type =
+let make ?enabled ?id ?project ?timeouts ~client_id ~client_secret
+    ~idp_id ~tenant __id =
+  let __type =
     "google_identity_platform_tenant_default_supported_idp_config"
   in
-  let __resource =
-    google_identity_platform_tenant_default_supported_idp_config
-      ?enabled ?id ?project ?timeouts ~client_id ~client_secret
-      ~idp_id ~tenant ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_identity_platform_tenant_default_supported_idp_config
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       idp_id = Prop.computed __resource_type __resource_id "idp_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       tenant = Prop.computed __resource_type __resource_id "tenant";
+       client_id = Prop.computed __type __id "client_id";
+       client_secret = Prop.computed __type __id "client_secret";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       idp_id = Prop.computed __type __id "idp_id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       tenant = Prop.computed __type __id "tenant";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_identity_platform_tenant_default_supported_idp_config
+        (google_identity_platform_tenant_default_supported_idp_config
+           ?enabled ?id ?project ?timeouts ~client_id ~client_secret
+           ~idp_id ~tenant ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?project ?timeouts ~client_id
+    ~client_secret ~idp_id ~tenant __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?project ?timeouts ~client_id ~client_secret
+      ~idp_id ~tenant __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

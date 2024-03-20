@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type site = {
   endpoint_parameters_enabled : bool prop option; [@option]
@@ -70,28 +68,35 @@ type t = {
   site_names : string list prop;
 }
 
-let register ?tf_module ?id ?site_names ?timeouts ~bot_name ~location
-    ~resource_group_name ~site __resource_id =
-  let __resource_type = "azurerm_bot_channel_web_chat" in
-  let __resource =
-    azurerm_bot_channel_web_chat ?id ?site_names ?timeouts ~bot_name
-      ~location ~resource_group_name ~site ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channel_web_chat __resource);
-  let __resource_attributes =
+let make ?id ?site_names ?timeouts ~bot_name ~location
+    ~resource_group_name ~site __id =
+  let __type = "azurerm_bot_channel_web_chat" in
+  let __attrs =
     ({
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       bot_name = Prop.computed __type __id "bot_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       site_names =
-         Prop.computed __resource_type __resource_id "site_names";
+         Prop.computed __type __id "resource_group_name";
+       site_names = Prop.computed __type __id "site_names";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channel_web_chat
+        (azurerm_bot_channel_web_chat ?id ?site_names ?timeouts
+           ~bot_name ~location ~resource_group_name ~site ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?site_names ?timeouts ~bot_name ~location
+    ~resource_group_name ~site __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?site_names ?timeouts ~bot_name ~location
+      ~resource_group_name ~site __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

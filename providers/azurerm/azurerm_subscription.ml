@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,35 +57,40 @@ type t = {
   workload : string prop;
 }
 
-let register ?tf_module ?alias ?billing_scope_id ?id ?subscription_id
-    ?tags ?workload ?timeouts ~subscription_name __resource_id =
-  let __resource_type = "azurerm_subscription" in
-  let __resource =
-    azurerm_subscription ?alias ?billing_scope_id ?id
-      ?subscription_id ?tags ?workload ?timeouts ~subscription_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_subscription __resource);
-  let __resource_attributes =
+let make ?alias ?billing_scope_id ?id ?subscription_id ?tags
+    ?workload ?timeouts ~subscription_name __id =
+  let __type = "azurerm_subscription" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
+       alias = Prop.computed __type __id "alias";
        billing_scope_id =
-         Prop.computed __resource_type __resource_id
-           "billing_scope_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       subscription_id =
-         Prop.computed __resource_type __resource_id
-           "subscription_id";
+         Prop.computed __type __id "billing_scope_id";
+       id = Prop.computed __type __id "id";
+       subscription_id = Prop.computed __type __id "subscription_id";
        subscription_name =
-         Prop.computed __resource_type __resource_id
-           "subscription_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       workload =
-         Prop.computed __resource_type __resource_id "workload";
+         Prop.computed __type __id "subscription_name";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       workload = Prop.computed __type __id "workload";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_subscription
+        (azurerm_subscription ?alias ?billing_scope_id ?id
+           ?subscription_id ?tags ?workload ?timeouts
+           ~subscription_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alias ?billing_scope_id ?id ?subscription_id
+    ?tags ?workload ?timeouts ~subscription_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias ?billing_scope_id ?id ?subscription_id ?tags
+      ?workload ?timeouts ~subscription_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

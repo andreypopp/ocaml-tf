@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -108,4 +108,13 @@ val register :
     redacted_fields:redacted_fields list ->
     string ->
     t
+
+val make :
+    ?id:string prop ->
+    log_destination_configs:string  prop list ->
+    resource_arn:string prop ->
+    logging_filter:logging_filter list ->
+    redacted_fields:redacted_fields list ->
+    string ->
+    t Tf_core.resource
 

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_key_signing_key = {
   hosted_zone_id : string prop;  (** hosted_zone_id *)
@@ -38,49 +36,49 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ?status ~hosted_zone_id
-    ~key_management_service_arn ~name __resource_id =
-  let __resource_type = "aws_route53_key_signing_key" in
-  let __resource =
-    aws_route53_key_signing_key ?id ?status ~hosted_zone_id
-      ~key_management_service_arn ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_key_signing_key __resource);
-  let __resource_attributes =
+let make ?id ?status ~hosted_zone_id ~key_management_service_arn
+    ~name __id =
+  let __type = "aws_route53_key_signing_key" in
+  let __attrs =
     ({
        digest_algorithm_mnemonic =
-         Prop.computed __resource_type __resource_id
-           "digest_algorithm_mnemonic";
+         Prop.computed __type __id "digest_algorithm_mnemonic";
        digest_algorithm_type =
-         Prop.computed __resource_type __resource_id
-           "digest_algorithm_type";
-       digest_value =
-         Prop.computed __resource_type __resource_id "digest_value";
-       dnskey_record =
-         Prop.computed __resource_type __resource_id "dnskey_record";
-       ds_record =
-         Prop.computed __resource_type __resource_id "ds_record";
-       flag = Prop.computed __resource_type __resource_id "flag";
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "digest_algorithm_type";
+       digest_value = Prop.computed __type __id "digest_value";
+       dnskey_record = Prop.computed __type __id "dnskey_record";
+       ds_record = Prop.computed __type __id "ds_record";
+       flag = Prop.computed __type __id "flag";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       id = Prop.computed __type __id "id";
        key_management_service_arn =
-         Prop.computed __resource_type __resource_id
-           "key_management_service_arn";
-       key_tag =
-         Prop.computed __resource_type __resource_id "key_tag";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
+         Prop.computed __type __id "key_management_service_arn";
+       key_tag = Prop.computed __type __id "key_tag";
+       name = Prop.computed __type __id "name";
+       public_key = Prop.computed __type __id "public_key";
        signing_algorithm_mnemonic =
-         Prop.computed __resource_type __resource_id
-           "signing_algorithm_mnemonic";
+         Prop.computed __type __id "signing_algorithm_mnemonic";
        signing_algorithm_type =
-         Prop.computed __resource_type __resource_id
-           "signing_algorithm_type";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "signing_algorithm_type";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_key_signing_key
+        (aws_route53_key_signing_key ?id ?status ~hosted_zone_id
+           ~key_management_service_arn ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?status ~hosted_zone_id
+    ~key_management_service_arn ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?status ~hosted_zone_id ~key_management_service_arn
+      ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

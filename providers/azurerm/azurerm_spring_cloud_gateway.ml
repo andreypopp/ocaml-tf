@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type api_metadata = {
   description : string prop option; [@option]  (** description *)
@@ -200,54 +198,71 @@ type t = {
   url : string prop;
 }
 
+let make ?application_performance_monitoring_ids
+    ?application_performance_monitoring_types ?environment_variables
+    ?https_only ?id ?instance_count ?public_network_access_enabled
+    ?sensitive_environment_variables ?timeouts ~name
+    ~spring_cloud_service_id ~api_metadata ~client_authorization
+    ~cors ~local_response_cache_per_instance
+    ~local_response_cache_per_route ~quota ~sso __id =
+  let __type = "azurerm_spring_cloud_gateway" in
+  let __attrs =
+    ({
+       application_performance_monitoring_ids =
+         Prop.computed __type __id
+           "application_performance_monitoring_ids";
+       application_performance_monitoring_types =
+         Prop.computed __type __id
+           "application_performance_monitoring_types";
+       environment_variables =
+         Prop.computed __type __id "environment_variables";
+       https_only = Prop.computed __type __id "https_only";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       sensitive_environment_variables =
+         Prop.computed __type __id "sensitive_environment_variables";
+       spring_cloud_service_id =
+         Prop.computed __type __id "spring_cloud_service_id";
+       url = Prop.computed __type __id "url";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_gateway
+        (azurerm_spring_cloud_gateway
+           ?application_performance_monitoring_ids
+           ?application_performance_monitoring_types
+           ?environment_variables ?https_only ?id ?instance_count
+           ?public_network_access_enabled
+           ?sensitive_environment_variables ?timeouts ~name
+           ~spring_cloud_service_id ~api_metadata
+           ~client_authorization ~cors
+           ~local_response_cache_per_instance
+           ~local_response_cache_per_route ~quota ~sso ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?application_performance_monitoring_ids
     ?application_performance_monitoring_types ?environment_variables
     ?https_only ?id ?instance_count ?public_network_access_enabled
     ?sensitive_environment_variables ?timeouts ~name
     ~spring_cloud_service_id ~api_metadata ~client_authorization
     ~cors ~local_response_cache_per_instance
-    ~local_response_cache_per_route ~quota ~sso __resource_id =
-  let __resource_type = "azurerm_spring_cloud_gateway" in
-  let __resource =
-    azurerm_spring_cloud_gateway
-      ?application_performance_monitoring_ids
+    ~local_response_cache_per_route ~quota ~sso __id =
+  let (r : _ Tf_core.resource) =
+    make ?application_performance_monitoring_ids
       ?application_performance_monitoring_types
       ?environment_variables ?https_only ?id ?instance_count
       ?public_network_access_enabled ?sensitive_environment_variables
       ?timeouts ~name ~spring_cloud_service_id ~api_metadata
       ~client_authorization ~cors ~local_response_cache_per_instance
-      ~local_response_cache_per_route ~quota ~sso ()
+      ~local_response_cache_per_route ~quota ~sso __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_gateway __resource);
-  let __resource_attributes =
-    ({
-       application_performance_monitoring_ids =
-         Prop.computed __resource_type __resource_id
-           "application_performance_monitoring_ids";
-       application_performance_monitoring_types =
-         Prop.computed __resource_type __resource_id
-           "application_performance_monitoring_types";
-       environment_variables =
-         Prop.computed __resource_type __resource_id
-           "environment_variables";
-       https_only =
-         Prop.computed __resource_type __resource_id "https_only";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       sensitive_environment_variables =
-         Prop.computed __resource_type __resource_id
-           "sensitive_environment_variables";
-       spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
-       url = Prop.computed __resource_type __resource_id "url";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type install_patches__linux = {
   classifications_to_include : string prop list option; [@option]
@@ -138,36 +136,45 @@ type t = {
   visibility : string prop;
 }
 
-let register ?tf_module ?id ?in_guest_user_patch_mode ?properties
-    ?tags ?visibility ?timeouts ~location ~name ~resource_group_name
-    ~scope ~install_patches ~window __resource_id =
-  let __resource_type = "azurerm_maintenance_configuration" in
-  let __resource =
-    azurerm_maintenance_configuration ?id ?in_guest_user_patch_mode
-      ?properties ?tags ?visibility ?timeouts ~location ~name
-      ~resource_group_name ~scope ~install_patches ~window ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_maintenance_configuration __resource);
-  let __resource_attributes =
+let make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
+    ?timeouts ~location ~name ~resource_group_name ~scope
+    ~install_patches ~window __id =
+  let __type = "azurerm_maintenance_configuration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        in_guest_user_patch_mode =
-         Prop.computed __resource_type __resource_id
-           "in_guest_user_patch_mode";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       properties =
-         Prop.computed __resource_type __resource_id "properties";
+         Prop.computed __type __id "in_guest_user_patch_mode";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       properties = Prop.computed __type __id "properties";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       visibility =
-         Prop.computed __resource_type __resource_id "visibility";
+         Prop.computed __type __id "resource_group_name";
+       scope = Prop.computed __type __id "scope";
+       tags = Prop.computed __type __id "tags";
+       visibility = Prop.computed __type __id "visibility";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_maintenance_configuration
+        (azurerm_maintenance_configuration ?id
+           ?in_guest_user_patch_mode ?properties ?tags ?visibility
+           ?timeouts ~location ~name ~resource_group_name ~scope
+           ~install_patches ~window ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?in_guest_user_patch_mode ?properties
+    ?tags ?visibility ?timeouts ~location ~name ~resource_group_name
+    ~scope ~install_patches ~window __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?in_guest_user_patch_mode ?properties ?tags ?visibility
+      ?timeouts ~location ~name ~resource_group_name ~scope
+      ~install_patches ~window __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssm_service_setting = {
   id : string prop option; [@option]  (** id *)
@@ -24,24 +22,30 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~setting_id ~setting_value __resource_id
-    =
-  let __resource_type = "aws_ssm_service_setting" in
-  let __resource =
-    aws_ssm_service_setting ?id ~setting_id ~setting_value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_service_setting __resource);
-  let __resource_attributes =
+let make ?id ~setting_id ~setting_value __id =
+  let __type = "aws_ssm_service_setting" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       setting_id =
-         Prop.computed __resource_type __resource_id "setting_id";
-       setting_value =
-         Prop.computed __resource_type __resource_id "setting_value";
-       status = Prop.computed __resource_type __resource_id "status";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       setting_id = Prop.computed __type __id "setting_id";
+       setting_value = Prop.computed __type __id "setting_value";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_service_setting
+        (aws_ssm_service_setting ?id ~setting_id ~setting_value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~setting_id ~setting_value __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~setting_id ~setting_value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

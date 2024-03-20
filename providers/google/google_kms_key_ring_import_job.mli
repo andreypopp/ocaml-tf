@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,13 @@ val register :
   protection_level:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  import_job_id:string prop ->
+  import_method:string prop ->
+  key_ring:string prop ->
+  protection_level:string prop ->
+  string ->
+  t Tf_core.resource

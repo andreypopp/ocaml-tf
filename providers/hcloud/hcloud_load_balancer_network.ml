@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_load_balancer_network = {
   enable_public_interface : bool prop option; [@option]
@@ -37,30 +35,37 @@ type t = {
   subnet_id : string prop;
 }
 
-let register ?tf_module ?enable_public_interface ?id ?ip ?network_id
-    ?subnet_id ~load_balancer_id __resource_id =
-  let __resource_type = "hcloud_load_balancer_network" in
-  let __resource =
-    hcloud_load_balancer_network ?enable_public_interface ?id ?ip
-      ?network_id ?subnet_id ~load_balancer_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_load_balancer_network __resource);
-  let __resource_attributes =
+let make ?enable_public_interface ?id ?ip ?network_id ?subnet_id
+    ~load_balancer_id __id =
+  let __type = "hcloud_load_balancer_network" in
+  let __attrs =
     ({
        enable_public_interface =
-         Prop.computed __resource_type __resource_id
-           "enable_public_interface";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
+         Prop.computed __type __id "enable_public_interface";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
        load_balancer_id =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_id";
-       network_id =
-         Prop.computed __resource_type __resource_id "network_id";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
+         Prop.computed __type __id "load_balancer_id";
+       network_id = Prop.computed __type __id "network_id";
+       subnet_id = Prop.computed __type __id "subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_load_balancer_network
+        (hcloud_load_balancer_network ?enable_public_interface ?id
+           ?ip ?network_id ?subnet_id ~load_balancer_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_public_interface ?id ?ip ?network_id
+    ?subnet_id ~load_balancer_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_public_interface ?id ?ip ?network_id ?subnet_id
+      ~load_balancer_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

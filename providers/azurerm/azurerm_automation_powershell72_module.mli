@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,12 @@ val register :
   module_link:module_link list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  automation_account_id:string prop ->
+  name:string prop ->
+  module_link:module_link list ->
+  string ->
+  t Tf_core.resource

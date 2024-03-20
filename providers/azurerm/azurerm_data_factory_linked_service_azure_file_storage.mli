@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,22 @@ val register :
   key_vault_password:key_vault_password list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?file_share:string prop ->
+  ?host:string prop ->
+  ?id:string prop ->
+  ?integration_runtime_name:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?password:string prop ->
+  ?user_id:string prop ->
+  ?timeouts:timeouts ->
+  connection_string:string prop ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  key_vault_password:key_vault_password list ->
+  string ->
+  t Tf_core.resource

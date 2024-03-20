@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,34 +54,39 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?database ?id ?project ?timeouts ~collection
-    ~document_id ~fields __resource_id =
-  let __resource_type = "google_firestore_document" in
-  let __resource =
-    google_firestore_document ?database ?id ?project ?timeouts
-      ~collection ~document_id ~fields ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_firestore_document __resource);
-  let __resource_attributes =
+let make ?database ?id ?project ?timeouts ~collection ~document_id
+    ~fields __id =
+  let __type = "google_firestore_document" in
+  let __attrs =
     ({
-       collection =
-         Prop.computed __resource_type __resource_id "collection";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       document_id =
-         Prop.computed __resource_type __resource_id "document_id";
-       fields = Prop.computed __resource_type __resource_id "fields";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       collection = Prop.computed __type __id "collection";
+       create_time = Prop.computed __type __id "create_time";
+       database = Prop.computed __type __id "database";
+       document_id = Prop.computed __type __id "document_id";
+       fields = Prop.computed __type __id "fields";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
+       project = Prop.computed __type __id "project";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_firestore_document
+        (google_firestore_document ?database ?id ?project ?timeouts
+           ~collection ~document_id ~fields ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database ?id ?project ?timeouts ~collection
+    ~document_id ~fields __id =
+  let (r : _ Tf_core.resource) =
+    make ?database ?id ?project ?timeouts ~collection ~document_id
+      ~fields __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

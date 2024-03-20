@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_bus = {
   event_bus_arn : string prop;  (** event_bus_arn *)
@@ -93,27 +91,35 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?description ?id ?role_arn ~name ~event_bus
-    ~replication_config ~routing_config __resource_id =
-  let __resource_type = "aws_cloudwatch_event_endpoint" in
-  let __resource =
-    aws_cloudwatch_event_endpoint ?description ?id ?role_arn ~name
-      ~event_bus ~replication_config ~routing_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_event_endpoint __resource);
-  let __resource_attributes =
+let make ?description ?id ?role_arn ~name ~event_bus
+    ~replication_config ~routing_config __id =
+  let __type = "aws_cloudwatch_event_endpoint" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       endpoint_url =
-         Prop.computed __resource_type __resource_id "endpoint_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       endpoint_url = Prop.computed __type __id "endpoint_url";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_event_endpoint
+        (aws_cloudwatch_event_endpoint ?description ?id ?role_arn
+           ~name ~event_bus ~replication_config ~routing_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?role_arn ~name ~event_bus
+    ~replication_config ~routing_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?role_arn ~name ~event_bus
+      ~replication_config ~routing_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

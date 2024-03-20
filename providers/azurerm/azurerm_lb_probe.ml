@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,42 +61,46 @@ type t = {
   request_path : string prop;
 }
 
-let register ?tf_module ?id ?interval_in_seconds ?number_of_probes
-    ?probe_threshold ?protocol ?request_path ?timeouts
-    ~loadbalancer_id ~name ~port __resource_id =
-  let __resource_type = "azurerm_lb_probe" in
-  let __resource =
-    azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
-      ?probe_threshold ?protocol ?request_path ?timeouts
-      ~loadbalancer_id ~name ~port ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lb_probe __resource);
-  let __resource_attributes =
+let make ?id ?interval_in_seconds ?number_of_probes ?probe_threshold
+    ?protocol ?request_path ?timeouts ~loadbalancer_id ~name ~port
+    __id =
+  let __type = "azurerm_lb_probe" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        interval_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "interval_in_seconds";
+         Prop.computed __type __id "interval_in_seconds";
        load_balancer_rules =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_rules";
-       loadbalancer_id =
-         Prop.computed __resource_type __resource_id
-           "loadbalancer_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "load_balancer_rules";
+       loadbalancer_id = Prop.computed __type __id "loadbalancer_id";
+       name = Prop.computed __type __id "name";
        number_of_probes =
-         Prop.computed __resource_type __resource_id
-           "number_of_probes";
-       port = Prop.computed __resource_type __resource_id "port";
-       probe_threshold =
-         Prop.computed __resource_type __resource_id
-           "probe_threshold";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       request_path =
-         Prop.computed __resource_type __resource_id "request_path";
+         Prop.computed __type __id "number_of_probes";
+       port = Prop.computed __type __id "port";
+       probe_threshold = Prop.computed __type __id "probe_threshold";
+       protocol = Prop.computed __type __id "protocol";
+       request_path = Prop.computed __type __id "request_path";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lb_probe
+        (azurerm_lb_probe ?id ?interval_in_seconds ?number_of_probes
+           ?probe_threshold ?protocol ?request_path ?timeouts
+           ~loadbalancer_id ~name ~port ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?interval_in_seconds ?number_of_probes
+    ?probe_threshold ?protocol ?request_path ?timeouts
+    ~loadbalancer_id ~name ~port __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?interval_in_seconds ?number_of_probes ?probe_threshold
+      ?protocol ?request_path ?timeouts ~loadbalancer_id ~name ~port
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

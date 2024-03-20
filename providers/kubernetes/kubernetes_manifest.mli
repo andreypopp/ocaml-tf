@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -77,3 +77,14 @@ val register :
   wait:wait list ->
   string ->
   t
+
+val make :
+  ?computed_fields:string prop list ->
+  ?object_:json prop ->
+  ?wait_for:wait_for ->
+  manifest:json prop ->
+  field_manager:field_manager list ->
+  timeouts:timeouts list ->
+  wait:wait list ->
+  string ->
+  t Tf_core.resource

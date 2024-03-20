@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_guardduty_publishing_destination = {
   destination_arn : string prop;  (** destination_arn *)
@@ -28,29 +26,35 @@ type t = {
   kms_key_arn : string prop;
 }
 
-let register ?tf_module ?destination_type ?id ~destination_arn
-    ~detector_id ~kms_key_arn __resource_id =
-  let __resource_type = "aws_guardduty_publishing_destination" in
-  let __resource =
-    aws_guardduty_publishing_destination ?destination_type ?id
-      ~destination_arn ~detector_id ~kms_key_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_guardduty_publishing_destination __resource);
-  let __resource_attributes =
+let make ?destination_type ?id ~destination_arn ~detector_id
+    ~kms_key_arn __id =
+  let __type = "aws_guardduty_publishing_destination" in
+  let __attrs =
     ({
-       destination_arn =
-         Prop.computed __resource_type __resource_id
-           "destination_arn";
+       destination_arn = Prop.computed __type __id "destination_arn";
        destination_type =
-         Prop.computed __resource_type __resource_id
-           "destination_type";
-       detector_id =
-         Prop.computed __resource_type __resource_id "detector_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
+         Prop.computed __type __id "destination_type";
+       detector_id = Prop.computed __type __id "detector_id";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_guardduty_publishing_destination
+        (aws_guardduty_publishing_destination ?destination_type ?id
+           ~destination_arn ~detector_id ~kms_key_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?destination_type ?id ~destination_arn
+    ~detector_id ~kms_key_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?destination_type ?id ~destination_arn ~detector_id
+      ~kms_key_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

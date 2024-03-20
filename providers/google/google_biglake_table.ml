@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hive_options__storage_descriptor = {
   input_format : string prop option; [@option]
@@ -77,32 +75,36 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?database ?id ?type_ ?timeouts ~name
-    ~hive_options __resource_id =
-  let __resource_type = "google_biglake_table" in
-  let __resource =
-    google_biglake_table ?database ?id ?type_ ?timeouts ~name
-      ~hive_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_biglake_table __resource);
-  let __resource_attributes =
+let make ?database ?id ?type_ ?timeouts ~name ~hive_options __id =
+  let __type = "google_biglake_table" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       create_time = Prop.computed __type __id "create_time";
+       database = Prop.computed __type __id "database";
+       delete_time = Prop.computed __type __id "delete_time";
+       etag = Prop.computed __type __id "etag";
+       expire_time = Prop.computed __type __id "expire_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_biglake_table
+        (google_biglake_table ?database ?id ?type_ ?timeouts ~name
+           ~hive_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database ?id ?type_ ?timeouts ~name
+    ~hive_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?database ?id ?type_ ?timeouts ~name ~hive_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

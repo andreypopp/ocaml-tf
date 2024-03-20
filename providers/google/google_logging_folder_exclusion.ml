@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_logging_folder_exclusion = {
   description : string prop option; [@option]
@@ -31,26 +29,33 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?disabled ?id ~filter ~folder
-    ~name __resource_id =
-  let __resource_type = "google_logging_folder_exclusion" in
-  let __resource =
-    google_logging_folder_exclusion ?description ?disabled ?id
-      ~filter ~folder ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_folder_exclusion __resource);
-  let __resource_attributes =
+let make ?description ?disabled ?id ~filter ~folder ~name __id =
+  let __type = "google_logging_folder_exclusion" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       filter = Prop.computed __type __id "filter";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_folder_exclusion
+        (google_logging_folder_exclusion ?description ?disabled ?id
+           ~filter ~folder ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?disabled ?id ~filter ~folder
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disabled ?id ~filter ~folder ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type operating_regions = {
   region_name : string prop;  (** region_name *)
@@ -63,41 +61,45 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?cascade ?description ?id ?tags ?tags_all
-    ?timeouts ~operating_regions __resource_id =
-  let __resource_type = "aws_vpc_ipam" in
-  let __resource =
-    aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all ?timeouts
-      ~operating_regions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam __resource);
-  let __resource_attributes =
+let make ?cascade ?description ?id ?tags ?tags_all ?timeouts
+    ~operating_regions __id =
+  let __type = "aws_vpc_ipam" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cascade =
-         Prop.computed __resource_type __resource_id "cascade";
+       arn = Prop.computed __type __id "arn";
+       cascade = Prop.computed __type __id "cascade";
        default_resource_discovery_association_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "default_resource_discovery_association_id";
        default_resource_discovery_id =
-         Prop.computed __resource_type __resource_id
-           "default_resource_discovery_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "default_resource_discovery_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        private_default_scope_id =
-         Prop.computed __resource_type __resource_id
-           "private_default_scope_id";
+         Prop.computed __type __id "private_default_scope_id";
        public_default_scope_id =
-         Prop.computed __resource_type __resource_id
-           "public_default_scope_id";
-       scope_count =
-         Prop.computed __resource_type __resource_id "scope_count";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "public_default_scope_id";
+       scope_count = Prop.computed __type __id "scope_count";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam
+        (aws_vpc_ipam ?cascade ?description ?id ?tags ?tags_all
+           ?timeouts ~operating_regions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cascade ?description ?id ?tags ?tags_all
+    ?timeouts ~operating_regions __id =
+  let (r : _ Tf_core.resource) =
+    make ?cascade ?description ?id ?tags ?tags_all ?timeouts
+      ~operating_regions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

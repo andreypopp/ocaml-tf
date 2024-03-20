@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,34 +49,38 @@ type t = {
   ssl_enabled : bool prop;
 }
 
-let register ?tf_module ?id ?ssl_enabled ?timeouts ~name
-    ~redis_access_key ~redis_cache_id ~spring_cloud_app_id
-    __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_app_redis_association"
-  in
-  let __resource =
-    azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
-      ?timeouts ~name ~redis_access_key ~redis_cache_id
-      ~spring_cloud_app_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_app_redis_association __resource);
-  let __resource_attributes =
+let make ?id ?ssl_enabled ?timeouts ~name ~redis_access_key
+    ~redis_cache_id ~spring_cloud_app_id __id =
+  let __type = "azurerm_spring_cloud_app_redis_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        redis_access_key =
-         Prop.computed __resource_type __resource_id
-           "redis_access_key";
-       redis_cache_id =
-         Prop.computed __resource_type __resource_id "redis_cache_id";
+         Prop.computed __type __id "redis_access_key";
+       redis_cache_id = Prop.computed __type __id "redis_cache_id";
        spring_cloud_app_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_app_id";
-       ssl_enabled =
-         Prop.computed __resource_type __resource_id "ssl_enabled";
+         Prop.computed __type __id "spring_cloud_app_id";
+       ssl_enabled = Prop.computed __type __id "ssl_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_app_redis_association
+        (azurerm_spring_cloud_app_redis_association ?id ?ssl_enabled
+           ?timeouts ~name ~redis_access_key ~redis_cache_id
+           ~spring_cloud_app_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ssl_enabled ?timeouts ~name
+    ~redis_access_key ~redis_cache_id ~spring_cloud_app_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ssl_enabled ?timeouts ~name ~redis_access_key
+      ~redis_cache_id ~spring_cloud_app_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

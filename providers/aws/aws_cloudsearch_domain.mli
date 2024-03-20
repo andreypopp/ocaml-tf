@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,14 @@ val register :
   scaling_parameters:scaling_parameters list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?multi_az:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  endpoint_options:endpoint_options list ->
+  index_field:index_field list ->
+  scaling_parameters:scaling_parameters list ->
+  string ->
+  t Tf_core.resource

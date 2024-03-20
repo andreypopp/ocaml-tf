@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -189,3 +189,32 @@ val register :
   ttl:ttl list ->
   string ->
   t
+
+val make :
+  ?billing_mode:string prop ->
+  ?deletion_protection_enabled:bool prop ->
+  ?hash_key:string prop ->
+  ?id:string prop ->
+  ?range_key:string prop ->
+  ?read_capacity:float prop ->
+  ?restore_date_time:string prop ->
+  ?restore_source_name:string prop ->
+  ?restore_to_latest_time:bool prop ->
+  ?stream_enabled:bool prop ->
+  ?stream_view_type:string prop ->
+  ?table_class:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?write_capacity:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  attribute:attribute list ->
+  global_secondary_index:global_secondary_index list ->
+  import_table:import_table list ->
+  local_secondary_index:local_secondary_index list ->
+  point_in_time_recovery:point_in_time_recovery list ->
+  replica:replica list ->
+  server_side_encryption:server_side_encryption list ->
+  ttl:ttl list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -155,3 +155,21 @@ val register :
   managed_rule:managed_rule list ->
   string ->
   t
+
+val make :
+  ?custom_block_response_body:string prop ->
+  ?custom_block_response_status_code:float prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?redirect_url:string prop ->
+  ?request_body_check_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  mode:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  custom_rule:custom_rule list ->
+  managed_rule:managed_rule list ->
+  string ->
+  t Tf_core.resource

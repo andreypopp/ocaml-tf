@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,17 @@ val register :
   members:members list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?test_bot_alias_tags:(string * string prop) list ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  idle_session_ttl_in_seconds:float prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  data_privacy:data_privacy list ->
+  members:members list ->
+  string ->
+  t Tf_core.resource

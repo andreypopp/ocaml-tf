@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type properties = {
   description : string prop option; [@option]  (** description *)
@@ -40,27 +38,33 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~name ~properties
-    __resource_id =
-  let __resource_type = "aws_iot_billing_group" in
-  let __resource =
-    aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_billing_group __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~name ~properties __id =
+  let __type = "aws_iot_billing_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_billing_group
+        (aws_iot_billing_group ?id ?tags ?tags_all ~name ~properties
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~name ~properties __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~name ~properties __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

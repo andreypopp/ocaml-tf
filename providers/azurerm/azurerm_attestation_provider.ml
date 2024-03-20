@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type policy = {
   data : string prop option; [@option]  (** data *)
@@ -84,50 +82,55 @@ type t = {
   trust_model : string prop;
 }
 
-let register ?tf_module ?id ?open_enclave_policy_base64
+let make ?id ?open_enclave_policy_base64
     ?policy_signing_certificate_data ?sev_snp_policy_base64
     ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-    ~location ~name ~resource_group_name ~policy __resource_id =
-  let __resource_type = "azurerm_attestation_provider" in
-  let __resource =
-    azurerm_attestation_provider ?id ?open_enclave_policy_base64
-      ?policy_signing_certificate_data ?sev_snp_policy_base64
-      ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
-      ~location ~name ~resource_group_name ~policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_attestation_provider __resource);
-  let __resource_attributes =
+    ~location ~name ~resource_group_name ~policy __id =
+  let __type = "azurerm_attestation_provider" in
+  let __attrs =
     ({
-       attestation_uri =
-         Prop.computed __resource_type __resource_id
-           "attestation_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       attestation_uri = Prop.computed __type __id "attestation_uri";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        open_enclave_policy_base64 =
-         Prop.computed __resource_type __resource_id
-           "open_enclave_policy_base64";
+         Prop.computed __type __id "open_enclave_policy_base64";
        policy_signing_certificate_data =
-         Prop.computed __resource_type __resource_id
-           "policy_signing_certificate_data";
+         Prop.computed __type __id "policy_signing_certificate_data";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        sev_snp_policy_base64 =
-         Prop.computed __resource_type __resource_id
-           "sev_snp_policy_base64";
+         Prop.computed __type __id "sev_snp_policy_base64";
        sgx_enclave_policy_base64 =
-         Prop.computed __resource_type __resource_id
-           "sgx_enclave_policy_base64";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "sgx_enclave_policy_base64";
+       tags = Prop.computed __type __id "tags";
        tpm_policy_base64 =
-         Prop.computed __resource_type __resource_id
-           "tpm_policy_base64";
-       trust_model =
-         Prop.computed __resource_type __resource_id "trust_model";
+         Prop.computed __type __id "tpm_policy_base64";
+       trust_model = Prop.computed __type __id "trust_model";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_attestation_provider
+        (azurerm_attestation_provider ?id ?open_enclave_policy_base64
+           ?policy_signing_certificate_data ?sev_snp_policy_base64
+           ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64
+           ?timeouts ~location ~name ~resource_group_name ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?open_enclave_policy_base64
+    ?policy_signing_certificate_data ?sev_snp_policy_base64
+    ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
+    ~location ~name ~resource_group_name ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?open_enclave_policy_base64
+      ?policy_signing_certificate_data ?sev_snp_policy_base64
+      ?sgx_enclave_policy_base64 ?tags ?tpm_policy_base64 ?timeouts
+      ~location ~name ~resource_group_name ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

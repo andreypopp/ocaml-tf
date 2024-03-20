@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type portal_options__sign_in_options = {
   application_url : string prop option; [@option]
@@ -68,41 +66,46 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?client_token ?description ?status ?tags
+let make ?client_token ?description ?status ?tags
     ~application_provider_arn ~instance_arn ~name ~portal_options
-    __resource_id =
-  let __resource_type = "aws_ssoadmin_application" in
-  let __resource =
-    aws_ssoadmin_application ?client_token ?description ?status ?tags
-      ~application_provider_arn ~instance_arn ~name ~portal_options
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_application __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_ssoadmin_application" in
+  let __attrs =
     ({
        application_account =
-         Prop.computed __resource_type __resource_id
-           "application_account";
-       application_arn =
-         Prop.computed __resource_type __resource_id
-           "application_arn";
+         Prop.computed __type __id "application_account";
+       application_arn = Prop.computed __type __id "application_arn";
        application_provider_arn =
-         Prop.computed __resource_type __resource_id
-           "application_provider_arn";
-       client_token =
-         Prop.computed __resource_type __resource_id "client_token";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_arn =
-         Prop.computed __resource_type __resource_id "instance_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "application_provider_arn";
+       client_token = Prop.computed __type __id "client_token";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       instance_arn = Prop.computed __type __id "instance_arn";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_application
+        (aws_ssoadmin_application ?client_token ?description ?status
+           ?tags ~application_provider_arn ~instance_arn ~name
+           ~portal_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_token ?description ?status ?tags
+    ~application_provider_arn ~instance_arn ~name ~portal_options
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_token ?description ?status ?tags
+      ~application_provider_arn ~instance_arn ~name ~portal_options
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

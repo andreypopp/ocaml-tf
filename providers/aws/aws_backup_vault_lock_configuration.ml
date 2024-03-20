@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_backup_vault_lock_configuration = {
   backup_vault_name : string prop;  (** backup_vault_name *)
@@ -37,34 +35,41 @@ type t = {
   min_retention_days : float prop;
 }
 
-let register ?tf_module ?changeable_for_days ?id ?max_retention_days
-    ?min_retention_days ~backup_vault_name __resource_id =
-  let __resource_type = "aws_backup_vault_lock_configuration" in
-  let __resource =
-    aws_backup_vault_lock_configuration ?changeable_for_days ?id
-      ?max_retention_days ?min_retention_days ~backup_vault_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_backup_vault_lock_configuration __resource);
-  let __resource_attributes =
+let make ?changeable_for_days ?id ?max_retention_days
+    ?min_retention_days ~backup_vault_name __id =
+  let __type = "aws_backup_vault_lock_configuration" in
+  let __attrs =
     ({
        backup_vault_arn =
-         Prop.computed __resource_type __resource_id
-           "backup_vault_arn";
+         Prop.computed __type __id "backup_vault_arn";
        backup_vault_name =
-         Prop.computed __resource_type __resource_id
-           "backup_vault_name";
+         Prop.computed __type __id "backup_vault_name";
        changeable_for_days =
-         Prop.computed __resource_type __resource_id
-           "changeable_for_days";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "changeable_for_days";
+       id = Prop.computed __type __id "id";
        max_retention_days =
-         Prop.computed __resource_type __resource_id
-           "max_retention_days";
+         Prop.computed __type __id "max_retention_days";
        min_retention_days =
-         Prop.computed __resource_type __resource_id
-           "min_retention_days";
+         Prop.computed __type __id "min_retention_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_backup_vault_lock_configuration
+        (aws_backup_vault_lock_configuration ?changeable_for_days ?id
+           ?max_retention_days ?min_retention_days ~backup_vault_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?changeable_for_days ?id ?max_retention_days
+    ?min_retention_days ~backup_vault_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?changeable_for_days ?id ?max_retention_days
+      ?min_retention_days ~backup_vault_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

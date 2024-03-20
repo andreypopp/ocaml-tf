@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshift_snapshot_copy_grant = {
   id : string prop option; [@option]  (** id *)
@@ -29,28 +27,36 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?kms_key_id ?tags ?tags_all
-    ~snapshot_copy_grant_name __resource_id =
-  let __resource_type = "aws_redshift_snapshot_copy_grant" in
-  let __resource =
-    aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags ?tags_all
-      ~snapshot_copy_grant_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_snapshot_copy_grant __resource);
-  let __resource_attributes =
+let make ?id ?kms_key_id ?tags ?tags_all ~snapshot_copy_grant_name
+    __id =
+  let __type = "aws_redshift_snapshot_copy_grant" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
        snapshot_copy_grant_name =
-         Prop.computed __resource_type __resource_id
-           "snapshot_copy_grant_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "snapshot_copy_grant_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_snapshot_copy_grant
+        (aws_redshift_snapshot_copy_grant ?id ?kms_key_id ?tags
+           ?tags_all ~snapshot_copy_grant_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kms_key_id ?tags ?tags_all
+    ~snapshot_copy_grant_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kms_key_id ?tags ?tags_all ~snapshot_copy_grant_name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

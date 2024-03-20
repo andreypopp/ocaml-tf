@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type notification = {
   action : string prop;  (** action *)
@@ -88,48 +86,55 @@ type t = {
   sync_window : string prop;
 }
 
-let register ?tf_module ?audit_log_enabled ?client_token_ids ?id
-    ?log_level ?mode ?parent_registry_id ?sync_message_ttl
-    ?sync_schedule ?sync_window ?timeouts ~container_registry_id
-    ~name ~sync_token_id ~notification __resource_id =
-  let __resource_type = "azurerm_container_connected_registry" in
-  let __resource =
-    azurerm_container_connected_registry ?audit_log_enabled
-      ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
-      ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
-      ~container_registry_id ~name ~sync_token_id ~notification ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_connected_registry __resource);
-  let __resource_attributes =
+let make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
+    ?parent_registry_id ?sync_message_ttl ?sync_schedule ?sync_window
+    ?timeouts ~container_registry_id ~name ~sync_token_id
+    ~notification __id =
+  let __type = "azurerm_container_connected_registry" in
+  let __attrs =
     ({
        audit_log_enabled =
-         Prop.computed __resource_type __resource_id
-           "audit_log_enabled";
+         Prop.computed __type __id "audit_log_enabled";
        client_token_ids =
-         Prop.computed __resource_type __resource_id
-           "client_token_ids";
+         Prop.computed __type __id "client_token_ids";
        container_registry_id =
-         Prop.computed __resource_type __resource_id
-           "container_registry_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       log_level =
-         Prop.computed __resource_type __resource_id "log_level";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "container_registry_id";
+       id = Prop.computed __type __id "id";
+       log_level = Prop.computed __type __id "log_level";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
        parent_registry_id =
-         Prop.computed __resource_type __resource_id
-           "parent_registry_id";
+         Prop.computed __type __id "parent_registry_id";
        sync_message_ttl =
-         Prop.computed __resource_type __resource_id
-           "sync_message_ttl";
-       sync_schedule =
-         Prop.computed __resource_type __resource_id "sync_schedule";
-       sync_token_id =
-         Prop.computed __resource_type __resource_id "sync_token_id";
-       sync_window =
-         Prop.computed __resource_type __resource_id "sync_window";
+         Prop.computed __type __id "sync_message_ttl";
+       sync_schedule = Prop.computed __type __id "sync_schedule";
+       sync_token_id = Prop.computed __type __id "sync_token_id";
+       sync_window = Prop.computed __type __id "sync_window";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_connected_registry
+        (azurerm_container_connected_registry ?audit_log_enabled
+           ?client_token_ids ?id ?log_level ?mode ?parent_registry_id
+           ?sync_message_ttl ?sync_schedule ?sync_window ?timeouts
+           ~container_registry_id ~name ~sync_token_id ~notification
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?audit_log_enabled ?client_token_ids ?id
+    ?log_level ?mode ?parent_registry_id ?sync_message_ttl
+    ?sync_schedule ?sync_window ?timeouts ~container_registry_id
+    ~name ~sync_token_id ~notification __id =
+  let (r : _ Tf_core.resource) =
+    make ?audit_log_enabled ?client_token_ids ?id ?log_level ?mode
+      ?parent_registry_id ?sync_message_ttl ?sync_schedule
+      ?sync_window ?timeouts ~container_registry_id ~name
+      ~sync_token_id ~notification __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

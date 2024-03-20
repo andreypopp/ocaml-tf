@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_configuration = {
   kms_key : string prop;  (** kms_key *)
@@ -302,39 +300,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
+    ~service_name ~encryption_configuration
+    ~health_check_configuration ~instance_configuration
+    ~network_configuration ~observability_configuration
+    ~source_configuration __id =
+  let __type = "aws_apprunner_service" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       auto_scaling_configuration_arn =
+         Prop.computed __type __id "auto_scaling_configuration_arn";
+       id = Prop.computed __type __id "id";
+       service_id = Prop.computed __type __id "service_id";
+       service_name = Prop.computed __type __id "service_name";
+       service_url = Prop.computed __type __id "service_url";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apprunner_service
+        (aws_apprunner_service ?auto_scaling_configuration_arn ?id
+           ?tags ?tags_all ~service_name ~encryption_configuration
+           ~health_check_configuration ~instance_configuration
+           ~network_configuration ~observability_configuration
+           ~source_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_scaling_configuration_arn ?id ?tags
     ?tags_all ~service_name ~encryption_configuration
     ~health_check_configuration ~instance_configuration
     ~network_configuration ~observability_configuration
-    ~source_configuration __resource_id =
-  let __resource_type = "aws_apprunner_service" in
-  let __resource =
-    aws_apprunner_service ?auto_scaling_configuration_arn ?id ?tags
-      ?tags_all ~service_name ~encryption_configuration
+    ~source_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_scaling_configuration_arn ?id ?tags ?tags_all
+      ~service_name ~encryption_configuration
       ~health_check_configuration ~instance_configuration
       ~network_configuration ~observability_configuration
-      ~source_configuration ()
+      ~source_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apprunner_service __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_scaling_configuration_arn =
-         Prop.computed __resource_type __resource_id
-           "auto_scaling_configuration_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       service_id =
-         Prop.computed __resource_type __resource_id "service_id";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       service_url =
-         Prop.computed __resource_type __resource_id "service_url";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

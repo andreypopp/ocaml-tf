@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type labels = {
   key : string prop option; [@option]  (** Key for label. *)
@@ -121,38 +119,40 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?create_policy ?delete_policy ?description
-    ?id ?preview ?project ?timeouts ~name ~labels ~target
-    __resource_id =
-  let __resource_type = "google_deployment_manager_deployment" in
-  let __resource =
-    google_deployment_manager_deployment ?create_policy
-      ?delete_policy ?description ?id ?preview ?project ?timeouts
-      ~name ~labels ~target ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_deployment_manager_deployment __resource);
-  let __resource_attributes =
+let make ?create_policy ?delete_policy ?description ?id ?preview
+    ?project ?timeouts ~name ~labels ~target __id =
+  let __type = "google_deployment_manager_deployment" in
+  let __attrs =
     ({
-       create_policy =
-         Prop.computed __resource_type __resource_id "create_policy";
-       delete_policy =
-         Prop.computed __resource_type __resource_id "delete_policy";
-       deployment_id =
-         Prop.computed __resource_type __resource_id "deployment_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       manifest =
-         Prop.computed __resource_type __resource_id "manifest";
-       name = Prop.computed __resource_type __resource_id "name";
-       preview =
-         Prop.computed __resource_type __resource_id "preview";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+       create_policy = Prop.computed __type __id "create_policy";
+       delete_policy = Prop.computed __type __id "delete_policy";
+       deployment_id = Prop.computed __type __id "deployment_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       manifest = Prop.computed __type __id "manifest";
+       name = Prop.computed __type __id "name";
+       preview = Prop.computed __type __id "preview";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_deployment_manager_deployment
+        (google_deployment_manager_deployment ?create_policy
+           ?delete_policy ?description ?id ?preview ?project
+           ?timeouts ~name ~labels ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?create_policy ?delete_policy ?description
+    ?id ?preview ?project ?timeouts ~name ~labels ~target __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_policy ?delete_policy ?description ?id ?preview
+      ?project ?timeouts ~name ~labels ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

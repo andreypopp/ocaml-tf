@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_spec = {
   kms_key_name : string prop;
@@ -146,51 +144,50 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?network ?project
-    ?region ?timeouts ~display_name ~location ~name ~encryption_spec
-    __resource_id =
-  let __resource_type = "google_vertex_ai_endpoint" in
-  let __resource =
-    google_vertex_ai_endpoint ?description ?id ?labels ?network
-      ?project ?region ?timeouts ~display_name ~location ~name
-      ~encryption_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vertex_ai_endpoint __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?network ?project ?region ?timeouts
+    ~display_name ~location ~name ~encryption_spec __id =
+  let __type = "google_vertex_ai_endpoint" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       deployed_models =
-         Prop.computed __resource_type __resource_id
-           "deployed_models";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       create_time = Prop.computed __type __id "create_time";
+       deployed_models = Prop.computed __type __id "deployed_models";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "effective_labels";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
        model_deployment_monitoring_job =
-         Prop.computed __resource_type __resource_id
-           "model_deployment_monitoring_job";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "model_deployment_monitoring_job";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vertex_ai_endpoint
+        (google_vertex_ai_endpoint ?description ?id ?labels ?network
+           ?project ?region ?timeouts ~display_name ~location ~name
+           ~encryption_spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?network ?project
+    ?region ?timeouts ~display_name ~location ~name ~encryption_spec
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?network ?project ?region ?timeouts
+      ~display_name ~location ~name ~encryption_spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_config = {
   authentication_mode : string prop option; [@option]
@@ -184,50 +182,53 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?enabled_cluster_log_types ?id ?tags
-    ?tags_all ?version ?timeouts ~name ~role_arn ~access_config
-    ~encryption_config ~kubernetes_network_config ~outpost_config
-    ~vpc_config __resource_id =
-  let __resource_type = "aws_eks_cluster" in
-  let __resource =
-    aws_eks_cluster ?enabled_cluster_log_types ?id ?tags ?tags_all
-      ?version ?timeouts ~name ~role_arn ~access_config
-      ~encryption_config ~kubernetes_network_config ~outpost_config
-      ~vpc_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_cluster __resource);
-  let __resource_attributes =
+let make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
+    ?timeouts ~name ~role_arn ~access_config ~encryption_config
+    ~kubernetes_network_config ~outpost_config ~vpc_config __id =
+  let __type = "aws_eks_cluster" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        certificate_authority =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
+         Prop.computed __type __id "certificate_authority";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       created_at = Prop.computed __type __id "created_at";
        enabled_cluster_log_types =
-         Prop.computed __resource_type __resource_id
-           "enabled_cluster_log_types";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity =
-         Prop.computed __resource_type __resource_id "identity";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enabled_cluster_log_types";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       identity = Prop.computed __type __id "identity";
+       name = Prop.computed __type __id "name";
        platform_version =
-         Prop.computed __resource_type __resource_id
-           "platform_version";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "platform_version";
+       role_arn = Prop.computed __type __id "role_arn";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_cluster
+        (aws_eks_cluster ?enabled_cluster_log_types ?id ?tags
+           ?tags_all ?version ?timeouts ~name ~role_arn
+           ~access_config ~encryption_config
+           ~kubernetes_network_config ~outpost_config ~vpc_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled_cluster_log_types ?id ?tags
+    ?tags_all ?version ?timeouts ~name ~role_arn ~access_config
+    ~encryption_config ~kubernetes_network_config ~outpost_config
+    ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled_cluster_log_types ?id ?tags ?tags_all ?version
+      ?timeouts ~name ~role_arn ~access_config ~encryption_config
+      ~kubernetes_network_config ~outpost_config ~vpc_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

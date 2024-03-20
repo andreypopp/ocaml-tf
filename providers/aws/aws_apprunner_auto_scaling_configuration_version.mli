@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,14 @@ val register :
   auto_scaling_configuration_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?max_concurrency:float prop ->
+  ?max_size:float prop ->
+  ?min_size:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  auto_scaling_configuration_name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,14 @@ val register :
   generic_web_service:generic_web_service list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  features:features list ->
+  generic_web_service:generic_web_service list ->
+  string ->
+  t Tf_core.resource

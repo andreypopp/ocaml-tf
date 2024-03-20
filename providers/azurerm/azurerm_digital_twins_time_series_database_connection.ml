@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,56 +68,63 @@ type t = {
   name : string prop;
 }
 
+let make ?eventhub_consumer_group_name ?id ?kusto_table_name
+    ?timeouts ~digital_twins_id ~eventhub_name
+    ~eventhub_namespace_endpoint_uri ~eventhub_namespace_id
+    ~kusto_cluster_id ~kusto_cluster_uri ~kusto_database_name ~name
+    __id =
+  let __type =
+    "azurerm_digital_twins_time_series_database_connection"
+  in
+  let __attrs =
+    ({
+       digital_twins_id =
+         Prop.computed __type __id "digital_twins_id";
+       eventhub_consumer_group_name =
+         Prop.computed __type __id "eventhub_consumer_group_name";
+       eventhub_name = Prop.computed __type __id "eventhub_name";
+       eventhub_namespace_endpoint_uri =
+         Prop.computed __type __id "eventhub_namespace_endpoint_uri";
+       eventhub_namespace_id =
+         Prop.computed __type __id "eventhub_namespace_id";
+       id = Prop.computed __type __id "id";
+       kusto_cluster_id =
+         Prop.computed __type __id "kusto_cluster_id";
+       kusto_cluster_uri =
+         Prop.computed __type __id "kusto_cluster_uri";
+       kusto_database_name =
+         Prop.computed __type __id "kusto_database_name";
+       kusto_table_name =
+         Prop.computed __type __id "kusto_table_name";
+       name = Prop.computed __type __id "name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_digital_twins_time_series_database_connection
+        (azurerm_digital_twins_time_series_database_connection
+           ?eventhub_consumer_group_name ?id ?kusto_table_name
+           ?timeouts ~digital_twins_id ~eventhub_name
+           ~eventhub_namespace_endpoint_uri ~eventhub_namespace_id
+           ~kusto_cluster_id ~kusto_cluster_uri ~kusto_database_name
+           ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?eventhub_consumer_group_name ?id
     ?kusto_table_name ?timeouts ~digital_twins_id ~eventhub_name
     ~eventhub_namespace_endpoint_uri ~eventhub_namespace_id
     ~kusto_cluster_id ~kusto_cluster_uri ~kusto_database_name ~name
-    __resource_id =
-  let __resource_type =
-    "azurerm_digital_twins_time_series_database_connection"
-  in
-  let __resource =
-    azurerm_digital_twins_time_series_database_connection
-      ?eventhub_consumer_group_name ?id ?kusto_table_name ?timeouts
-      ~digital_twins_id ~eventhub_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?eventhub_consumer_group_name ?id ?kusto_table_name
+      ?timeouts ~digital_twins_id ~eventhub_name
       ~eventhub_namespace_endpoint_uri ~eventhub_namespace_id
       ~kusto_cluster_id ~kusto_cluster_uri ~kusto_database_name ~name
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_digital_twins_time_series_database_connection
-       __resource);
-  let __resource_attributes =
-    ({
-       digital_twins_id =
-         Prop.computed __resource_type __resource_id
-           "digital_twins_id";
-       eventhub_consumer_group_name =
-         Prop.computed __resource_type __resource_id
-           "eventhub_consumer_group_name";
-       eventhub_name =
-         Prop.computed __resource_type __resource_id "eventhub_name";
-       eventhub_namespace_endpoint_uri =
-         Prop.computed __resource_type __resource_id
-           "eventhub_namespace_endpoint_uri";
-       eventhub_namespace_id =
-         Prop.computed __resource_type __resource_id
-           "eventhub_namespace_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       kusto_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "kusto_cluster_id";
-       kusto_cluster_uri =
-         Prop.computed __resource_type __resource_id
-           "kusto_cluster_uri";
-       kusto_database_name =
-         Prop.computed __resource_type __resource_id
-           "kusto_database_name";
-       kusto_table_name =
-         Prop.computed __resource_type __resource_id
-           "kusto_table_name";
-       name = Prop.computed __resource_type __resource_id "name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

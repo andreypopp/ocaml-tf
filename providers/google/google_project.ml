@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -72,42 +70,46 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?auto_create_network ?billing_account
-    ?folder_id ?id ?labels ?org_id ?skip_delete ?timeouts ~name
-    ~project_id __resource_id =
-  let __resource_type = "google_project" in
-  let __resource =
-    google_project ?auto_create_network ?billing_account ?folder_id
-      ?id ?labels ?org_id ?skip_delete ?timeouts ~name ~project_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_project __resource);
-  let __resource_attributes =
+let make ?auto_create_network ?billing_account ?folder_id ?id ?labels
+    ?org_id ?skip_delete ?timeouts ~name ~project_id __id =
+  let __type = "google_project" in
+  let __attrs =
     ({
        auto_create_network =
-         Prop.computed __resource_type __resource_id
-           "auto_create_network";
-       billing_account =
-         Prop.computed __resource_type __resource_id
-           "billing_account";
+         Prop.computed __type __id "auto_create_network";
+       billing_account = Prop.computed __type __id "billing_account";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       folder_id =
-         Prop.computed __resource_type __resource_id "folder_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       number = Prop.computed __resource_type __resource_id "number";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       skip_delete =
-         Prop.computed __resource_type __resource_id "skip_delete";
+         Prop.computed __type __id "effective_labels";
+       folder_id = Prop.computed __type __id "folder_id";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       number = Prop.computed __type __id "number";
+       org_id = Prop.computed __type __id "org_id";
+       project_id = Prop.computed __type __id "project_id";
+       skip_delete = Prop.computed __type __id "skip_delete";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_project
+        (google_project ?auto_create_network ?billing_account
+           ?folder_id ?id ?labels ?org_id ?skip_delete ?timeouts
+           ~name ~project_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_create_network ?billing_account
+    ?folder_id ?id ?labels ?org_id ?skip_delete ?timeouts ~name
+    ~project_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_create_network ?billing_account ?folder_id ?id ?labels
+      ?org_id ?skip_delete ?timeouts ~name ~project_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

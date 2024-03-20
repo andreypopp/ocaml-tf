@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -151,3 +151,30 @@ val register :
   shipping_address:shipping_address list ->
   string ->
   t
+
+val make :
+  ?account_number:string prop ->
+  ?additional_information:string prop ->
+  ?attributes:(string * string prop) list ->
+  ?birth_date:string prop ->
+  ?business_email_address:string prop ->
+  ?business_name:string prop ->
+  ?business_phone_number:string prop ->
+  ?email_address:string prop ->
+  ?first_name:string prop ->
+  ?gender_string:string prop ->
+  ?home_phone_number:string prop ->
+  ?id:string prop ->
+  ?last_name:string prop ->
+  ?middle_name:string prop ->
+  ?mobile_phone_number:string prop ->
+  ?party_type_string:string prop ->
+  ?personal_email_address:string prop ->
+  ?phone_number:string prop ->
+  domain_name:string prop ->
+  address:address list ->
+  billing_address:billing_address list ->
+  mailing_address:mailing_address list ->
+  shipping_address:shipping_address list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,16 @@ val register :
   schema:schema list ->
   string ->
   t
+
+val make :
+  ?analytical_storage_ttl:float prop ->
+  ?default_ttl:float prop ->
+  ?id:string prop ->
+  ?throughput:float prop ->
+  ?timeouts:timeouts ->
+  cassandra_keyspace_id:string prop ->
+  name:string prop ->
+  autoscale_settings:autoscale_settings list ->
+  schema:schema list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -335,3 +335,28 @@ val register :
   vcenter:vcenter list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?enable_control_plane_v2:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?vm_tracking_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  admin_cluster_membership:string prop ->
+  location:string prop ->
+  name:string prop ->
+  on_prem_version:string prop ->
+  anti_affinity_groups:anti_affinity_groups list ->
+  authorization:authorization list ->
+  auto_repair_config:auto_repair_config list ->
+  control_plane_node:control_plane_node list ->
+  dataplane_v2:dataplane_v2 list ->
+  load_balancer:load_balancer list ->
+  network_config:network_config list ->
+  storage:storage list ->
+  upgrade_policy:upgrade_policy list ->
+  vcenter:vcenter list ->
+  string ->
+  t Tf_core.resource

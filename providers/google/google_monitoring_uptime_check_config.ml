@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type content_matchers__json_path_matcher = {
   json_matcher : string prop option; [@option]
@@ -263,41 +261,49 @@ type t = {
   user_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?checker_type ?id ?period ?project
-    ?selected_regions ?user_labels ?timeouts ~display_name ~timeout
-    ~content_matchers ~http_check ~monitored_resource ~resource_group
-    ~synthetic_monitor ~tcp_check __resource_id =
-  let __resource_type = "google_monitoring_uptime_check_config" in
-  let __resource =
-    google_monitoring_uptime_check_config ?checker_type ?id ?period
-      ?project ?selected_regions ?user_labels ?timeouts ~display_name
-      ~timeout ~content_matchers ~http_check ~monitored_resource
-      ~resource_group ~synthetic_monitor ~tcp_check ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_uptime_check_config __resource);
-  let __resource_attributes =
+let make ?checker_type ?id ?period ?project ?selected_regions
+    ?user_labels ?timeouts ~display_name ~timeout ~content_matchers
+    ~http_check ~monitored_resource ~resource_group
+    ~synthetic_monitor ~tcp_check __id =
+  let __type = "google_monitoring_uptime_check_config" in
+  let __attrs =
     ({
-       checker_type =
-         Prop.computed __resource_type __resource_id "checker_type";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       period = Prop.computed __resource_type __resource_id "period";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       checker_type = Prop.computed __type __id "checker_type";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       period = Prop.computed __type __id "period";
+       project = Prop.computed __type __id "project";
        selected_regions =
-         Prop.computed __resource_type __resource_id
-           "selected_regions";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       uptime_check_id =
-         Prop.computed __resource_type __resource_id
-           "uptime_check_id";
-       user_labels =
-         Prop.computed __resource_type __resource_id "user_labels";
+         Prop.computed __type __id "selected_regions";
+       timeout = Prop.computed __type __id "timeout";
+       uptime_check_id = Prop.computed __type __id "uptime_check_id";
+       user_labels = Prop.computed __type __id "user_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_uptime_check_config
+        (google_monitoring_uptime_check_config ?checker_type ?id
+           ?period ?project ?selected_regions ?user_labels ?timeouts
+           ~display_name ~timeout ~content_matchers ~http_check
+           ~monitored_resource ~resource_group ~synthetic_monitor
+           ~tcp_check ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?checker_type ?id ?period ?project
+    ?selected_regions ?user_labels ?timeouts ~display_name ~timeout
+    ~content_matchers ~http_check ~monitored_resource ~resource_group
+    ~synthetic_monitor ~tcp_check __id =
+  let (r : _ Tf_core.resource) =
+    make ?checker_type ?id ?period ?project ?selected_regions
+      ?user_labels ?timeouts ~display_name ~timeout ~content_matchers
+      ~http_check ~monitored_resource ~resource_group
+      ~synthetic_monitor ~tcp_check __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

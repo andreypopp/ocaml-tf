@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bigquery_dataset = {
   dataset : string prop;
@@ -133,49 +131,55 @@ type t = {
   request_access : string prop;
 }
 
+let make ?categories ?description ?documentation ?icon ?id
+    ?primary_contact ?project ?request_access ?timeouts
+    ~data_exchange_id ~display_name ~listing_id ~location
+    ~bigquery_dataset ~data_provider ~publisher
+    ~restricted_export_config __id =
+  let __type = "google_bigquery_analytics_hub_listing" in
+  let __attrs =
+    ({
+       categories = Prop.computed __type __id "categories";
+       data_exchange_id =
+         Prop.computed __type __id "data_exchange_id";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       documentation = Prop.computed __type __id "documentation";
+       icon = Prop.computed __type __id "icon";
+       id = Prop.computed __type __id "id";
+       listing_id = Prop.computed __type __id "listing_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       primary_contact = Prop.computed __type __id "primary_contact";
+       project = Prop.computed __type __id "project";
+       request_access = Prop.computed __type __id "request_access";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_analytics_hub_listing
+        (google_bigquery_analytics_hub_listing ?categories
+           ?description ?documentation ?icon ?id ?primary_contact
+           ?project ?request_access ?timeouts ~data_exchange_id
+           ~display_name ~listing_id ~location ~bigquery_dataset
+           ~data_provider ~publisher ~restricted_export_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?categories ?description ?documentation ?icon
     ?id ?primary_contact ?project ?request_access ?timeouts
     ~data_exchange_id ~display_name ~listing_id ~location
     ~bigquery_dataset ~data_provider ~publisher
-    ~restricted_export_config __resource_id =
-  let __resource_type = "google_bigquery_analytics_hub_listing" in
-  let __resource =
-    google_bigquery_analytics_hub_listing ?categories ?description
-      ?documentation ?icon ?id ?primary_contact ?project
-      ?request_access ?timeouts ~data_exchange_id ~display_name
-      ~listing_id ~location ~bigquery_dataset ~data_provider
-      ~publisher ~restricted_export_config ()
+    ~restricted_export_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?categories ?description ?documentation ?icon ?id
+      ?primary_contact ?project ?request_access ?timeouts
+      ~data_exchange_id ~display_name ~listing_id ~location
+      ~bigquery_dataset ~data_provider ~publisher
+      ~restricted_export_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_analytics_hub_listing __resource);
-  let __resource_attributes =
-    ({
-       categories =
-         Prop.computed __resource_type __resource_id "categories";
-       data_exchange_id =
-         Prop.computed __resource_type __resource_id
-           "data_exchange_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       documentation =
-         Prop.computed __resource_type __resource_id "documentation";
-       icon = Prop.computed __resource_type __resource_id "icon";
-       id = Prop.computed __resource_type __resource_id "id";
-       listing_id =
-         Prop.computed __resource_type __resource_id "listing_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary_contact =
-         Prop.computed __resource_type __resource_id
-           "primary_contact";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       request_access =
-         Prop.computed __resource_type __resource_id "request_access";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

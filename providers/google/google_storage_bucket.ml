@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoclass = {
   enabled : bool prop;
@@ -276,62 +274,70 @@ type t = {
   url : string prop;
 }
 
+let make ?default_event_based_hold ?enable_object_retention
+    ?force_destroy ?id ?labels ?project ?public_access_prevention
+    ?requester_pays ?rpo ?storage_class ?uniform_bucket_level_access
+    ?timeouts ~location ~name ~autoclass ~cors
+    ~custom_placement_config ~encryption ~lifecycle_rule ~logging
+    ~retention_policy ~versioning ~website __id =
+  let __type = "google_storage_bucket" in
+  let __attrs =
+    ({
+       default_event_based_hold =
+         Prop.computed __type __id "default_event_based_hold";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       enable_object_retention =
+         Prop.computed __type __id "enable_object_retention";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       public_access_prevention =
+         Prop.computed __type __id "public_access_prevention";
+       requester_pays = Prop.computed __type __id "requester_pays";
+       rpo = Prop.computed __type __id "rpo";
+       self_link = Prop.computed __type __id "self_link";
+       storage_class = Prop.computed __type __id "storage_class";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       uniform_bucket_level_access =
+         Prop.computed __type __id "uniform_bucket_level_access";
+       url = Prop.computed __type __id "url";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_bucket
+        (google_storage_bucket ?default_event_based_hold
+           ?enable_object_retention ?force_destroy ?id ?labels
+           ?project ?public_access_prevention ?requester_pays ?rpo
+           ?storage_class ?uniform_bucket_level_access ?timeouts
+           ~location ~name ~autoclass ~cors ~custom_placement_config
+           ~encryption ~lifecycle_rule ~logging ~retention_policy
+           ~versioning ~website ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?default_event_based_hold
     ?enable_object_retention ?force_destroy ?id ?labels ?project
     ?public_access_prevention ?requester_pays ?rpo ?storage_class
     ?uniform_bucket_level_access ?timeouts ~location ~name ~autoclass
     ~cors ~custom_placement_config ~encryption ~lifecycle_rule
-    ~logging ~retention_policy ~versioning ~website __resource_id =
-  let __resource_type = "google_storage_bucket" in
-  let __resource =
-    google_storage_bucket ?default_event_based_hold
-      ?enable_object_retention ?force_destroy ?id ?labels ?project
-      ?public_access_prevention ?requester_pays ?rpo ?storage_class
+    ~logging ~retention_policy ~versioning ~website __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_event_based_hold ?enable_object_retention
+      ?force_destroy ?id ?labels ?project ?public_access_prevention
+      ?requester_pays ?rpo ?storage_class
       ?uniform_bucket_level_access ?timeouts ~location ~name
       ~autoclass ~cors ~custom_placement_config ~encryption
       ~lifecycle_rule ~logging ~retention_policy ~versioning ~website
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_bucket __resource);
-  let __resource_attributes =
-    ({
-       default_event_based_hold =
-         Prop.computed __resource_type __resource_id
-           "default_event_based_hold";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       enable_object_retention =
-         Prop.computed __resource_type __resource_id
-           "enable_object_retention";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       public_access_prevention =
-         Prop.computed __resource_type __resource_id
-           "public_access_prevention";
-       requester_pays =
-         Prop.computed __resource_type __resource_id "requester_pays";
-       rpo = Prop.computed __resource_type __resource_id "rpo";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       storage_class =
-         Prop.computed __resource_type __resource_id "storage_class";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uniform_bucket_level_access =
-         Prop.computed __resource_type __resource_id
-           "uniform_bucket_level_access";
-       url = Prop.computed __resource_type __resource_id "url";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

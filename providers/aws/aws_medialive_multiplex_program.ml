@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type multiplex_program_settings__service_descriptor = {
   provider_name : string prop;  (** provider_name *)
@@ -85,23 +83,31 @@ type t = {
   program_name : string prop;
 }
 
-let register ?tf_module ~multiplex_id ~program_name
-    ~multiplex_program_settings __resource_id =
-  let __resource_type = "aws_medialive_multiplex_program" in
-  let __resource =
-    aws_medialive_multiplex_program ~multiplex_id ~program_name
-      ~multiplex_program_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_medialive_multiplex_program __resource);
-  let __resource_attributes =
+let make ~multiplex_id ~program_name ~multiplex_program_settings __id
+    =
+  let __type = "aws_medialive_multiplex_program" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       multiplex_id =
-         Prop.computed __resource_type __resource_id "multiplex_id";
-       program_name =
-         Prop.computed __resource_type __resource_id "program_name";
+       id = Prop.computed __type __id "id";
+       multiplex_id = Prop.computed __type __id "multiplex_id";
+       program_name = Prop.computed __type __id "program_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_medialive_multiplex_program
+        (aws_medialive_multiplex_program ~multiplex_id ~program_name
+           ~multiplex_program_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~multiplex_id ~program_name
+    ~multiplex_program_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ~multiplex_id ~program_name ~multiplex_program_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

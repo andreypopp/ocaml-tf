@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   cluster_identifier:string prop ->
   string ->
   t
+
+val make :
+  ?default_iam_role_arn:string prop ->
+  ?iam_role_arns:string prop list ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cluster_identifier:string prop ->
+  string ->
+  t Tf_core.resource

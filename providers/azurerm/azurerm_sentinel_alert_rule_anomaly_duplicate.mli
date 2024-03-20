@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,19 @@ val register :
   threshold_observation:threshold_observation list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  built_in_rule_id:string prop ->
+  display_name:string prop ->
+  enabled:bool prop ->
+  log_analytics_workspace_id:string prop ->
+  mode:string prop ->
+  multi_select_observation:multi_select_observation list ->
+  prioritized_exclude_observation:
+    prioritized_exclude_observation list ->
+  single_select_observation:single_select_observation list ->
+  threshold_observation:threshold_observation list ->
+  string ->
+  t Tf_core.resource

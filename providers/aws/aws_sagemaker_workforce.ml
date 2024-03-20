@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cognito_config = {
   client_id : string prop;  (** client_id *)
@@ -91,25 +89,33 @@ type t = {
   workforce_name : string prop;
 }
 
-let register ?tf_module ?id ~workforce_name ~cognito_config
-    ~oidc_config ~source_ip_config ~workforce_vpc_config
-    __resource_id =
-  let __resource_type = "aws_sagemaker_workforce" in
-  let __resource =
-    aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
-      ~oidc_config ~source_ip_config ~workforce_vpc_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_workforce __resource);
-  let __resource_attributes =
+let make ?id ~workforce_name ~cognito_config ~oidc_config
+    ~source_ip_config ~workforce_vpc_config __id =
+  let __type = "aws_sagemaker_workforce" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       subdomain =
-         Prop.computed __resource_type __resource_id "subdomain";
-       workforce_name =
-         Prop.computed __resource_type __resource_id "workforce_name";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       subdomain = Prop.computed __type __id "subdomain";
+       workforce_name = Prop.computed __type __id "workforce_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_workforce
+        (aws_sagemaker_workforce ?id ~workforce_name ~cognito_config
+           ~oidc_config ~source_ip_config ~workforce_vpc_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~workforce_name ~cognito_config
+    ~oidc_config ~source_ip_config ~workforce_vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~workforce_name ~cognito_config ~oidc_config
+      ~source_ip_config ~workforce_vpc_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

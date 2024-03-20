@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_rule = {
   ip_mask : string prop;  (** ip_mask *)
@@ -58,31 +56,35 @@ type t = {
   iotcentral_application_id : string prop;
 }
 
-let register ?tf_module ?apply_to_device ?default_action ?id
-    ?timeouts ~iotcentral_application_id ~ip_rule __resource_id =
-  let __resource_type =
-    "azurerm_iotcentral_application_network_rule_set"
-  in
-  let __resource =
-    azurerm_iotcentral_application_network_rule_set ?apply_to_device
-      ?default_action ?id ?timeouts ~iotcentral_application_id
-      ~ip_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iotcentral_application_network_rule_set
-       __resource);
-  let __resource_attributes =
+let make ?apply_to_device ?default_action ?id ?timeouts
+    ~iotcentral_application_id ~ip_rule __id =
+  let __type = "azurerm_iotcentral_application_network_rule_set" in
+  let __attrs =
     ({
-       apply_to_device =
-         Prop.computed __resource_type __resource_id
-           "apply_to_device";
-       default_action =
-         Prop.computed __resource_type __resource_id "default_action";
-       id = Prop.computed __resource_type __resource_id "id";
+       apply_to_device = Prop.computed __type __id "apply_to_device";
+       default_action = Prop.computed __type __id "default_action";
+       id = Prop.computed __type __id "id";
        iotcentral_application_id =
-         Prop.computed __resource_type __resource_id
-           "iotcentral_application_id";
+         Prop.computed __type __id "iotcentral_application_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iotcentral_application_network_rule_set
+        (azurerm_iotcentral_application_network_rule_set
+           ?apply_to_device ?default_action ?id ?timeouts
+           ~iotcentral_application_id ~ip_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?apply_to_device ?default_action ?id
+    ?timeouts ~iotcentral_application_id ~ip_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_to_device ?default_action ?id ?timeouts
+      ~iotcentral_application_id ~ip_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

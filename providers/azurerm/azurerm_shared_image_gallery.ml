@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sharing__community_gallery = {
   eula : string prop;  (** eula *)
@@ -76,30 +74,37 @@ type t = {
   unique_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?timeouts ~location
-    ~name ~resource_group_name ~sharing __resource_id =
-  let __resource_type = "azurerm_shared_image_gallery" in
-  let __resource =
-    azurerm_shared_image_gallery ?description ?id ?tags ?timeouts
-      ~location ~name ~resource_group_name ~sharing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_shared_image_gallery __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sharing __id =
+  let __type = "azurerm_shared_image_gallery" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       unique_name =
-         Prop.computed __resource_type __resource_id "unique_name";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       unique_name = Prop.computed __type __id "unique_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_shared_image_gallery
+        (azurerm_shared_image_gallery ?description ?id ?tags
+           ?timeouts ~location ~name ~resource_group_name ~sharing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~sharing __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?timeouts ~location ~name
+      ~resource_group_name ~sharing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

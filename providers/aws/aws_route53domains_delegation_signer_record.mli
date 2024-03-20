@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,10 @@ val register :
   signing_attributes:signing_attributes list ->
   string ->
   t
+
+val make :
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  signing_attributes:signing_attributes list ->
+  string ->
+  t Tf_core.resource

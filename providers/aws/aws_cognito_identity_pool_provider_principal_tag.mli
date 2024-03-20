@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,3 +37,12 @@ val register :
   identity_provider_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?principal_tags:(string * string prop) list ->
+  ?use_defaults:bool prop ->
+  identity_pool_id:string prop ->
+  identity_provider_name:string prop ->
+  string ->
+  t Tf_core.resource

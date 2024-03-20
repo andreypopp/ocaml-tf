@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   storage_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?malware_scanning_on_upload_cap_gb_per_month:float prop ->
+  ?malware_scanning_on_upload_enabled:bool prop ->
+  ?override_subscription_settings_enabled:bool prop ->
+  ?sensitive_data_discovery_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  storage_account_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,12 @@ val register :
   rotation_rules:rotation_rules list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?rotate_immediately:bool prop ->
+  ?rotation_lambda_arn:string prop ->
+  secret_id:string prop ->
+  rotation_rules:rotation_rules list ->
+  string ->
+  t Tf_core.resource

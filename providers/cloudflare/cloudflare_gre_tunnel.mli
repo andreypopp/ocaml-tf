@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,19 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?description:string prop ->
+  ?health_check_enabled:bool prop ->
+  ?health_check_target:string prop ->
+  ?health_check_type:string prop ->
+  ?id:string prop ->
+  ?mtu:float prop ->
+  ?ttl:float prop ->
+  cloudflare_gre_endpoint:string prop ->
+  customer_gre_endpoint:string prop ->
+  interface_address:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

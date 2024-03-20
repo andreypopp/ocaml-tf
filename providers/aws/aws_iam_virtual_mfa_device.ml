@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_virtual_mfa_device = {
   id : string prop option; [@option]  (** id *)
@@ -33,36 +31,39 @@ type t = {
   virtual_mfa_device_name : string prop;
 }
 
-let register ?tf_module ?id ?path ?tags ?tags_all
-    ~virtual_mfa_device_name __resource_id =
-  let __resource_type = "aws_iam_virtual_mfa_device" in
-  let __resource =
-    aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
-      ~virtual_mfa_device_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_virtual_mfa_device __resource);
-  let __resource_attributes =
+let make ?id ?path ?tags ?tags_all ~virtual_mfa_device_name __id =
+  let __type = "aws_iam_virtual_mfa_device" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        base_32_string_seed =
-         Prop.computed __resource_type __resource_id
-           "base_32_string_seed";
-       enable_date =
-         Prop.computed __resource_type __resource_id "enable_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       path = Prop.computed __resource_type __resource_id "path";
-       qr_code_png =
-         Prop.computed __resource_type __resource_id "qr_code_png";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "base_32_string_seed";
+       enable_date = Prop.computed __type __id "enable_date";
+       id = Prop.computed __type __id "id";
+       path = Prop.computed __type __id "path";
+       qr_code_png = Prop.computed __type __id "qr_code_png";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_name = Prop.computed __type __id "user_name";
        virtual_mfa_device_name =
-         Prop.computed __resource_type __resource_id
-           "virtual_mfa_device_name";
+         Prop.computed __type __id "virtual_mfa_device_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_virtual_mfa_device
+        (aws_iam_virtual_mfa_device ?id ?path ?tags ?tags_all
+           ~virtual_mfa_device_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?path ?tags ?tags_all
+    ~virtual_mfa_device_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?path ?tags ?tags_all ~virtual_mfa_device_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

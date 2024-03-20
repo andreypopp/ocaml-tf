@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,13 @@ val register :
   source_db_instance_arn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?pre_signed_url:string prop ->
+  ?retention_period:float prop ->
+  ?timeouts:timeouts ->
+  source_db_instance_arn:string prop ->
+  string ->
+  t Tf_core.resource

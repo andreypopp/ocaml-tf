@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dns = {
   proxy_enabled : bool prop option; [@option]  (** proxy_enabled *)
@@ -245,56 +243,66 @@ type t = {
   threat_intelligence_mode : string prop;
 }
 
+let make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
+    ?private_ip_ranges ?sku ?sql_redirect_allowed ?tags
+    ?threat_intelligence_mode ?timeouts ~location ~name
+    ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
+    ~intrusion_detection ~threat_intelligence_allowlist
+    ~tls_certificate __id =
+  let __type = "azurerm_firewall_policy" in
+  let __attrs =
+    ({
+       auto_learn_private_ranges_enabled =
+         Prop.computed __type __id
+           "auto_learn_private_ranges_enabled";
+       base_policy_id = Prop.computed __type __id "base_policy_id";
+       child_policies = Prop.computed __type __id "child_policies";
+       firewalls = Prop.computed __type __id "firewalls";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       private_ip_ranges =
+         Prop.computed __type __id "private_ip_ranges";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       rule_collection_groups =
+         Prop.computed __type __id "rule_collection_groups";
+       sku = Prop.computed __type __id "sku";
+       sql_redirect_allowed =
+         Prop.computed __type __id "sql_redirect_allowed";
+       tags = Prop.computed __type __id "tags";
+       threat_intelligence_mode =
+         Prop.computed __type __id "threat_intelligence_mode";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_firewall_policy
+        (azurerm_firewall_policy ?auto_learn_private_ranges_enabled
+           ?base_policy_id ?id ?private_ip_ranges ?sku
+           ?sql_redirect_allowed ?tags ?threat_intelligence_mode
+           ?timeouts ~location ~name ~resource_group_name ~dns
+           ~explicit_proxy ~identity ~insights ~intrusion_detection
+           ~threat_intelligence_allowlist ~tls_certificate ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_learn_private_ranges_enabled
     ?base_policy_id ?id ?private_ip_ranges ?sku ?sql_redirect_allowed
     ?tags ?threat_intelligence_mode ?timeouts ~location ~name
     ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
     ~intrusion_detection ~threat_intelligence_allowlist
-    ~tls_certificate __resource_id =
-  let __resource_type = "azurerm_firewall_policy" in
-  let __resource =
-    azurerm_firewall_policy ?auto_learn_private_ranges_enabled
-      ?base_policy_id ?id ?private_ip_ranges ?sku
-      ?sql_redirect_allowed ?tags ?threat_intelligence_mode ?timeouts
-      ~location ~name ~resource_group_name ~dns ~explicit_proxy
-      ~identity ~insights ~intrusion_detection
-      ~threat_intelligence_allowlist ~tls_certificate ()
+    ~tls_certificate __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_learn_private_ranges_enabled ?base_policy_id ?id
+      ?private_ip_ranges ?sku ?sql_redirect_allowed ?tags
+      ?threat_intelligence_mode ?timeouts ~location ~name
+      ~resource_group_name ~dns ~explicit_proxy ~identity ~insights
+      ~intrusion_detection ~threat_intelligence_allowlist
+      ~tls_certificate __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_firewall_policy __resource);
-  let __resource_attributes =
-    ({
-       auto_learn_private_ranges_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_learn_private_ranges_enabled";
-       base_policy_id =
-         Prop.computed __resource_type __resource_id "base_policy_id";
-       child_policies =
-         Prop.computed __resource_type __resource_id "child_policies";
-       firewalls =
-         Prop.computed __resource_type __resource_id "firewalls";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_ip_ranges =
-         Prop.computed __resource_type __resource_id
-           "private_ip_ranges";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       rule_collection_groups =
-         Prop.computed __resource_type __resource_id
-           "rule_collection_groups";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       sql_redirect_allowed =
-         Prop.computed __resource_type __resource_id
-           "sql_redirect_allowed";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       threat_intelligence_mode =
-         Prop.computed __resource_type __resource_id
-           "threat_intelligence_mode";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

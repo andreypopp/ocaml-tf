@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -120,3 +120,28 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?audit_comment:string prop ->
+  ?decryption_rule_type:string prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?inspection_certificate_id:string prop ->
+  ?logging_enabled:bool prop ->
+  ?negate_destination:bool prop ->
+  ?negate_source:bool prop ->
+  ?protocol:string prop ->
+  ?protocol_ports:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  applications:string prop list ->
+  name:string prop ->
+  priority:float prop ->
+  rulestack_id:string prop ->
+  category:category list ->
+  destination:destination list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

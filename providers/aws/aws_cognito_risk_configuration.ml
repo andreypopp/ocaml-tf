@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type account_takeover_risk_configuration__actions__high_action = {
   event_action : string prop;  (** event_action *)
@@ -207,27 +205,40 @@ type t = {
   user_pool_id : string prop;
 }
 
-let register ?tf_module ?client_id ?id ~user_pool_id
+let make ?client_id ?id ~user_pool_id
     ~account_takeover_risk_configuration
     ~compromised_credentials_risk_configuration
-    ~risk_exception_configuration __resource_id =
-  let __resource_type = "aws_cognito_risk_configuration" in
-  let __resource =
-    aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
-      ~account_takeover_risk_configuration
-      ~compromised_credentials_risk_configuration
-      ~risk_exception_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_risk_configuration __resource);
-  let __resource_attributes =
+    ~risk_exception_configuration __id =
+  let __type = "aws_cognito_risk_configuration" in
+  let __attrs =
     ({
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       user_pool_id =
-         Prop.computed __resource_type __resource_id "user_pool_id";
+       client_id = Prop.computed __type __id "client_id";
+       id = Prop.computed __type __id "id";
+       user_pool_id = Prop.computed __type __id "user_pool_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_risk_configuration
+        (aws_cognito_risk_configuration ?client_id ?id ~user_pool_id
+           ~account_takeover_risk_configuration
+           ~compromised_credentials_risk_configuration
+           ~risk_exception_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_id ?id ~user_pool_id
+    ~account_takeover_risk_configuration
+    ~compromised_credentials_risk_configuration
+    ~risk_exception_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_id ?id ~user_pool_id
+      ~account_takeover_risk_configuration
+      ~compromised_credentials_risk_configuration
+      ~risk_exception_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

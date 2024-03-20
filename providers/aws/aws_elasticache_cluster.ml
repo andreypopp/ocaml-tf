@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_delivery_configuration = {
   destination : string prop;  (** destination *)
@@ -164,6 +162,93 @@ type t = {
   transit_encryption_enabled : bool prop;
 }
 
+let make ?apply_immediately ?auto_minor_version_upgrade
+    ?availability_zone ?az_mode ?engine ?engine_version
+    ?final_snapshot_identifier ?id ?ip_discovery ?maintenance_window
+    ?network_type ?node_type ?notification_topic_arn ?num_cache_nodes
+    ?outpost_mode ?parameter_group_name ?port
+    ?preferred_availability_zones ?preferred_outpost_arn
+    ?replication_group_id ?security_group_ids ?snapshot_arns
+    ?snapshot_name ?snapshot_retention_limit ?snapshot_window
+    ?subnet_group_name ?tags ?tags_all ?transit_encryption_enabled
+    ~cluster_id ~log_delivery_configuration __id =
+  let __type = "aws_elasticache_cluster" in
+  let __attrs =
+    ({
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       auto_minor_version_upgrade =
+         Prop.computed __type __id "auto_minor_version_upgrade";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       az_mode = Prop.computed __type __id "az_mode";
+       cache_nodes = Prop.computed __type __id "cache_nodes";
+       cluster_address = Prop.computed __type __id "cluster_address";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       configuration_endpoint =
+         Prop.computed __type __id "configuration_endpoint";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       engine_version_actual =
+         Prop.computed __type __id "engine_version_actual";
+       final_snapshot_identifier =
+         Prop.computed __type __id "final_snapshot_identifier";
+       id = Prop.computed __type __id "id";
+       ip_discovery = Prop.computed __type __id "ip_discovery";
+       maintenance_window =
+         Prop.computed __type __id "maintenance_window";
+       network_type = Prop.computed __type __id "network_type";
+       node_type = Prop.computed __type __id "node_type";
+       notification_topic_arn =
+         Prop.computed __type __id "notification_topic_arn";
+       num_cache_nodes = Prop.computed __type __id "num_cache_nodes";
+       outpost_mode = Prop.computed __type __id "outpost_mode";
+       parameter_group_name =
+         Prop.computed __type __id "parameter_group_name";
+       port = Prop.computed __type __id "port";
+       preferred_availability_zones =
+         Prop.computed __type __id "preferred_availability_zones";
+       preferred_outpost_arn =
+         Prop.computed __type __id "preferred_outpost_arn";
+       replication_group_id =
+         Prop.computed __type __id "replication_group_id";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       snapshot_arns = Prop.computed __type __id "snapshot_arns";
+       snapshot_name = Prop.computed __type __id "snapshot_name";
+       snapshot_retention_limit =
+         Prop.computed __type __id "snapshot_retention_limit";
+       snapshot_window = Prop.computed __type __id "snapshot_window";
+       subnet_group_name =
+         Prop.computed __type __id "subnet_group_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transit_encryption_enabled =
+         Prop.computed __type __id "transit_encryption_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_cluster
+        (aws_elasticache_cluster ?apply_immediately
+           ?auto_minor_version_upgrade ?availability_zone ?az_mode
+           ?engine ?engine_version ?final_snapshot_identifier ?id
+           ?ip_discovery ?maintenance_window ?network_type ?node_type
+           ?notification_topic_arn ?num_cache_nodes ?outpost_mode
+           ?parameter_group_name ?port ?preferred_availability_zones
+           ?preferred_outpost_arn ?replication_group_id
+           ?security_group_ids ?snapshot_arns ?snapshot_name
+           ?snapshot_retention_limit ?snapshot_window
+           ?subnet_group_name ?tags ?tags_all
+           ?transit_encryption_enabled ~cluster_id
+           ~log_delivery_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_immediately
     ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
     ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
@@ -174,12 +259,11 @@ let register ?tf_module ?apply_immediately
     ?snapshot_arns ?snapshot_name ?snapshot_retention_limit
     ?snapshot_window ?subnet_group_name ?tags ?tags_all
     ?transit_encryption_enabled ~cluster_id
-    ~log_delivery_configuration __resource_id =
-  let __resource_type = "aws_elasticache_cluster" in
-  let __resource =
-    aws_elasticache_cluster ?apply_immediately
-      ?auto_minor_version_upgrade ?availability_zone ?az_mode ?engine
-      ?engine_version ?final_snapshot_identifier ?id ?ip_discovery
+    ~log_delivery_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_immediately ?auto_minor_version_upgrade
+      ?availability_zone ?az_mode ?engine ?engine_version
+      ?final_snapshot_identifier ?id ?ip_discovery
       ?maintenance_window ?network_type ?node_type
       ?notification_topic_arn ?num_cache_nodes ?outpost_mode
       ?parameter_group_name ?port ?preferred_availability_zones
@@ -187,97 +271,7 @@ let register ?tf_module ?apply_immediately
       ?security_group_ids ?snapshot_arns ?snapshot_name
       ?snapshot_retention_limit ?snapshot_window ?subnet_group_name
       ?tags ?tags_all ?transit_encryption_enabled ~cluster_id
-      ~log_delivery_configuration ()
+      ~log_delivery_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_cluster __resource);
-  let __resource_attributes =
-    ({
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_minor_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "auto_minor_version_upgrade";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       az_mode =
-         Prop.computed __resource_type __resource_id "az_mode";
-       cache_nodes =
-         Prop.computed __resource_type __resource_id "cache_nodes";
-       cluster_address =
-         Prop.computed __resource_type __resource_id
-           "cluster_address";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       configuration_endpoint =
-         Prop.computed __resource_type __resource_id
-           "configuration_endpoint";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       engine_version_actual =
-         Prop.computed __resource_type __resource_id
-           "engine_version_actual";
-       final_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "final_snapshot_identifier";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_discovery =
-         Prop.computed __resource_type __resource_id "ip_discovery";
-       maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "maintenance_window";
-       network_type =
-         Prop.computed __resource_type __resource_id "network_type";
-       node_type =
-         Prop.computed __resource_type __resource_id "node_type";
-       notification_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "notification_topic_arn";
-       num_cache_nodes =
-         Prop.computed __resource_type __resource_id
-           "num_cache_nodes";
-       outpost_mode =
-         Prop.computed __resource_type __resource_id "outpost_mode";
-       parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "parameter_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       preferred_availability_zones =
-         Prop.computed __resource_type __resource_id
-           "preferred_availability_zones";
-       preferred_outpost_arn =
-         Prop.computed __resource_type __resource_id
-           "preferred_outpost_arn";
-       replication_group_id =
-         Prop.computed __resource_type __resource_id
-           "replication_group_id";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       snapshot_arns =
-         Prop.computed __resource_type __resource_id "snapshot_arns";
-       snapshot_name =
-         Prop.computed __resource_type __resource_id "snapshot_name";
-       snapshot_retention_limit =
-         Prop.computed __resource_type __resource_id
-           "snapshot_retention_limit";
-       snapshot_window =
-         Prop.computed __resource_type __resource_id
-           "snapshot_window";
-       subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "subnet_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transit_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

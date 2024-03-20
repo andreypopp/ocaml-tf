@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dispatch_rules = {
   domain : string prop option; [@option]
@@ -48,24 +46,28 @@ let google_app_engine_application_url_dispatch_rules ?id ?project
 
 type t = { id : string prop; project : string prop }
 
-let register ?tf_module ?id ?project ?timeouts ~dispatch_rules
-    __resource_id =
-  let __resource_type =
-    "google_app_engine_application_url_dispatch_rules"
-  in
-  let __resource =
-    google_app_engine_application_url_dispatch_rules ?id ?project
-      ?timeouts ~dispatch_rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_app_engine_application_url_dispatch_rules
-       __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~dispatch_rules __id =
+  let __type = "google_app_engine_application_url_dispatch_rules" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_app_engine_application_url_dispatch_rules
+        (google_app_engine_application_url_dispatch_rules ?id
+           ?project ?timeouts ~dispatch_rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~dispatch_rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~dispatch_rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

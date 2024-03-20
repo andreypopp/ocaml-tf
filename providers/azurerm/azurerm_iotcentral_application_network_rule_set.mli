@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,13 @@ val register :
   ip_rule:ip_rule list ->
   string ->
   t
+
+val make :
+  ?apply_to_device:bool prop ->
+  ?default_action:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  iotcentral_application_id:string prop ->
+  ip_rule:ip_rule list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,17 @@ val register :
   s_sl_info:s_sl_info list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_enabled:bool prop ->
+  ?protocol:string prop ->
+  ?timeouts:timeouts ->
+  env_id:string prop ->
+  host:string prop ->
+  name:string prop ->
+  port:float prop ->
+  s_sl_info:s_sl_info list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_pages = {
   forbidden : string prop option; [@option]
@@ -110,54 +108,62 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?account_id ?allow_authenticate_via_warp
+    ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
+    ?session_duration ?ui_read_only_toggle_reason
+    ?user_seat_expiration_inactive_time ?warp_auth_session_duration
+    ?zone_id ~auth_domain ~custom_pages ~login_design __id =
+  let __type = "cloudflare_access_organization" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       allow_authenticate_via_warp =
+         Prop.computed __type __id "allow_authenticate_via_warp";
+       auth_domain = Prop.computed __type __id "auth_domain";
+       auto_redirect_to_identity =
+         Prop.computed __type __id "auto_redirect_to_identity";
+       id = Prop.computed __type __id "id";
+       is_ui_read_only = Prop.computed __type __id "is_ui_read_only";
+       name = Prop.computed __type __id "name";
+       session_duration =
+         Prop.computed __type __id "session_duration";
+       ui_read_only_toggle_reason =
+         Prop.computed __type __id "ui_read_only_toggle_reason";
+       user_seat_expiration_inactive_time =
+         Prop.computed __type __id
+           "user_seat_expiration_inactive_time";
+       warp_auth_session_duration =
+         Prop.computed __type __id "warp_auth_session_duration";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_organization
+        (cloudflare_access_organization ?account_id
+           ?allow_authenticate_via_warp ?auto_redirect_to_identity
+           ?id ?is_ui_read_only ?name ?session_duration
+           ?ui_read_only_toggle_reason
+           ?user_seat_expiration_inactive_time
+           ?warp_auth_session_duration ?zone_id ~auth_domain
+           ~custom_pages ~login_design ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
     ?session_duration ?ui_read_only_toggle_reason
     ?user_seat_expiration_inactive_time ?warp_auth_session_duration
-    ?zone_id ~auth_domain ~custom_pages ~login_design __resource_id =
-  let __resource_type = "cloudflare_access_organization" in
-  let __resource =
-    cloudflare_access_organization ?account_id
-      ?allow_authenticate_via_warp ?auto_redirect_to_identity ?id
-      ?is_ui_read_only ?name ?session_duration
-      ?ui_read_only_toggle_reason ?user_seat_expiration_inactive_time
-      ?warp_auth_session_duration ?zone_id ~auth_domain ~custom_pages
-      ~login_design ()
+    ?zone_id ~auth_domain ~custom_pages ~login_design __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?allow_authenticate_via_warp
+      ?auto_redirect_to_identity ?id ?is_ui_read_only ?name
+      ?session_duration ?ui_read_only_toggle_reason
+      ?user_seat_expiration_inactive_time ?warp_auth_session_duration
+      ?zone_id ~auth_domain ~custom_pages ~login_design __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_organization __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       allow_authenticate_via_warp =
-         Prop.computed __resource_type __resource_id
-           "allow_authenticate_via_warp";
-       auth_domain =
-         Prop.computed __resource_type __resource_id "auth_domain";
-       auto_redirect_to_identity =
-         Prop.computed __resource_type __resource_id
-           "auto_redirect_to_identity";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_ui_read_only =
-         Prop.computed __resource_type __resource_id
-           "is_ui_read_only";
-       name = Prop.computed __resource_type __resource_id "name";
-       session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       ui_read_only_toggle_reason =
-         Prop.computed __resource_type __resource_id
-           "ui_read_only_toggle_reason";
-       user_seat_expiration_inactive_time =
-         Prop.computed __resource_type __resource_id
-           "user_seat_expiration_inactive_time";
-       warp_auth_session_duration =
-         Prop.computed __resource_type __resource_id
-           "warp_auth_session_duration";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

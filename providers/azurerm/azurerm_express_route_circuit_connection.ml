@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,36 +54,41 @@ type t = {
   peering_id : string prop;
 }
 
-let register ?tf_module ?address_prefix_ipv6 ?authorization_key ?id
-    ?timeouts ~address_prefix_ipv4 ~name ~peer_peering_id ~peering_id
-    __resource_id =
-  let __resource_type = "azurerm_express_route_circuit_connection" in
-  let __resource =
-    azurerm_express_route_circuit_connection ?address_prefix_ipv6
-      ?authorization_key ?id ?timeouts ~address_prefix_ipv4 ~name
-      ~peer_peering_id ~peering_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_circuit_connection __resource);
-  let __resource_attributes =
+let make ?address_prefix_ipv6 ?authorization_key ?id ?timeouts
+    ~address_prefix_ipv4 ~name ~peer_peering_id ~peering_id __id =
+  let __type = "azurerm_express_route_circuit_connection" in
+  let __attrs =
     ({
        address_prefix_ipv4 =
-         Prop.computed __resource_type __resource_id
-           "address_prefix_ipv4";
+         Prop.computed __type __id "address_prefix_ipv4";
        address_prefix_ipv6 =
-         Prop.computed __resource_type __resource_id
-           "address_prefix_ipv6";
+         Prop.computed __type __id "address_prefix_ipv6";
        authorization_key =
-         Prop.computed __resource_type __resource_id
-           "authorization_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       peer_peering_id =
-         Prop.computed __resource_type __resource_id
-           "peer_peering_id";
-       peering_id =
-         Prop.computed __resource_type __resource_id "peering_id";
+         Prop.computed __type __id "authorization_key";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       peer_peering_id = Prop.computed __type __id "peer_peering_id";
+       peering_id = Prop.computed __type __id "peering_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_circuit_connection
+        (azurerm_express_route_circuit_connection
+           ?address_prefix_ipv6 ?authorization_key ?id ?timeouts
+           ~address_prefix_ipv4 ~name ~peer_peering_id ~peering_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?address_prefix_ipv6 ?authorization_key ?id
+    ?timeouts ~address_prefix_ipv4 ~name ~peer_peering_id ~peering_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?address_prefix_ipv6 ?authorization_key ?id ?timeouts
+      ~address_prefix_ipv4 ~name ~peer_peering_id ~peering_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

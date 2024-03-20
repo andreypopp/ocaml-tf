@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -28,19 +26,26 @@ let google_compute_shared_vpc_host_project ?id ?timeouts ~project ()
 
 type t = { id : string prop; project : string prop }
 
-let register ?tf_module ?id ?timeouts ~project __resource_id =
-  let __resource_type = "google_compute_shared_vpc_host_project" in
-  let __resource =
-    google_compute_shared_vpc_host_project ?id ?timeouts ~project ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_shared_vpc_host_project __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~project __id =
+  let __type = "google_compute_shared_vpc_host_project" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_shared_vpc_host_project
+        (google_compute_shared_vpc_host_project ?id ?timeouts
+           ~project ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~project __id =
+  let (r : _ Tf_core.resource) = make ?id ?timeouts ~project __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

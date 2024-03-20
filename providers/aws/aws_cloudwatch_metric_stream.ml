@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type exclude_filter = {
   metric_names : string prop list option; [@option]
@@ -116,45 +114,52 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?include_linked_accounts_metrics ?name
-    ?name_prefix ?tags ?tags_all ?timeouts ~firehose_arn
-    ~output_format ~role_arn ~exclude_filter ~include_filter
-    ~statistics_configuration __resource_id =
-  let __resource_type = "aws_cloudwatch_metric_stream" in
-  let __resource =
-    aws_cloudwatch_metric_stream ?id ?include_linked_accounts_metrics
-      ?name ?name_prefix ?tags ?tags_all ?timeouts ~firehose_arn
-      ~output_format ~role_arn ~exclude_filter ~include_filter
-      ~statistics_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_metric_stream __resource);
-  let __resource_attributes =
+let make ?id ?include_linked_accounts_metrics ?name ?name_prefix
+    ?tags ?tags_all ?timeouts ~firehose_arn ~output_format ~role_arn
+    ~exclude_filter ~include_filter ~statistics_configuration __id =
+  let __type = "aws_cloudwatch_metric_stream" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       firehose_arn =
-         Prop.computed __resource_type __resource_id "firehose_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       creation_date = Prop.computed __type __id "creation_date";
+       firehose_arn = Prop.computed __type __id "firehose_arn";
+       id = Prop.computed __type __id "id";
        include_linked_accounts_metrics =
-         Prop.computed __resource_type __resource_id
-           "include_linked_accounts_metrics";
+         Prop.computed __type __id "include_linked_accounts_metrics";
        last_update_date =
-         Prop.computed __resource_type __resource_id
-           "last_update_date";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       output_format =
-         Prop.computed __resource_type __resource_id "output_format";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_update_date";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       output_format = Prop.computed __type __id "output_format";
+       role_arn = Prop.computed __type __id "role_arn";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_metric_stream
+        (aws_cloudwatch_metric_stream ?id
+           ?include_linked_accounts_metrics ?name ?name_prefix ?tags
+           ?tags_all ?timeouts ~firehose_arn ~output_format ~role_arn
+           ~exclude_filter ~include_filter ~statistics_configuration
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?include_linked_accounts_metrics ?name
+    ?name_prefix ?tags ?tags_all ?timeouts ~firehose_arn
+    ~output_format ~role_arn ~exclude_filter ~include_filter
+    ~statistics_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?include_linked_accounts_metrics ?name ?name_prefix
+      ?tags ?tags_all ?timeouts ~firehose_arn ~output_format
+      ~role_arn ~exclude_filter ~include_filter
+      ~statistics_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

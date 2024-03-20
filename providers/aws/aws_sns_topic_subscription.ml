@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sns_topic_subscription = {
   confirmation_timeout_in_minutes : float prop option; [@option]
@@ -70,64 +68,63 @@ type t = {
   topic_arn : string prop;
 }
 
+let make ?confirmation_timeout_in_minutes ?delivery_policy
+    ?endpoint_auto_confirms ?filter_policy ?filter_policy_scope ?id
+    ?raw_message_delivery ?redrive_policy ?replay_policy
+    ?subscription_role_arn ~endpoint ~protocol ~topic_arn __id =
+  let __type = "aws_sns_topic_subscription" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       confirmation_timeout_in_minutes =
+         Prop.computed __type __id "confirmation_timeout_in_minutes";
+       confirmation_was_authenticated =
+         Prop.computed __type __id "confirmation_was_authenticated";
+       delivery_policy = Prop.computed __type __id "delivery_policy";
+       endpoint = Prop.computed __type __id "endpoint";
+       endpoint_auto_confirms =
+         Prop.computed __type __id "endpoint_auto_confirms";
+       filter_policy = Prop.computed __type __id "filter_policy";
+       filter_policy_scope =
+         Prop.computed __type __id "filter_policy_scope";
+       id = Prop.computed __type __id "id";
+       owner_id = Prop.computed __type __id "owner_id";
+       pending_confirmation =
+         Prop.computed __type __id "pending_confirmation";
+       protocol = Prop.computed __type __id "protocol";
+       raw_message_delivery =
+         Prop.computed __type __id "raw_message_delivery";
+       redrive_policy = Prop.computed __type __id "redrive_policy";
+       replay_policy = Prop.computed __type __id "replay_policy";
+       subscription_role_arn =
+         Prop.computed __type __id "subscription_role_arn";
+       topic_arn = Prop.computed __type __id "topic_arn";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sns_topic_subscription
+        (aws_sns_topic_subscription ?confirmation_timeout_in_minutes
+           ?delivery_policy ?endpoint_auto_confirms ?filter_policy
+           ?filter_policy_scope ?id ?raw_message_delivery
+           ?redrive_policy ?replay_policy ?subscription_role_arn
+           ~endpoint ~protocol ~topic_arn ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?confirmation_timeout_in_minutes
     ?delivery_policy ?endpoint_auto_confirms ?filter_policy
     ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
     ?replay_policy ?subscription_role_arn ~endpoint ~protocol
-    ~topic_arn __resource_id =
-  let __resource_type = "aws_sns_topic_subscription" in
-  let __resource =
-    aws_sns_topic_subscription ?confirmation_timeout_in_minutes
-      ?delivery_policy ?endpoint_auto_confirms ?filter_policy
-      ?filter_policy_scope ?id ?raw_message_delivery ?redrive_policy
-      ?replay_policy ?subscription_role_arn ~endpoint ~protocol
-      ~topic_arn ()
+    ~topic_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?confirmation_timeout_in_minutes ?delivery_policy
+      ?endpoint_auto_confirms ?filter_policy ?filter_policy_scope ?id
+      ?raw_message_delivery ?redrive_policy ?replay_policy
+      ?subscription_role_arn ~endpoint ~protocol ~topic_arn __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sns_topic_subscription __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       confirmation_timeout_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "confirmation_timeout_in_minutes";
-       confirmation_was_authenticated =
-         Prop.computed __resource_type __resource_id
-           "confirmation_was_authenticated";
-       delivery_policy =
-         Prop.computed __resource_type __resource_id
-           "delivery_policy";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       endpoint_auto_confirms =
-         Prop.computed __resource_type __resource_id
-           "endpoint_auto_confirms";
-       filter_policy =
-         Prop.computed __resource_type __resource_id "filter_policy";
-       filter_policy_scope =
-         Prop.computed __resource_type __resource_id
-           "filter_policy_scope";
-       id = Prop.computed __resource_type __resource_id "id";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       pending_confirmation =
-         Prop.computed __resource_type __resource_id
-           "pending_confirmation";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       raw_message_delivery =
-         Prop.computed __resource_type __resource_id
-           "raw_message_delivery";
-       redrive_policy =
-         Prop.computed __resource_type __resource_id "redrive_policy";
-       replay_policy =
-         Prop.computed __resource_type __resource_id "replay_policy";
-       subscription_role_arn =
-         Prop.computed __resource_type __resource_id
-           "subscription_role_arn";
-       topic_arn =
-         Prop.computed __resource_type __resource_id "topic_arn";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

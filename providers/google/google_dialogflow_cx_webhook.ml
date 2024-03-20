@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type generic_web_service = {
   allowed_ca_certs : string prop list option; [@option]
@@ -113,42 +111,50 @@ type t = {
   timeout : string prop;
 }
 
-let register ?tf_module ?disabled ?enable_spell_correction
+let make ?disabled ?enable_spell_correction
     ?enable_stackdriver_logging ?id ?parent ?security_settings
     ?timeout ?timeouts ~display_name ~generic_web_service
-    ~service_directory __resource_id =
-  let __resource_type = "google_dialogflow_cx_webhook" in
-  let __resource =
-    google_dialogflow_cx_webhook ?disabled ?enable_spell_correction
-      ?enable_stackdriver_logging ?id ?parent ?security_settings
-      ?timeout ?timeouts ~display_name ~generic_web_service
-      ~service_directory ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_webhook __resource);
-  let __resource_attributes =
+    ~service_directory __id =
+  let __type = "google_dialogflow_cx_webhook" in
+  let __attrs =
     ({
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       disabled = Prop.computed __type __id "disabled";
+       display_name = Prop.computed __type __id "display_name";
        enable_spell_correction =
-         Prop.computed __resource_type __resource_id
-           "enable_spell_correction";
+         Prop.computed __type __id "enable_spell_correction";
        enable_stackdriver_logging =
-         Prop.computed __resource_type __resource_id
-           "enable_stackdriver_logging";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+         Prop.computed __type __id "enable_stackdriver_logging";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
        security_settings =
-         Prop.computed __resource_type __resource_id
-           "security_settings";
-       start_flow =
-         Prop.computed __resource_type __resource_id "start_flow";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
+         Prop.computed __type __id "security_settings";
+       start_flow = Prop.computed __type __id "start_flow";
+       timeout = Prop.computed __type __id "timeout";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_webhook
+        (google_dialogflow_cx_webhook ?disabled
+           ?enable_spell_correction ?enable_stackdriver_logging ?id
+           ?parent ?security_settings ?timeout ?timeouts
+           ~display_name ~generic_web_service ~service_directory ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled ?enable_spell_correction
+    ?enable_stackdriver_logging ?id ?parent ?security_settings
+    ?timeout ?timeouts ~display_name ~generic_web_service
+    ~service_directory __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled ?enable_spell_correction
+      ?enable_stackdriver_logging ?id ?parent ?security_settings
+      ?timeout ?timeouts ~display_name ~generic_web_service
+      ~service_directory __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

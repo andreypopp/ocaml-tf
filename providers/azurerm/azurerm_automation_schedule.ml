@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type monthly_occurrence = {
   day : string prop;  (** day *)
@@ -82,46 +80,51 @@ type t = {
   week_days : string list prop;
 }
 
-let register ?tf_module ?description ?expiry_time ?id ?interval
-    ?month_days ?start_time ?timezone ?week_days ?timeouts
+let make ?description ?expiry_time ?id ?interval ?month_days
+    ?start_time ?timezone ?week_days ?timeouts
     ~automation_account_name ~frequency ~name ~resource_group_name
-    ~monthly_occurrence __resource_id =
-  let __resource_type = "azurerm_automation_schedule" in
-  let __resource =
-    azurerm_automation_schedule ?description ?expiry_time ?id
-      ?interval ?month_days ?start_time ?timezone ?week_days
-      ?timeouts ~automation_account_name ~frequency ~name
-      ~resource_group_name ~monthly_occurrence ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_schedule __resource);
-  let __resource_attributes =
+    ~monthly_occurrence __id =
+  let __type = "azurerm_automation_schedule" in
+  let __attrs =
     ({
        automation_account_name =
-         Prop.computed __resource_type __resource_id
-           "automation_account_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expiry_time =
-         Prop.computed __resource_type __resource_id "expiry_time";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       month_days =
-         Prop.computed __resource_type __resource_id "month_days";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automation_account_name";
+       description = Prop.computed __type __id "description";
+       expiry_time = Prop.computed __type __id "expiry_time";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       month_days = Prop.computed __type __id "month_days";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
-       timezone =
-         Prop.computed __resource_type __resource_id "timezone";
-       week_days =
-         Prop.computed __resource_type __resource_id "week_days";
+         Prop.computed __type __id "resource_group_name";
+       start_time = Prop.computed __type __id "start_time";
+       timezone = Prop.computed __type __id "timezone";
+       week_days = Prop.computed __type __id "week_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_schedule
+        (azurerm_automation_schedule ?description ?expiry_time ?id
+           ?interval ?month_days ?start_time ?timezone ?week_days
+           ?timeouts ~automation_account_name ~frequency ~name
+           ~resource_group_name ~monthly_occurrence ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?expiry_time ?id ?interval
+    ?month_days ?start_time ?timezone ?week_days ?timeouts
+    ~automation_account_name ~frequency ~name ~resource_group_name
+    ~monthly_occurrence __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?expiry_time ?id ?interval ?month_days
+      ?start_time ?timezone ?week_days ?timeouts
+      ~automation_account_name ~frequency ~name ~resource_group_name
+      ~monthly_occurrence __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

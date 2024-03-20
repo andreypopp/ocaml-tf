@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type apply_to = {
   label_selector : string prop option; [@option]
@@ -59,20 +57,28 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?labels ~name ~apply_to ~rule
-    __resource_id =
-  let __resource_type = "hcloud_firewall" in
-  let __resource =
-    hcloud_firewall ?id ?labels ~name ~apply_to ~rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_firewall __resource);
-  let __resource_attributes =
+let make ?id ?labels ~name ~apply_to ~rule __id =
+  let __type = "hcloud_firewall" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_firewall
+        (hcloud_firewall ?id ?labels ~name ~apply_to ~rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ~name ~apply_to ~rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ~name ~apply_to ~rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

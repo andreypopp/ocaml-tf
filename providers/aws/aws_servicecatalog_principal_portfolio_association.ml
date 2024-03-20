@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -49,32 +47,37 @@ type t = {
   principal_type : string prop;
 }
 
-let register ?tf_module ?accept_language ?id ?principal_type
-    ?timeouts ~portfolio_id ~principal_arn __resource_id =
-  let __resource_type =
+let make ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
+    ~principal_arn __id =
+  let __type =
     "aws_servicecatalog_principal_portfolio_association"
   in
-  let __resource =
-    aws_servicecatalog_principal_portfolio_association
-      ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
-      ~principal_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicecatalog_principal_portfolio_association
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       accept_language =
-         Prop.computed __resource_type __resource_id
-           "accept_language";
-       id = Prop.computed __resource_type __resource_id "id";
-       portfolio_id =
-         Prop.computed __resource_type __resource_id "portfolio_id";
-       principal_arn =
-         Prop.computed __resource_type __resource_id "principal_arn";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
+       accept_language = Prop.computed __type __id "accept_language";
+       id = Prop.computed __type __id "id";
+       portfolio_id = Prop.computed __type __id "portfolio_id";
+       principal_arn = Prop.computed __type __id "principal_arn";
+       principal_type = Prop.computed __type __id "principal_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicecatalog_principal_portfolio_association
+        (aws_servicecatalog_principal_portfolio_association
+           ?accept_language ?id ?principal_type ?timeouts
+           ~portfolio_id ~principal_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accept_language ?id ?principal_type
+    ?timeouts ~portfolio_id ~principal_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?accept_language ?id ?principal_type ?timeouts ~portfolio_id
+      ~principal_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

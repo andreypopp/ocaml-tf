@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -203,3 +203,25 @@ val register :
   wsfc_domain_credential:wsfc_domain_credential list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?r_services_enabled:bool prop ->
+  ?sql_connectivity_port:float prop ->
+  ?sql_connectivity_type:string prop ->
+  ?sql_connectivity_update_password:string prop ->
+  ?sql_connectivity_update_username:string prop ->
+  ?sql_license_type:string prop ->
+  ?sql_virtual_machine_group_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  virtual_machine_id:string prop ->
+  assessment:assessment list ->
+  auto_backup:auto_backup list ->
+  auto_patching:auto_patching list ->
+  key_vault_credential:key_vault_credential list ->
+  sql_instance:sql_instance list ->
+  storage_configuration:storage_configuration list ->
+  wsfc_domain_credential:wsfc_domain_credential list ->
+  string ->
+  t Tf_core.resource

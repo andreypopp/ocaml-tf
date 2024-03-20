@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,17 @@ val register :
   priority:float prop ->
   string ->
   t
+
+val make :
+  ?block_override_dns_type:string prop ->
+  ?block_override_domain:string prop ->
+  ?block_override_ttl:float prop ->
+  ?block_response:string prop ->
+  ?id:string prop ->
+  action:string prop ->
+  firewall_domain_list_id:string prop ->
+  firewall_rule_group_id:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  string ->
+  t Tf_core.resource

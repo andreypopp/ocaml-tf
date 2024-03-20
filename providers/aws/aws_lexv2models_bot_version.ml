@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -49,27 +47,35 @@ type t = {
   locale_specification : (string * locale_specification) list prop;
 }
 
-let register ?tf_module ?bot_version ?description ?timeouts ~bot_id
-    ~locale_specification __resource_id =
-  let __resource_type = "aws_lexv2models_bot_version" in
-  let __resource =
-    aws_lexv2models_bot_version ?bot_version ?description ?timeouts
-      ~bot_id ~locale_specification ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lexv2models_bot_version __resource);
-  let __resource_attributes =
+let make ?bot_version ?description ?timeouts ~bot_id
+    ~locale_specification __id =
+  let __type = "aws_lexv2models_bot_version" in
+  let __attrs =
     ({
-       bot_id = Prop.computed __resource_type __resource_id "bot_id";
-       bot_version =
-         Prop.computed __resource_type __resource_id "bot_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       bot_id = Prop.computed __type __id "bot_id";
+       bot_version = Prop.computed __type __id "bot_version";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        locale_specification =
-         Prop.computed __resource_type __resource_id
-           "locale_specification";
+         Prop.computed __type __id "locale_specification";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lexv2models_bot_version
+        (aws_lexv2models_bot_version ?bot_version ?description
+           ?timeouts ~bot_id ~locale_specification ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bot_version ?description ?timeouts ~bot_id
+    ~locale_specification __id =
+  let (r : _ Tf_core.resource) =
+    make ?bot_version ?description ?timeouts ~bot_id
+      ~locale_specification __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cmek_settings = {
   kms_key_name : string prop;
@@ -82,39 +80,44 @@ type t = {
   retention_days : float prop;
 }
 
-let register ?tf_module ?description ?enable_analytics ?id ?locked
-    ?retention_days ~bucket_id ~location ~project ~cmek_settings
-    ~index_configs __resource_id =
-  let __resource_type = "google_logging_project_bucket_config" in
-  let __resource =
-    google_logging_project_bucket_config ?description
-      ?enable_analytics ?id ?locked ?retention_days ~bucket_id
-      ~location ~project ~cmek_settings ~index_configs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_project_bucket_config __resource);
-  let __resource_attributes =
+let make ?description ?enable_analytics ?id ?locked ?retention_days
+    ~bucket_id ~location ~project ~cmek_settings ~index_configs __id
+    =
+  let __type = "google_logging_project_bucket_config" in
+  let __attrs =
     ({
-       bucket_id =
-         Prop.computed __resource_type __resource_id "bucket_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       bucket_id = Prop.computed __type __id "bucket_id";
+       description = Prop.computed __type __id "description";
        enable_analytics =
-         Prop.computed __resource_type __resource_id
-           "enable_analytics";
-       id = Prop.computed __resource_type __resource_id "id";
-       lifecycle_state =
-         Prop.computed __resource_type __resource_id
-           "lifecycle_state";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       locked = Prop.computed __resource_type __resource_id "locked";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       retention_days =
-         Prop.computed __resource_type __resource_id "retention_days";
+         Prop.computed __type __id "enable_analytics";
+       id = Prop.computed __type __id "id";
+       lifecycle_state = Prop.computed __type __id "lifecycle_state";
+       location = Prop.computed __type __id "location";
+       locked = Prop.computed __type __id "locked";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       retention_days = Prop.computed __type __id "retention_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_project_bucket_config
+        (google_logging_project_bucket_config ?description
+           ?enable_analytics ?id ?locked ?retention_days ~bucket_id
+           ~location ~project ~cmek_settings ~index_configs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enable_analytics ?id ?locked
+    ?retention_days ~bucket_id ~location ~project ~cmek_settings
+    ~index_configs __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enable_analytics ?id ?locked ?retention_days
+      ~bucket_id ~location ~project ~cmek_settings ~index_configs
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

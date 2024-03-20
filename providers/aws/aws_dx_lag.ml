@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dx_lag = {
   connection_id : string prop option; [@option]  (** connection_id *)
@@ -50,45 +48,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?connection_id ?force_destroy ?id
-    ?provider_name ?tags ?tags_all ~connections_bandwidth ~location
-    ~name __resource_id =
-  let __resource_type = "aws_dx_lag" in
-  let __resource =
-    aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name ?tags
-      ?tags_all ~connections_bandwidth ~location ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_lag __resource);
-  let __resource_attributes =
+let make ?connection_id ?force_destroy ?id ?provider_name ?tags
+    ?tags_all ~connections_bandwidth ~location ~name __id =
+  let __type = "aws_dx_lag" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
+       arn = Prop.computed __type __id "arn";
+       connection_id = Prop.computed __type __id "connection_id";
        connections_bandwidth =
-         Prop.computed __resource_type __resource_id
-           "connections_bandwidth";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
+         Prop.computed __type __id "connections_bandwidth";
+       force_destroy = Prop.computed __type __id "force_destroy";
        has_logical_redundancy =
-         Prop.computed __resource_type __resource_id
-           "has_logical_redundancy";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "has_logical_redundancy";
+       id = Prop.computed __type __id "id";
        jumbo_frame_capable =
-         Prop.computed __resource_type __resource_id
-           "jumbo_frame_capable";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "jumbo_frame_capable";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
-       provider_name =
-         Prop.computed __resource_type __resource_id "provider_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "owner_account_id";
+       provider_name = Prop.computed __type __id "provider_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_lag
+        (aws_dx_lag ?connection_id ?force_destroy ?id ?provider_name
+           ?tags ?tags_all ~connections_bandwidth ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?connection_id ?force_destroy ?id
+    ?provider_name ?tags ?tags_all ~connections_bandwidth ~location
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?connection_id ?force_destroy ?id ?provider_name ?tags
+      ?tags_all ~connections_bandwidth ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

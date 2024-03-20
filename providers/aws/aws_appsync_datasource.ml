@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dynamodb_config__delta_sync_config = {
   base_table_ttl : float prop option; [@option]
@@ -199,33 +197,46 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?service_role_arn ~api_id
-    ~name ~type_ ~dynamodb_config ~elasticsearch_config
-    ~event_bridge_config ~http_config ~lambda_config
-    ~opensearchservice_config ~relational_database_config
-    __resource_id =
-  let __resource_type = "aws_appsync_datasource" in
-  let __resource =
-    aws_appsync_datasource ?description ?id ?service_role_arn ~api_id
-      ~name ~type_ ~dynamodb_config ~elasticsearch_config
-      ~event_bridge_config ~http_config ~lambda_config
-      ~opensearchservice_config ~relational_database_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_datasource __resource);
-  let __resource_attributes =
+let make ?description ?id ?service_role_arn ~api_id ~name ~type_
+    ~dynamodb_config ~elasticsearch_config ~event_bridge_config
+    ~http_config ~lambda_config ~opensearchservice_config
+    ~relational_database_config __id =
+  let __type = "aws_appsync_datasource" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       api_id = Prop.computed __type __id "api_id";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_role_arn";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "service_role_arn";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_datasource
+        (aws_appsync_datasource ?description ?id ?service_role_arn
+           ~api_id ~name ~type_ ~dynamodb_config
+           ~elasticsearch_config ~event_bridge_config ~http_config
+           ~lambda_config ~opensearchservice_config
+           ~relational_database_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?service_role_arn ~api_id
+    ~name ~type_ ~dynamodb_config ~elasticsearch_config
+    ~event_bridge_config ~http_config ~lambda_config
+    ~opensearchservice_config ~relational_database_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?service_role_arn ~api_id ~name ~type_
+      ~dynamodb_config ~elasticsearch_config ~event_bridge_config
+      ~http_config ~lambda_config ~opensearchservice_config
+      ~relational_database_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

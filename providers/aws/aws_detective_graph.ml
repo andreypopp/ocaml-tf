@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_detective_graph = {
   id : string prop option; [@option]  (** id *)
@@ -25,22 +23,28 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all __resource_id =
-  let __resource_type = "aws_detective_graph" in
-  let __resource = aws_detective_graph ?id ?tags ?tags_all () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_detective_graph __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all __id =
+  let __type = "aws_detective_graph" in
+  let __attrs =
     ({
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       graph_arn =
-         Prop.computed __resource_type __resource_id "graph_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       created_time = Prop.computed __type __id "created_time";
+       graph_arn = Prop.computed __type __id "graph_arn";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_detective_graph
+        (aws_detective_graph ?id ?tags ?tags_all ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all __id =
+  let (r : _ Tf_core.resource) = make ?id ?tags ?tags_all __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,13 @@ val register :
   kernel_gateway_image_config:kernel_gateway_image_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  app_image_config_name:string prop ->
+  jupyter_lab_image_config:jupyter_lab_image_config list ->
+  kernel_gateway_image_config:kernel_gateway_image_config list ->
+  string ->
+  t Tf_core.resource

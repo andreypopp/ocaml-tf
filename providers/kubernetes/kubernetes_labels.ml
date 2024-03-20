@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   name : string prop;  (** The name of the resource. *)
@@ -43,26 +41,35 @@ type t = {
   labels : (string * string) list prop;
 }
 
-let register ?tf_module ?field_manager ?force ?id ~api_version ~kind
-    ~labels ~metadata __resource_id =
-  let __resource_type = "kubernetes_labels" in
-  let __resource =
-    kubernetes_labels ?field_manager ?force ?id ~api_version ~kind
-      ~labels ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_labels __resource);
-  let __resource_attributes =
+let make ?field_manager ?force ?id ~api_version ~kind ~labels
+    ~metadata __id =
+  let __type = "kubernetes_labels" in
+  let __attrs =
     ({
-       api_version =
-         Prop.computed __resource_type __resource_id "api_version";
-       field_manager =
-         Prop.computed __resource_type __resource_id "field_manager";
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       labels = Prop.computed __resource_type __resource_id "labels";
+       api_version = Prop.computed __type __id "api_version";
+       field_manager = Prop.computed __type __id "field_manager";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       labels = Prop.computed __type __id "labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_labels
+        (kubernetes_labels ?field_manager ?force ?id ~api_version
+           ~kind ~labels ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?field_manager ?force ?id ~api_version ~kind
+    ~labels ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?field_manager ?force ?id ~api_version ~kind ~labels
+      ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

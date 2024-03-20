@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -327,3 +327,38 @@ val register :
   vpc_access_connector:vpc_access_connector list ->
   string ->
   t
+
+val make :
+  ?beta_settings:(string * string prop) list ->
+  ?default_expiration:string prop ->
+  ?delete_service_on_destroy:bool prop ->
+  ?env_variables:(string * string prop) list ->
+  ?id:string prop ->
+  ?inbound_services:string prop list ->
+  ?instance_class:string prop ->
+  ?nobuild_files_regex:string prop ->
+  ?noop_on_destroy:bool prop ->
+  ?project:string prop ->
+  ?runtime_api_version:string prop ->
+  ?runtime_channel:string prop ->
+  ?runtime_main_executable_path:string prop ->
+  ?service_account:string prop ->
+  ?serving_status:string prop ->
+  ?version_id:string prop ->
+  ?timeouts:timeouts ->
+  runtime:string prop ->
+  service:string prop ->
+  api_config:api_config list ->
+  automatic_scaling:automatic_scaling list ->
+  deployment:deployment list ->
+  endpoints_api_service:endpoints_api_service list ->
+  entrypoint:entrypoint list ->
+  handlers:handlers list ->
+  liveness_check:liveness_check list ->
+  manual_scaling:manual_scaling list ->
+  network:network list ->
+  readiness_check:readiness_check list ->
+  resources:resources list ->
+  vpc_access_connector:vpc_access_connector list ->
+  string ->
+  t Tf_core.resource

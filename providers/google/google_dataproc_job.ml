@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hadoop_config__logging_config = {
   driver_log_levels : (string * string prop) list;
@@ -402,42 +400,51 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?force_delete ?id ?labels ?project ?region
-    ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
-    ~presto_config ~pyspark_config ~reference ~scheduling
-    ~spark_config ~sparksql_config __resource_id =
-  let __resource_type = "google_dataproc_job" in
-  let __resource =
-    google_dataproc_job ?force_delete ?id ?labels ?project ?region
-      ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
-      ~presto_config ~pyspark_config ~reference ~scheduling
-      ~spark_config ~sparksql_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dataproc_job __resource);
-  let __resource_attributes =
+let make ?force_delete ?id ?labels ?project ?region ?timeouts
+    ~hadoop_config ~hive_config ~pig_config ~placement ~presto_config
+    ~pyspark_config ~reference ~scheduling ~spark_config
+    ~sparksql_config __id =
+  let __type = "google_dataproc_job" in
+  let __attrs =
     ({
        driver_controls_files_uri =
-         Prop.computed __resource_type __resource_id
-           "driver_controls_files_uri";
+         Prop.computed __type __id "driver_controls_files_uri";
        driver_output_resource_uri =
-         Prop.computed __resource_type __resource_id
-           "driver_output_resource_uri";
+         Prop.computed __type __id "driver_output_resource_uri";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "effective_labels";
+       force_delete = Prop.computed __type __id "force_delete";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       status = Prop.computed __type __id "status";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dataproc_job
+        (google_dataproc_job ?force_delete ?id ?labels ?project
+           ?region ?timeouts ~hadoop_config ~hive_config ~pig_config
+           ~placement ~presto_config ~pyspark_config ~reference
+           ~scheduling ~spark_config ~sparksql_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_delete ?id ?labels ?project ?region
+    ?timeouts ~hadoop_config ~hive_config ~pig_config ~placement
+    ~presto_config ~pyspark_config ~reference ~scheduling
+    ~spark_config ~sparksql_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_delete ?id ?labels ?project ?region ?timeouts
+      ~hadoop_config ~hive_config ~pig_config ~placement
+      ~presto_config ~pyspark_config ~reference ~scheduling
+      ~spark_config ~sparksql_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

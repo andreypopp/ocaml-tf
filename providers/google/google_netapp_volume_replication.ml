@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_volume_parameters = {
   description : string prop option; [@option]
@@ -142,71 +140,67 @@ type t = {
   wait_for_mirror : bool prop;
 }
 
-let register ?tf_module ?delete_destination_volume ?description
-    ?force_stopping ?id ?labels ?project ?replication_enabled
-    ?wait_for_mirror ?timeouts ~location ~name ~replication_schedule
-    ~volume_name ~destination_volume_parameters __resource_id =
-  let __resource_type = "google_netapp_volume_replication" in
-  let __resource =
-    google_netapp_volume_replication ?delete_destination_volume
-      ?description ?force_stopping ?id ?labels ?project
-      ?replication_enabled ?wait_for_mirror ?timeouts ~location ~name
-      ~replication_schedule ~volume_name
-      ~destination_volume_parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_netapp_volume_replication __resource);
-  let __resource_attributes =
+let make ?delete_destination_volume ?description ?force_stopping ?id
+    ?labels ?project ?replication_enabled ?wait_for_mirror ?timeouts
+    ~location ~name ~replication_schedule ~volume_name
+    ~destination_volume_parameters __id =
+  let __type = "google_netapp_volume_replication" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       create_time = Prop.computed __type __id "create_time";
        delete_destination_volume =
-         Prop.computed __resource_type __resource_id
-           "delete_destination_volume";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "delete_destination_volume";
+       description = Prop.computed __type __id "description";
        destination_volume =
-         Prop.computed __resource_type __resource_id
-           "destination_volume";
+         Prop.computed __type __id "destination_volume";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       force_stopping =
-         Prop.computed __resource_type __resource_id "force_stopping";
-       healthy =
-         Prop.computed __resource_type __resource_id "healthy";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mirror_state =
-         Prop.computed __resource_type __resource_id "mirror_state";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "effective_labels";
+       force_stopping = Prop.computed __type __id "force_stopping";
+       healthy = Prop.computed __type __id "healthy";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       mirror_state = Prop.computed __type __id "mirror_state";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        replication_enabled =
-         Prop.computed __resource_type __resource_id
-           "replication_enabled";
+         Prop.computed __type __id "replication_enabled";
        replication_schedule =
-         Prop.computed __resource_type __resource_id
-           "replication_schedule";
-       role = Prop.computed __resource_type __resource_id "role";
-       source_volume =
-         Prop.computed __resource_type __resource_id "source_volume";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_details =
-         Prop.computed __resource_type __resource_id "state_details";
+         Prop.computed __type __id "replication_schedule";
+       role = Prop.computed __type __id "role";
+       source_volume = Prop.computed __type __id "source_volume";
+       state = Prop.computed __type __id "state";
+       state_details = Prop.computed __type __id "state_details";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       transfer_stats =
-         Prop.computed __resource_type __resource_id "transfer_stats";
-       volume_name =
-         Prop.computed __resource_type __resource_id "volume_name";
-       wait_for_mirror =
-         Prop.computed __resource_type __resource_id
-           "wait_for_mirror";
+         Prop.computed __type __id "terraform_labels";
+       transfer_stats = Prop.computed __type __id "transfer_stats";
+       volume_name = Prop.computed __type __id "volume_name";
+       wait_for_mirror = Prop.computed __type __id "wait_for_mirror";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_netapp_volume_replication
+        (google_netapp_volume_replication ?delete_destination_volume
+           ?description ?force_stopping ?id ?labels ?project
+           ?replication_enabled ?wait_for_mirror ?timeouts ~location
+           ~name ~replication_schedule ~volume_name
+           ~destination_volume_parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_destination_volume ?description
+    ?force_stopping ?id ?labels ?project ?replication_enabled
+    ?wait_for_mirror ?timeouts ~location ~name ~replication_schedule
+    ~volume_name ~destination_volume_parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_destination_volume ?description ?force_stopping ?id
+      ?labels ?project ?replication_enabled ?wait_for_mirror
+      ?timeouts ~location ~name ~replication_schedule ~volume_name
+      ~destination_volume_parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

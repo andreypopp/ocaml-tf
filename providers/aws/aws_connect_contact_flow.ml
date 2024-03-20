@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_connect_contact_flow = {
   content : string prop option; [@option]  (** content *)
@@ -51,38 +49,41 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?content ?content_hash ?description ?filename
-    ?id ?tags ?tags_all ?type_ ~instance_id ~name __resource_id =
-  let __resource_type = "aws_connect_contact_flow" in
-  let __resource =
-    aws_connect_contact_flow ?content ?content_hash ?description
-      ?filename ?id ?tags ?tags_all ?type_ ~instance_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_contact_flow __resource);
-  let __resource_attributes =
+let make ?content ?content_hash ?description ?filename ?id ?tags
+    ?tags_all ?type_ ~instance_id ~name __id =
+  let __type = "aws_connect_contact_flow" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       contact_flow_id =
-         Prop.computed __resource_type __resource_id
-           "contact_flow_id";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       content_hash =
-         Prop.computed __resource_type __resource_id "content_hash";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       filename =
-         Prop.computed __resource_type __resource_id "filename";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       contact_flow_id = Prop.computed __type __id "contact_flow_id";
+       content = Prop.computed __type __id "content";
+       content_hash = Prop.computed __type __id "content_hash";
+       description = Prop.computed __type __id "description";
+       filename = Prop.computed __type __id "filename";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_contact_flow
+        (aws_connect_contact_flow ?content ?content_hash ?description
+           ?filename ?id ?tags ?tags_all ?type_ ~instance_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?content ?content_hash ?description ?filename
+    ?id ?tags ?tags_all ?type_ ~instance_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?content ?content_hash ?description ?filename ?id ?tags
+      ?tags_all ?type_ ~instance_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,36 +54,41 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?calling_web_hook ?deployment_environment
-    ?enable_calling ?id ?timeouts ~bot_name ~location
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_bot_channel_ms_teams" in
-  let __resource =
-    azurerm_bot_channel_ms_teams ?calling_web_hook
-      ?deployment_environment ?enable_calling ?id ?timeouts ~bot_name
-      ~location ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channel_ms_teams __resource);
-  let __resource_attributes =
+let make ?calling_web_hook ?deployment_environment ?enable_calling
+    ?id ?timeouts ~bot_name ~location ~resource_group_name __id =
+  let __type = "azurerm_bot_channel_ms_teams" in
+  let __attrs =
     ({
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
+       bot_name = Prop.computed __type __id "bot_name";
        calling_web_hook =
-         Prop.computed __resource_type __resource_id
-           "calling_web_hook";
+         Prop.computed __type __id "calling_web_hook";
        deployment_environment =
-         Prop.computed __resource_type __resource_id
-           "deployment_environment";
-       enable_calling =
-         Prop.computed __resource_type __resource_id "enable_calling";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "deployment_environment";
+       enable_calling = Prop.computed __type __id "enable_calling";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channel_ms_teams
+        (azurerm_bot_channel_ms_teams ?calling_web_hook
+           ?deployment_environment ?enable_calling ?id ?timeouts
+           ~bot_name ~location ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?calling_web_hook ?deployment_environment
+    ?enable_calling ?id ?timeouts ~bot_name ~location
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?calling_web_hook ?deployment_environment ?enable_calling
+      ?id ?timeouts ~bot_name ~location ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

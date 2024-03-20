@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -17,3 +17,5 @@ type t = private { id : string prop; name : string prop }
 
 val register :
   ?tf_module:tf_module -> name:string prop -> string -> t
+
+val make : name:string prop -> string -> t Tf_core.resource

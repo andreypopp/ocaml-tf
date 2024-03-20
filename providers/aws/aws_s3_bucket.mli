@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -324,3 +324,29 @@ val register :
   website:website list ->
   string ->
   t
+
+val make :
+  ?acceleration_status:string prop ->
+  ?acl:string prop ->
+  ?bucket:string prop ->
+  ?bucket_prefix:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?object_lock_enabled:bool prop ->
+  ?policy:string prop ->
+  ?request_payer:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cors_rule:cors_rule list ->
+  grant:grant list ->
+  lifecycle_rule:lifecycle_rule list ->
+  logging:logging list ->
+  object_lock_configuration:object_lock_configuration list ->
+  replication_configuration:replication_configuration list ->
+  server_side_encryption_configuration:
+    server_side_encryption_configuration list ->
+  versioning:versioning list ->
+  website:website list ->
+  string ->
+  t Tf_core.resource

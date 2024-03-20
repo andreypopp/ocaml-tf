@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -318,3 +318,38 @@ val register :
   storage_profile_os_disk:storage_profile_os_disk list ->
   string ->
   t
+
+val make :
+  ?automatic_os_upgrade:bool prop ->
+  ?eviction_policy:string prop ->
+  ?health_probe_id:string prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?overprovision:bool prop ->
+  ?priority:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?single_placement_group:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  upgrade_policy_mode:string prop ->
+  boot_diagnostics:boot_diagnostics list ->
+  extension:extension list ->
+  identity:identity list ->
+  network_profile:network_profile list ->
+  os_profile:os_profile list ->
+  os_profile_linux_config:os_profile_linux_config list ->
+  os_profile_secrets:os_profile_secrets list ->
+  os_profile_windows_config:os_profile_windows_config list ->
+  plan:plan list ->
+  rolling_upgrade_policy:rolling_upgrade_policy list ->
+  sku:sku list ->
+  storage_profile_data_disk:storage_profile_data_disk list ->
+  storage_profile_image_reference:
+    storage_profile_image_reference list ->
+  storage_profile_os_disk:storage_profile_os_disk list ->
+  string ->
+  t Tf_core.resource

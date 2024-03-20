@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,34 +53,39 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?id ?storage_account_name ?storage_table_id
-    ?table_name ?timeouts ~entity ~partition_key ~row_key
-    __resource_id =
-  let __resource_type = "azurerm_storage_table_entity" in
-  let __resource =
-    azurerm_storage_table_entity ?id ?storage_account_name
-      ?storage_table_id ?table_name ?timeouts ~entity ~partition_key
-      ~row_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_table_entity __resource);
-  let __resource_attributes =
+let make ?id ?storage_account_name ?storage_table_id ?table_name
+    ?timeouts ~entity ~partition_key ~row_key __id =
+  let __type = "azurerm_storage_table_entity" in
+  let __attrs =
     ({
-       entity = Prop.computed __resource_type __resource_id "entity";
-       id = Prop.computed __resource_type __resource_id "id";
-       partition_key =
-         Prop.computed __resource_type __resource_id "partition_key";
-       row_key =
-         Prop.computed __resource_type __resource_id "row_key";
+       entity = Prop.computed __type __id "entity";
+       id = Prop.computed __type __id "id";
+       partition_key = Prop.computed __type __id "partition_key";
+       row_key = Prop.computed __type __id "row_key";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
        storage_table_id =
-         Prop.computed __resource_type __resource_id
-           "storage_table_id";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+         Prop.computed __type __id "storage_table_id";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_table_entity
+        (azurerm_storage_table_entity ?id ?storage_account_name
+           ?storage_table_id ?table_name ?timeouts ~entity
+           ~partition_key ~row_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?storage_account_name ?storage_table_id
+    ?table_name ?timeouts ~entity ~partition_key ~row_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?storage_account_name ?storage_table_id ?table_name
+      ?timeouts ~entity ~partition_key ~row_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sso = {
   client_id : string prop option; [@option]  (** client_id *)
@@ -79,41 +77,48 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?api_try_out_enabled ?gateway_ids
-    ?https_only_enabled ?id ?instance_count
-    ?public_network_access_enabled ?timeouts ~name
-    ~spring_cloud_service_id ~sso __resource_id =
-  let __resource_type = "azurerm_spring_cloud_api_portal" in
-  let __resource =
-    azurerm_spring_cloud_api_portal ?api_try_out_enabled ?gateway_ids
-      ?https_only_enabled ?id ?instance_count
-      ?public_network_access_enabled ?timeouts ~name
-      ~spring_cloud_service_id ~sso ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_api_portal __resource);
-  let __resource_attributes =
+let make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
+    ?instance_count ?public_network_access_enabled ?timeouts ~name
+    ~spring_cloud_service_id ~sso __id =
+  let __type = "azurerm_spring_cloud_api_portal" in
+  let __attrs =
     ({
        api_try_out_enabled =
-         Prop.computed __resource_type __resource_id
-           "api_try_out_enabled";
-       gateway_ids =
-         Prop.computed __resource_type __resource_id "gateway_ids";
+         Prop.computed __type __id "api_try_out_enabled";
+       gateway_ids = Prop.computed __type __id "gateway_ids";
        https_only_enabled =
-         Prop.computed __resource_type __resource_id
-           "https_only_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "https_only_enabled";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       name = Prop.computed __type __id "name";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
+         Prop.computed __type __id "public_network_access_enabled";
        spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "spring_cloud_service_id";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_api_portal
+        (azurerm_spring_cloud_api_portal ?api_try_out_enabled
+           ?gateway_ids ?https_only_enabled ?id ?instance_count
+           ?public_network_access_enabled ?timeouts ~name
+           ~spring_cloud_service_id ~sso ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_try_out_enabled ?gateway_ids
+    ?https_only_enabled ?id ?instance_count
+    ?public_network_access_enabled ?timeouts ~name
+    ~spring_cloud_service_id ~sso __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_try_out_enabled ?gateway_ids ?https_only_enabled ?id
+      ?instance_count ?public_network_access_enabled ?timeouts ~name
+      ~spring_cloud_service_id ~sso __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -261,3 +261,28 @@ val register :
   vpc_options:vpc_options list ->
   string ->
   t
+
+val make :
+  ?access_policies:string prop ->
+  ?advanced_options:(string * string prop) list ->
+  ?engine_version:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  advanced_security_options:advanced_security_options list ->
+  auto_tune_options:auto_tune_options list ->
+  cluster_config:cluster_config list ->
+  cognito_options:cognito_options list ->
+  domain_endpoint_options:domain_endpoint_options list ->
+  ebs_options:ebs_options list ->
+  encrypt_at_rest:encrypt_at_rest list ->
+  log_publishing_options:log_publishing_options list ->
+  node_to_node_encryption:node_to_node_encryption list ->
+  off_peak_window_options:off_peak_window_options list ->
+  snapshot_options:snapshot_options list ->
+  software_update_options:software_update_options list ->
+  vpc_options:vpc_options list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,19 @@ val register :
   route:route list ->
   string ->
   t
+
+val make :
+  ?address_prefix:string prop ->
+  ?hub_routing_preference:string prop ->
+  ?id:string prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?virtual_router_auto_scale_min_capacity:float prop ->
+  ?virtual_wan_id:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  route:route list ->
+  string ->
+  t Tf_core.resource

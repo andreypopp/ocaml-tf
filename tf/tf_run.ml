@@ -1,6 +1,6 @@
 open Cmdliner
 open Printf
-open Prelude
+open Tf_core
 
 let sys fmt =
   ksprintf

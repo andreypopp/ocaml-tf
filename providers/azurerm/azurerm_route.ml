@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,35 +52,41 @@ type t = {
   route_table_name : string prop;
 }
 
-let register ?tf_module ?id ?next_hop_in_ip_address ?timeouts
-    ~address_prefix ~name ~next_hop_type ~resource_group_name
-    ~route_table_name __resource_id =
-  let __resource_type = "azurerm_route" in
-  let __resource =
-    azurerm_route ?id ?next_hop_in_ip_address ?timeouts
-      ~address_prefix ~name ~next_hop_type ~resource_group_name
-      ~route_table_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_route __resource);
-  let __resource_attributes =
+let make ?id ?next_hop_in_ip_address ?timeouts ~address_prefix ~name
+    ~next_hop_type ~resource_group_name ~route_table_name __id =
+  let __type = "azurerm_route" in
+  let __attrs =
     ({
-       address_prefix =
-         Prop.computed __resource_type __resource_id "address_prefix";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       address_prefix = Prop.computed __type __id "address_prefix";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        next_hop_in_ip_address =
-         Prop.computed __resource_type __resource_id
-           "next_hop_in_ip_address";
-       next_hop_type =
-         Prop.computed __resource_type __resource_id "next_hop_type";
+         Prop.computed __type __id "next_hop_in_ip_address";
+       next_hop_type = Prop.computed __type __id "next_hop_type";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        route_table_name =
-         Prop.computed __resource_type __resource_id
-           "route_table_name";
+         Prop.computed __type __id "route_table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_route
+        (azurerm_route ?id ?next_hop_in_ip_address ?timeouts
+           ~address_prefix ~name ~next_hop_type ~resource_group_name
+           ~route_table_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?next_hop_in_ip_address ?timeouts
+    ~address_prefix ~name ~next_hop_type ~resource_group_name
+    ~route_table_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?next_hop_in_ip_address ?timeouts ~address_prefix ~name
+      ~next_hop_type ~resource_group_name ~route_table_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

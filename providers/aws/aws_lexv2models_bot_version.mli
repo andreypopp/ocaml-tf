@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,12 @@ val register :
   locale_specification:(string * locale_specification) list ->
   string ->
   t
+
+val make :
+  ?bot_version:string prop ->
+  ?description:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  locale_specification:(string * locale_specification) list ->
+  string ->
+  t Tf_core.resource

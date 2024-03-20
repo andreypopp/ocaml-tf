@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,17 @@ val register :
   eventhub:eventhub list ->
   string ->
   t
+
+val make :
+  ?buffered:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?resource_id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  application_insights:application_insights list ->
+  eventhub:eventhub list ->
+  string ->
+  t Tf_core.resource

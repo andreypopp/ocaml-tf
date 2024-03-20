@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,11 @@ val register :
   thing_indexing_configuration:thing_indexing_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  thing_group_indexing_configuration:
+    thing_group_indexing_configuration list ->
+  thing_indexing_configuration:thing_indexing_configuration list ->
+  string ->
+  t Tf_core.resource

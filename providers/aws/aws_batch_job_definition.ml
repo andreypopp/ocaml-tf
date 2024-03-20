@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type eks_properties__pod_properties__containers__env = {
   name : string prop;  (** name *)
@@ -290,49 +288,54 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?container_properties ?id ?node_properties
-    ?parameters ?platform_capabilities ?propagate_tags
-    ?scheduling_priority ?tags ?tags_all ~name ~type_ ~eks_properties
-    ~retry_strategy ~timeout __resource_id =
-  let __resource_type = "aws_batch_job_definition" in
-  let __resource =
-    aws_batch_job_definition ?container_properties ?id
-      ?node_properties ?parameters ?platform_capabilities
-      ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name
-      ~type_ ~eks_properties ~retry_strategy ~timeout ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_batch_job_definition __resource);
-  let __resource_attributes =
+let make ?container_properties ?id ?node_properties ?parameters
+    ?platform_capabilities ?propagate_tags ?scheduling_priority ?tags
+    ?tags_all ~name ~type_ ~eks_properties ~retry_strategy ~timeout
+    __id =
+  let __type = "aws_batch_job_definition" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       arn_prefix =
-         Prop.computed __resource_type __resource_id "arn_prefix";
+       arn = Prop.computed __type __id "arn";
+       arn_prefix = Prop.computed __type __id "arn_prefix";
        container_properties =
-         Prop.computed __resource_type __resource_id
-           "container_properties";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_properties =
-         Prop.computed __resource_type __resource_id
-           "node_properties";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+         Prop.computed __type __id "container_properties";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       node_properties = Prop.computed __type __id "node_properties";
+       parameters = Prop.computed __type __id "parameters";
        platform_capabilities =
-         Prop.computed __resource_type __resource_id
-           "platform_capabilities";
-       propagate_tags =
-         Prop.computed __resource_type __resource_id "propagate_tags";
-       revision =
-         Prop.computed __resource_type __resource_id "revision";
+         Prop.computed __type __id "platform_capabilities";
+       propagate_tags = Prop.computed __type __id "propagate_tags";
+       revision = Prop.computed __type __id "revision";
        scheduling_priority =
-         Prop.computed __resource_type __resource_id
-           "scheduling_priority";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "scheduling_priority";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_batch_job_definition
+        (aws_batch_job_definition ?container_properties ?id
+           ?node_properties ?parameters ?platform_capabilities
+           ?propagate_tags ?scheduling_priority ?tags ?tags_all ~name
+           ~type_ ~eks_properties ~retry_strategy ~timeout ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?container_properties ?id ?node_properties
+    ?parameters ?platform_capabilities ?propagate_tags
+    ?scheduling_priority ?tags ?tags_all ~name ~type_ ~eks_properties
+    ~retry_strategy ~timeout __id =
+  let (r : _ Tf_core.resource) =
+    make ?container_properties ?id ?node_properties ?parameters
+      ?platform_capabilities ?propagate_tags ?scheduling_priority
+      ?tags ?tags_all ~name ~type_ ~eks_properties ~retry_strategy
+      ~timeout __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

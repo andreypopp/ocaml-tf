@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type catalog_adogit = {
   branch : string prop;  (** branch *)
@@ -74,26 +72,35 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~dev_center_id ~name
-    ~resource_group_name ~catalog_adogit ~catalog_github
-    __resource_id =
-  let __resource_type = "azurerm_dev_center_catalog" in
-  let __resource =
-    azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id ~name
-      ~resource_group_name ~catalog_adogit ~catalog_github ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_center_catalog __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~dev_center_id ~name ~resource_group_name
+    ~catalog_adogit ~catalog_github __id =
+  let __type = "azurerm_dev_center_catalog" in
+  let __attrs =
     ({
-       dev_center_id =
-         Prop.computed __resource_type __resource_id "dev_center_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       dev_center_id = Prop.computed __type __id "dev_center_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_center_catalog
+        (azurerm_dev_center_catalog ?id ?timeouts ~dev_center_id
+           ~name ~resource_group_name ~catalog_adogit ~catalog_github
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~dev_center_id ~name
+    ~resource_group_name ~catalog_adogit ~catalog_github __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~dev_center_id ~name ~resource_group_name
+      ~catalog_adogit ~catalog_github __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

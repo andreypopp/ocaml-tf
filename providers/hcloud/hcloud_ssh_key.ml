@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_ssh_key = {
   id : string prop option; [@option]  (** id *)
@@ -26,21 +24,30 @@ type t = {
   public_key : string prop;
 }
 
-let register ?tf_module ?id ?labels ~name ~public_key __resource_id =
-  let __resource_type = "hcloud_ssh_key" in
-  let __resource = hcloud_ssh_key ?id ?labels ~name ~public_key () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_ssh_key __resource);
-  let __resource_attributes =
+let make ?id ?labels ~name ~public_key __id =
+  let __type = "hcloud_ssh_key" in
+  let __attrs =
     ({
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       public_key = Prop.computed __type __id "public_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_ssh_key
+        (hcloud_ssh_key ?id ?labels ~name ~public_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ~name ~public_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ~name ~public_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

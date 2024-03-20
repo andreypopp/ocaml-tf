@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -374,3 +374,21 @@ val register :
   template:template list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?workload_profile_name:string prop ->
+  ?timeouts:timeouts ->
+  container_app_environment_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  revision_mode:string prop ->
+  dapr:dapr list ->
+  identity:identity list ->
+  ingress:ingress list ->
+  registry:registry list ->
+  secret:secret list ->
+  template:template list ->
+  string ->
+  t Tf_core.resource

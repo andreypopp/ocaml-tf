@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -112,76 +110,85 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?allow_resource_only_permissions ?cmk_for_query_forced
+    ?daily_quota_gb ?data_collection_rule_id ?id
+    ?immediate_data_purge_on_30_days_enabled
+    ?internet_ingestion_enabled ?internet_query_enabled
+    ?local_authentication_disabled
+    ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
+    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+  let __type = "azurerm_log_analytics_workspace" in
+  let __attrs =
+    ({
+       allow_resource_only_permissions =
+         Prop.computed __type __id "allow_resource_only_permissions";
+       cmk_for_query_forced =
+         Prop.computed __type __id "cmk_for_query_forced";
+       daily_quota_gb = Prop.computed __type __id "daily_quota_gb";
+       data_collection_rule_id =
+         Prop.computed __type __id "data_collection_rule_id";
+       id = Prop.computed __type __id "id";
+       immediate_data_purge_on_30_days_enabled =
+         Prop.computed __type __id
+           "immediate_data_purge_on_30_days_enabled";
+       internet_ingestion_enabled =
+         Prop.computed __type __id "internet_ingestion_enabled";
+       internet_query_enabled =
+         Prop.computed __type __id "internet_query_enabled";
+       local_authentication_disabled =
+         Prop.computed __type __id "local_authentication_disabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       primary_shared_key =
+         Prop.computed __type __id "primary_shared_key";
+       reservation_capacity_in_gb_per_day =
+         Prop.computed __type __id
+           "reservation_capacity_in_gb_per_day";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       retention_in_days =
+         Prop.computed __type __id "retention_in_days";
+       secondary_shared_key =
+         Prop.computed __type __id "secondary_shared_key";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_log_analytics_workspace
+        (azurerm_log_analytics_workspace
+           ?allow_resource_only_permissions ?cmk_for_query_forced
+           ?daily_quota_gb ?data_collection_rule_id ?id
+           ?immediate_data_purge_on_30_days_enabled
+           ?internet_ingestion_enabled ?internet_query_enabled
+           ?local_authentication_disabled
+           ?reservation_capacity_in_gb_per_day ?retention_in_days
+           ?sku ?tags ?timeouts ~location ~name ~resource_group_name
+           ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_resource_only_permissions
     ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
     ?id ?immediate_data_purge_on_30_days_enabled
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled
     ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku ?tags
-    ?timeouts ~location ~name ~resource_group_name ~identity
-    __resource_id =
-  let __resource_type = "azurerm_log_analytics_workspace" in
-  let __resource =
-    azurerm_log_analytics_workspace ?allow_resource_only_permissions
-      ?cmk_for_query_forced ?daily_quota_gb ?data_collection_rule_id
-      ?id ?immediate_data_purge_on_30_days_enabled
+    ?timeouts ~location ~name ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_resource_only_permissions ?cmk_for_query_forced
+      ?daily_quota_gb ?data_collection_rule_id ?id
+      ?immediate_data_purge_on_30_days_enabled
       ?internet_ingestion_enabled ?internet_query_enabled
       ?local_authentication_disabled
       ?reservation_capacity_in_gb_per_day ?retention_in_days ?sku
       ?tags ?timeouts ~location ~name ~resource_group_name ~identity
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_log_analytics_workspace __resource);
-  let __resource_attributes =
-    ({
-       allow_resource_only_permissions =
-         Prop.computed __resource_type __resource_id
-           "allow_resource_only_permissions";
-       cmk_for_query_forced =
-         Prop.computed __resource_type __resource_id
-           "cmk_for_query_forced";
-       daily_quota_gb =
-         Prop.computed __resource_type __resource_id "daily_quota_gb";
-       data_collection_rule_id =
-         Prop.computed __resource_type __resource_id
-           "data_collection_rule_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       immediate_data_purge_on_30_days_enabled =
-         Prop.computed __resource_type __resource_id
-           "immediate_data_purge_on_30_days_enabled";
-       internet_ingestion_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_ingestion_enabled";
-       internet_query_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_query_enabled";
-       local_authentication_disabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_disabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary_shared_key =
-         Prop.computed __resource_type __resource_id
-           "primary_shared_key";
-       reservation_capacity_in_gb_per_day =
-         Prop.computed __resource_type __resource_id
-           "reservation_capacity_in_gb_per_day";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retention_in_days =
-         Prop.computed __resource_type __resource_id
-           "retention_in_days";
-       secondary_shared_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_shared_key";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

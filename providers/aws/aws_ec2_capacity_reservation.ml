@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_capacity_reservation = {
   availability_zone : string prop;  (** availability_zone *)
@@ -71,59 +69,60 @@ type t = {
   tenancy : string prop;
 }
 
-let register ?tf_module ?ebs_optimized ?end_date ?end_date_type
-    ?ephemeral_storage ?id ?instance_match_criteria ?outpost_arn
-    ?placement_group_arn ?tags ?tags_all ?tenancy ~availability_zone
-    ~instance_count ~instance_platform ~instance_type __resource_id =
-  let __resource_type = "aws_ec2_capacity_reservation" in
-  let __resource =
-    aws_ec2_capacity_reservation ?ebs_optimized ?end_date
-      ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria
-      ?outpost_arn ?placement_group_arn ?tags ?tags_all ?tenancy
-      ~availability_zone ~instance_count ~instance_platform
-      ~instance_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_capacity_reservation __resource);
-  let __resource_attributes =
+let make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
+    ?id ?instance_match_criteria ?outpost_arn ?placement_group_arn
+    ?tags ?tags_all ?tenancy ~availability_zone ~instance_count
+    ~instance_platform ~instance_type __id =
+  let __type = "aws_ec2_capacity_reservation" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       end_date =
-         Prop.computed __resource_type __resource_id "end_date";
-       end_date_type =
-         Prop.computed __resource_type __resource_id "end_date_type";
+         Prop.computed __type __id "availability_zone";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       end_date = Prop.computed __type __id "end_date";
+       end_date_type = Prop.computed __type __id "end_date_type";
        ephemeral_storage =
-         Prop.computed __resource_type __resource_id
-           "ephemeral_storage";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
+         Prop.computed __type __id "ephemeral_storage";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
        instance_match_criteria =
-         Prop.computed __resource_type __resource_id
-           "instance_match_criteria";
+         Prop.computed __type __id "instance_match_criteria";
        instance_platform =
-         Prop.computed __resource_type __resource_id
-           "instance_platform";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
+         Prop.computed __type __id "instance_platform";
+       instance_type = Prop.computed __type __id "instance_type";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       owner_id = Prop.computed __type __id "owner_id";
        placement_group_arn =
-         Prop.computed __resource_type __resource_id
-           "placement_group_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tenancy =
-         Prop.computed __resource_type __resource_id "tenancy";
+         Prop.computed __type __id "placement_group_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tenancy = Prop.computed __type __id "tenancy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_capacity_reservation
+        (aws_ec2_capacity_reservation ?ebs_optimized ?end_date
+           ?end_date_type ?ephemeral_storage ?id
+           ?instance_match_criteria ?outpost_arn ?placement_group_arn
+           ?tags ?tags_all ?tenancy ~availability_zone
+           ~instance_count ~instance_platform ~instance_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?ebs_optimized ?end_date ?end_date_type
+    ?ephemeral_storage ?id ?instance_match_criteria ?outpost_arn
+    ?placement_group_arn ?tags ?tags_all ?tenancy ~availability_zone
+    ~instance_count ~instance_platform ~instance_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?ebs_optimized ?end_date ?end_date_type ?ephemeral_storage
+      ?id ?instance_match_criteria ?outpost_arn ?placement_group_arn
+      ?tags ?tags_all ?tenancy ~availability_zone ~instance_count
+      ~instance_platform ~instance_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

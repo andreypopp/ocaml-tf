@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type gce_setup__accelerator_configs = {
   core_count: string  prop option; [@option] (** Optional. Count of cores of this accelerator. *)
@@ -261,31 +259,38 @@ type t = {
   upgrade_history: upgrade_history list prop;
 }
 
-let register ?tf_module ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __resource_id =
-  let __resource_type = "google_workbench_instance" in
-  let __resource = google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_workbench_instance __resource);
-  let __resource_attributes = ({
-    create_time = Prop.computed __resource_type __resource_id "create_time";
-    creator = Prop.computed __resource_type __resource_id "creator";
-    desired_state = Prop.computed __resource_type __resource_id "desired_state";
-    disable_proxy_access = Prop.computed __resource_type __resource_id "disable_proxy_access";
-    effective_labels = Prop.computed __resource_type __resource_id "effective_labels";
-    health_info = Prop.computed __resource_type __resource_id "health_info";
-    health_state = Prop.computed __resource_type __resource_id "health_state";
-    id = Prop.computed __resource_type __resource_id "id";
-    instance_id = Prop.computed __resource_type __resource_id "instance_id";
-    instance_owners = Prop.computed __resource_type __resource_id "instance_owners";
-    labels = Prop.computed __resource_type __resource_id "labels";
-    location = Prop.computed __resource_type __resource_id "location";
-    name = Prop.computed __resource_type __resource_id "name";
-    project = Prop.computed __resource_type __resource_id "project";
-    proxy_uri = Prop.computed __resource_type __resource_id "proxy_uri";
-    state = Prop.computed __resource_type __resource_id "state";
-    terraform_labels = Prop.computed __resource_type __resource_id "terraform_labels";
-    update_time = Prop.computed __resource_type __resource_id "update_time";
-    upgrade_history = Prop.computed __resource_type __resource_id "upgrade_history";
+let make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id =
+  let __type = "google_workbench_instance" in
+  let __attrs = ({
+    create_time = Prop.computed __type __id "create_time";
+    creator = Prop.computed __type __id "creator";
+    desired_state = Prop.computed __type __id "desired_state";
+    disable_proxy_access = Prop.computed __type __id "disable_proxy_access";
+    effective_labels = Prop.computed __type __id "effective_labels";
+    health_info = Prop.computed __type __id "health_info";
+    health_state = Prop.computed __type __id "health_state";
+    id = Prop.computed __type __id "id";
+    instance_id = Prop.computed __type __id "instance_id";
+    instance_owners = Prop.computed __type __id "instance_owners";
+    labels = Prop.computed __type __id "labels";
+    location = Prop.computed __type __id "location";
+    name = Prop.computed __type __id "name";
+    project = Prop.computed __type __id "project";
+    proxy_uri = Prop.computed __type __id "proxy_uri";
+    state = Prop.computed __type __id "state";
+    terraform_labels = Prop.computed __type __id "terraform_labels";
+    update_time = Prop.computed __type __id "update_time";
+    upgrade_history = Prop.computed __type __id "upgrade_history";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_google_workbench_instance (google_workbench_instance ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id =
+  let (r : _ Tf_core.resource) = make ?desired_state ?disable_proxy_access ?id ?instance_id ?instance_owners ?labels ?project ?timeouts ~location ~name ~gce_setup __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

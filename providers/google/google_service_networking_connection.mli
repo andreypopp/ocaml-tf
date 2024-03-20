@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   service:string prop ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  network:string prop ->
+  reserved_peering_ranges:string prop list ->
+  service:string prop ->
+  string ->
+  t Tf_core.resource

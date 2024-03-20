@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type certificate_configuration = {
   certificate_type : string prop option; [@option]
@@ -157,60 +155,65 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?build_id ?description ?fleet_type ?id ?instance_role_arn
+    ?metric_groups ?new_game_session_protection_policy ?script_id
+    ?tags ?tags_all ?timeouts ~ec2_instance_type ~name
+    ~certificate_configuration ~ec2_inbound_permission
+    ~resource_creation_limit_policy ~runtime_configuration __id =
+  let __type = "aws_gamelift_fleet" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       build_arn = Prop.computed __type __id "build_arn";
+       build_id = Prop.computed __type __id "build_id";
+       description = Prop.computed __type __id "description";
+       ec2_instance_type =
+         Prop.computed __type __id "ec2_instance_type";
+       fleet_type = Prop.computed __type __id "fleet_type";
+       id = Prop.computed __type __id "id";
+       instance_role_arn =
+         Prop.computed __type __id "instance_role_arn";
+       log_paths = Prop.computed __type __id "log_paths";
+       metric_groups = Prop.computed __type __id "metric_groups";
+       name = Prop.computed __type __id "name";
+       new_game_session_protection_policy =
+         Prop.computed __type __id
+           "new_game_session_protection_policy";
+       operating_system =
+         Prop.computed __type __id "operating_system";
+       script_arn = Prop.computed __type __id "script_arn";
+       script_id = Prop.computed __type __id "script_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_gamelift_fleet
+        (aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
+           ?instance_role_arn ?metric_groups
+           ?new_game_session_protection_policy ?script_id ?tags
+           ?tags_all ?timeouts ~ec2_instance_type ~name
+           ~certificate_configuration ~ec2_inbound_permission
+           ~resource_creation_limit_policy ~runtime_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?build_id ?description ?fleet_type ?id
     ?instance_role_arn ?metric_groups
     ?new_game_session_protection_policy ?script_id ?tags ?tags_all
     ?timeouts ~ec2_instance_type ~name ~certificate_configuration
     ~ec2_inbound_permission ~resource_creation_limit_policy
-    ~runtime_configuration __resource_id =
-  let __resource_type = "aws_gamelift_fleet" in
-  let __resource =
-    aws_gamelift_fleet ?build_id ?description ?fleet_type ?id
-      ?instance_role_arn ?metric_groups
-      ?new_game_session_protection_policy ?script_id ?tags ?tags_all
-      ?timeouts ~ec2_instance_type ~name ~certificate_configuration
-      ~ec2_inbound_permission ~resource_creation_limit_policy
-      ~runtime_configuration ()
+    ~runtime_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?build_id ?description ?fleet_type ?id ?instance_role_arn
+      ?metric_groups ?new_game_session_protection_policy ?script_id
+      ?tags ?tags_all ?timeouts ~ec2_instance_type ~name
+      ~certificate_configuration ~ec2_inbound_permission
+      ~resource_creation_limit_policy ~runtime_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_gamelift_fleet __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       build_arn =
-         Prop.computed __resource_type __resource_id "build_arn";
-       build_id =
-         Prop.computed __resource_type __resource_id "build_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       ec2_instance_type =
-         Prop.computed __resource_type __resource_id
-           "ec2_instance_type";
-       fleet_type =
-         Prop.computed __resource_type __resource_id "fleet_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_role_arn =
-         Prop.computed __resource_type __resource_id
-           "instance_role_arn";
-       log_paths =
-         Prop.computed __resource_type __resource_id "log_paths";
-       metric_groups =
-         Prop.computed __resource_type __resource_id "metric_groups";
-       name = Prop.computed __resource_type __resource_id "name";
-       new_game_session_protection_policy =
-         Prop.computed __resource_type __resource_id
-           "new_game_session_protection_policy";
-       operating_system =
-         Prop.computed __resource_type __resource_id
-           "operating_system";
-       script_arn =
-         Prop.computed __resource_type __resource_id "script_arn";
-       script_id =
-         Prop.computed __resource_type __resource_id "script_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

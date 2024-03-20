@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type credentials = {
   password : string prop;  (** password *)
@@ -29,25 +27,29 @@ let aws_chime_voice_connector_termination_credentials ?id
 
 type t = { id : string prop; voice_connector_id : string prop }
 
-let register ?tf_module ?id ~voice_connector_id ~credentials
-    __resource_id =
-  let __resource_type =
-    "aws_chime_voice_connector_termination_credentials"
-  in
-  let __resource =
-    aws_chime_voice_connector_termination_credentials ?id
-      ~voice_connector_id ~credentials ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chime_voice_connector_termination_credentials
-       __resource);
-  let __resource_attributes =
+let make ?id ~voice_connector_id ~credentials __id =
+  let __type = "aws_chime_voice_connector_termination_credentials" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        voice_connector_id =
-         Prop.computed __resource_type __resource_id
-           "voice_connector_id";
+         Prop.computed __type __id "voice_connector_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chime_voice_connector_termination_credentials
+        (aws_chime_voice_connector_termination_credentials ?id
+           ~voice_connector_id ~credentials ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~voice_connector_id ~credentials __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~voice_connector_id ~credentials __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

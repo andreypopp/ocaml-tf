@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscaling = {
   location_policy : string prop option; [@option]
@@ -583,54 +581,57 @@ type t = {
   version : string prop;
 }
 
+let make ?id ?initial_node_count ?location ?max_pods_per_node ?name
+    ?name_prefix ?node_count ?node_locations ?project ?version
+    ?timeouts ~cluster ~autoscaling ~management ~network_config
+    ~node_config ~placement_policy ~upgrade_settings __id =
+  let __type = "google_container_node_pool" in
+  let __attrs =
+    ({
+       cluster = Prop.computed __type __id "cluster";
+       id = Prop.computed __type __id "id";
+       initial_node_count =
+         Prop.computed __type __id "initial_node_count";
+       instance_group_urls =
+         Prop.computed __type __id "instance_group_urls";
+       location = Prop.computed __type __id "location";
+       managed_instance_group_urls =
+         Prop.computed __type __id "managed_instance_group_urls";
+       max_pods_per_node =
+         Prop.computed __type __id "max_pods_per_node";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       node_count = Prop.computed __type __id "node_count";
+       node_locations = Prop.computed __type __id "node_locations";
+       operation = Prop.computed __type __id "operation";
+       project = Prop.computed __type __id "project";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_node_pool
+        (google_container_node_pool ?id ?initial_node_count ?location
+           ?max_pods_per_node ?name ?name_prefix ?node_count
+           ?node_locations ?project ?version ?timeouts ~cluster
+           ~autoscaling ~management ~network_config ~node_config
+           ~placement_policy ~upgrade_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?initial_node_count ?location
     ?max_pods_per_node ?name ?name_prefix ?node_count ?node_locations
     ?project ?version ?timeouts ~cluster ~autoscaling ~management
     ~network_config ~node_config ~placement_policy ~upgrade_settings
-    __resource_id =
-  let __resource_type = "google_container_node_pool" in
-  let __resource =
-    google_container_node_pool ?id ?initial_node_count ?location
-      ?max_pods_per_node ?name ?name_prefix ?node_count
-      ?node_locations ?project ?version ?timeouts ~cluster
-      ~autoscaling ~management ~network_config ~node_config
-      ~placement_policy ~upgrade_settings ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?initial_node_count ?location ?max_pods_per_node ?name
+      ?name_prefix ?node_count ?node_locations ?project ?version
+      ?timeouts ~cluster ~autoscaling ~management ~network_config
+      ~node_config ~placement_policy ~upgrade_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_node_pool __resource);
-  let __resource_attributes =
-    ({
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       id = Prop.computed __resource_type __resource_id "id";
-       initial_node_count =
-         Prop.computed __resource_type __resource_id
-           "initial_node_count";
-       instance_group_urls =
-         Prop.computed __resource_type __resource_id
-           "instance_group_urls";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_instance_group_urls =
-         Prop.computed __resource_type __resource_id
-           "managed_instance_group_urls";
-       max_pods_per_node =
-         Prop.computed __resource_type __resource_id
-           "max_pods_per_node";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       node_locations =
-         Prop.computed __resource_type __resource_id "node_locations";
-       operation =
-         Prop.computed __resource_type __resource_id "operation";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

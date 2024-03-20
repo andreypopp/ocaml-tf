@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,16 @@ val register :
   named_port:named_port list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?instances:string prop list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  named_port:named_port list ->
+  string ->
+  t Tf_core.resource

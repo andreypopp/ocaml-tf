@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -40,3 +40,10 @@ val register :
   device:device list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  device_fleet_name:string prop ->
+  device:device list ->
+  string ->
+  t Tf_core.resource

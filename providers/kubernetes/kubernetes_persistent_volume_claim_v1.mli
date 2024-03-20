@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,12 @@ val register :
   spec:spec list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?wait_until_bound:bool prop ->
+  ?timeouts:timeouts ->
+  metadata:metadata list ->
+  spec:spec list ->
+  string ->
+  t Tf_core.resource

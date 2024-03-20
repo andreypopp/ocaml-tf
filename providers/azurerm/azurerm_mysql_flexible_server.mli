@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -146,3 +146,31 @@ val register :
   storage:storage list ->
   string ->
   t
+
+val make :
+  ?administrator_login:string prop ->
+  ?administrator_password:string prop ->
+  ?backup_retention_days:float prop ->
+  ?create_mode:string prop ->
+  ?delegated_subnet_id:string prop ->
+  ?geo_redundant_backup_enabled:bool prop ->
+  ?id:string prop ->
+  ?point_in_time_restore_time_in_utc:string prop ->
+  ?private_dns_zone_id:string prop ->
+  ?replication_role:string prop ->
+  ?sku_name:string prop ->
+  ?source_server_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?version:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  customer_managed_key:customer_managed_key list ->
+  high_availability:high_availability list ->
+  identity:identity list ->
+  maintenance_window:maintenance_window list ->
+  storage:storage list ->
+  string ->
+  t Tf_core.resource

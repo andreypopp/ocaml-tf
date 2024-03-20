@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_configuration = {
   name : string prop;  (** name *)
@@ -120,51 +118,59 @@ type t = {
   zones : string list prop;
 }
 
+let make ?dns_proxy_enabled ?dns_servers ?firewall_policy_id ?id
+    ?private_ip_ranges ?tags ?threat_intel_mode ?zones ?timeouts
+    ~location ~name ~resource_group_name ~sku_name ~sku_tier
+    ~ip_configuration ~management_ip_configuration ~virtual_hub __id
+    =
+  let __type = "azurerm_firewall" in
+  let __attrs =
+    ({
+       dns_proxy_enabled =
+         Prop.computed __type __id "dns_proxy_enabled";
+       dns_servers = Prop.computed __type __id "dns_servers";
+       firewall_policy_id =
+         Prop.computed __type __id "firewall_policy_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       private_ip_ranges =
+         Prop.computed __type __id "private_ip_ranges";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       sku_tier = Prop.computed __type __id "sku_tier";
+       tags = Prop.computed __type __id "tags";
+       threat_intel_mode =
+         Prop.computed __type __id "threat_intel_mode";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_firewall
+        (azurerm_firewall ?dns_proxy_enabled ?dns_servers
+           ?firewall_policy_id ?id ?private_ip_ranges ?tags
+           ?threat_intel_mode ?zones ?timeouts ~location ~name
+           ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
+           ~management_ip_configuration ~virtual_hub ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?dns_proxy_enabled ?dns_servers
     ?firewall_policy_id ?id ?private_ip_ranges ?tags
     ?threat_intel_mode ?zones ?timeouts ~location ~name
     ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
-    ~management_ip_configuration ~virtual_hub __resource_id =
-  let __resource_type = "azurerm_firewall" in
-  let __resource =
-    azurerm_firewall ?dns_proxy_enabled ?dns_servers
-      ?firewall_policy_id ?id ?private_ip_ranges ?tags
-      ?threat_intel_mode ?zones ?timeouts ~location ~name
-      ~resource_group_name ~sku_name ~sku_tier ~ip_configuration
-      ~management_ip_configuration ~virtual_hub ()
+    ~management_ip_configuration ~virtual_hub __id =
+  let (r : _ Tf_core.resource) =
+    make ?dns_proxy_enabled ?dns_servers ?firewall_policy_id ?id
+      ?private_ip_ranges ?tags ?threat_intel_mode ?zones ?timeouts
+      ~location ~name ~resource_group_name ~sku_name ~sku_tier
+      ~ip_configuration ~management_ip_configuration ~virtual_hub
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_firewall __resource);
-  let __resource_attributes =
-    ({
-       dns_proxy_enabled =
-         Prop.computed __resource_type __resource_id
-           "dns_proxy_enabled";
-       dns_servers =
-         Prop.computed __resource_type __resource_id "dns_servers";
-       firewall_policy_id =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_ip_ranges =
-         Prop.computed __resource_type __resource_id
-           "private_ip_ranges";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       sku_tier =
-         Prop.computed __resource_type __resource_id "sku_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       threat_intel_mode =
-         Prop.computed __resource_type __resource_id
-           "threat_intel_mode";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

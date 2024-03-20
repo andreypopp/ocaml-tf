@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appconfig_deployment_strategy = {
   deployment_duration_in_minutes : float prop;
@@ -53,41 +51,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?final_bake_time_in_minutes
-    ?growth_type ?id ?tags ?tags_all ~deployment_duration_in_minutes
-    ~growth_factor ~name ~replicate_to __resource_id =
-  let __resource_type = "aws_appconfig_deployment_strategy" in
-  let __resource =
-    aws_appconfig_deployment_strategy ?description
-      ?final_bake_time_in_minutes ?growth_type ?id ?tags ?tags_all
-      ~deployment_duration_in_minutes ~growth_factor ~name
-      ~replicate_to ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appconfig_deployment_strategy __resource);
-  let __resource_attributes =
+let make ?description ?final_bake_time_in_minutes ?growth_type ?id
+    ?tags ?tags_all ~deployment_duration_in_minutes ~growth_factor
+    ~name ~replicate_to __id =
+  let __type = "aws_appconfig_deployment_strategy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        deployment_duration_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "deployment_duration_in_minutes";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "deployment_duration_in_minutes";
+       description = Prop.computed __type __id "description";
        final_bake_time_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "final_bake_time_in_minutes";
-       growth_factor =
-         Prop.computed __resource_type __resource_id "growth_factor";
-       growth_type =
-         Prop.computed __resource_type __resource_id "growth_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       replicate_to =
-         Prop.computed __resource_type __resource_id "replicate_to";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "final_bake_time_in_minutes";
+       growth_factor = Prop.computed __type __id "growth_factor";
+       growth_type = Prop.computed __type __id "growth_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       replicate_to = Prop.computed __type __id "replicate_to";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appconfig_deployment_strategy
+        (aws_appconfig_deployment_strategy ?description
+           ?final_bake_time_in_minutes ?growth_type ?id ?tags
+           ?tags_all ~deployment_duration_in_minutes ~growth_factor
+           ~name ~replicate_to ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?final_bake_time_in_minutes
+    ?growth_type ?id ?tags ?tags_all ~deployment_duration_in_minutes
+    ~growth_factor ~name ~replicate_to __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?final_bake_time_in_minutes ?growth_type ?id
+      ?tags ?tags_all ~deployment_duration_in_minutes ~growth_factor
+      ~name ~replicate_to __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

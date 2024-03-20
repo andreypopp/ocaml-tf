@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -136,3 +136,22 @@ val register :
   node_config:node_config list ->
   string ->
   t
+
+val make :
+  ?authorized_network:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?memcache_version:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?reserved_ip_range_id:string prop list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  node_count:float prop ->
+  maintenance_policy:maintenance_policy list ->
+  memcache_parameters:memcache_parameters list ->
+  node_config:node_config list ->
+  string ->
+  t Tf_core.resource

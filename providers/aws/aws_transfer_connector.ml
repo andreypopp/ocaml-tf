@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type as2_config = {
   compression : string prop;  (** compression *)
@@ -84,30 +82,37 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?logging_role ?tags ?tags_all
-    ~access_role ~url ~as2_config ~sftp_config __resource_id =
-  let __resource_type = "aws_transfer_connector" in
-  let __resource =
-    aws_transfer_connector ?id ?logging_role ?tags ?tags_all
-      ~access_role ~url ~as2_config ~sftp_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_connector __resource);
-  let __resource_attributes =
+let make ?id ?logging_role ?tags ?tags_all ~access_role ~url
+    ~as2_config ~sftp_config __id =
+  let __type = "aws_transfer_connector" in
+  let __attrs =
     ({
-       access_role =
-         Prop.computed __resource_type __resource_id "access_role";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       connector_id =
-         Prop.computed __resource_type __resource_id "connector_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       logging_role =
-         Prop.computed __resource_type __resource_id "logging_role";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
+       access_role = Prop.computed __type __id "access_role";
+       arn = Prop.computed __type __id "arn";
+       connector_id = Prop.computed __type __id "connector_id";
+       id = Prop.computed __type __id "id";
+       logging_role = Prop.computed __type __id "logging_role";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_connector
+        (aws_transfer_connector ?id ?logging_role ?tags ?tags_all
+           ~access_role ~url ~as2_config ~sftp_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?logging_role ?tags ?tags_all
+    ~access_role ~url ~as2_config ~sftp_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?logging_role ?tags ?tags_all ~access_role ~url
+      ~as2_config ~sftp_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

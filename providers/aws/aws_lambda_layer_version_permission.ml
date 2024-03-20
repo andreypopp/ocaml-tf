@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lambda_layer_version_permission = {
   action : string prop;  (** action *)
@@ -45,38 +43,40 @@ type t = {
   version_number : float prop;
 }
 
-let register ?tf_module ?id ?organization_id ?skip_destroy ~action
-    ~layer_name ~principal ~statement_id ~version_number
-    __resource_id =
-  let __resource_type = "aws_lambda_layer_version_permission" in
-  let __resource =
-    aws_lambda_layer_version_permission ?id ?organization_id
-      ?skip_destroy ~action ~layer_name ~principal ~statement_id
-      ~version_number ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_layer_version_permission __resource);
-  let __resource_attributes =
+let make ?id ?organization_id ?skip_destroy ~action ~layer_name
+    ~principal ~statement_id ~version_number __id =
+  let __type = "aws_lambda_layer_version_permission" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       id = Prop.computed __resource_type __resource_id "id";
-       layer_name =
-         Prop.computed __resource_type __resource_id "layer_name";
-       organization_id =
-         Prop.computed __resource_type __resource_id
-           "organization_id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
-       revision_id =
-         Prop.computed __resource_type __resource_id "revision_id";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
-       statement_id =
-         Prop.computed __resource_type __resource_id "statement_id";
-       version_number =
-         Prop.computed __resource_type __resource_id "version_number";
+       action = Prop.computed __type __id "action";
+       id = Prop.computed __type __id "id";
+       layer_name = Prop.computed __type __id "layer_name";
+       organization_id = Prop.computed __type __id "organization_id";
+       policy = Prop.computed __type __id "policy";
+       principal = Prop.computed __type __id "principal";
+       revision_id = Prop.computed __type __id "revision_id";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
+       statement_id = Prop.computed __type __id "statement_id";
+       version_number = Prop.computed __type __id "version_number";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_layer_version_permission
+        (aws_lambda_layer_version_permission ?id ?organization_id
+           ?skip_destroy ~action ~layer_name ~principal ~statement_id
+           ~version_number ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?organization_id ?skip_destroy ~action
+    ~layer_name ~principal ~statement_id ~version_number __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?organization_id ?skip_destroy ~action ~layer_name
+      ~principal ~statement_id ~version_number __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lambda_invocation = {
   function_name : string prop;  (** function_name *)
@@ -42,32 +40,37 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?lifecycle_scope ?qualifier
-    ?terraform_key ?triggers ~function_name ~input __resource_id =
-  let __resource_type = "aws_lambda_invocation" in
-  let __resource =
-    aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
-      ?terraform_key ?triggers ~function_name ~input ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_invocation __resource);
-  let __resource_attributes =
+let make ?id ?lifecycle_scope ?qualifier ?terraform_key ?triggers
+    ~function_name ~input __id =
+  let __type = "aws_lambda_invocation" in
+  let __attrs =
     ({
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       input = Prop.computed __resource_type __resource_id "input";
-       lifecycle_scope =
-         Prop.computed __resource_type __resource_id
-           "lifecycle_scope";
-       qualifier =
-         Prop.computed __resource_type __resource_id "qualifier";
-       result = Prop.computed __resource_type __resource_id "result";
-       terraform_key =
-         Prop.computed __resource_type __resource_id "terraform_key";
-       triggers =
-         Prop.computed __resource_type __resource_id "triggers";
+       function_name = Prop.computed __type __id "function_name";
+       id = Prop.computed __type __id "id";
+       input = Prop.computed __type __id "input";
+       lifecycle_scope = Prop.computed __type __id "lifecycle_scope";
+       qualifier = Prop.computed __type __id "qualifier";
+       result = Prop.computed __type __id "result";
+       terraform_key = Prop.computed __type __id "terraform_key";
+       triggers = Prop.computed __type __id "triggers";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_invocation
+        (aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
+           ?terraform_key ?triggers ~function_name ~input ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?lifecycle_scope ?qualifier
+    ?terraform_key ?triggers ~function_name ~input __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?lifecycle_scope ?qualifier ?terraform_key ?triggers
+      ~function_name ~input __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

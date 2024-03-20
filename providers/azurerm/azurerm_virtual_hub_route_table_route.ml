@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,33 +51,38 @@ type t = {
   route_table_id : string prop;
 }
 
-let register ?tf_module ?id ?next_hop_type ?timeouts ~destinations
-    ~destinations_type ~name ~next_hop ~route_table_id __resource_id
-    =
-  let __resource_type = "azurerm_virtual_hub_route_table_route" in
-  let __resource =
-    azurerm_virtual_hub_route_table_route ?id ?next_hop_type
-      ?timeouts ~destinations ~destinations_type ~name ~next_hop
-      ~route_table_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_hub_route_table_route __resource);
-  let __resource_attributes =
+let make ?id ?next_hop_type ?timeouts ~destinations
+    ~destinations_type ~name ~next_hop ~route_table_id __id =
+  let __type = "azurerm_virtual_hub_route_table_route" in
+  let __attrs =
     ({
-       destinations =
-         Prop.computed __resource_type __resource_id "destinations";
+       destinations = Prop.computed __type __id "destinations";
        destinations_type =
-         Prop.computed __resource_type __resource_id
-           "destinations_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       next_hop =
-         Prop.computed __resource_type __resource_id "next_hop";
-       next_hop_type =
-         Prop.computed __resource_type __resource_id "next_hop_type";
-       route_table_id =
-         Prop.computed __resource_type __resource_id "route_table_id";
+         Prop.computed __type __id "destinations_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       next_hop = Prop.computed __type __id "next_hop";
+       next_hop_type = Prop.computed __type __id "next_hop_type";
+       route_table_id = Prop.computed __type __id "route_table_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_hub_route_table_route
+        (azurerm_virtual_hub_route_table_route ?id ?next_hop_type
+           ?timeouts ~destinations ~destinations_type ~name ~next_hop
+           ~route_table_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?next_hop_type ?timeouts ~destinations
+    ~destinations_type ~name ~next_hop ~route_table_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?next_hop_type ?timeouts ~destinations
+      ~destinations_type ~name ~next_hop ~route_table_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

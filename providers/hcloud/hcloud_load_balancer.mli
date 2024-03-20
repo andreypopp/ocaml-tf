@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,16 @@ val register :
   target:target list ->
   string ->
   t
+
+val make :
+  ?delete_protection:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?network_zone:string prop ->
+  load_balancer_type:string prop ->
+  name:string prop ->
+  algorithm:algorithm list ->
+  target:target list ->
+  string ->
+  t Tf_core.resource

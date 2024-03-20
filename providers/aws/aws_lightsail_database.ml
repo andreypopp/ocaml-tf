@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lightsail_database = {
   apply_immediately : bool prop option; [@option]
@@ -95,96 +93,89 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?apply_immediately ?availability_zone
+    ?backup_retention_enabled ?final_snapshot_name ?id
+    ?preferred_backup_window ?preferred_maintenance_window
+    ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
+    ~blueprint_id ~bundle_id ~master_database_name ~master_password
+    ~master_username ~relational_database_name __id =
+  let __type = "aws_lightsail_database" in
+  let __attrs =
+    ({
+       apply_immediately =
+         Prop.computed __type __id "apply_immediately";
+       arn = Prop.computed __type __id "arn";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       backup_retention_enabled =
+         Prop.computed __type __id "backup_retention_enabled";
+       blueprint_id = Prop.computed __type __id "blueprint_id";
+       bundle_id = Prop.computed __type __id "bundle_id";
+       ca_certificate_identifier =
+         Prop.computed __type __id "ca_certificate_identifier";
+       cpu_count = Prop.computed __type __id "cpu_count";
+       created_at = Prop.computed __type __id "created_at";
+       disk_size = Prop.computed __type __id "disk_size";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       final_snapshot_name =
+         Prop.computed __type __id "final_snapshot_name";
+       id = Prop.computed __type __id "id";
+       master_database_name =
+         Prop.computed __type __id "master_database_name";
+       master_endpoint_address =
+         Prop.computed __type __id "master_endpoint_address";
+       master_endpoint_port =
+         Prop.computed __type __id "master_endpoint_port";
+       master_password = Prop.computed __type __id "master_password";
+       master_username = Prop.computed __type __id "master_username";
+       preferred_backup_window =
+         Prop.computed __type __id "preferred_backup_window";
+       preferred_maintenance_window =
+         Prop.computed __type __id "preferred_maintenance_window";
+       publicly_accessible =
+         Prop.computed __type __id "publicly_accessible";
+       ram_size = Prop.computed __type __id "ram_size";
+       relational_database_name =
+         Prop.computed __type __id "relational_database_name";
+       secondary_availability_zone =
+         Prop.computed __type __id "secondary_availability_zone";
+       skip_final_snapshot =
+         Prop.computed __type __id "skip_final_snapshot";
+       support_code = Prop.computed __type __id "support_code";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_database
+        (aws_lightsail_database ?apply_immediately ?availability_zone
+           ?backup_retention_enabled ?final_snapshot_name ?id
+           ?preferred_backup_window ?preferred_maintenance_window
+           ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
+           ~blueprint_id ~bundle_id ~master_database_name
+           ~master_password ~master_username
+           ~relational_database_name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_immediately ?availability_zone
     ?backup_retention_enabled ?final_snapshot_name ?id
     ?preferred_backup_window ?preferred_maintenance_window
     ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
     ~blueprint_id ~bundle_id ~master_database_name ~master_password
-    ~master_username ~relational_database_name __resource_id =
-  let __resource_type = "aws_lightsail_database" in
-  let __resource =
-    aws_lightsail_database ?apply_immediately ?availability_zone
+    ~master_username ~relational_database_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_immediately ?availability_zone
       ?backup_retention_enabled ?final_snapshot_name ?id
       ?preferred_backup_window ?preferred_maintenance_window
       ?publicly_accessible ?skip_final_snapshot ?tags ?tags_all
       ~blueprint_id ~bundle_id ~master_database_name ~master_password
-      ~master_username ~relational_database_name ()
+      ~master_username ~relational_database_name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_database __resource);
-  let __resource_attributes =
-    ({
-       apply_immediately =
-         Prop.computed __resource_type __resource_id
-           "apply_immediately";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       backup_retention_enabled =
-         Prop.computed __resource_type __resource_id
-           "backup_retention_enabled";
-       blueprint_id =
-         Prop.computed __resource_type __resource_id "blueprint_id";
-       bundle_id =
-         Prop.computed __resource_type __resource_id "bundle_id";
-       ca_certificate_identifier =
-         Prop.computed __resource_type __resource_id
-           "ca_certificate_identifier";
-       cpu_count =
-         Prop.computed __resource_type __resource_id "cpu_count";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       disk_size =
-         Prop.computed __resource_type __resource_id "disk_size";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       final_snapshot_name =
-         Prop.computed __resource_type __resource_id
-           "final_snapshot_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       master_database_name =
-         Prop.computed __resource_type __resource_id
-           "master_database_name";
-       master_endpoint_address =
-         Prop.computed __resource_type __resource_id
-           "master_endpoint_address";
-       master_endpoint_port =
-         Prop.computed __resource_type __resource_id
-           "master_endpoint_port";
-       master_password =
-         Prop.computed __resource_type __resource_id
-           "master_password";
-       master_username =
-         Prop.computed __resource_type __resource_id
-           "master_username";
-       preferred_backup_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_backup_window";
-       preferred_maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_maintenance_window";
-       publicly_accessible =
-         Prop.computed __resource_type __resource_id
-           "publicly_accessible";
-       ram_size =
-         Prop.computed __resource_type __resource_id "ram_size";
-       relational_database_name =
-         Prop.computed __resource_type __resource_id
-           "relational_database_name";
-       secondary_availability_zone =
-         Prop.computed __resource_type __resource_id
-           "secondary_availability_zone";
-       skip_final_snapshot =
-         Prop.computed __resource_type __resource_id
-           "skip_final_snapshot";
-       support_code =
-         Prop.computed __resource_type __resource_id "support_code";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

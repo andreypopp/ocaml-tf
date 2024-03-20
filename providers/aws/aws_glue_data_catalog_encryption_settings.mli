@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,11 @@ val register :
     data_catalog_encryption_settings list ->
   string ->
   t
+
+val make :
+  ?catalog_id:string prop ->
+  ?id:string prop ->
+  data_catalog_encryption_settings:
+    data_catalog_encryption_settings list ->
+  string ->
+  t Tf_core.resource

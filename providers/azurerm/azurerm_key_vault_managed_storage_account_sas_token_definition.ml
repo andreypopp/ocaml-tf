@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,39 +54,43 @@ type t = {
   validity_period : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts
-    ~managed_storage_account_id ~name ~sas_template_uri ~sas_type
-    ~validity_period __resource_id =
-  let __resource_type =
+let make ?id ?tags ?timeouts ~managed_storage_account_id ~name
+    ~sas_template_uri ~sas_type ~validity_period __id =
+  let __type =
     "azurerm_key_vault_managed_storage_account_sas_token_definition"
   in
-  let __resource =
-    azurerm_key_vault_managed_storage_account_sas_token_definition
-      ?id ?tags ?timeouts ~managed_storage_account_id ~name
-      ~sas_template_uri ~sas_type ~validity_period ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault_managed_storage_account_sas_token_definition
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        managed_storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "managed_storage_account_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "managed_storage_account_id";
+       name = Prop.computed __type __id "name";
        sas_template_uri =
-         Prop.computed __resource_type __resource_id
-           "sas_template_uri";
-       sas_type =
-         Prop.computed __resource_type __resource_id "sas_type";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       validity_period =
-         Prop.computed __resource_type __resource_id
-           "validity_period";
+         Prop.computed __type __id "sas_template_uri";
+       sas_type = Prop.computed __type __id "sas_type";
+       secret_id = Prop.computed __type __id "secret_id";
+       tags = Prop.computed __type __id "tags";
+       validity_period = Prop.computed __type __id "validity_period";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault_managed_storage_account_sas_token_definition
+        (azurerm_key_vault_managed_storage_account_sas_token_definition
+           ?id ?tags ?timeouts ~managed_storage_account_id ~name
+           ~sas_template_uri ~sas_type ~validity_period ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts
+    ~managed_storage_account_id ~name ~sas_template_uri ~sas_type
+    ~validity_period __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~managed_storage_account_id ~name
+      ~sas_template_uri ~sas_type ~validity_period __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

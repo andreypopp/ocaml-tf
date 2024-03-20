@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,34 +48,40 @@ type t = {
   workspace_name : string prop;
 }
 
-let register ?tf_module ?customer_managed_key_enabled ?id
-    ?resource_group_name ?workspace_id ?workspace_name ?timeouts
-    __resource_id =
-  let __resource_type =
+let make ?customer_managed_key_enabled ?id ?resource_group_name
+    ?workspace_id ?workspace_name ?timeouts __id =
+  let __type =
     "azurerm_sentinel_log_analytics_workspace_onboarding"
   in
-  let __resource =
-    azurerm_sentinel_log_analytics_workspace_onboarding
-      ?customer_managed_key_enabled ?id ?resource_group_name
-      ?workspace_id ?workspace_name ?timeouts ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_log_analytics_workspace_onboarding
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        customer_managed_key_enabled =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "customer_managed_key_enabled";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-       workspace_name =
-         Prop.computed __resource_type __resource_id "workspace_name";
+         Prop.computed __type __id "resource_group_name";
+       workspace_id = Prop.computed __type __id "workspace_id";
+       workspace_name = Prop.computed __type __id "workspace_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_log_analytics_workspace_onboarding
+        (azurerm_sentinel_log_analytics_workspace_onboarding
+           ?customer_managed_key_enabled ?id ?resource_group_name
+           ?workspace_id ?workspace_name ?timeouts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?customer_managed_key_enabled ?id
+    ?resource_group_name ?workspace_id ?workspace_name ?timeouts __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?customer_managed_key_enabled ?id ?resource_group_name
+      ?workspace_id ?workspace_name ?timeouts __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

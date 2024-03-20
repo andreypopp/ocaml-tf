@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,19 @@ val register :
   subnet:subnet list ->
   string ->
   t
+
+val make :
+  ?always_serve_enabled:bool prop ->
+  ?enabled:bool prop ->
+  ?geo_mappings:string prop list ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?weight:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  profile_id:string prop ->
+  target_resource_id:string prop ->
+  custom_header:custom_header list ->
+  subnet:subnet list ->
+  string ->
+  t Tf_core.resource

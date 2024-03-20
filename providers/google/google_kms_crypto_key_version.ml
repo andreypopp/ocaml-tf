@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,31 +65,35 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?id ?state ?timeouts ~crypto_key
-    __resource_id =
-  let __resource_type = "google_kms_crypto_key_version" in
-  let __resource =
-    google_kms_crypto_key_version ?id ?state ?timeouts ~crypto_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_kms_crypto_key_version __resource);
-  let __resource_attributes =
+let make ?id ?state ?timeouts ~crypto_key __id =
+  let __type = "google_kms_crypto_key_version" in
+  let __attrs =
     ({
-       algorithm =
-         Prop.computed __resource_type __resource_id "algorithm";
-       attestation =
-         Prop.computed __resource_type __resource_id "attestation";
-       crypto_key =
-         Prop.computed __resource_type __resource_id "crypto_key";
-       generate_time =
-         Prop.computed __resource_type __resource_id "generate_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       algorithm = Prop.computed __type __id "algorithm";
+       attestation = Prop.computed __type __id "attestation";
+       crypto_key = Prop.computed __type __id "crypto_key";
+       generate_time = Prop.computed __type __id "generate_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        protection_level =
-         Prop.computed __resource_type __resource_id
-           "protection_level";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "protection_level";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_kms_crypto_key_version
+        (google_kms_crypto_key_version ?id ?state ?timeouts
+           ~crypto_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?state ?timeouts ~crypto_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?state ?timeouts ~crypto_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

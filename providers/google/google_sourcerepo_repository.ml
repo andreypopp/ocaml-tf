@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type pubsub_configs = {
   message_format : string prop;
@@ -59,24 +57,32 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~name ~pubsub_configs
-    __resource_id =
-  let __resource_type = "google_sourcerepo_repository" in
-  let __resource =
-    google_sourcerepo_repository ?id ?project ?timeouts ~name
-      ~pubsub_configs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sourcerepo_repository __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~name ~pubsub_configs __id =
+  let __type = "google_sourcerepo_repository" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       size = Prop.computed __resource_type __resource_id "size";
-       url = Prop.computed __resource_type __resource_id "url";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       size = Prop.computed __type __id "size";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sourcerepo_repository
+        (google_sourcerepo_repository ?id ?project ?timeouts ~name
+           ~pubsub_configs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~name ~pubsub_configs
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~name ~pubsub_configs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

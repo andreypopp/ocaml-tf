@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attachments_source = {
   key : string prop;  (** key *)
@@ -85,62 +83,57 @@ type t = {
   version_name : string prop;
 }
 
-let register ?tf_module ?document_format ?id ?permissions ?tags
-    ?tags_all ?target_type ?version_name ~content ~document_type
-    ~name ~attachments_source __resource_id =
-  let __resource_type = "aws_ssm_document" in
-  let __resource =
-    aws_ssm_document ?document_format ?id ?permissions ?tags
-      ?tags_all ?target_type ?version_name ~content ~document_type
-      ~name ~attachments_source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_document __resource);
-  let __resource_attributes =
+let make ?document_format ?id ?permissions ?tags ?tags_all
+    ?target_type ?version_name ~content ~document_type ~name
+    ~attachments_source __id =
+  let __type = "aws_ssm_document" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       default_version =
-         Prop.computed __resource_type __resource_id
-           "default_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       document_format =
-         Prop.computed __resource_type __resource_id
-           "document_format";
-       document_type =
-         Prop.computed __resource_type __resource_id "document_type";
+       arn = Prop.computed __type __id "arn";
+       content = Prop.computed __type __id "content";
+       created_date = Prop.computed __type __id "created_date";
+       default_version = Prop.computed __type __id "default_version";
+       description = Prop.computed __type __id "description";
+       document_format = Prop.computed __type __id "document_format";
+       document_type = Prop.computed __type __id "document_type";
        document_version =
-         Prop.computed __resource_type __resource_id
-           "document_version";
-       hash = Prop.computed __resource_type __resource_id "hash";
-       hash_type =
-         Prop.computed __resource_type __resource_id "hash_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       latest_version =
-         Prop.computed __resource_type __resource_id "latest_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       parameter =
-         Prop.computed __resource_type __resource_id "parameter";
-       permissions =
-         Prop.computed __resource_type __resource_id "permissions";
-       platform_types =
-         Prop.computed __resource_type __resource_id "platform_types";
-       schema_version =
-         Prop.computed __resource_type __resource_id "schema_version";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_type =
-         Prop.computed __resource_type __resource_id "target_type";
-       version_name =
-         Prop.computed __resource_type __resource_id "version_name";
+         Prop.computed __type __id "document_version";
+       hash = Prop.computed __type __id "hash";
+       hash_type = Prop.computed __type __id "hash_type";
+       id = Prop.computed __type __id "id";
+       latest_version = Prop.computed __type __id "latest_version";
+       name = Prop.computed __type __id "name";
+       owner = Prop.computed __type __id "owner";
+       parameter = Prop.computed __type __id "parameter";
+       permissions = Prop.computed __type __id "permissions";
+       platform_types = Prop.computed __type __id "platform_types";
+       schema_version = Prop.computed __type __id "schema_version";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_type = Prop.computed __type __id "target_type";
+       version_name = Prop.computed __type __id "version_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_document
+        (aws_ssm_document ?document_format ?id ?permissions ?tags
+           ?tags_all ?target_type ?version_name ~content
+           ~document_type ~name ~attachments_source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?document_format ?id ?permissions ?tags
+    ?tags_all ?target_type ?version_name ~content ~document_type
+    ~name ~attachments_source __id =
+  let (r : _ Tf_core.resource) =
+    make ?document_format ?id ?permissions ?tags ?tags_all
+      ?target_type ?version_name ~content ~document_type ~name
+      ~attachments_source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

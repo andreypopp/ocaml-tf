@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parameter_object__attribute = {
   key : string prop;  (** key *)
@@ -81,21 +79,31 @@ let aws_datapipeline_pipeline_definition ?id ~pipeline_id
 
 type t = { id : string prop; pipeline_id : string prop }
 
-let register ?tf_module ?id ~pipeline_id ~parameter_object
-    ~parameter_value ~pipeline_object __resource_id =
-  let __resource_type = "aws_datapipeline_pipeline_definition" in
-  let __resource =
-    aws_datapipeline_pipeline_definition ?id ~pipeline_id
-      ~parameter_object ~parameter_value ~pipeline_object ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datapipeline_pipeline_definition __resource);
-  let __resource_attributes =
+let make ?id ~pipeline_id ~parameter_object ~parameter_value
+    ~pipeline_object __id =
+  let __type = "aws_datapipeline_pipeline_definition" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       pipeline_id =
-         Prop.computed __resource_type __resource_id "pipeline_id";
+       id = Prop.computed __type __id "id";
+       pipeline_id = Prop.computed __type __id "pipeline_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datapipeline_pipeline_definition
+        (aws_datapipeline_pipeline_definition ?id ~pipeline_id
+           ~parameter_object ~parameter_value ~pipeline_object ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~pipeline_id ~parameter_object
+    ~parameter_value ~pipeline_object __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~pipeline_id ~parameter_object ~parameter_value
+      ~pipeline_object __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

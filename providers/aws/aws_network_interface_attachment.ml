@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_network_interface_attachment = {
   device_index : float prop;  (** device_index *)
@@ -26,29 +24,34 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~device_index ~instance_id
-    ~network_interface_id __resource_id =
-  let __resource_type = "aws_network_interface_attachment" in
-  let __resource =
-    aws_network_interface_attachment ?id ~device_index ~instance_id
-      ~network_interface_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_network_interface_attachment __resource);
-  let __resource_attributes =
+let make ?id ~device_index ~instance_id ~network_interface_id __id =
+  let __type = "aws_network_interface_attachment" in
+  let __attrs =
     ({
-       attachment_id =
-         Prop.computed __resource_type __resource_id "attachment_id";
-       device_index =
-         Prop.computed __resource_type __resource_id "device_index";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
+       attachment_id = Prop.computed __type __id "attachment_id";
+       device_index = Prop.computed __type __id "device_index";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
        network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "network_interface_id";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_network_interface_attachment
+        (aws_network_interface_attachment ?id ~device_index
+           ~instance_id ~network_interface_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~device_index ~instance_id
+    ~network_interface_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~device_index ~instance_id ~network_interface_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

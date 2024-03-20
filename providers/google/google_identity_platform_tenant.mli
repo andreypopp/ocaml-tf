@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   display_name:string prop ->
   string ->
   t
+
+val make :
+  ?allow_password_signup:bool prop ->
+  ?disable_auth:bool prop ->
+  ?enable_email_link_signin:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -65,45 +63,50 @@ type t = {
   tls11_enabled : bool prop;
 }
 
-let register ?tf_module ?http2_enabled ?id
-    ?request_client_certificate_enabled ?tls10_enabled ?tls11_enabled
-    ?timeouts ~api_management_id ~certificate_id ~gateway_name
-    ~host_name ~name __resource_id =
-  let __resource_type =
+let make ?http2_enabled ?id ?request_client_certificate_enabled
+    ?tls10_enabled ?tls11_enabled ?timeouts ~api_management_id
+    ~certificate_id ~gateway_name ~host_name ~name __id =
+  let __type =
     "azurerm_api_management_gateway_host_name_configuration"
   in
-  let __resource =
-    azurerm_api_management_gateway_host_name_configuration
-      ?http2_enabled ?id ?request_client_certificate_enabled
-      ?tls10_enabled ?tls11_enabled ?timeouts ~api_management_id
-      ~certificate_id ~gateway_name ~host_name ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_gateway_host_name_configuration
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        api_management_id =
-         Prop.computed __resource_type __resource_id
-           "api_management_id";
-       certificate_id =
-         Prop.computed __resource_type __resource_id "certificate_id";
-       gateway_name =
-         Prop.computed __resource_type __resource_id "gateway_name";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       http2_enabled =
-         Prop.computed __resource_type __resource_id "http2_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "api_management_id";
+       certificate_id = Prop.computed __type __id "certificate_id";
+       gateway_name = Prop.computed __type __id "gateway_name";
+       host_name = Prop.computed __type __id "host_name";
+       http2_enabled = Prop.computed __type __id "http2_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        request_client_certificate_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "request_client_certificate_enabled";
-       tls10_enabled =
-         Prop.computed __resource_type __resource_id "tls10_enabled";
-       tls11_enabled =
-         Prop.computed __resource_type __resource_id "tls11_enabled";
+       tls10_enabled = Prop.computed __type __id "tls10_enabled";
+       tls11_enabled = Prop.computed __type __id "tls11_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_gateway_host_name_configuration
+        (azurerm_api_management_gateway_host_name_configuration
+           ?http2_enabled ?id ?request_client_certificate_enabled
+           ?tls10_enabled ?tls11_enabled ?timeouts ~api_management_id
+           ~certificate_id ~gateway_name ~host_name ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?http2_enabled ?id
+    ?request_client_certificate_enabled ?tls10_enabled ?tls11_enabled
+    ?timeouts ~api_management_id ~certificate_id ~gateway_name
+    ~host_name ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?http2_enabled ?id ?request_client_certificate_enabled
+      ?tls10_enabled ?tls11_enabled ?timeouts ~api_management_id
+      ~certificate_id ~gateway_name ~host_name ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

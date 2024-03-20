@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_blob_storage_location = {
   container : string prop;  (** container *)
@@ -134,44 +132,51 @@ type t = {
   parameters : (string * string) list prop;
 }
 
+let make ?additional_properties ?annotations ?description ?encoding
+    ?folder ?id ?parameters ?timeouts ~data_factory_id
+    ~linked_service_name ~name ~azure_blob_storage_location
+    ~http_server_location ~schema_column __id =
+  let __type = "azurerm_data_factory_dataset_json" in
+  let __attrs =
+    ({
+       additional_properties =
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       encoding = Prop.computed __type __id "encoding";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       linked_service_name =
+         Prop.computed __type __id "linked_service_name";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_dataset_json
+        (azurerm_data_factory_dataset_json ?additional_properties
+           ?annotations ?description ?encoding ?folder ?id
+           ?parameters ?timeouts ~data_factory_id
+           ~linked_service_name ~name ~azure_blob_storage_location
+           ~http_server_location ~schema_column ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?additional_properties ?annotations
     ?description ?encoding ?folder ?id ?parameters ?timeouts
     ~data_factory_id ~linked_service_name ~name
     ~azure_blob_storage_location ~http_server_location ~schema_column
-    __resource_id =
-  let __resource_type = "azurerm_data_factory_dataset_json" in
-  let __resource =
-    azurerm_data_factory_dataset_json ?additional_properties
-      ?annotations ?description ?encoding ?folder ?id ?parameters
-      ?timeouts ~data_factory_id ~linked_service_name ~name
-      ~azure_blob_storage_location ~http_server_location
-      ~schema_column ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?description ?encoding
+      ?folder ?id ?parameters ?timeouts ~data_factory_id
+      ~linked_service_name ~name ~azure_blob_storage_location
+      ~http_server_location ~schema_column __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_dataset_json __resource);
-  let __resource_attributes =
-    ({
-       additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       encoding =
-         Prop.computed __resource_type __resource_id "encoding";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       linked_service_name =
-         Prop.computed __resource_type __resource_id
-           "linked_service_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

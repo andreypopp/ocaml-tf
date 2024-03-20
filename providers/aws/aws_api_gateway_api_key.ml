@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_api_gateway_api_key = {
   customer_id : string prop option; [@option]  (** customer_id *)
@@ -45,36 +43,41 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?customer_id ?description ?enabled ?id ?tags
-    ?tags_all ?value ~name __resource_id =
-  let __resource_type = "aws_api_gateway_api_key" in
-  let __resource =
-    aws_api_gateway_api_key ?customer_id ?description ?enabled ?id
-      ?tags ?tags_all ?value ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_api_key __resource);
-  let __resource_attributes =
+let make ?customer_id ?description ?enabled ?id ?tags ?tags_all
+    ?value ~name __id =
+  let __type = "aws_api_gateway_api_key" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       customer_id =
-         Prop.computed __resource_type __resource_id "customer_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       created_date = Prop.computed __type __id "created_date";
+       customer_id = Prop.computed __type __id "customer_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
        last_updated_date =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "last_updated_date";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_api_key
+        (aws_api_gateway_api_key ?customer_id ?description ?enabled
+           ?id ?tags ?tags_all ?value ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?customer_id ?description ?enabled ?id ?tags
+    ?tags_all ?value ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?customer_id ?description ?enabled ?id ?tags ?tags_all
+      ?value ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

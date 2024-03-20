@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,14 @@ val register :
   policy:policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?is_default:bool prop ->
+  ?priority:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  vpn_server_configuration_id:string prop ->
+  policy:policy list ->
+  string ->
+  t Tf_core.resource

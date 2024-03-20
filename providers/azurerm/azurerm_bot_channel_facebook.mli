@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,15 @@ val register :
   page:page list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  facebook_application_id:string prop ->
+  facebook_application_secret:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  page:page list ->
+  string ->
+  t Tf_core.resource

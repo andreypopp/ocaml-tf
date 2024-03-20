@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type settings__minify = {
   css : string prop;  (** css *)
@@ -318,32 +316,33 @@ type t = {
   zone_type : string prop;
 }
 
-let register ?tf_module ?id ~zone_id ~settings __resource_id =
-  let __resource_type = "cloudflare_zone_settings_override" in
-  let __resource =
-    cloudflare_zone_settings_override ?id ~zone_id ~settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_zone_settings_override __resource);
-  let __resource_attributes =
+let make ?id ~zone_id ~settings __id =
+  let __type = "cloudflare_zone_settings_override" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        initial_settings =
-         Prop.computed __resource_type __resource_id
-           "initial_settings";
+         Prop.computed __type __id "initial_settings";
        initial_settings_read_at =
-         Prop.computed __resource_type __resource_id
-           "initial_settings_read_at";
+         Prop.computed __type __id "initial_settings_read_at";
        readonly_settings =
-         Prop.computed __resource_type __resource_id
-           "readonly_settings";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-       zone_status =
-         Prop.computed __resource_type __resource_id "zone_status";
-       zone_type =
-         Prop.computed __resource_type __resource_id "zone_type";
+         Prop.computed __type __id "readonly_settings";
+       zone_id = Prop.computed __type __id "zone_id";
+       zone_status = Prop.computed __type __id "zone_status";
+       zone_type = Prop.computed __type __id "zone_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_zone_settings_override
+        (cloudflare_zone_settings_override ?id ~zone_id ~settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~zone_id ~settings __id =
+  let (r : _ Tf_core.resource) = make ?id ~zone_id ~settings __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

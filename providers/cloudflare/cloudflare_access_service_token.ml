@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_access_service_token = {
   account_id : string prop option; [@option]
@@ -38,35 +36,39 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?account_id ?duration ?id
-    ?min_days_for_renewal ?zone_id ~name __resource_id =
-  let __resource_type = "cloudflare_access_service_token" in
-  let __resource =
-    cloudflare_access_service_token ?account_id ?duration ?id
-      ?min_days_for_renewal ?zone_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_service_token __resource);
-  let __resource_attributes =
+let make ?account_id ?duration ?id ?min_days_for_renewal ?zone_id
+    ~name __id =
+  let __type = "cloudflare_access_service_token" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       duration =
-         Prop.computed __resource_type __resource_id "duration";
-       expires_at =
-         Prop.computed __resource_type __resource_id "expires_at";
-       id = Prop.computed __resource_type __resource_id "id";
+       account_id = Prop.computed __type __id "account_id";
+       client_id = Prop.computed __type __id "client_id";
+       client_secret = Prop.computed __type __id "client_secret";
+       duration = Prop.computed __type __id "duration";
+       expires_at = Prop.computed __type __id "expires_at";
+       id = Prop.computed __type __id "id";
        min_days_for_renewal =
-         Prop.computed __resource_type __resource_id
-           "min_days_for_renewal";
-       name = Prop.computed __resource_type __resource_id "name";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "min_days_for_renewal";
+       name = Prop.computed __type __id "name";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_service_token
+        (cloudflare_access_service_token ?account_id ?duration ?id
+           ?min_days_for_renewal ?zone_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?duration ?id
+    ?min_days_for_renewal ?zone_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?duration ?id ?min_days_for_renewal ?zone_id
+      ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

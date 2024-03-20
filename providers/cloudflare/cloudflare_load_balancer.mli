@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -231,3 +231,27 @@ val register :
   session_affinity_attributes:session_affinity_attributes list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?proxied:bool prop ->
+  ?session_affinity:string prop ->
+  ?session_affinity_ttl:float prop ->
+  ?steering_policy:string prop ->
+  ?ttl:float prop ->
+  default_pool_ids:string prop list ->
+  fallback_pool_id:string prop ->
+  name:string prop ->
+  zone_id:string prop ->
+  adaptive_routing:adaptive_routing list ->
+  country_pools:country_pools list ->
+  location_strategy:location_strategy list ->
+  pop_pools:pop_pools list ->
+  random_steering:random_steering list ->
+  region_pools:region_pools list ->
+  rules:rules list ->
+  session_affinity_attributes:session_affinity_attributes list ->
+  string ->
+  t Tf_core.resource

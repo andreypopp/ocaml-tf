@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   sql_pool_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?importance:string prop ->
+  ?max_resource_percent_per_request:float prop ->
+  ?min_resource_percent_per_request:float prop ->
+  ?query_execution_timeout_in_seconds:float prop ->
+  ?timeouts:timeouts ->
+  max_resource_percent:float prop ->
+  min_resource_percent:float prop ->
+  name:string prop ->
+  sql_pool_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,20 @@ val register :
   subnet:subnet list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ip_cidr_range:string prop ->
+  ?machine_type:string prop ->
+  ?max_instances:float prop ->
+  ?max_throughput:float prop ->
+  ?min_instances:float prop ->
+  ?min_throughput:float prop ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  subnet:subnet list ->
+  string ->
+  t Tf_core.resource

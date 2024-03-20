@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,22 @@ val register :
   read_pool_config:read_pool_config list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?availability_type:string prop ->
+  ?database_flags:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?gce_zone:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  instance_id:string prop ->
+  instance_type:string prop ->
+  client_connection_config:client_connection_config list ->
+  machine_config:machine_config list ->
+  query_insights_config:query_insights_config list ->
+  read_pool_config:read_pool_config list ->
+  string ->
+  t Tf_core.resource

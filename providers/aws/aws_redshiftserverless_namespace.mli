@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,20 @@ val register :
   namespace_name:string prop ->
   string ->
   t
+
+val make :
+  ?admin_password_secret_kms_key_id:string prop ->
+  ?admin_user_password:string prop ->
+  ?admin_username:string prop ->
+  ?db_name:string prop ->
+  ?default_iam_role_arn:string prop ->
+  ?iam_roles:string prop list ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?log_exports:string prop list ->
+  ?manage_admin_password:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  namespace_name:string prop ->
+  string ->
+  t Tf_core.resource

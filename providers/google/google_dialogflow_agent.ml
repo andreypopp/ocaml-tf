@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -105,52 +103,56 @@ type t = {
   time_zone : string prop;
 }
 
-let register ?tf_module ?api_version ?avatar_uri
-    ?classification_threshold ?description ?enable_logging ?id
-    ?match_mode ?project ?supported_language_codes ?tier ?timeouts
-    ~default_language_code ~display_name ~time_zone __resource_id =
-  let __resource_type = "google_dialogflow_agent" in
-  let __resource =
-    google_dialogflow_agent ?api_version ?avatar_uri
-      ?classification_threshold ?description ?enable_logging ?id
-      ?match_mode ?project ?supported_language_codes ?tier ?timeouts
-      ~default_language_code ~display_name ~time_zone ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_agent __resource);
-  let __resource_attributes =
+let make ?api_version ?avatar_uri ?classification_threshold
+    ?description ?enable_logging ?id ?match_mode ?project
+    ?supported_language_codes ?tier ?timeouts ~default_language_code
+    ~display_name ~time_zone __id =
+  let __type = "google_dialogflow_agent" in
+  let __attrs =
     ({
-       api_version =
-         Prop.computed __resource_type __resource_id "api_version";
-       avatar_uri =
-         Prop.computed __resource_type __resource_id "avatar_uri";
+       api_version = Prop.computed __type __id "api_version";
+       avatar_uri = Prop.computed __type __id "avatar_uri";
        avatar_uri_backend =
-         Prop.computed __resource_type __resource_id
-           "avatar_uri_backend";
+         Prop.computed __type __id "avatar_uri_backend";
        classification_threshold =
-         Prop.computed __resource_type __resource_id
-           "classification_threshold";
+         Prop.computed __type __id "classification_threshold";
        default_language_code =
-         Prop.computed __resource_type __resource_id
-           "default_language_code";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enable_logging =
-         Prop.computed __resource_type __resource_id "enable_logging";
-       id = Prop.computed __resource_type __resource_id "id";
-       match_mode =
-         Prop.computed __resource_type __resource_id "match_mode";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "default_language_code";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enable_logging = Prop.computed __type __id "enable_logging";
+       id = Prop.computed __type __id "id";
+       match_mode = Prop.computed __type __id "match_mode";
+       project = Prop.computed __type __id "project";
        supported_language_codes =
-         Prop.computed __resource_type __resource_id
-           "supported_language_codes";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
+         Prop.computed __type __id "supported_language_codes";
+       tier = Prop.computed __type __id "tier";
+       time_zone = Prop.computed __type __id "time_zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_agent
+        (google_dialogflow_agent ?api_version ?avatar_uri
+           ?classification_threshold ?description ?enable_logging ?id
+           ?match_mode ?project ?supported_language_codes ?tier
+           ?timeouts ~default_language_code ~display_name ~time_zone
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_version ?avatar_uri
+    ?classification_threshold ?description ?enable_logging ?id
+    ?match_mode ?project ?supported_language_codes ?tier ?timeouts
+    ~default_language_code ~display_name ~time_zone __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_version ?avatar_uri ?classification_threshold
+      ?description ?enable_logging ?id ?match_mode ?project
+      ?supported_language_codes ?tier ?timeouts
+      ~default_language_code ~display_name ~time_zone __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

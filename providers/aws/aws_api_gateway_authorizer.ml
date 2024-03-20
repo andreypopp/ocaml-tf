@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_api_gateway_authorizer = {
   authorizer_credentials : string prop option; [@option]
@@ -56,44 +54,51 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?authorizer_credentials
-    ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
-    ?identity_source ?identity_validation_expression ?provider_arns
-    ?type_ ~name ~rest_api_id __resource_id =
-  let __resource_type = "aws_api_gateway_authorizer" in
-  let __resource =
-    aws_api_gateway_authorizer ?authorizer_credentials
-      ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
-      ?identity_source ?identity_validation_expression ?provider_arns
-      ?type_ ~name ~rest_api_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_authorizer __resource);
-  let __resource_attributes =
+let make ?authorizer_credentials ?authorizer_result_ttl_in_seconds
+    ?authorizer_uri ?id ?identity_source
+    ?identity_validation_expression ?provider_arns ?type_ ~name
+    ~rest_api_id __id =
+  let __type = "aws_api_gateway_authorizer" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        authorizer_credentials =
-         Prop.computed __resource_type __resource_id
-           "authorizer_credentials";
+         Prop.computed __type __id "authorizer_credentials";
        authorizer_result_ttl_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "authorizer_result_ttl_in_seconds";
-       authorizer_uri =
-         Prop.computed __resource_type __resource_id "authorizer_uri";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_source =
-         Prop.computed __resource_type __resource_id
-           "identity_source";
+         Prop.computed __type __id "authorizer_result_ttl_in_seconds";
+       authorizer_uri = Prop.computed __type __id "authorizer_uri";
+       id = Prop.computed __type __id "id";
+       identity_source = Prop.computed __type __id "identity_source";
        identity_validation_expression =
-         Prop.computed __resource_type __resource_id
-           "identity_validation_expression";
-       name = Prop.computed __resource_type __resource_id "name";
-       provider_arns =
-         Prop.computed __resource_type __resource_id "provider_arns";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "identity_validation_expression";
+       name = Prop.computed __type __id "name";
+       provider_arns = Prop.computed __type __id "provider_arns";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_authorizer
+        (aws_api_gateway_authorizer ?authorizer_credentials
+           ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
+           ?identity_source ?identity_validation_expression
+           ?provider_arns ?type_ ~name ~rest_api_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorizer_credentials
+    ?authorizer_result_ttl_in_seconds ?authorizer_uri ?id
+    ?identity_source ?identity_validation_expression ?provider_arns
+    ?type_ ~name ~rest_api_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorizer_credentials ?authorizer_result_ttl_in_seconds
+      ?authorizer_uri ?id ?identity_source
+      ?identity_validation_expression ?provider_arns ?type_ ~name
+      ~rest_api_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

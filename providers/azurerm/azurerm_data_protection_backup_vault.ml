@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -69,38 +67,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?retention_duration_in_days ?soft_delete
-    ?tags ?timeouts ~datastore_type ~location ~name ~redundancy
-    ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_data_protection_backup_vault" in
-  let __resource =
-    azurerm_data_protection_backup_vault ?id
-      ?retention_duration_in_days ?soft_delete ?tags ?timeouts
-      ~datastore_type ~location ~name ~redundancy
-      ~resource_group_name ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_protection_backup_vault __resource);
-  let __resource_attributes =
+let make ?id ?retention_duration_in_days ?soft_delete ?tags ?timeouts
+    ~datastore_type ~location ~name ~redundancy ~resource_group_name
+    ~identity __id =
+  let __type = "azurerm_data_protection_backup_vault" in
+  let __attrs =
     ({
-       datastore_type =
-         Prop.computed __resource_type __resource_id "datastore_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       redundancy =
-         Prop.computed __resource_type __resource_id "redundancy";
+       datastore_type = Prop.computed __type __id "datastore_type";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       redundancy = Prop.computed __type __id "redundancy";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        retention_duration_in_days =
-         Prop.computed __resource_type __resource_id
-           "retention_duration_in_days";
-       soft_delete =
-         Prop.computed __resource_type __resource_id "soft_delete";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "retention_duration_in_days";
+       soft_delete = Prop.computed __type __id "soft_delete";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_protection_backup_vault
+        (azurerm_data_protection_backup_vault ?id
+           ?retention_duration_in_days ?soft_delete ?tags ?timeouts
+           ~datastore_type ~location ~name ~redundancy
+           ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?retention_duration_in_days ?soft_delete
+    ?tags ?timeouts ~datastore_type ~location ~name ~redundancy
+    ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?retention_duration_in_days ?soft_delete ?tags ?timeouts
+      ~datastore_type ~location ~name ~redundancy
+      ~resource_group_name ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

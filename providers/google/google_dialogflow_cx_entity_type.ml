@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type entities = {
   synonyms : string prop list option; [@option]
@@ -101,35 +99,45 @@ type t = {
   redact : bool prop;
 }
 
-let register ?tf_module ?auto_expansion_mode ?enable_fuzzy_extraction
-    ?id ?language_code ?parent ?redact ?timeouts ~display_name ~kind
-    ~entities ~excluded_phrases __resource_id =
-  let __resource_type = "google_dialogflow_cx_entity_type" in
-  let __resource =
-    google_dialogflow_cx_entity_type ?auto_expansion_mode
-      ?enable_fuzzy_extraction ?id ?language_code ?parent ?redact
-      ?timeouts ~display_name ~kind ~entities ~excluded_phrases ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_entity_type __resource);
-  let __resource_attributes =
+let make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
+    ?language_code ?parent ?redact ?timeouts ~display_name ~kind
+    ~entities ~excluded_phrases __id =
+  let __type = "google_dialogflow_cx_entity_type" in
+  let __attrs =
     ({
        auto_expansion_mode =
-         Prop.computed __resource_type __resource_id
-           "auto_expansion_mode";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "auto_expansion_mode";
+       display_name = Prop.computed __type __id "display_name";
        enable_fuzzy_extraction =
-         Prop.computed __resource_type __resource_id
-           "enable_fuzzy_extraction";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       redact = Prop.computed __resource_type __resource_id "redact";
+         Prop.computed __type __id "enable_fuzzy_extraction";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       language_code = Prop.computed __type __id "language_code";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       redact = Prop.computed __type __id "redact";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_entity_type
+        (google_dialogflow_cx_entity_type ?auto_expansion_mode
+           ?enable_fuzzy_extraction ?id ?language_code ?parent
+           ?redact ?timeouts ~display_name ~kind ~entities
+           ~excluded_phrases ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_expansion_mode ?enable_fuzzy_extraction
+    ?id ?language_code ?parent ?redact ?timeouts ~display_name ~kind
+    ~entities ~excluded_phrases __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_expansion_mode ?enable_fuzzy_extraction ?id
+      ?language_code ?parent ?redact ?timeouts ~display_name ~kind
+      ~entities ~excluded_phrases __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

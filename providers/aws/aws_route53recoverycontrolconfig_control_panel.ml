@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53recoverycontrolconfig_control_panel = {
   cluster_arn : string prop;  (** cluster_arn *)
@@ -26,32 +24,33 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~cluster_arn ~name __resource_id =
-  let __resource_type =
-    "aws_route53recoverycontrolconfig_control_panel"
-  in
-  let __resource =
-    aws_route53recoverycontrolconfig_control_panel ?id ~cluster_arn
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53recoverycontrolconfig_control_panel
-       __resource);
-  let __resource_attributes =
+let make ?id ~cluster_arn ~name __id =
+  let __type = "aws_route53recoverycontrolconfig_control_panel" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cluster_arn =
-         Prop.computed __resource_type __resource_id "cluster_arn";
+       arn = Prop.computed __type __id "arn";
+       cluster_arn = Prop.computed __type __id "cluster_arn";
        default_control_panel =
-         Prop.computed __resource_type __resource_id
-           "default_control_panel";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_control_panel";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        routing_control_count =
-         Prop.computed __resource_type __resource_id
-           "routing_control_count";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "routing_control_count";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53recoverycontrolconfig_control_panel
+        (aws_route53recoverycontrolconfig_control_panel ?id
+           ~cluster_arn ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~cluster_arn ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ~cluster_arn ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attributes = {
   flow_logs_enabled : bool prop option; [@option]
@@ -80,40 +78,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?enabled ?id ?ip_address_type ?ip_addresses
-    ?tags ?tags_all ?timeouts ~name ~attributes __resource_id =
-  let __resource_type =
-    "aws_globalaccelerator_custom_routing_accelerator"
-  in
-  let __resource =
-    aws_globalaccelerator_custom_routing_accelerator ?enabled ?id
-      ?ip_address_type ?ip_addresses ?tags ?tags_all ?timeouts ~name
-      ~attributes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_globalaccelerator_custom_routing_accelerator
-       __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
+    ?timeouts ~name ~attributes __id =
+  let __type = "aws_globalaccelerator_custom_routing_accelerator" in
+  let __attrs =
     ({
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
-       ip_addresses =
-         Prop.computed __resource_type __resource_id "ip_addresses";
-       ip_sets =
-         Prop.computed __resource_type __resource_id "ip_sets";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       dns_name = Prop.computed __type __id "dns_name";
+       enabled = Prop.computed __type __id "enabled";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
+       ip_addresses = Prop.computed __type __id "ip_addresses";
+       ip_sets = Prop.computed __type __id "ip_sets";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_globalaccelerator_custom_routing_accelerator
+        (aws_globalaccelerator_custom_routing_accelerator ?enabled
+           ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
+           ?timeouts ~name ~attributes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?ip_address_type ?ip_addresses
+    ?tags ?tags_all ?timeouts ~name ~attributes __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?ip_address_type ?ip_addresses ?tags ?tags_all
+      ?timeouts ~name ~attributes __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

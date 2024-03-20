@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,45 +64,47 @@ type t = {
   workspace_id : string prop;
 }
 
-let register ?tf_module ?account_key ?description ?id ?is_default
+let make ?account_key ?description ?id ?is_default
     ?service_data_auth_identity ?shared_access_signature ?tags
-    ?timeouts ~name ~storage_container_id ~workspace_id __resource_id
-    =
-  let __resource_type =
-    "azurerm_machine_learning_datastore_blobstorage"
-  in
-  let __resource =
-    azurerm_machine_learning_datastore_blobstorage ?account_key
-      ?description ?id ?is_default ?service_data_auth_identity
-      ?shared_access_signature ?tags ?timeouts ~name
-      ~storage_container_id ~workspace_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_machine_learning_datastore_blobstorage
-       __resource);
-  let __resource_attributes =
+    ?timeouts ~name ~storage_container_id ~workspace_id __id =
+  let __type = "azurerm_machine_learning_datastore_blobstorage" in
+  let __attrs =
     ({
-       account_key =
-         Prop.computed __resource_type __resource_id "account_key";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_default =
-         Prop.computed __resource_type __resource_id "is_default";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_key = Prop.computed __type __id "account_key";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       is_default = Prop.computed __type __id "is_default";
+       name = Prop.computed __type __id "name";
        service_data_auth_identity =
-         Prop.computed __resource_type __resource_id
-           "service_data_auth_identity";
+         Prop.computed __type __id "service_data_auth_identity";
        shared_access_signature =
-         Prop.computed __resource_type __resource_id
-           "shared_access_signature";
+         Prop.computed __type __id "shared_access_signature";
        storage_container_id =
-         Prop.computed __resource_type __resource_id
-           "storage_container_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
+         Prop.computed __type __id "storage_container_id";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_machine_learning_datastore_blobstorage
+        (azurerm_machine_learning_datastore_blobstorage ?account_key
+           ?description ?id ?is_default ?service_data_auth_identity
+           ?shared_access_signature ?tags ?timeouts ~name
+           ~storage_container_id ~workspace_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_key ?description ?id ?is_default
+    ?service_data_auth_identity ?shared_access_signature ?tags
+    ?timeouts ~name ~storage_container_id ~workspace_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_key ?description ?id ?is_default
+      ?service_data_auth_identity ?shared_access_signature ?tags
+      ?timeouts ~name ~storage_container_id ~workspace_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

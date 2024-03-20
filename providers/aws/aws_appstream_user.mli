@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,14 @@ val register :
   user_name:string prop ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?first_name:string prop ->
+  ?id:string prop ->
+  ?last_name:string prop ->
+  ?send_email_notification:bool prop ->
+  authentication_type:string prop ->
+  user_name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssm_activation = {
   description : string prop option; [@option]  (** description *)
@@ -48,41 +46,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?expiration_date ?id ?name
-    ?registration_limit ?tags ?tags_all ~iam_role __resource_id =
-  let __resource_type = "aws_ssm_activation" in
-  let __resource =
-    aws_ssm_activation ?description ?expiration_date ?id ?name
-      ?registration_limit ?tags ?tags_all ~iam_role ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_activation __resource);
-  let __resource_attributes =
+let make ?description ?expiration_date ?id ?name ?registration_limit
+    ?tags ?tags_all ~iam_role __id =
+  let __type = "aws_ssm_activation" in
+  let __attrs =
     ({
-       activation_code =
-         Prop.computed __resource_type __resource_id
-           "activation_code";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       expired =
-         Prop.computed __resource_type __resource_id "expired";
-       iam_role =
-         Prop.computed __resource_type __resource_id "iam_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       activation_code = Prop.computed __type __id "activation_code";
+       description = Prop.computed __type __id "description";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       expired = Prop.computed __type __id "expired";
+       iam_role = Prop.computed __type __id "iam_role";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        registration_count =
-         Prop.computed __resource_type __resource_id
-           "registration_count";
+         Prop.computed __type __id "registration_count";
        registration_limit =
-         Prop.computed __resource_type __resource_id
-           "registration_limit";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "registration_limit";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_activation
+        (aws_ssm_activation ?description ?expiration_date ?id ?name
+           ?registration_limit ?tags ?tags_all ~iam_role ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?expiration_date ?id ?name
+    ?registration_limit ?tags ?tags_all ~iam_role __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?expiration_date ?id ?name ?registration_limit
+      ?tags ?tags_all ~iam_role __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

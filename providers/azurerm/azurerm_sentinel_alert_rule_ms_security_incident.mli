@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   severity_filter:string prop list ->
   string ->
   t
+
+val make :
+  ?alert_rule_template_guid:string prop ->
+  ?description:string prop ->
+  ?display_name_exclude_filter:string prop list ->
+  ?display_name_filter:string prop list ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  product_filter:string prop ->
+  severity_filter:string prop list ->
+  string ->
+  t Tf_core.resource

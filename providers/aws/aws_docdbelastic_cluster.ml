@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -75,53 +73,56 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
-let register ?tf_module ?kms_key_id ?preferred_maintenance_window
-    ?subnet_ids ?tags ?vpc_security_group_ids ?timeouts
-    ~admin_user_name ~admin_user_password ~auth_type ~name
-    ~shard_capacity ~shard_count __resource_id =
-  let __resource_type = "aws_docdbelastic_cluster" in
-  let __resource =
-    aws_docdbelastic_cluster ?kms_key_id
-      ?preferred_maintenance_window ?subnet_ids ?tags
-      ?vpc_security_group_ids ?timeouts ~admin_user_name
-      ~admin_user_password ~auth_type ~name ~shard_capacity
-      ~shard_count ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_docdbelastic_cluster __resource);
-  let __resource_attributes =
+let make ?kms_key_id ?preferred_maintenance_window ?subnet_ids ?tags
+    ?vpc_security_group_ids ?timeouts ~admin_user_name
+    ~admin_user_password ~auth_type ~name ~shard_capacity
+    ~shard_count __id =
+  let __type = "aws_docdbelastic_cluster" in
+  let __attrs =
     ({
-       admin_user_name =
-         Prop.computed __resource_type __resource_id
-           "admin_user_name";
+       admin_user_name = Prop.computed __type __id "admin_user_name";
        admin_user_password =
-         Prop.computed __resource_type __resource_id
-           "admin_user_password";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auth_type =
-         Prop.computed __resource_type __resource_id "auth_type";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "admin_user_password";
+       arn = Prop.computed __type __id "arn";
+       auth_type = Prop.computed __type __id "auth_type";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
        preferred_maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "preferred_maintenance_window";
-       shard_capacity =
-         Prop.computed __resource_type __resource_id "shard_capacity";
-       shard_count =
-         Prop.computed __resource_type __resource_id "shard_count";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "preferred_maintenance_window";
+       shard_capacity = Prop.computed __type __id "shard_capacity";
+       shard_count = Prop.computed __type __id "shard_count";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        vpc_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "vpc_security_group_ids";
+         Prop.computed __type __id "vpc_security_group_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_docdbelastic_cluster
+        (aws_docdbelastic_cluster ?kms_key_id
+           ?preferred_maintenance_window ?subnet_ids ?tags
+           ?vpc_security_group_ids ?timeouts ~admin_user_name
+           ~admin_user_password ~auth_type ~name ~shard_capacity
+           ~shard_count ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?kms_key_id ?preferred_maintenance_window
+    ?subnet_ids ?tags ?vpc_security_group_ids ?timeouts
+    ~admin_user_name ~admin_user_password ~auth_type ~name
+    ~shard_capacity ~shard_count __id =
+  let (r : _ Tf_core.resource) =
+    make ?kms_key_id ?preferred_maintenance_window ?subnet_ids ?tags
+      ?vpc_security_group_ids ?timeouts ~admin_user_name
+      ~admin_user_password ~auth_type ~name ~shard_capacity
+      ~shard_count __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

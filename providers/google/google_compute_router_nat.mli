@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -125,3 +125,29 @@ val register :
   subnetwork:subnetwork list ->
   string ->
   t
+
+val make :
+  ?drain_nat_ips:string prop list ->
+  ?enable_dynamic_port_allocation:bool prop ->
+  ?enable_endpoint_independent_mapping:bool prop ->
+  ?icmp_idle_timeout_sec:float prop ->
+  ?id:string prop ->
+  ?max_ports_per_vm:float prop ->
+  ?min_ports_per_vm:float prop ->
+  ?nat_ip_allocate_option:string prop ->
+  ?nat_ips:string prop list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?tcp_established_idle_timeout_sec:float prop ->
+  ?tcp_time_wait_timeout_sec:float prop ->
+  ?tcp_transitory_idle_timeout_sec:float prop ->
+  ?udp_idle_timeout_sec:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  router:string prop ->
+  source_subnetwork_ip_ranges_to_nat:string prop ->
+  log_config:log_config list ->
+  rules:rules list ->
+  subnetwork:subnetwork list ->
+  string ->
+  t Tf_core.resource

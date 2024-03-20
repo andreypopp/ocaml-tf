@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type client_connection_config__ssl_config = {
   ssl_mode : string prop option; [@option]
@@ -172,62 +170,62 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?availability_type
-    ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
-    ~cluster ~instance_id ~instance_type ~client_connection_config
-    ~machine_config ~query_insights_config ~read_pool_config
-    __resource_id =
-  let __resource_type = "google_alloydb_instance" in
-  let __resource =
-    google_alloydb_instance ?annotations ?availability_type
-      ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
-      ~cluster ~instance_id ~instance_type ~client_connection_config
-      ~machine_config ~query_insights_config ~read_pool_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_alloydb_instance __resource);
-  let __resource_attributes =
+let make ?annotations ?availability_type ?database_flags
+    ?display_name ?gce_zone ?id ?labels ?timeouts ~cluster
+    ~instance_id ~instance_type ~client_connection_config
+    ~machine_config ~query_insights_config ~read_pool_config __id =
+  let __type = "google_alloydb_instance" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
+       annotations = Prop.computed __type __id "annotations";
        availability_type =
-         Prop.computed __resource_type __resource_id
-           "availability_type";
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       database_flags =
-         Prop.computed __resource_type __resource_id "database_flags";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "availability_type";
+       cluster = Prop.computed __type __id "cluster";
+       create_time = Prop.computed __type __id "create_time";
+       database_flags = Prop.computed __type __id "database_flags";
+       display_name = Prop.computed __type __id "display_name";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
+         Prop.computed __type __id "effective_annotations";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       gce_zone =
-         Prop.computed __resource_type __resource_id "gce_zone";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       gce_zone = Prop.computed __type __id "gce_zone";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       instance_type = Prop.computed __type __id "instance_type";
+       ip_address = Prop.computed __type __id "ip_address";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_alloydb_instance
+        (google_alloydb_instance ?annotations ?availability_type
+           ?database_flags ?display_name ?gce_zone ?id ?labels
+           ?timeouts ~cluster ~instance_id ~instance_type
+           ~client_connection_config ~machine_config
+           ~query_insights_config ~read_pool_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?availability_type
+    ?database_flags ?display_name ?gce_zone ?id ?labels ?timeouts
+    ~cluster ~instance_id ~instance_type ~client_connection_config
+    ~machine_config ~query_insights_config ~read_pool_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?availability_type ?database_flags
+      ?display_name ?gce_zone ?id ?labels ?timeouts ~cluster
+      ~instance_id ~instance_type ~client_connection_config
+      ~machine_config ~query_insights_config ~read_pool_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

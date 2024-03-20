@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azuread_based_service_principal = {
   ledger_role_name : string prop;  (** ledger_role_name *)
@@ -83,37 +81,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~ledger_type ~location
-    ~name ~resource_group_name ~azuread_based_service_principal
-    ~certificate_based_security_principal __resource_id =
-  let __resource_type = "azurerm_confidential_ledger" in
-  let __resource =
-    azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
-      ~location ~name ~resource_group_name
-      ~azuread_based_service_principal
-      ~certificate_based_security_principal ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_confidential_ledger __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~ledger_type ~location ~name
+    ~resource_group_name ~azuread_based_service_principal
+    ~certificate_based_security_principal __id =
+  let __type = "azurerm_confidential_ledger" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        identity_service_endpoint =
-         Prop.computed __resource_type __resource_id
-           "identity_service_endpoint";
-       ledger_endpoint =
-         Prop.computed __resource_type __resource_id
-           "ledger_endpoint";
-       ledger_type =
-         Prop.computed __resource_type __resource_id "ledger_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "identity_service_endpoint";
+       ledger_endpoint = Prop.computed __type __id "ledger_endpoint";
+       ledger_type = Prop.computed __type __id "ledger_type";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_confidential_ledger
+        (azurerm_confidential_ledger ?id ?tags ?timeouts ~ledger_type
+           ~location ~name ~resource_group_name
+           ~azuread_based_service_principal
+           ~certificate_based_security_principal ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~ledger_type ~location
+    ~name ~resource_group_name ~azuread_based_service_principal
+    ~certificate_based_security_principal __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~ledger_type ~location ~name
+      ~resource_group_name ~azuread_based_service_principal
+      ~certificate_based_security_principal __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

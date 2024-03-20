@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,13 @@ val register :
   routing_config:routing_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  function_name:string prop ->
+  function_version:string prop ->
+  name:string prop ->
+  routing_config:routing_config list ->
+  string ->
+  t Tf_core.resource

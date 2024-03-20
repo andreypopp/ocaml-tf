@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type capacity_units = {
   query_capacity_units : float prop option; [@option]
@@ -240,51 +238,61 @@ type t = {
   user_context_policy : string prop;
 }
 
+let make ?description ?edition ?id ?tags ?tags_all
+    ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
+    ~document_metadata_configuration_updates
+    ~server_side_encryption_configuration
+    ~user_group_resolution_configuration ~user_token_configurations
+    __id =
+  let __type = "aws_kendra_index" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       created_at = Prop.computed __type __id "created_at";
+       description = Prop.computed __type __id "description";
+       edition = Prop.computed __type __id "edition";
+       error_message = Prop.computed __type __id "error_message";
+       id = Prop.computed __type __id "id";
+       index_statistics =
+         Prop.computed __type __id "index_statistics";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       updated_at = Prop.computed __type __id "updated_at";
+       user_context_policy =
+         Prop.computed __type __id "user_context_policy";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kendra_index
+        (aws_kendra_index ?description ?edition ?id ?tags ?tags_all
+           ?user_context_policy ?timeouts ~name ~role_arn
+           ~capacity_units ~document_metadata_configuration_updates
+           ~server_side_encryption_configuration
+           ~user_group_resolution_configuration
+           ~user_token_configurations ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?edition ?id ?tags ?tags_all
     ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
     ~document_metadata_configuration_updates
     ~server_side_encryption_configuration
     ~user_group_resolution_configuration ~user_token_configurations
-    __resource_id =
-  let __resource_type = "aws_kendra_index" in
-  let __resource =
-    aws_kendra_index ?description ?edition ?id ?tags ?tags_all
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?edition ?id ?tags ?tags_all
       ?user_context_policy ?timeouts ~name ~role_arn ~capacity_units
       ~document_metadata_configuration_updates
       ~server_side_encryption_configuration
       ~user_group_resolution_configuration ~user_token_configurations
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kendra_index __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       error_message =
-         Prop.computed __resource_type __resource_id "error_message";
-       id = Prop.computed __resource_type __resource_id "id";
-       index_statistics =
-         Prop.computed __resource_type __resource_id
-           "index_statistics";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       updated_at =
-         Prop.computed __resource_type __resource_id "updated_at";
-       user_context_policy =
-         Prop.computed __resource_type __resource_id
-           "user_context_policy";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

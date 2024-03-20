@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -87,58 +85,60 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
-let register ?tf_module ?amazon_address ?bgp_auth_key
-    ?customer_address ?dx_gateway_id ?id ?mtu ?sitelink_enabled ?tags
-    ?tags_all ?vpn_gateway_id ?timeouts ~address_family ~bgp_asn
-    ~connection_id ~name ~vlan __resource_id =
-  let __resource_type = "aws_dx_private_virtual_interface" in
-  let __resource =
-    aws_dx_private_virtual_interface ?amazon_address ?bgp_auth_key
-      ?customer_address ?dx_gateway_id ?id ?mtu ?sitelink_enabled
-      ?tags ?tags_all ?vpn_gateway_id ?timeouts ~address_family
-      ~bgp_asn ~connection_id ~name ~vlan ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_private_virtual_interface __resource);
-  let __resource_attributes =
+let make ?amazon_address ?bgp_auth_key ?customer_address
+    ?dx_gateway_id ?id ?mtu ?sitelink_enabled ?tags ?tags_all
+    ?vpn_gateway_id ?timeouts ~address_family ~bgp_asn ~connection_id
+    ~name ~vlan __id =
+  let __type = "aws_dx_private_virtual_interface" in
+  let __attrs =
     ({
-       address_family =
-         Prop.computed __resource_type __resource_id "address_family";
-       amazon_address =
-         Prop.computed __resource_type __resource_id "amazon_address";
-       amazon_side_asn =
-         Prop.computed __resource_type __resource_id
-           "amazon_side_asn";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       aws_device =
-         Prop.computed __resource_type __resource_id "aws_device";
-       bgp_asn =
-         Prop.computed __resource_type __resource_id "bgp_asn";
-       bgp_auth_key =
-         Prop.computed __resource_type __resource_id "bgp_auth_key";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
+       address_family = Prop.computed __type __id "address_family";
+       amazon_address = Prop.computed __type __id "amazon_address";
+       amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
+       arn = Prop.computed __type __id "arn";
+       aws_device = Prop.computed __type __id "aws_device";
+       bgp_asn = Prop.computed __type __id "bgp_asn";
+       bgp_auth_key = Prop.computed __type __id "bgp_auth_key";
+       connection_id = Prop.computed __type __id "connection_id";
        customer_address =
-         Prop.computed __resource_type __resource_id
-           "customer_address";
-       dx_gateway_id =
-         Prop.computed __resource_type __resource_id "dx_gateway_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "customer_address";
+       dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
+       id = Prop.computed __type __id "id";
        jumbo_frame_capable =
-         Prop.computed __resource_type __resource_id
-           "jumbo_frame_capable";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "jumbo_frame_capable";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
        sitelink_enabled =
-         Prop.computed __resource_type __resource_id
-           "sitelink_enabled";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vlan = Prop.computed __resource_type __resource_id "vlan";
-       vpn_gateway_id =
-         Prop.computed __resource_type __resource_id "vpn_gateway_id";
+         Prop.computed __type __id "sitelink_enabled";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vlan = Prop.computed __type __id "vlan";
+       vpn_gateway_id = Prop.computed __type __id "vpn_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_private_virtual_interface
+        (aws_dx_private_virtual_interface ?amazon_address
+           ?bgp_auth_key ?customer_address ?dx_gateway_id ?id ?mtu
+           ?sitelink_enabled ?tags ?tags_all ?vpn_gateway_id
+           ?timeouts ~address_family ~bgp_asn ~connection_id ~name
+           ~vlan ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?amazon_address ?bgp_auth_key
+    ?customer_address ?dx_gateway_id ?id ?mtu ?sitelink_enabled ?tags
+    ?tags_all ?vpn_gateway_id ?timeouts ~address_family ~bgp_asn
+    ~connection_id ~name ~vlan __id =
+  let (r : _ Tf_core.resource) =
+    make ?amazon_address ?bgp_auth_key ?customer_address
+      ?dx_gateway_id ?id ?mtu ?sitelink_enabled ?tags ?tags_all
+      ?vpn_gateway_id ?timeouts ~address_family ~bgp_asn
+      ~connection_id ~name ~vlan __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   target_name:string prop ->
   string ->
   t
+
+val make :
+  ?agent_name:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?source_sub_path:string prop ->
+  ?target_sub_path:string prop ->
+  ?timeouts:timeouts ->
+  copy_mode:string prop ->
+  name:string prop ->
+  source_name:string prop ->
+  storage_mover_project_id:string prop ->
+  target_name:string prop ->
+  string ->
+  t Tf_core.resource

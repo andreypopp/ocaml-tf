@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type automatic_scaling__standard_scheduler_settings = {
   max_instances : float prop option; [@option]
@@ -335,62 +333,64 @@ type t = {
   version_id : string prop;
 }
 
+let make ?app_engine_apis ?delete_service_on_destroy ?env_variables
+    ?id ?inbound_services ?instance_class ?noop_on_destroy ?project
+    ?runtime_api_version ?service_account ?threadsafe ?version_id
+    ?timeouts ~runtime ~service ~automatic_scaling ~basic_scaling
+    ~deployment ~entrypoint ~handlers ~libraries ~manual_scaling
+    ~vpc_access_connector __id =
+  let __type = "google_app_engine_standard_app_version" in
+  let __attrs =
+    ({
+       app_engine_apis = Prop.computed __type __id "app_engine_apis";
+       delete_service_on_destroy =
+         Prop.computed __type __id "delete_service_on_destroy";
+       env_variables = Prop.computed __type __id "env_variables";
+       id = Prop.computed __type __id "id";
+       inbound_services =
+         Prop.computed __type __id "inbound_services";
+       instance_class = Prop.computed __type __id "instance_class";
+       name = Prop.computed __type __id "name";
+       noop_on_destroy = Prop.computed __type __id "noop_on_destroy";
+       project = Prop.computed __type __id "project";
+       runtime = Prop.computed __type __id "runtime";
+       runtime_api_version =
+         Prop.computed __type __id "runtime_api_version";
+       service = Prop.computed __type __id "service";
+       service_account = Prop.computed __type __id "service_account";
+       threadsafe = Prop.computed __type __id "threadsafe";
+       version_id = Prop.computed __type __id "version_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_app_engine_standard_app_version
+        (google_app_engine_standard_app_version ?app_engine_apis
+           ?delete_service_on_destroy ?env_variables ?id
+           ?inbound_services ?instance_class ?noop_on_destroy
+           ?project ?runtime_api_version ?service_account ?threadsafe
+           ?version_id ?timeouts ~runtime ~service ~automatic_scaling
+           ~basic_scaling ~deployment ~entrypoint ~handlers
+           ~libraries ~manual_scaling ~vpc_access_connector ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?app_engine_apis ?delete_service_on_destroy
     ?env_variables ?id ?inbound_services ?instance_class
     ?noop_on_destroy ?project ?runtime_api_version ?service_account
     ?threadsafe ?version_id ?timeouts ~runtime ~service
     ~automatic_scaling ~basic_scaling ~deployment ~entrypoint
-    ~handlers ~libraries ~manual_scaling ~vpc_access_connector
-    __resource_id =
-  let __resource_type = "google_app_engine_standard_app_version" in
-  let __resource =
-    google_app_engine_standard_app_version ?app_engine_apis
-      ?delete_service_on_destroy ?env_variables ?id ?inbound_services
-      ?instance_class ?noop_on_destroy ?project ?runtime_api_version
-      ?service_account ?threadsafe ?version_id ?timeouts ~runtime
-      ~service ~automatic_scaling ~basic_scaling ~deployment
-      ~entrypoint ~handlers ~libraries ~manual_scaling
-      ~vpc_access_connector ()
+    ~handlers ~libraries ~manual_scaling ~vpc_access_connector __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_engine_apis ?delete_service_on_destroy ?env_variables
+      ?id ?inbound_services ?instance_class ?noop_on_destroy ?project
+      ?runtime_api_version ?service_account ?threadsafe ?version_id
+      ?timeouts ~runtime ~service ~automatic_scaling ~basic_scaling
+      ~deployment ~entrypoint ~handlers ~libraries ~manual_scaling
+      ~vpc_access_connector __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_app_engine_standard_app_version __resource);
-  let __resource_attributes =
-    ({
-       app_engine_apis =
-         Prop.computed __resource_type __resource_id
-           "app_engine_apis";
-       delete_service_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "delete_service_on_destroy";
-       env_variables =
-         Prop.computed __resource_type __resource_id "env_variables";
-       id = Prop.computed __resource_type __resource_id "id";
-       inbound_services =
-         Prop.computed __resource_type __resource_id
-           "inbound_services";
-       instance_class =
-         Prop.computed __resource_type __resource_id "instance_class";
-       name = Prop.computed __resource_type __resource_id "name";
-       noop_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "noop_on_destroy";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       runtime =
-         Prop.computed __resource_type __resource_id "runtime";
-       runtime_api_version =
-         Prop.computed __resource_type __resource_id
-           "runtime_api_version";
-       service =
-         Prop.computed __resource_type __resource_id "service";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       threadsafe =
-         Prop.computed __resource_type __resource_id "threadsafe";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

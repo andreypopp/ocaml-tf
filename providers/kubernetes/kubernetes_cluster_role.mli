@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,11 @@ val register :
   rule:rule list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  aggregation_rule:aggregation_rule list ->
+  metadata:metadata list ->
+  rule:rule list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -129,60 +127,67 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?auto_create_topic_with_first_subscription
+    ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
+    ?input_schema ?local_auth_enabled ?public_network_access_enabled
+    ?tags ?timeouts ~location ~name ~resource_group_name ~identity
+    ~input_mapping_default_values ~input_mapping_fields __id =
+  let __type = "azurerm_eventgrid_domain" in
+  let __attrs =
+    ({
+       auto_create_topic_with_first_subscription =
+         Prop.computed __type __id
+           "auto_create_topic_with_first_subscription";
+       auto_delete_topic_with_last_subscription =
+         Prop.computed __type __id
+           "auto_delete_topic_with_last_subscription";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       inbound_ip_rule = Prop.computed __type __id "inbound_ip_rule";
+       input_schema = Prop.computed __type __id "input_schema";
+       local_auth_enabled =
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       primary_access_key =
+         Prop.computed __type __id "primary_access_key";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secondary_access_key =
+         Prop.computed __type __id "secondary_access_key";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventgrid_domain
+        (azurerm_eventgrid_domain
+           ?auto_create_topic_with_first_subscription
+           ?auto_delete_topic_with_last_subscription ?id
+           ?inbound_ip_rule ?input_schema ?local_auth_enabled
+           ?public_network_access_enabled ?tags ?timeouts ~location
+           ~name ~resource_group_name ~identity
+           ~input_mapping_default_values ~input_mapping_fields ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_create_topic_with_first_subscription
     ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
     ?input_schema ?local_auth_enabled ?public_network_access_enabled
     ?tags ?timeouts ~location ~name ~resource_group_name ~identity
-    ~input_mapping_default_values ~input_mapping_fields __resource_id
-    =
-  let __resource_type = "azurerm_eventgrid_domain" in
-  let __resource =
-    azurerm_eventgrid_domain
-      ?auto_create_topic_with_first_subscription
+    ~input_mapping_default_values ~input_mapping_fields __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_create_topic_with_first_subscription
       ?auto_delete_topic_with_last_subscription ?id ?inbound_ip_rule
       ?input_schema ?local_auth_enabled
       ?public_network_access_enabled ?tags ?timeouts ~location ~name
       ~resource_group_name ~identity ~input_mapping_default_values
-      ~input_mapping_fields ()
+      ~input_mapping_fields __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventgrid_domain __resource);
-  let __resource_attributes =
-    ({
-       auto_create_topic_with_first_subscription =
-         Prop.computed __resource_type __resource_id
-           "auto_create_topic_with_first_subscription";
-       auto_delete_topic_with_last_subscription =
-         Prop.computed __resource_type __resource_id
-           "auto_delete_topic_with_last_subscription";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       inbound_ip_rule =
-         Prop.computed __resource_type __resource_id
-           "inbound_ip_rule";
-       input_schema =
-         Prop.computed __resource_type __resource_id "input_schema";
-       local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

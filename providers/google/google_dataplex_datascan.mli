@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -256,3 +256,19 @@ val register :
   execution_spec:execution_spec list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  data_scan_id:string prop ->
+  location:string prop ->
+  data:data list ->
+  data_profile_spec:data_profile_spec list ->
+  data_quality_spec:data_quality_spec list ->
+  execution_spec:execution_spec list ->
+  string ->
+  t Tf_core.resource

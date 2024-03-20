@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -94,3 +94,15 @@ val register :
   release_criteria:release_criteria list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  batch_group_name:string prop ->
+  integration_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  release_criteria:release_criteria list ->
+  string ->
+  t Tf_core.resource

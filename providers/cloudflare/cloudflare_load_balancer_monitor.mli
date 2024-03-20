@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,25 @@ val register :
   header:header list ->
   string ->
   t
+
+val make :
+  ?allow_insecure:bool prop ->
+  ?consecutive_down:float prop ->
+  ?consecutive_up:float prop ->
+  ?description:string prop ->
+  ?expected_body:string prop ->
+  ?expected_codes:string prop ->
+  ?follow_redirects:bool prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?method_:string prop ->
+  ?path:string prop ->
+  ?port:float prop ->
+  ?probe_zone:string prop ->
+  ?retries:float prop ->
+  ?timeout:float prop ->
+  ?type_:string prop ->
+  account_id:string prop ->
+  header:header list ->
+  string ->
+  t Tf_core.resource

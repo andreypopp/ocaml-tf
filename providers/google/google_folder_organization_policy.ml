@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type boolean_policy = {
   enforced : bool prop;
@@ -112,28 +110,36 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?id ?version ?timeouts ~constraint_ ~folder
-    ~boolean_policy ~list_policy ~restore_policy __resource_id =
-  let __resource_type = "google_folder_organization_policy" in
-  let __resource =
-    google_folder_organization_policy ?id ?version ?timeouts
-      ~constraint_ ~folder ~boolean_policy ~list_policy
-      ~restore_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_folder_organization_policy __resource);
-  let __resource_attributes =
+let make ?id ?version ?timeouts ~constraint_ ~folder ~boolean_policy
+    ~list_policy ~restore_policy __id =
+  let __type = "google_folder_organization_policy" in
+  let __attrs =
     ({
-       constraint_ =
-         Prop.computed __resource_type __resource_id "constraint";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       constraint_ = Prop.computed __type __id "constraint";
+       etag = Prop.computed __type __id "etag";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       update_time = Prop.computed __type __id "update_time";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_folder_organization_policy
+        (google_folder_organization_policy ?id ?version ?timeouts
+           ~constraint_ ~folder ~boolean_policy ~list_policy
+           ~restore_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?version ?timeouts ~constraint_ ~folder
+    ~boolean_policy ~list_policy ~restore_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?version ?timeouts ~constraint_ ~folder ~boolean_policy
+      ~list_policy ~restore_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

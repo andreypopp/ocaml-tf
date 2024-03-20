@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ip_configuration = {
   member_name : string prop option; [@option]  (** member_name *)
@@ -148,44 +146,50 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?custom_network_interface_name ?id ?tags
-    ?timeouts ~location ~name ~resource_group_name ~subnet_id
-    ~ip_configuration ~private_dns_zone_group
-    ~private_service_connection __resource_id =
-  let __resource_type = "azurerm_private_endpoint" in
-  let __resource =
-    azurerm_private_endpoint ?custom_network_interface_name ?id ?tags
-      ?timeouts ~location ~name ~resource_group_name ~subnet_id
-      ~ip_configuration ~private_dns_zone_group
-      ~private_service_connection ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_endpoint __resource);
-  let __resource_attributes =
+let make ?custom_network_interface_name ?id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~subnet_id ~ip_configuration
+    ~private_dns_zone_group ~private_service_connection __id =
+  let __type = "azurerm_private_endpoint" in
+  let __attrs =
     ({
        custom_dns_configs =
-         Prop.computed __resource_type __resource_id
-           "custom_dns_configs";
+         Prop.computed __type __id "custom_dns_configs";
        custom_network_interface_name =
-         Prop.computed __resource_type __resource_id
-           "custom_network_interface_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "custom_network_interface_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        network_interface =
-         Prop.computed __resource_type __resource_id
-           "network_interface";
+         Prop.computed __type __id "network_interface";
        private_dns_zone_configs =
-         Prop.computed __resource_type __resource_id
-           "private_dns_zone_configs";
+         Prop.computed __type __id "private_dns_zone_configs";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_endpoint
+        (azurerm_private_endpoint ?custom_network_interface_name ?id
+           ?tags ?timeouts ~location ~name ~resource_group_name
+           ~subnet_id ~ip_configuration ~private_dns_zone_group
+           ~private_service_connection ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_network_interface_name ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~subnet_id
+    ~ip_configuration ~private_dns_zone_group
+    ~private_service_connection __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_network_interface_name ?id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~subnet_id ~ip_configuration
+      ~private_dns_zone_group ~private_service_connection __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

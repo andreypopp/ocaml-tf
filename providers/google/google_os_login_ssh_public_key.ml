@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -42,28 +40,35 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?expiration_time_usec ?id ?project ?timeouts
-    ~key ~user __resource_id =
-  let __resource_type = "google_os_login_ssh_public_key" in
-  let __resource =
-    google_os_login_ssh_public_key ?expiration_time_usec ?id ?project
-      ?timeouts ~key ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_os_login_ssh_public_key __resource);
-  let __resource_attributes =
+let make ?expiration_time_usec ?id ?project ?timeouts ~key ~user __id
+    =
+  let __type = "google_os_login_ssh_public_key" in
+  let __attrs =
     ({
        expiration_time_usec =
-         Prop.computed __resource_type __resource_id
-           "expiration_time_usec";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       user = Prop.computed __resource_type __resource_id "user";
+         Prop.computed __type __id "expiration_time_usec";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       project = Prop.computed __type __id "project";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_os_login_ssh_public_key
+        (google_os_login_ssh_public_key ?expiration_time_usec ?id
+           ?project ?timeouts ~key ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?expiration_time_usec ?id ?project ?timeouts
+    ~key ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?expiration_time_usec ?id ?project ?timeouts ~key ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

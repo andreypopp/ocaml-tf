@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorization__admin_groups = {
   group : string prop;
@@ -303,50 +301,52 @@ type t = {
   workload_identity_config : workload_identity_config list prop;
 }
 
-let register ?tf_module ?annotations ?description ?id ?project
-    ?timeouts ~aws_region ~location ~name ~authorization
-    ~binary_authorization ~control_plane ~fleet ~networking
-    __resource_id =
-  let __resource_type = "google_container_aws_cluster" in
-  let __resource =
-    google_container_aws_cluster ?annotations ?description ?id
-      ?project ?timeouts ~aws_region ~location ~name ~authorization
-      ~binary_authorization ~control_plane ~fleet ~networking ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_aws_cluster __resource);
-  let __resource_attributes =
+let make ?annotations ?description ?id ?project ?timeouts ~aws_region
+    ~location ~name ~authorization ~binary_authorization
+    ~control_plane ~fleet ~networking __id =
+  let __type = "google_container_aws_cluster" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       aws_region =
-         Prop.computed __resource_type __resource_id "aws_region";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       annotations = Prop.computed __type __id "annotations";
+       aws_region = Prop.computed __type __id "aws_region";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "effective_annotations";
+       endpoint = Prop.computed __type __id "endpoint";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
        workload_identity_config =
-         Prop.computed __resource_type __resource_id
-           "workload_identity_config";
+         Prop.computed __type __id "workload_identity_config";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_aws_cluster
+        (google_container_aws_cluster ?annotations ?description ?id
+           ?project ?timeouts ~aws_region ~location ~name
+           ~authorization ~binary_authorization ~control_plane ~fleet
+           ~networking ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?description ?id ?project
+    ?timeouts ~aws_region ~location ~name ~authorization
+    ~binary_authorization ~control_plane ~fleet ~networking __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?description ?id ?project ?timeouts ~aws_region
+      ~location ~name ~authorization ~binary_authorization
+      ~control_plane ~fleet ~networking __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -73,50 +71,56 @@ type t = {
   vulnerability_profile : string prop;
 }
 
-let register ?tf_module ?anti_spyware_profile ?anti_virus_profile
-    ?description ?dns_subscription ?file_blocking_profile ?id
+let make ?anti_spyware_profile ?anti_virus_profile ?description
+    ?dns_subscription ?file_blocking_profile ?id
     ?url_filtering_profile ?vulnerability_profile ?timeouts ~location
-    ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_palo_alto_local_rulestack" in
-  let __resource =
-    azurerm_palo_alto_local_rulestack ?anti_spyware_profile
-      ?anti_virus_profile ?description ?dns_subscription
-      ?file_blocking_profile ?id ?url_filtering_profile
-      ?vulnerability_profile ?timeouts ~location ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_palo_alto_local_rulestack __resource);
-  let __resource_attributes =
+    ~name ~resource_group_name __id =
+  let __type = "azurerm_palo_alto_local_rulestack" in
+  let __attrs =
     ({
        anti_spyware_profile =
-         Prop.computed __resource_type __resource_id
-           "anti_spyware_profile";
+         Prop.computed __type __id "anti_spyware_profile";
        anti_virus_profile =
-         Prop.computed __resource_type __resource_id
-           "anti_virus_profile";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "anti_virus_profile";
+       description = Prop.computed __type __id "description";
        dns_subscription =
-         Prop.computed __resource_type __resource_id
-           "dns_subscription";
+         Prop.computed __type __id "dns_subscription";
        file_blocking_profile =
-         Prop.computed __resource_type __resource_id
-           "file_blocking_profile";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "file_blocking_profile";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        url_filtering_profile =
-         Prop.computed __resource_type __resource_id
-           "url_filtering_profile";
+         Prop.computed __type __id "url_filtering_profile";
        vulnerability_profile =
-         Prop.computed __resource_type __resource_id
-           "vulnerability_profile";
+         Prop.computed __type __id "vulnerability_profile";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_palo_alto_local_rulestack
+        (azurerm_palo_alto_local_rulestack ?anti_spyware_profile
+           ?anti_virus_profile ?description ?dns_subscription
+           ?file_blocking_profile ?id ?url_filtering_profile
+           ?vulnerability_profile ?timeouts ~location ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?anti_spyware_profile ?anti_virus_profile
+    ?description ?dns_subscription ?file_blocking_profile ?id
+    ?url_filtering_profile ?vulnerability_profile ?timeouts ~location
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?anti_spyware_profile ?anti_virus_profile ?description
+      ?dns_subscription ?file_blocking_profile ?id
+      ?url_filtering_profile ?vulnerability_profile ?timeouts
+      ~location ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

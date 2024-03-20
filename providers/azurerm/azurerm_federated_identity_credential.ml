@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,30 +51,38 @@ type t = {
   subject : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~audience ~issuer ~name
-    ~parent_id ~resource_group_name ~subject __resource_id =
-  let __resource_type = "azurerm_federated_identity_credential" in
-  let __resource =
-    azurerm_federated_identity_credential ?id ?timeouts ~audience
-      ~issuer ~name ~parent_id ~resource_group_name ~subject ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_federated_identity_credential __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~audience ~issuer ~name ~parent_id
+    ~resource_group_name ~subject __id =
+  let __type = "azurerm_federated_identity_credential" in
+  let __attrs =
     ({
-       audience =
-         Prop.computed __resource_type __resource_id "audience";
-       id = Prop.computed __resource_type __resource_id "id";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_id =
-         Prop.computed __resource_type __resource_id "parent_id";
+       audience = Prop.computed __type __id "audience";
+       id = Prop.computed __type __id "id";
+       issuer = Prop.computed __type __id "issuer";
+       name = Prop.computed __type __id "name";
+       parent_id = Prop.computed __type __id "parent_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       subject =
-         Prop.computed __resource_type __resource_id "subject";
+         Prop.computed __type __id "resource_group_name";
+       subject = Prop.computed __type __id "subject";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_federated_identity_credential
+        (azurerm_federated_identity_credential ?id ?timeouts
+           ~audience ~issuer ~name ~parent_id ~resource_group_name
+           ~subject ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~audience ~issuer ~name
+    ~parent_id ~resource_group_name ~subject __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~audience ~issuer ~name ~parent_id
+      ~resource_group_name ~subject __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

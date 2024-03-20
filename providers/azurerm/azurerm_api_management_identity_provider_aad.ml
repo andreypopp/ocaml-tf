@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,39 +52,43 @@ type t = {
   signin_tenant : string prop;
 }
 
-let register ?tf_module ?id ?signin_tenant ?timeouts ~allowed_tenants
+let make ?id ?signin_tenant ?timeouts ~allowed_tenants
     ~api_management_name ~client_id ~client_secret
-    ~resource_group_name __resource_id =
-  let __resource_type =
-    "azurerm_api_management_identity_provider_aad"
-  in
-  let __resource =
-    azurerm_api_management_identity_provider_aad ?id ?signin_tenant
-      ?timeouts ~allowed_tenants ~api_management_name ~client_id
-      ~client_secret ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_identity_provider_aad
-       __resource);
-  let __resource_attributes =
+    ~resource_group_name __id =
+  let __type = "azurerm_api_management_identity_provider_aad" in
+  let __attrs =
     ({
-       allowed_tenants =
-         Prop.computed __resource_type __resource_id
-           "allowed_tenants";
+       allowed_tenants = Prop.computed __type __id "allowed_tenants";
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       client_secret =
-         Prop.computed __resource_type __resource_id "client_secret";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "api_management_name";
+       client_id = Prop.computed __type __id "client_id";
+       client_secret = Prop.computed __type __id "client_secret";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       signin_tenant =
-         Prop.computed __resource_type __resource_id "signin_tenant";
+         Prop.computed __type __id "resource_group_name";
+       signin_tenant = Prop.computed __type __id "signin_tenant";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_identity_provider_aad
+        (azurerm_api_management_identity_provider_aad ?id
+           ?signin_tenant ?timeouts ~allowed_tenants
+           ~api_management_name ~client_id ~client_secret
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?signin_tenant ?timeouts ~allowed_tenants
+    ~api_management_name ~client_id ~client_secret
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?signin_tenant ?timeouts ~allowed_tenants
+      ~api_management_name ~client_id ~client_secret
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

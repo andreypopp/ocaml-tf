@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,13 @@ val register :
     customer_managed_policy_reference list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  instance_arn:string prop ->
+  permission_set_arn:string prop ->
+  customer_managed_policy_reference:
+    customer_managed_policy_reference list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (library
  (name tf_azure)
- (public_name tf.azure)
+ (public_name tf_azure)
  (modes native)
  (flags
   :standard

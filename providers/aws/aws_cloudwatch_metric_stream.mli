@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,20 @@ val register :
   statistics_configuration:statistics_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?include_linked_accounts_metrics:bool prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  firehose_arn:string prop ->
+  output_format:string prop ->
+  role_arn:string prop ->
+  exclude_filter:exclude_filter list ->
+  include_filter:include_filter list ->
+  statistics_configuration:statistics_configuration list ->
+  string ->
+  t Tf_core.resource

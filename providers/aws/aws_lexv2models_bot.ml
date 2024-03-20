@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_privacy = {
   child_directed : bool prop;  (** child_directed *)
@@ -86,37 +84,45 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?tags ?test_bot_alias_tags
-    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
-    ~data_privacy ~members __resource_id =
-  let __resource_type = "aws_lexv2models_bot" in
-  let __resource =
-    aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
-      ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
-      ~data_privacy ~members ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lexv2models_bot __resource);
-  let __resource_attributes =
+let make ?description ?tags ?test_bot_alias_tags ?type_ ?timeouts
+    ~idle_session_ttl_in_seconds ~name ~role_arn ~data_privacy
+    ~members __id =
+  let __type = "aws_lexv2models_bot" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        idle_session_ttl_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "idle_session_ttl_in_seconds";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "idle_session_ttl_in_seconds";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        test_bot_alias_tags =
-         Prop.computed __resource_type __resource_id
-           "test_bot_alias_tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "test_bot_alias_tags";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lexv2models_bot
+        (aws_lexv2models_bot ?description ?tags ?test_bot_alias_tags
+           ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name
+           ~role_arn ~data_privacy ~members ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?tags ?test_bot_alias_tags
+    ?type_ ?timeouts ~idle_session_ttl_in_seconds ~name ~role_arn
+    ~data_privacy ~members __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?tags ?test_bot_alias_tags ?type_ ?timeouts
+      ~idle_session_ttl_in_seconds ~name ~role_arn ~data_privacy
+      ~members __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type accounts = {
   arn : string prop;  (** arn *)
@@ -71,43 +69,47 @@ type t = {
   roots : roots list prop;
 }
 
-let register ?tf_module ?aws_service_access_principals
-    ?enabled_policy_types ?feature_set ?id __resource_id =
-  let __resource_type = "aws_organizations_organization" in
-  let __resource =
-    aws_organizations_organization ?aws_service_access_principals
-      ?enabled_policy_types ?feature_set ?id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_organizations_organization __resource);
-  let __resource_attributes =
+let make ?aws_service_access_principals ?enabled_policy_types
+    ?feature_set ?id __id =
+  let __type = "aws_organizations_organization" in
+  let __attrs =
     ({
-       accounts =
-         Prop.computed __resource_type __resource_id "accounts";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       accounts = Prop.computed __type __id "accounts";
+       arn = Prop.computed __type __id "arn";
        aws_service_access_principals =
-         Prop.computed __resource_type __resource_id
-           "aws_service_access_principals";
+         Prop.computed __type __id "aws_service_access_principals";
        enabled_policy_types =
-         Prop.computed __resource_type __resource_id
-           "enabled_policy_types";
-       feature_set =
-         Prop.computed __resource_type __resource_id "feature_set";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "enabled_policy_types";
+       feature_set = Prop.computed __type __id "feature_set";
+       id = Prop.computed __type __id "id";
        master_account_arn =
-         Prop.computed __resource_type __resource_id
-           "master_account_arn";
+         Prop.computed __type __id "master_account_arn";
        master_account_email =
-         Prop.computed __resource_type __resource_id
-           "master_account_email";
+         Prop.computed __type __id "master_account_email";
        master_account_id =
-         Prop.computed __resource_type __resource_id
-           "master_account_id";
+         Prop.computed __type __id "master_account_id";
        non_master_accounts =
-         Prop.computed __resource_type __resource_id
-           "non_master_accounts";
-       roots = Prop.computed __resource_type __resource_id "roots";
+         Prop.computed __type __id "non_master_accounts";
+       roots = Prop.computed __type __id "roots";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_organizations_organization
+        (aws_organizations_organization
+           ?aws_service_access_principals ?enabled_policy_types
+           ?feature_set ?id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?aws_service_access_principals
+    ?enabled_policy_types ?feature_set ?id __id =
+  let (r : _ Tf_core.resource) =
+    make ?aws_service_access_principals ?enabled_policy_types
+      ?feature_set ?id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -113,3 +113,23 @@ val register :
   spark_options:spark_options list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?determinism_level:string prop ->
+  ?id:string prop ->
+  ?imported_libraries:string prop list ->
+  ?language:string prop ->
+  ?project:string prop ->
+  ?return_table_type:string prop ->
+  ?return_type:string prop ->
+  ?timeouts:timeouts ->
+  dataset_id:string prop ->
+  definition_body:string prop ->
+  routine_id:string prop ->
+  routine_type:string prop ->
+  arguments:arguments list ->
+  remote_function_options:remote_function_options list ->
+  spark_options:spark_options list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -33,3 +33,10 @@ val register :
   transit_gateway_policy_table_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  transit_gateway_attachment_id:string prop ->
+  transit_gateway_policy_table_id:string prop ->
+  string ->
+  t Tf_core.resource

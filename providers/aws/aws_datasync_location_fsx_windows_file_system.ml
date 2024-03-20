@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_datasync_location_fsx_windows_file_system = {
   domain : string prop option; [@option]  (** domain *)
@@ -50,43 +48,44 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?domain ?id ?subdirectory ?tags ?tags_all
-    ~fsx_filesystem_arn ~password ~security_group_arns ~user
-    __resource_id =
-  let __resource_type =
-    "aws_datasync_location_fsx_windows_file_system"
-  in
-  let __resource =
-    aws_datasync_location_fsx_windows_file_system ?domain ?id
-      ?subdirectory ?tags ?tags_all ~fsx_filesystem_arn ~password
-      ~security_group_arns ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_location_fsx_windows_file_system
-       __resource);
-  let __resource_attributes =
+let make ?domain ?id ?subdirectory ?tags ?tags_all
+    ~fsx_filesystem_arn ~password ~security_group_arns ~user __id =
+  let __type = "aws_datasync_location_fsx_windows_file_system" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
-       domain = Prop.computed __resource_type __resource_id "domain";
+       arn = Prop.computed __type __id "arn";
+       creation_time = Prop.computed __type __id "creation_time";
+       domain = Prop.computed __type __id "domain";
        fsx_filesystem_arn =
-         Prop.computed __resource_type __resource_id
-           "fsx_filesystem_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "fsx_filesystem_arn";
+       id = Prop.computed __type __id "id";
+       password = Prop.computed __type __id "password";
        security_group_arns =
-         Prop.computed __resource_type __resource_id
-           "security_group_arns";
-       subdirectory =
-         Prop.computed __resource_type __resource_id "subdirectory";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       user = Prop.computed __resource_type __resource_id "user";
+         Prop.computed __type __id "security_group_arns";
+       subdirectory = Prop.computed __type __id "subdirectory";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uri = Prop.computed __type __id "uri";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_location_fsx_windows_file_system
+        (aws_datasync_location_fsx_windows_file_system ?domain ?id
+           ?subdirectory ?tags ?tags_all ~fsx_filesystem_arn
+           ~password ~security_group_arns ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?domain ?id ?subdirectory ?tags ?tags_all
+    ~fsx_filesystem_arn ~password ~security_group_arns ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?domain ?id ?subdirectory ?tags ?tags_all
+      ~fsx_filesystem_arn ~password ~security_group_arns ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

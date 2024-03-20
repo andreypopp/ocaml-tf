@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connector_profile_config__connector_profile_credentials__amplitude = {
   api_key : string prop;  (** api_key *)
@@ -1005,36 +1003,39 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?connector_label ?id ?kms_arn
-    ~connection_mode ~connector_type ~name ~connector_profile_config
-    __resource_id =
-  let __resource_type = "aws_appflow_connector_profile" in
-  let __resource =
-    aws_appflow_connector_profile ?connector_label ?id ?kms_arn
-      ~connection_mode ~connector_type ~name
-      ~connector_profile_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appflow_connector_profile __resource);
-  let __resource_attributes =
+let make ?connector_label ?id ?kms_arn ~connection_mode
+    ~connector_type ~name ~connector_profile_config __id =
+  let __type = "aws_appflow_connector_profile" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       connection_mode =
-         Prop.computed __resource_type __resource_id
-           "connection_mode";
-       connector_label =
-         Prop.computed __resource_type __resource_id
-           "connector_label";
-       connector_type =
-         Prop.computed __resource_type __resource_id "connector_type";
-       credentials_arn =
-         Prop.computed __resource_type __resource_id
-           "credentials_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_arn =
-         Prop.computed __resource_type __resource_id "kms_arn";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       connection_mode = Prop.computed __type __id "connection_mode";
+       connector_label = Prop.computed __type __id "connector_label";
+       connector_type = Prop.computed __type __id "connector_type";
+       credentials_arn = Prop.computed __type __id "credentials_arn";
+       id = Prop.computed __type __id "id";
+       kms_arn = Prop.computed __type __id "kms_arn";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appflow_connector_profile
+        (aws_appflow_connector_profile ?connector_label ?id ?kms_arn
+           ~connection_mode ~connector_type ~name
+           ~connector_profile_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?connector_label ?id ?kms_arn
+    ~connection_mode ~connector_type ~name ~connector_profile_config
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?connector_label ?id ?kms_arn ~connection_mode
+      ~connector_type ~name ~connector_profile_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

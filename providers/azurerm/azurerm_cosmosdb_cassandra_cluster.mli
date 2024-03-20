@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,23 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?authentication_method:string prop ->
+  ?client_certificate_pems:string prop list ->
+  ?external_gossip_certificate_pems:string prop list ->
+  ?external_seed_node_ip_addresses:string prop list ->
+  ?hours_between_backups:float prop ->
+  ?id:string prop ->
+  ?repair_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  default_admin_password:string prop ->
+  delegated_management_subnet_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

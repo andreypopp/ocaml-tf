@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_config = {
   peered_network : string prop;
@@ -93,41 +91,43 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?display_name ?id ?project
-    ?timeouts ~location ~name ~network_config ~worker_config
-    __resource_id =
-  let __resource_type = "google_cloudbuild_worker_pool" in
-  let __resource =
-    google_cloudbuild_worker_pool ?annotations ?display_name ?id
-      ?project ?timeouts ~location ~name ~network_config
-      ~worker_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloudbuild_worker_pool __resource);
-  let __resource_attributes =
+let make ?annotations ?display_name ?id ?project ?timeouts ~location
+    ~name ~network_config ~worker_config __id =
+  let __type = "google_cloudbuild_worker_pool" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       annotations = Prop.computed __type __id "annotations";
+       create_time = Prop.computed __type __id "create_time";
+       delete_time = Prop.computed __type __id "delete_time";
+       display_name = Prop.computed __type __id "display_name";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "effective_annotations";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloudbuild_worker_pool
+        (google_cloudbuild_worker_pool ?annotations ?display_name ?id
+           ?project ?timeouts ~location ~name ~network_config
+           ~worker_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?display_name ?id ?project
+    ?timeouts ~location ~name ~network_config ~worker_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?display_name ?id ?project ?timeouts ~location
+      ~name ~network_config ~worker_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

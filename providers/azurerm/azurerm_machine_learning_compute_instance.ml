@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type assign_to_user = {
   object_id : string prop option; [@option]  (** object_id *)
@@ -105,51 +103,55 @@ type t = {
   virtual_machine_size : string prop;
 }
 
-let register ?tf_module ?authorization_type ?description ?id
-    ?local_auth_enabled ?node_public_ip_enabled ?subnet_resource_id
-    ?tags ?timeouts ~location ~machine_learning_workspace_id ~name
-    ~virtual_machine_size ~assign_to_user ~identity ~ssh
-    __resource_id =
-  let __resource_type =
-    "azurerm_machine_learning_compute_instance"
-  in
-  let __resource =
-    azurerm_machine_learning_compute_instance ?authorization_type
-      ?description ?id ?local_auth_enabled ?node_public_ip_enabled
-      ?subnet_resource_id ?tags ?timeouts ~location
-      ~machine_learning_workspace_id ~name ~virtual_machine_size
-      ~assign_to_user ~identity ~ssh ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_machine_learning_compute_instance __resource);
-  let __resource_attributes =
+let make ?authorization_type ?description ?id ?local_auth_enabled
+    ?node_public_ip_enabled ?subnet_resource_id ?tags ?timeouts
+    ~location ~machine_learning_workspace_id ~name
+    ~virtual_machine_size ~assign_to_user ~identity ~ssh __id =
+  let __type = "azurerm_machine_learning_compute_instance" in
+  let __attrs =
     ({
        authorization_type =
-         Prop.computed __resource_type __resource_id
-           "authorization_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "authorization_type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        local_auth_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_auth_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "local_auth_enabled";
+       location = Prop.computed __type __id "location";
        machine_learning_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "machine_learning_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "machine_learning_workspace_id";
+       name = Prop.computed __type __id "name";
        node_public_ip_enabled =
-         Prop.computed __resource_type __resource_id
-           "node_public_ip_enabled";
+         Prop.computed __type __id "node_public_ip_enabled";
        subnet_resource_id =
-         Prop.computed __resource_type __resource_id
-           "subnet_resource_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "subnet_resource_id";
+       tags = Prop.computed __type __id "tags";
        virtual_machine_size =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_size";
+         Prop.computed __type __id "virtual_machine_size";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_machine_learning_compute_instance
+        (azurerm_machine_learning_compute_instance
+           ?authorization_type ?description ?id ?local_auth_enabled
+           ?node_public_ip_enabled ?subnet_resource_id ?tags
+           ?timeouts ~location ~machine_learning_workspace_id ~name
+           ~virtual_machine_size ~assign_to_user ~identity ~ssh ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorization_type ?description ?id
+    ?local_auth_enabled ?node_public_ip_enabled ?subnet_resource_id
+    ?tags ?timeouts ~location ~machine_learning_workspace_id ~name
+    ~virtual_machine_size ~assign_to_user ~identity ~ssh __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorization_type ?description ?id ?local_auth_enabled
+      ?node_public_ip_enabled ?subnet_resource_id ?tags ?timeouts
+      ~location ~machine_learning_workspace_id ~name
+      ~virtual_machine_size ~assign_to_user ~identity ~ssh __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

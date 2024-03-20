@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_rdns = {
   dns_ptr : string prop;  (** dns_ptr *)
@@ -40,32 +38,37 @@ type t = {
   server_id : float prop;
 }
 
-let register ?tf_module ?floating_ip_id ?id ?load_balancer_id
-    ?primary_ip_id ?server_id ~dns_ptr ~ip_address __resource_id =
-  let __resource_type = "hcloud_rdns" in
-  let __resource =
-    hcloud_rdns ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
-      ?server_id ~dns_ptr ~ip_address ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_rdns __resource);
-  let __resource_attributes =
+let make ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
+    ?server_id ~dns_ptr ~ip_address __id =
+  let __type = "hcloud_rdns" in
+  let __attrs =
     ({
-       dns_ptr =
-         Prop.computed __resource_type __resource_id "dns_ptr";
-       floating_ip_id =
-         Prop.computed __resource_type __resource_id "floating_ip_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
+       dns_ptr = Prop.computed __type __id "dns_ptr";
+       floating_ip_id = Prop.computed __type __id "floating_ip_id";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
        load_balancer_id =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_id";
-       primary_ip_id =
-         Prop.computed __resource_type __resource_id "primary_ip_id";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
+         Prop.computed __type __id "load_balancer_id";
+       primary_ip_id = Prop.computed __type __id "primary_ip_id";
+       server_id = Prop.computed __type __id "server_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_rdns
+        (hcloud_rdns ?floating_ip_id ?id ?load_balancer_id
+           ?primary_ip_id ?server_id ~dns_ptr ~ip_address ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?floating_ip_id ?id ?load_balancer_id
+    ?primary_ip_id ?server_id ~dns_ptr ~ip_address __id =
+  let (r : _ Tf_core.resource) =
+    make ?floating_ip_id ?id ?load_balancer_id ?primary_ip_id
+      ?server_id ~dns_ptr ~ip_address __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -167,3 +167,23 @@ val register :
   tech_contact:tech_contact list ->
   string ->
   t
+
+val make :
+  ?admin_privacy:bool prop ->
+  ?auto_renew:bool prop ->
+  ?billing_privacy:bool prop ->
+  ?id:string prop ->
+  ?registrant_privacy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tech_privacy:bool prop ->
+  ?transfer_lock:bool prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  admin_contact:admin_contact list ->
+  billing_contact:billing_contact list ->
+  name_server:name_server list ->
+  registrant_contact:registrant_contact list ->
+  tech_contact:tech_contact list ->
+  string ->
+  t Tf_core.resource

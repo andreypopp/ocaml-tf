@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,37 +56,44 @@ type t = {
   storage_account_name : string prop;
 }
 
-let register ?tf_module ?alternate_id ?container ?description ?id
+let make ?alternate_id ?container ?description ?id
     ?storage_account_name ?timeouts ~media_services_account_name
-    ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_media_asset" in
-  let __resource =
-    azurerm_media_asset ?alternate_id ?container ?description ?id
-      ?storage_account_name ?timeouts ~media_services_account_name
-      ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_asset __resource);
-  let __resource_attributes =
+    ~name ~resource_group_name __id =
+  let __type = "azurerm_media_asset" in
+  let __attrs =
     ({
-       alternate_id =
-         Prop.computed __resource_type __resource_id "alternate_id";
-       container =
-         Prop.computed __resource_type __resource_id "container";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       alternate_id = Prop.computed __type __id "alternate_id";
+       container = Prop.computed __type __id "container";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_asset
+        (azurerm_media_asset ?alternate_id ?container ?description
+           ?id ?storage_account_name ?timeouts
+           ~media_services_account_name ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alternate_id ?container ?description ?id
+    ?storage_account_name ?timeouts ~media_services_account_name
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?alternate_id ?container ?description ?id
+      ?storage_account_name ?timeouts ~media_services_account_name
+      ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

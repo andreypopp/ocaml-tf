@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -75,46 +73,52 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?capacity_commitment_id ?edition
+let make ?capacity_commitment_id ?edition
     ?enforce_single_admin_project_per_org ?id ?location ?project
-    ?renewal_plan ?timeouts ~plan ~slot_count __resource_id =
-  let __resource_type = "google_bigquery_capacity_commitment" in
-  let __resource =
-    google_bigquery_capacity_commitment ?capacity_commitment_id
-      ?edition ?enforce_single_admin_project_per_org ?id ?location
-      ?project ?renewal_plan ?timeouts ~plan ~slot_count ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_capacity_commitment __resource);
-  let __resource_attributes =
+    ?renewal_plan ?timeouts ~plan ~slot_count __id =
+  let __type = "google_bigquery_capacity_commitment" in
+  let __attrs =
     ({
        capacity_commitment_id =
-         Prop.computed __resource_type __resource_id
-           "capacity_commitment_id";
+         Prop.computed __type __id "capacity_commitment_id";
        commitment_end_time =
-         Prop.computed __resource_type __resource_id
-           "commitment_end_time";
+         Prop.computed __type __id "commitment_end_time";
        commitment_start_time =
-         Prop.computed __resource_type __resource_id
-           "commitment_start_time";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
+         Prop.computed __type __id "commitment_start_time";
+       edition = Prop.computed __type __id "edition";
        enforce_single_admin_project_per_org =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "enforce_single_admin_project_per_org";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       plan = Prop.computed __resource_type __resource_id "plan";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       renewal_plan =
-         Prop.computed __resource_type __resource_id "renewal_plan";
-       slot_count =
-         Prop.computed __resource_type __resource_id "slot_count";
-       state = Prop.computed __resource_type __resource_id "state";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       plan = Prop.computed __type __id "plan";
+       project = Prop.computed __type __id "project";
+       renewal_plan = Prop.computed __type __id "renewal_plan";
+       slot_count = Prop.computed __type __id "slot_count";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_capacity_commitment
+        (google_bigquery_capacity_commitment ?capacity_commitment_id
+           ?edition ?enforce_single_admin_project_per_org ?id
+           ?location ?project ?renewal_plan ?timeouts ~plan
+           ~slot_count ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?capacity_commitment_id ?edition
+    ?enforce_single_admin_project_per_org ?id ?location ?project
+    ?renewal_plan ?timeouts ~plan ~slot_count __id =
+  let (r : _ Tf_core.resource) =
+    make ?capacity_commitment_id ?edition
+      ?enforce_single_admin_project_per_org ?id ?location ?project
+      ?renewal_plan ?timeouts ~plan ~slot_count __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

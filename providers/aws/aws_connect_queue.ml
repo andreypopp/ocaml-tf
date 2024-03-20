@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type outbound_caller_config = {
   outbound_caller_id_name : string prop option; [@option]
@@ -75,42 +73,48 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?max_contacts
-    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
-    ~instance_id ~name ~outbound_caller_config __resource_id =
-  let __resource_type = "aws_connect_queue" in
-  let __resource =
-    aws_connect_queue ?description ?id ?max_contacts
-      ?quick_connect_ids ?status ?tags ?tags_all
-      ~hours_of_operation_id ~instance_id ~name
-      ~outbound_caller_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_queue __resource);
-  let __resource_attributes =
+let make ?description ?id ?max_contacts ?quick_connect_ids ?status
+    ?tags ?tags_all ~hours_of_operation_id ~instance_id ~name
+    ~outbound_caller_config __id =
+  let __type = "aws_connect_queue" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
        hours_of_operation_id =
-         Prop.computed __resource_type __resource_id
-           "hours_of_operation_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       max_contacts =
-         Prop.computed __resource_type __resource_id "max_contacts";
-       name = Prop.computed __resource_type __resource_id "name";
-       queue_id =
-         Prop.computed __resource_type __resource_id "queue_id";
+         Prop.computed __type __id "hours_of_operation_id";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       max_contacts = Prop.computed __type __id "max_contacts";
+       name = Prop.computed __type __id "name";
+       queue_id = Prop.computed __type __id "queue_id";
        quick_connect_ids =
-         Prop.computed __resource_type __resource_id
-           "quick_connect_ids";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "quick_connect_ids";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_queue
+        (aws_connect_queue ?description ?id ?max_contacts
+           ?quick_connect_ids ?status ?tags ?tags_all
+           ~hours_of_operation_id ~instance_id ~name
+           ~outbound_caller_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?max_contacts
+    ?quick_connect_ids ?status ?tags ?tags_all ~hours_of_operation_id
+    ~instance_id ~name ~outbound_caller_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?max_contacts ?quick_connect_ids ?status
+      ?tags ?tags_all ~hours_of_operation_id ~instance_id ~name
+      ~outbound_caller_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -188,3 +188,20 @@ val register :
   target:target list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?end_date:string prop ->
+  ?group_name:string prop ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?schedule_expression_timezone:string prop ->
+  ?start_date:string prop ->
+  ?state:string prop ->
+  schedule_expression:string prop ->
+  flexible_time_window:flexible_time_window list ->
+  target:target list ->
+  string ->
+  t Tf_core.resource

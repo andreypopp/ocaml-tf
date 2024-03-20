@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   synapse_workspace_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?log_monitoring_enabled:bool prop ->
+  ?retention_in_days:float prop ->
+  ?storage_account_access_key:string prop ->
+  ?storage_account_access_key_is_secondary:bool prop ->
+  ?storage_endpoint:string prop ->
+  ?timeouts:timeouts ->
+  synapse_workspace_id:string prop ->
+  string ->
+  t Tf_core.resource

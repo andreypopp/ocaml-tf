@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,14 @@ val register :
   protected_file:protected_file list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?package_data:string prop ->
+  ?timeouts:timeouts ->
+  nginx_deployment_id:string prop ->
+  root_file:string prop ->
+  config_file:config_file list ->
+  protected_file:protected_file list ->
+  string ->
+  t Tf_core.resource

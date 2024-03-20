@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_ipsec_tunnel = {
   account_id : string prop option; [@option]
@@ -83,59 +81,62 @@ type t = {
   user_id : string prop;
 }
 
+let make ?account_id ?allow_null_cipher ?description ?fqdn_id
+    ?health_check_enabled ?health_check_target ?health_check_type
+    ?hex_id ?id ?psk ?remote_id ?user_id ~cloudflare_endpoint
+    ~customer_endpoint ~interface_address ~name __id =
+  let __type = "cloudflare_ipsec_tunnel" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       allow_null_cipher =
+         Prop.computed __type __id "allow_null_cipher";
+       cloudflare_endpoint =
+         Prop.computed __type __id "cloudflare_endpoint";
+       customer_endpoint =
+         Prop.computed __type __id "customer_endpoint";
+       description = Prop.computed __type __id "description";
+       fqdn_id = Prop.computed __type __id "fqdn_id";
+       health_check_enabled =
+         Prop.computed __type __id "health_check_enabled";
+       health_check_target =
+         Prop.computed __type __id "health_check_target";
+       health_check_type =
+         Prop.computed __type __id "health_check_type";
+       hex_id = Prop.computed __type __id "hex_id";
+       id = Prop.computed __type __id "id";
+       interface_address =
+         Prop.computed __type __id "interface_address";
+       name = Prop.computed __type __id "name";
+       psk = Prop.computed __type __id "psk";
+       remote_id = Prop.computed __type __id "remote_id";
+       user_id = Prop.computed __type __id "user_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_ipsec_tunnel
+        (cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
+           ?description ?fqdn_id ?health_check_enabled
+           ?health_check_target ?health_check_type ?hex_id ?id ?psk
+           ?remote_id ?user_id ~cloudflare_endpoint
+           ~customer_endpoint ~interface_address ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?account_id ?allow_null_cipher ?description
     ?fqdn_id ?health_check_enabled ?health_check_target
     ?health_check_type ?hex_id ?id ?psk ?remote_id ?user_id
     ~cloudflare_endpoint ~customer_endpoint ~interface_address ~name
-    __resource_id =
-  let __resource_type = "cloudflare_ipsec_tunnel" in
-  let __resource =
-    cloudflare_ipsec_tunnel ?account_id ?allow_null_cipher
-      ?description ?fqdn_id ?health_check_enabled
-      ?health_check_target ?health_check_type ?hex_id ?id ?psk
-      ?remote_id ?user_id ~cloudflare_endpoint ~customer_endpoint
-      ~interface_address ~name ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?allow_null_cipher ?description ?fqdn_id
+      ?health_check_enabled ?health_check_target ?health_check_type
+      ?hex_id ?id ?psk ?remote_id ?user_id ~cloudflare_endpoint
+      ~customer_endpoint ~interface_address ~name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_ipsec_tunnel __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       allow_null_cipher =
-         Prop.computed __resource_type __resource_id
-           "allow_null_cipher";
-       cloudflare_endpoint =
-         Prop.computed __resource_type __resource_id
-           "cloudflare_endpoint";
-       customer_endpoint =
-         Prop.computed __resource_type __resource_id
-           "customer_endpoint";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       fqdn_id =
-         Prop.computed __resource_type __resource_id "fqdn_id";
-       health_check_enabled =
-         Prop.computed __resource_type __resource_id
-           "health_check_enabled";
-       health_check_target =
-         Prop.computed __resource_type __resource_id
-           "health_check_target";
-       health_check_type =
-         Prop.computed __resource_type __resource_id
-           "health_check_type";
-       hex_id = Prop.computed __resource_type __resource_id "hex_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       interface_address =
-         Prop.computed __resource_type __resource_id
-           "interface_address";
-       name = Prop.computed __resource_type __resource_id "name";
-       psk = Prop.computed __resource_type __resource_id "psk";
-       remote_id =
-         Prop.computed __resource_type __resource_id "remote_id";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

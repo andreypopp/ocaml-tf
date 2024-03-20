@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type tls_config = {
   insecure_skip_verification : bool prop option; [@option]
@@ -93,66 +91,68 @@ type t = {
   uri : string prop;
 }
 
+let make ?cache_key_parameters ?cache_namespace ?connection_id
+    ?connection_type ?content_handling ?credentials ?id
+    ?integration_http_method ?passthrough_behavior
+    ?request_parameters ?request_templates ?timeout_milliseconds ?uri
+    ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config __id =
+  let __type = "aws_api_gateway_integration" in
+  let __attrs =
+    ({
+       cache_key_parameters =
+         Prop.computed __type __id "cache_key_parameters";
+       cache_namespace = Prop.computed __type __id "cache_namespace";
+       connection_id = Prop.computed __type __id "connection_id";
+       connection_type = Prop.computed __type __id "connection_type";
+       content_handling =
+         Prop.computed __type __id "content_handling";
+       credentials = Prop.computed __type __id "credentials";
+       http_method = Prop.computed __type __id "http_method";
+       id = Prop.computed __type __id "id";
+       integration_http_method =
+         Prop.computed __type __id "integration_http_method";
+       passthrough_behavior =
+         Prop.computed __type __id "passthrough_behavior";
+       request_parameters =
+         Prop.computed __type __id "request_parameters";
+       request_templates =
+         Prop.computed __type __id "request_templates";
+       resource_id = Prop.computed __type __id "resource_id";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
+       timeout_milliseconds =
+         Prop.computed __type __id "timeout_milliseconds";
+       type_ = Prop.computed __type __id "type";
+       uri = Prop.computed __type __id "uri";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_integration
+        (aws_api_gateway_integration ?cache_key_parameters
+           ?cache_namespace ?connection_id ?connection_type
+           ?content_handling ?credentials ?id
+           ?integration_http_method ?passthrough_behavior
+           ?request_parameters ?request_templates
+           ?timeout_milliseconds ?uri ~http_method ~resource_id
+           ~rest_api_id ~type_ ~tls_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cache_key_parameters ?cache_namespace
     ?connection_id ?connection_type ?content_handling ?credentials
     ?id ?integration_http_method ?passthrough_behavior
     ?request_parameters ?request_templates ?timeout_milliseconds ?uri
-    ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config
-    __resource_id =
-  let __resource_type = "aws_api_gateway_integration" in
-  let __resource =
-    aws_api_gateway_integration ?cache_key_parameters
-      ?cache_namespace ?connection_id ?connection_type
-      ?content_handling ?credentials ?id ?integration_http_method
-      ?passthrough_behavior ?request_parameters ?request_templates
-      ?timeout_milliseconds ?uri ~http_method ~resource_id
-      ~rest_api_id ~type_ ~tls_config ()
+    ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?cache_key_parameters ?cache_namespace ?connection_id
+      ?connection_type ?content_handling ?credentials ?id
+      ?integration_http_method ?passthrough_behavior
+      ?request_parameters ?request_templates ?timeout_milliseconds
+      ?uri ~http_method ~resource_id ~rest_api_id ~type_ ~tls_config
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_integration __resource);
-  let __resource_attributes =
-    ({
-       cache_key_parameters =
-         Prop.computed __resource_type __resource_id
-           "cache_key_parameters";
-       cache_namespace =
-         Prop.computed __resource_type __resource_id
-           "cache_namespace";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
-       connection_type =
-         Prop.computed __resource_type __resource_id
-           "connection_type";
-       content_handling =
-         Prop.computed __resource_type __resource_id
-           "content_handling";
-       credentials =
-         Prop.computed __resource_type __resource_id "credentials";
-       http_method =
-         Prop.computed __resource_type __resource_id "http_method";
-       id = Prop.computed __resource_type __resource_id "id";
-       integration_http_method =
-         Prop.computed __resource_type __resource_id
-           "integration_http_method";
-       passthrough_behavior =
-         Prop.computed __resource_type __resource_id
-           "passthrough_behavior";
-       request_parameters =
-         Prop.computed __resource_type __resource_id
-           "request_parameters";
-       request_templates =
-         Prop.computed __resource_type __resource_id
-           "request_templates";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
-       timeout_milliseconds =
-         Prop.computed __resource_type __resource_id
-           "timeout_milliseconds";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uri = Prop.computed __resource_type __resource_id "uri";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

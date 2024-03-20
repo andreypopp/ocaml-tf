@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -231,3 +231,16 @@ val register :
   split_charge_rule:split_charge_rule list ->
   string ->
   t
+
+val make :
+  ?default_value:string prop ->
+  ?effective_start:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  rule_version:string prop ->
+  rule:rule list ->
+  split_charge_rule:split_charge_rule list ->
+  string ->
+  t Tf_core.resource

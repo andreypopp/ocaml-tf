@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -599,3 +599,22 @@ val register :
   target_parameters:target_parameters list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?desired_state:string prop ->
+  ?enrichment:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  role_arn:string prop ->
+  source:string prop ->
+  target:string prop ->
+  enrichment_parameters:enrichment_parameters list ->
+  source_parameters:source_parameters list ->
+  target_parameters:target_parameters list ->
+  string ->
+  t Tf_core.resource

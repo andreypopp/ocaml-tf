@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type properties__property = {
   name : string prop option; [@option]  (** Name of the property. *)
@@ -111,56 +109,60 @@ type t = {
   subscription_type : string prop;
 }
 
-let register ?tf_module ?analytics_region ?authorized_network
-    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
-    ?retention ?runtime_database_encryption_key_name ?runtime_type
-    ?timeouts ~project_id ~properties __resource_id =
-  let __resource_type = "google_apigee_organization" in
-  let __resource =
-    google_apigee_organization ?analytics_region ?authorized_network
-      ?billing_type ?description ?disable_vpc_peering ?display_name
-      ?id ?retention ?runtime_database_encryption_key_name
-      ?runtime_type ?timeouts ~project_id ~properties ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_organization __resource);
-  let __resource_attributes =
+let make ?analytics_region ?authorized_network ?billing_type
+    ?description ?disable_vpc_peering ?display_name ?id ?retention
+    ?runtime_database_encryption_key_name ?runtime_type ?timeouts
+    ~project_id ~properties __id =
+  let __type = "google_apigee_organization" in
+  let __attrs =
     ({
        analytics_region =
-         Prop.computed __resource_type __resource_id
-           "analytics_region";
+         Prop.computed __type __id "analytics_region";
        apigee_project_id =
-         Prop.computed __resource_type __resource_id
-           "apigee_project_id";
+         Prop.computed __type __id "apigee_project_id";
        authorized_network =
-         Prop.computed __resource_type __resource_id
-           "authorized_network";
-       billing_type =
-         Prop.computed __resource_type __resource_id "billing_type";
-       ca_certificate =
-         Prop.computed __resource_type __resource_id "ca_certificate";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "authorized_network";
+       billing_type = Prop.computed __type __id "billing_type";
+       ca_certificate = Prop.computed __type __id "ca_certificate";
+       description = Prop.computed __type __id "description";
        disable_vpc_peering =
-         Prop.computed __resource_type __resource_id
-           "disable_vpc_peering";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       retention =
-         Prop.computed __resource_type __resource_id "retention";
+         Prop.computed __type __id "disable_vpc_peering";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project_id = Prop.computed __type __id "project_id";
+       retention = Prop.computed __type __id "retention";
        runtime_database_encryption_key_name =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "runtime_database_encryption_key_name";
-       runtime_type =
-         Prop.computed __resource_type __resource_id "runtime_type";
+       runtime_type = Prop.computed __type __id "runtime_type";
        subscription_type =
-         Prop.computed __resource_type __resource_id
-           "subscription_type";
+         Prop.computed __type __id "subscription_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_organization
+        (google_apigee_organization ?analytics_region
+           ?authorized_network ?billing_type ?description
+           ?disable_vpc_peering ?display_name ?id ?retention
+           ?runtime_database_encryption_key_name ?runtime_type
+           ?timeouts ~project_id ~properties ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?analytics_region ?authorized_network
+    ?billing_type ?description ?disable_vpc_peering ?display_name ?id
+    ?retention ?runtime_database_encryption_key_name ?runtime_type
+    ?timeouts ~project_id ~properties __id =
+  let (r : _ Tf_core.resource) =
+    make ?analytics_region ?authorized_network ?billing_type
+      ?description ?disable_vpc_peering ?display_name ?id ?retention
+      ?runtime_database_encryption_key_name ?runtime_type ?timeouts
+      ~project_id ~properties __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

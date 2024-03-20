@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_apprunner_auto_scaling_configuration_version = {
   auto_scaling_configuration_name : string prop;
@@ -49,47 +47,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?max_concurrency ?max_size ?min_size
-    ?tags ?tags_all ~auto_scaling_configuration_name __resource_id =
-  let __resource_type =
-    "aws_apprunner_auto_scaling_configuration_version"
-  in
-  let __resource =
-    aws_apprunner_auto_scaling_configuration_version ?id
-      ?max_concurrency ?max_size ?min_size ?tags ?tags_all
-      ~auto_scaling_configuration_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apprunner_auto_scaling_configuration_version
-       __resource);
-  let __resource_attributes =
+let make ?id ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+    ~auto_scaling_configuration_name __id =
+  let __type = "aws_apprunner_auto_scaling_configuration_version" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        auto_scaling_configuration_name =
-         Prop.computed __resource_type __resource_id
-           "auto_scaling_configuration_name";
+         Prop.computed __type __id "auto_scaling_configuration_name";
        auto_scaling_configuration_revision =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "auto_scaling_configuration_revision";
        has_associated_service =
-         Prop.computed __resource_type __resource_id
-           "has_associated_service";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_default =
-         Prop.computed __resource_type __resource_id "is_default";
-       latest = Prop.computed __resource_type __resource_id "latest";
-       max_concurrency =
-         Prop.computed __resource_type __resource_id
-           "max_concurrency";
-       max_size =
-         Prop.computed __resource_type __resource_id "max_size";
-       min_size =
-         Prop.computed __resource_type __resource_id "min_size";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "has_associated_service";
+       id = Prop.computed __type __id "id";
+       is_default = Prop.computed __type __id "is_default";
+       latest = Prop.computed __type __id "latest";
+       max_concurrency = Prop.computed __type __id "max_concurrency";
+       max_size = Prop.computed __type __id "max_size";
+       min_size = Prop.computed __type __id "min_size";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apprunner_auto_scaling_configuration_version
+        (aws_apprunner_auto_scaling_configuration_version ?id
+           ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+           ~auto_scaling_configuration_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?max_concurrency ?max_size ?min_size
+    ?tags ?tags_all ~auto_scaling_configuration_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?max_concurrency ?max_size ?min_size ?tags ?tags_all
+      ~auto_scaling_configuration_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

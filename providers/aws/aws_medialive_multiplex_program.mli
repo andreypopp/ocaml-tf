@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,10 @@ val register :
   multiplex_program_settings:multiplex_program_settings list ->
   string ->
   t
+
+val make :
+  multiplex_id:string prop ->
+  program_name:string prop ->
+  multiplex_program_settings:multiplex_program_settings list ->
+  string ->
+  t Tf_core.resource

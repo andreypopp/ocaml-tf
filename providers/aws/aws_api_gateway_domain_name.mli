@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,22 @@ val register :
   mutual_tls_authentication:mutual_tls_authentication list ->
   string ->
   t
+
+val make :
+  ?certificate_arn:string prop ->
+  ?certificate_body:string prop ->
+  ?certificate_chain:string prop ->
+  ?certificate_name:string prop ->
+  ?certificate_private_key:string prop ->
+  ?id:string prop ->
+  ?ownership_verification_certificate_arn:string prop ->
+  ?regional_certificate_arn:string prop ->
+  ?regional_certificate_name:string prop ->
+  ?security_policy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_name:string prop ->
+  endpoint_configuration:endpoint_configuration list ->
+  mutual_tls_authentication:mutual_tls_authentication list ->
+  string ->
+  t Tf_core.resource

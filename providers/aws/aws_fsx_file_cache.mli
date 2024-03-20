@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,20 @@ val register :
   lustre_configuration:lustre_configuration list ->
   string ->
   t
+
+val make :
+  ?copy_tags_to_data_repository_associations:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?security_group_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  file_cache_type:string prop ->
+  file_cache_type_version:string prop ->
+  storage_capacity:float prop ->
+  subnet_ids:string prop list ->
+  data_repository_association:data_repository_association list ->
+  lustre_configuration:lustre_configuration list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type per_database_settings = {
   max_capacity : float prop;  (** max_capacity *)
@@ -99,47 +97,55 @@ type t = {
   zone_redundant : bool prop;
 }
 
+let make ?enclave_type ?id ?license_type
+    ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
+    ?tags ?zone_redundant ?timeouts ~location ~name
+    ~resource_group_name ~server_name ~per_database_settings ~sku
+    __id =
+  let __type = "azurerm_mssql_elasticpool" in
+  let __attrs =
+    ({
+       enclave_type = Prop.computed __type __id "enclave_type";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
+       maintenance_configuration_name =
+         Prop.computed __type __id "maintenance_configuration_name";
+       max_size_bytes = Prop.computed __type __id "max_size_bytes";
+       max_size_gb = Prop.computed __type __id "max_size_gb";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       server_name = Prop.computed __type __id "server_name";
+       tags = Prop.computed __type __id "tags";
+       zone_redundant = Prop.computed __type __id "zone_redundant";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_elasticpool
+        (azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+           ?maintenance_configuration_name ?max_size_bytes
+           ?max_size_gb ?tags ?zone_redundant ?timeouts ~location
+           ~name ~resource_group_name ~server_name
+           ~per_database_settings ~sku ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enclave_type ?id ?license_type
     ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
     ?tags ?zone_redundant ?timeouts ~location ~name
     ~resource_group_name ~server_name ~per_database_settings ~sku
-    __resource_id =
-  let __resource_type = "azurerm_mssql_elasticpool" in
-  let __resource =
-    azurerm_mssql_elasticpool ?enclave_type ?id ?license_type
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enclave_type ?id ?license_type
       ?maintenance_configuration_name ?max_size_bytes ?max_size_gb
       ?tags ?zone_redundant ?timeouts ~location ~name
       ~resource_group_name ~server_name ~per_database_settings ~sku
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_elasticpool __resource);
-  let __resource_attributes =
-    ({
-       enclave_type =
-         Prop.computed __resource_type __resource_id "enclave_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       maintenance_configuration_name =
-         Prop.computed __resource_type __resource_id
-           "maintenance_configuration_name";
-       max_size_bytes =
-         Prop.computed __resource_type __resource_id "max_size_bytes";
-       max_size_gb =
-         Prop.computed __resource_type __resource_id "max_size_gb";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundant =
-         Prop.computed __resource_type __resource_id "zone_redundant";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

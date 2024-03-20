@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_glacier_vault_lock = {
   complete_lock : bool prop;  (** complete_lock *)
@@ -27,27 +25,35 @@ type t = {
   vault_name : string prop;
 }
 
-let register ?tf_module ?id ?ignore_deletion_error ~complete_lock
-    ~policy ~vault_name __resource_id =
-  let __resource_type = "aws_glacier_vault_lock" in
-  let __resource =
-    aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
-      ~policy ~vault_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glacier_vault_lock __resource);
-  let __resource_attributes =
+let make ?id ?ignore_deletion_error ~complete_lock ~policy
+    ~vault_name __id =
+  let __type = "aws_glacier_vault_lock" in
+  let __attrs =
     ({
-       complete_lock =
-         Prop.computed __resource_type __resource_id "complete_lock";
-       id = Prop.computed __resource_type __resource_id "id";
+       complete_lock = Prop.computed __type __id "complete_lock";
+       id = Prop.computed __type __id "id";
        ignore_deletion_error =
-         Prop.computed __resource_type __resource_id
-           "ignore_deletion_error";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       vault_name =
-         Prop.computed __resource_type __resource_id "vault_name";
+         Prop.computed __type __id "ignore_deletion_error";
+       policy = Prop.computed __type __id "policy";
+       vault_name = Prop.computed __type __id "vault_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glacier_vault_lock
+        (aws_glacier_vault_lock ?id ?ignore_deletion_error
+           ~complete_lock ~policy ~vault_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ignore_deletion_error ~complete_lock
+    ~policy ~vault_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ignore_deletion_error ~complete_lock ~policy
+      ~vault_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

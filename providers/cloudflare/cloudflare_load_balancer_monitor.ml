@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type header = {
   header : string prop;  (** The header name. *)
@@ -104,58 +102,59 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?allow_insecure ?consecutive_down
-    ?consecutive_up ?description ?expected_body ?expected_codes
-    ?follow_redirects ?id ?interval ?method_ ?path ?port ?probe_zone
-    ?retries ?timeout ?type_ ~account_id ~header __resource_id =
-  let __resource_type = "cloudflare_load_balancer_monitor" in
-  let __resource =
-    cloudflare_load_balancer_monitor ?allow_insecure
-      ?consecutive_down ?consecutive_up ?description ?expected_body
-      ?expected_codes ?follow_redirects ?id ?interval ?method_ ?path
-      ?port ?probe_zone ?retries ?timeout ?type_ ~account_id ~header
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_load_balancer_monitor __resource);
-  let __resource_attributes =
+let make ?allow_insecure ?consecutive_down ?consecutive_up
+    ?description ?expected_body ?expected_codes ?follow_redirects ?id
+    ?interval ?method_ ?path ?port ?probe_zone ?retries ?timeout
+    ?type_ ~account_id ~header __id =
+  let __type = "cloudflare_load_balancer_monitor" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       allow_insecure =
-         Prop.computed __resource_type __resource_id "allow_insecure";
+       account_id = Prop.computed __type __id "account_id";
+       allow_insecure = Prop.computed __type __id "allow_insecure";
        consecutive_down =
-         Prop.computed __resource_type __resource_id
-           "consecutive_down";
-       consecutive_up =
-         Prop.computed __resource_type __resource_id "consecutive_up";
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expected_body =
-         Prop.computed __resource_type __resource_id "expected_body";
-       expected_codes =
-         Prop.computed __resource_type __resource_id "expected_codes";
+         Prop.computed __type __id "consecutive_down";
+       consecutive_up = Prop.computed __type __id "consecutive_up";
+       created_on = Prop.computed __type __id "created_on";
+       description = Prop.computed __type __id "description";
+       expected_body = Prop.computed __type __id "expected_body";
+       expected_codes = Prop.computed __type __id "expected_codes";
        follow_redirects =
-         Prop.computed __resource_type __resource_id
-           "follow_redirects";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       method_ = Prop.computed __resource_type __resource_id "method";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       path = Prop.computed __resource_type __resource_id "path";
-       port = Prop.computed __resource_type __resource_id "port";
-       probe_zone =
-         Prop.computed __resource_type __resource_id "probe_zone";
-       retries =
-         Prop.computed __resource_type __resource_id "retries";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "follow_redirects";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       method_ = Prop.computed __type __id "method";
+       modified_on = Prop.computed __type __id "modified_on";
+       path = Prop.computed __type __id "path";
+       port = Prop.computed __type __id "port";
+       probe_zone = Prop.computed __type __id "probe_zone";
+       retries = Prop.computed __type __id "retries";
+       timeout = Prop.computed __type __id "timeout";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_load_balancer_monitor
+        (cloudflare_load_balancer_monitor ?allow_insecure
+           ?consecutive_down ?consecutive_up ?description
+           ?expected_body ?expected_codes ?follow_redirects ?id
+           ?interval ?method_ ?path ?port ?probe_zone ?retries
+           ?timeout ?type_ ~account_id ~header ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_insecure ?consecutive_down
+    ?consecutive_up ?description ?expected_body ?expected_codes
+    ?follow_redirects ?id ?interval ?method_ ?path ?port ?probe_zone
+    ?retries ?timeout ?type_ ~account_id ~header __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_insecure ?consecutive_down ?consecutive_up
+      ?description ?expected_body ?expected_codes ?follow_redirects
+      ?id ?interval ?method_ ?path ?port ?probe_zone ?retries
+      ?timeout ?type_ ~account_id ~header __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

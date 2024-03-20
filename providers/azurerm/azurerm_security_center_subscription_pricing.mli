@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,13 @@ val register :
   extension:extension list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?resource_type:string prop ->
+  ?subplan:string prop ->
+  ?timeouts:timeouts ->
+  tier:string prop ->
+  extension:extension list ->
+  string ->
+  t Tf_core.resource

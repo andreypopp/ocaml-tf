@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -131,3 +131,20 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?enabled_cluster_log_types:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  role_arn:string prop ->
+  access_config:access_config list ->
+  encryption_config:encryption_config list ->
+  kubernetes_network_config:kubernetes_network_config list ->
+  outpost_config:outpost_config list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

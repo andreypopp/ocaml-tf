@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type key_vault_connection_string = {
   linked_service_name : string prop;  (** linked_service_name *)
@@ -97,48 +95,51 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?additional_properties ?annotations
-    ?connection_string ?description ?id ?integration_runtime_name
-    ?parameters ?user_name ?timeouts ~data_factory_id ~name
-    ~key_vault_connection_string ~key_vault_password __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_linked_service_sql_server"
-  in
-  let __resource =
-    azurerm_data_factory_linked_service_sql_server
-      ?additional_properties ?annotations ?connection_string
-      ?description ?id ?integration_runtime_name ?parameters
-      ?user_name ?timeouts ~data_factory_id ~name
-      ~key_vault_connection_string ~key_vault_password ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_linked_service_sql_server
-       __resource);
-  let __resource_attributes =
+let make ?additional_properties ?annotations ?connection_string
+    ?description ?id ?integration_runtime_name ?parameters ?user_name
+    ?timeouts ~data_factory_id ~name ~key_vault_connection_string
+    ~key_vault_password __id =
+  let __type = "azurerm_data_factory_linked_service_sql_server" in
+  let __attrs =
     ({
        additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
        connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "connection_string";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        integration_runtime_name =
-         Prop.computed __resource_type __resource_id
-           "integration_runtime_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "integration_runtime_name";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_linked_service_sql_server
+        (azurerm_data_factory_linked_service_sql_server
+           ?additional_properties ?annotations ?connection_string
+           ?description ?id ?integration_runtime_name ?parameters
+           ?user_name ?timeouts ~data_factory_id ~name
+           ~key_vault_connection_string ~key_vault_password ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_properties ?annotations
+    ?connection_string ?description ?id ?integration_runtime_name
+    ?parameters ?user_name ?timeouts ~data_factory_id ~name
+    ~key_vault_connection_string ~key_vault_password __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?connection_string
+      ?description ?id ?integration_runtime_name ?parameters
+      ?user_name ?timeouts ~data_factory_id ~name
+      ~key_vault_connection_string ~key_vault_password __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

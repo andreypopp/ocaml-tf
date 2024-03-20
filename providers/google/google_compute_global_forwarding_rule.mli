@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,26 @@ val register :
     service_directory_registrations list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?ip_protocol:string prop ->
+  ?ip_version:string prop ->
+  ?labels:(string * string prop) list ->
+  ?load_balancing_scheme:string prop ->
+  ?network:string prop ->
+  ?no_automate_dns_zone:bool prop ->
+  ?port_range:string prop ->
+  ?project:string prop ->
+  ?source_ip_ranges:string prop list ->
+  ?subnetwork:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  target:string prop ->
+  metadata_filters:metadata_filters list ->
+  service_directory_registrations:
+    service_directory_registrations list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -440,3 +440,46 @@ val register :
   static_website:static_website list ->
   string ->
   t
+
+val make :
+  ?access_tier:string prop ->
+  ?account_kind:string prop ->
+  ?allow_nested_items_to_be_public:bool prop ->
+  ?allowed_copy_scope:string prop ->
+  ?cross_tenant_replication_enabled:bool prop ->
+  ?default_to_oauth_authentication:bool prop ->
+  ?edge_zone:string prop ->
+  ?enable_https_traffic_only:bool prop ->
+  ?id:string prop ->
+  ?infrastructure_encryption_enabled:bool prop ->
+  ?is_hns_enabled:bool prop ->
+  ?large_file_share_enabled:bool prop ->
+  ?local_user_enabled:bool prop ->
+  ?min_tls_version:string prop ->
+  ?nfsv3_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?queue_encryption_key_type:string prop ->
+  ?sftp_enabled:bool prop ->
+  ?shared_access_key_enabled:bool prop ->
+  ?table_encryption_key_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  account_replication_type:string prop ->
+  account_tier:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  azure_files_authentication:azure_files_authentication list ->
+  blob_properties:blob_properties list ->
+  custom_domain:custom_domain list ->
+  customer_managed_key:customer_managed_key list ->
+  identity:identity list ->
+  immutability_policy:immutability_policy list ->
+  network_rules:network_rules list ->
+  queue_properties:queue_properties list ->
+  routing:routing list ->
+  sas_policy:sas_policy list ->
+  share_properties:share_properties list ->
+  static_website:static_website list ->
+  string ->
+  t Tf_core.resource

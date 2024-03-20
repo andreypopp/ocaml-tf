@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   virtual_hub_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?virtual_network_connection_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  peer_asn:float prop ->
+  peer_ip:string prop ->
+  virtual_hub_id:string prop ->
+  string ->
+  t Tf_core.resource

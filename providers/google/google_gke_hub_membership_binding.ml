@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -71,45 +69,48 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?id ?labels ?project ?timeouts ~location
-    ~membership_binding_id ~membership_id ~scope __resource_id =
-  let __resource_type = "google_gke_hub_membership_binding" in
-  let __resource =
-    google_gke_hub_membership_binding ?id ?labels ?project ?timeouts
-      ~location ~membership_binding_id ~membership_id ~scope ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_gke_hub_membership_binding __resource);
-  let __resource_attributes =
+let make ?id ?labels ?project ?timeouts ~location
+    ~membership_binding_id ~membership_id ~scope __id =
+  let __type = "google_gke_hub_membership_binding" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
+       create_time = Prop.computed __type __id "create_time";
+       delete_time = Prop.computed __type __id "delete_time";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
        membership_binding_id =
-         Prop.computed __resource_type __resource_id
-           "membership_binding_id";
-       membership_id =
-         Prop.computed __resource_type __resource_id "membership_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "membership_binding_id";
+       membership_id = Prop.computed __type __id "membership_id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       scope = Prop.computed __type __id "scope";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_gke_hub_membership_binding
+        (google_gke_hub_membership_binding ?id ?labels ?project
+           ?timeouts ~location ~membership_binding_id ~membership_id
+           ~scope ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?project ?timeouts ~location
+    ~membership_binding_id ~membership_id ~scope __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?project ?timeouts ~location
+      ~membership_binding_id ~membership_id ~scope __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

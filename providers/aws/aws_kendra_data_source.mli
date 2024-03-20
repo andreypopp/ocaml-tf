@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -321,3 +321,21 @@ val register :
     custom_document_enrichment_configuration list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?language_code:string prop ->
+  ?role_arn:string prop ->
+  ?schedule:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  index_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  configuration:configuration list ->
+  custom_document_enrichment_configuration:
+    custom_document_enrichment_configuration list ->
+  string ->
+  t Tf_core.resource

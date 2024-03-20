@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_access_policy__access_rule = {
   access : string prop;  (** access *)
@@ -218,53 +216,62 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?automatically_rotate_key_to_latest_enabled ?id
+    ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
+    ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
+    ~subnet_id ~default_access_policy ~directory_active_directory
+    ~directory_flat_file ~directory_ldap ~dns ~identity __id =
+  let __type = "azurerm_hpc_cache" in
+  let __attrs =
+    ({
+       automatically_rotate_key_to_latest_enabled =
+         Prop.computed __type __id
+           "automatically_rotate_key_to_latest_enabled";
+       cache_size_in_gb =
+         Prop.computed __type __id "cache_size_in_gb";
+       id = Prop.computed __type __id "id";
+       key_vault_key_id =
+         Prop.computed __type __id "key_vault_key_id";
+       location = Prop.computed __type __id "location";
+       mount_addresses = Prop.computed __type __id "mount_addresses";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
+       ntp_server = Prop.computed __type __id "ntp_server";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_hpc_cache
+        (azurerm_hpc_cache
+           ?automatically_rotate_key_to_latest_enabled ?id
+           ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
+           ~cache_size_in_gb ~location ~name ~resource_group_name
+           ~sku_name ~subnet_id ~default_access_policy
+           ~directory_active_directory ~directory_flat_file
+           ~directory_ldap ~dns ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?automatically_rotate_key_to_latest_enabled
     ?id ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
     ~cache_size_in_gb ~location ~name ~resource_group_name ~sku_name
     ~subnet_id ~default_access_policy ~directory_active_directory
-    ~directory_flat_file ~directory_ldap ~dns ~identity __resource_id
-    =
-  let __resource_type = "azurerm_hpc_cache" in
-  let __resource =
-    azurerm_hpc_cache ?automatically_rotate_key_to_latest_enabled ?id
+    ~directory_flat_file ~directory_ldap ~dns ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatically_rotate_key_to_latest_enabled ?id
       ?key_vault_key_id ?mtu ?ntp_server ?tags ?timeouts
       ~cache_size_in_gb ~location ~name ~resource_group_name
       ~sku_name ~subnet_id ~default_access_policy
       ~directory_active_directory ~directory_flat_file
-      ~directory_ldap ~dns ~identity ()
+      ~directory_ldap ~dns ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_hpc_cache __resource);
-  let __resource_attributes =
-    ({
-       automatically_rotate_key_to_latest_enabled =
-         Prop.computed __resource_type __resource_id
-           "automatically_rotate_key_to_latest_enabled";
-       cache_size_in_gb =
-         Prop.computed __resource_type __resource_id
-           "cache_size_in_gb";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_key_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mount_addresses =
-         Prop.computed __resource_type __resource_id
-           "mount_addresses";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
-       ntp_server =
-         Prop.computed __resource_type __resource_id "ntp_server";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

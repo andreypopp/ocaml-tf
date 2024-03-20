@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_organization_iam_custom_role = {
   description : string prop option; [@option]
@@ -37,31 +35,38 @@ type t = {
   title : string prop;
 }
 
-let register ?tf_module ?description ?id ?stage ~org_id ~permissions
-    ~role_id ~title __resource_id =
-  let __resource_type = "google_organization_iam_custom_role" in
-  let __resource =
-    google_organization_iam_custom_role ?description ?id ?stage
-      ~org_id ~permissions ~role_id ~title ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_organization_iam_custom_role __resource);
-  let __resource_attributes =
+let make ?description ?id ?stage ~org_id ~permissions ~role_id ~title
+    __id =
+  let __type = "google_organization_iam_custom_role" in
+  let __attrs =
     ({
-       deleted =
-         Prop.computed __resource_type __resource_id "deleted";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       permissions =
-         Prop.computed __resource_type __resource_id "permissions";
-       role_id =
-         Prop.computed __resource_type __resource_id "role_id";
-       stage = Prop.computed __resource_type __resource_id "stage";
-       title = Prop.computed __resource_type __resource_id "title";
+       deleted = Prop.computed __type __id "deleted";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       org_id = Prop.computed __type __id "org_id";
+       permissions = Prop.computed __type __id "permissions";
+       role_id = Prop.computed __type __id "role_id";
+       stage = Prop.computed __type __id "stage";
+       title = Prop.computed __type __id "title";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_organization_iam_custom_role
+        (google_organization_iam_custom_role ?description ?id ?stage
+           ~org_id ~permissions ~role_id ~title ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?stage ~org_id ~permissions
+    ~role_id ~title __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?stage ~org_id ~permissions ~role_id ~title
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

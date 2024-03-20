@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_interfaces = {
   network_interface_id : string prop;  (** network_interface_id *)
@@ -46,39 +44,43 @@ type t = {
   subnet_id : string prop;
 }
 
-let register ?tf_module ?access_type ?customer_owned_ipv4_pool ?id
-    ~outpost_id ~security_group_id ~subnet_id __resource_id =
-  let __resource_type = "aws_s3outposts_endpoint" in
-  let __resource =
-    aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
-      ?id ~outpost_id ~security_group_id ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3outposts_endpoint __resource);
-  let __resource_attributes =
+let make ?access_type ?customer_owned_ipv4_pool ?id ~outpost_id
+    ~security_group_id ~subnet_id __id =
+  let __type = "aws_s3outposts_endpoint" in
+  let __attrs =
     ({
-       access_type =
-         Prop.computed __resource_type __resource_id "access_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cidr_block =
-         Prop.computed __resource_type __resource_id "cidr_block";
-       creation_time =
-         Prop.computed __resource_type __resource_id "creation_time";
+       access_type = Prop.computed __type __id "access_type";
+       arn = Prop.computed __type __id "arn";
+       cidr_block = Prop.computed __type __id "cidr_block";
+       creation_time = Prop.computed __type __id "creation_time";
        customer_owned_ipv4_pool =
-         Prop.computed __resource_type __resource_id
-           "customer_owned_ipv4_pool";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "customer_owned_ipv4_pool";
+       id = Prop.computed __type __id "id";
        network_interfaces =
-         Prop.computed __resource_type __resource_id
-           "network_interfaces";
-       outpost_id =
-         Prop.computed __resource_type __resource_id "outpost_id";
+         Prop.computed __type __id "network_interfaces";
+       outpost_id = Prop.computed __type __id "outpost_id";
        security_group_id =
-         Prop.computed __resource_type __resource_id
-           "security_group_id";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
+         Prop.computed __type __id "security_group_id";
+       subnet_id = Prop.computed __type __id "subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3outposts_endpoint
+        (aws_s3outposts_endpoint ?access_type
+           ?customer_owned_ipv4_pool ?id ~outpost_id
+           ~security_group_id ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_type ?customer_owned_ipv4_pool ?id
+    ~outpost_id ~security_group_id ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_type ?customer_owned_ipv4_pool ?id ~outpost_id
+      ~security_group_id ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -355,3 +355,30 @@ val register :
   viewer_certificate:viewer_certificate list ->
   string ->
   t
+
+val make :
+  ?aliases:string prop list ->
+  ?comment:string prop ->
+  ?continuous_deployment_policy_id:string prop ->
+  ?default_root_object:string prop ->
+  ?http_version:string prop ->
+  ?id:string prop ->
+  ?is_ipv6_enabled:bool prop ->
+  ?price_class:string prop ->
+  ?retain_on_delete:bool prop ->
+  ?staging:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?wait_for_deployment:bool prop ->
+  ?web_acl_id:string prop ->
+  enabled:bool prop ->
+  custom_error_response:custom_error_response list ->
+  default_cache_behavior:default_cache_behavior list ->
+  logging_config:logging_config list ->
+  ordered_cache_behavior:ordered_cache_behavior list ->
+  origin:origin list ->
+  origin_group:origin_group list ->
+  restrictions:restrictions list ->
+  viewer_certificate:viewer_certificate list ->
+  string ->
+  t Tf_core.resource

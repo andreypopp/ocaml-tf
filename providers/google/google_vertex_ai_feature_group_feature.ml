@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,43 +65,46 @@ type t = {
   version_column_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?project
-    ?version_column_name ?timeouts ~feature_group ~name ~region
-    __resource_id =
-  let __resource_type = "google_vertex_ai_feature_group_feature" in
-  let __resource =
-    google_vertex_ai_feature_group_feature ?description ?id ?labels
-      ?project ?version_column_name ?timeouts ~feature_group ~name
-      ~region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vertex_ai_feature_group_feature __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?project ?version_column_name
+    ?timeouts ~feature_group ~name ~region __id =
+  let __type = "google_vertex_ai_feature_group_feature" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       feature_group =
-         Prop.computed __resource_type __resource_id "feature_group";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "effective_labels";
+       feature_group = Prop.computed __type __id "feature_group";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
        version_column_name =
-         Prop.computed __resource_type __resource_id
-           "version_column_name";
+         Prop.computed __type __id "version_column_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vertex_ai_feature_group_feature
+        (google_vertex_ai_feature_group_feature ?description ?id
+           ?labels ?project ?version_column_name ?timeouts
+           ~feature_group ~name ~region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?project
+    ?version_column_name ?timeouts ~feature_group ~name ~region __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?project ?version_column_name
+      ?timeouts ~feature_group ~name ~region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

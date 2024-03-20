@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,13 @@ val register :
   target_vpc_subnet_id:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  client_vpn_endpoint_id:string prop ->
+  destination_cidr_block:string prop ->
+  target_vpc_subnet_id:string prop ->
+  string ->
+  t Tf_core.resource

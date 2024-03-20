@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_vpc_ipam_preview_next_cidr = {
   disallowed_cidrs : string prop list option; [@option]
@@ -27,27 +25,33 @@ type t = {
   netmask_length : float prop;
 }
 
-let register ?tf_module ?disallowed_cidrs ?id ?netmask_length
-    ~ipam_pool_id __resource_id =
-  let __resource_type = "aws_vpc_ipam_preview_next_cidr" in
-  let __resource =
-    aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
-      ?netmask_length ~ipam_pool_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam_preview_next_cidr __resource);
-  let __resource_attributes =
+let make ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id __id =
+  let __type = "aws_vpc_ipam_preview_next_cidr" in
+  let __attrs =
     ({
-       cidr = Prop.computed __resource_type __resource_id "cidr";
+       cidr = Prop.computed __type __id "cidr";
        disallowed_cidrs =
-         Prop.computed __resource_type __resource_id
-           "disallowed_cidrs";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipam_pool_id =
-         Prop.computed __resource_type __resource_id "ipam_pool_id";
-       netmask_length =
-         Prop.computed __resource_type __resource_id "netmask_length";
+         Prop.computed __type __id "disallowed_cidrs";
+       id = Prop.computed __type __id "id";
+       ipam_pool_id = Prop.computed __type __id "ipam_pool_id";
+       netmask_length = Prop.computed __type __id "netmask_length";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam_preview_next_cidr
+        (aws_vpc_ipam_preview_next_cidr ?disallowed_cidrs ?id
+           ?netmask_length ~ipam_pool_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disallowed_cidrs ?id ?netmask_length
+    ~ipam_pool_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?disallowed_cidrs ?id ?netmask_length ~ipam_pool_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

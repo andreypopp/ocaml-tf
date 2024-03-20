@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?calling_web_hook:string prop ->
+  ?deployment_environment:string prop ->
+  ?enable_calling:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

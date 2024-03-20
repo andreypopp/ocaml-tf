@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -90,3 +90,18 @@ val register :
   monitor_config:monitor_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?max_return:float prop ->
+  ?profile_status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?traffic_view_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  traffic_routing_method:string prop ->
+  dns_config:dns_config list ->
+  monitor_config:monitor_config list ->
+  string ->
+  t Tf_core.resource

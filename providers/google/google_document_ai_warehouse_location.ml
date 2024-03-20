@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,36 +59,43 @@ type t = {
   project_number : string prop;
 }
 
-let register ?tf_module ?document_creator_default_role ?id ?kms_key
-    ?timeouts ~access_control_mode ~database_type ~location
-    ~project_number __resource_id =
-  let __resource_type = "google_document_ai_warehouse_location" in
-  let __resource =
-    google_document_ai_warehouse_location
-      ?document_creator_default_role ?id ?kms_key ?timeouts
-      ~access_control_mode ~database_type ~location ~project_number
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_document_ai_warehouse_location __resource);
-  let __resource_attributes =
+let make ?document_creator_default_role ?id ?kms_key ?timeouts
+    ~access_control_mode ~database_type ~location ~project_number
+    __id =
+  let __type = "google_document_ai_warehouse_location" in
+  let __attrs =
     ({
        access_control_mode =
-         Prop.computed __resource_type __resource_id
-           "access_control_mode";
-       database_type =
-         Prop.computed __resource_type __resource_id "database_type";
+         Prop.computed __type __id "access_control_mode";
+       database_type = Prop.computed __type __id "database_type";
        document_creator_default_role =
-         Prop.computed __resource_type __resource_id
-           "document_creator_default_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key =
-         Prop.computed __resource_type __resource_id "kms_key";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       project_number =
-         Prop.computed __resource_type __resource_id "project_number";
+         Prop.computed __type __id "document_creator_default_role";
+       id = Prop.computed __type __id "id";
+       kms_key = Prop.computed __type __id "kms_key";
+       location = Prop.computed __type __id "location";
+       project_number = Prop.computed __type __id "project_number";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_document_ai_warehouse_location
+        (google_document_ai_warehouse_location
+           ?document_creator_default_role ?id ?kms_key ?timeouts
+           ~access_control_mode ~database_type ~location
+           ~project_number ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?document_creator_default_role ?id ?kms_key
+    ?timeouts ~access_control_mode ~database_type ~location
+    ~project_number __id =
+  let (r : _ Tf_core.resource) =
+    make ?document_creator_default_role ?id ?kms_key ?timeouts
+      ~access_control_mode ~database_type ~location ~project_number
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

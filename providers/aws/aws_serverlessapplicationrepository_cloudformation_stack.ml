@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,39 +58,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?parameters ?semantic_version ?tags
-    ?tags_all ?timeouts ~application_id ~capabilities ~name
-    __resource_id =
-  let __resource_type =
+let make ?id ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+    ~application_id ~capabilities ~name __id =
+  let __type =
     "aws_serverlessapplicationrepository_cloudformation_stack"
   in
-  let __resource =
-    aws_serverlessapplicationrepository_cloudformation_stack ?id
-      ?parameters ?semantic_version ?tags ?tags_all ?timeouts
-      ~application_id ~capabilities ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_serverlessapplicationrepository_cloudformation_stack
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       capabilities =
-         Prop.computed __resource_type __resource_id "capabilities";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       outputs =
-         Prop.computed __resource_type __resource_id "outputs";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+       application_id = Prop.computed __type __id "application_id";
+       capabilities = Prop.computed __type __id "capabilities";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       outputs = Prop.computed __type __id "outputs";
+       parameters = Prop.computed __type __id "parameters";
        semantic_version =
-         Prop.computed __resource_type __resource_id
-           "semantic_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "semantic_version";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_serverlessapplicationrepository_cloudformation_stack
+        (aws_serverlessapplicationrepository_cloudformation_stack ?id
+           ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+           ~application_id ~capabilities ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?parameters ?semantic_version ?tags
+    ?tags_all ?timeouts ~application_id ~capabilities ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?parameters ?semantic_version ?tags ?tags_all ?timeouts
+      ~application_id ~capabilities ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

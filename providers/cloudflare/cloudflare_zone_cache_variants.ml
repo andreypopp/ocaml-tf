@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_zone_cache_variants = {
   avif : string prop list option; [@option]
@@ -69,32 +67,42 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2
-    ?png ?tif ?tiff ?webp ~zone_id __resource_id =
-  let __resource_type = "cloudflare_zone_cache_variants" in
-  let __resource =
-    cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
-      ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_zone_cache_variants __resource);
-  let __resource_attributes =
+let make ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2 ?png ?tif ?tiff
+    ?webp ~zone_id __id =
+  let __type = "cloudflare_zone_cache_variants" in
+  let __attrs =
     ({
-       avif = Prop.computed __resource_type __resource_id "avif";
-       bmp = Prop.computed __resource_type __resource_id "bmp";
-       gif = Prop.computed __resource_type __resource_id "gif";
-       id = Prop.computed __resource_type __resource_id "id";
-       jp2 = Prop.computed __resource_type __resource_id "jp2";
-       jpeg = Prop.computed __resource_type __resource_id "jpeg";
-       jpg = Prop.computed __resource_type __resource_id "jpg";
-       jpg2 = Prop.computed __resource_type __resource_id "jpg2";
-       png = Prop.computed __resource_type __resource_id "png";
-       tif = Prop.computed __resource_type __resource_id "tif";
-       tiff = Prop.computed __resource_type __resource_id "tiff";
-       webp = Prop.computed __resource_type __resource_id "webp";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       avif = Prop.computed __type __id "avif";
+       bmp = Prop.computed __type __id "bmp";
+       gif = Prop.computed __type __id "gif";
+       id = Prop.computed __type __id "id";
+       jp2 = Prop.computed __type __id "jp2";
+       jpeg = Prop.computed __type __id "jpeg";
+       jpg = Prop.computed __type __id "jpg";
+       jpg2 = Prop.computed __type __id "jpg2";
+       png = Prop.computed __type __id "png";
+       tif = Prop.computed __type __id "tif";
+       tiff = Prop.computed __type __id "tiff";
+       webp = Prop.computed __type __id "webp";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_zone_cache_variants
+        (cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2
+           ?jpeg ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2
+    ?png ?tif ?tiff ?webp ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?avif ?bmp ?gif ?id ?jp2 ?jpeg ?jpg ?jpg2 ?png ?tif ?tiff
+      ?webp ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

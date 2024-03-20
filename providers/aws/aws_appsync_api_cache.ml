@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appsync_api_cache = {
   api_caching_behavior : string prop;  (** api_caching_behavior *)
@@ -41,33 +39,41 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?at_rest_encryption_enabled ?id
-    ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
-    ~type_ __resource_id =
-  let __resource_type = "aws_appsync_api_cache" in
-  let __resource =
-    aws_appsync_api_cache ?at_rest_encryption_enabled ?id
-      ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
-      ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_api_cache __resource);
-  let __resource_attributes =
+let make ?at_rest_encryption_enabled ?id ?transit_encryption_enabled
+    ~api_caching_behavior ~api_id ~ttl ~type_ __id =
+  let __type = "aws_appsync_api_cache" in
+  let __attrs =
     ({
        api_caching_behavior =
-         Prop.computed __resource_type __resource_id
-           "api_caching_behavior";
-       api_id = Prop.computed __resource_type __resource_id "api_id";
+         Prop.computed __type __id "api_caching_behavior";
+       api_id = Prop.computed __type __id "api_id";
        at_rest_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "at_rest_encryption_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "at_rest_encryption_enabled";
+       id = Prop.computed __type __id "id";
        transit_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_enabled";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "transit_encryption_enabled";
+       ttl = Prop.computed __type __id "ttl";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_api_cache
+        (aws_appsync_api_cache ?at_rest_encryption_enabled ?id
+           ?transit_encryption_enabled ~api_caching_behavior ~api_id
+           ~ttl ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?at_rest_encryption_enabled ?id
+    ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl
+    ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?at_rest_encryption_enabled ?id ?transit_encryption_enabled
+      ~api_caching_behavior ~api_id ~ttl ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,36 +50,41 @@ type t = {
   storage_account_name : string prop;
 }
 
-let register ?tf_module ?container_access_type ?id ?metadata
-    ?timeouts ~name ~storage_account_name __resource_id =
-  let __resource_type = "azurerm_storage_container" in
-  let __resource =
-    azurerm_storage_container ?container_access_type ?id ?metadata
-      ?timeouts ~name ~storage_account_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_container __resource);
-  let __resource_attributes =
+let make ?container_access_type ?id ?metadata ?timeouts ~name
+    ~storage_account_name __id =
+  let __type = "azurerm_storage_container" in
+  let __attrs =
     ({
        container_access_type =
-         Prop.computed __resource_type __resource_id
-           "container_access_type";
+         Prop.computed __type __id "container_access_type";
        has_immutability_policy =
-         Prop.computed __resource_type __resource_id
-           "has_immutability_policy";
-       has_legal_hold =
-         Prop.computed __resource_type __resource_id "has_legal_hold";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "has_immutability_policy";
+       has_legal_hold = Prop.computed __type __id "has_legal_hold";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
        resource_manager_id =
-         Prop.computed __resource_type __resource_id
-           "resource_manager_id";
+         Prop.computed __type __id "resource_manager_id";
        storage_account_name =
-         Prop.computed __resource_type __resource_id
-           "storage_account_name";
+         Prop.computed __type __id "storage_account_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_container
+        (azurerm_storage_container ?container_access_type ?id
+           ?metadata ?timeouts ~name ~storage_account_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?container_access_type ?id ?metadata
+    ?timeouts ~name ~storage_account_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?container_access_type ?id ?metadata ?timeouts ~name
+      ~storage_account_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

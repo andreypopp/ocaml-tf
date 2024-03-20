@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -169,3 +169,26 @@ val register :
   node_type:node_type list ->
   string ->
   t
+
+val make :
+  ?backup_service_enabled:bool prop ->
+  ?dns_name:string prop ->
+  ?dns_service_enabled:bool prop ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?upgrade_wave:string prop ->
+  ?username:string prop ->
+  ?timeouts:timeouts ->
+  client_connection_port:float prop ->
+  http_gateway_port:float prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  authentication:authentication list ->
+  custom_fabric_setting:custom_fabric_setting list ->
+  lb_rule:lb_rule list ->
+  node_type:node_type list ->
+  string ->
+  t Tf_core.resource

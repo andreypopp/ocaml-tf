@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auth = {
   auth_scheme : string prop option; [@option]  (** auth_scheme *)
@@ -94,45 +92,49 @@ type t = {
   vpc_subnet_ids : string list prop;
 }
 
-let register ?tf_module ?debug_logging ?id ?idle_client_timeout
-    ?require_tls ?tags ?tags_all ?vpc_security_group_ids ?timeouts
-    ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth
-    __resource_id =
-  let __resource_type = "aws_db_proxy" in
-  let __resource =
-    aws_db_proxy ?debug_logging ?id ?idle_client_timeout ?require_tls
-      ?tags ?tags_all ?vpc_security_group_ids ?timeouts
-      ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_proxy __resource);
-  let __resource_attributes =
+let make ?debug_logging ?id ?idle_client_timeout ?require_tls ?tags
+    ?tags_all ?vpc_security_group_ids ?timeouts ~engine_family ~name
+    ~role_arn ~vpc_subnet_ids ~auth __id =
+  let __type = "aws_db_proxy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       debug_logging =
-         Prop.computed __resource_type __resource_id "debug_logging";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       engine_family =
-         Prop.computed __resource_type __resource_id "engine_family";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       debug_logging = Prop.computed __type __id "debug_logging";
+       endpoint = Prop.computed __type __id "endpoint";
+       engine_family = Prop.computed __type __id "engine_family";
+       id = Prop.computed __type __id "id";
        idle_client_timeout =
-         Prop.computed __resource_type __resource_id
-           "idle_client_timeout";
-       name = Prop.computed __resource_type __resource_id "name";
-       require_tls =
-         Prop.computed __resource_type __resource_id "require_tls";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "idle_client_timeout";
+       name = Prop.computed __type __id "name";
+       require_tls = Prop.computed __type __id "require_tls";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        vpc_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "vpc_security_group_ids";
-       vpc_subnet_ids =
-         Prop.computed __resource_type __resource_id "vpc_subnet_ids";
+         Prop.computed __type __id "vpc_security_group_ids";
+       vpc_subnet_ids = Prop.computed __type __id "vpc_subnet_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_proxy
+        (aws_db_proxy ?debug_logging ?id ?idle_client_timeout
+           ?require_tls ?tags ?tags_all ?vpc_security_group_ids
+           ?timeouts ~engine_family ~name ~role_arn ~vpc_subnet_ids
+           ~auth ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?debug_logging ?id ?idle_client_timeout
+    ?require_tls ?tags ?tags_all ?vpc_security_group_ids ?timeouts
+    ~engine_family ~name ~role_arn ~vpc_subnet_ids ~auth __id =
+  let (r : _ Tf_core.resource) =
+    make ?debug_logging ?id ?idle_client_timeout ?require_tls ?tags
+      ?tags_all ?vpc_security_group_ids ?timeouts ~engine_family
+      ~name ~role_arn ~vpc_subnet_ids ~auth __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

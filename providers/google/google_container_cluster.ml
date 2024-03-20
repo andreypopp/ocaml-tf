@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type addons_config__cloudrun_config = {
   disabled : bool prop;  (** disabled *)
@@ -2023,6 +2021,121 @@ type t = {
   tpu_ipv4_cidr_block : string prop;
 }
 
+let make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
+    ?default_max_pods_per_node ?deletion_protection ?description
+    ?enable_autopilot ?enable_intranode_visibility
+    ?enable_kubernetes_alpha ?enable_l4_ilb_subsetting
+    ?enable_legacy_abac ?enable_shielded_nodes ?enable_tpu ?id
+    ?initial_node_count ?location ?logging_service
+    ?min_master_version ?monitoring_service ?network ?networking_mode
+    ?node_locations ?node_version ?private_ipv6_google_access
+    ?project ?remove_default_node_pool ?resource_labels ?subnetwork
+    ?timeouts ~name ~addons_config ~authenticator_groups_config
+    ~binary_authorization ~cluster_autoscaling ~confidential_nodes
+    ~cost_management_config ~database_encryption ~default_snat_status
+    ~dns_config ~enable_k8s_beta_apis ~fleet ~gateway_api_config
+    ~identity_service_config ~ip_allocation_policy ~logging_config
+    ~maintenance_policy ~master_auth
+    ~master_authorized_networks_config ~mesh_certificates
+    ~monitoring_config ~network_policy ~node_config ~node_pool
+    ~node_pool_auto_config ~node_pool_defaults ~notification_config
+    ~private_cluster_config ~release_channel
+    ~resource_usage_export_config ~security_posture_config
+    ~service_external_ips_config ~vertical_pod_autoscaling
+    ~workload_identity_config __id =
+  let __type = "google_container_cluster" in
+  let __attrs =
+    ({
+       allow_net_admin = Prop.computed __type __id "allow_net_admin";
+       cluster_ipv4_cidr =
+         Prop.computed __type __id "cluster_ipv4_cidr";
+       datapath_provider =
+         Prop.computed __type __id "datapath_provider";
+       default_max_pods_per_node =
+         Prop.computed __type __id "default_max_pods_per_node";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       description = Prop.computed __type __id "description";
+       enable_autopilot =
+         Prop.computed __type __id "enable_autopilot";
+       enable_intranode_visibility =
+         Prop.computed __type __id "enable_intranode_visibility";
+       enable_kubernetes_alpha =
+         Prop.computed __type __id "enable_kubernetes_alpha";
+       enable_l4_ilb_subsetting =
+         Prop.computed __type __id "enable_l4_ilb_subsetting";
+       enable_legacy_abac =
+         Prop.computed __type __id "enable_legacy_abac";
+       enable_shielded_nodes =
+         Prop.computed __type __id "enable_shielded_nodes";
+       enable_tpu = Prop.computed __type __id "enable_tpu";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       initial_node_count =
+         Prop.computed __type __id "initial_node_count";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       location = Prop.computed __type __id "location";
+       logging_service = Prop.computed __type __id "logging_service";
+       master_version = Prop.computed __type __id "master_version";
+       min_master_version =
+         Prop.computed __type __id "min_master_version";
+       monitoring_service =
+         Prop.computed __type __id "monitoring_service";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       networking_mode = Prop.computed __type __id "networking_mode";
+       node_locations = Prop.computed __type __id "node_locations";
+       node_version = Prop.computed __type __id "node_version";
+       operation = Prop.computed __type __id "operation";
+       private_ipv6_google_access =
+         Prop.computed __type __id "private_ipv6_google_access";
+       project = Prop.computed __type __id "project";
+       remove_default_node_pool =
+         Prop.computed __type __id "remove_default_node_pool";
+       resource_labels = Prop.computed __type __id "resource_labels";
+       self_link = Prop.computed __type __id "self_link";
+       services_ipv4_cidr =
+         Prop.computed __type __id "services_ipv4_cidr";
+       subnetwork = Prop.computed __type __id "subnetwork";
+       tpu_ipv4_cidr_block =
+         Prop.computed __type __id "tpu_ipv4_cidr_block";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_container_cluster
+        (google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
+           ?datapath_provider ?default_max_pods_per_node
+           ?deletion_protection ?description ?enable_autopilot
+           ?enable_intranode_visibility ?enable_kubernetes_alpha
+           ?enable_l4_ilb_subsetting ?enable_legacy_abac
+           ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
+           ?location ?logging_service ?min_master_version
+           ?monitoring_service ?network ?networking_mode
+           ?node_locations ?node_version ?private_ipv6_google_access
+           ?project ?remove_default_node_pool ?resource_labels
+           ?subnetwork ?timeouts ~name ~addons_config
+           ~authenticator_groups_config ~binary_authorization
+           ~cluster_autoscaling ~confidential_nodes
+           ~cost_management_config ~database_encryption
+           ~default_snat_status ~dns_config ~enable_k8s_beta_apis
+           ~fleet ~gateway_api_config ~identity_service_config
+           ~ip_allocation_policy ~logging_config ~maintenance_policy
+           ~master_auth ~master_authorized_networks_config
+           ~mesh_certificates ~monitoring_config ~network_policy
+           ~node_config ~node_pool ~node_pool_auto_config
+           ~node_pool_defaults ~notification_config
+           ~private_cluster_config ~release_channel
+           ~resource_usage_export_config ~security_posture_config
+           ~service_external_ips_config ~vertical_pod_autoscaling
+           ~workload_identity_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
     ?datapath_provider ?default_max_pods_per_node
     ?deletion_protection ?description ?enable_autopilot
@@ -2045,21 +2158,20 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
     ~private_cluster_config ~release_channel
     ~resource_usage_export_config ~security_posture_config
     ~service_external_ips_config ~vertical_pod_autoscaling
-    ~workload_identity_config __resource_id =
-  let __resource_type = "google_container_cluster" in
-  let __resource =
-    google_container_cluster ?allow_net_admin ?cluster_ipv4_cidr
-      ?datapath_provider ?default_max_pods_per_node
-      ?deletion_protection ?description ?enable_autopilot
-      ?enable_intranode_visibility ?enable_kubernetes_alpha
-      ?enable_l4_ilb_subsetting ?enable_legacy_abac
-      ?enable_shielded_nodes ?enable_tpu ?id ?initial_node_count
-      ?location ?logging_service ?min_master_version
-      ?monitoring_service ?network ?networking_mode ?node_locations
-      ?node_version ?private_ipv6_google_access ?project
-      ?remove_default_node_pool ?resource_labels ?subnetwork
-      ?timeouts ~name ~addons_config ~authenticator_groups_config
-      ~binary_authorization ~cluster_autoscaling ~confidential_nodes
+    ~workload_identity_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_net_admin ?cluster_ipv4_cidr ?datapath_provider
+      ?default_max_pods_per_node ?deletion_protection ?description
+      ?enable_autopilot ?enable_intranode_visibility
+      ?enable_kubernetes_alpha ?enable_l4_ilb_subsetting
+      ?enable_legacy_abac ?enable_shielded_nodes ?enable_tpu ?id
+      ?initial_node_count ?location ?logging_service
+      ?min_master_version ?monitoring_service ?network
+      ?networking_mode ?node_locations ?node_version
+      ?private_ipv6_google_access ?project ?remove_default_node_pool
+      ?resource_labels ?subnetwork ?timeouts ~name ~addons_config
+      ~authenticator_groups_config ~binary_authorization
+      ~cluster_autoscaling ~confidential_nodes
       ~cost_management_config ~database_encryption
       ~default_snat_status ~dns_config ~enable_k8s_beta_apis ~fleet
       ~gateway_api_config ~identity_service_config
@@ -2071,105 +2183,7 @@ let register ?tf_module ?allow_net_admin ?cluster_ipv4_cidr
       ~private_cluster_config ~release_channel
       ~resource_usage_export_config ~security_posture_config
       ~service_external_ips_config ~vertical_pod_autoscaling
-      ~workload_identity_config ()
+      ~workload_identity_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_container_cluster __resource);
-  let __resource_attributes =
-    ({
-       allow_net_admin =
-         Prop.computed __resource_type __resource_id
-           "allow_net_admin";
-       cluster_ipv4_cidr =
-         Prop.computed __resource_type __resource_id
-           "cluster_ipv4_cidr";
-       datapath_provider =
-         Prop.computed __resource_type __resource_id
-           "datapath_provider";
-       default_max_pods_per_node =
-         Prop.computed __resource_type __resource_id
-           "default_max_pods_per_node";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enable_autopilot =
-         Prop.computed __resource_type __resource_id
-           "enable_autopilot";
-       enable_intranode_visibility =
-         Prop.computed __resource_type __resource_id
-           "enable_intranode_visibility";
-       enable_kubernetes_alpha =
-         Prop.computed __resource_type __resource_id
-           "enable_kubernetes_alpha";
-       enable_l4_ilb_subsetting =
-         Prop.computed __resource_type __resource_id
-           "enable_l4_ilb_subsetting";
-       enable_legacy_abac =
-         Prop.computed __resource_type __resource_id
-           "enable_legacy_abac";
-       enable_shielded_nodes =
-         Prop.computed __resource_type __resource_id
-           "enable_shielded_nodes";
-       enable_tpu =
-         Prop.computed __resource_type __resource_id "enable_tpu";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       initial_node_count =
-         Prop.computed __resource_type __resource_id
-           "initial_node_count";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       logging_service =
-         Prop.computed __resource_type __resource_id
-           "logging_service";
-       master_version =
-         Prop.computed __resource_type __resource_id "master_version";
-       min_master_version =
-         Prop.computed __resource_type __resource_id
-           "min_master_version";
-       monitoring_service =
-         Prop.computed __resource_type __resource_id
-           "monitoring_service";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       networking_mode =
-         Prop.computed __resource_type __resource_id
-           "networking_mode";
-       node_locations =
-         Prop.computed __resource_type __resource_id "node_locations";
-       node_version =
-         Prop.computed __resource_type __resource_id "node_version";
-       operation =
-         Prop.computed __resource_type __resource_id "operation";
-       private_ipv6_google_access =
-         Prop.computed __resource_type __resource_id
-           "private_ipv6_google_access";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       remove_default_node_pool =
-         Prop.computed __resource_type __resource_id
-           "remove_default_node_pool";
-       resource_labels =
-         Prop.computed __resource_type __resource_id
-           "resource_labels";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       services_ipv4_cidr =
-         Prop.computed __resource_type __resource_id
-           "services_ipv4_cidr";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
-       tpu_ipv4_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "tpu_ipv4_cidr_block";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

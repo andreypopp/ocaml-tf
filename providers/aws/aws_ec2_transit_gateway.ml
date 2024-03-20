@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -81,63 +79,68 @@ type t = {
   vpn_ecmp_support : string prop;
 }
 
+let make ?amazon_side_asn ?auto_accept_shared_attachments
+    ?default_route_table_association ?default_route_table_propagation
+    ?description ?dns_support ?id ?multicast_support ?tags ?tags_all
+    ?transit_gateway_cidr_blocks ?vpn_ecmp_support ?timeouts __id =
+  let __type = "aws_ec2_transit_gateway" in
+  let __attrs =
+    ({
+       amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
+       arn = Prop.computed __type __id "arn";
+       association_default_route_table_id =
+         Prop.computed __type __id
+           "association_default_route_table_id";
+       auto_accept_shared_attachments =
+         Prop.computed __type __id "auto_accept_shared_attachments";
+       default_route_table_association =
+         Prop.computed __type __id "default_route_table_association";
+       default_route_table_propagation =
+         Prop.computed __type __id "default_route_table_propagation";
+       description = Prop.computed __type __id "description";
+       dns_support = Prop.computed __type __id "dns_support";
+       id = Prop.computed __type __id "id";
+       multicast_support =
+         Prop.computed __type __id "multicast_support";
+       owner_id = Prop.computed __type __id "owner_id";
+       propagation_default_route_table_id =
+         Prop.computed __type __id
+           "propagation_default_route_table_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transit_gateway_cidr_blocks =
+         Prop.computed __type __id "transit_gateway_cidr_blocks";
+       vpn_ecmp_support =
+         Prop.computed __type __id "vpn_ecmp_support";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_transit_gateway
+        (aws_ec2_transit_gateway ?amazon_side_asn
+           ?auto_accept_shared_attachments
+           ?default_route_table_association
+           ?default_route_table_propagation ?description ?dns_support
+           ?id ?multicast_support ?tags ?tags_all
+           ?transit_gateway_cidr_blocks ?vpn_ecmp_support ?timeouts
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?amazon_side_asn
     ?auto_accept_shared_attachments ?default_route_table_association
     ?default_route_table_propagation ?description ?dns_support ?id
     ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
-    ?vpn_ecmp_support ?timeouts __resource_id =
-  let __resource_type = "aws_ec2_transit_gateway" in
-  let __resource =
-    aws_ec2_transit_gateway ?amazon_side_asn
-      ?auto_accept_shared_attachments
+    ?vpn_ecmp_support ?timeouts __id =
+  let (r : _ Tf_core.resource) =
+    make ?amazon_side_asn ?auto_accept_shared_attachments
       ?default_route_table_association
       ?default_route_table_propagation ?description ?dns_support ?id
       ?multicast_support ?tags ?tags_all ?transit_gateway_cidr_blocks
-      ?vpn_ecmp_support ?timeouts ()
+      ?vpn_ecmp_support ?timeouts __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_transit_gateway __resource);
-  let __resource_attributes =
-    ({
-       amazon_side_asn =
-         Prop.computed __resource_type __resource_id
-           "amazon_side_asn";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       association_default_route_table_id =
-         Prop.computed __resource_type __resource_id
-           "association_default_route_table_id";
-       auto_accept_shared_attachments =
-         Prop.computed __resource_type __resource_id
-           "auto_accept_shared_attachments";
-       default_route_table_association =
-         Prop.computed __resource_type __resource_id
-           "default_route_table_association";
-       default_route_table_propagation =
-         Prop.computed __resource_type __resource_id
-           "default_route_table_propagation";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dns_support =
-         Prop.computed __resource_type __resource_id "dns_support";
-       id = Prop.computed __resource_type __resource_id "id";
-       multicast_support =
-         Prop.computed __resource_type __resource_id
-           "multicast_support";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       propagation_default_route_table_id =
-         Prop.computed __resource_type __resource_id
-           "propagation_default_route_table_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transit_gateway_cidr_blocks =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_cidr_blocks";
-       vpn_ecmp_support =
-         Prop.computed __resource_type __resource_id
-           "vpn_ecmp_support";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

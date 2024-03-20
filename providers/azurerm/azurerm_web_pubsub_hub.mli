@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,14 @@ val register :
   event_listener:event_listener list ->
   string ->
   t
+
+val make :
+  ?anonymous_connections_enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  web_pubsub_id:string prop ->
+  event_handler:event_handler list ->
+  event_listener:event_listener list ->
+  string ->
+  t Tf_core.resource

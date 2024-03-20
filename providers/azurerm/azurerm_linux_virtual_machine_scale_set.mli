@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -433,3 +433,64 @@ val register :
   termination_notification:termination_notification list ->
   string ->
   t
+
+val make :
+  ?admin_password:string prop ->
+  ?capacity_reservation_group_id:string prop ->
+  ?computer_name_prefix:string prop ->
+  ?custom_data:string prop ->
+  ?disable_password_authentication:bool prop ->
+  ?do_not_run_extensions_on_overprovisioned_machines:bool prop ->
+  ?edge_zone:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?eviction_policy:string prop ->
+  ?extension_operations_enabled:bool prop ->
+  ?extensions_time_budget:string prop ->
+  ?health_probe_id:string prop ->
+  ?host_group_id:string prop ->
+  ?id:string prop ->
+  ?instances:float prop ->
+  ?max_bid_price:float prop ->
+  ?overprovision:bool prop ->
+  ?platform_fault_domain_count:float prop ->
+  ?priority:string prop ->
+  ?provision_vm_agent:bool prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?scale_in_policy:string prop ->
+  ?secure_boot_enabled:bool prop ->
+  ?single_placement_group:bool prop ->
+  ?source_image_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?upgrade_mode:string prop ->
+  ?user_data:string prop ->
+  ?vtpm_enabled:bool prop ->
+  ?zone_balance:bool prop ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  admin_username:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  additional_capabilities:additional_capabilities list ->
+  admin_ssh_key:admin_ssh_key list ->
+  automatic_instance_repair:automatic_instance_repair list ->
+  automatic_os_upgrade_policy:automatic_os_upgrade_policy list ->
+  boot_diagnostics:boot_diagnostics list ->
+  data_disk:data_disk list ->
+  extension:extension list ->
+  gallery_application:gallery_application list ->
+  gallery_applications:gallery_applications list ->
+  identity:identity list ->
+  network_interface:network_interface list ->
+  os_disk:os_disk list ->
+  plan:plan list ->
+  rolling_upgrade_policy:rolling_upgrade_policy list ->
+  scale_in:scale_in list ->
+  secret:secret list ->
+  source_image_reference:source_image_reference list ->
+  spot_restore:spot_restore list ->
+  terminate_notification:terminate_notification list ->
+  termination_notification:termination_notification list ->
+  string ->
+  t Tf_core.resource

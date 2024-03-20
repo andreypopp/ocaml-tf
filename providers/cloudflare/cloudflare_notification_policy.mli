@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -105,3 +105,17 @@ val register :
   webhooks_integration:webhooks_integration list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  alert_type:string prop ->
+  enabled:bool prop ->
+  name:string prop ->
+  email_integration:email_integration list ->
+  filters:filters list ->
+  pagerduty_integration:pagerduty_integration list ->
+  webhooks_integration:webhooks_integration list ->
+  string ->
+  t Tf_core.resource

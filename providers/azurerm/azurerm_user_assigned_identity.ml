@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -42,32 +40,38 @@ type t = {
   tenant_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_user_assigned_identity" in
-  let __resource =
-    azurerm_user_assigned_identity ?id ?tags ?timeouts ~location
-      ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_user_assigned_identity __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+    __id =
+  let __type = "azurerm_user_assigned_identity" in
+  let __attrs =
     ({
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
+       client_id = Prop.computed __type __id "client_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       principal_id = Prop.computed __type __id "principal_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       tenant_id = Prop.computed __type __id "tenant_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_user_assigned_identity
+        (azurerm_user_assigned_identity ?id ?tags ?timeouts ~location
+           ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~resource_group_name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

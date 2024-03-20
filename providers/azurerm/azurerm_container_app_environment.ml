@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -97,65 +95,72 @@ type t = {
   zone_redundancy_enabled : bool prop;
 }
 
+let make ?dapr_application_insights_connection_string ?id
+    ?infrastructure_resource_group_name ?infrastructure_subnet_id
+    ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
+    ?zone_redundancy_enabled ?timeouts ~location ~name
+    ~resource_group_name ~workload_profile __id =
+  let __type = "azurerm_container_app_environment" in
+  let __attrs =
+    ({
+       dapr_application_insights_connection_string =
+         Prop.computed __type __id
+           "dapr_application_insights_connection_string";
+       default_domain = Prop.computed __type __id "default_domain";
+       docker_bridge_cidr =
+         Prop.computed __type __id "docker_bridge_cidr";
+       id = Prop.computed __type __id "id";
+       infrastructure_resource_group_name =
+         Prop.computed __type __id
+           "infrastructure_resource_group_name";
+       infrastructure_subnet_id =
+         Prop.computed __type __id "infrastructure_subnet_id";
+       internal_load_balancer_enabled =
+         Prop.computed __type __id "internal_load_balancer_enabled";
+       location = Prop.computed __type __id "location";
+       log_analytics_workspace_id =
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
+       platform_reserved_cidr =
+         Prop.computed __type __id "platform_reserved_cidr";
+       platform_reserved_dns_ip_address =
+         Prop.computed __type __id "platform_reserved_dns_ip_address";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       static_ip_address =
+         Prop.computed __type __id "static_ip_address";
+       tags = Prop.computed __type __id "tags";
+       zone_redundancy_enabled =
+         Prop.computed __type __id "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_app_environment
+        (azurerm_container_app_environment
+           ?dapr_application_insights_connection_string ?id
+           ?infrastructure_resource_group_name
+           ?infrastructure_subnet_id ?internal_load_balancer_enabled
+           ?log_analytics_workspace_id ?tags ?zone_redundancy_enabled
+           ?timeouts ~location ~name ~resource_group_name
+           ~workload_profile ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?dapr_application_insights_connection_string
     ?id ?infrastructure_resource_group_name ?infrastructure_subnet_id
     ?internal_load_balancer_enabled ?log_analytics_workspace_id ?tags
     ?zone_redundancy_enabled ?timeouts ~location ~name
-    ~resource_group_name ~workload_profile __resource_id =
-  let __resource_type = "azurerm_container_app_environment" in
-  let __resource =
-    azurerm_container_app_environment
-      ?dapr_application_insights_connection_string ?id
+    ~resource_group_name ~workload_profile __id =
+  let (r : _ Tf_core.resource) =
+    make ?dapr_application_insights_connection_string ?id
       ?infrastructure_resource_group_name ?infrastructure_subnet_id
       ?internal_load_balancer_enabled ?log_analytics_workspace_id
       ?tags ?zone_redundancy_enabled ?timeouts ~location ~name
-      ~resource_group_name ~workload_profile ()
+      ~resource_group_name ~workload_profile __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_app_environment __resource);
-  let __resource_attributes =
-    ({
-       dapr_application_insights_connection_string =
-         Prop.computed __resource_type __resource_id
-           "dapr_application_insights_connection_string";
-       default_domain =
-         Prop.computed __resource_type __resource_id "default_domain";
-       docker_bridge_cidr =
-         Prop.computed __resource_type __resource_id
-           "docker_bridge_cidr";
-       id = Prop.computed __resource_type __resource_id "id";
-       infrastructure_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_resource_group_name";
-       infrastructure_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_subnet_id";
-       internal_load_balancer_enabled =
-         Prop.computed __resource_type __resource_id
-           "internal_load_balancer_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       platform_reserved_cidr =
-         Prop.computed __resource_type __resource_id
-           "platform_reserved_cidr";
-       platform_reserved_dns_ip_address =
-         Prop.computed __resource_type __resource_id
-           "platform_reserved_dns_ip_address";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       static_ip_address =
-         Prop.computed __resource_type __resource_id
-           "static_ip_address";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundancy_enabled =
-         Prop.computed __resource_type __resource_id
-           "zone_redundancy_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

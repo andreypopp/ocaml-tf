@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,35 +43,43 @@ type t = {
   trust_store_arn : string prop;
 }
 
-let register ?tf_module ?id ?revocations_s3_object_version ?timeouts
-    ~revocations_s3_bucket ~revocations_s3_key ~trust_store_arn
-    __resource_id =
-  let __resource_type = "aws_lb_trust_store_revocation" in
-  let __resource =
-    aws_lb_trust_store_revocation ?id ?revocations_s3_object_version
-      ?timeouts ~revocations_s3_bucket ~revocations_s3_key
-      ~trust_store_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lb_trust_store_revocation __resource);
-  let __resource_attributes =
+let make ?id ?revocations_s3_object_version ?timeouts
+    ~revocations_s3_bucket ~revocations_s3_key ~trust_store_arn __id
+    =
+  let __type = "aws_lb_trust_store_revocation" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       revocation_id =
-         Prop.computed __resource_type __resource_id "revocation_id";
+       id = Prop.computed __type __id "id";
+       revocation_id = Prop.computed __type __id "revocation_id";
        revocations_s3_bucket =
-         Prop.computed __resource_type __resource_id
-           "revocations_s3_bucket";
+         Prop.computed __type __id "revocations_s3_bucket";
        revocations_s3_key =
-         Prop.computed __resource_type __resource_id
-           "revocations_s3_key";
+         Prop.computed __type __id "revocations_s3_key";
        revocations_s3_object_version =
-         Prop.computed __resource_type __resource_id
-           "revocations_s3_object_version";
-       trust_store_arn =
-         Prop.computed __resource_type __resource_id
-           "trust_store_arn";
+         Prop.computed __type __id "revocations_s3_object_version";
+       trust_store_arn = Prop.computed __type __id "trust_store_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lb_trust_store_revocation
+        (aws_lb_trust_store_revocation ?id
+           ?revocations_s3_object_version ?timeouts
+           ~revocations_s3_bucket ~revocations_s3_key
+           ~trust_store_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?revocations_s3_object_version ?timeouts
+    ~revocations_s3_bucket ~revocations_s3_key ~trust_store_arn __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?revocations_s3_object_version ?timeouts
+      ~revocations_s3_bucket ~revocations_s3_key ~trust_store_arn
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

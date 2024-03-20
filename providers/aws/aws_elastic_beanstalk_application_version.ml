@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_elastic_beanstalk_application_version = {
   application : string prop;  (** application *)
@@ -47,35 +45,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?force_delete ?id ?tags
-    ?tags_all ~application ~bucket ~key ~name __resource_id =
-  let __resource_type =
-    "aws_elastic_beanstalk_application_version"
-  in
-  let __resource =
-    aws_elastic_beanstalk_application_version ?description
-      ?force_delete ?id ?tags ?tags_all ~application ~bucket ~key
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elastic_beanstalk_application_version __resource);
-  let __resource_attributes =
+let make ?description ?force_delete ?id ?tags ?tags_all ~application
+    ~bucket ~key ~name __id =
+  let __type = "aws_elastic_beanstalk_application_version" in
+  let __attrs =
     ({
-       application =
-         Prop.computed __resource_type __resource_id "application";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       force_delete =
-         Prop.computed __resource_type __resource_id "force_delete";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       application = Prop.computed __type __id "application";
+       arn = Prop.computed __type __id "arn";
+       bucket = Prop.computed __type __id "bucket";
+       description = Prop.computed __type __id "description";
+       force_delete = Prop.computed __type __id "force_delete";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elastic_beanstalk_application_version
+        (aws_elastic_beanstalk_application_version ?description
+           ?force_delete ?id ?tags ?tags_all ~application ~bucket
+           ~key ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_delete ?id ?tags
+    ?tags_all ~application ~bucket ~key ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_delete ?id ?tags ?tags_all ~application
+      ~bucket ~key ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

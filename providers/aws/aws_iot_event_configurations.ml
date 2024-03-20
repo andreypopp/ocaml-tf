@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iot_event_configurations = {
   event_configurations : (string * bool prop) list;
@@ -21,20 +19,28 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ~event_configurations __resource_id =
-  let __resource_type = "aws_iot_event_configurations" in
-  let __resource =
-    aws_iot_event_configurations ?id ~event_configurations ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_event_configurations __resource);
-  let __resource_attributes =
+let make ?id ~event_configurations __id =
+  let __type = "aws_iot_event_configurations" in
+  let __attrs =
     ({
        event_configurations =
-         Prop.computed __resource_type __resource_id
-           "event_configurations";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "event_configurations";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_event_configurations
+        (aws_iot_event_configurations ?id ~event_configurations ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~event_configurations __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~event_configurations __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

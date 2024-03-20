@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,46 +65,52 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let register ?tf_module ?connection_string ?globally_enabled ?id
-    ?role_instance ?role_name ?sampling_percentage
-    ?sampling_requests_per_second ?timeouts ~name
-    ~spring_cloud_service_id __resource_id =
-  let __resource_type =
+let make ?connection_string ?globally_enabled ?id ?role_instance
+    ?role_name ?sampling_percentage ?sampling_requests_per_second
+    ?timeouts ~name ~spring_cloud_service_id __id =
+  let __type =
     "azurerm_spring_cloud_application_insights_application_performance_monitoring"
   in
-  let __resource =
-    azurerm_spring_cloud_application_insights_application_performance_monitoring
-      ?connection_string ?globally_enabled ?id ?role_instance
-      ?role_name ?sampling_percentage ?sampling_requests_per_second
-      ?timeouts ~name ~spring_cloud_service_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_application_insights_application_performance_monitoring
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
+         Prop.computed __type __id "connection_string";
        globally_enabled =
-         Prop.computed __resource_type __resource_id
-           "globally_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_instance =
-         Prop.computed __resource_type __resource_id "role_instance";
-       role_name =
-         Prop.computed __resource_type __resource_id "role_name";
+         Prop.computed __type __id "globally_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       role_instance = Prop.computed __type __id "role_instance";
+       role_name = Prop.computed __type __id "role_name";
        sampling_percentage =
-         Prop.computed __resource_type __resource_id
-           "sampling_percentage";
+         Prop.computed __type __id "sampling_percentage";
        sampling_requests_per_second =
-         Prop.computed __resource_type __resource_id
-           "sampling_requests_per_second";
+         Prop.computed __type __id "sampling_requests_per_second";
        spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
+         Prop.computed __type __id "spring_cloud_service_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_application_insights_application_performance_monitoring
+        (azurerm_spring_cloud_application_insights_application_performance_monitoring
+           ?connection_string ?globally_enabled ?id ?role_instance
+           ?role_name ?sampling_percentage
+           ?sampling_requests_per_second ?timeouts ~name
+           ~spring_cloud_service_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?connection_string ?globally_enabled ?id
+    ?role_instance ?role_name ?sampling_percentage
+    ?sampling_requests_per_second ?timeouts ~name
+    ~spring_cloud_service_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?connection_string ?globally_enabled ?id ?role_instance
+      ?role_name ?sampling_percentage ?sampling_requests_per_second
+      ?timeouts ~name ~spring_cloud_service_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

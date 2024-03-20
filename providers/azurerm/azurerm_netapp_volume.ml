@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_protection_replication = {
   endpoint_type : string prop option; [@option]  (** endpoint_type *)
@@ -183,6 +181,78 @@ type t = {
   zone : string prop;
 }
 
+let make ?azure_vmware_data_store_enabled
+    ?create_from_snapshot_resource_id ?encryption_key_source ?id
+    ?key_vault_private_endpoint_id ?network_features ?protocols
+    ?security_style ?smb_access_based_enumeration_enabled
+    ?smb_non_browsable_enabled ?snapshot_directory_visible ?tags
+    ?throughput_in_mibps ?zone ?timeouts ~account_name ~location
+    ~name ~pool_name ~resource_group_name ~service_level
+    ~storage_quota_in_gb ~subnet_id ~volume_path
+    ~data_protection_replication ~data_protection_snapshot_policy
+    ~export_policy_rule __id =
+  let __type = "azurerm_netapp_volume" in
+  let __attrs =
+    ({
+       account_name = Prop.computed __type __id "account_name";
+       azure_vmware_data_store_enabled =
+         Prop.computed __type __id "azure_vmware_data_store_enabled";
+       create_from_snapshot_resource_id =
+         Prop.computed __type __id "create_from_snapshot_resource_id";
+       encryption_key_source =
+         Prop.computed __type __id "encryption_key_source";
+       id = Prop.computed __type __id "id";
+       key_vault_private_endpoint_id =
+         Prop.computed __type __id "key_vault_private_endpoint_id";
+       location = Prop.computed __type __id "location";
+       mount_ip_addresses =
+         Prop.computed __type __id "mount_ip_addresses";
+       name = Prop.computed __type __id "name";
+       network_features =
+         Prop.computed __type __id "network_features";
+       pool_name = Prop.computed __type __id "pool_name";
+       protocols = Prop.computed __type __id "protocols";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       security_style = Prop.computed __type __id "security_style";
+       service_level = Prop.computed __type __id "service_level";
+       smb_access_based_enumeration_enabled =
+         Prop.computed __type __id
+           "smb_access_based_enumeration_enabled";
+       smb_non_browsable_enabled =
+         Prop.computed __type __id "smb_non_browsable_enabled";
+       snapshot_directory_visible =
+         Prop.computed __type __id "snapshot_directory_visible";
+       storage_quota_in_gb =
+         Prop.computed __type __id "storage_quota_in_gb";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       throughput_in_mibps =
+         Prop.computed __type __id "throughput_in_mibps";
+       volume_path = Prop.computed __type __id "volume_path";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_netapp_volume
+        (azurerm_netapp_volume ?azure_vmware_data_store_enabled
+           ?create_from_snapshot_resource_id ?encryption_key_source
+           ?id ?key_vault_private_endpoint_id ?network_features
+           ?protocols ?security_style
+           ?smb_access_based_enumeration_enabled
+           ?smb_non_browsable_enabled ?snapshot_directory_visible
+           ?tags ?throughput_in_mibps ?zone ?timeouts ~account_name
+           ~location ~name ~pool_name ~resource_group_name
+           ~service_level ~storage_quota_in_gb ~subnet_id
+           ~volume_path ~data_protection_replication
+           ~data_protection_snapshot_policy ~export_policy_rule ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?azure_vmware_data_store_enabled
     ?create_from_snapshot_resource_id ?encryption_key_source ?id
     ?key_vault_private_endpoint_id ?network_features ?protocols
@@ -192,10 +262,9 @@ let register ?tf_module ?azure_vmware_data_store_enabled
     ~name ~pool_name ~resource_group_name ~service_level
     ~storage_quota_in_gb ~subnet_id ~volume_path
     ~data_protection_replication ~data_protection_snapshot_policy
-    ~export_policy_rule __resource_id =
-  let __resource_type = "azurerm_netapp_volume" in
-  let __resource =
-    azurerm_netapp_volume ?azure_vmware_data_store_enabled
+    ~export_policy_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?azure_vmware_data_store_enabled
       ?create_from_snapshot_resource_id ?encryption_key_source ?id
       ?key_vault_private_endpoint_id ?network_features ?protocols
       ?security_style ?smb_access_based_enumeration_enabled
@@ -204,69 +273,7 @@ let register ?tf_module ?azure_vmware_data_store_enabled
       ~name ~pool_name ~resource_group_name ~service_level
       ~storage_quota_in_gb ~subnet_id ~volume_path
       ~data_protection_replication ~data_protection_snapshot_policy
-      ~export_policy_rule ()
+      ~export_policy_rule __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_netapp_volume __resource);
-  let __resource_attributes =
-    ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
-       azure_vmware_data_store_enabled =
-         Prop.computed __resource_type __resource_id
-           "azure_vmware_data_store_enabled";
-       create_from_snapshot_resource_id =
-         Prop.computed __resource_type __resource_id
-           "create_from_snapshot_resource_id";
-       encryption_key_source =
-         Prop.computed __resource_type __resource_id
-           "encryption_key_source";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_private_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_private_endpoint_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mount_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "mount_ip_addresses";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_features =
-         Prop.computed __resource_type __resource_id
-           "network_features";
-       pool_name =
-         Prop.computed __resource_type __resource_id "pool_name";
-       protocols =
-         Prop.computed __resource_type __resource_id "protocols";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       security_style =
-         Prop.computed __resource_type __resource_id "security_style";
-       service_level =
-         Prop.computed __resource_type __resource_id "service_level";
-       smb_access_based_enumeration_enabled =
-         Prop.computed __resource_type __resource_id
-           "smb_access_based_enumeration_enabled";
-       smb_non_browsable_enabled =
-         Prop.computed __resource_type __resource_id
-           "smb_non_browsable_enabled";
-       snapshot_directory_visible =
-         Prop.computed __resource_type __resource_id
-           "snapshot_directory_visible";
-       storage_quota_in_gb =
-         Prop.computed __resource_type __resource_id
-           "storage_quota_in_gb";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       throughput_in_mibps =
-         Prop.computed __resource_type __resource_id
-           "throughput_in_mibps";
-       volume_path =
-         Prop.computed __resource_type __resource_id "volume_path";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

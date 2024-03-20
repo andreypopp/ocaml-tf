@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type conversation_logs__log_settings = {
   destination : string prop;  (** destination *)
@@ -75,34 +73,39 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~bot_name
-    ~bot_version ~name ~conversation_logs __resource_id =
-  let __resource_type = "aws_lex_bot_alias" in
-  let __resource =
-    aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
-      ~bot_version ~name ~conversation_logs ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lex_bot_alias __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~bot_name ~bot_version ~name
+    ~conversation_logs __id =
+  let __type = "aws_lex_bot_alias" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
-       bot_version =
-         Prop.computed __resource_type __resource_id "bot_version";
-       checksum =
-         Prop.computed __resource_type __resource_id "checksum";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       bot_name = Prop.computed __type __id "bot_name";
+       bot_version = Prop.computed __type __id "bot_version";
+       checksum = Prop.computed __type __id "checksum";
+       created_date = Prop.computed __type __id "created_date";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        last_updated_date =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_updated_date";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lex_bot_alias
+        (aws_lex_bot_alias ?description ?id ?timeouts ~bot_name
+           ~bot_version ~name ~conversation_logs ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~bot_name
+    ~bot_version ~name ~conversation_logs __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~bot_name ~bot_version ~name
+      ~conversation_logs __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

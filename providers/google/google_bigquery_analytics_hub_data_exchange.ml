@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -68,43 +66,45 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?description ?documentation ?icon ?id
-    ?primary_contact ?project ?timeouts ~data_exchange_id
-    ~display_name ~location __resource_id =
-  let __resource_type =
-    "google_bigquery_analytics_hub_data_exchange"
-  in
-  let __resource =
-    google_bigquery_analytics_hub_data_exchange ?description
-      ?documentation ?icon ?id ?primary_contact ?project ?timeouts
-      ~data_exchange_id ~display_name ~location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_analytics_hub_data_exchange __resource);
-  let __resource_attributes =
+let make ?description ?documentation ?icon ?id ?primary_contact
+    ?project ?timeouts ~data_exchange_id ~display_name ~location __id
+    =
+  let __type = "google_bigquery_analytics_hub_data_exchange" in
+  let __attrs =
     ({
        data_exchange_id =
-         Prop.computed __resource_type __resource_id
-           "data_exchange_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       documentation =
-         Prop.computed __resource_type __resource_id "documentation";
-       icon = Prop.computed __resource_type __resource_id "icon";
-       id = Prop.computed __resource_type __resource_id "id";
-       listing_count =
-         Prop.computed __resource_type __resource_id "listing_count";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       primary_contact =
-         Prop.computed __resource_type __resource_id
-           "primary_contact";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "data_exchange_id";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       documentation = Prop.computed __type __id "documentation";
+       icon = Prop.computed __type __id "icon";
+       id = Prop.computed __type __id "id";
+       listing_count = Prop.computed __type __id "listing_count";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       primary_contact = Prop.computed __type __id "primary_contact";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_analytics_hub_data_exchange
+        (google_bigquery_analytics_hub_data_exchange ?description
+           ?documentation ?icon ?id ?primary_contact ?project
+           ?timeouts ~data_exchange_id ~display_name ~location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?documentation ?icon ?id
+    ?primary_contact ?project ?timeouts ~data_exchange_id
+    ~display_name ~location __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?documentation ?icon ?id ?primary_contact
+      ?project ?timeouts ~data_exchange_id ~display_name ~location
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

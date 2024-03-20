@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -138,3 +138,20 @@ val register :
   spark:spark list ->
   string ->
   t
+
+val make :
+  ?connection_id:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  aws:aws list ->
+  azure:azure list ->
+  cloud_resource:cloud_resource list ->
+  cloud_spanner:cloud_spanner list ->
+  cloud_sql:cloud_sql list ->
+  spark:spark list ->
+  string ->
+  t Tf_core.resource

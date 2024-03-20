@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type app_source = {
   password : string prop option; [@option]  (** password *)
@@ -115,58 +113,62 @@ type t = {
   type_ : string prop;
 }
 
+let make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
+    ?data_source_arn ?data_source_database_name ?data_source_type
+    ?description ?document_root ?domains ?enable_ssl ?id ?rails_env
+    ?short_name ~name ~stack_id ~type_ ~app_source ~environment
+    ~ssl_configuration __id =
+  let __type = "aws_opsworks_application" in
+  let __attrs =
+    ({
+       auto_bundle_on_deploy =
+         Prop.computed __type __id "auto_bundle_on_deploy";
+       aws_flow_ruby_settings =
+         Prop.computed __type __id "aws_flow_ruby_settings";
+       data_source_arn = Prop.computed __type __id "data_source_arn";
+       data_source_database_name =
+         Prop.computed __type __id "data_source_database_name";
+       data_source_type =
+         Prop.computed __type __id "data_source_type";
+       description = Prop.computed __type __id "description";
+       document_root = Prop.computed __type __id "document_root";
+       domains = Prop.computed __type __id "domains";
+       enable_ssl = Prop.computed __type __id "enable_ssl";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       rails_env = Prop.computed __type __id "rails_env";
+       short_name = Prop.computed __type __id "short_name";
+       stack_id = Prop.computed __type __id "stack_id";
+       type_ = Prop.computed __type __id "type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_application
+        (aws_opsworks_application ?auto_bundle_on_deploy
+           ?aws_flow_ruby_settings ?data_source_arn
+           ?data_source_database_name ?data_source_type ?description
+           ?document_root ?domains ?enable_ssl ?id ?rails_env
+           ?short_name ~name ~stack_id ~type_ ~app_source
+           ~environment ~ssl_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_bundle_on_deploy
     ?aws_flow_ruby_settings ?data_source_arn
     ?data_source_database_name ?data_source_type ?description
     ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
     ~name ~stack_id ~type_ ~app_source ~environment
-    ~ssl_configuration __resource_id =
-  let __resource_type = "aws_opsworks_application" in
-  let __resource =
-    aws_opsworks_application ?auto_bundle_on_deploy
-      ?aws_flow_ruby_settings ?data_source_arn
-      ?data_source_database_name ?data_source_type ?description
-      ?document_root ?domains ?enable_ssl ?id ?rails_env ?short_name
-      ~name ~stack_id ~type_ ~app_source ~environment
-      ~ssl_configuration ()
+    ~ssl_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_bundle_on_deploy ?aws_flow_ruby_settings
+      ?data_source_arn ?data_source_database_name ?data_source_type
+      ?description ?document_root ?domains ?enable_ssl ?id ?rails_env
+      ?short_name ~name ~stack_id ~type_ ~app_source ~environment
+      ~ssl_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_application __resource);
-  let __resource_attributes =
-    ({
-       auto_bundle_on_deploy =
-         Prop.computed __resource_type __resource_id
-           "auto_bundle_on_deploy";
-       aws_flow_ruby_settings =
-         Prop.computed __resource_type __resource_id
-           "aws_flow_ruby_settings";
-       data_source_arn =
-         Prop.computed __resource_type __resource_id
-           "data_source_arn";
-       data_source_database_name =
-         Prop.computed __resource_type __resource_id
-           "data_source_database_name";
-       data_source_type =
-         Prop.computed __resource_type __resource_id
-           "data_source_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       document_root =
-         Prop.computed __resource_type __resource_id "document_root";
-       domains =
-         Prop.computed __resource_type __resource_id "domains";
-       enable_ssl =
-         Prop.computed __resource_type __resource_id "enable_ssl";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       rails_env =
-         Prop.computed __resource_type __resource_id "rails_env";
-       short_name =
-         Prop.computed __resource_type __resource_id "short_name";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

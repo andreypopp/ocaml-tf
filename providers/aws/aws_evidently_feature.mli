@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -90,3 +90,18 @@ val register :
   variations:variations list ->
   string ->
   t
+
+val make :
+  ?default_variation:string prop ->
+  ?description:string prop ->
+  ?entity_overrides:(string * string prop) list ->
+  ?evaluation_strategy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  project:string prop ->
+  variations:variations list ->
+  string ->
+  t Tf_core.resource

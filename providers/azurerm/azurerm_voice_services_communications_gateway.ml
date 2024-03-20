@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type service_location = {
   allowed_media_source_address_prefixes : string prop list option;
@@ -112,57 +110,64 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?api_bridge ?auto_generated_domain_name_label_scope
+    ?emergency_dial_strings ?id
+    ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
+    ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location ~name
+    ~platforms ~resource_group_name ~service_location __id =
+  let __type = "azurerm_voice_services_communications_gateway" in
+  let __attrs =
+    ({
+       api_bridge = Prop.computed __type __id "api_bridge";
+       auto_generated_domain_name_label_scope =
+         Prop.computed __type __id
+           "auto_generated_domain_name_label_scope";
+       codecs = Prop.computed __type __id "codecs";
+       connectivity = Prop.computed __type __id "connectivity";
+       e911_type = Prop.computed __type __id "e911_type";
+       emergency_dial_strings =
+         Prop.computed __type __id "emergency_dial_strings";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       microsoft_teams_voicemail_pilot_number =
+         Prop.computed __type __id
+           "microsoft_teams_voicemail_pilot_number";
+       name = Prop.computed __type __id "name";
+       on_prem_mcp_enabled =
+         Prop.computed __type __id "on_prem_mcp_enabled";
+       platforms = Prop.computed __type __id "platforms";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_voice_services_communications_gateway
+        (azurerm_voice_services_communications_gateway ?api_bridge
+           ?auto_generated_domain_name_label_scope
+           ?emergency_dial_strings ?id
+           ?microsoft_teams_voicemail_pilot_number
+           ?on_prem_mcp_enabled ?tags ?timeouts ~codecs ~connectivity
+           ~e911_type ~location ~name ~platforms ~resource_group_name
+           ~service_location ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?api_bridge
     ?auto_generated_domain_name_label_scope ?emergency_dial_strings
     ?id ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
     ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location ~name
-    ~platforms ~resource_group_name ~service_location __resource_id =
-  let __resource_type =
-    "azurerm_voice_services_communications_gateway"
+    ~platforms ~resource_group_name ~service_location __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_bridge ?auto_generated_domain_name_label_scope
+      ?emergency_dial_strings ?id
+      ?microsoft_teams_voicemail_pilot_number ?on_prem_mcp_enabled
+      ?tags ?timeouts ~codecs ~connectivity ~e911_type ~location
+      ~name ~platforms ~resource_group_name ~service_location __id
   in
-  let __resource =
-    azurerm_voice_services_communications_gateway ?api_bridge
-      ?auto_generated_domain_name_label_scope ?emergency_dial_strings
-      ?id ?microsoft_teams_voicemail_pilot_number
-      ?on_prem_mcp_enabled ?tags ?timeouts ~codecs ~connectivity
-      ~e911_type ~location ~name ~platforms ~resource_group_name
-      ~service_location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_voice_services_communications_gateway
-       __resource);
-  let __resource_attributes =
-    ({
-       api_bridge =
-         Prop.computed __resource_type __resource_id "api_bridge";
-       auto_generated_domain_name_label_scope =
-         Prop.computed __resource_type __resource_id
-           "auto_generated_domain_name_label_scope";
-       codecs = Prop.computed __resource_type __resource_id "codecs";
-       connectivity =
-         Prop.computed __resource_type __resource_id "connectivity";
-       e911_type =
-         Prop.computed __resource_type __resource_id "e911_type";
-       emergency_dial_strings =
-         Prop.computed __resource_type __resource_id
-           "emergency_dial_strings";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       microsoft_teams_voicemail_pilot_number =
-         Prop.computed __resource_type __resource_id
-           "microsoft_teams_voicemail_pilot_number";
-       name = Prop.computed __resource_type __resource_id "name";
-       on_prem_mcp_enabled =
-         Prop.computed __resource_type __resource_id
-           "on_prem_mcp_enabled";
-       platforms =
-         Prop.computed __resource_type __resource_id "platforms";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

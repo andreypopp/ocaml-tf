@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,19 @@ val register :
   server_name:string prop ->
   string ->
   t
+
+val make :
+  ?db_dtu_max:float prop ->
+  ?db_dtu_min:float prop ->
+  ?id:string prop ->
+  ?pool_size:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  dtu:float prop ->
+  edition:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  string ->
+  t Tf_core.resource

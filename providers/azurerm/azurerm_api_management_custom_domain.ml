@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type developer_portal = {
   certificate : string prop option; [@option]  (** certificate *)
@@ -178,24 +176,33 @@ let azurerm_api_management_custom_domain ?id ?timeouts
 
 type t = { api_management_id : string prop; id : string prop }
 
-let register ?tf_module ?id ?timeouts ~api_management_id
-    ~developer_portal ~gateway ~management ~portal ~scm __resource_id
-    =
-  let __resource_type = "azurerm_api_management_custom_domain" in
-  let __resource =
-    azurerm_api_management_custom_domain ?id ?timeouts
-      ~api_management_id ~developer_portal ~gateway ~management
-      ~portal ~scm ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_custom_domain __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~api_management_id ~developer_portal ~gateway
+    ~management ~portal ~scm __id =
+  let __type = "azurerm_api_management_custom_domain" in
+  let __attrs =
     ({
        api_management_id =
-         Prop.computed __resource_type __resource_id
-           "api_management_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "api_management_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_custom_domain
+        (azurerm_api_management_custom_domain ?id ?timeouts
+           ~api_management_id ~developer_portal ~gateway ~management
+           ~portal ~scm ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~api_management_id
+    ~developer_portal ~gateway ~management ~portal ~scm __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~api_management_id ~developer_portal ~gateway
+      ~management ~portal ~scm __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

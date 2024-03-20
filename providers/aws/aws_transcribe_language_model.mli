@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,15 @@ val register :
   input_data_config:input_data_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  base_model_name:string prop ->
+  language_code:string prop ->
+  model_name:string prop ->
+  input_data_config:input_data_config list ->
+  string ->
+  t Tf_core.resource

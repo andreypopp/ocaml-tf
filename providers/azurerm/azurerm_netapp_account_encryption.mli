@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   netapp_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?system_assigned_identity_principal_id:string prop ->
+  ?user_assigned_identity_id:string prop ->
+  ?timeouts:timeouts ->
+  encryption_key:string prop ->
+  netapp_account_id:string prop ->
+  string ->
+  t Tf_core.resource

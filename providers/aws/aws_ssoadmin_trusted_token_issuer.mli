@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,14 @@ val register :
     trusted_token_issuer_configuration list ->
   string ->
   t
+
+val make :
+  ?client_token:string prop ->
+  ?tags:(string * string prop) list ->
+  instance_arn:string prop ->
+  name:string prop ->
+  trusted_token_issuer_type:string prop ->
+  trusted_token_issuer_configuration:
+    trusted_token_issuer_configuration list ->
+  string ->
+  t Tf_core.resource

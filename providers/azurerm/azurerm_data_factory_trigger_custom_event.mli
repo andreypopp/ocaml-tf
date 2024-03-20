@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -77,3 +77,20 @@ val register :
   pipeline:pipeline list ->
   string ->
   t
+
+val make :
+  ?activated:bool prop ->
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?subject_begins_with:string prop ->
+  ?subject_ends_with:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  eventgrid_topic_id:string prop ->
+  events:string prop list ->
+  name:string prop ->
+  pipeline:pipeline list ->
+  string ->
+  t Tf_core.resource

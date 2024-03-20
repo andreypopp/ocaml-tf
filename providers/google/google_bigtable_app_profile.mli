@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -75,3 +75,18 @@ val register :
   standard_isolation:standard_isolation list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ignore_warnings:bool prop ->
+  ?instance:string prop ->
+  ?multi_cluster_routing_cluster_ids:string prop list ->
+  ?multi_cluster_routing_use_any:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  app_profile_id:string prop ->
+  single_cluster_routing:single_cluster_routing list ->
+  standard_isolation:standard_isolation list ->
+  string ->
+  t Tf_core.resource

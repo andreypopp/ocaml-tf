@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type provisioning_parameters = {
   key : string prop;  (** key *)
@@ -148,79 +146,78 @@ type t = {
   type_ : string prop;
 }
 
+let make ?accept_language ?id ?ignore_errors ?notification_arns
+    ?path_id ?path_name ?product_id ?product_name
+    ?provisioning_artifact_id ?provisioning_artifact_name
+    ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
+    ~provisioning_parameters ~stack_set_provisioning_preferences __id
+    =
+  let __type = "aws_servicecatalog_provisioned_product" in
+  let __attrs =
+    ({
+       accept_language = Prop.computed __type __id "accept_language";
+       arn = Prop.computed __type __id "arn";
+       cloudwatch_dashboard_names =
+         Prop.computed __type __id "cloudwatch_dashboard_names";
+       created_time = Prop.computed __type __id "created_time";
+       id = Prop.computed __type __id "id";
+       ignore_errors = Prop.computed __type __id "ignore_errors";
+       last_provisioning_record_id =
+         Prop.computed __type __id "last_provisioning_record_id";
+       last_record_id = Prop.computed __type __id "last_record_id";
+       last_successful_provisioning_record_id =
+         Prop.computed __type __id
+           "last_successful_provisioning_record_id";
+       launch_role_arn = Prop.computed __type __id "launch_role_arn";
+       name = Prop.computed __type __id "name";
+       notification_arns =
+         Prop.computed __type __id "notification_arns";
+       outputs = Prop.computed __type __id "outputs";
+       path_id = Prop.computed __type __id "path_id";
+       path_name = Prop.computed __type __id "path_name";
+       product_id = Prop.computed __type __id "product_id";
+       product_name = Prop.computed __type __id "product_name";
+       provisioning_artifact_id =
+         Prop.computed __type __id "provisioning_artifact_id";
+       provisioning_artifact_name =
+         Prop.computed __type __id "provisioning_artifact_name";
+       retain_physical_resources =
+         Prop.computed __type __id "retain_physical_resources";
+       status = Prop.computed __type __id "status";
+       status_message = Prop.computed __type __id "status_message";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicecatalog_provisioned_product
+        (aws_servicecatalog_provisioned_product ?accept_language ?id
+           ?ignore_errors ?notification_arns ?path_id ?path_name
+           ?product_id ?product_name ?provisioning_artifact_id
+           ?provisioning_artifact_name ?retain_physical_resources
+           ?tags ?tags_all ?timeouts ~name ~provisioning_parameters
+           ~stack_set_provisioning_preferences ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?accept_language ?id ?ignore_errors
     ?notification_arns ?path_id ?path_name ?product_id ?product_name
     ?provisioning_artifact_id ?provisioning_artifact_name
     ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
-    ~provisioning_parameters ~stack_set_provisioning_preferences
-    __resource_id =
-  let __resource_type = "aws_servicecatalog_provisioned_product" in
-  let __resource =
-    aws_servicecatalog_provisioned_product ?accept_language ?id
-      ?ignore_errors ?notification_arns ?path_id ?path_name
-      ?product_id ?product_name ?provisioning_artifact_id
-      ?provisioning_artifact_name ?retain_physical_resources ?tags
-      ?tags_all ?timeouts ~name ~provisioning_parameters
-      ~stack_set_provisioning_preferences ()
+    ~provisioning_parameters ~stack_set_provisioning_preferences __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?accept_language ?id ?ignore_errors ?notification_arns
+      ?path_id ?path_name ?product_id ?product_name
+      ?provisioning_artifact_id ?provisioning_artifact_name
+      ?retain_physical_resources ?tags ?tags_all ?timeouts ~name
+      ~provisioning_parameters ~stack_set_provisioning_preferences
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicecatalog_provisioned_product __resource);
-  let __resource_attributes =
-    ({
-       accept_language =
-         Prop.computed __resource_type __resource_id
-           "accept_language";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cloudwatch_dashboard_names =
-         Prop.computed __resource_type __resource_id
-           "cloudwatch_dashboard_names";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_errors =
-         Prop.computed __resource_type __resource_id "ignore_errors";
-       last_provisioning_record_id =
-         Prop.computed __resource_type __resource_id
-           "last_provisioning_record_id";
-       last_record_id =
-         Prop.computed __resource_type __resource_id "last_record_id";
-       last_successful_provisioning_record_id =
-         Prop.computed __resource_type __resource_id
-           "last_successful_provisioning_record_id";
-       launch_role_arn =
-         Prop.computed __resource_type __resource_id
-           "launch_role_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       notification_arns =
-         Prop.computed __resource_type __resource_id
-           "notification_arns";
-       outputs =
-         Prop.computed __resource_type __resource_id "outputs";
-       path_id =
-         Prop.computed __resource_type __resource_id "path_id";
-       path_name =
-         Prop.computed __resource_type __resource_id "path_name";
-       product_id =
-         Prop.computed __resource_type __resource_id "product_id";
-       product_name =
-         Prop.computed __resource_type __resource_id "product_name";
-       provisioning_artifact_id =
-         Prop.computed __resource_type __resource_id
-           "provisioning_artifact_id";
-       provisioning_artifact_name =
-         Prop.computed __resource_type __resource_id
-           "provisioning_artifact_name";
-       retain_physical_resources =
-         Prop.computed __resource_type __resource_id
-           "retain_physical_resources";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_message =
-         Prop.computed __resource_type __resource_id "status_message";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

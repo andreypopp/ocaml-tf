@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data = {
   host : string prop;
@@ -48,32 +46,37 @@ type t = {
   updated : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~description ~enabled
-    ~interval ~name ~data __resource_id =
-  let __resource_type = "cloudflare_device_dex_test" in
-  let __resource =
-    cloudflare_device_dex_test ?id ~account_id ~description ~enabled
-      ~interval ~name ~data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_device_dex_test __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~description ~enabled ~interval ~name ~data
+    __id =
+  let __type = "cloudflare_device_dex_test" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       interval =
-         Prop.computed __resource_type __resource_id "interval";
-       name = Prop.computed __resource_type __resource_id "name";
-       updated =
-         Prop.computed __resource_type __resource_id "updated";
+       account_id = Prop.computed __type __id "account_id";
+       created = Prop.computed __type __id "created";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       interval = Prop.computed __type __id "interval";
+       name = Prop.computed __type __id "name";
+       updated = Prop.computed __type __id "updated";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_device_dex_test
+        (cloudflare_device_dex_test ?id ~account_id ~description
+           ~enabled ~interval ~name ~data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~description ~enabled
+    ~interval ~name ~data __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~description ~enabled ~interval ~name ~data
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

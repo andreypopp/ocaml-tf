@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type validator = {
   content : string prop option; [@option]  (** content *)
@@ -65,42 +63,48 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?kms_key_identifier
-    ?retrieval_role_arn ?tags ?tags_all ?type_ ~application_id
-    ~location_uri ~name ~validator __resource_id =
-  let __resource_type = "aws_appconfig_configuration_profile" in
-  let __resource =
-    aws_appconfig_configuration_profile ?description ?id
-      ?kms_key_identifier ?retrieval_role_arn ?tags ?tags_all ?type_
-      ~application_id ~location_uri ~name ~validator ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appconfig_configuration_profile __resource);
-  let __resource_attributes =
+let make ?description ?id ?kms_key_identifier ?retrieval_role_arn
+    ?tags ?tags_all ?type_ ~application_id ~location_uri ~name
+    ~validator __id =
+  let __type = "aws_appconfig_configuration_profile" in
+  let __attrs =
     ({
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       application_id = Prop.computed __type __id "application_id";
+       arn = Prop.computed __type __id "arn";
        configuration_profile_id =
-         Prop.computed __resource_type __resource_id
-           "configuration_profile_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "configuration_profile_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        kms_key_identifier =
-         Prop.computed __resource_type __resource_id
-           "kms_key_identifier";
-       location_uri =
-         Prop.computed __resource_type __resource_id "location_uri";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "kms_key_identifier";
+       location_uri = Prop.computed __type __id "location_uri";
+       name = Prop.computed __type __id "name";
        retrieval_role_arn =
-         Prop.computed __resource_type __resource_id
-           "retrieval_role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "retrieval_role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appconfig_configuration_profile
+        (aws_appconfig_configuration_profile ?description ?id
+           ?kms_key_identifier ?retrieval_role_arn ?tags ?tags_all
+           ?type_ ~application_id ~location_uri ~name ~validator ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?kms_key_identifier
+    ?retrieval_role_arn ?tags ?tags_all ?type_ ~application_id
+    ~location_uri ~name ~validator __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?kms_key_identifier ?retrieval_role_arn
+      ?tags ?tags_all ?type_ ~application_id ~location_uri ~name
+      ~validator __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -92,3 +92,19 @@ val register :
   match_:match_ list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?target_resources:string prop list ->
+  ?target_service_accounts:string prop list ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  direction:string prop ->
+  firewall_policy:string prop ->
+  priority:float prop ->
+  match_:match_ list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,35 +52,41 @@ type t = {
   storage_container_id : string prop;
 }
 
-let register ?tf_module ?access_policy_name ?id ?timeouts ~cache_name
-    ~name ~namespace_path ~resource_group_name ~storage_container_id
-    __resource_id =
-  let __resource_type = "azurerm_hpc_cache_blob_target" in
-  let __resource =
-    azurerm_hpc_cache_blob_target ?access_policy_name ?id ?timeouts
-      ~cache_name ~name ~namespace_path ~resource_group_name
-      ~storage_container_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_hpc_cache_blob_target __resource);
-  let __resource_attributes =
+let make ?access_policy_name ?id ?timeouts ~cache_name ~name
+    ~namespace_path ~resource_group_name ~storage_container_id __id =
+  let __type = "azurerm_hpc_cache_blob_target" in
+  let __attrs =
     ({
        access_policy_name =
-         Prop.computed __resource_type __resource_id
-           "access_policy_name";
-       cache_name =
-         Prop.computed __resource_type __resource_id "cache_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_path =
-         Prop.computed __resource_type __resource_id "namespace_path";
+         Prop.computed __type __id "access_policy_name";
+       cache_name = Prop.computed __type __id "cache_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespace_path = Prop.computed __type __id "namespace_path";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        storage_container_id =
-         Prop.computed __resource_type __resource_id
-           "storage_container_id";
+         Prop.computed __type __id "storage_container_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_hpc_cache_blob_target
+        (azurerm_hpc_cache_blob_target ?access_policy_name ?id
+           ?timeouts ~cache_name ~name ~namespace_path
+           ~resource_group_name ~storage_container_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?access_policy_name ?id ?timeouts ~cache_name
+    ~name ~namespace_path ~resource_group_name ~storage_container_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_policy_name ?id ?timeouts ~cache_name ~name
+      ~namespace_path ~resource_group_name ~storage_container_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -364,3 +364,39 @@ val register :
   master_instance_group:master_instance_group list ->
   string ->
   t
+
+val make :
+  ?additional_info:string prop ->
+  ?applications:string prop list ->
+  ?autoscaling_role:string prop ->
+  ?configurations:string prop ->
+  ?configurations_json:string prop ->
+  ?custom_ami_id:string prop ->
+  ?ebs_root_volume_size:float prop ->
+  ?id:string prop ->
+  ?keep_job_flow_alive_when_no_steps:bool prop ->
+  ?list_steps_states:string prop list ->
+  ?log_encryption_kms_key_id:string prop ->
+  ?log_uri:string prop ->
+  ?placement_group_config:placement_group_config list ->
+  ?scale_down_behavior:string prop ->
+  ?security_configuration:string prop ->
+  ?step:step list ->
+  ?step_concurrency_level:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?termination_protection:bool prop ->
+  ?visible_to_all_users:bool prop ->
+  name:string prop ->
+  release_label:string prop ->
+  service_role:string prop ->
+  auto_termination_policy:auto_termination_policy list ->
+  bootstrap_action:bootstrap_action list ->
+  core_instance_fleet:core_instance_fleet list ->
+  core_instance_group:core_instance_group list ->
+  ec2_attributes:ec2_attributes list ->
+  kerberos_attributes:kerberos_attributes list ->
+  master_instance_fleet:master_instance_fleet list ->
+  master_instance_group:master_instance_group list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -67,48 +65,49 @@ type t = {
   total_node_count : float prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts
-    ~agent_public_key_certificate ~location ~name
-    ~resource_group_name ~identity __resource_id =
-  let __resource_type = "azurerm_arc_kubernetes_cluster" in
-  let __resource =
-    azurerm_arc_kubernetes_cluster ?id ?tags ?timeouts
-      ~agent_public_key_certificate ~location ~name
-      ~resource_group_name ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_arc_kubernetes_cluster __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~agent_public_key_certificate ~location
+    ~name ~resource_group_name ~identity __id =
+  let __type = "azurerm_arc_kubernetes_cluster" in
+  let __attrs =
     ({
        agent_public_key_certificate =
-         Prop.computed __resource_type __resource_id
-           "agent_public_key_certificate";
-       agent_version =
-         Prop.computed __resource_type __resource_id "agent_version";
-       distribution =
-         Prop.computed __resource_type __resource_id "distribution";
-       id = Prop.computed __resource_type __resource_id "id";
-       infrastructure =
-         Prop.computed __resource_type __resource_id "infrastructure";
+         Prop.computed __type __id "agent_public_key_certificate";
+       agent_version = Prop.computed __type __id "agent_version";
+       distribution = Prop.computed __type __id "distribution";
+       id = Prop.computed __type __id "id";
+       infrastructure = Prop.computed __type __id "infrastructure";
        kubernetes_version =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_version";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       offering =
-         Prop.computed __resource_type __resource_id "offering";
+         Prop.computed __type __id "kubernetes_version";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       offering = Prop.computed __type __id "offering";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
        total_core_count =
-         Prop.computed __resource_type __resource_id
-           "total_core_count";
+         Prop.computed __type __id "total_core_count";
        total_node_count =
-         Prop.computed __resource_type __resource_id
-           "total_node_count";
+         Prop.computed __type __id "total_node_count";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_arc_kubernetes_cluster
+        (azurerm_arc_kubernetes_cluster ?id ?tags ?timeouts
+           ~agent_public_key_certificate ~location ~name
+           ~resource_group_name ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts
+    ~agent_public_key_certificate ~location ~name
+    ~resource_group_name ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~agent_public_key_certificate ~location
+      ~name ~resource_group_name ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

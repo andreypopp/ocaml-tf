@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,20 @@ val register :
   vpc_config:vpc_config list ->
   string ->
   t
+
+val make :
+  ?custom_model_kms_key_id:string prop ->
+  ?customization_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  base_model_identifier:string prop ->
+  custom_model_name:string prop ->
+  hyperparameters:(string * string prop) list ->
+  job_name:string prop ->
+  role_arn:string prop ->
+  output_data_config:output_data_config list ->
+  training_data_config:training_data_config list ->
+  validation_data_config:validation_data_config list ->
+  vpc_config:vpc_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type monitoring_subscription__realtime_metrics_subscription_config = {
   realtime_metrics_subscription_status : string prop;
@@ -43,22 +41,29 @@ let aws_cloudfront_monitoring_subscription ?id ~distribution_id
 
 type t = { distribution_id : string prop; id : string prop }
 
-let register ?tf_module ?id ~distribution_id ~monitoring_subscription
-    __resource_id =
-  let __resource_type = "aws_cloudfront_monitoring_subscription" in
-  let __resource =
-    aws_cloudfront_monitoring_subscription ?id ~distribution_id
-      ~monitoring_subscription ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_monitoring_subscription __resource);
-  let __resource_attributes =
+let make ?id ~distribution_id ~monitoring_subscription __id =
+  let __type = "aws_cloudfront_monitoring_subscription" in
+  let __attrs =
     ({
-       distribution_id =
-         Prop.computed __resource_type __resource_id
-           "distribution_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       distribution_id = Prop.computed __type __id "distribution_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_monitoring_subscription
+        (aws_cloudfront_monitoring_subscription ?id ~distribution_id
+           ~monitoring_subscription ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~distribution_id ~monitoring_subscription
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~distribution_id ~monitoring_subscription __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

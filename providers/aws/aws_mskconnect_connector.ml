@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type capacity__autoscaling__scale_in_policy = {
   cpu_utilization_percentage : float prop option; [@option]
@@ -275,42 +273,54 @@ type t = {
   version : string prop;
 }
 
+let make ?description ?id ?timeouts ~connector_configuration
+    ~kafkaconnect_version ~name ~service_execution_role_arn ~capacity
+    ~kafka_cluster ~kafka_cluster_client_authentication
+    ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
+    ~worker_configuration __id =
+  let __type = "aws_mskconnect_connector" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       connector_configuration =
+         Prop.computed __type __id "connector_configuration";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       kafkaconnect_version =
+         Prop.computed __type __id "kafkaconnect_version";
+       name = Prop.computed __type __id "name";
+       service_execution_role_arn =
+         Prop.computed __type __id "service_execution_role_arn";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_mskconnect_connector
+        (aws_mskconnect_connector ?description ?id ?timeouts
+           ~connector_configuration ~kafkaconnect_version ~name
+           ~service_execution_role_arn ~capacity ~kafka_cluster
+           ~kafka_cluster_client_authentication
+           ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
+           ~worker_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?timeouts
     ~connector_configuration ~kafkaconnect_version ~name
     ~service_execution_role_arn ~capacity ~kafka_cluster
     ~kafka_cluster_client_authentication
     ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-    ~worker_configuration __resource_id =
-  let __resource_type = "aws_mskconnect_connector" in
-  let __resource =
-    aws_mskconnect_connector ?description ?id ?timeouts
-      ~connector_configuration ~kafkaconnect_version ~name
-      ~service_execution_role_arn ~capacity ~kafka_cluster
-      ~kafka_cluster_client_authentication
+    ~worker_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~connector_configuration
+      ~kafkaconnect_version ~name ~service_execution_role_arn
+      ~capacity ~kafka_cluster ~kafka_cluster_client_authentication
       ~kafka_cluster_encryption_in_transit ~log_delivery ~plugin
-      ~worker_configuration ()
+      ~worker_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_mskconnect_connector __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       connector_configuration =
-         Prop.computed __resource_type __resource_id
-           "connector_configuration";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       kafkaconnect_version =
-         Prop.computed __resource_type __resource_id
-           "kafkaconnect_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       service_execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_execution_role_arn";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

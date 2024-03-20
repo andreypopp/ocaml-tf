@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   package_source:package_source list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?package_description:string prop ->
+  package_name:string prop ->
+  package_type:string prop ->
+  package_source:package_source list ->
+  string ->
+  t Tf_core.resource

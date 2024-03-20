@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type service_catalog_provisioning_details__provisioning_parameter = {
   key : string prop;  (** key *)
@@ -73,31 +71,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?project_description ?tags ?tags_all
-    ~project_name ~service_catalog_provisioning_details __resource_id
-    =
-  let __resource_type = "aws_sagemaker_project" in
-  let __resource =
-    aws_sagemaker_project ?id ?project_description ?tags ?tags_all
-      ~project_name ~service_catalog_provisioning_details ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_project __resource);
-  let __resource_attributes =
+let make ?id ?project_description ?tags ?tags_all ~project_name
+    ~service_catalog_provisioning_details __id =
+  let __type = "aws_sagemaker_project" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        project_description =
-         Prop.computed __resource_type __resource_id
-           "project_description";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       project_name =
-         Prop.computed __resource_type __resource_id "project_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "project_description";
+       project_id = Prop.computed __type __id "project_id";
+       project_name = Prop.computed __type __id "project_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_project
+        (aws_sagemaker_project ?id ?project_description ?tags
+           ?tags_all ~project_name
+           ~service_catalog_provisioning_details ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project_description ?tags ?tags_all
+    ~project_name ~service_catalog_provisioning_details __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project_description ?tags ?tags_all ~project_name
+      ~service_catalog_provisioning_details __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

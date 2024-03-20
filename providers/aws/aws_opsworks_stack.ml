@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_cookbooks_source = {
   password : string prop option; [@option]  (** password *)
@@ -135,6 +133,74 @@ type t = {
   vpc_id : string prop;
 }
 
+let make ?agent_version ?berkshelf_version ?color
+    ?configuration_manager_name ?configuration_manager_version
+    ?custom_json ?default_availability_zone ?default_os
+    ?default_root_device_type ?default_ssh_key_name
+    ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
+    ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
+    ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
+    ~service_role_arn ~custom_cookbooks_source __id =
+  let __type = "aws_opsworks_stack" in
+  let __attrs =
+    ({
+       agent_version = Prop.computed __type __id "agent_version";
+       arn = Prop.computed __type __id "arn";
+       berkshelf_version =
+         Prop.computed __type __id "berkshelf_version";
+       color = Prop.computed __type __id "color";
+       configuration_manager_name =
+         Prop.computed __type __id "configuration_manager_name";
+       configuration_manager_version =
+         Prop.computed __type __id "configuration_manager_version";
+       custom_json = Prop.computed __type __id "custom_json";
+       default_availability_zone =
+         Prop.computed __type __id "default_availability_zone";
+       default_instance_profile_arn =
+         Prop.computed __type __id "default_instance_profile_arn";
+       default_os = Prop.computed __type __id "default_os";
+       default_root_device_type =
+         Prop.computed __type __id "default_root_device_type";
+       default_ssh_key_name =
+         Prop.computed __type __id "default_ssh_key_name";
+       default_subnet_id =
+         Prop.computed __type __id "default_subnet_id";
+       hostname_theme = Prop.computed __type __id "hostname_theme";
+       id = Prop.computed __type __id "id";
+       manage_berkshelf =
+         Prop.computed __type __id "manage_berkshelf";
+       name = Prop.computed __type __id "name";
+       region = Prop.computed __type __id "region";
+       service_role_arn =
+         Prop.computed __type __id "service_role_arn";
+       stack_endpoint = Prop.computed __type __id "stack_endpoint";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       use_custom_cookbooks =
+         Prop.computed __type __id "use_custom_cookbooks";
+       use_opsworks_security_groups =
+         Prop.computed __type __id "use_opsworks_security_groups";
+       vpc_id = Prop.computed __type __id "vpc_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_stack
+        (aws_opsworks_stack ?agent_version ?berkshelf_version ?color
+           ?configuration_manager_name ?configuration_manager_version
+           ?custom_json ?default_availability_zone ?default_os
+           ?default_root_device_type ?default_ssh_key_name
+           ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf
+           ?tags ?tags_all ?use_custom_cookbooks
+           ?use_opsworks_security_groups ?vpc_id ?timeouts
+           ~default_instance_profile_arn ~name ~region
+           ~service_role_arn ~custom_cookbooks_source ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?agent_version ?berkshelf_version ?color
     ?configuration_manager_name ?configuration_manager_version
     ?custom_json ?default_availability_zone ?default_os
@@ -142,78 +208,16 @@ let register ?tf_module ?agent_version ?berkshelf_version ?color
     ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
     ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
     ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-    ~service_role_arn ~custom_cookbooks_source __resource_id =
-  let __resource_type = "aws_opsworks_stack" in
-  let __resource =
-    aws_opsworks_stack ?agent_version ?berkshelf_version ?color
+    ~service_role_arn ~custom_cookbooks_source __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_version ?berkshelf_version ?color
       ?configuration_manager_name ?configuration_manager_version
       ?custom_json ?default_availability_zone ?default_os
       ?default_root_device_type ?default_ssh_key_name
       ?default_subnet_id ?hostname_theme ?id ?manage_berkshelf ?tags
       ?tags_all ?use_custom_cookbooks ?use_opsworks_security_groups
       ?vpc_id ?timeouts ~default_instance_profile_arn ~name ~region
-      ~service_role_arn ~custom_cookbooks_source ()
+      ~service_role_arn ~custom_cookbooks_source __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_stack __resource);
-  let __resource_attributes =
-    ({
-       agent_version =
-         Prop.computed __resource_type __resource_id "agent_version";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       berkshelf_version =
-         Prop.computed __resource_type __resource_id
-           "berkshelf_version";
-       color = Prop.computed __resource_type __resource_id "color";
-       configuration_manager_name =
-         Prop.computed __resource_type __resource_id
-           "configuration_manager_name";
-       configuration_manager_version =
-         Prop.computed __resource_type __resource_id
-           "configuration_manager_version";
-       custom_json =
-         Prop.computed __resource_type __resource_id "custom_json";
-       default_availability_zone =
-         Prop.computed __resource_type __resource_id
-           "default_availability_zone";
-       default_instance_profile_arn =
-         Prop.computed __resource_type __resource_id
-           "default_instance_profile_arn";
-       default_os =
-         Prop.computed __resource_type __resource_id "default_os";
-       default_root_device_type =
-         Prop.computed __resource_type __resource_id
-           "default_root_device_type";
-       default_ssh_key_name =
-         Prop.computed __resource_type __resource_id
-           "default_ssh_key_name";
-       default_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "default_subnet_id";
-       hostname_theme =
-         Prop.computed __resource_type __resource_id "hostname_theme";
-       id = Prop.computed __resource_type __resource_id "id";
-       manage_berkshelf =
-         Prop.computed __resource_type __resource_id
-           "manage_berkshelf";
-       name = Prop.computed __resource_type __resource_id "name";
-       region = Prop.computed __resource_type __resource_id "region";
-       service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_role_arn";
-       stack_endpoint =
-         Prop.computed __resource_type __resource_id "stack_endpoint";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       use_custom_cookbooks =
-         Prop.computed __resource_type __resource_id
-           "use_custom_cookbooks";
-       use_opsworks_security_groups =
-         Prop.computed __resource_type __resource_id
-           "use_opsworks_security_groups";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

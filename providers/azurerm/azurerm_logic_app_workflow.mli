@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -144,3 +144,22 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?integration_service_environment_id:string prop ->
+  ?logic_app_integration_account_id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?workflow_parameters:(string * string prop) list ->
+  ?workflow_schema:string prop ->
+  ?workflow_version:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  access_control:access_control list ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

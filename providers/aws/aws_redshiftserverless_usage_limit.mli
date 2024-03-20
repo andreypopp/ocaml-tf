@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,13 @@ val register :
   usage_type:string prop ->
   string ->
   t
+
+val make :
+  ?breach_action:string prop ->
+  ?id:string prop ->
+  ?period:string prop ->
+  amount:float prop ->
+  resource_arn:string prop ->
+  usage_type:string prop ->
+  string ->
+  t Tf_core.resource

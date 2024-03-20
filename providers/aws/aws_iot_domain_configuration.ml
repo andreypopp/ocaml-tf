@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authorizer_config = {
   allow_authorizer_override : bool prop option; [@option]
@@ -77,40 +75,47 @@ type t = {
   validation_certificate_arn : string prop;
 }
 
-let register ?tf_module ?domain_name ?id ?server_certificate_arns
-    ?service_type ?status ?tags ?tags_all ?validation_certificate_arn
-    ~name ~authorizer_config ~tls_config __resource_id =
-  let __resource_type = "aws_iot_domain_configuration" in
-  let __resource =
-    aws_iot_domain_configuration ?domain_name ?id
-      ?server_certificate_arns ?service_type ?status ?tags ?tags_all
-      ?validation_certificate_arn ~name ~authorizer_config
-      ~tls_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_domain_configuration __resource);
-  let __resource_attributes =
+let make ?domain_name ?id ?server_certificate_arns ?service_type
+    ?status ?tags ?tags_all ?validation_certificate_arn ~name
+    ~authorizer_config ~tls_config __id =
+  let __type = "aws_iot_domain_configuration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       domain_type =
-         Prop.computed __resource_type __resource_id "domain_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       domain_name = Prop.computed __type __id "domain_name";
+       domain_type = Prop.computed __type __id "domain_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        server_certificate_arns =
-         Prop.computed __resource_type __resource_id
-           "server_certificate_arns";
-       service_type =
-         Prop.computed __resource_type __resource_id "service_type";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "server_certificate_arns";
+       service_type = Prop.computed __type __id "service_type";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        validation_certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "validation_certificate_arn";
+         Prop.computed __type __id "validation_certificate_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_domain_configuration
+        (aws_iot_domain_configuration ?domain_name ?id
+           ?server_certificate_arns ?service_type ?status ?tags
+           ?tags_all ?validation_certificate_arn ~name
+           ~authorizer_config ~tls_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?domain_name ?id ?server_certificate_arns
+    ?service_type ?status ?tags ?tags_all ?validation_certificate_arn
+    ~name ~authorizer_config ~tls_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?domain_name ?id ?server_certificate_arns ?service_type
+      ?status ?tags ?tags_all ?validation_certificate_arn ~name
+      ~authorizer_config ~tls_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

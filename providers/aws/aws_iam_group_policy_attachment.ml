@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_group_policy_attachment = {
   group : string prop;  (** group *)
@@ -22,20 +20,26 @@ type t = {
   policy_arn : string prop;
 }
 
-let register ?tf_module ?id ~group ~policy_arn __resource_id =
-  let __resource_type = "aws_iam_group_policy_attachment" in
-  let __resource =
-    aws_iam_group_policy_attachment ?id ~group ~policy_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_group_policy_attachment __resource);
-  let __resource_attributes =
+let make ?id ~group ~policy_arn __id =
+  let __type = "aws_iam_group_policy_attachment" in
+  let __attrs =
     ({
-       group = Prop.computed __resource_type __resource_id "group";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_arn =
-         Prop.computed __resource_type __resource_id "policy_arn";
+       group = Prop.computed __type __id "group";
+       id = Prop.computed __type __id "id";
+       policy_arn = Prop.computed __type __id "policy_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_group_policy_attachment
+        (aws_iam_group_policy_attachment ?id ~group ~policy_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~group ~policy_arn __id =
+  let (r : _ Tf_core.resource) = make ?id ~group ~policy_arn __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

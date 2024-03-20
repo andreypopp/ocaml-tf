@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -183,3 +183,17 @@ val register :
   predefined_values:predefined_values list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  identity_constraints:identity_constraints list ->
+  passthrough_extensions:passthrough_extensions list ->
+  predefined_values:predefined_values list ->
+  string ->
+  t Tf_core.resource

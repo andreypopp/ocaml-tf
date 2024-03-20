@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
@@ -139,44 +137,50 @@ type t = {
   resource_id : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?enforce ?id
-    ?location ?metadata ?not_scopes ?parameters ?timeouts ~name
-    ~policy_definition_id ~resource_id ~identity
-    ~non_compliance_message ~overrides ~resource_selectors
-    __resource_id =
-  let __resource_type = "azurerm_resource_policy_assignment" in
-  let __resource =
-    azurerm_resource_policy_assignment ?description ?display_name
-      ?enforce ?id ?location ?metadata ?not_scopes ?parameters
-      ?timeouts ~name ~policy_definition_id ~resource_id ~identity
-      ~non_compliance_message ~overrides ~resource_selectors ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_resource_policy_assignment __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?enforce ?id ?location ?metadata
+    ?not_scopes ?parameters ?timeouts ~name ~policy_definition_id
+    ~resource_id ~identity ~non_compliance_message ~overrides
+    ~resource_selectors __id =
+  let __type = "azurerm_resource_policy_assignment" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enforce =
-         Prop.computed __resource_type __resource_id "enforce";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_scopes =
-         Prop.computed __resource_type __resource_id "not_scopes";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enforce = Prop.computed __type __id "enforce";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       not_scopes = Prop.computed __type __id "not_scopes";
+       parameters = Prop.computed __type __id "parameters";
        policy_definition_id =
-         Prop.computed __resource_type __resource_id
-           "policy_definition_id";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+         Prop.computed __type __id "policy_definition_id";
+       resource_id = Prop.computed __type __id "resource_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_resource_policy_assignment
+        (azurerm_resource_policy_assignment ?description
+           ?display_name ?enforce ?id ?location ?metadata ?not_scopes
+           ?parameters ?timeouts ~name ~policy_definition_id
+           ~resource_id ~identity ~non_compliance_message ~overrides
+           ~resource_selectors ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?enforce ?id
+    ?location ?metadata ?not_scopes ?parameters ?timeouts ~name
+    ~policy_definition_id ~resource_id ~identity
+    ~non_compliance_message ~overrides ~resource_selectors __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?enforce ?id ?location ?metadata
+      ?not_scopes ?parameters ?timeouts ~name ~policy_definition_id
+      ~resource_id ~identity ~non_compliance_message ~overrides
+      ~resource_selectors __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

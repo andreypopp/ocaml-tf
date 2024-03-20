@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,15 @@ val register :
   transit_gateway_id:string prop ->
   string ->
   t
+
+val make :
+  ?auto_accept_shared_associations:string prop ->
+  ?id:string prop ->
+  ?igmpv2_support:string prop ->
+  ?static_sources_support:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  transit_gateway_id:string prop ->
+  string ->
+  t Tf_core.resource

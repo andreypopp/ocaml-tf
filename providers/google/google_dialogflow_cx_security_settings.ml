@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type audio_export_settings = {
   audio_export_pattern : string prop option; [@option]
@@ -130,53 +128,59 @@ type t = {
   retention_window_days : float prop;
 }
 
+let make ?deidentify_template ?id ?inspect_template ?project
+    ?purge_data_types ?redaction_scope ?redaction_strategy
+    ?retention_strategy ?retention_window_days ?timeouts
+    ~display_name ~location ~audio_export_settings
+    ~insights_export_settings __id =
+  let __type = "google_dialogflow_cx_security_settings" in
+  let __attrs =
+    ({
+       deidentify_template =
+         Prop.computed __type __id "deidentify_template";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       inspect_template =
+         Prop.computed __type __id "inspect_template";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       purge_data_types =
+         Prop.computed __type __id "purge_data_types";
+       redaction_scope = Prop.computed __type __id "redaction_scope";
+       redaction_strategy =
+         Prop.computed __type __id "redaction_strategy";
+       retention_strategy =
+         Prop.computed __type __id "retention_strategy";
+       retention_window_days =
+         Prop.computed __type __id "retention_window_days";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_security_settings
+        (google_dialogflow_cx_security_settings ?deidentify_template
+           ?id ?inspect_template ?project ?purge_data_types
+           ?redaction_scope ?redaction_strategy ?retention_strategy
+           ?retention_window_days ?timeouts ~display_name ~location
+           ~audio_export_settings ~insights_export_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?deidentify_template ?id ?inspect_template
     ?project ?purge_data_types ?redaction_scope ?redaction_strategy
     ?retention_strategy ?retention_window_days ?timeouts
     ~display_name ~location ~audio_export_settings
-    ~insights_export_settings __resource_id =
-  let __resource_type = "google_dialogflow_cx_security_settings" in
-  let __resource =
-    google_dialogflow_cx_security_settings ?deidentify_template ?id
-      ?inspect_template ?project ?purge_data_types ?redaction_scope
-      ?redaction_strategy ?retention_strategy ?retention_window_days
-      ?timeouts ~display_name ~location ~audio_export_settings
-      ~insights_export_settings ()
+    ~insights_export_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?deidentify_template ?id ?inspect_template ?project
+      ?purge_data_types ?redaction_scope ?redaction_strategy
+      ?retention_strategy ?retention_window_days ?timeouts
+      ~display_name ~location ~audio_export_settings
+      ~insights_export_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_security_settings __resource);
-  let __resource_attributes =
-    ({
-       deidentify_template =
-         Prop.computed __resource_type __resource_id
-           "deidentify_template";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       inspect_template =
-         Prop.computed __resource_type __resource_id
-           "inspect_template";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       purge_data_types =
-         Prop.computed __resource_type __resource_id
-           "purge_data_types";
-       redaction_scope =
-         Prop.computed __resource_type __resource_id
-           "redaction_scope";
-       redaction_strategy =
-         Prop.computed __resource_type __resource_id
-           "redaction_strategy";
-       retention_strategy =
-         Prop.computed __resource_type __resource_id
-           "retention_strategy";
-       retention_window_days =
-         Prop.computed __resource_type __resource_id
-           "retention_window_days";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

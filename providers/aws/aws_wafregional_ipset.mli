@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,3 +35,10 @@ val register :
   ip_set_descriptor:ip_set_descriptor list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  ip_set_descriptor:ip_set_descriptor list ->
+  string ->
+  t Tf_core.resource

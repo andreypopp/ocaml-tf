@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,18 @@ val register :
   online_store_config:online_store_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  event_time_feature_name:string prop ->
+  feature_group_name:string prop ->
+  record_identifier_feature_name:string prop ->
+  role_arn:string prop ->
+  feature_definition:feature_definition list ->
+  offline_store_config:offline_store_config list ->
+  online_store_config:online_store_config list ->
+  string ->
+  t Tf_core.resource

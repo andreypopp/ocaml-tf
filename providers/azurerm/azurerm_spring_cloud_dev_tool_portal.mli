@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,15 @@ val register :
   sso:sso list ->
   string ->
   t
+
+val make :
+  ?application_accelerator_enabled:bool prop ->
+  ?application_live_view_enabled:bool prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  sso:sso list ->
+  string ->
+  t Tf_core.resource

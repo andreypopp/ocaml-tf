@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,42 +61,46 @@ type t = {
   user_impact : string prop;
 }
 
-let register ?tf_module ?categories ?id ?implementation_effort
+let make ?categories ?id ?implementation_effort
     ?remediation_description ?severity ?threats ?user_impact
-    ?timeouts ~description ~display_name __resource_id =
-  let __resource_type =
-    "azurerm_security_center_assessment_policy"
-  in
-  let __resource =
-    azurerm_security_center_assessment_policy ?categories ?id
-      ?implementation_effort ?remediation_description ?severity
-      ?threats ?user_impact ?timeouts ~description ~display_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_assessment_policy __resource);
-  let __resource_attributes =
+    ?timeouts ~description ~display_name __id =
+  let __type = "azurerm_security_center_assessment_policy" in
+  let __attrs =
     ({
-       categories =
-         Prop.computed __resource_type __resource_id "categories";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       categories = Prop.computed __type __id "categories";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
        implementation_effort =
-         Prop.computed __resource_type __resource_id
-           "implementation_effort";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "implementation_effort";
+       name = Prop.computed __type __id "name";
        remediation_description =
-         Prop.computed __resource_type __resource_id
-           "remediation_description";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       threats =
-         Prop.computed __resource_type __resource_id "threats";
-       user_impact =
-         Prop.computed __resource_type __resource_id "user_impact";
+         Prop.computed __type __id "remediation_description";
+       severity = Prop.computed __type __id "severity";
+       threats = Prop.computed __type __id "threats";
+       user_impact = Prop.computed __type __id "user_impact";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_assessment_policy
+        (azurerm_security_center_assessment_policy ?categories ?id
+           ?implementation_effort ?remediation_description ?severity
+           ?threats ?user_impact ?timeouts ~description ~display_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?categories ?id ?implementation_effort
+    ?remediation_description ?severity ?threats ?user_impact
+    ?timeouts ~description ~display_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?categories ?id ?implementation_effort
+      ?remediation_description ?severity ?threats ?user_impact
+      ?timeouts ~description ~display_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

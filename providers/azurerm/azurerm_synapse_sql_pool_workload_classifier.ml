@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,39 +58,41 @@ type t = {
   workload_group_id : string prop;
 }
 
-let register ?tf_module ?context ?end_time ?id ?importance ?label
-    ?start_time ?timeouts ~member_name ~name ~workload_group_id
-    __resource_id =
-  let __resource_type =
-    "azurerm_synapse_sql_pool_workload_classifier"
-  in
-  let __resource =
-    azurerm_synapse_sql_pool_workload_classifier ?context ?end_time
-      ?id ?importance ?label ?start_time ?timeouts ~member_name ~name
-      ~workload_group_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_sql_pool_workload_classifier
-       __resource);
-  let __resource_attributes =
+let make ?context ?end_time ?id ?importance ?label ?start_time
+    ?timeouts ~member_name ~name ~workload_group_id __id =
+  let __type = "azurerm_synapse_sql_pool_workload_classifier" in
+  let __attrs =
     ({
-       context =
-         Prop.computed __resource_type __resource_id "context";
-       end_time =
-         Prop.computed __resource_type __resource_id "end_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       importance =
-         Prop.computed __resource_type __resource_id "importance";
-       label = Prop.computed __resource_type __resource_id "label";
-       member_name =
-         Prop.computed __resource_type __resource_id "member_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       start_time =
-         Prop.computed __resource_type __resource_id "start_time";
+       context = Prop.computed __type __id "context";
+       end_time = Prop.computed __type __id "end_time";
+       id = Prop.computed __type __id "id";
+       importance = Prop.computed __type __id "importance";
+       label = Prop.computed __type __id "label";
+       member_name = Prop.computed __type __id "member_name";
+       name = Prop.computed __type __id "name";
+       start_time = Prop.computed __type __id "start_time";
        workload_group_id =
-         Prop.computed __resource_type __resource_id
-           "workload_group_id";
+         Prop.computed __type __id "workload_group_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_sql_pool_workload_classifier
+        (azurerm_synapse_sql_pool_workload_classifier ?context
+           ?end_time ?id ?importance ?label ?start_time ?timeouts
+           ~member_name ~name ~workload_group_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?context ?end_time ?id ?importance ?label
+    ?start_time ?timeouts ~member_name ~name ~workload_group_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?context ?end_time ?id ?importance ?label ?start_time
+      ?timeouts ~member_name ~name ~workload_group_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type trusted_token_issuer_configuration__oidc_jwt_configuration = {
   claim_attribute_path : string prop;  (** claim_attribute_path *)
@@ -73,33 +71,42 @@ type t = {
   trusted_token_issuer_type : string prop;
 }
 
-let register ?tf_module ?client_token ?tags ~instance_arn ~name
+let make ?client_token ?tags ~instance_arn ~name
     ~trusted_token_issuer_type ~trusted_token_issuer_configuration
-    __resource_id =
-  let __resource_type = "aws_ssoadmin_trusted_token_issuer" in
-  let __resource =
-    aws_ssoadmin_trusted_token_issuer ?client_token ?tags
-      ~instance_arn ~name ~trusted_token_issuer_type
-      ~trusted_token_issuer_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_trusted_token_issuer __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_ssoadmin_trusted_token_issuer" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       client_token =
-         Prop.computed __resource_type __resource_id "client_token";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_arn =
-         Prop.computed __resource_type __resource_id "instance_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       client_token = Prop.computed __type __id "client_token";
+       id = Prop.computed __type __id "id";
+       instance_arn = Prop.computed __type __id "instance_arn";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        trusted_token_issuer_type =
-         Prop.computed __resource_type __resource_id
-           "trusted_token_issuer_type";
+         Prop.computed __type __id "trusted_token_issuer_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_trusted_token_issuer
+        (aws_ssoadmin_trusted_token_issuer ?client_token ?tags
+           ~instance_arn ~name ~trusted_token_issuer_type
+           ~trusted_token_issuer_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_token ?tags ~instance_arn ~name
+    ~trusted_token_issuer_type ~trusted_token_issuer_configuration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_token ?tags ~instance_arn ~name
+      ~trusted_token_issuer_type ~trusted_token_issuer_configuration
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

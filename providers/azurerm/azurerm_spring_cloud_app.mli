@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -109,3 +109,21 @@ val register :
   persistent_disk:persistent_disk list ->
   string ->
   t
+
+val make :
+  ?addon_json:string prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?is_public:bool prop ->
+  ?public_endpoint_enabled:bool prop ->
+  ?tls_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  service_name:string prop ->
+  custom_persistent_disk:custom_persistent_disk list ->
+  identity:identity list ->
+  ingress_settings:ingress_settings list ->
+  persistent_disk:persistent_disk list ->
+  string ->
+  t Tf_core.resource

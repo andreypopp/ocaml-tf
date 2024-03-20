@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type applies_to_group = {
   global_mesh_enabled : bool prop option; [@option]
@@ -91,40 +89,47 @@ type t = {
   network_manager_id : string prop;
 }
 
-let register ?tf_module ?delete_existing_peering_enabled ?description
+let make ?delete_existing_peering_enabled ?description
     ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-    ~network_manager_id ~applies_to_group ~hub __resource_id =
-  let __resource_type =
+    ~network_manager_id ~applies_to_group ~hub __id =
+  let __type =
     "azurerm_network_manager_connectivity_configuration"
   in
-  let __resource =
-    azurerm_network_manager_connectivity_configuration
-      ?delete_existing_peering_enabled ?description
-      ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
-      ~network_manager_id ~applies_to_group ~hub ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_manager_connectivity_configuration
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        connectivity_topology =
-         Prop.computed __resource_type __resource_id
-           "connectivity_topology";
+         Prop.computed __type __id "connectivity_topology";
        delete_existing_peering_enabled =
-         Prop.computed __resource_type __resource_id
-           "delete_existing_peering_enabled";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "delete_existing_peering_enabled";
+       description = Prop.computed __type __id "description";
        global_mesh_enabled =
-         Prop.computed __resource_type __resource_id
-           "global_mesh_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "global_mesh_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        network_manager_id =
-         Prop.computed __resource_type __resource_id
-           "network_manager_id";
+         Prop.computed __type __id "network_manager_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_manager_connectivity_configuration
+        (azurerm_network_manager_connectivity_configuration
+           ?delete_existing_peering_enabled ?description
+           ?global_mesh_enabled ?id ?timeouts ~connectivity_topology
+           ~name ~network_manager_id ~applies_to_group ~hub ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_existing_peering_enabled ?description
+    ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
+    ~network_manager_id ~applies_to_group ~hub __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_existing_peering_enabled ?description
+      ?global_mesh_enabled ?id ?timeouts ~connectivity_topology ~name
+      ~network_manager_id ~applies_to_group ~hub __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

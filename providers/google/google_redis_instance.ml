@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type maintenance_policy__weekly_maintenance_window__start_time = {
   hours : float prop option; [@option]
@@ -283,102 +281,96 @@ type t = {
   transit_encryption_mode : string prop;
 }
 
+let make ?alternative_location_id ?auth_enabled ?authorized_network
+    ?connect_mode ?customer_managed_key ?display_name ?id ?labels
+    ?location_id ?project ?read_replicas_mode ?redis_configs
+    ?redis_version ?region ?replica_count ?reserved_ip_range
+    ?secondary_ip_range ?tier ?transit_encryption_mode ?timeouts
+    ~memory_size_gb ~name ~maintenance_policy ~persistence_config
+    __id =
+  let __type = "google_redis_instance" in
+  let __attrs =
+    ({
+       alternative_location_id =
+         Prop.computed __type __id "alternative_location_id";
+       auth_enabled = Prop.computed __type __id "auth_enabled";
+       auth_string = Prop.computed __type __id "auth_string";
+       authorized_network =
+         Prop.computed __type __id "authorized_network";
+       connect_mode = Prop.computed __type __id "connect_mode";
+       create_time = Prop.computed __type __id "create_time";
+       current_location_id =
+         Prop.computed __type __id "current_location_id";
+       customer_managed_key =
+         Prop.computed __type __id "customer_managed_key";
+       display_name = Prop.computed __type __id "display_name";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location_id = Prop.computed __type __id "location_id";
+       maintenance_schedule =
+         Prop.computed __type __id "maintenance_schedule";
+       memory_size_gb = Prop.computed __type __id "memory_size_gb";
+       name = Prop.computed __type __id "name";
+       nodes = Prop.computed __type __id "nodes";
+       persistence_iam_identity =
+         Prop.computed __type __id "persistence_iam_identity";
+       port = Prop.computed __type __id "port";
+       project = Prop.computed __type __id "project";
+       read_endpoint = Prop.computed __type __id "read_endpoint";
+       read_endpoint_port =
+         Prop.computed __type __id "read_endpoint_port";
+       read_replicas_mode =
+         Prop.computed __type __id "read_replicas_mode";
+       redis_configs = Prop.computed __type __id "redis_configs";
+       redis_version = Prop.computed __type __id "redis_version";
+       region = Prop.computed __type __id "region";
+       replica_count = Prop.computed __type __id "replica_count";
+       reserved_ip_range =
+         Prop.computed __type __id "reserved_ip_range";
+       secondary_ip_range =
+         Prop.computed __type __id "secondary_ip_range";
+       server_ca_certs = Prop.computed __type __id "server_ca_certs";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       tier = Prop.computed __type __id "tier";
+       transit_encryption_mode =
+         Prop.computed __type __id "transit_encryption_mode";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_redis_instance
+        (google_redis_instance ?alternative_location_id ?auth_enabled
+           ?authorized_network ?connect_mode ?customer_managed_key
+           ?display_name ?id ?labels ?location_id ?project
+           ?read_replicas_mode ?redis_configs ?redis_version ?region
+           ?replica_count ?reserved_ip_range ?secondary_ip_range
+           ?tier ?transit_encryption_mode ?timeouts ~memory_size_gb
+           ~name ~maintenance_policy ~persistence_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?alternative_location_id ?auth_enabled
     ?authorized_network ?connect_mode ?customer_managed_key
     ?display_name ?id ?labels ?location_id ?project
     ?read_replicas_mode ?redis_configs ?redis_version ?region
     ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
     ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
-    ~maintenance_policy ~persistence_config __resource_id =
-  let __resource_type = "google_redis_instance" in
-  let __resource =
-    google_redis_instance ?alternative_location_id ?auth_enabled
-      ?authorized_network ?connect_mode ?customer_managed_key
-      ?display_name ?id ?labels ?location_id ?project
-      ?read_replicas_mode ?redis_configs ?redis_version ?region
-      ?replica_count ?reserved_ip_range ?secondary_ip_range ?tier
-      ?transit_encryption_mode ?timeouts ~memory_size_gb ~name
-      ~maintenance_policy ~persistence_config ()
+    ~maintenance_policy ~persistence_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?alternative_location_id ?auth_enabled ?authorized_network
+      ?connect_mode ?customer_managed_key ?display_name ?id ?labels
+      ?location_id ?project ?read_replicas_mode ?redis_configs
+      ?redis_version ?region ?replica_count ?reserved_ip_range
+      ?secondary_ip_range ?tier ?transit_encryption_mode ?timeouts
+      ~memory_size_gb ~name ~maintenance_policy ~persistence_config
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_redis_instance __resource);
-  let __resource_attributes =
-    ({
-       alternative_location_id =
-         Prop.computed __resource_type __resource_id
-           "alternative_location_id";
-       auth_enabled =
-         Prop.computed __resource_type __resource_id "auth_enabled";
-       auth_string =
-         Prop.computed __resource_type __resource_id "auth_string";
-       authorized_network =
-         Prop.computed __resource_type __resource_id
-           "authorized_network";
-       connect_mode =
-         Prop.computed __resource_type __resource_id "connect_mode";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       current_location_id =
-         Prop.computed __resource_type __resource_id
-           "current_location_id";
-       customer_managed_key =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location_id =
-         Prop.computed __resource_type __resource_id "location_id";
-       maintenance_schedule =
-         Prop.computed __resource_type __resource_id
-           "maintenance_schedule";
-       memory_size_gb =
-         Prop.computed __resource_type __resource_id "memory_size_gb";
-       name = Prop.computed __resource_type __resource_id "name";
-       nodes = Prop.computed __resource_type __resource_id "nodes";
-       persistence_iam_identity =
-         Prop.computed __resource_type __resource_id
-           "persistence_iam_identity";
-       port = Prop.computed __resource_type __resource_id "port";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       read_endpoint =
-         Prop.computed __resource_type __resource_id "read_endpoint";
-       read_endpoint_port =
-         Prop.computed __resource_type __resource_id
-           "read_endpoint_port";
-       read_replicas_mode =
-         Prop.computed __resource_type __resource_id
-           "read_replicas_mode";
-       redis_configs =
-         Prop.computed __resource_type __resource_id "redis_configs";
-       redis_version =
-         Prop.computed __resource_type __resource_id "redis_version";
-       region = Prop.computed __resource_type __resource_id "region";
-       replica_count =
-         Prop.computed __resource_type __resource_id "replica_count";
-       reserved_ip_range =
-         Prop.computed __resource_type __resource_id
-           "reserved_ip_range";
-       secondary_ip_range =
-         Prop.computed __resource_type __resource_id
-           "secondary_ip_range";
-       server_ca_certs =
-         Prop.computed __resource_type __resource_id
-           "server_ca_certs";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       tier = Prop.computed __resource_type __resource_id "tier";
-       transit_encryption_mode =
-         Prop.computed __resource_type __resource_id
-           "transit_encryption_mode";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

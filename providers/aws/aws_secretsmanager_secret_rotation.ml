@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rotation_rules = {
   automatically_after_days : float prop option; [@option]
@@ -49,30 +47,37 @@ type t = {
   secret_id : string prop;
 }
 
-let register ?tf_module ?id ?rotate_immediately ?rotation_lambda_arn
-    ~secret_id ~rotation_rules __resource_id =
-  let __resource_type = "aws_secretsmanager_secret_rotation" in
-  let __resource =
-    aws_secretsmanager_secret_rotation ?id ?rotate_immediately
-      ?rotation_lambda_arn ~secret_id ~rotation_rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_secretsmanager_secret_rotation __resource);
-  let __resource_attributes =
+let make ?id ?rotate_immediately ?rotation_lambda_arn ~secret_id
+    ~rotation_rules __id =
+  let __type = "aws_secretsmanager_secret_rotation" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        rotate_immediately =
-         Prop.computed __resource_type __resource_id
-           "rotate_immediately";
+         Prop.computed __type __id "rotate_immediately";
        rotation_enabled =
-         Prop.computed __resource_type __resource_id
-           "rotation_enabled";
+         Prop.computed __type __id "rotation_enabled";
        rotation_lambda_arn =
-         Prop.computed __resource_type __resource_id
-           "rotation_lambda_arn";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
+         Prop.computed __type __id "rotation_lambda_arn";
+       secret_id = Prop.computed __type __id "secret_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_secretsmanager_secret_rotation
+        (aws_secretsmanager_secret_rotation ?id ?rotate_immediately
+           ?rotation_lambda_arn ~secret_id ~rotation_rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?rotate_immediately ?rotation_lambda_arn
+    ~secret_id ~rotation_rules __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?rotate_immediately ?rotation_lambda_arn ~secret_id
+      ~rotation_rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type notification_config = {
   pubsub_topic : string prop;
@@ -76,31 +74,38 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?labels ?timeouts ~dataset ~name
-    ~notification_config __resource_id =
-  let __resource_type = "google_healthcare_dicom_store" in
-  let __resource =
-    google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
-      ~name ~notification_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_healthcare_dicom_store __resource);
-  let __resource_attributes =
+let make ?id ?labels ?timeouts ~dataset ~name ~notification_config
+    __id =
+  let __type = "google_healthcare_dicom_store" in
+  let __attrs =
     ({
-       dataset =
-         Prop.computed __resource_type __resource_id "dataset";
+       dataset = Prop.computed __type __id "dataset";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       self_link = Prop.computed __type __id "self_link";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_healthcare_dicom_store
+        (google_healthcare_dicom_store ?id ?labels ?timeouts ~dataset
+           ~name ~notification_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?timeouts ~dataset ~name
+    ~notification_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?timeouts ~dataset ~name ~notification_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

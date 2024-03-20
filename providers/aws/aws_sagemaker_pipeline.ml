@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parallelism_configuration = {
   max_parallel_execution_steps : float prop;
@@ -75,40 +73,50 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?pipeline_definition
-    ?pipeline_description ?role_arn ?tags ?tags_all
-    ~pipeline_display_name ~pipeline_name ~parallelism_configuration
-    ~pipeline_definition_s3_location __resource_id =
-  let __resource_type = "aws_sagemaker_pipeline" in
-  let __resource =
-    aws_sagemaker_pipeline ?id ?pipeline_definition
-      ?pipeline_description ?role_arn ?tags ?tags_all
-      ~pipeline_display_name ~pipeline_name
-      ~parallelism_configuration ~pipeline_definition_s3_location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_pipeline __resource);
-  let __resource_attributes =
+let make ?id ?pipeline_definition ?pipeline_description ?role_arn
+    ?tags ?tags_all ~pipeline_display_name ~pipeline_name
+    ~parallelism_configuration ~pipeline_definition_s3_location __id
+    =
+  let __type = "aws_sagemaker_pipeline" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        pipeline_definition =
-         Prop.computed __resource_type __resource_id
-           "pipeline_definition";
+         Prop.computed __type __id "pipeline_definition";
        pipeline_description =
-         Prop.computed __resource_type __resource_id
-           "pipeline_description";
+         Prop.computed __type __id "pipeline_description";
        pipeline_display_name =
-         Prop.computed __resource_type __resource_id
-           "pipeline_display_name";
-       pipeline_name =
-         Prop.computed __resource_type __resource_id "pipeline_name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "pipeline_display_name";
+       pipeline_name = Prop.computed __type __id "pipeline_name";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_pipeline
+        (aws_sagemaker_pipeline ?id ?pipeline_definition
+           ?pipeline_description ?role_arn ?tags ?tags_all
+           ~pipeline_display_name ~pipeline_name
+           ~parallelism_configuration
+           ~pipeline_definition_s3_location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?pipeline_definition
+    ?pipeline_description ?role_arn ?tags ?tags_all
+    ~pipeline_display_name ~pipeline_name ~parallelism_configuration
+    ~pipeline_definition_s3_location __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?pipeline_definition ?pipeline_description ?role_arn
+      ?tags ?tags_all ~pipeline_display_name ~pipeline_name
+      ~parallelism_configuration ~pipeline_definition_s3_location
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

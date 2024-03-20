@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,18 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?automatic_stop_time_minutes:float prop ->
+  ?connection_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?owner_arn:string prop ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  image_id:string prop ->
+  instance_type:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

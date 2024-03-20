@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type image_pull_secret = {
   name : string prop option; [@option]
@@ -75,26 +73,35 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?automount_service_account_token ?id
-    ?timeouts ~image_pull_secret ~metadata ~secret __resource_id =
-  let __resource_type = "kubernetes_default_service_account" in
-  let __resource =
-    kubernetes_default_service_account
-      ?automount_service_account_token ?id ?timeouts
-      ~image_pull_secret ~metadata ~secret ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_default_service_account __resource);
-  let __resource_attributes =
+let make ?automount_service_account_token ?id ?timeouts
+    ~image_pull_secret ~metadata ~secret __id =
+  let __type = "kubernetes_default_service_account" in
+  let __attrs =
     ({
        automount_service_account_token =
-         Prop.computed __resource_type __resource_id
-           "automount_service_account_token";
+         Prop.computed __type __id "automount_service_account_token";
        default_secret_name =
-         Prop.computed __resource_type __resource_id
-           "default_secret_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "default_secret_name";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_default_service_account
+        (kubernetes_default_service_account
+           ?automount_service_account_token ?id ?timeouts
+           ~image_pull_secret ~metadata ~secret ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automount_service_account_token ?id
+    ?timeouts ~image_pull_secret ~metadata ~secret __id =
+  let (r : _ Tf_core.resource) =
+    make ?automount_service_account_token ?id ?timeouts
+      ~image_pull_secret ~metadata ~secret __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

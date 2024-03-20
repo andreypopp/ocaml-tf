@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -242,3 +242,33 @@ val register :
   storage_os_disk:storage_os_disk list ->
   string ->
   t
+
+val make :
+  ?availability_set_id:string prop ->
+  ?delete_data_disks_on_termination:bool prop ->
+  ?delete_os_disk_on_termination:bool prop ->
+  ?id:string prop ->
+  ?license_type:string prop ->
+  ?primary_network_interface_id:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  network_interface_ids:string prop list ->
+  resource_group_name:string prop ->
+  vm_size:string prop ->
+  additional_capabilities:additional_capabilities list ->
+  boot_diagnostics:boot_diagnostics list ->
+  identity:identity list ->
+  os_profile:os_profile list ->
+  os_profile_linux_config:os_profile_linux_config list ->
+  os_profile_secrets:os_profile_secrets list ->
+  os_profile_windows_config:os_profile_windows_config list ->
+  plan:plan list ->
+  storage_data_disk:storage_data_disk list ->
+  storage_image_reference:storage_image_reference list ->
+  storage_os_disk:storage_os_disk list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -309,3 +309,19 @@ val register :
   transition_routes:transition_routes list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?is_default_start_flow:bool prop ->
+  ?language_code:string prop ->
+  ?parent:string prop ->
+  ?transition_route_groups:string prop list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  advanced_settings:advanced_settings list ->
+  event_handlers:event_handlers list ->
+  nlu_settings:nlu_settings list ->
+  transition_routes:transition_routes list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,18 @@ val register :
   weekly_backup_limit:float prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  daily_backup_limit:float prop ->
+  location:string prop ->
+  monthly_backup_limit:float prop ->
+  name:string prop ->
+  weekly_backup_limit:float prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,19 @@ val register :
   gcs_fileset_spec:gcs_fileset_spec list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?linked_resource:string prop ->
+  ?schema:string prop ->
+  ?type_:string prop ->
+  ?user_specified_system:string prop ->
+  ?user_specified_type:string prop ->
+  ?timeouts:timeouts ->
+  entry_group:string prop ->
+  entry_id:string prop ->
+  gcs_fileset_spec:gcs_fileset_spec list ->
+  string ->
+  t Tf_core.resource

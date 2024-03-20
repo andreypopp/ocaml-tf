@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,28 +50,36 @@ type t = {
   schema : string prop;
 }
 
-let register ?tf_module ?id ?method_ ?relative_path ?timeouts
-    ~logic_app_id ~name ~schema __resource_id =
-  let __resource_type = "azurerm_logic_app_trigger_http_request" in
-  let __resource =
-    azurerm_logic_app_trigger_http_request ?id ?method_
-      ?relative_path ?timeouts ~logic_app_id ~name ~schema ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_trigger_http_request __resource);
-  let __resource_attributes =
+let make ?id ?method_ ?relative_path ?timeouts ~logic_app_id ~name
+    ~schema __id =
+  let __type = "azurerm_logic_app_trigger_http_request" in
+  let __attrs =
     ({
-       callback_url =
-         Prop.computed __resource_type __resource_id "callback_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       logic_app_id =
-         Prop.computed __resource_type __resource_id "logic_app_id";
-       method_ = Prop.computed __resource_type __resource_id "method";
-       name = Prop.computed __resource_type __resource_id "name";
-       relative_path =
-         Prop.computed __resource_type __resource_id "relative_path";
-       schema = Prop.computed __resource_type __resource_id "schema";
+       callback_url = Prop.computed __type __id "callback_url";
+       id = Prop.computed __type __id "id";
+       logic_app_id = Prop.computed __type __id "logic_app_id";
+       method_ = Prop.computed __type __id "method";
+       name = Prop.computed __type __id "name";
+       relative_path = Prop.computed __type __id "relative_path";
+       schema = Prop.computed __type __id "schema";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_trigger_http_request
+        (azurerm_logic_app_trigger_http_request ?id ?method_
+           ?relative_path ?timeouts ~logic_app_id ~name ~schema ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?method_ ?relative_path ?timeouts
+    ~logic_app_id ~name ~schema __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?method_ ?relative_path ?timeouts ~logic_app_id ~name
+      ~schema __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

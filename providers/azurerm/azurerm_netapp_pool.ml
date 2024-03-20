@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,39 +61,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?encryption_type ?id ?qos_type ?tags
-    ?timeouts ~account_name ~location ~name ~resource_group_name
-    ~service_level ~size_in_tb __resource_id =
-  let __resource_type = "azurerm_netapp_pool" in
-  let __resource =
-    azurerm_netapp_pool ?encryption_type ?id ?qos_type ?tags
-      ?timeouts ~account_name ~location ~name ~resource_group_name
-      ~service_level ~size_in_tb ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_netapp_pool __resource);
-  let __resource_attributes =
+let make ?encryption_type ?id ?qos_type ?tags ?timeouts ~account_name
+    ~location ~name ~resource_group_name ~service_level ~size_in_tb
+    __id =
+  let __type = "azurerm_netapp_pool" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
-       encryption_type =
-         Prop.computed __resource_type __resource_id
-           "encryption_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       qos_type =
-         Prop.computed __resource_type __resource_id "qos_type";
+       account_name = Prop.computed __type __id "account_name";
+       encryption_type = Prop.computed __type __id "encryption_type";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       qos_type = Prop.computed __type __id "qos_type";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_level =
-         Prop.computed __resource_type __resource_id "service_level";
-       size_in_tb =
-         Prop.computed __resource_type __resource_id "size_in_tb";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       service_level = Prop.computed __type __id "service_level";
+       size_in_tb = Prop.computed __type __id "size_in_tb";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_netapp_pool
+        (azurerm_netapp_pool ?encryption_type ?id ?qos_type ?tags
+           ?timeouts ~account_name ~location ~name
+           ~resource_group_name ~service_level ~size_in_tb ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?encryption_type ?id ?qos_type ?tags
+    ?timeouts ~account_name ~location ~name ~resource_group_name
+    ~service_level ~size_in_tb __id =
+  let (r : _ Tf_core.resource) =
+    make ?encryption_type ?id ?qos_type ?tags ?timeouts ~account_name
+      ~location ~name ~resource_group_name ~service_level ~size_in_tb
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

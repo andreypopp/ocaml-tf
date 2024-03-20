@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,15 @@ val register :
   delivery_config:delivery_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  topic:string prop ->
+  delivery_config:delivery_config list ->
+  string ->
+  t Tf_core.resource

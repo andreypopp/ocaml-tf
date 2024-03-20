@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,33 +46,39 @@ type t = {
   is_trusted : bool prop;
 }
 
-let register ?tf_module ?id ?is_trusted ?timeouts ~api_management_id
-    ~certificate_name ~gateway_name __resource_id =
-  let __resource_type =
+let make ?id ?is_trusted ?timeouts ~api_management_id
+    ~certificate_name ~gateway_name __id =
+  let __type =
     "azurerm_api_management_gateway_certificate_authority"
   in
-  let __resource =
-    azurerm_api_management_gateway_certificate_authority ?id
-      ?is_trusted ?timeouts ~api_management_id ~certificate_name
-      ~gateway_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_gateway_certificate_authority
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        api_management_id =
-         Prop.computed __resource_type __resource_id
-           "api_management_id";
+         Prop.computed __type __id "api_management_id";
        certificate_name =
-         Prop.computed __resource_type __resource_id
-           "certificate_name";
-       gateway_name =
-         Prop.computed __resource_type __resource_id "gateway_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_trusted =
-         Prop.computed __resource_type __resource_id "is_trusted";
+         Prop.computed __type __id "certificate_name";
+       gateway_name = Prop.computed __type __id "gateway_name";
+       id = Prop.computed __type __id "id";
+       is_trusted = Prop.computed __type __id "is_trusted";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_gateway_certificate_authority
+        (azurerm_api_management_gateway_certificate_authority ?id
+           ?is_trusted ?timeouts ~api_management_id ~certificate_name
+           ~gateway_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_trusted ?timeouts ~api_management_id
+    ~certificate_name ~gateway_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_trusted ?timeouts ~api_management_id
+      ~certificate_name ~gateway_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

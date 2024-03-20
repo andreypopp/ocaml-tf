@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,14 @@ val register :
   tls:tls list ->
   string ->
   t
+
+val make :
+  ?dns_zone_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_profile_id:string prop ->
+  host_name:string prop ->
+  name:string prop ->
+  tls:tls list ->
+  string ->
+  t Tf_core.resource

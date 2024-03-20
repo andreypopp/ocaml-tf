@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -110,3 +110,15 @@ val register :
   transit_gateway_configuration:transit_gateway_configuration list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  kms_key_id:string prop ->
+  name:string prop ->
+  custom_dns_configuration:custom_dns_configuration list ->
+  transit_gateway_configuration:transit_gateway_configuration list ->
+  string ->
+  t Tf_core.resource

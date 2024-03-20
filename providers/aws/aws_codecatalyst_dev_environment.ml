@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ides = {
   name : string prop option; [@option]  (** name *)
@@ -81,32 +79,41 @@ type t = {
   space_name : string prop;
 }
 
-let register ?tf_module ?alias ?id ?inactivity_timeout_minutes
-    ?timeouts ~instance_type ~project_name ~space_name ~ides
-    ~persistent_storage ~repositories __resource_id =
-  let __resource_type = "aws_codecatalyst_dev_environment" in
-  let __resource =
-    aws_codecatalyst_dev_environment ?alias ?id
-      ?inactivity_timeout_minutes ?timeouts ~instance_type
-      ~project_name ~space_name ~ides ~persistent_storage
-      ~repositories ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codecatalyst_dev_environment __resource);
-  let __resource_attributes =
+let make ?alias ?id ?inactivity_timeout_minutes ?timeouts
+    ~instance_type ~project_name ~space_name ~ides
+    ~persistent_storage ~repositories __id =
+  let __type = "aws_codecatalyst_dev_environment" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
-       id = Prop.computed __resource_type __resource_id "id";
+       alias = Prop.computed __type __id "alias";
+       id = Prop.computed __type __id "id";
        inactivity_timeout_minutes =
-         Prop.computed __resource_type __resource_id
-           "inactivity_timeout_minutes";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       project_name =
-         Prop.computed __resource_type __resource_id "project_name";
-       space_name =
-         Prop.computed __resource_type __resource_id "space_name";
+         Prop.computed __type __id "inactivity_timeout_minutes";
+       instance_type = Prop.computed __type __id "instance_type";
+       project_name = Prop.computed __type __id "project_name";
+       space_name = Prop.computed __type __id "space_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codecatalyst_dev_environment
+        (aws_codecatalyst_dev_environment ?alias ?id
+           ?inactivity_timeout_minutes ?timeouts ~instance_type
+           ~project_name ~space_name ~ides ~persistent_storage
+           ~repositories ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alias ?id ?inactivity_timeout_minutes
+    ?timeouts ~instance_type ~project_name ~space_name ~ides
+    ~persistent_storage ~repositories __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias ?id ?inactivity_timeout_minutes ?timeouts
+      ~instance_type ~project_name ~space_name ~ides
+      ~persistent_storage ~repositories __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

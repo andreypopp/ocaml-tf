@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type snaplock_configuration__autocommit_period = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
@@ -197,68 +195,74 @@ type t = {
   volume_type : string prop;
 }
 
+let make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
+    ?id ?junction_path ?ontap_volume_type ?security_style
+    ?skip_final_backup ?snapshot_policy ?storage_efficiency_enabled
+    ?tags ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
+    ~storage_virtual_machine_id ~snaplock_configuration
+    ~tiering_policy __id =
+  let __type = "aws_fsx_ontap_volume" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       bypass_snaplock_enterprise_retention =
+         Prop.computed __type __id
+           "bypass_snaplock_enterprise_retention";
+       copy_tags_to_backups =
+         Prop.computed __type __id "copy_tags_to_backups";
+       file_system_id = Prop.computed __type __id "file_system_id";
+       flexcache_endpoint_type =
+         Prop.computed __type __id "flexcache_endpoint_type";
+       id = Prop.computed __type __id "id";
+       junction_path = Prop.computed __type __id "junction_path";
+       name = Prop.computed __type __id "name";
+       ontap_volume_type =
+         Prop.computed __type __id "ontap_volume_type";
+       security_style = Prop.computed __type __id "security_style";
+       size_in_megabytes =
+         Prop.computed __type __id "size_in_megabytes";
+       skip_final_backup =
+         Prop.computed __type __id "skip_final_backup";
+       snapshot_policy = Prop.computed __type __id "snapshot_policy";
+       storage_efficiency_enabled =
+         Prop.computed __type __id "storage_efficiency_enabled";
+       storage_virtual_machine_id =
+         Prop.computed __type __id "storage_virtual_machine_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uuid = Prop.computed __type __id "uuid";
+       volume_type = Prop.computed __type __id "volume_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_ontap_volume
+        (aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
+           ?copy_tags_to_backups ?id ?junction_path
+           ?ontap_volume_type ?security_style ?skip_final_backup
+           ?snapshot_policy ?storage_efficiency_enabled ?tags
+           ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
+           ~storage_virtual_machine_id ~snaplock_configuration
+           ~tiering_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?bypass_snaplock_enterprise_retention
     ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
     ?security_style ?skip_final_backup ?snapshot_policy
     ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
     ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
-    ~snaplock_configuration ~tiering_policy __resource_id =
-  let __resource_type = "aws_fsx_ontap_volume" in
-  let __resource =
-    aws_fsx_ontap_volume ?bypass_snaplock_enterprise_retention
-      ?copy_tags_to_backups ?id ?junction_path ?ontap_volume_type
-      ?security_style ?skip_final_backup ?snapshot_policy
-      ?storage_efficiency_enabled ?tags ?tags_all ?volume_type
-      ?timeouts ~name ~size_in_megabytes ~storage_virtual_machine_id
-      ~snaplock_configuration ~tiering_policy ()
+    ~snaplock_configuration ~tiering_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass_snaplock_enterprise_retention ?copy_tags_to_backups
+      ?id ?junction_path ?ontap_volume_type ?security_style
+      ?skip_final_backup ?snapshot_policy ?storage_efficiency_enabled
+      ?tags ?tags_all ?volume_type ?timeouts ~name ~size_in_megabytes
+      ~storage_virtual_machine_id ~snaplock_configuration
+      ~tiering_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_ontap_volume __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bypass_snaplock_enterprise_retention =
-         Prop.computed __resource_type __resource_id
-           "bypass_snaplock_enterprise_retention";
-       copy_tags_to_backups =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_backups";
-       file_system_id =
-         Prop.computed __resource_type __resource_id "file_system_id";
-       flexcache_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "flexcache_endpoint_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       junction_path =
-         Prop.computed __resource_type __resource_id "junction_path";
-       name = Prop.computed __resource_type __resource_id "name";
-       ontap_volume_type =
-         Prop.computed __resource_type __resource_id
-           "ontap_volume_type";
-       security_style =
-         Prop.computed __resource_type __resource_id "security_style";
-       size_in_megabytes =
-         Prop.computed __resource_type __resource_id
-           "size_in_megabytes";
-       skip_final_backup =
-         Prop.computed __resource_type __resource_id
-           "skip_final_backup";
-       snapshot_policy =
-         Prop.computed __resource_type __resource_id
-           "snapshot_policy";
-       storage_efficiency_enabled =
-         Prop.computed __resource_type __resource_id
-           "storage_efficiency_enabled";
-       storage_virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "storage_virtual_machine_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uuid = Prop.computed __resource_type __resource_id "uuid";
-       volume_type =
-         Prop.computed __resource_type __resource_id "volume_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

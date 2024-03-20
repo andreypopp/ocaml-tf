@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_email_routing_address = {
   account_id : string prop;
@@ -27,27 +25,30 @@ type t = {
   verified : string prop;
 }
 
-let register ?tf_module ~account_id ~email __resource_id =
-  let __resource_type = "cloudflare_email_routing_address" in
-  let __resource =
-    cloudflare_email_routing_address ~account_id ~email ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_email_routing_address __resource);
-  let __resource_attributes =
+let make ~account_id ~email __id =
+  let __type = "cloudflare_email_routing_address" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified =
-         Prop.computed __resource_type __resource_id "modified";
-       tag = Prop.computed __resource_type __resource_id "tag";
-       verified =
-         Prop.computed __resource_type __resource_id "verified";
+       account_id = Prop.computed __type __id "account_id";
+       created = Prop.computed __type __id "created";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       modified = Prop.computed __type __id "modified";
+       tag = Prop.computed __type __id "tag";
+       verified = Prop.computed __type __id "verified";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_email_routing_address
+        (cloudflare_email_routing_address ~account_id ~email ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~account_id ~email __id =
+  let (r : _ Tf_core.resource) = make ~account_id ~email __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

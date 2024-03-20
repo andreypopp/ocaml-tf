@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type segment_configurations = {
   db_paths : string prop list;  (** db_paths *)
@@ -84,50 +82,53 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?availability_zone_id ?changeset_id
-    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
-    ~database_name ~environment_id ~name ~segment_configurations
-    __resource_id =
-  let __resource_type = "aws_finspace_kx_dataview" in
-  let __resource =
-    aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
-      ?description ?id ?tags ?tags_all ?timeouts ~auto_update
-      ~az_mode ~database_name ~environment_id ~name
-      ~segment_configurations ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_finspace_kx_dataview __resource);
-  let __resource_attributes =
+let make ?availability_zone_id ?changeset_id ?description ?id ?tags
+    ?tags_all ?timeouts ~auto_update ~az_mode ~database_name
+    ~environment_id ~name ~segment_configurations __id =
+  let __type = "aws_finspace_kx_dataview" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_update =
-         Prop.computed __resource_type __resource_id "auto_update";
+       arn = Prop.computed __type __id "arn";
+       auto_update = Prop.computed __type __id "auto_update";
        availability_zone_id =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_id";
-       az_mode =
-         Prop.computed __resource_type __resource_id "az_mode";
-       changeset_id =
-         Prop.computed __resource_type __resource_id "changeset_id";
+         Prop.computed __type __id "availability_zone_id";
+       az_mode = Prop.computed __type __id "az_mode";
+       changeset_id = Prop.computed __type __id "changeset_id";
        created_timestamp =
-         Prop.computed __resource_type __resource_id
-           "created_timestamp";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "created_timestamp";
+       database_name = Prop.computed __type __id "database_name";
+       description = Prop.computed __type __id "description";
+       environment_id = Prop.computed __type __id "environment_id";
+       id = Prop.computed __type __id "id";
        last_modified_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_modified_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_modified_timestamp";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_finspace_kx_dataview
+        (aws_finspace_kx_dataview ?availability_zone_id ?changeset_id
+           ?description ?id ?tags ?tags_all ?timeouts ~auto_update
+           ~az_mode ~database_name ~environment_id ~name
+           ~segment_configurations ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?availability_zone_id ?changeset_id
+    ?description ?id ?tags ?tags_all ?timeouts ~auto_update ~az_mode
+    ~database_name ~environment_id ~name ~segment_configurations __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?availability_zone_id ?changeset_id ?description ?id ?tags
+      ?tags_all ?timeouts ~auto_update ~az_mode ~database_name
+      ~environment_id ~name ~segment_configurations __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

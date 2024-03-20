@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,46 +64,46 @@ type t = {
   virtual_network_enabled : bool prop;
 }
 
-let register ?tf_module ?cleanup_enabled ?compute_type ?core_count
-    ?description ?id ?time_to_live_min ?virtual_network_enabled
-    ?timeouts ~data_factory_id ~location ~name __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_integration_runtime_azure"
-  in
-  let __resource =
-    azurerm_data_factory_integration_runtime_azure ?cleanup_enabled
-      ?compute_type ?core_count ?description ?id ?time_to_live_min
-      ?virtual_network_enabled ?timeouts ~data_factory_id ~location
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_integration_runtime_azure
-       __resource);
-  let __resource_attributes =
+let make ?cleanup_enabled ?compute_type ?core_count ?description ?id
+    ?time_to_live_min ?virtual_network_enabled ?timeouts
+    ~data_factory_id ~location ~name __id =
+  let __type = "azurerm_data_factory_integration_runtime_azure" in
+  let __attrs =
     ({
-       cleanup_enabled =
-         Prop.computed __resource_type __resource_id
-           "cleanup_enabled";
-       compute_type =
-         Prop.computed __resource_type __resource_id "compute_type";
-       core_count =
-         Prop.computed __resource_type __resource_id "core_count";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       cleanup_enabled = Prop.computed __type __id "cleanup_enabled";
+       compute_type = Prop.computed __type __id "compute_type";
+       core_count = Prop.computed __type __id "core_count";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        time_to_live_min =
-         Prop.computed __resource_type __resource_id
-           "time_to_live_min";
+         Prop.computed __type __id "time_to_live_min";
        virtual_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_enabled";
+         Prop.computed __type __id "virtual_network_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_integration_runtime_azure
+        (azurerm_data_factory_integration_runtime_azure
+           ?cleanup_enabled ?compute_type ?core_count ?description
+           ?id ?time_to_live_min ?virtual_network_enabled ?timeouts
+           ~data_factory_id ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cleanup_enabled ?compute_type ?core_count
+    ?description ?id ?time_to_live_min ?virtual_network_enabled
+    ?timeouts ~data_factory_id ~location ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?cleanup_enabled ?compute_type ?core_count ?description ?id
+      ?time_to_live_min ?virtual_network_enabled ?timeouts
+      ~data_factory_id ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

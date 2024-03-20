@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -105,3 +105,18 @@ val register :
   image_tests_configuration:image_tests_configuration list ->
   string ->
   t
+
+val make :
+  ?container_recipe_arn:string prop ->
+  ?distribution_configuration_arn:string prop ->
+  ?enhanced_image_metadata_enabled:bool prop ->
+  ?id:string prop ->
+  ?image_recipe_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  infrastructure_configuration_arn:string prop ->
+  image_scanning_configuration:image_scanning_configuration list ->
+  image_tests_configuration:image_tests_configuration list ->
+  string ->
+  t Tf_core.resource

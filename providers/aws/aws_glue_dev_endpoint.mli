@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,24 @@ val register :
   role_arn:string prop ->
   string ->
   t
+
+val make :
+  ?arguments:(string * string prop) list ->
+  ?extra_jars_s3_path:string prop ->
+  ?extra_python_libs_s3_path:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?number_of_nodes:float prop ->
+  ?number_of_workers:float prop ->
+  ?public_key:string prop ->
+  ?public_keys:string prop list ->
+  ?security_configuration:string prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  string ->
+  t Tf_core.resource

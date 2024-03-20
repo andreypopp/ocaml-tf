@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type lifecycle_policy = {
   transition_to_archive : string prop option; [@option]
@@ -102,58 +100,59 @@ type t = {
   throughput_mode : string prop;
 }
 
-let register ?tf_module ?availability_zone_name ?creation_token
-    ?encrypted ?id ?kms_key_id ?performance_mode
-    ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
-    ~lifecycle_policy ~protection __resource_id =
-  let __resource_type = "aws_efs_file_system" in
-  let __resource =
-    aws_efs_file_system ?availability_zone_name ?creation_token
-      ?encrypted ?id ?kms_key_id ?performance_mode
-      ?provisioned_throughput_in_mibps ?tags ?tags_all
-      ?throughput_mode ~lifecycle_policy ~protection ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_efs_file_system __resource);
-  let __resource_attributes =
+let make ?availability_zone_name ?creation_token ?encrypted ?id
+    ?kms_key_id ?performance_mode ?provisioned_throughput_in_mibps
+    ?tags ?tags_all ?throughput_mode ~lifecycle_policy ~protection
+    __id =
+  let __type = "aws_efs_file_system" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        availability_zone_id =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_id";
+         Prop.computed __type __id "availability_zone_id";
        availability_zone_name =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_name";
-       creation_token =
-         Prop.computed __resource_type __resource_id "creation_token";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "availability_zone_name";
+       creation_token = Prop.computed __type __id "creation_token";
+       dns_name = Prop.computed __type __id "dns_name";
+       encrypted = Prop.computed __type __id "encrypted";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
        number_of_mount_targets =
-         Prop.computed __resource_type __resource_id
-           "number_of_mount_targets";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
+         Prop.computed __type __id "number_of_mount_targets";
+       owner_id = Prop.computed __type __id "owner_id";
        performance_mode =
-         Prop.computed __resource_type __resource_id
-           "performance_mode";
+         Prop.computed __type __id "performance_mode";
        provisioned_throughput_in_mibps =
-         Prop.computed __resource_type __resource_id
-           "provisioned_throughput_in_mibps";
-       size_in_bytes =
-         Prop.computed __resource_type __resource_id "size_in_bytes";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       throughput_mode =
-         Prop.computed __resource_type __resource_id
-           "throughput_mode";
+         Prop.computed __type __id "provisioned_throughput_in_mibps";
+       size_in_bytes = Prop.computed __type __id "size_in_bytes";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       throughput_mode = Prop.computed __type __id "throughput_mode";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_efs_file_system
+        (aws_efs_file_system ?availability_zone_name ?creation_token
+           ?encrypted ?id ?kms_key_id ?performance_mode
+           ?provisioned_throughput_in_mibps ?tags ?tags_all
+           ?throughput_mode ~lifecycle_policy ~protection ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?availability_zone_name ?creation_token
+    ?encrypted ?id ?kms_key_id ?performance_mode
+    ?provisioned_throughput_in_mibps ?tags ?tags_all ?throughput_mode
+    ~lifecycle_policy ~protection __id =
+  let (r : _ Tf_core.resource) =
+    make ?availability_zone_name ?creation_token ?encrypted ?id
+      ?kms_key_id ?performance_mode ?provisioned_throughput_in_mibps
+      ?tags ?tags_all ?throughput_mode ~lifecycle_policy ~protection
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

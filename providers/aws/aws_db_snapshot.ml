@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,66 +65,59 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ?shared_accounts ?tags ?tags_all
-    ?timeouts ~db_instance_identifier ~db_snapshot_identifier
-    __resource_id =
-  let __resource_type = "aws_db_snapshot" in
-  let __resource =
-    aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all ?timeouts
-      ~db_instance_identifier ~db_snapshot_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_db_snapshot __resource);
-  let __resource_attributes =
+let make ?id ?shared_accounts ?tags ?tags_all ?timeouts
+    ~db_instance_identifier ~db_snapshot_identifier __id =
+  let __type = "aws_db_snapshot" in
+  let __attrs =
     ({
        allocated_storage =
-         Prop.computed __resource_type __resource_id
-           "allocated_storage";
+         Prop.computed __type __id "allocated_storage";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
+         Prop.computed __type __id "availability_zone";
        db_instance_identifier =
-         Prop.computed __resource_type __resource_id
-           "db_instance_identifier";
-       db_snapshot_arn =
-         Prop.computed __resource_type __resource_id
-           "db_snapshot_arn";
+         Prop.computed __type __id "db_instance_identifier";
+       db_snapshot_arn = Prop.computed __type __id "db_snapshot_arn";
        db_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "db_snapshot_identifier";
-       encrypted =
-         Prop.computed __resource_type __resource_id "encrypted";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       iops = Prop.computed __resource_type __resource_id "iops";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       license_model =
-         Prop.computed __resource_type __resource_id "license_model";
+         Prop.computed __type __id "db_snapshot_identifier";
+       encrypted = Prop.computed __type __id "encrypted";
+       engine = Prop.computed __type __id "engine";
+       engine_version = Prop.computed __type __id "engine_version";
+       id = Prop.computed __type __id "id";
+       iops = Prop.computed __type __id "iops";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       license_model = Prop.computed __type __id "license_model";
        option_group_name =
-         Prop.computed __resource_type __resource_id
-           "option_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       shared_accounts =
-         Prop.computed __resource_type __resource_id
-           "shared_accounts";
-       snapshot_type =
-         Prop.computed __resource_type __resource_id "snapshot_type";
+         Prop.computed __type __id "option_group_name";
+       port = Prop.computed __type __id "port";
+       shared_accounts = Prop.computed __type __id "shared_accounts";
+       snapshot_type = Prop.computed __type __id "snapshot_type";
        source_db_snapshot_identifier =
-         Prop.computed __resource_type __resource_id
-           "source_db_snapshot_identifier";
-       source_region =
-         Prop.computed __resource_type __resource_id "source_region";
-       status = Prop.computed __resource_type __resource_id "status";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "source_db_snapshot_identifier";
+       source_region = Prop.computed __type __id "source_region";
+       status = Prop.computed __type __id "status";
+       storage_type = Prop.computed __type __id "storage_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_db_snapshot
+        (aws_db_snapshot ?id ?shared_accounts ?tags ?tags_all
+           ?timeouts ~db_instance_identifier ~db_snapshot_identifier
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?shared_accounts ?tags ?tags_all
+    ?timeouts ~db_instance_identifier ~db_snapshot_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?shared_accounts ?tags ?tags_all ?timeouts
+      ~db_instance_identifier ~db_snapshot_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

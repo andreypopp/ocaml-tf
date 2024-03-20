@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -238,6 +236,149 @@ type t = {
   use_task_start_time_for_full_load_timestamp : bool prop;
 }
 
+let make ?add_column_name ?add_trailing_padding_character
+    ?bucket_folder ?canned_acl_for_objects ?cdc_inserts_and_updates
+    ?cdc_inserts_only ?cdc_max_batch_interval ?cdc_min_file_size
+    ?cdc_path ?certificate_arn ?compression_type ?csv_delimiter
+    ?csv_no_sup_value ?csv_null_value ?csv_row_delimiter ?data_format
+    ?data_page_size ?date_partition_delimiter ?date_partition_enabled
+    ?date_partition_sequence ?date_partition_timezone
+    ?detach_target_on_lob_lookup_failure_parquet
+    ?dict_page_size_limit ?enable_statistics ?encoding_type
+    ?encryption_mode ?expected_bucket_owner
+    ?external_table_definition ?glue_catalog_generation ?id
+    ?ignore_header_rows ?include_op_for_full_load ?kms_key_arn
+    ?max_file_size ?parquet_timestamp_in_millisecond ?parquet_version
+    ?preserve_transactions ?rfc_4180 ?row_group_length
+    ?server_side_encryption_kms_key_id ?ssl_mode ?tags ?tags_all
+    ?timestamp_column_name ?use_csv_no_sup_value
+    ?use_task_start_time_for_full_load_timestamp ?timeouts
+    ~bucket_name ~endpoint_id ~endpoint_type ~service_access_role_arn
+    __id =
+  let __type = "aws_dms_s3_endpoint" in
+  let __attrs =
+    ({
+       add_column_name = Prop.computed __type __id "add_column_name";
+       add_trailing_padding_character =
+         Prop.computed __type __id "add_trailing_padding_character";
+       bucket_folder = Prop.computed __type __id "bucket_folder";
+       bucket_name = Prop.computed __type __id "bucket_name";
+       canned_acl_for_objects =
+         Prop.computed __type __id "canned_acl_for_objects";
+       cdc_inserts_and_updates =
+         Prop.computed __type __id "cdc_inserts_and_updates";
+       cdc_inserts_only =
+         Prop.computed __type __id "cdc_inserts_only";
+       cdc_max_batch_interval =
+         Prop.computed __type __id "cdc_max_batch_interval";
+       cdc_min_file_size =
+         Prop.computed __type __id "cdc_min_file_size";
+       cdc_path = Prop.computed __type __id "cdc_path";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
+       compression_type =
+         Prop.computed __type __id "compression_type";
+       csv_delimiter = Prop.computed __type __id "csv_delimiter";
+       csv_no_sup_value =
+         Prop.computed __type __id "csv_no_sup_value";
+       csv_null_value = Prop.computed __type __id "csv_null_value";
+       csv_row_delimiter =
+         Prop.computed __type __id "csv_row_delimiter";
+       data_format = Prop.computed __type __id "data_format";
+       data_page_size = Prop.computed __type __id "data_page_size";
+       date_partition_delimiter =
+         Prop.computed __type __id "date_partition_delimiter";
+       date_partition_enabled =
+         Prop.computed __type __id "date_partition_enabled";
+       date_partition_sequence =
+         Prop.computed __type __id "date_partition_sequence";
+       date_partition_timezone =
+         Prop.computed __type __id "date_partition_timezone";
+       detach_target_on_lob_lookup_failure_parquet =
+         Prop.computed __type __id
+           "detach_target_on_lob_lookup_failure_parquet";
+       dict_page_size_limit =
+         Prop.computed __type __id "dict_page_size_limit";
+       enable_statistics =
+         Prop.computed __type __id "enable_statistics";
+       encoding_type = Prop.computed __type __id "encoding_type";
+       encryption_mode = Prop.computed __type __id "encryption_mode";
+       endpoint_arn = Prop.computed __type __id "endpoint_arn";
+       endpoint_id = Prop.computed __type __id "endpoint_id";
+       endpoint_type = Prop.computed __type __id "endpoint_type";
+       engine_display_name =
+         Prop.computed __type __id "engine_display_name";
+       expected_bucket_owner =
+         Prop.computed __type __id "expected_bucket_owner";
+       external_id = Prop.computed __type __id "external_id";
+       external_table_definition =
+         Prop.computed __type __id "external_table_definition";
+       glue_catalog_generation =
+         Prop.computed __type __id "glue_catalog_generation";
+       id = Prop.computed __type __id "id";
+       ignore_header_rows =
+         Prop.computed __type __id "ignore_header_rows";
+       include_op_for_full_load =
+         Prop.computed __type __id "include_op_for_full_load";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       max_file_size = Prop.computed __type __id "max_file_size";
+       parquet_timestamp_in_millisecond =
+         Prop.computed __type __id "parquet_timestamp_in_millisecond";
+       parquet_version = Prop.computed __type __id "parquet_version";
+       preserve_transactions =
+         Prop.computed __type __id "preserve_transactions";
+       rfc_4180 = Prop.computed __type __id "rfc_4180";
+       row_group_length =
+         Prop.computed __type __id "row_group_length";
+       server_side_encryption_kms_key_id =
+         Prop.computed __type __id
+           "server_side_encryption_kms_key_id";
+       service_access_role_arn =
+         Prop.computed __type __id "service_access_role_arn";
+       ssl_mode = Prop.computed __type __id "ssl_mode";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       timestamp_column_name =
+         Prop.computed __type __id "timestamp_column_name";
+       use_csv_no_sup_value =
+         Prop.computed __type __id "use_csv_no_sup_value";
+       use_task_start_time_for_full_load_timestamp =
+         Prop.computed __type __id
+           "use_task_start_time_for_full_load_timestamp";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dms_s3_endpoint
+        (aws_dms_s3_endpoint ?add_column_name
+           ?add_trailing_padding_character ?bucket_folder
+           ?canned_acl_for_objects ?cdc_inserts_and_updates
+           ?cdc_inserts_only ?cdc_max_batch_interval
+           ?cdc_min_file_size ?cdc_path ?certificate_arn
+           ?compression_type ?csv_delimiter ?csv_no_sup_value
+           ?csv_null_value ?csv_row_delimiter ?data_format
+           ?data_page_size ?date_partition_delimiter
+           ?date_partition_enabled ?date_partition_sequence
+           ?date_partition_timezone
+           ?detach_target_on_lob_lookup_failure_parquet
+           ?dict_page_size_limit ?enable_statistics ?encoding_type
+           ?encryption_mode ?expected_bucket_owner
+           ?external_table_definition ?glue_catalog_generation ?id
+           ?ignore_header_rows ?include_op_for_full_load ?kms_key_arn
+           ?max_file_size ?parquet_timestamp_in_millisecond
+           ?parquet_version ?preserve_transactions ?rfc_4180
+           ?row_group_length ?server_side_encryption_kms_key_id
+           ?ssl_mode ?tags ?tags_all ?timestamp_column_name
+           ?use_csv_no_sup_value
+           ?use_task_start_time_for_full_load_timestamp ?timeouts
+           ~bucket_name ~endpoint_id ~endpoint_type
+           ~service_access_role_arn ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?add_column_name
     ?add_trailing_padding_character ?bucket_folder
     ?canned_acl_for_objects ?cdc_inserts_and_updates
@@ -257,12 +398,10 @@ let register ?tf_module ?add_column_name
     ?timestamp_column_name ?use_csv_no_sup_value
     ?use_task_start_time_for_full_load_timestamp ?timeouts
     ~bucket_name ~endpoint_id ~endpoint_type ~service_access_role_arn
-    __resource_id =
-  let __resource_type = "aws_dms_s3_endpoint" in
-  let __resource =
-    aws_dms_s3_endpoint ?add_column_name
-      ?add_trailing_padding_character ?bucket_folder
-      ?canned_acl_for_objects ?cdc_inserts_and_updates
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?add_column_name ?add_trailing_padding_character
+      ?bucket_folder ?canned_acl_for_objects ?cdc_inserts_and_updates
       ?cdc_inserts_only ?cdc_max_batch_interval ?cdc_min_file_size
       ?cdc_path ?certificate_arn ?compression_type ?csv_delimiter
       ?csv_no_sup_value ?csv_null_value ?csv_row_delimiter
@@ -280,152 +419,7 @@ let register ?tf_module ?add_column_name
       ?tags ?tags_all ?timestamp_column_name ?use_csv_no_sup_value
       ?use_task_start_time_for_full_load_timestamp ?timeouts
       ~bucket_name ~endpoint_id ~endpoint_type
-      ~service_access_role_arn ()
+      ~service_access_role_arn __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dms_s3_endpoint __resource);
-  let __resource_attributes =
-    ({
-       add_column_name =
-         Prop.computed __resource_type __resource_id
-           "add_column_name";
-       add_trailing_padding_character =
-         Prop.computed __resource_type __resource_id
-           "add_trailing_padding_character";
-       bucket_folder =
-         Prop.computed __resource_type __resource_id "bucket_folder";
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
-       canned_acl_for_objects =
-         Prop.computed __resource_type __resource_id
-           "canned_acl_for_objects";
-       cdc_inserts_and_updates =
-         Prop.computed __resource_type __resource_id
-           "cdc_inserts_and_updates";
-       cdc_inserts_only =
-         Prop.computed __resource_type __resource_id
-           "cdc_inserts_only";
-       cdc_max_batch_interval =
-         Prop.computed __resource_type __resource_id
-           "cdc_max_batch_interval";
-       cdc_min_file_size =
-         Prop.computed __resource_type __resource_id
-           "cdc_min_file_size";
-       cdc_path =
-         Prop.computed __resource_type __resource_id "cdc_path";
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
-       compression_type =
-         Prop.computed __resource_type __resource_id
-           "compression_type";
-       csv_delimiter =
-         Prop.computed __resource_type __resource_id "csv_delimiter";
-       csv_no_sup_value =
-         Prop.computed __resource_type __resource_id
-           "csv_no_sup_value";
-       csv_null_value =
-         Prop.computed __resource_type __resource_id "csv_null_value";
-       csv_row_delimiter =
-         Prop.computed __resource_type __resource_id
-           "csv_row_delimiter";
-       data_format =
-         Prop.computed __resource_type __resource_id "data_format";
-       data_page_size =
-         Prop.computed __resource_type __resource_id "data_page_size";
-       date_partition_delimiter =
-         Prop.computed __resource_type __resource_id
-           "date_partition_delimiter";
-       date_partition_enabled =
-         Prop.computed __resource_type __resource_id
-           "date_partition_enabled";
-       date_partition_sequence =
-         Prop.computed __resource_type __resource_id
-           "date_partition_sequence";
-       date_partition_timezone =
-         Prop.computed __resource_type __resource_id
-           "date_partition_timezone";
-       detach_target_on_lob_lookup_failure_parquet =
-         Prop.computed __resource_type __resource_id
-           "detach_target_on_lob_lookup_failure_parquet";
-       dict_page_size_limit =
-         Prop.computed __resource_type __resource_id
-           "dict_page_size_limit";
-       enable_statistics =
-         Prop.computed __resource_type __resource_id
-           "enable_statistics";
-       encoding_type =
-         Prop.computed __resource_type __resource_id "encoding_type";
-       encryption_mode =
-         Prop.computed __resource_type __resource_id
-           "encryption_mode";
-       endpoint_arn =
-         Prop.computed __resource_type __resource_id "endpoint_arn";
-       endpoint_id =
-         Prop.computed __resource_type __resource_id "endpoint_id";
-       endpoint_type =
-         Prop.computed __resource_type __resource_id "endpoint_type";
-       engine_display_name =
-         Prop.computed __resource_type __resource_id
-           "engine_display_name";
-       expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       external_id =
-         Prop.computed __resource_type __resource_id "external_id";
-       external_table_definition =
-         Prop.computed __resource_type __resource_id
-           "external_table_definition";
-       glue_catalog_generation =
-         Prop.computed __resource_type __resource_id
-           "glue_catalog_generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_header_rows =
-         Prop.computed __resource_type __resource_id
-           "ignore_header_rows";
-       include_op_for_full_load =
-         Prop.computed __resource_type __resource_id
-           "include_op_for_full_load";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       max_file_size =
-         Prop.computed __resource_type __resource_id "max_file_size";
-       parquet_timestamp_in_millisecond =
-         Prop.computed __resource_type __resource_id
-           "parquet_timestamp_in_millisecond";
-       parquet_version =
-         Prop.computed __resource_type __resource_id
-           "parquet_version";
-       preserve_transactions =
-         Prop.computed __resource_type __resource_id
-           "preserve_transactions";
-       rfc_4180 =
-         Prop.computed __resource_type __resource_id "rfc_4180";
-       row_group_length =
-         Prop.computed __resource_type __resource_id
-           "row_group_length";
-       server_side_encryption_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "server_side_encryption_kms_key_id";
-       service_access_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_access_role_arn";
-       ssl_mode =
-         Prop.computed __resource_type __resource_id "ssl_mode";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       timestamp_column_name =
-         Prop.computed __resource_type __resource_id
-           "timestamp_column_name";
-       use_csv_no_sup_value =
-         Prop.computed __resource_type __resource_id
-           "use_csv_no_sup_value";
-       use_task_start_time_for_full_load_timestamp =
-         Prop.computed __resource_type __resource_id
-           "use_task_start_time_for_full_load_timestamp";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,16 @@ val register :
   retention_config:retention_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  partition_config:partition_config list ->
+  reservation_config:reservation_config list ->
+  retention_config:retention_config list ->
+  string ->
+  t Tf_core.resource

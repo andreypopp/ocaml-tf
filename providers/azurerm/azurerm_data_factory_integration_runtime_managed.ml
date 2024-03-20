@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type catalog_info = {
   administrator_login : string prop option; [@option]
@@ -118,51 +116,50 @@ type t = {
   number_of_nodes : float prop;
 }
 
-let register ?tf_module ?credential_name ?description ?edition ?id
-    ?license_type ?max_parallel_executions_per_node ?number_of_nodes
-    ?timeouts ~data_factory_id ~location ~name ~node_size
-    ~catalog_info ~custom_setup_script ~vnet_integration
-    __resource_id =
-  let __resource_type =
-    "azurerm_data_factory_integration_runtime_managed"
-  in
-  let __resource =
-    azurerm_data_factory_integration_runtime_managed ?credential_name
-      ?description ?edition ?id ?license_type
-      ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
-      ~data_factory_id ~location ~name ~node_size ~catalog_info
-      ~custom_setup_script ~vnet_integration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_integration_runtime_managed
-       __resource);
-  let __resource_attributes =
+let make ?credential_name ?description ?edition ?id ?license_type
+    ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
+    ~data_factory_id ~location ~name ~node_size ~catalog_info
+    ~custom_setup_script ~vnet_integration __id =
+  let __type = "azurerm_data_factory_integration_runtime_managed" in
+  let __attrs =
     ({
-       credential_name =
-         Prop.computed __resource_type __resource_id
-           "credential_name";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       credential_name = Prop.computed __type __id "credential_name";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       edition = Prop.computed __type __id "edition";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
        max_parallel_executions_per_node =
-         Prop.computed __resource_type __resource_id
-           "max_parallel_executions_per_node";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_size =
-         Prop.computed __resource_type __resource_id "node_size";
-       number_of_nodes =
-         Prop.computed __resource_type __resource_id
-           "number_of_nodes";
+         Prop.computed __type __id "max_parallel_executions_per_node";
+       name = Prop.computed __type __id "name";
+       node_size = Prop.computed __type __id "node_size";
+       number_of_nodes = Prop.computed __type __id "number_of_nodes";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_integration_runtime_managed
+        (azurerm_data_factory_integration_runtime_managed
+           ?credential_name ?description ?edition ?id ?license_type
+           ?max_parallel_executions_per_node ?number_of_nodes
+           ?timeouts ~data_factory_id ~location ~name ~node_size
+           ~catalog_info ~custom_setup_script ~vnet_integration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?credential_name ?description ?edition ?id
+    ?license_type ?max_parallel_executions_per_node ?number_of_nodes
+    ?timeouts ~data_factory_id ~location ~name ~node_size
+    ~catalog_info ~custom_setup_script ~vnet_integration __id =
+  let (r : _ Tf_core.resource) =
+    make ?credential_name ?description ?edition ?id ?license_type
+      ?max_parallel_executions_per_node ?number_of_nodes ?timeouts
+      ~data_factory_id ~location ~name ~node_size ~catalog_info
+      ~custom_setup_script ~vnet_integration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

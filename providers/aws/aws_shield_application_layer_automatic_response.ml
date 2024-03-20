@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -37,25 +35,29 @@ type t = {
   resource_arn : string prop;
 }
 
-let register ?tf_module ?timeouts ~action ~resource_arn __resource_id
-    =
-  let __resource_type =
-    "aws_shield_application_layer_automatic_response"
-  in
-  let __resource =
-    aws_shield_application_layer_automatic_response ?timeouts ~action
-      ~resource_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_shield_application_layer_automatic_response
-       __resource);
-  let __resource_attributes =
+let make ?timeouts ~action ~resource_arn __id =
+  let __type = "aws_shield_application_layer_automatic_response" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
+       action = Prop.computed __type __id "action";
+       id = Prop.computed __type __id "id";
+       resource_arn = Prop.computed __type __id "resource_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_shield_application_layer_automatic_response
+        (aws_shield_application_layer_automatic_response ?timeouts
+           ~action ~resource_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~action ~resource_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?timeouts ~action ~resource_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

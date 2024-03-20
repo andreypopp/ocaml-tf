@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,15 @@ val register :
   vpc_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?mutation_protection:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  firewall_rule_group_id:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  vpc_id:string prop ->
+  string ->
+  t Tf_core.resource

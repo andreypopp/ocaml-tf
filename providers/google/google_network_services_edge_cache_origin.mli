@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -133,3 +133,23 @@ val register :
   timeout:timeout list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?failover_origin:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_attempts:float prop ->
+  ?port:float prop ->
+  ?project:string prop ->
+  ?protocol:string prop ->
+  ?retry_conditions:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  origin_address:string prop ->
+  aws_v4_authentication:aws_v4_authentication list ->
+  origin_override_action:origin_override_action list ->
+  origin_redirect:origin_redirect list ->
+  timeout:timeout list ->
+  string ->
+  t Tf_core.resource

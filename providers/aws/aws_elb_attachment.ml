@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_elb_attachment = {
   elb : string prop;  (** elb *)
@@ -21,18 +19,26 @@ type t = {
   instance : string prop;
 }
 
-let register ?tf_module ?id ~elb ~instance __resource_id =
-  let __resource_type = "aws_elb_attachment" in
-  let __resource = aws_elb_attachment ?id ~elb ~instance () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elb_attachment __resource);
-  let __resource_attributes =
+let make ?id ~elb ~instance __id =
+  let __type = "aws_elb_attachment" in
+  let __attrs =
     ({
-       elb = Prop.computed __resource_type __resource_id "elb";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
+       elb = Prop.computed __type __id "elb";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elb_attachment
+        (aws_elb_attachment ?id ~elb ~instance ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~elb ~instance __id =
+  let (r : _ Tf_core.resource) = make ?id ~elb ~instance __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

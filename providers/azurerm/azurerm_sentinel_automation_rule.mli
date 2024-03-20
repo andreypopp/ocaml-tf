@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -101,3 +101,21 @@ val register :
   condition:condition list ->
   string ->
   t
+
+val make :
+  ?condition_json:string prop ->
+  ?enabled:bool prop ->
+  ?expiration:string prop ->
+  ?id:string prop ->
+  ?triggers_on:string prop ->
+  ?triggers_when:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  log_analytics_workspace_id:string prop ->
+  name:string prop ->
+  order:float prop ->
+  action_incident:action_incident list ->
+  action_playbook:action_playbook list ->
+  condition:condition list ->
+  string ->
+  t Tf_core.resource

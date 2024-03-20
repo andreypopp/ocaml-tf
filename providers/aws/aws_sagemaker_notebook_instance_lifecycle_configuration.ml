@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sagemaker_notebook_instance_lifecycle_configuration = {
   id : string prop option; [@option]  (** id *)
@@ -26,28 +24,33 @@ type t = {
   on_start : string prop;
 }
 
-let register ?tf_module ?id ?name ?on_create ?on_start __resource_id
-    =
-  let __resource_type =
+let make ?id ?name ?on_create ?on_start __id =
+  let __type =
     "aws_sagemaker_notebook_instance_lifecycle_configuration"
   in
-  let __resource =
-    aws_sagemaker_notebook_instance_lifecycle_configuration ?id ?name
-      ?on_create ?on_start ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       on_create =
-         Prop.computed __resource_type __resource_id "on_create";
-       on_start =
-         Prop.computed __resource_type __resource_id "on_start";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       on_create = Prop.computed __type __id "on_create";
+       on_start = Prop.computed __type __id "on_start";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration
+        (aws_sagemaker_notebook_instance_lifecycle_configuration ?id
+           ?name ?on_create ?on_start ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?on_create ?on_start __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?on_create ?on_start __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

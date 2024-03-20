@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type spec__alert = {
   disabled : bool prop option; [@option]  (** disabled *)
@@ -1309,33 +1307,34 @@ type t = {
   urn : string prop;
 }
 
-let register ?tf_module ?id ?project_id ?timeouts ~spec __resource_id
-    =
-  let __resource_type = "digitalocean_app" in
-  let __resource =
-    digitalocean_app ?id ?project_id ?timeouts ~spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_app __resource);
-  let __resource_attributes =
+let make ?id ?project_id ?timeouts ~spec __id =
+  let __type = "digitalocean_app" in
+  let __attrs =
     ({
        active_deployment_id =
-         Prop.computed __resource_type __resource_id
-           "active_deployment_id";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       default_ingress =
-         Prop.computed __resource_type __resource_id
-           "default_ingress";
-       id = Prop.computed __resource_type __resource_id "id";
-       live_url =
-         Prop.computed __resource_type __resource_id "live_url";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       updated_at =
-         Prop.computed __resource_type __resource_id "updated_at";
-       urn = Prop.computed __resource_type __resource_id "urn";
+         Prop.computed __type __id "active_deployment_id";
+       created_at = Prop.computed __type __id "created_at";
+       default_ingress = Prop.computed __type __id "default_ingress";
+       id = Prop.computed __type __id "id";
+       live_url = Prop.computed __type __id "live_url";
+       project_id = Prop.computed __type __id "project_id";
+       updated_at = Prop.computed __type __id "updated_at";
+       urn = Prop.computed __type __id "urn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_app
+        (digitalocean_app ?id ?project_id ?timeouts ~spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project_id ?timeouts ~spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project_id ?timeouts ~spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

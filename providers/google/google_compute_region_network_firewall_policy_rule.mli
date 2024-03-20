@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -111,3 +111,22 @@ val register :
   target_secure_tags:target_secure_tags list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?rule_name:string prop ->
+  ?target_service_accounts:string prop list ->
+  ?timeouts:timeouts ->
+  action:string prop ->
+  direction:string prop ->
+  firewall_policy:string prop ->
+  priority:float prop ->
+  match_:match_ list ->
+  target_secure_tags:target_secure_tags list ->
+  string ->
+  t Tf_core.resource

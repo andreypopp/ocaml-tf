@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -162,3 +162,17 @@ val register :
     target_tracking_scaling_policy_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?policy_type:string prop ->
+  name:string prop ->
+  resource_id:string prop ->
+  scalable_dimension:string prop ->
+  service_namespace:string prop ->
+  step_scaling_policy_configuration:
+    step_scaling_policy_configuration list ->
+  target_tracking_scaling_policy_configuration:
+    target_tracking_scaling_policy_configuration list ->
+  string ->
+  t Tf_core.resource

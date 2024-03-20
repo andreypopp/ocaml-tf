@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies = {
   items : string prop list option; [@option]  (** items *)
@@ -150,31 +148,37 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?comment ?default_ttl ?id ?max_ttl ?min_ttl
-    ~name ~parameters_in_cache_key_and_forwarded_to_origin
-    __resource_id =
-  let __resource_type = "aws_cloudfront_cache_policy" in
-  let __resource =
-    aws_cloudfront_cache_policy ?comment ?default_ttl ?id ?max_ttl
-      ?min_ttl ~name ~parameters_in_cache_key_and_forwarded_to_origin
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudfront_cache_policy __resource);
-  let __resource_attributes =
+let make ?comment ?default_ttl ?id ?max_ttl ?min_ttl ~name
+    ~parameters_in_cache_key_and_forwarded_to_origin __id =
+  let __type = "aws_cloudfront_cache_policy" in
+  let __attrs =
     ({
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       default_ttl =
-         Prop.computed __resource_type __resource_id "default_ttl";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_ttl =
-         Prop.computed __resource_type __resource_id "max_ttl";
-       min_ttl =
-         Prop.computed __resource_type __resource_id "min_ttl";
-       name = Prop.computed __resource_type __resource_id "name";
+       comment = Prop.computed __type __id "comment";
+       default_ttl = Prop.computed __type __id "default_ttl";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       max_ttl = Prop.computed __type __id "max_ttl";
+       min_ttl = Prop.computed __type __id "min_ttl";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_cache_policy
+        (aws_cloudfront_cache_policy ?comment ?default_ttl ?id
+           ?max_ttl ?min_ttl ~name
+           ~parameters_in_cache_key_and_forwarded_to_origin ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?default_ttl ?id ?max_ttl ?min_ttl
+    ~name ~parameters_in_cache_key_and_forwarded_to_origin __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?default_ttl ?id ?max_ttl ?min_ttl ~name
+      ~parameters_in_cache_key_and_forwarded_to_origin __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

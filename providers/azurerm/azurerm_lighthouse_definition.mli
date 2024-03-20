@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,17 @@ val register :
   plan:plan list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?lighthouse_definition_id:string prop ->
+  ?timeouts:timeouts ->
+  managing_tenant_id:string prop ->
+  name:string prop ->
+  scope:string prop ->
+  authorization:authorization list ->
+  eligible_authorization:eligible_authorization list ->
+  plan:plan list ->
+  string ->
+  t Tf_core.resource

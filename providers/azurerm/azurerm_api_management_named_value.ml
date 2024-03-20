@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -71,33 +69,43 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?id ?secret ?tags ?value ?timeouts
-    ~api_management_name ~display_name ~name ~resource_group_name
-    ~value_from_key_vault __resource_id =
-  let __resource_type = "azurerm_api_management_named_value" in
-  let __resource =
-    azurerm_api_management_named_value ?id ?secret ?tags ?value
-      ?timeouts ~api_management_name ~display_name ~name
-      ~resource_group_name ~value_from_key_vault ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_named_value __resource);
-  let __resource_attributes =
+let make ?id ?secret ?tags ?value ?timeouts ~api_management_name
+    ~display_name ~name ~resource_group_name ~value_from_key_vault
+    __id =
+  let __type = "azurerm_api_management_named_value" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "api_management_name";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secret = Prop.computed __resource_type __resource_id "secret";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "resource_group_name";
+       secret = Prop.computed __type __id "secret";
+       tags = Prop.computed __type __id "tags";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_named_value
+        (azurerm_api_management_named_value ?id ?secret ?tags ?value
+           ?timeouts ~api_management_name ~display_name ~name
+           ~resource_group_name ~value_from_key_vault ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?secret ?tags ?value ?timeouts
+    ~api_management_name ~display_name ~name ~resource_group_name
+    ~value_from_key_vault __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?secret ?tags ?value ?timeouts ~api_management_name
+      ~display_name ~name ~resource_group_name ~value_from_key_vault
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_macie2_account = {
   finding_publishing_frequency: string  prop option; [@option] (** finding_publishing_frequency *)
@@ -27,18 +25,25 @@ type t = {
   updated_at: string prop;
 }
 
-let register ?tf_module ?finding_publishing_frequency ?id ?status __resource_id =
-  let __resource_type = "aws_macie2_account" in
-  let __resource = aws_macie2_account ?finding_publishing_frequency ?id ?status () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_macie2_account __resource);
-  let __resource_attributes = ({
-    created_at = Prop.computed __resource_type __resource_id "created_at";
-    finding_publishing_frequency = Prop.computed __resource_type __resource_id "finding_publishing_frequency";
-    id = Prop.computed __resource_type __resource_id "id";
-    service_role = Prop.computed __resource_type __resource_id "service_role";
-    status = Prop.computed __resource_type __resource_id "status";
-    updated_at = Prop.computed __resource_type __resource_id "updated_at";
+let make ?finding_publishing_frequency ?id ?status __id =
+  let __type = "aws_macie2_account" in
+  let __attrs = ({
+    created_at = Prop.computed __type __id "created_at";
+    finding_publishing_frequency = Prop.computed __type __id "finding_publishing_frequency";
+    id = Prop.computed __type __id "id";
+    service_role = Prop.computed __type __id "service_role";
+    status = Prop.computed __type __id "status";
+    updated_at = Prop.computed __type __id "updated_at";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_macie2_account (aws_macie2_account ?finding_publishing_frequency ?id ?status ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?finding_publishing_frequency ?id ?status __id =
+  let (r : _ Tf_core.resource) = make ?finding_publishing_frequency ?id ?status __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

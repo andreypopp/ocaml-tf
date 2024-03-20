@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,13 @@ val register :
   web_pubsub_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  name:string prop ->
+  web_pubsub_custom_certificate_id:string prop ->
+  web_pubsub_id:string prop ->
+  string ->
+  t Tf_core.resource

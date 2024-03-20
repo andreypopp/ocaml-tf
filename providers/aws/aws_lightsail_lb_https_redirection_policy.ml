@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lightsail_lb_https_redirection_policy = {
   enabled : bool prop;  (** enabled *)
@@ -22,24 +20,27 @@ type t = {
   lb_name : string prop;
 }
 
-let register ?tf_module ?id ~enabled ~lb_name __resource_id =
-  let __resource_type =
-    "aws_lightsail_lb_https_redirection_policy"
-  in
-  let __resource =
-    aws_lightsail_lb_https_redirection_policy ?id ~enabled ~lb_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_lb_https_redirection_policy __resource);
-  let __resource_attributes =
+let make ?id ~enabled ~lb_name __id =
+  let __type = "aws_lightsail_lb_https_redirection_policy" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       lb_name =
-         Prop.computed __resource_type __resource_id "lb_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       lb_name = Prop.computed __type __id "lb_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_lb_https_redirection_policy
+        (aws_lightsail_lb_https_redirection_policy ?id ~enabled
+           ~lb_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~enabled ~lb_name __id =
+  let (r : _ Tf_core.resource) = make ?id ~enabled ~lb_name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

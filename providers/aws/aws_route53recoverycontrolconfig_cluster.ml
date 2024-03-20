@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cluster_endpoints = {
   endpoint : string prop;  (** endpoint *)
@@ -29,23 +27,29 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~name __resource_id =
-  let __resource_type = "aws_route53recoverycontrolconfig_cluster" in
-  let __resource =
-    aws_route53recoverycontrolconfig_cluster ?id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53recoverycontrolconfig_cluster __resource);
-  let __resource_attributes =
+let make ?id ~name __id =
+  let __type = "aws_route53recoverycontrolconfig_cluster" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        cluster_endpoints =
-         Prop.computed __resource_type __resource_id
-           "cluster_endpoints";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "cluster_endpoints";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53recoverycontrolconfig_cluster
+        (aws_route53recoverycontrolconfig_cluster ?id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

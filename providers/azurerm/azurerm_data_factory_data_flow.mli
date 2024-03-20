@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -208,3 +208,19 @@ val register :
   transformation:transformation list ->
   string ->
   t
+
+val make :
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?script:string prop ->
+  ?script_lines:string prop list ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  sink:sink list ->
+  source:source list ->
+  transformation:transformation list ->
+  string ->
+  t Tf_core.resource

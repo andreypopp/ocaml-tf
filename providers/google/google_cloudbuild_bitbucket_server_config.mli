@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -83,3 +83,19 @@ val register :
   secrets:secrets list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?peered_network:string prop ->
+  ?project:string prop ->
+  ?ssl_ca:string prop ->
+  ?timeouts:timeouts ->
+  api_key:string prop ->
+  config_id:string prop ->
+  host_uri:string prop ->
+  location:string prop ->
+  username:string prop ->
+  connected_repositories:connected_repositories list ->
+  secrets:secrets list ->
+  string ->
+  t Tf_core.resource

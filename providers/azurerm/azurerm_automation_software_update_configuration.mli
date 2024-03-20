@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -170,3 +170,21 @@ val register :
   windows:windows list ->
   string ->
   t
+
+val make :
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?non_azure_computer_names:string prop list ->
+  ?operating_system:string prop ->
+  ?virtual_machine_ids:string prop list ->
+  ?timeouts:timeouts ->
+  automation_account_id:string prop ->
+  name:string prop ->
+  linux:linux list ->
+  post_task:post_task list ->
+  pre_task:pre_task list ->
+  schedule:schedule list ->
+  target:target list ->
+  windows:windows list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,14 @@ val register :
   tag_filter:tag_filter list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?send_aad_logs:bool prop ->
+  ?send_activity_logs:bool prop ->
+  ?send_subscription_logs:bool prop ->
+  ?timeouts:timeouts ->
+  logz_sub_account_id:string prop ->
+  tag_filter:tag_filter list ->
+  string ->
+  t Tf_core.resource

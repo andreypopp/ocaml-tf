@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_configuration = {
   allowed_ip_range : string prop option; [@option]
@@ -69,34 +67,40 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~authentication ~name
-    ~target_action ~target_pipeline ~authentication_configuration
-    ~filter __resource_id =
-  let __resource_type = "aws_codepipeline_webhook" in
-  let __resource =
-    aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
-      ~name ~target_action ~target_pipeline
-      ~authentication_configuration ~filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codepipeline_webhook __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~authentication ~name ~target_action
+    ~target_pipeline ~authentication_configuration ~filter __id =
+  let __type = "aws_codepipeline_webhook" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication =
-         Prop.computed __resource_type __resource_id "authentication";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       target_action =
-         Prop.computed __resource_type __resource_id "target_action";
-       target_pipeline =
-         Prop.computed __resource_type __resource_id
-           "target_pipeline";
-       url = Prop.computed __resource_type __resource_id "url";
+       arn = Prop.computed __type __id "arn";
+       authentication = Prop.computed __type __id "authentication";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       target_action = Prop.computed __type __id "target_action";
+       target_pipeline = Prop.computed __type __id "target_pipeline";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codepipeline_webhook
+        (aws_codepipeline_webhook ?id ?tags ?tags_all ~authentication
+           ~name ~target_action ~target_pipeline
+           ~authentication_configuration ~filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~authentication ~name
+    ~target_action ~target_pipeline ~authentication_configuration
+    ~filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~authentication ~name ~target_action
+      ~target_pipeline ~authentication_configuration ~filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

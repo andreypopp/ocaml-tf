@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_waiting_room_event = {
   custom_page_html : string prop option; [@option]
@@ -86,70 +84,69 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?custom_page_html ?description ?disable_session_renewal ?id
+    ?new_users_per_minute ?prequeue_start_time ?queueing_method
+    ?session_duration ?shuffle_at_event_start ?suspended
+    ?total_active_users ~event_end_time ~event_start_time ~name
+    ~waiting_room_id ~zone_id __id =
+  let __type = "cloudflare_waiting_room_event" in
+  let __attrs =
+    ({
+       created_on = Prop.computed __type __id "created_on";
+       custom_page_html =
+         Prop.computed __type __id "custom_page_html";
+       description = Prop.computed __type __id "description";
+       disable_session_renewal =
+         Prop.computed __type __id "disable_session_renewal";
+       event_end_time = Prop.computed __type __id "event_end_time";
+       event_start_time =
+         Prop.computed __type __id "event_start_time";
+       id = Prop.computed __type __id "id";
+       modified_on = Prop.computed __type __id "modified_on";
+       name = Prop.computed __type __id "name";
+       new_users_per_minute =
+         Prop.computed __type __id "new_users_per_minute";
+       prequeue_start_time =
+         Prop.computed __type __id "prequeue_start_time";
+       queueing_method = Prop.computed __type __id "queueing_method";
+       session_duration =
+         Prop.computed __type __id "session_duration";
+       shuffle_at_event_start =
+         Prop.computed __type __id "shuffle_at_event_start";
+       suspended = Prop.computed __type __id "suspended";
+       total_active_users =
+         Prop.computed __type __id "total_active_users";
+       waiting_room_id = Prop.computed __type __id "waiting_room_id";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_waiting_room_event
+        (cloudflare_waiting_room_event ?custom_page_html ?description
+           ?disable_session_renewal ?id ?new_users_per_minute
+           ?prequeue_start_time ?queueing_method ?session_duration
+           ?shuffle_at_event_start ?suspended ?total_active_users
+           ~event_end_time ~event_start_time ~name ~waiting_room_id
+           ~zone_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?custom_page_html ?description
     ?disable_session_renewal ?id ?new_users_per_minute
     ?prequeue_start_time ?queueing_method ?session_duration
     ?shuffle_at_event_start ?suspended ?total_active_users
     ~event_end_time ~event_start_time ~name ~waiting_room_id ~zone_id
-    __resource_id =
-  let __resource_type = "cloudflare_waiting_room_event" in
-  let __resource =
-    cloudflare_waiting_room_event ?custom_page_html ?description
-      ?disable_session_renewal ?id ?new_users_per_minute
-      ?prequeue_start_time ?queueing_method ?session_duration
-      ?shuffle_at_event_start ?suspended ?total_active_users
-      ~event_end_time ~event_start_time ~name ~waiting_room_id
-      ~zone_id ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_page_html ?description ?disable_session_renewal ?id
+      ?new_users_per_minute ?prequeue_start_time ?queueing_method
+      ?session_duration ?shuffle_at_event_start ?suspended
+      ?total_active_users ~event_end_time ~event_start_time ~name
+      ~waiting_room_id ~zone_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_waiting_room_event __resource);
-  let __resource_attributes =
-    ({
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       custom_page_html =
-         Prop.computed __resource_type __resource_id
-           "custom_page_html";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disable_session_renewal =
-         Prop.computed __resource_type __resource_id
-           "disable_session_renewal";
-       event_end_time =
-         Prop.computed __resource_type __resource_id "event_end_time";
-       event_start_time =
-         Prop.computed __resource_type __resource_id
-           "event_start_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       name = Prop.computed __resource_type __resource_id "name";
-       new_users_per_minute =
-         Prop.computed __resource_type __resource_id
-           "new_users_per_minute";
-       prequeue_start_time =
-         Prop.computed __resource_type __resource_id
-           "prequeue_start_time";
-       queueing_method =
-         Prop.computed __resource_type __resource_id
-           "queueing_method";
-       session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       shuffle_at_event_start =
-         Prop.computed __resource_type __resource_id
-           "shuffle_at_event_start";
-       suspended =
-         Prop.computed __resource_type __resource_id "suspended";
-       total_active_users =
-         Prop.computed __resource_type __resource_id
-           "total_active_users";
-       waiting_room_id =
-         Prop.computed __resource_type __resource_id
-           "waiting_room_id";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

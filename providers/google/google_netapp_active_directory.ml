@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -130,77 +128,75 @@ type t = {
   username : string prop;
 }
 
+let make ?aes_encryption ?backup_operators ?description
+    ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip ?labels
+    ?ldap_signing ?nfs_users_with_ldap ?organizational_unit ?project
+    ?security_operators ?site ?timeouts ~dns ~domain ~location ~name
+    ~net_bios_prefix ~password ~username __id =
+  let __type = "google_netapp_active_directory" in
+  let __attrs =
+    ({
+       aes_encryption = Prop.computed __type __id "aes_encryption";
+       backup_operators =
+         Prop.computed __type __id "backup_operators";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       dns = Prop.computed __type __id "dns";
+       domain = Prop.computed __type __id "domain";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       encrypt_dc_connections =
+         Prop.computed __type __id "encrypt_dc_connections";
+       id = Prop.computed __type __id "id";
+       kdc_hostname = Prop.computed __type __id "kdc_hostname";
+       kdc_ip = Prop.computed __type __id "kdc_ip";
+       labels = Prop.computed __type __id "labels";
+       ldap_signing = Prop.computed __type __id "ldap_signing";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       net_bios_prefix = Prop.computed __type __id "net_bios_prefix";
+       nfs_users_with_ldap =
+         Prop.computed __type __id "nfs_users_with_ldap";
+       organizational_unit =
+         Prop.computed __type __id "organizational_unit";
+       password = Prop.computed __type __id "password";
+       project = Prop.computed __type __id "project";
+       security_operators =
+         Prop.computed __type __id "security_operators";
+       site = Prop.computed __type __id "site";
+       state = Prop.computed __type __id "state";
+       state_details = Prop.computed __type __id "state_details";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       username = Prop.computed __type __id "username";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_netapp_active_directory
+        (google_netapp_active_directory ?aes_encryption
+           ?backup_operators ?description ?encrypt_dc_connections ?id
+           ?kdc_hostname ?kdc_ip ?labels ?ldap_signing
+           ?nfs_users_with_ldap ?organizational_unit ?project
+           ?security_operators ?site ?timeouts ~dns ~domain ~location
+           ~name ~net_bios_prefix ~password ~username ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?aes_encryption ?backup_operators
     ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
     ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
     ?project ?security_operators ?site ?timeouts ~dns ~domain
-    ~location ~name ~net_bios_prefix ~password ~username
-    __resource_id =
-  let __resource_type = "google_netapp_active_directory" in
-  let __resource =
-    google_netapp_active_directory ?aes_encryption ?backup_operators
-      ?description ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip
-      ?labels ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
+    ~location ~name ~net_bios_prefix ~password ~username __id =
+  let (r : _ Tf_core.resource) =
+    make ?aes_encryption ?backup_operators ?description
+      ?encrypt_dc_connections ?id ?kdc_hostname ?kdc_ip ?labels
+      ?ldap_signing ?nfs_users_with_ldap ?organizational_unit
       ?project ?security_operators ?site ?timeouts ~dns ~domain
-      ~location ~name ~net_bios_prefix ~password ~username ()
+      ~location ~name ~net_bios_prefix ~password ~username __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_netapp_active_directory __resource);
-  let __resource_attributes =
-    ({
-       aes_encryption =
-         Prop.computed __resource_type __resource_id "aes_encryption";
-       backup_operators =
-         Prop.computed __resource_type __resource_id
-           "backup_operators";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dns = Prop.computed __resource_type __resource_id "dns";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       encrypt_dc_connections =
-         Prop.computed __resource_type __resource_id
-           "encrypt_dc_connections";
-       id = Prop.computed __resource_type __resource_id "id";
-       kdc_hostname =
-         Prop.computed __resource_type __resource_id "kdc_hostname";
-       kdc_ip = Prop.computed __resource_type __resource_id "kdc_ip";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       ldap_signing =
-         Prop.computed __resource_type __resource_id "ldap_signing";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       net_bios_prefix =
-         Prop.computed __resource_type __resource_id
-           "net_bios_prefix";
-       nfs_users_with_ldap =
-         Prop.computed __resource_type __resource_id
-           "nfs_users_with_ldap";
-       organizational_unit =
-         Prop.computed __resource_type __resource_id
-           "organizational_unit";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       security_operators =
-         Prop.computed __resource_type __resource_id
-           "security_operators";
-       site = Prop.computed __resource_type __resource_id "site";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_details =
-         Prop.computed __resource_type __resource_id "state_details";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

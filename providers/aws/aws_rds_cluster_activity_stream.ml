@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_rds_cluster_activity_stream = {
   engine_native_audit_fields_included : bool prop option; [@option]
@@ -35,31 +33,39 @@ type t = {
   resource_arn : string prop;
 }
 
-let register ?tf_module ?engine_native_audit_fields_included ?id
-    ~kms_key_id ~mode ~resource_arn __resource_id =
-  let __resource_type = "aws_rds_cluster_activity_stream" in
-  let __resource =
-    aws_rds_cluster_activity_stream
-      ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
-      ~resource_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rds_cluster_activity_stream __resource);
-  let __resource_attributes =
+let make ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
+    ~resource_arn __id =
+  let __type = "aws_rds_cluster_activity_stream" in
+  let __attrs =
     ({
        engine_native_audit_fields_included =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "engine_native_audit_fields_included";
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        kinesis_stream_name =
-         Prop.computed __resource_type __resource_id
-           "kinesis_stream_name";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
+         Prop.computed __type __id "kinesis_stream_name";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       mode = Prop.computed __type __id "mode";
+       resource_arn = Prop.computed __type __id "resource_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rds_cluster_activity_stream
+        (aws_rds_cluster_activity_stream
+           ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
+           ~resource_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?engine_native_audit_fields_included ?id
+    ~kms_key_id ~mode ~resource_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?engine_native_audit_fields_included ?id ~kms_key_id ~mode
+      ~resource_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

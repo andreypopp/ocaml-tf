@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint_details = {
   address_allocation_ids : string prop list option; [@option]
@@ -174,76 +172,78 @@ type t = {
   url : string prop;
 }
 
+let make ?certificate ?directory_id ?domain ?endpoint_type
+    ?force_destroy ?function_ ?host_key ?id ?identity_provider_type
+    ?invocation_role ?logging_role ?post_authentication_login_banner
+    ?pre_authentication_login_banner ?protocols ?security_policy_name
+    ?structured_log_destinations ?tags ?tags_all ?url
+    ~endpoint_details ~protocol_details ~workflow_details __id =
+  let __type = "aws_transfer_server" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       certificate = Prop.computed __type __id "certificate";
+       directory_id = Prop.computed __type __id "directory_id";
+       domain = Prop.computed __type __id "domain";
+       endpoint = Prop.computed __type __id "endpoint";
+       endpoint_type = Prop.computed __type __id "endpoint_type";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       function_ = Prop.computed __type __id "function";
+       host_key = Prop.computed __type __id "host_key";
+       host_key_fingerprint =
+         Prop.computed __type __id "host_key_fingerprint";
+       id = Prop.computed __type __id "id";
+       identity_provider_type =
+         Prop.computed __type __id "identity_provider_type";
+       invocation_role = Prop.computed __type __id "invocation_role";
+       logging_role = Prop.computed __type __id "logging_role";
+       post_authentication_login_banner =
+         Prop.computed __type __id "post_authentication_login_banner";
+       pre_authentication_login_banner =
+         Prop.computed __type __id "pre_authentication_login_banner";
+       protocols = Prop.computed __type __id "protocols";
+       security_policy_name =
+         Prop.computed __type __id "security_policy_name";
+       structured_log_destinations =
+         Prop.computed __type __id "structured_log_destinations";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_server
+        (aws_transfer_server ?certificate ?directory_id ?domain
+           ?endpoint_type ?force_destroy ?function_ ?host_key ?id
+           ?identity_provider_type ?invocation_role ?logging_role
+           ?post_authentication_login_banner
+           ?pre_authentication_login_banner ?protocols
+           ?security_policy_name ?structured_log_destinations ?tags
+           ?tags_all ?url ~endpoint_details ~protocol_details
+           ~workflow_details ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?certificate ?directory_id ?domain
     ?endpoint_type ?force_destroy ?function_ ?host_key ?id
     ?identity_provider_type ?invocation_role ?logging_role
     ?post_authentication_login_banner
     ?pre_authentication_login_banner ?protocols ?security_policy_name
     ?structured_log_destinations ?tags ?tags_all ?url
-    ~endpoint_details ~protocol_details ~workflow_details
-    __resource_id =
-  let __resource_type = "aws_transfer_server" in
-  let __resource =
-    aws_transfer_server ?certificate ?directory_id ?domain
-      ?endpoint_type ?force_destroy ?function_ ?host_key ?id
-      ?identity_provider_type ?invocation_role ?logging_role
+    ~endpoint_details ~protocol_details ~workflow_details __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate ?directory_id ?domain ?endpoint_type
+      ?force_destroy ?function_ ?host_key ?id ?identity_provider_type
+      ?invocation_role ?logging_role
       ?post_authentication_login_banner
       ?pre_authentication_login_banner ?protocols
       ?security_policy_name ?structured_log_destinations ?tags
       ?tags_all ?url ~endpoint_details ~protocol_details
-      ~workflow_details ()
+      ~workflow_details __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_server __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       endpoint_type =
-         Prop.computed __resource_type __resource_id "endpoint_type";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       function_ =
-         Prop.computed __resource_type __resource_id "function";
-       host_key =
-         Prop.computed __resource_type __resource_id "host_key";
-       host_key_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "host_key_fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_provider_type =
-         Prop.computed __resource_type __resource_id
-           "identity_provider_type";
-       invocation_role =
-         Prop.computed __resource_type __resource_id
-           "invocation_role";
-       logging_role =
-         Prop.computed __resource_type __resource_id "logging_role";
-       post_authentication_login_banner =
-         Prop.computed __resource_type __resource_id
-           "post_authentication_login_banner";
-       pre_authentication_login_banner =
-         Prop.computed __resource_type __resource_id
-           "pre_authentication_login_banner";
-       protocols =
-         Prop.computed __resource_type __resource_id "protocols";
-       security_policy_name =
-         Prop.computed __resource_type __resource_id
-           "security_policy_name";
-       structured_log_destinations =
-         Prop.computed __resource_type __resource_id
-           "structured_log_destinations";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

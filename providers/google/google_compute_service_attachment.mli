@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,21 @@ val register :
   consumer_accept_lists:consumer_accept_lists list ->
   string ->
   t
+
+val make :
+  ?consumer_reject_lists:string prop list ->
+  ?description:string prop ->
+  ?domain_names:string prop list ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?reconcile_connections:bool prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  connection_preference:string prop ->
+  enable_proxy_protocol:bool prop ->
+  name:string prop ->
+  nat_subnets:string prop list ->
+  target_service:string prop ->
+  consumer_accept_lists:consumer_accept_lists list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_policy_attachment = {
   groups : string prop list option; [@option]  (** groups *)
@@ -28,25 +26,33 @@ type t = {
   users : string list prop;
 }
 
-let register ?tf_module ?groups ?id ?roles ?users ~name ~policy_arn
-    __resource_id =
-  let __resource_type = "aws_iam_policy_attachment" in
-  let __resource =
-    aws_iam_policy_attachment ?groups ?id ?roles ?users ~name
-      ~policy_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_policy_attachment __resource);
-  let __resource_attributes =
+let make ?groups ?id ?roles ?users ~name ~policy_arn __id =
+  let __type = "aws_iam_policy_attachment" in
+  let __attrs =
     ({
-       groups = Prop.computed __resource_type __resource_id "groups";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_arn =
-         Prop.computed __resource_type __resource_id "policy_arn";
-       roles = Prop.computed __resource_type __resource_id "roles";
-       users = Prop.computed __resource_type __resource_id "users";
+       groups = Prop.computed __type __id "groups";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       policy_arn = Prop.computed __type __id "policy_arn";
+       roles = Prop.computed __type __id "roles";
+       users = Prop.computed __type __id "users";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_policy_attachment
+        (aws_iam_policy_attachment ?groups ?id ?roles ?users ~name
+           ~policy_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?groups ?id ?roles ?users ~name ~policy_arn
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?groups ?id ?roles ?users ~name ~policy_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

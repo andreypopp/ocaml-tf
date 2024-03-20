@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,15 @@ val register :
   multiplex_settings:multiplex_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?start_multiplex:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  availability_zones:string prop list ->
+  name:string prop ->
+  multiplex_settings:multiplex_settings list ->
+  string ->
+  t Tf_core.resource

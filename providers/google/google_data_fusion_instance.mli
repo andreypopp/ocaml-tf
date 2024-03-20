@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -129,3 +129,28 @@ val register :
   network_config:network_config list ->
   string ->
   t
+
+val make :
+  ?dataproc_service_account:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enable_rbac:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?enable_stackdriver_monitoring:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?options:(string * string prop) list ->
+  ?private_instance:bool prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?version:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  accelerators:accelerators list ->
+  crypto_key_config:crypto_key_config list ->
+  event_publish_config:event_publish_config list ->
+  network_config:network_config list ->
+  string ->
+  t Tf_core.resource

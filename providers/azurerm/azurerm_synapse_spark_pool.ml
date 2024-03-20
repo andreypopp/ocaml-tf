@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_pause = {
   delay_in_minutes : float prop;  (** delay_in_minutes *)
@@ -137,64 +135,74 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?cache_size ?compute_isolation_enabled
+    ?dynamic_executor_allocation_enabled ?id ?max_executors
+    ?min_executors ?node_count ?session_level_packages_enabled
+    ?spark_events_folder ?spark_log_folder ?spark_version ?tags
+    ?timeouts ~name ~node_size ~node_size_family
+    ~synapse_workspace_id ~auto_pause ~auto_scale
+    ~library_requirement ~spark_config __id =
+  let __type = "azurerm_synapse_spark_pool" in
+  let __attrs =
+    ({
+       cache_size = Prop.computed __type __id "cache_size";
+       compute_isolation_enabled =
+         Prop.computed __type __id "compute_isolation_enabled";
+       dynamic_executor_allocation_enabled =
+         Prop.computed __type __id
+           "dynamic_executor_allocation_enabled";
+       id = Prop.computed __type __id "id";
+       max_executors = Prop.computed __type __id "max_executors";
+       min_executors = Prop.computed __type __id "min_executors";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       node_size = Prop.computed __type __id "node_size";
+       node_size_family =
+         Prop.computed __type __id "node_size_family";
+       session_level_packages_enabled =
+         Prop.computed __type __id "session_level_packages_enabled";
+       spark_events_folder =
+         Prop.computed __type __id "spark_events_folder";
+       spark_log_folder =
+         Prop.computed __type __id "spark_log_folder";
+       spark_version = Prop.computed __type __id "spark_version";
+       synapse_workspace_id =
+         Prop.computed __type __id "synapse_workspace_id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_spark_pool
+        (azurerm_synapse_spark_pool ?cache_size
+           ?compute_isolation_enabled
+           ?dynamic_executor_allocation_enabled ?id ?max_executors
+           ?min_executors ?node_count ?session_level_packages_enabled
+           ?spark_events_folder ?spark_log_folder ?spark_version
+           ?tags ?timeouts ~name ~node_size ~node_size_family
+           ~synapse_workspace_id ~auto_pause ~auto_scale
+           ~library_requirement ~spark_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cache_size ?compute_isolation_enabled
     ?dynamic_executor_allocation_enabled ?id ?max_executors
     ?min_executors ?node_count ?session_level_packages_enabled
     ?spark_events_folder ?spark_log_folder ?spark_version ?tags
     ?timeouts ~name ~node_size ~node_size_family
     ~synapse_workspace_id ~auto_pause ~auto_scale
-    ~library_requirement ~spark_config __resource_id =
-  let __resource_type = "azurerm_synapse_spark_pool" in
-  let __resource =
-    azurerm_synapse_spark_pool ?cache_size ?compute_isolation_enabled
+    ~library_requirement ~spark_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?cache_size ?compute_isolation_enabled
       ?dynamic_executor_allocation_enabled ?id ?max_executors
       ?min_executors ?node_count ?session_level_packages_enabled
       ?spark_events_folder ?spark_log_folder ?spark_version ?tags
       ?timeouts ~name ~node_size ~node_size_family
       ~synapse_workspace_id ~auto_pause ~auto_scale
-      ~library_requirement ~spark_config ()
+      ~library_requirement ~spark_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_spark_pool __resource);
-  let __resource_attributes =
-    ({
-       cache_size =
-         Prop.computed __resource_type __resource_id "cache_size";
-       compute_isolation_enabled =
-         Prop.computed __resource_type __resource_id
-           "compute_isolation_enabled";
-       dynamic_executor_allocation_enabled =
-         Prop.computed __resource_type __resource_id
-           "dynamic_executor_allocation_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_executors =
-         Prop.computed __resource_type __resource_id "max_executors";
-       min_executors =
-         Prop.computed __resource_type __resource_id "min_executors";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       node_size =
-         Prop.computed __resource_type __resource_id "node_size";
-       node_size_family =
-         Prop.computed __resource_type __resource_id
-           "node_size_family";
-       session_level_packages_enabled =
-         Prop.computed __resource_type __resource_id
-           "session_level_packages_enabled";
-       spark_events_folder =
-         Prop.computed __resource_type __resource_id
-           "spark_events_folder";
-       spark_log_folder =
-         Prop.computed __resource_type __resource_id
-           "spark_log_folder";
-       spark_version =
-         Prop.computed __resource_type __resource_id "spark_version";
-       synapse_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "synapse_workspace_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_identitystore_group_membership = {
   group_id : string prop;  (** group_id *)
@@ -26,28 +24,33 @@ type t = {
   membership_id : string prop;
 }
 
-let register ?tf_module ?id ~group_id ~identity_store_id ~member_id
-    __resource_id =
-  let __resource_type = "aws_identitystore_group_membership" in
-  let __resource =
-    aws_identitystore_group_membership ?id ~group_id
-      ~identity_store_id ~member_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_identitystore_group_membership __resource);
-  let __resource_attributes =
+let make ?id ~group_id ~identity_store_id ~member_id __id =
+  let __type = "aws_identitystore_group_membership" in
+  let __attrs =
     ({
-       group_id =
-         Prop.computed __resource_type __resource_id "group_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       group_id = Prop.computed __type __id "group_id";
+       id = Prop.computed __type __id "id";
        identity_store_id =
-         Prop.computed __resource_type __resource_id
-           "identity_store_id";
-       member_id =
-         Prop.computed __resource_type __resource_id "member_id";
-       membership_id =
-         Prop.computed __resource_type __resource_id "membership_id";
+         Prop.computed __type __id "identity_store_id";
+       member_id = Prop.computed __type __id "member_id";
+       membership_id = Prop.computed __type __id "membership_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_identitystore_group_membership
+        (aws_identitystore_group_membership ?id ~group_id
+           ~identity_store_id ~member_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~group_id ~identity_store_id ~member_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~group_id ~identity_store_id ~member_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

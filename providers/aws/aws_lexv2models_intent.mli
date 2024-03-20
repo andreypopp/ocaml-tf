@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -9406,3 +9406,24 @@ val register :
   slot_priority:slot_priority list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?parent_intent_signature:string prop ->
+  ?timeouts:timeouts ->
+  bot_id:string prop ->
+  bot_version:string prop ->
+  locale_id:string prop ->
+  name:string prop ->
+  closing_setting:closing_setting list ->
+  confirmation_setting:confirmation_setting list ->
+  dialog_code_hook:dialog_code_hook list ->
+  fulfillment_code_hook:fulfillment_code_hook list ->
+  initial_response_setting:initial_response_setting list ->
+  input_context:input_context list ->
+  kendra_configuration:kendra_configuration list ->
+  output_context:output_context list ->
+  sample_utterance:sample_utterance list ->
+  slot_priority:slot_priority list ->
+  string ->
+  t Tf_core.resource

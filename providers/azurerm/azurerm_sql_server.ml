@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -105,44 +103,52 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?connection_policy ?id ?tags ?timeouts
-    ~administrator_login ~administrator_login_password ~location
-    ~name ~resource_group_name ~version ~identity
-    ~threat_detection_policy __resource_id =
-  let __resource_type = "azurerm_sql_server" in
-  let __resource =
-    azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
-      ~administrator_login ~administrator_login_password ~location
-      ~name ~resource_group_name ~version ~identity
-      ~threat_detection_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_server __resource);
-  let __resource_attributes =
+let make ?connection_policy ?id ?tags ?timeouts ~administrator_login
+    ~administrator_login_password ~location ~name
+    ~resource_group_name ~version ~identity ~threat_detection_policy
+    __id =
+  let __type = "azurerm_sql_server" in
+  let __attrs =
     ({
        administrator_login =
-         Prop.computed __resource_type __resource_id
-           "administrator_login";
+         Prop.computed __type __id "administrator_login";
        administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_login_password";
+         Prop.computed __type __id "administrator_login_password";
        connection_policy =
-         Prop.computed __resource_type __resource_id
-           "connection_policy";
+         Prop.computed __type __id "connection_policy";
        fully_qualified_domain_name =
-         Prop.computed __resource_type __resource_id
-           "fully_qualified_domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "fully_qualified_domain_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_server
+        (azurerm_sql_server ?connection_policy ?id ?tags ?timeouts
+           ~administrator_login ~administrator_login_password
+           ~location ~name ~resource_group_name ~version ~identity
+           ~threat_detection_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?connection_policy ?id ?tags ?timeouts
+    ~administrator_login ~administrator_login_password ~location
+    ~name ~resource_group_name ~version ~identity
+    ~threat_detection_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?connection_policy ?id ?tags ?timeouts ~administrator_login
+      ~administrator_login_password ~location ~name
+      ~resource_group_name ~version ~identity
+      ~threat_detection_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

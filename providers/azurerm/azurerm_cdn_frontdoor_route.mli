@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,23 @@ val register :
   cache:cache list ->
   string ->
   t
+
+val make :
+  ?cdn_frontdoor_custom_domain_ids:string prop list ->
+  ?cdn_frontdoor_origin_path:string prop ->
+  ?cdn_frontdoor_rule_set_ids:string prop list ->
+  ?enabled:bool prop ->
+  ?forwarding_protocol:string prop ->
+  ?https_redirect_enabled:bool prop ->
+  ?id:string prop ->
+  ?link_to_default_domain:bool prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_endpoint_id:string prop ->
+  cdn_frontdoor_origin_group_id:string prop ->
+  cdn_frontdoor_origin_ids:string prop list ->
+  name:string prop ->
+  patterns_to_match:string prop list ->
+  supported_protocols:string prop list ->
+  cache:cache list ->
+  string ->
+  t Tf_core.resource

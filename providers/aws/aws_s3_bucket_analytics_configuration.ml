@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filter = {
   prefix : string prop option; [@option]  (** prefix *)
@@ -84,21 +82,30 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ~bucket ~name ~filter
-    ~storage_class_analysis __resource_id =
-  let __resource_type = "aws_s3_bucket_analytics_configuration" in
-  let __resource =
-    aws_s3_bucket_analytics_configuration ?id ~bucket ~name ~filter
-      ~storage_class_analysis ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket_analytics_configuration __resource);
-  let __resource_attributes =
+let make ?id ~bucket ~name ~filter ~storage_class_analysis __id =
+  let __type = "aws_s3_bucket_analytics_configuration" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       bucket = Prop.computed __type __id "bucket";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket_analytics_configuration
+        (aws_s3_bucket_analytics_configuration ?id ~bucket ~name
+           ~filter ~storage_class_analysis ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~bucket ~name ~filter
+    ~storage_class_analysis __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~bucket ~name ~filter ~storage_class_analysis __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_elasticache_user_group = {
   engine : string prop;  (** engine *)
@@ -30,28 +28,34 @@ type t = {
   user_ids : string list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?user_ids ~engine
-    ~user_group_id __resource_id =
-  let __resource_type = "aws_elasticache_user_group" in
-  let __resource =
-    aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids ~engine
-      ~user_group_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_user_group __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?user_ids ~engine ~user_group_id __id =
+  let __type = "aws_elasticache_user_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_group_id =
-         Prop.computed __resource_type __resource_id "user_group_id";
-       user_ids =
-         Prop.computed __resource_type __resource_id "user_ids";
+       arn = Prop.computed __type __id "arn";
+       engine = Prop.computed __type __id "engine";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_group_id = Prop.computed __type __id "user_group_id";
+       user_ids = Prop.computed __type __id "user_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_user_group
+        (aws_elasticache_user_group ?id ?tags ?tags_all ?user_ids
+           ~engine ~user_group_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?user_ids ~engine
+    ~user_group_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?user_ids ~engine ~user_group_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

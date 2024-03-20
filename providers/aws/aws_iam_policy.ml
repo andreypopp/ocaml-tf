@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_policy = {
   description : string prop option; [@option]  (** description *)
@@ -44,32 +42,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?name ?name_prefix ?path
-    ?tags ?tags_all ~policy __resource_id =
-  let __resource_type = "aws_iam_policy" in
-  let __resource =
-    aws_iam_policy ?description ?id ?name ?name_prefix ?path ?tags
-      ?tags_all ~policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_policy __resource);
-  let __resource_attributes =
+let make ?description ?id ?name ?name_prefix ?path ?tags ?tags_all
+    ~policy __id =
+  let __type = "aws_iam_policy" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       path = Prop.computed __resource_type __resource_id "path";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       policy_id =
-         Prop.computed __resource_type __resource_id "policy_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       path = Prop.computed __type __id "path";
+       policy = Prop.computed __type __id "policy";
+       policy_id = Prop.computed __type __id "policy_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_policy
+        (aws_iam_policy ?description ?id ?name ?name_prefix ?path
+           ?tags ?tags_all ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?name ?name_prefix ?path
+    ?tags ?tags_all ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?name ?name_prefix ?path ?tags ?tags_all
+      ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type address = {
   address_1 : string prop option; [@option]  (** address_1 *)
@@ -220,73 +218,77 @@ type t = {
   phone_number : string prop;
 }
 
+let make ?account_number ?additional_information ?attributes
+    ?birth_date ?business_email_address ?business_name
+    ?business_phone_number ?email_address ?first_name ?gender_string
+    ?home_phone_number ?id ?last_name ?middle_name
+    ?mobile_phone_number ?party_type_string ?personal_email_address
+    ?phone_number ~domain_name ~address ~billing_address
+    ~mailing_address ~shipping_address __id =
+  let __type = "aws_customerprofiles_profile" in
+  let __attrs =
+    ({
+       account_number = Prop.computed __type __id "account_number";
+       additional_information =
+         Prop.computed __type __id "additional_information";
+       attributes = Prop.computed __type __id "attributes";
+       birth_date = Prop.computed __type __id "birth_date";
+       business_email_address =
+         Prop.computed __type __id "business_email_address";
+       business_name = Prop.computed __type __id "business_name";
+       business_phone_number =
+         Prop.computed __type __id "business_phone_number";
+       domain_name = Prop.computed __type __id "domain_name";
+       email_address = Prop.computed __type __id "email_address";
+       first_name = Prop.computed __type __id "first_name";
+       gender_string = Prop.computed __type __id "gender_string";
+       home_phone_number =
+         Prop.computed __type __id "home_phone_number";
+       id = Prop.computed __type __id "id";
+       last_name = Prop.computed __type __id "last_name";
+       middle_name = Prop.computed __type __id "middle_name";
+       mobile_phone_number =
+         Prop.computed __type __id "mobile_phone_number";
+       party_type_string =
+         Prop.computed __type __id "party_type_string";
+       personal_email_address =
+         Prop.computed __type __id "personal_email_address";
+       phone_number = Prop.computed __type __id "phone_number";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_customerprofiles_profile
+        (aws_customerprofiles_profile ?account_number
+           ?additional_information ?attributes ?birth_date
+           ?business_email_address ?business_name
+           ?business_phone_number ?email_address ?first_name
+           ?gender_string ?home_phone_number ?id ?last_name
+           ?middle_name ?mobile_phone_number ?party_type_string
+           ?personal_email_address ?phone_number ~domain_name
+           ~address ~billing_address ~mailing_address
+           ~shipping_address ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?account_number ?additional_information
     ?attributes ?birth_date ?business_email_address ?business_name
     ?business_phone_number ?email_address ?first_name ?gender_string
     ?home_phone_number ?id ?last_name ?middle_name
     ?mobile_phone_number ?party_type_string ?personal_email_address
     ?phone_number ~domain_name ~address ~billing_address
-    ~mailing_address ~shipping_address __resource_id =
-  let __resource_type = "aws_customerprofiles_profile" in
-  let __resource =
-    aws_customerprofiles_profile ?account_number
-      ?additional_information ?attributes ?birth_date
-      ?business_email_address ?business_name ?business_phone_number
-      ?email_address ?first_name ?gender_string ?home_phone_number
-      ?id ?last_name ?middle_name ?mobile_phone_number
-      ?party_type_string ?personal_email_address ?phone_number
-      ~domain_name ~address ~billing_address ~mailing_address
-      ~shipping_address ()
+    ~mailing_address ~shipping_address __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_number ?additional_information ?attributes
+      ?birth_date ?business_email_address ?business_name
+      ?business_phone_number ?email_address ?first_name
+      ?gender_string ?home_phone_number ?id ?last_name ?middle_name
+      ?mobile_phone_number ?party_type_string ?personal_email_address
+      ?phone_number ~domain_name ~address ~billing_address
+      ~mailing_address ~shipping_address __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_customerprofiles_profile __resource);
-  let __resource_attributes =
-    ({
-       account_number =
-         Prop.computed __resource_type __resource_id "account_number";
-       additional_information =
-         Prop.computed __resource_type __resource_id
-           "additional_information";
-       attributes =
-         Prop.computed __resource_type __resource_id "attributes";
-       birth_date =
-         Prop.computed __resource_type __resource_id "birth_date";
-       business_email_address =
-         Prop.computed __resource_type __resource_id
-           "business_email_address";
-       business_name =
-         Prop.computed __resource_type __resource_id "business_name";
-       business_phone_number =
-         Prop.computed __resource_type __resource_id
-           "business_phone_number";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       email_address =
-         Prop.computed __resource_type __resource_id "email_address";
-       first_name =
-         Prop.computed __resource_type __resource_id "first_name";
-       gender_string =
-         Prop.computed __resource_type __resource_id "gender_string";
-       home_phone_number =
-         Prop.computed __resource_type __resource_id
-           "home_phone_number";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_name =
-         Prop.computed __resource_type __resource_id "last_name";
-       middle_name =
-         Prop.computed __resource_type __resource_id "middle_name";
-       mobile_phone_number =
-         Prop.computed __resource_type __resource_id
-           "mobile_phone_number";
-       party_type_string =
-         Prop.computed __resource_type __resource_id
-           "party_type_string";
-       personal_email_address =
-         Prop.computed __resource_type __resource_id
-           "personal_email_address";
-       phone_number =
-         Prop.computed __resource_type __resource_id "phone_number";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

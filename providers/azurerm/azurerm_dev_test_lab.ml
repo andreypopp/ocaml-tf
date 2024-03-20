@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,45 +53,49 @@ type t = {
   unique_identifier : string prop;
 }
 
-let register ?tf_module ?id ?storage_type ?tags ?timeouts ~location
-    ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_dev_test_lab" in
-  let __resource =
-    azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts ~location
-      ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_test_lab __resource);
-  let __resource_attributes =
+let make ?id ?storage_type ?tags ?timeouts ~location ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_dev_test_lab" in
+  let __attrs =
     ({
        artifacts_storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "artifacts_storage_account_id";
+         Prop.computed __type __id "artifacts_storage_account_id";
        default_premium_storage_account_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "default_premium_storage_account_id";
        default_storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "default_storage_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_storage_account_id";
+       id = Prop.computed __type __id "id";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        premium_data_disk_storage_account_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "premium_data_disk_storage_account_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       storage_type = Prop.computed __type __id "storage_type";
+       tags = Prop.computed __type __id "tags";
        unique_identifier =
-         Prop.computed __resource_type __resource_id
-           "unique_identifier";
+         Prop.computed __type __id "unique_identifier";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_test_lab
+        (azurerm_dev_test_lab ?id ?storage_type ?tags ?timeouts
+           ~location ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?storage_type ?tags ?timeouts ~location
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?storage_type ?tags ?timeouts ~location ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ebs_encryption_by_default = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -17,17 +15,25 @@ let aws_ebs_encryption_by_default ?enabled ?id () :
 
 type t = { enabled : bool prop; id : string prop }
 
-let register ?tf_module ?enabled ?id __resource_id =
-  let __resource_type = "aws_ebs_encryption_by_default" in
-  let __resource = aws_ebs_encryption_by_default ?enabled ?id () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ebs_encryption_by_default __resource);
-  let __resource_attributes =
+let make ?enabled ?id __id =
+  let __type = "aws_ebs_encryption_by_default" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ebs_encryption_by_default
+        (aws_ebs_encryption_by_default ?enabled ?id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id __id =
+  let (r : _ Tf_core.resource) = make ?enabled ?id __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

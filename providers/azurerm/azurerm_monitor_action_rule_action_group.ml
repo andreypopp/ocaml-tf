@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition__alert_context = {
   operator : string prop;  (** operator *)
@@ -165,33 +163,39 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
-    ~action_group_id ~name ~resource_group_name ~condition ~scope
-    __resource_id =
-  let __resource_type = "azurerm_monitor_action_rule_action_group" in
-  let __resource =
-    azurerm_monitor_action_rule_action_group ?description ?enabled
-      ?id ?tags ?timeouts ~action_group_id ~name ~resource_group_name
-      ~condition ~scope ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_action_rule_action_group __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?id ?tags ?timeouts ~action_group_id
+    ~name ~resource_group_name ~condition ~scope __id =
+  let __type = "azurerm_monitor_action_rule_action_group" in
+  let __attrs =
     ({
-       action_group_id =
-         Prop.computed __resource_type __resource_id
-           "action_group_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       action_group_id = Prop.computed __type __id "action_group_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_action_rule_action_group
+        (azurerm_monitor_action_rule_action_group ?description
+           ?enabled ?id ?tags ?timeouts ~action_group_id ~name
+           ~resource_group_name ~condition ~scope ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?id ?tags ?timeouts
+    ~action_group_id ~name ~resource_group_name ~condition ~scope
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?id ?tags ?timeouts ~action_group_id
+      ~name ~resource_group_name ~condition ~scope __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,17 @@ val register :
   match_:match_ list ->
   string ->
   t
+
+val make :
+  ?bypass_url_patterns:string prop list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  period:float prop ->
+  threshold:float prop ->
+  zone_id:string prop ->
+  action:action list ->
+  correlate:correlate list ->
+  match_:match_ list ->
+  string ->
+  t Tf_core.resource

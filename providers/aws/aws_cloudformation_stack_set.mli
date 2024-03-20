@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,24 @@ val register :
   operation_preferences:operation_preferences list ->
   string ->
   t
+
+val make :
+  ?administration_role_arn:string prop ->
+  ?call_as:string prop ->
+  ?capabilities:string prop list ->
+  ?description:string prop ->
+  ?execution_role_name:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?permission_model:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?template_body:string prop ->
+  ?template_url:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  auto_deployment:auto_deployment list ->
+  managed_execution:managed_execution list ->
+  operation_preferences:operation_preferences list ->
+  string ->
+  t Tf_core.resource

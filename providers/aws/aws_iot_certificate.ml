@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iot_certificate = {
   active : bool prop;  (** active *)
@@ -31,32 +29,37 @@ type t = {
   public_key : string prop;
 }
 
-let register ?tf_module ?ca_pem ?certificate_pem ?csr ?id ~active
-    __resource_id =
-  let __resource_type = "aws_iot_certificate" in
-  let __resource =
-    aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_certificate __resource);
-  let __resource_attributes =
+let make ?ca_pem ?certificate_pem ?csr ?id ~active __id =
+  let __type = "aws_iot_certificate" in
+  let __attrs =
     ({
-       active = Prop.computed __resource_type __resource_id "active";
-       arn = Prop.computed __resource_type __resource_id "arn";
+       active = Prop.computed __type __id "active";
+       arn = Prop.computed __type __id "arn";
        ca_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "ca_certificate_id";
-       ca_pem = Prop.computed __resource_type __resource_id "ca_pem";
-       certificate_pem =
-         Prop.computed __resource_type __resource_id
-           "certificate_pem";
-       csr = Prop.computed __resource_type __resource_id "csr";
-       id = Prop.computed __resource_type __resource_id "id";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
+         Prop.computed __type __id "ca_certificate_id";
+       ca_pem = Prop.computed __type __id "ca_pem";
+       certificate_pem = Prop.computed __type __id "certificate_pem";
+       csr = Prop.computed __type __id "csr";
+       id = Prop.computed __type __id "id";
+       private_key = Prop.computed __type __id "private_key";
+       public_key = Prop.computed __type __id "public_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_certificate
+        (aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id
+           ~active ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?ca_pem ?certificate_pem ?csr ?id ~active
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?ca_pem ?certificate_pem ?csr ?id ~active __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

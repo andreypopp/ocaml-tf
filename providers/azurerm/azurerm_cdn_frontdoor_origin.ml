@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type private_link = {
   location : string prop;  (** location *)
@@ -91,48 +89,54 @@ type t = {
   weight : float prop;
 }
 
-let register ?tf_module ?enabled ?health_probes_enabled ?http_port
-    ?https_port ?id ?origin_host_header ?priority ?weight ?timeouts
+let make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
+    ?origin_host_header ?priority ?weight ?timeouts
     ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
-    ~host_name ~name ~private_link __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_origin" in
-  let __resource =
-    azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
-      ?http_port ?https_port ?id ?origin_host_header ?priority
-      ?weight ?timeouts ~cdn_frontdoor_origin_group_id
-      ~certificate_name_check_enabled ~host_name ~name ~private_link
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_origin __resource);
-  let __resource_attributes =
+    ~host_name ~name ~private_link __id =
+  let __type = "azurerm_cdn_frontdoor_origin" in
+  let __attrs =
     ({
        cdn_frontdoor_origin_group_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_origin_group_id";
+         Prop.computed __type __id "cdn_frontdoor_origin_group_id";
        certificate_name_check_enabled =
-         Prop.computed __resource_type __resource_id
-           "certificate_name_check_enabled";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+         Prop.computed __type __id "certificate_name_check_enabled";
+       enabled = Prop.computed __type __id "enabled";
        health_probes_enabled =
-         Prop.computed __resource_type __resource_id
-           "health_probes_enabled";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       http_port =
-         Prop.computed __resource_type __resource_id "http_port";
-       https_port =
-         Prop.computed __resource_type __resource_id "https_port";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "health_probes_enabled";
+       host_name = Prop.computed __type __id "host_name";
+       http_port = Prop.computed __type __id "http_port";
+       https_port = Prop.computed __type __id "https_port";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        origin_host_header =
-         Prop.computed __resource_type __resource_id
-           "origin_host_header";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       weight = Prop.computed __resource_type __resource_id "weight";
+         Prop.computed __type __id "origin_host_header";
+       priority = Prop.computed __type __id "priority";
+       weight = Prop.computed __type __id "weight";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_origin
+        (azurerm_cdn_frontdoor_origin ?enabled ?health_probes_enabled
+           ?http_port ?https_port ?id ?origin_host_header ?priority
+           ?weight ?timeouts ~cdn_frontdoor_origin_group_id
+           ~certificate_name_check_enabled ~host_name ~name
+           ~private_link ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?health_probes_enabled ?http_port
+    ?https_port ?id ?origin_host_header ?priority ?weight ?timeouts
+    ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
+    ~host_name ~name ~private_link __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?health_probes_enabled ?http_port ?https_port ?id
+      ?origin_host_header ?priority ?weight ?timeouts
+      ~cdn_frontdoor_origin_group_id ~certificate_name_check_enabled
+      ~host_name ~name ~private_link __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type capacity_reservation_specification__capacity_reservation_target = {
   capacity_reservation_id : string prop option; [@option]
@@ -467,6 +465,119 @@ type t = {
   vpc_security_group_ids : string list prop;
 }
 
+let make ?ami ?associate_public_ip_address ?availability_zone
+    ?cpu_core_count ?cpu_threads_per_core ?disable_api_stop
+    ?disable_api_termination ?ebs_optimized ?get_password_data
+    ?hibernation ?host_id ?host_resource_group_arn
+    ?iam_instance_profile ?id ?instance_initiated_shutdown_behavior
+    ?instance_type ?ipv6_address_count ?ipv6_addresses ?key_name
+    ?monitoring ?placement_group ?placement_partition_number
+    ?private_ip ?secondary_private_ips ?security_groups
+    ?source_dest_check ?subnet_id ?tags ?tags_all ?tenancy ?user_data
+    ?user_data_base64 ?user_data_replace_on_change ?volume_tags
+    ?vpc_security_group_ids ?timeouts
+    ~capacity_reservation_specification ~cpu_options
+    ~credit_specification ~ebs_block_device ~enclave_options
+    ~ephemeral_block_device ~instance_market_options ~launch_template
+    ~maintenance_options ~metadata_options ~network_interface
+    ~private_dns_name_options ~root_block_device __id =
+  let __type = "aws_instance" in
+  let __attrs =
+    ({
+       ami = Prop.computed __type __id "ami";
+       arn = Prop.computed __type __id "arn";
+       associate_public_ip_address =
+         Prop.computed __type __id "associate_public_ip_address";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       cpu_core_count = Prop.computed __type __id "cpu_core_count";
+       cpu_threads_per_core =
+         Prop.computed __type __id "cpu_threads_per_core";
+       disable_api_stop =
+         Prop.computed __type __id "disable_api_stop";
+       disable_api_termination =
+         Prop.computed __type __id "disable_api_termination";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       get_password_data =
+         Prop.computed __type __id "get_password_data";
+       hibernation = Prop.computed __type __id "hibernation";
+       host_id = Prop.computed __type __id "host_id";
+       host_resource_group_arn =
+         Prop.computed __type __id "host_resource_group_arn";
+       iam_instance_profile =
+         Prop.computed __type __id "iam_instance_profile";
+       id = Prop.computed __type __id "id";
+       instance_initiated_shutdown_behavior =
+         Prop.computed __type __id
+           "instance_initiated_shutdown_behavior";
+       instance_lifecycle =
+         Prop.computed __type __id "instance_lifecycle";
+       instance_state = Prop.computed __type __id "instance_state";
+       instance_type = Prop.computed __type __id "instance_type";
+       ipv6_address_count =
+         Prop.computed __type __id "ipv6_address_count";
+       ipv6_addresses = Prop.computed __type __id "ipv6_addresses";
+       key_name = Prop.computed __type __id "key_name";
+       monitoring = Prop.computed __type __id "monitoring";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       password_data = Prop.computed __type __id "password_data";
+       placement_group = Prop.computed __type __id "placement_group";
+       placement_partition_number =
+         Prop.computed __type __id "placement_partition_number";
+       primary_network_interface_id =
+         Prop.computed __type __id "primary_network_interface_id";
+       private_dns = Prop.computed __type __id "private_dns";
+       private_ip = Prop.computed __type __id "private_ip";
+       public_dns = Prop.computed __type __id "public_dns";
+       public_ip = Prop.computed __type __id "public_ip";
+       secondary_private_ips =
+         Prop.computed __type __id "secondary_private_ips";
+       security_groups = Prop.computed __type __id "security_groups";
+       source_dest_check =
+         Prop.computed __type __id "source_dest_check";
+       spot_instance_request_id =
+         Prop.computed __type __id "spot_instance_request_id";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tenancy = Prop.computed __type __id "tenancy";
+       user_data = Prop.computed __type __id "user_data";
+       user_data_base64 =
+         Prop.computed __type __id "user_data_base64";
+       user_data_replace_on_change =
+         Prop.computed __type __id "user_data_replace_on_change";
+       volume_tags = Prop.computed __type __id "volume_tags";
+       vpc_security_group_ids =
+         Prop.computed __type __id "vpc_security_group_ids";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_instance
+        (aws_instance ?ami ?associate_public_ip_address
+           ?availability_zone ?cpu_core_count ?cpu_threads_per_core
+           ?disable_api_stop ?disable_api_termination ?ebs_optimized
+           ?get_password_data ?hibernation ?host_id
+           ?host_resource_group_arn ?iam_instance_profile ?id
+           ?instance_initiated_shutdown_behavior ?instance_type
+           ?ipv6_address_count ?ipv6_addresses ?key_name ?monitoring
+           ?placement_group ?placement_partition_number ?private_ip
+           ?secondary_private_ips ?security_groups ?source_dest_check
+           ?subnet_id ?tags ?tags_all ?tenancy ?user_data
+           ?user_data_base64 ?user_data_replace_on_change
+           ?volume_tags ?vpc_security_group_ids ?timeouts
+           ~capacity_reservation_specification ~cpu_options
+           ~credit_specification ~ebs_block_device ~enclave_options
+           ~ephemeral_block_device ~instance_market_options
+           ~launch_template ~maintenance_options ~metadata_options
+           ~network_interface ~private_dns_name_options
+           ~root_block_device ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?ami ?associate_public_ip_address
     ?availability_zone ?cpu_core_count ?cpu_threads_per_core
     ?disable_api_stop ?disable_api_termination ?ebs_optimized
@@ -482,10 +593,9 @@ let register ?tf_module ?ami ?associate_public_ip_address
     ~credit_specification ~ebs_block_device ~enclave_options
     ~ephemeral_block_device ~instance_market_options ~launch_template
     ~maintenance_options ~metadata_options ~network_interface
-    ~private_dns_name_options ~root_block_device __resource_id =
-  let __resource_type = "aws_instance" in
-  let __resource =
-    aws_instance ?ami ?associate_public_ip_address ?availability_zone
+    ~private_dns_name_options ~root_block_device __id =
+  let (r : _ Tf_core.resource) =
+    make ?ami ?associate_public_ip_address ?availability_zone
       ?cpu_core_count ?cpu_threads_per_core ?disable_api_stop
       ?disable_api_termination ?ebs_optimized ?get_password_data
       ?hibernation ?host_id ?host_resource_group_arn
@@ -501,120 +611,7 @@ let register ?tf_module ?ami ?associate_public_ip_address
       ~ephemeral_block_device ~instance_market_options
       ~launch_template ~maintenance_options ~metadata_options
       ~network_interface ~private_dns_name_options ~root_block_device
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_instance __resource);
-  let __resource_attributes =
-    ({
-       ami = Prop.computed __resource_type __resource_id "ami";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       associate_public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "associate_public_ip_address";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       cpu_core_count =
-         Prop.computed __resource_type __resource_id "cpu_core_count";
-       cpu_threads_per_core =
-         Prop.computed __resource_type __resource_id
-           "cpu_threads_per_core";
-       disable_api_stop =
-         Prop.computed __resource_type __resource_id
-           "disable_api_stop";
-       disable_api_termination =
-         Prop.computed __resource_type __resource_id
-           "disable_api_termination";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       get_password_data =
-         Prop.computed __resource_type __resource_id
-           "get_password_data";
-       hibernation =
-         Prop.computed __resource_type __resource_id "hibernation";
-       host_id =
-         Prop.computed __resource_type __resource_id "host_id";
-       host_resource_group_arn =
-         Prop.computed __resource_type __resource_id
-           "host_resource_group_arn";
-       iam_instance_profile =
-         Prop.computed __resource_type __resource_id
-           "iam_instance_profile";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_initiated_shutdown_behavior =
-         Prop.computed __resource_type __resource_id
-           "instance_initiated_shutdown_behavior";
-       instance_lifecycle =
-         Prop.computed __resource_type __resource_id
-           "instance_lifecycle";
-       instance_state =
-         Prop.computed __resource_type __resource_id "instance_state";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       ipv6_address_count =
-         Prop.computed __resource_type __resource_id
-           "ipv6_address_count";
-       ipv6_addresses =
-         Prop.computed __resource_type __resource_id "ipv6_addresses";
-       key_name =
-         Prop.computed __resource_type __resource_id "key_name";
-       monitoring =
-         Prop.computed __resource_type __resource_id "monitoring";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       password_data =
-         Prop.computed __resource_type __resource_id "password_data";
-       placement_group =
-         Prop.computed __resource_type __resource_id
-           "placement_group";
-       placement_partition_number =
-         Prop.computed __resource_type __resource_id
-           "placement_partition_number";
-       primary_network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "primary_network_interface_id";
-       private_dns =
-         Prop.computed __resource_type __resource_id "private_dns";
-       private_ip =
-         Prop.computed __resource_type __resource_id "private_ip";
-       public_dns =
-         Prop.computed __resource_type __resource_id "public_dns";
-       public_ip =
-         Prop.computed __resource_type __resource_id "public_ip";
-       secondary_private_ips =
-         Prop.computed __resource_type __resource_id
-           "secondary_private_ips";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       source_dest_check =
-         Prop.computed __resource_type __resource_id
-           "source_dest_check";
-       spot_instance_request_id =
-         Prop.computed __resource_type __resource_id
-           "spot_instance_request_id";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tenancy =
-         Prop.computed __resource_type __resource_id "tenancy";
-       user_data =
-         Prop.computed __resource_type __resource_id "user_data";
-       user_data_base64 =
-         Prop.computed __resource_type __resource_id
-           "user_data_base64";
-       user_data_replace_on_change =
-         Prop.computed __resource_type __resource_id
-           "user_data_replace_on_change";
-       volume_tags =
-         Prop.computed __resource_type __resource_id "volume_tags";
-       vpc_security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "vpc_security_group_ids";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

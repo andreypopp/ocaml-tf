@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -59,42 +57,57 @@ type t = {
   storage_account_id : string prop;
 }
 
+let make ?id ?malware_scanning_on_upload_cap_gb_per_month
+    ?malware_scanning_on_upload_enabled
+    ?override_subscription_settings_enabled
+    ?sensitive_data_discovery_enabled ?timeouts ~storage_account_id
+    __id =
+  let __type = "azurerm_security_center_storage_defender" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       malware_scanning_on_upload_cap_gb_per_month =
+         Prop.computed __type __id
+           "malware_scanning_on_upload_cap_gb_per_month";
+       malware_scanning_on_upload_enabled =
+         Prop.computed __type __id
+           "malware_scanning_on_upload_enabled";
+       override_subscription_settings_enabled =
+         Prop.computed __type __id
+           "override_subscription_settings_enabled";
+       sensitive_data_discovery_enabled =
+         Prop.computed __type __id "sensitive_data_discovery_enabled";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_storage_defender
+        (azurerm_security_center_storage_defender ?id
+           ?malware_scanning_on_upload_cap_gb_per_month
+           ?malware_scanning_on_upload_enabled
+           ?override_subscription_settings_enabled
+           ?sensitive_data_discovery_enabled ?timeouts
+           ~storage_account_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id
     ?malware_scanning_on_upload_cap_gb_per_month
     ?malware_scanning_on_upload_enabled
     ?override_subscription_settings_enabled
     ?sensitive_data_discovery_enabled ?timeouts ~storage_account_id
-    __resource_id =
-  let __resource_type = "azurerm_security_center_storage_defender" in
-  let __resource =
-    azurerm_security_center_storage_defender ?id
-      ?malware_scanning_on_upload_cap_gb_per_month
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?malware_scanning_on_upload_cap_gb_per_month
       ?malware_scanning_on_upload_enabled
       ?override_subscription_settings_enabled
       ?sensitive_data_discovery_enabled ?timeouts ~storage_account_id
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_storage_defender __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       malware_scanning_on_upload_cap_gb_per_month =
-         Prop.computed __resource_type __resource_id
-           "malware_scanning_on_upload_cap_gb_per_month";
-       malware_scanning_on_upload_enabled =
-         Prop.computed __resource_type __resource_id
-           "malware_scanning_on_upload_enabled";
-       override_subscription_settings_enabled =
-         Prop.computed __resource_type __resource_id
-           "override_subscription_settings_enabled";
-       sensitive_data_discovery_enabled =
-         Prop.computed __resource_type __resource_id
-           "sensitive_data_discovery_enabled";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,15 @@ val register :
   network:network list ->
   string ->
   t
+
+val make :
+  ?audit_stream_arn:string prop ->
+  ?device_ca_certificate:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?optimize_for_end_user_location:bool prop ->
+  name:string prop ->
+  identity_provider:identity_provider list ->
+  network:network list ->
+  string ->
+  t Tf_core.resource

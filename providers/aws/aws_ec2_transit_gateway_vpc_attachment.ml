@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_transit_gateway_vpc_attachment = {
   appliance_mode_support : string prop option; [@option]
@@ -61,49 +59,58 @@ type t = {
   vpc_owner_id : string prop;
 }
 
+let make ?appliance_mode_support ?dns_support ?id ?ipv6_support ?tags
+    ?tags_all ?transit_gateway_default_route_table_association
+    ?transit_gateway_default_route_table_propagation ~subnet_ids
+    ~transit_gateway_id ~vpc_id __id =
+  let __type = "aws_ec2_transit_gateway_vpc_attachment" in
+  let __attrs =
+    ({
+       appliance_mode_support =
+         Prop.computed __type __id "appliance_mode_support";
+       dns_support = Prop.computed __type __id "dns_support";
+       id = Prop.computed __type __id "id";
+       ipv6_support = Prop.computed __type __id "ipv6_support";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transit_gateway_default_route_table_association =
+         Prop.computed __type __id
+           "transit_gateway_default_route_table_association";
+       transit_gateway_default_route_table_propagation =
+         Prop.computed __type __id
+           "transit_gateway_default_route_table_propagation";
+       transit_gateway_id =
+         Prop.computed __type __id "transit_gateway_id";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       vpc_owner_id = Prop.computed __type __id "vpc_owner_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_transit_gateway_vpc_attachment
+        (aws_ec2_transit_gateway_vpc_attachment
+           ?appliance_mode_support ?dns_support ?id ?ipv6_support
+           ?tags ?tags_all
+           ?transit_gateway_default_route_table_association
+           ?transit_gateway_default_route_table_propagation
+           ~subnet_ids ~transit_gateway_id ~vpc_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?appliance_mode_support ?dns_support ?id
     ?ipv6_support ?tags ?tags_all
     ?transit_gateway_default_route_table_association
     ?transit_gateway_default_route_table_propagation ~subnet_ids
-    ~transit_gateway_id ~vpc_id __resource_id =
-  let __resource_type = "aws_ec2_transit_gateway_vpc_attachment" in
-  let __resource =
-    aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
-      ?dns_support ?id ?ipv6_support ?tags ?tags_all
-      ?transit_gateway_default_route_table_association
+    ~transit_gateway_id ~vpc_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?appliance_mode_support ?dns_support ?id ?ipv6_support ?tags
+      ?tags_all ?transit_gateway_default_route_table_association
       ?transit_gateway_default_route_table_propagation ~subnet_ids
-      ~transit_gateway_id ~vpc_id ()
+      ~transit_gateway_id ~vpc_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_transit_gateway_vpc_attachment __resource);
-  let __resource_attributes =
-    ({
-       appliance_mode_support =
-         Prop.computed __resource_type __resource_id
-           "appliance_mode_support";
-       dns_support =
-         Prop.computed __resource_type __resource_id "dns_support";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv6_support =
-         Prop.computed __resource_type __resource_id "ipv6_support";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transit_gateway_default_route_table_association =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_default_route_table_association";
-       transit_gateway_default_route_table_propagation =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_default_route_table_propagation";
-       transit_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_id";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       vpc_owner_id =
-         Prop.computed __resource_type __resource_id "vpc_owner_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

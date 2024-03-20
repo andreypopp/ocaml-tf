@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,20 @@ val register :
   type_:string prop ->
   string ->
   t
+
+val make :
+  ?automatic_upgrade_enabled:bool prop ->
+  ?force_update_tag:string prop ->
+  ?id:string prop ->
+  ?protected_settings:string prop ->
+  ?settings:string prop ->
+  ?tags:(string * string prop) list ->
+  ?type_handler_version:string prop ->
+  ?timeouts:timeouts ->
+  arc_machine_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  publisher:string prop ->
+  type_:string prop ->
+  string ->
+  t Tf_core.resource

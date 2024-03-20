@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,16 @@ val register :
   networks:networks list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enable_inbound_forwarding:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  alternative_name_server_config:alternative_name_server_config list ->
+  networks:networks list ->
+  string ->
+  t Tf_core.resource

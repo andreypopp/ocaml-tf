@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -254,3 +254,28 @@ val register :
   site_config:site_config list ->
   string ->
   t
+
+val make :
+  ?app_settings:(string * string prop) list ->
+  ?daily_memory_time_quota:float prop ->
+  ?enable_builtin_logging:bool prop ->
+  ?enabled:bool prop ->
+  ?https_only:bool prop ->
+  ?id:string prop ->
+  ?os_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  app_service_plan_id:string prop ->
+  function_app_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_access_key:string prop ->
+  storage_account_name:string prop ->
+  auth_settings:auth_settings list ->
+  connection_string:connection_string list ->
+  identity:identity list ->
+  site_config:site_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -189,3 +189,28 @@ val register :
   snapshot_policy:snapshot_policy list ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kerberos_enabled:bool prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?restricted_actions:string prop list ->
+  ?security_style:string prop ->
+  ?smb_settings:string prop list ->
+  ?snapshot_directory:bool prop ->
+  ?unix_permissions:string prop ->
+  ?timeouts:timeouts ->
+  capacity_gib:string prop ->
+  location:string prop ->
+  name:string prop ->
+  protocols:string prop list ->
+  share_name:string prop ->
+  storage_pool:string prop ->
+  export_policy:export_policy list ->
+  restore_parameters:restore_parameters list ->
+  snapshot_policy:snapshot_policy list ->
+  string ->
+  t Tf_core.resource

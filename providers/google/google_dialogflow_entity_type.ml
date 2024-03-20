@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type entities = {
   synonyms : string prop list;
@@ -75,28 +73,36 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?enable_fuzzy_extraction ?id ?project
-    ?timeouts ~display_name ~kind ~entities __resource_id =
-  let __resource_type = "google_dialogflow_entity_type" in
-  let __resource =
-    google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
-      ?project ?timeouts ~display_name ~kind ~entities ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_entity_type __resource);
-  let __resource_attributes =
+let make ?enable_fuzzy_extraction ?id ?project ?timeouts
+    ~display_name ~kind ~entities __id =
+  let __type = "google_dialogflow_entity_type" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       display_name = Prop.computed __type __id "display_name";
        enable_fuzzy_extraction =
-         Prop.computed __resource_type __resource_id
-           "enable_fuzzy_extraction";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "enable_fuzzy_extraction";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_entity_type
+        (google_dialogflow_entity_type ?enable_fuzzy_extraction ?id
+           ?project ?timeouts ~display_name ~kind ~entities ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_fuzzy_extraction ?id ?project
+    ?timeouts ~display_name ~kind ~entities __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_fuzzy_extraction ?id ?project ?timeouts
+      ~display_name ~kind ~entities __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

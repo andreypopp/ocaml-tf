@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -103,3 +103,19 @@ val register :
   window:window list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?in_guest_user_patch_mode:string prop ->
+  ?properties:(string * string prop) list ->
+  ?tags:(string * string prop) list ->
+  ?visibility:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scope:string prop ->
+  install_patches:install_patches list ->
+  window:window list ->
+  string ->
+  t Tf_core.resource

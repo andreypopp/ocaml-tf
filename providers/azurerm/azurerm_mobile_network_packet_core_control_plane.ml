@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list;  (** identity_ids *)
@@ -143,67 +141,77 @@ type t = {
   user_equipment_mtu_in_bytes : float prop;
 }
 
+let make ?control_plane_access_ipv4_address
+    ?control_plane_access_ipv4_gateway
+    ?control_plane_access_ipv4_subnet ?control_plane_access_name
+    ?core_network_technology ?id ?interoperability_settings_json
+    ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
+    ~location ~name ~resource_group_name ~site_ids ~sku ~identity
+    ~local_diagnostics_access ~platform __id =
+  let __type = "azurerm_mobile_network_packet_core_control_plane" in
+  let __attrs =
+    ({
+       control_plane_access_ipv4_address =
+         Prop.computed __type __id
+           "control_plane_access_ipv4_address";
+       control_plane_access_ipv4_gateway =
+         Prop.computed __type __id
+           "control_plane_access_ipv4_gateway";
+       control_plane_access_ipv4_subnet =
+         Prop.computed __type __id "control_plane_access_ipv4_subnet";
+       control_plane_access_name =
+         Prop.computed __type __id "control_plane_access_name";
+       core_network_technology =
+         Prop.computed __type __id "core_network_technology";
+       id = Prop.computed __type __id "id";
+       interoperability_settings_json =
+         Prop.computed __type __id "interoperability_settings_json";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       site_ids = Prop.computed __type __id "site_ids";
+       sku = Prop.computed __type __id "sku";
+       software_version =
+         Prop.computed __type __id "software_version";
+       tags = Prop.computed __type __id "tags";
+       user_equipment_mtu_in_bytes =
+         Prop.computed __type __id "user_equipment_mtu_in_bytes";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mobile_network_packet_core_control_plane
+        (azurerm_mobile_network_packet_core_control_plane
+           ?control_plane_access_ipv4_address
+           ?control_plane_access_ipv4_gateway
+           ?control_plane_access_ipv4_subnet
+           ?control_plane_access_name ?core_network_technology ?id
+           ?interoperability_settings_json ?software_version ?tags
+           ?user_equipment_mtu_in_bytes ?timeouts ~location ~name
+           ~resource_group_name ~site_ids ~sku ~identity
+           ~local_diagnostics_access ~platform ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?control_plane_access_ipv4_address
     ?control_plane_access_ipv4_gateway
     ?control_plane_access_ipv4_subnet ?control_plane_access_name
     ?core_network_technology ?id ?interoperability_settings_json
     ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
     ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-    ~local_diagnostics_access ~platform __resource_id =
-  let __resource_type =
-    "azurerm_mobile_network_packet_core_control_plane"
-  in
-  let __resource =
-    azurerm_mobile_network_packet_core_control_plane
-      ?control_plane_access_ipv4_address
+    ~local_diagnostics_access ~platform __id =
+  let (r : _ Tf_core.resource) =
+    make ?control_plane_access_ipv4_address
       ?control_plane_access_ipv4_gateway
       ?control_plane_access_ipv4_subnet ?control_plane_access_name
       ?core_network_technology ?id ?interoperability_settings_json
       ?software_version ?tags ?user_equipment_mtu_in_bytes ?timeouts
       ~location ~name ~resource_group_name ~site_ids ~sku ~identity
-      ~local_diagnostics_access ~platform ()
+      ~local_diagnostics_access ~platform __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mobile_network_packet_core_control_plane
-       __resource);
-  let __resource_attributes =
-    ({
-       control_plane_access_ipv4_address =
-         Prop.computed __resource_type __resource_id
-           "control_plane_access_ipv4_address";
-       control_plane_access_ipv4_gateway =
-         Prop.computed __resource_type __resource_id
-           "control_plane_access_ipv4_gateway";
-       control_plane_access_ipv4_subnet =
-         Prop.computed __resource_type __resource_id
-           "control_plane_access_ipv4_subnet";
-       control_plane_access_name =
-         Prop.computed __resource_type __resource_id
-           "control_plane_access_name";
-       core_network_technology =
-         Prop.computed __resource_type __resource_id
-           "core_network_technology";
-       id = Prop.computed __resource_type __resource_id "id";
-       interoperability_settings_json =
-         Prop.computed __resource_type __resource_id
-           "interoperability_settings_json";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       site_ids =
-         Prop.computed __resource_type __resource_id "site_ids";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       software_version =
-         Prop.computed __resource_type __resource_id
-           "software_version";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       user_equipment_mtu_in_bytes =
-         Prop.computed __resource_type __resource_id
-           "user_equipment_mtu_in_bytes";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

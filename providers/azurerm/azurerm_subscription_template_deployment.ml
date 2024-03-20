@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,38 +59,43 @@ type t = {
   template_spec_version_id : string prop;
 }
 
-let register ?tf_module ?debug_level ?id ?parameters_content ?tags
-    ?template_content ?template_spec_version_id ?timeouts ~location
-    ~name __resource_id =
-  let __resource_type = "azurerm_subscription_template_deployment" in
-  let __resource =
-    azurerm_subscription_template_deployment ?debug_level ?id
-      ?parameters_content ?tags ?template_content
-      ?template_spec_version_id ?timeouts ~location ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_subscription_template_deployment __resource);
-  let __resource_attributes =
+let make ?debug_level ?id ?parameters_content ?tags ?template_content
+    ?template_spec_version_id ?timeouts ~location ~name __id =
+  let __type = "azurerm_subscription_template_deployment" in
+  let __attrs =
     ({
-       debug_level =
-         Prop.computed __resource_type __resource_id "debug_level";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       output_content =
-         Prop.computed __resource_type __resource_id "output_content";
+       debug_level = Prop.computed __type __id "debug_level";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       output_content = Prop.computed __type __id "output_content";
        parameters_content =
-         Prop.computed __resource_type __resource_id
-           "parameters_content";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "parameters_content";
+       tags = Prop.computed __type __id "tags";
        template_content =
-         Prop.computed __resource_type __resource_id
-           "template_content";
+         Prop.computed __type __id "template_content";
        template_spec_version_id =
-         Prop.computed __resource_type __resource_id
-           "template_spec_version_id";
+         Prop.computed __type __id "template_spec_version_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_subscription_template_deployment
+        (azurerm_subscription_template_deployment ?debug_level ?id
+           ?parameters_content ?tags ?template_content
+           ?template_spec_version_id ?timeouts ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?debug_level ?id ?parameters_content ?tags
+    ?template_content ?template_spec_version_id ?timeouts ~location
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?debug_level ?id ?parameters_content ?tags ?template_content
+      ?template_spec_version_id ?timeouts ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

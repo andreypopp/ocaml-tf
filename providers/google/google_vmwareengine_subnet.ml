@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,42 +56,42 @@ type t = {
   vlan_id : float prop;
 }
 
-let register ?tf_module ?id ?timeouts ~ip_cidr_range ~name ~parent
-    __resource_id =
-  let __resource_type = "google_vmwareengine_subnet" in
-  let __resource =
-    google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range ~name
-      ~parent ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vmwareengine_subnet __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~ip_cidr_range ~name ~parent __id =
+  let __type = "google_vmwareengine_subnet" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       create_time = Prop.computed __type __id "create_time";
        dhcp_address_ranges =
-         Prop.computed __resource_type __resource_id
-           "dhcp_address_ranges";
-       gateway_id =
-         Prop.computed __resource_type __resource_id "gateway_id";
-       gateway_ip =
-         Prop.computed __resource_type __resource_id "gateway_ip";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_cidr_range =
-         Prop.computed __resource_type __resource_id "ip_cidr_range";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       standard_config =
-         Prop.computed __resource_type __resource_id
-           "standard_config";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-       vlan_id =
-         Prop.computed __resource_type __resource_id "vlan_id";
+         Prop.computed __type __id "dhcp_address_ranges";
+       gateway_id = Prop.computed __type __id "gateway_id";
+       gateway_ip = Prop.computed __type __id "gateway_ip";
+       id = Prop.computed __type __id "id";
+       ip_cidr_range = Prop.computed __type __id "ip_cidr_range";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       standard_config = Prop.computed __type __id "standard_config";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
+       vlan_id = Prop.computed __type __id "vlan_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vmwareengine_subnet
+        (google_vmwareengine_subnet ?id ?timeouts ~ip_cidr_range
+           ~name ~parent ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~ip_cidr_range ~name ~parent
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~ip_cidr_range ~name ~parent __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

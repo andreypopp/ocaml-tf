@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -148,3 +148,24 @@ val register :
   user_pool_config:user_pool_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?introspection_config:string prop ->
+  ?query_depth_limit:float prop ->
+  ?resolver_count_limit:float prop ->
+  ?schema:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?visibility:string prop ->
+  ?xray_enabled:bool prop ->
+  authentication_type:string prop ->
+  name:string prop ->
+  additional_authentication_provider:
+    additional_authentication_provider list ->
+  lambda_authorizer_config:lambda_authorizer_config list ->
+  log_config:log_config list ->
+  openid_connect_config:openid_connect_config list ->
+  user_pool_config:user_pool_config list ->
+  string ->
+  t Tf_core.resource

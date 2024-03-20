@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_wafregional_web_acl_association = {
   id : string prop option; [@option]  (** id *)
@@ -22,22 +20,29 @@ type t = {
   web_acl_id : string prop;
 }
 
-let register ?tf_module ?id ~resource_arn ~web_acl_id __resource_id =
-  let __resource_type = "aws_wafregional_web_acl_association" in
-  let __resource =
-    aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_wafregional_web_acl_association __resource);
-  let __resource_attributes =
+let make ?id ~resource_arn ~web_acl_id __id =
+  let __type = "aws_wafregional_web_acl_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
-       web_acl_id =
-         Prop.computed __resource_type __resource_id "web_acl_id";
+       id = Prop.computed __type __id "id";
+       resource_arn = Prop.computed __type __id "resource_arn";
+       web_acl_id = Prop.computed __type __id "web_acl_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_wafregional_web_acl_association
+        (aws_wafregional_web_acl_association ?id ~resource_arn
+           ~web_acl_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~resource_arn ~web_acl_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~resource_arn ~web_acl_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type linux = {
   classification_included : string prop option; [@option]
@@ -249,47 +247,50 @@ type t = {
   virtual_machine_ids : string list prop;
 }
 
-let register ?tf_module ?duration ?id ?non_azure_computer_names
-    ?operating_system ?virtual_machine_ids ?timeouts
-    ~automation_account_id ~name ~linux ~post_task ~pre_task
-    ~schedule ~target ~windows __resource_id =
-  let __resource_type =
-    "azurerm_automation_software_update_configuration"
-  in
-  let __resource =
-    azurerm_automation_software_update_configuration ?duration ?id
-      ?non_azure_computer_names ?operating_system
-      ?virtual_machine_ids ?timeouts ~automation_account_id ~name
-      ~linux ~post_task ~pre_task ~schedule ~target ~windows ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_automation_software_update_configuration
-       __resource);
-  let __resource_attributes =
+let make ?duration ?id ?non_azure_computer_names ?operating_system
+    ?virtual_machine_ids ?timeouts ~automation_account_id ~name
+    ~linux ~post_task ~pre_task ~schedule ~target ~windows __id =
+  let __type = "azurerm_automation_software_update_configuration" in
+  let __attrs =
     ({
        automation_account_id =
-         Prop.computed __resource_type __resource_id
-           "automation_account_id";
-       duration =
-         Prop.computed __resource_type __resource_id "duration";
-       error_code =
-         Prop.computed __resource_type __resource_id "error_code";
-       error_meesage =
-         Prop.computed __resource_type __resource_id "error_meesage";
-       error_message =
-         Prop.computed __resource_type __resource_id "error_message";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "automation_account_id";
+       duration = Prop.computed __type __id "duration";
+       error_code = Prop.computed __type __id "error_code";
+       error_meesage = Prop.computed __type __id "error_meesage";
+       error_message = Prop.computed __type __id "error_message";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        non_azure_computer_names =
-         Prop.computed __resource_type __resource_id
-           "non_azure_computer_names";
+         Prop.computed __type __id "non_azure_computer_names";
        operating_system =
-         Prop.computed __resource_type __resource_id
-           "operating_system";
+         Prop.computed __type __id "operating_system";
        virtual_machine_ids =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_ids";
+         Prop.computed __type __id "virtual_machine_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_automation_software_update_configuration
+        (azurerm_automation_software_update_configuration ?duration
+           ?id ?non_azure_computer_names ?operating_system
+           ?virtual_machine_ids ?timeouts ~automation_account_id
+           ~name ~linux ~post_task ~pre_task ~schedule ~target
+           ~windows ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?duration ?id ?non_azure_computer_names
+    ?operating_system ?virtual_machine_ids ?timeouts
+    ~automation_account_id ~name ~linux ~post_task ~pre_task
+    ~schedule ~target ~windows __id =
+  let (r : _ Tf_core.resource) =
+    make ?duration ?id ?non_azure_computer_names ?operating_system
+      ?virtual_machine_ids ?timeouts ~automation_account_id ~name
+      ~linux ~post_task ~pre_task ~schedule ~target ~windows __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

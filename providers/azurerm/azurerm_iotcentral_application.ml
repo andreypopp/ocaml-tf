@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -72,39 +70,46 @@ type t = {
   template : string prop;
 }
 
-let register ?tf_module ?display_name ?id
-    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
-    ~location ~name ~resource_group_name ~sub_domain ~identity
-    __resource_id =
-  let __resource_type = "azurerm_iotcentral_application" in
-  let __resource =
-    azurerm_iotcentral_application ?display_name ?id
-      ?public_network_access_enabled ?sku ?tags ?template ?timeouts
-      ~location ~name ~resource_group_name ~sub_domain ~identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iotcentral_application __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?public_network_access_enabled ?sku ?tags
+    ?template ?timeouts ~location ~name ~resource_group_name
+    ~sub_domain ~identity __id =
+  let __type = "azurerm_iotcentral_application" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
+         Prop.computed __type __id "public_network_access_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       sub_domain =
-         Prop.computed __resource_type __resource_id "sub_domain";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       template =
-         Prop.computed __resource_type __resource_id "template";
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       sub_domain = Prop.computed __type __id "sub_domain";
+       tags = Prop.computed __type __id "tags";
+       template = Prop.computed __type __id "template";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iotcentral_application
+        (azurerm_iotcentral_application ?display_name ?id
+           ?public_network_access_enabled ?sku ?tags ?template
+           ?timeouts ~location ~name ~resource_group_name ~sub_domain
+           ~identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id
+    ?public_network_access_enabled ?sku ?tags ?template ?timeouts
+    ~location ~name ~resource_group_name ~sub_domain ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?public_network_access_enabled ?sku ?tags
+      ?template ?timeouts ~location ~name ~resource_group_name
+      ~sub_domain ~identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

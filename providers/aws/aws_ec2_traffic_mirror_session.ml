@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_traffic_mirror_session = {
   description : string prop option; [@option]  (** description *)
@@ -55,47 +53,51 @@ type t = {
   virtual_network_id : float prop;
 }
 
-let register ?tf_module ?description ?id ?packet_length ?tags
-    ?tags_all ?virtual_network_id ~network_interface_id
-    ~session_number ~traffic_mirror_filter_id
-    ~traffic_mirror_target_id __resource_id =
-  let __resource_type = "aws_ec2_traffic_mirror_session" in
-  let __resource =
-    aws_ec2_traffic_mirror_session ?description ?id ?packet_length
-      ?tags ?tags_all ?virtual_network_id ~network_interface_id
-      ~session_number ~traffic_mirror_filter_id
-      ~traffic_mirror_target_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_traffic_mirror_session __resource);
-  let __resource_attributes =
+let make ?description ?id ?packet_length ?tags ?tags_all
+    ?virtual_network_id ~network_interface_id ~session_number
+    ~traffic_mirror_filter_id ~traffic_mirror_target_id __id =
+  let __type = "aws_ec2_traffic_mirror_session" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       packet_length =
-         Prop.computed __resource_type __resource_id "packet_length";
-       session_number =
-         Prop.computed __resource_type __resource_id "session_number";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "network_interface_id";
+       owner_id = Prop.computed __type __id "owner_id";
+       packet_length = Prop.computed __type __id "packet_length";
+       session_number = Prop.computed __type __id "session_number";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        traffic_mirror_filter_id =
-         Prop.computed __resource_type __resource_id
-           "traffic_mirror_filter_id";
+         Prop.computed __type __id "traffic_mirror_filter_id";
        traffic_mirror_target_id =
-         Prop.computed __resource_type __resource_id
-           "traffic_mirror_target_id";
+         Prop.computed __type __id "traffic_mirror_target_id";
        virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_id";
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_traffic_mirror_session
+        (aws_ec2_traffic_mirror_session ?description ?id
+           ?packet_length ?tags ?tags_all ?virtual_network_id
+           ~network_interface_id ~session_number
+           ~traffic_mirror_filter_id ~traffic_mirror_target_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?packet_length ?tags
+    ?tags_all ?virtual_network_id ~network_interface_id
+    ~session_number ~traffic_mirror_filter_id
+    ~traffic_mirror_target_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?packet_length ?tags ?tags_all
+      ?virtual_network_id ~network_interface_id ~session_number
+      ~traffic_mirror_filter_id ~traffic_mirror_target_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

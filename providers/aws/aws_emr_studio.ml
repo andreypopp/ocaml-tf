@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_emr_studio = {
   auth_mode : string prop;  (** auth_mode *)
@@ -71,56 +69,62 @@ type t = {
   workspace_security_group_id : string prop;
 }
 
+let make ?description ?id ?idp_auth_url
+    ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
+    ~auth_mode ~default_s3_location ~engine_security_group_id ~name
+    ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
+    __id =
+  let __type = "aws_emr_studio" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       auth_mode = Prop.computed __type __id "auth_mode";
+       default_s3_location =
+         Prop.computed __type __id "default_s3_location";
+       description = Prop.computed __type __id "description";
+       engine_security_group_id =
+         Prop.computed __type __id "engine_security_group_id";
+       id = Prop.computed __type __id "id";
+       idp_auth_url = Prop.computed __type __id "idp_auth_url";
+       idp_relay_state_parameter_name =
+         Prop.computed __type __id "idp_relay_state_parameter_name";
+       name = Prop.computed __type __id "name";
+       service_role = Prop.computed __type __id "service_role";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
+       user_role = Prop.computed __type __id "user_role";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       workspace_security_group_id =
+         Prop.computed __type __id "workspace_security_group_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_studio
+        (aws_emr_studio ?description ?id ?idp_auth_url
+           ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
+           ~auth_mode ~default_s3_location ~engine_security_group_id
+           ~name ~service_role ~subnet_ids ~vpc_id
+           ~workspace_security_group_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?idp_auth_url
     ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
     ~auth_mode ~default_s3_location ~engine_security_group_id ~name
     ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
-    __resource_id =
-  let __resource_type = "aws_emr_studio" in
-  let __resource =
-    aws_emr_studio ?description ?id ?idp_auth_url
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?idp_auth_url
       ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role
       ~auth_mode ~default_s3_location ~engine_security_group_id ~name
       ~service_role ~subnet_ids ~vpc_id ~workspace_security_group_id
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_studio __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auth_mode =
-         Prop.computed __resource_type __resource_id "auth_mode";
-       default_s3_location =
-         Prop.computed __resource_type __resource_id
-           "default_s3_location";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       engine_security_group_id =
-         Prop.computed __resource_type __resource_id
-           "engine_security_group_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       idp_auth_url =
-         Prop.computed __resource_type __resource_id "idp_auth_url";
-       idp_relay_state_parameter_name =
-         Prop.computed __resource_type __resource_id
-           "idp_relay_state_parameter_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       service_role =
-         Prop.computed __resource_type __resource_id "service_role";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
-       user_role =
-         Prop.computed __resource_type __resource_id "user_role";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       workspace_security_group_id =
-         Prop.computed __resource_type __resource_id
-           "workspace_security_group_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

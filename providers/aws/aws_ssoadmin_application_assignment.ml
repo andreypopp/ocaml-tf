@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ssoadmin_application_assignment = {
   application_arn : string prop;  (** application_arn *)
@@ -24,26 +22,31 @@ type t = {
   principal_type : string prop;
 }
 
-let register ?tf_module ~application_arn ~principal_id
-    ~principal_type __resource_id =
-  let __resource_type = "aws_ssoadmin_application_assignment" in
-  let __resource =
-    aws_ssoadmin_application_assignment ~application_arn
-      ~principal_id ~principal_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_application_assignment __resource);
-  let __resource_attributes =
+let make ~application_arn ~principal_id ~principal_type __id =
+  let __type = "aws_ssoadmin_application_assignment" in
+  let __attrs =
     ({
-       application_arn =
-         Prop.computed __resource_type __resource_id
-           "application_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       principal_id =
-         Prop.computed __resource_type __resource_id "principal_id";
-       principal_type =
-         Prop.computed __resource_type __resource_id "principal_type";
+       application_arn = Prop.computed __type __id "application_arn";
+       id = Prop.computed __type __id "id";
+       principal_id = Prop.computed __type __id "principal_id";
+       principal_type = Prop.computed __type __id "principal_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_application_assignment
+        (aws_ssoadmin_application_assignment ~application_arn
+           ~principal_id ~principal_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~application_arn ~principal_id
+    ~principal_type __id =
+  let (r : _ Tf_core.resource) =
+    make ~application_arn ~principal_id ~principal_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

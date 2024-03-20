@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,3 +37,11 @@ val register :
   master_billing_account:string prop ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?id:string prop ->
+  display_name:string prop ->
+  master_billing_account:string prop ->
+  string ->
+  t Tf_core.resource

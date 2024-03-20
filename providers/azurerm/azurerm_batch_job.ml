@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,34 +54,40 @@ type t = {
   task_retry_maximum : float prop;
 }
 
-let register ?tf_module ?common_environment_properties ?display_name
-    ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
-    __resource_id =
-  let __resource_type = "azurerm_batch_job" in
-  let __resource =
-    azurerm_batch_job ?common_environment_properties ?display_name
-      ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_batch_job __resource);
-  let __resource_attributes =
+let make ?common_environment_properties ?display_name ?id ?priority
+    ?task_retry_maximum ?timeouts ~batch_pool_id ~name __id =
+  let __type = "azurerm_batch_job" in
+  let __attrs =
     ({
-       batch_pool_id =
-         Prop.computed __resource_type __resource_id "batch_pool_id";
+       batch_pool_id = Prop.computed __type __id "batch_pool_id";
        common_environment_properties =
-         Prop.computed __resource_type __resource_id
-           "common_environment_properties";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "common_environment_properties";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        task_retry_maximum =
-         Prop.computed __resource_type __resource_id
-           "task_retry_maximum";
+         Prop.computed __type __id "task_retry_maximum";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_batch_job
+        (azurerm_batch_job ?common_environment_properties
+           ?display_name ?id ?priority ?task_retry_maximum ?timeouts
+           ~batch_pool_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?common_environment_properties ?display_name
+    ?id ?priority ?task_retry_maximum ?timeouts ~batch_pool_id ~name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?common_environment_properties ?display_name ?id ?priority
+      ?task_retry_maximum ?timeouts ~batch_pool_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

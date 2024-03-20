@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,29 +49,36 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?kms_key_name ?project ?timeouts
-    ~display_name ~location ~type_ __resource_id =
-  let __resource_type = "google_document_ai_processor" in
-  let __resource =
-    google_document_ai_processor ?id ?kms_key_name ?project ?timeouts
-      ~display_name ~location ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_document_ai_processor __resource);
-  let __resource_attributes =
+let make ?id ?kms_key_name ?project ?timeouts ~display_name ~location
+    ~type_ __id =
+  let __type = "google_document_ai_processor" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_name =
-         Prop.computed __resource_type __resource_id "kms_key_name";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_document_ai_processor
+        (google_document_ai_processor ?id ?kms_key_name ?project
+           ?timeouts ~display_name ~location ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kms_key_name ?project ?timeouts
+    ~display_name ~location ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kms_key_name ?project ?timeouts ~display_name ~location
+      ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

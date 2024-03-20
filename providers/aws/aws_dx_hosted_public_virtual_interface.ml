@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,50 +68,52 @@ type t = {
   vlan : float prop;
 }
 
-let register ?tf_module ?amazon_address ?bgp_auth_key
-    ?customer_address ?id ?timeouts ~address_family ~bgp_asn
-    ~connection_id ~name ~owner_account_id ~route_filter_prefixes
-    ~vlan __resource_id =
-  let __resource_type = "aws_dx_hosted_public_virtual_interface" in
-  let __resource =
-    aws_dx_hosted_public_virtual_interface ?amazon_address
-      ?bgp_auth_key ?customer_address ?id ?timeouts ~address_family
-      ~bgp_asn ~connection_id ~name ~owner_account_id
-      ~route_filter_prefixes ~vlan ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_hosted_public_virtual_interface __resource);
-  let __resource_attributes =
+let make ?amazon_address ?bgp_auth_key ?customer_address ?id
+    ?timeouts ~address_family ~bgp_asn ~connection_id ~name
+    ~owner_account_id ~route_filter_prefixes ~vlan __id =
+  let __type = "aws_dx_hosted_public_virtual_interface" in
+  let __attrs =
     ({
-       address_family =
-         Prop.computed __resource_type __resource_id "address_family";
-       amazon_address =
-         Prop.computed __resource_type __resource_id "amazon_address";
-       amazon_side_asn =
-         Prop.computed __resource_type __resource_id
-           "amazon_side_asn";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       aws_device =
-         Prop.computed __resource_type __resource_id "aws_device";
-       bgp_asn =
-         Prop.computed __resource_type __resource_id "bgp_asn";
-       bgp_auth_key =
-         Prop.computed __resource_type __resource_id "bgp_auth_key";
-       connection_id =
-         Prop.computed __resource_type __resource_id "connection_id";
+       address_family = Prop.computed __type __id "address_family";
+       amazon_address = Prop.computed __type __id "amazon_address";
+       amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
+       arn = Prop.computed __type __id "arn";
+       aws_device = Prop.computed __type __id "aws_device";
+       bgp_asn = Prop.computed __type __id "bgp_asn";
+       bgp_auth_key = Prop.computed __type __id "bgp_auth_key";
+       connection_id = Prop.computed __type __id "connection_id";
        customer_address =
-         Prop.computed __resource_type __resource_id
-           "customer_address";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "customer_address";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
+         Prop.computed __type __id "owner_account_id";
        route_filter_prefixes =
-         Prop.computed __resource_type __resource_id
-           "route_filter_prefixes";
-       vlan = Prop.computed __resource_type __resource_id "vlan";
+         Prop.computed __type __id "route_filter_prefixes";
+       vlan = Prop.computed __type __id "vlan";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_hosted_public_virtual_interface
+        (aws_dx_hosted_public_virtual_interface ?amazon_address
+           ?bgp_auth_key ?customer_address ?id ?timeouts
+           ~address_family ~bgp_asn ~connection_id ~name
+           ~owner_account_id ~route_filter_prefixes ~vlan ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?amazon_address ?bgp_auth_key
+    ?customer_address ?id ?timeouts ~address_family ~bgp_asn
+    ~connection_id ~name ~owner_account_id ~route_filter_prefixes
+    ~vlan __id =
+  let (r : _ Tf_core.resource) =
+    make ?amazon_address ?bgp_auth_key ?customer_address ?id
+      ?timeouts ~address_family ~bgp_asn ~connection_id ~name
+      ~owner_account_id ~route_filter_prefixes ~vlan __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

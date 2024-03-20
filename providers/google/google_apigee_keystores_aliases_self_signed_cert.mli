@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -98,3 +98,18 @@ val register :
   subject_alternative_dns_names:subject_alternative_dns_names list ->
   string ->
   t
+
+val make :
+  ?cert_validity_in_days:float prop ->
+  ?id:string prop ->
+  ?key_size:string prop ->
+  ?timeouts:timeouts ->
+  alias:string prop ->
+  environment:string prop ->
+  keystore:string prop ->
+  org_id:string prop ->
+  sig_alg:string prop ->
+  subject:subject list ->
+  subject_alternative_dns_names:subject_alternative_dns_names list ->
+  string ->
+  t Tf_core.resource

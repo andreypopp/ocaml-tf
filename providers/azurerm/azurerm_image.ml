@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_disk = {
   blob_uri : string prop option; [@option]  (** blob_uri *)
@@ -103,37 +101,45 @@ type t = {
   zone_resilient : bool prop;
 }
 
-let register ?tf_module ?hyper_v_generation ?id
-    ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
-    ~location ~name ~resource_group_name ~data_disk ~os_disk
-    __resource_id =
-  let __resource_type = "azurerm_image" in
-  let __resource =
-    azurerm_image ?hyper_v_generation ?id ?source_virtual_machine_id
-      ?tags ?zone_resilient ?timeouts ~location ~name
-      ~resource_group_name ~data_disk ~os_disk ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_image __resource);
-  let __resource_attributes =
+let make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
+    ?zone_resilient ?timeouts ~location ~name ~resource_group_name
+    ~data_disk ~os_disk __id =
+  let __type = "azurerm_image" in
+  let __attrs =
     ({
        hyper_v_generation =
-         Prop.computed __resource_type __resource_id
-           "hyper_v_generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "hyper_v_generation";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        source_virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "source_virtual_machine_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_resilient =
-         Prop.computed __resource_type __resource_id "zone_resilient";
+         Prop.computed __type __id "source_virtual_machine_id";
+       tags = Prop.computed __type __id "tags";
+       zone_resilient = Prop.computed __type __id "zone_resilient";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_image
+        (azurerm_image ?hyper_v_generation ?id
+           ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
+           ~location ~name ~resource_group_name ~data_disk ~os_disk
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?hyper_v_generation ?id
+    ?source_virtual_machine_id ?tags ?zone_resilient ?timeouts
+    ~location ~name ~resource_group_name ~data_disk ~os_disk __id =
+  let (r : _ Tf_core.resource) =
+    make ?hyper_v_generation ?id ?source_virtual_machine_id ?tags
+      ?zone_resilient ?timeouts ~location ~name ~resource_group_name
+      ~data_disk ~os_disk __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

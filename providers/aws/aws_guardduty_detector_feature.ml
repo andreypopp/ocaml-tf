@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_configuration = {
   name : string prop;  (** name *)
@@ -36,23 +34,33 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?id ~detector_id ~name ~status
-    ~additional_configuration __resource_id =
-  let __resource_type = "aws_guardduty_detector_feature" in
-  let __resource =
-    aws_guardduty_detector_feature ?id ~detector_id ~name ~status
-      ~additional_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_guardduty_detector_feature __resource);
-  let __resource_attributes =
+let make ?id ~detector_id ~name ~status ~additional_configuration
+    __id =
+  let __type = "aws_guardduty_detector_feature" in
+  let __attrs =
     ({
-       detector_id =
-         Prop.computed __resource_type __resource_id "detector_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
+       detector_id = Prop.computed __type __id "detector_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_guardduty_detector_feature
+        (aws_guardduty_detector_feature ?id ~detector_id ~name
+           ~status ~additional_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~detector_id ~name ~status
+    ~additional_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~detector_id ~name ~status ~additional_configuration
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

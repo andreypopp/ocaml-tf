@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type constraints = {
   encryption_context_equals : (string * string prop) list option;
@@ -64,41 +62,47 @@ type t = {
   retiring_principal : string prop;
 }
 
-let register ?tf_module ?grant_creation_tokens ?id ?name
-    ?retire_on_delete ?retiring_principal ~grantee_principal ~key_id
-    ~operations ~constraints __resource_id =
-  let __resource_type = "aws_kms_grant" in
-  let __resource =
-    aws_kms_grant ?grant_creation_tokens ?id ?name ?retire_on_delete
-      ?retiring_principal ~grantee_principal ~key_id ~operations
-      ~constraints ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kms_grant __resource);
-  let __resource_attributes =
+let make ?grant_creation_tokens ?id ?name ?retire_on_delete
+    ?retiring_principal ~grantee_principal ~key_id ~operations
+    ~constraints __id =
+  let __type = "aws_kms_grant" in
+  let __attrs =
     ({
        grant_creation_tokens =
-         Prop.computed __resource_type __resource_id
-           "grant_creation_tokens";
-       grant_id =
-         Prop.computed __resource_type __resource_id "grant_id";
-       grant_token =
-         Prop.computed __resource_type __resource_id "grant_token";
+         Prop.computed __type __id "grant_creation_tokens";
+       grant_id = Prop.computed __type __id "grant_id";
+       grant_token = Prop.computed __type __id "grant_token";
        grantee_principal =
-         Prop.computed __resource_type __resource_id
-           "grantee_principal";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_id = Prop.computed __resource_type __resource_id "key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       operations =
-         Prop.computed __resource_type __resource_id "operations";
+         Prop.computed __type __id "grantee_principal";
+       id = Prop.computed __type __id "id";
+       key_id = Prop.computed __type __id "key_id";
+       name = Prop.computed __type __id "name";
+       operations = Prop.computed __type __id "operations";
        retire_on_delete =
-         Prop.computed __resource_type __resource_id
-           "retire_on_delete";
+         Prop.computed __type __id "retire_on_delete";
        retiring_principal =
-         Prop.computed __resource_type __resource_id
-           "retiring_principal";
+         Prop.computed __type __id "retiring_principal";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kms_grant
+        (aws_kms_grant ?grant_creation_tokens ?id ?name
+           ?retire_on_delete ?retiring_principal ~grantee_principal
+           ~key_id ~operations ~constraints ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?grant_creation_tokens ?id ?name
+    ?retire_on_delete ?retiring_principal ~grantee_principal ~key_id
+    ~operations ~constraints __id =
+  let (r : _ Tf_core.resource) =
+    make ?grant_creation_tokens ?id ?name ?retire_on_delete
+      ?retiring_principal ~grantee_principal ~key_id ~operations
+      ~constraints __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

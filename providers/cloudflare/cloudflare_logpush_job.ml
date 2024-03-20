@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_logpush_job = {
   account_id : string prop option; [@option]
@@ -89,55 +87,58 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?account_id ?enabled ?filter ?frequency ?id
-    ?kind ?logpull_options ?max_upload_bytes
-    ?max_upload_interval_seconds ?max_upload_records ?name
-    ?ownership_challenge ?zone_id ~dataset ~destination_conf
-    __resource_id =
-  let __resource_type = "cloudflare_logpush_job" in
-  let __resource =
-    cloudflare_logpush_job ?account_id ?enabled ?filter ?frequency
-      ?id ?kind ?logpull_options ?max_upload_bytes
-      ?max_upload_interval_seconds ?max_upload_records ?name
-      ?ownership_challenge ?zone_id ~dataset ~destination_conf ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_logpush_job __resource);
-  let __resource_attributes =
+let make ?account_id ?enabled ?filter ?frequency ?id ?kind
+    ?logpull_options ?max_upload_bytes ?max_upload_interval_seconds
+    ?max_upload_records ?name ?ownership_challenge ?zone_id ~dataset
+    ~destination_conf __id =
+  let __type = "cloudflare_logpush_job" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       dataset =
-         Prop.computed __resource_type __resource_id "dataset";
+       account_id = Prop.computed __type __id "account_id";
+       dataset = Prop.computed __type __id "dataset";
        destination_conf =
-         Prop.computed __resource_type __resource_id
-           "destination_conf";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       logpull_options =
-         Prop.computed __resource_type __resource_id
-           "logpull_options";
+         Prop.computed __type __id "destination_conf";
+       enabled = Prop.computed __type __id "enabled";
+       filter = Prop.computed __type __id "filter";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       logpull_options = Prop.computed __type __id "logpull_options";
        max_upload_bytes =
-         Prop.computed __resource_type __resource_id
-           "max_upload_bytes";
+         Prop.computed __type __id "max_upload_bytes";
        max_upload_interval_seconds =
-         Prop.computed __resource_type __resource_id
-           "max_upload_interval_seconds";
+         Prop.computed __type __id "max_upload_interval_seconds";
        max_upload_records =
-         Prop.computed __resource_type __resource_id
-           "max_upload_records";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "max_upload_records";
+       name = Prop.computed __type __id "name";
        ownership_challenge =
-         Prop.computed __resource_type __resource_id
-           "ownership_challenge";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "ownership_challenge";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_logpush_job
+        (cloudflare_logpush_job ?account_id ?enabled ?filter
+           ?frequency ?id ?kind ?logpull_options ?max_upload_bytes
+           ?max_upload_interval_seconds ?max_upload_records ?name
+           ?ownership_challenge ?zone_id ~dataset ~destination_conf
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?enabled ?filter ?frequency ?id
+    ?kind ?logpull_options ?max_upload_bytes
+    ?max_upload_interval_seconds ?max_upload_records ?name
+    ?ownership_challenge ?zone_id ~dataset ~destination_conf __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?enabled ?filter ?frequency ?id ?kind
+      ?logpull_options ?max_upload_bytes ?max_upload_interval_seconds
+      ?max_upload_records ?name ?ownership_challenge ?zone_id
+      ~dataset ~destination_conf __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

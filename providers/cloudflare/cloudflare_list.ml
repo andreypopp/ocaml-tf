@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type item__value__hostname = {
   url_hostname : string prop;
@@ -95,24 +93,32 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?id ~account_id ~kind ~name
-    ~item __resource_id =
-  let __resource_type = "cloudflare_list" in
-  let __resource =
-    cloudflare_list ?description ?id ~account_id ~kind ~name ~item ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_list __resource);
-  let __resource_attributes =
+let make ?description ?id ~account_id ~kind ~name ~item __id =
+  let __type = "cloudflare_list" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_id = Prop.computed __type __id "account_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_list
+        (cloudflare_list ?description ?id ~account_id ~kind ~name
+           ~item ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ~account_id ~kind ~name
+    ~item __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ~account_id ~kind ~name ~item __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

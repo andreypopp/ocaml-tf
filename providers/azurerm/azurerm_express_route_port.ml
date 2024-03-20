@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list;  (** identity_ids *)
@@ -127,44 +125,50 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?billing_type ?id ?tags ?timeouts
-    ~bandwidth_in_gbps ~encapsulation ~location ~name
-    ~peering_location ~resource_group_name ~identity ~link1 ~link2
-    __resource_id =
-  let __resource_type = "azurerm_express_route_port" in
-  let __resource =
-    azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
-      ~bandwidth_in_gbps ~encapsulation ~location ~name
-      ~peering_location ~resource_group_name ~identity ~link1 ~link2
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_port __resource);
-  let __resource_attributes =
+let make ?billing_type ?id ?tags ?timeouts ~bandwidth_in_gbps
+    ~encapsulation ~location ~name ~peering_location
+    ~resource_group_name ~identity ~link1 ~link2 __id =
+  let __type = "azurerm_express_route_port" in
+  let __attrs =
     ({
        bandwidth_in_gbps =
-         Prop.computed __resource_type __resource_id
-           "bandwidth_in_gbps";
-       billing_type =
-         Prop.computed __resource_type __resource_id "billing_type";
-       encapsulation =
-         Prop.computed __resource_type __resource_id "encapsulation";
-       ethertype =
-         Prop.computed __resource_type __resource_id "ethertype";
-       guid = Prop.computed __resource_type __resource_id "guid";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "bandwidth_in_gbps";
+       billing_type = Prop.computed __type __id "billing_type";
+       encapsulation = Prop.computed __type __id "encapsulation";
+       ethertype = Prop.computed __type __id "ethertype";
+       guid = Prop.computed __type __id "guid";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
        peering_location =
-         Prop.computed __resource_type __resource_id
-           "peering_location";
+         Prop.computed __type __id "peering_location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_port
+        (azurerm_express_route_port ?billing_type ?id ?tags ?timeouts
+           ~bandwidth_in_gbps ~encapsulation ~location ~name
+           ~peering_location ~resource_group_name ~identity ~link1
+           ~link2 ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?billing_type ?id ?tags ?timeouts
+    ~bandwidth_in_gbps ~encapsulation ~location ~name
+    ~peering_location ~resource_group_name ~identity ~link1 ~link2
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?billing_type ?id ?tags ?timeouts ~bandwidth_in_gbps
+      ~encapsulation ~location ~name ~peering_location
+      ~resource_group_name ~identity ~link1 ~link2 __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

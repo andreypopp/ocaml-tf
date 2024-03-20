@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -125,3 +125,15 @@ val register :
   custom:custom list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  parent:string prop ->
+  title:string prop ->
+  basic:basic list ->
+  custom:custom list ->
+  string ->
+  t Tf_core.resource

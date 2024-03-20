@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,14 @@ val register :
   stage:stage list ->
   string ->
   t
+
+val make :
+  ?fleet_update_strategy_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  kubernetes_fleet_manager_id:string prop ->
+  name:string prop ->
+  managed_cluster_update:managed_cluster_update list ->
+  stage:stage list ->
+  string ->
+  t Tf_core.resource

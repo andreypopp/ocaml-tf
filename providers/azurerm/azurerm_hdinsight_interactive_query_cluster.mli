@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -321,3 +321,29 @@ val register :
   storage_account_gen2:storage_account_gen2 list ->
   string ->
   t
+
+val make :
+  ?encryption_in_transit_enabled:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_min_version:string prop ->
+  ?timeouts:timeouts ->
+  cluster_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  tier:string prop ->
+  component_version:component_version list ->
+  compute_isolation:compute_isolation list ->
+  disk_encryption:disk_encryption list ->
+  extension:extension list ->
+  gateway:gateway list ->
+  metastores:metastores list ->
+  monitor:monitor list ->
+  network:network list ->
+  roles:roles list ->
+  security_profile:security_profile list ->
+  storage_account:storage_account list ->
+  storage_account_gen2:storage_account_gen2 list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_opsworks_user_profile = {
   allow_self_management : bool prop option; [@option]
@@ -35,28 +33,35 @@ type t = {
   user_arn : string prop;
 }
 
-let register ?tf_module ?allow_self_management ?id ?ssh_public_key
-    ~ssh_username ~user_arn __resource_id =
-  let __resource_type = "aws_opsworks_user_profile" in
-  let __resource =
-    aws_opsworks_user_profile ?allow_self_management ?id
-      ?ssh_public_key ~ssh_username ~user_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_user_profile __resource);
-  let __resource_attributes =
+let make ?allow_self_management ?id ?ssh_public_key ~ssh_username
+    ~user_arn __id =
+  let __type = "aws_opsworks_user_profile" in
+  let __attrs =
     ({
        allow_self_management =
-         Prop.computed __resource_type __resource_id
-           "allow_self_management";
-       id = Prop.computed __resource_type __resource_id "id";
-       ssh_public_key =
-         Prop.computed __resource_type __resource_id "ssh_public_key";
-       ssh_username =
-         Prop.computed __resource_type __resource_id "ssh_username";
-       user_arn =
-         Prop.computed __resource_type __resource_id "user_arn";
+         Prop.computed __type __id "allow_self_management";
+       id = Prop.computed __type __id "id";
+       ssh_public_key = Prop.computed __type __id "ssh_public_key";
+       ssh_username = Prop.computed __type __id "ssh_username";
+       user_arn = Prop.computed __type __id "user_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_user_profile
+        (aws_opsworks_user_profile ?allow_self_management ?id
+           ?ssh_public_key ~ssh_username ~user_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_self_management ?id ?ssh_public_key
+    ~ssh_username ~user_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_self_management ?id ?ssh_public_key ~ssh_username
+      ~user_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

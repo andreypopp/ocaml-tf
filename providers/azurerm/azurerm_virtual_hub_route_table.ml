@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type route = {
   destinations : string prop list;  (** destinations *)
@@ -52,23 +50,31 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let register ?tf_module ?id ?labels ?timeouts ~name ~virtual_hub_id
-    ~route __resource_id =
-  let __resource_type = "azurerm_virtual_hub_route_table" in
-  let __resource =
-    azurerm_virtual_hub_route_table ?id ?labels ?timeouts ~name
-      ~virtual_hub_id ~route ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_hub_route_table __resource);
-  let __resource_attributes =
+let make ?id ?labels ?timeouts ~name ~virtual_hub_id ~route __id =
+  let __type = "azurerm_virtual_hub_route_table" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_hub_route_table
+        (azurerm_virtual_hub_route_table ?id ?labels ?timeouts ~name
+           ~virtual_hub_id ~route ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?timeouts ~name ~virtual_hub_id
+    ~route __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?timeouts ~name ~virtual_hub_id ~route __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

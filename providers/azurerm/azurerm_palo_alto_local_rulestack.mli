@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,19 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?anti_spyware_profile:string prop ->
+  ?anti_virus_profile:string prop ->
+  ?description:string prop ->
+  ?dns_subscription:string prop ->
+  ?file_blocking_profile:string prop ->
+  ?id:string prop ->
+  ?url_filtering_profile:string prop ->
+  ?vulnerability_profile:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

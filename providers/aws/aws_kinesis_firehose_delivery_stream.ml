@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type elasticsearch_configuration__cloudwatch_logging_options = {
   enabled : bool prop option; [@option]  (** enabled *)
@@ -1603,40 +1601,59 @@ type t = {
   version_id : string prop;
 }
 
+let make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
+    ?timeouts ~destination ~name ~elasticsearch_configuration
+    ~extended_s3_configuration ~http_endpoint_configuration
+    ~kinesis_source_configuration ~msk_source_configuration
+    ~opensearch_configuration ~opensearchserverless_configuration
+    ~redshift_configuration ~server_side_encryption
+    ~splunk_configuration __id =
+  let __type = "aws_kinesis_firehose_delivery_stream" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       destination = Prop.computed __type __id "destination";
+       destination_id = Prop.computed __type __id "destination_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version_id = Prop.computed __type __id "version_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesis_firehose_delivery_stream
+        (aws_kinesis_firehose_delivery_stream ?arn ?destination_id
+           ?id ?tags ?tags_all ?version_id ?timeouts ~destination
+           ~name ~elasticsearch_configuration
+           ~extended_s3_configuration ~http_endpoint_configuration
+           ~kinesis_source_configuration ~msk_source_configuration
+           ~opensearch_configuration
+           ~opensearchserverless_configuration
+           ~redshift_configuration ~server_side_encryption
+           ~splunk_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?arn ?destination_id ?id ?tags ?tags_all
     ?version_id ?timeouts ~destination ~name
     ~elasticsearch_configuration ~extended_s3_configuration
     ~http_endpoint_configuration ~kinesis_source_configuration
     ~msk_source_configuration ~opensearch_configuration
     ~opensearchserverless_configuration ~redshift_configuration
-    ~server_side_encryption ~splunk_configuration __resource_id =
-  let __resource_type = "aws_kinesis_firehose_delivery_stream" in
-  let __resource =
-    aws_kinesis_firehose_delivery_stream ?arn ?destination_id ?id
-      ?tags ?tags_all ?version_id ?timeouts ~destination ~name
-      ~elasticsearch_configuration ~extended_s3_configuration
-      ~http_endpoint_configuration ~kinesis_source_configuration
-      ~msk_source_configuration ~opensearch_configuration
-      ~opensearchserverless_configuration ~redshift_configuration
-      ~server_side_encryption ~splunk_configuration ()
+    ~server_side_encryption ~splunk_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?arn ?destination_id ?id ?tags ?tags_all ?version_id
+      ?timeouts ~destination ~name ~elasticsearch_configuration
+      ~extended_s3_configuration ~http_endpoint_configuration
+      ~kinesis_source_configuration ~msk_source_configuration
+      ~opensearch_configuration ~opensearchserverless_configuration
+      ~redshift_configuration ~server_side_encryption
+      ~splunk_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesis_firehose_delivery_stream __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       destination =
-         Prop.computed __resource_type __resource_id "destination";
-       destination_id =
-         Prop.computed __resource_type __resource_id "destination_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

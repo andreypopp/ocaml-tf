@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type github_config__authorizer_credential = {
   oauth_token_secret_version : string prop option; [@option]
@@ -207,43 +205,47 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?disabled ?id ?project ?timeouts
-    ~location ~name ~github_config ~github_enterprise_config
-    ~gitlab_config __resource_id =
-  let __resource_type = "google_cloudbuildv2_connection" in
-  let __resource =
-    google_cloudbuildv2_connection ?annotations ?disabled ?id
-      ?project ?timeouts ~location ~name ~github_config
-      ~github_enterprise_config ~gitlab_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloudbuildv2_connection __resource);
-  let __resource_attributes =
+let make ?annotations ?disabled ?id ?project ?timeouts ~location
+    ~name ~github_config ~github_enterprise_config ~gitlab_config
+    __id =
+  let __type = "google_cloudbuildv2_connection" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
+       annotations = Prop.computed __type __id "annotations";
+       create_time = Prop.computed __type __id "create_time";
+       disabled = Prop.computed __type __id "disabled";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "effective_annotations";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
        installation_state =
-         Prop.computed __resource_type __resource_id
-           "installation_state";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "installation_state";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloudbuildv2_connection
+        (google_cloudbuildv2_connection ?annotations ?disabled ?id
+           ?project ?timeouts ~location ~name ~github_config
+           ~github_enterprise_config ~gitlab_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?disabled ?id ?project ?timeouts
+    ~location ~name ~github_config ~github_enterprise_config
+    ~gitlab_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?disabled ?id ?project ?timeouts ~location
+      ~name ~github_config ~github_enterprise_config ~gitlab_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,23 @@ val register :
   intent:intent list ->
   string ->
   t
+
+val make :
+  ?create_version:bool prop ->
+  ?description:string prop ->
+  ?detect_sentiment:bool prop ->
+  ?enable_model_improvements:bool prop ->
+  ?id:string prop ->
+  ?idle_session_ttl_in_seconds:float prop ->
+  ?locale:string prop ->
+  ?nlu_intent_confidence_threshold:float prop ->
+  ?process_behavior:string prop ->
+  ?voice_id:string prop ->
+  ?timeouts:timeouts ->
+  child_directed:bool prop ->
+  name:string prop ->
+  abort_statement:abort_statement list ->
+  clarification_prompt:clarification_prompt list ->
+  intent:intent list ->
+  string ->
+  t Tf_core.resource

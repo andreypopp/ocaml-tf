@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,13 @@ val register :
   service_attachment:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  endpoint_attachment_id:string prop ->
+  location:string prop ->
+  org_id:string prop ->
+  service_attachment:string prop ->
+  string ->
+  t Tf_core.resource

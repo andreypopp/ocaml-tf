@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,20 @@ val register :
   delegation:delegation list ->
   string ->
   t
+
+val make :
+  ?enforce_private_link_endpoint_network_policies:bool prop ->
+  ?enforce_private_link_service_network_policies:bool prop ->
+  ?id:string prop ->
+  ?private_endpoint_network_policies_enabled:bool prop ->
+  ?private_link_service_network_policies_enabled:bool prop ->
+  ?service_endpoint_policy_ids:string prop list ->
+  ?service_endpoints:string prop list ->
+  ?timeouts:timeouts ->
+  address_prefixes:string prop list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_network_name:string prop ->
+  delegation:delegation list ->
+  string ->
+  t Tf_core.resource

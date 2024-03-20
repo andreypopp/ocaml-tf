@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_eks_pod_identity_association = {
   cluster_name : string prop;  (** cluster_name *)
@@ -31,36 +29,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?tags ~cluster_name ~namespace ~role_arn
-    ~service_account __resource_id =
-  let __resource_type = "aws_eks_pod_identity_association" in
-  let __resource =
-    aws_eks_pod_identity_association ?tags ~cluster_name ~namespace
-      ~role_arn ~service_account ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_pod_identity_association __resource);
-  let __resource_attributes =
+let make ?tags ~cluster_name ~namespace ~role_arn ~service_account
+    __id =
+  let __type = "aws_eks_pod_identity_association" in
+  let __attrs =
     ({
-       association_arn =
-         Prop.computed __resource_type __resource_id
-           "association_arn";
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       namespace =
-         Prop.computed __resource_type __resource_id "namespace";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       association_arn = Prop.computed __type __id "association_arn";
+       association_id = Prop.computed __type __id "association_id";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       id = Prop.computed __type __id "id";
+       namespace = Prop.computed __type __id "namespace";
+       role_arn = Prop.computed __type __id "role_arn";
+       service_account = Prop.computed __type __id "service_account";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_pod_identity_association
+        (aws_eks_pod_identity_association ?tags ~cluster_name
+           ~namespace ~role_arn ~service_account ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?tags ~cluster_name ~namespace ~role_arn
+    ~service_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?tags ~cluster_name ~namespace ~role_arn ~service_account
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

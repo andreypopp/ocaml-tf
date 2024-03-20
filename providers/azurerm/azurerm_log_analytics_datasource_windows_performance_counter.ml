@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -57,39 +55,44 @@ type t = {
   workspace_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~counter_name ~instance_name
-    ~interval_seconds ~name ~object_name ~resource_group_name
-    ~workspace_name __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~counter_name ~instance_name ~interval_seconds
+    ~name ~object_name ~resource_group_name ~workspace_name __id =
+  let __type =
     "azurerm_log_analytics_datasource_windows_performance_counter"
   in
-  let __resource =
-    azurerm_log_analytics_datasource_windows_performance_counter ?id
-      ?timeouts ~counter_name ~instance_name ~interval_seconds ~name
-      ~object_name ~resource_group_name ~workspace_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_log_analytics_datasource_windows_performance_counter
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       counter_name =
-         Prop.computed __resource_type __resource_id "counter_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_name =
-         Prop.computed __resource_type __resource_id "instance_name";
+       counter_name = Prop.computed __type __id "counter_name";
+       id = Prop.computed __type __id "id";
+       instance_name = Prop.computed __type __id "instance_name";
        interval_seconds =
-         Prop.computed __resource_type __resource_id
-           "interval_seconds";
-       name = Prop.computed __resource_type __resource_id "name";
-       object_name =
-         Prop.computed __resource_type __resource_id "object_name";
+         Prop.computed __type __id "interval_seconds";
+       name = Prop.computed __type __id "name";
+       object_name = Prop.computed __type __id "object_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       workspace_name =
-         Prop.computed __resource_type __resource_id "workspace_name";
+         Prop.computed __type __id "resource_group_name";
+       workspace_name = Prop.computed __type __id "workspace_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_log_analytics_datasource_windows_performance_counter
+        (azurerm_log_analytics_datasource_windows_performance_counter
+           ?id ?timeouts ~counter_name ~instance_name
+           ~interval_seconds ~name ~object_name ~resource_group_name
+           ~workspace_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~counter_name ~instance_name
+    ~interval_seconds ~name ~object_name ~resource_group_name
+    ~workspace_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~counter_name ~instance_name ~interval_seconds
+      ~name ~object_name ~resource_group_name ~workspace_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

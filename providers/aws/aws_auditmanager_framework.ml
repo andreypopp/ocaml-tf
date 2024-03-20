@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type control_sets__controls = { id : string prop  (** id *) }
 [@@deriving yojson_of]
@@ -46,31 +44,36 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?compliance_type ?description ?tags ~name
-    ~control_sets __resource_id =
-  let __resource_type = "aws_auditmanager_framework" in
-  let __resource =
-    aws_auditmanager_framework ?compliance_type ?description ?tags
-      ~name ~control_sets ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_auditmanager_framework __resource);
-  let __resource_attributes =
+let make ?compliance_type ?description ?tags ~name ~control_sets __id
+    =
+  let __type = "aws_auditmanager_framework" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       compliance_type =
-         Prop.computed __resource_type __resource_id
-           "compliance_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       framework_type =
-         Prop.computed __resource_type __resource_id "framework_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       compliance_type = Prop.computed __type __id "compliance_type";
+       description = Prop.computed __type __id "description";
+       framework_type = Prop.computed __type __id "framework_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_auditmanager_framework
+        (aws_auditmanager_framework ?compliance_type ?description
+           ?tags ~name ~control_sets ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?compliance_type ?description ?tags ~name
+    ~control_sets __id =
+  let (r : _ Tf_core.resource) =
+    make ?compliance_type ?description ?tags ~name ~control_sets __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

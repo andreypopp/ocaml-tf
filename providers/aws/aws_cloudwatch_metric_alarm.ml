@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metric_query__metric = {
   dimensions : (string * string prop) list option; [@option]
@@ -139,82 +137,83 @@ type t = {
   unit : string prop;
 }
 
+let make ?actions_enabled ?alarm_actions ?alarm_description
+    ?datapoints_to_alarm ?dimensions
+    ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
+    ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
+    ?period ?statistic ?tags ?tags_all ?threshold
+    ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
+    ~comparison_operator ~evaluation_periods ~metric_query __id =
+  let __type = "aws_cloudwatch_metric_alarm" in
+  let __attrs =
+    ({
+       actions_enabled = Prop.computed __type __id "actions_enabled";
+       alarm_actions = Prop.computed __type __id "alarm_actions";
+       alarm_description =
+         Prop.computed __type __id "alarm_description";
+       alarm_name = Prop.computed __type __id "alarm_name";
+       arn = Prop.computed __type __id "arn";
+       comparison_operator =
+         Prop.computed __type __id "comparison_operator";
+       datapoints_to_alarm =
+         Prop.computed __type __id "datapoints_to_alarm";
+       dimensions = Prop.computed __type __id "dimensions";
+       evaluate_low_sample_count_percentiles =
+         Prop.computed __type __id
+           "evaluate_low_sample_count_percentiles";
+       evaluation_periods =
+         Prop.computed __type __id "evaluation_periods";
+       extended_statistic =
+         Prop.computed __type __id "extended_statistic";
+       id = Prop.computed __type __id "id";
+       insufficient_data_actions =
+         Prop.computed __type __id "insufficient_data_actions";
+       metric_name = Prop.computed __type __id "metric_name";
+       namespace = Prop.computed __type __id "namespace";
+       ok_actions = Prop.computed __type __id "ok_actions";
+       period = Prop.computed __type __id "period";
+       statistic = Prop.computed __type __id "statistic";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       threshold = Prop.computed __type __id "threshold";
+       threshold_metric_id =
+         Prop.computed __type __id "threshold_metric_id";
+       treat_missing_data =
+         Prop.computed __type __id "treat_missing_data";
+       unit = Prop.computed __type __id "unit";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_metric_alarm
+        (aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
+           ?alarm_description ?datapoints_to_alarm ?dimensions
+           ?evaluate_low_sample_count_percentiles ?extended_statistic
+           ?id ?insufficient_data_actions ?metric_name ?namespace
+           ?ok_actions ?period ?statistic ?tags ?tags_all ?threshold
+           ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
+           ~comparison_operator ~evaluation_periods ~metric_query ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?actions_enabled ?alarm_actions
     ?alarm_description ?datapoints_to_alarm ?dimensions
     ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
     ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
     ?period ?statistic ?tags ?tags_all ?threshold
     ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
-    ~comparison_operator ~evaluation_periods ~metric_query
-    __resource_id =
-  let __resource_type = "aws_cloudwatch_metric_alarm" in
-  let __resource =
-    aws_cloudwatch_metric_alarm ?actions_enabled ?alarm_actions
-      ?alarm_description ?datapoints_to_alarm ?dimensions
+    ~comparison_operator ~evaluation_periods ~metric_query __id =
+  let (r : _ Tf_core.resource) =
+    make ?actions_enabled ?alarm_actions ?alarm_description
+      ?datapoints_to_alarm ?dimensions
       ?evaluate_low_sample_count_percentiles ?extended_statistic ?id
       ?insufficient_data_actions ?metric_name ?namespace ?ok_actions
       ?period ?statistic ?tags ?tags_all ?threshold
       ?threshold_metric_id ?treat_missing_data ?unit ~alarm_name
-      ~comparison_operator ~evaluation_periods ~metric_query ()
+      ~comparison_operator ~evaluation_periods ~metric_query __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_metric_alarm __resource);
-  let __resource_attributes =
-    ({
-       actions_enabled =
-         Prop.computed __resource_type __resource_id
-           "actions_enabled";
-       alarm_actions =
-         Prop.computed __resource_type __resource_id "alarm_actions";
-       alarm_description =
-         Prop.computed __resource_type __resource_id
-           "alarm_description";
-       alarm_name =
-         Prop.computed __resource_type __resource_id "alarm_name";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       comparison_operator =
-         Prop.computed __resource_type __resource_id
-           "comparison_operator";
-       datapoints_to_alarm =
-         Prop.computed __resource_type __resource_id
-           "datapoints_to_alarm";
-       dimensions =
-         Prop.computed __resource_type __resource_id "dimensions";
-       evaluate_low_sample_count_percentiles =
-         Prop.computed __resource_type __resource_id
-           "evaluate_low_sample_count_percentiles";
-       evaluation_periods =
-         Prop.computed __resource_type __resource_id
-           "evaluation_periods";
-       extended_statistic =
-         Prop.computed __resource_type __resource_id
-           "extended_statistic";
-       id = Prop.computed __resource_type __resource_id "id";
-       insufficient_data_actions =
-         Prop.computed __resource_type __resource_id
-           "insufficient_data_actions";
-       metric_name =
-         Prop.computed __resource_type __resource_id "metric_name";
-       namespace =
-         Prop.computed __resource_type __resource_id "namespace";
-       ok_actions =
-         Prop.computed __resource_type __resource_id "ok_actions";
-       period = Prop.computed __resource_type __resource_id "period";
-       statistic =
-         Prop.computed __resource_type __resource_id "statistic";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       threshold =
-         Prop.computed __resource_type __resource_id "threshold";
-       threshold_metric_id =
-         Prop.computed __resource_type __resource_id
-           "threshold_metric_id";
-       treat_missing_data =
-         Prop.computed __resource_type __resource_id
-           "treat_missing_data";
-       unit = Prop.computed __resource_type __resource_id "unit";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

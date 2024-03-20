@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_monitor_workspace_integrations = {
   resource_id : string prop;  (** resource_id *)
@@ -137,62 +135,70 @@ type t = {
   zone_redundancy_enabled : bool prop;
 }
 
+let make ?api_key_enabled ?auto_generated_domain_name_label_scope
+    ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
+    ?public_network_access_enabled ?sku ?tags
+    ?zone_redundancy_enabled ?timeouts ~location ~name
+    ~resource_group_name ~azure_monitor_workspace_integrations
+    ~identity ~smtp __id =
+  let __type = "azurerm_dashboard_grafana" in
+  let __attrs =
+    ({
+       api_key_enabled = Prop.computed __type __id "api_key_enabled";
+       auto_generated_domain_name_label_scope =
+         Prop.computed __type __id
+           "auto_generated_domain_name_label_scope";
+       deterministic_outbound_ip_enabled =
+         Prop.computed __type __id
+           "deterministic_outbound_ip_enabled";
+       endpoint = Prop.computed __type __id "endpoint";
+       grafana_major_version =
+         Prop.computed __type __id "grafana_major_version";
+       grafana_version = Prop.computed __type __id "grafana_version";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       outbound_ip = Prop.computed __type __id "outbound_ip";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       zone_redundancy_enabled =
+         Prop.computed __type __id "zone_redundancy_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dashboard_grafana
+        (azurerm_dashboard_grafana ?api_key_enabled
+           ?auto_generated_domain_name_label_scope
+           ?deterministic_outbound_ip_enabled ?grafana_major_version
+           ?id ?public_network_access_enabled ?sku ?tags
+           ?zone_redundancy_enabled ?timeouts ~location ~name
+           ~resource_group_name ~azure_monitor_workspace_integrations
+           ~identity ~smtp ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?api_key_enabled
     ?auto_generated_domain_name_label_scope
     ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
     ?public_network_access_enabled ?sku ?tags
     ?zone_redundancy_enabled ?timeouts ~location ~name
     ~resource_group_name ~azure_monitor_workspace_integrations
-    ~identity ~smtp __resource_id =
-  let __resource_type = "azurerm_dashboard_grafana" in
-  let __resource =
-    azurerm_dashboard_grafana ?api_key_enabled
-      ?auto_generated_domain_name_label_scope
+    ~identity ~smtp __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_key_enabled ?auto_generated_domain_name_label_scope
       ?deterministic_outbound_ip_enabled ?grafana_major_version ?id
       ?public_network_access_enabled ?sku ?tags
       ?zone_redundancy_enabled ?timeouts ~location ~name
       ~resource_group_name ~azure_monitor_workspace_integrations
-      ~identity ~smtp ()
+      ~identity ~smtp __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dashboard_grafana __resource);
-  let __resource_attributes =
-    ({
-       api_key_enabled =
-         Prop.computed __resource_type __resource_id
-           "api_key_enabled";
-       auto_generated_domain_name_label_scope =
-         Prop.computed __resource_type __resource_id
-           "auto_generated_domain_name_label_scope";
-       deterministic_outbound_ip_enabled =
-         Prop.computed __resource_type __resource_id
-           "deterministic_outbound_ip_enabled";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       grafana_major_version =
-         Prop.computed __resource_type __resource_id
-           "grafana_major_version";
-       grafana_version =
-         Prop.computed __resource_type __resource_id
-           "grafana_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_ip =
-         Prop.computed __resource_type __resource_id "outbound_ip";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zone_redundancy_enabled =
-         Prop.computed __resource_type __resource_id
-           "zone_redundancy_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -254,3 +254,13 @@ val register :
   storage_lens_configuration:storage_lens_configuration list ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  config_id:string prop ->
+  storage_lens_configuration:storage_lens_configuration list ->
+  string ->
+  t Tf_core.resource

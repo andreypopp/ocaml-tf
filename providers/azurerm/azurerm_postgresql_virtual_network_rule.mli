@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   subnet_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ignore_missing_vnet_service_endpoint:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  subnet_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config__ingress_rule__origin_request__access = {
   aud_tag : string prop list option; [@option]
@@ -254,22 +252,29 @@ type t = {
   tunnel_id : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~tunnel_id ~config
-    __resource_id =
-  let __resource_type = "cloudflare_tunnel_config" in
-  let __resource =
-    cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_tunnel_config __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~tunnel_id ~config __id =
+  let __type = "cloudflare_tunnel_config" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       tunnel_id =
-         Prop.computed __resource_type __resource_id "tunnel_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       tunnel_id = Prop.computed __type __id "tunnel_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_tunnel_config
+        (cloudflare_tunnel_config ?id ~account_id ~tunnel_id ~config
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~tunnel_id ~config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~tunnel_id ~config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

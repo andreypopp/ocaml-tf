@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,13 @@ val register :
   cidr_authorization_context:cidr_authorization_context list ->
   string ->
   t
+
+val make :
+  ?cidr:string prop ->
+  ?id:string prop ->
+  ?netmask_length:float prop ->
+  ?timeouts:timeouts ->
+  ipam_pool_id:string prop ->
+  cidr_authorization_context:cidr_authorization_context list ->
+  string ->
+  t Tf_core.resource

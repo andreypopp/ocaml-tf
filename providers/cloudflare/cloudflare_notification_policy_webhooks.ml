@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_notification_policy_webhooks = {
   account_id : string prop;
@@ -33,31 +31,35 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?secret ?url ~account_id ~name
-    __resource_id =
-  let __resource_type = "cloudflare_notification_policy_webhooks" in
-  let __resource =
-    cloudflare_notification_policy_webhooks ?id ?secret ?url
-      ~account_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_notification_policy_webhooks __resource);
-  let __resource_attributes =
+let make ?id ?secret ?url ~account_id ~name __id =
+  let __type = "cloudflare_notification_policy_webhooks" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_failure =
-         Prop.computed __resource_type __resource_id "last_failure";
-       last_success =
-         Prop.computed __resource_type __resource_id "last_success";
-       name = Prop.computed __resource_type __resource_id "name";
-       secret = Prop.computed __resource_type __resource_id "secret";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       url = Prop.computed __resource_type __resource_id "url";
+       account_id = Prop.computed __type __id "account_id";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       last_failure = Prop.computed __type __id "last_failure";
+       last_success = Prop.computed __type __id "last_success";
+       name = Prop.computed __type __id "name";
+       secret = Prop.computed __type __id "secret";
+       type_ = Prop.computed __type __id "type";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_notification_policy_webhooks
+        (cloudflare_notification_policy_webhooks ?id ?secret ?url
+           ~account_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?secret ?url ~account_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?secret ?url ~account_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

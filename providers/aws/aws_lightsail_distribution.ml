@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache_behavior = {
   behavior : string prop;
@@ -195,55 +193,55 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?certificate_name ?id ?ip_address_type
-    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
-    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
-    ~origin __resource_id =
-  let __resource_type = "aws_lightsail_distribution" in
-  let __resource =
-    aws_lightsail_distribution ?certificate_name ?id ?ip_address_type
-      ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
-      ~cache_behavior ~cache_behavior_settings
-      ~default_cache_behavior ~origin ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_distribution __resource);
-  let __resource_attributes =
+let make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
+    ?tags_all ?timeouts ~bundle_id ~name ~cache_behavior
+    ~cache_behavior_settings ~default_cache_behavior ~origin __id =
+  let __type = "aws_lightsail_distribution" in
+  let __attrs =
     ({
        alternative_domain_names =
-         Prop.computed __resource_type __resource_id
-           "alternative_domain_names";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bundle_id =
-         Prop.computed __resource_type __resource_id "bundle_id";
+         Prop.computed __type __id "alternative_domain_names";
+       arn = Prop.computed __type __id "arn";
+       bundle_id = Prop.computed __type __id "bundle_id";
        certificate_name =
-         Prop.computed __resource_type __resource_id
-           "certificate_name";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
-       is_enabled =
-         Prop.computed __resource_type __resource_id "is_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "certificate_name";
+       created_at = Prop.computed __type __id "created_at";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
+       is_enabled = Prop.computed __type __id "is_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        origin_public_dns =
-         Prop.computed __resource_type __resource_id
-           "origin_public_dns";
-       resource_type =
-         Prop.computed __resource_type __resource_id "resource_type";
-       status = Prop.computed __resource_type __resource_id "status";
-       support_code =
-         Prop.computed __resource_type __resource_id "support_code";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "origin_public_dns";
+       resource_type = Prop.computed __type __id "resource_type";
+       status = Prop.computed __type __id "status";
+       support_code = Prop.computed __type __id "support_code";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_distribution
+        (aws_lightsail_distribution ?certificate_name ?id
+           ?ip_address_type ?is_enabled ?tags ?tags_all ?timeouts
+           ~bundle_id ~name ~cache_behavior ~cache_behavior_settings
+           ~default_cache_behavior ~origin ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_name ?id ?ip_address_type
+    ?is_enabled ?tags ?tags_all ?timeouts ~bundle_id ~name
+    ~cache_behavior ~cache_behavior_settings ~default_cache_behavior
+    ~origin __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_name ?id ?ip_address_type ?is_enabled ?tags
+      ?tags_all ?timeouts ~bundle_id ~name ~cache_behavior
+      ~cache_behavior_settings ~default_cache_behavior ~origin __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshiftserverless_namespace = {
   admin_password_secret_kms_key_id : string prop option; [@option]
@@ -69,58 +67,59 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?admin_password_secret_kms_key_id
-    ?admin_user_password ?admin_username ?db_name
-    ?default_iam_role_arn ?iam_roles ?id ?kms_key_id ?log_exports
-    ?manage_admin_password ?tags ?tags_all ~namespace_name
-    __resource_id =
-  let __resource_type = "aws_redshiftserverless_namespace" in
-  let __resource =
-    aws_redshiftserverless_namespace
-      ?admin_password_secret_kms_key_id ?admin_user_password
-      ?admin_username ?db_name ?default_iam_role_arn ?iam_roles ?id
-      ?kms_key_id ?log_exports ?manage_admin_password ?tags ?tags_all
-      ~namespace_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshiftserverless_namespace __resource);
-  let __resource_attributes =
+let make ?admin_password_secret_kms_key_id ?admin_user_password
+    ?admin_username ?db_name ?default_iam_role_arn ?iam_roles ?id
+    ?kms_key_id ?log_exports ?manage_admin_password ?tags ?tags_all
+    ~namespace_name __id =
+  let __type = "aws_redshiftserverless_namespace" in
+  let __attrs =
     ({
        admin_password_secret_arn =
-         Prop.computed __resource_type __resource_id
-           "admin_password_secret_arn";
+         Prop.computed __type __id "admin_password_secret_arn";
        admin_password_secret_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "admin_password_secret_kms_key_id";
+         Prop.computed __type __id "admin_password_secret_kms_key_id";
        admin_user_password =
-         Prop.computed __resource_type __resource_id
-           "admin_user_password";
-       admin_username =
-         Prop.computed __resource_type __resource_id "admin_username";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       db_name =
-         Prop.computed __resource_type __resource_id "db_name";
+         Prop.computed __type __id "admin_user_password";
+       admin_username = Prop.computed __type __id "admin_username";
+       arn = Prop.computed __type __id "arn";
+       db_name = Prop.computed __type __id "db_name";
        default_iam_role_arn =
-         Prop.computed __resource_type __resource_id
-           "default_iam_role_arn";
-       iam_roles =
-         Prop.computed __resource_type __resource_id "iam_roles";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       log_exports =
-         Prop.computed __resource_type __resource_id "log_exports";
+         Prop.computed __type __id "default_iam_role_arn";
+       iam_roles = Prop.computed __type __id "iam_roles";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       log_exports = Prop.computed __type __id "log_exports";
        manage_admin_password =
-         Prop.computed __resource_type __resource_id
-           "manage_admin_password";
-       namespace_id =
-         Prop.computed __resource_type __resource_id "namespace_id";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "manage_admin_password";
+       namespace_id = Prop.computed __type __id "namespace_id";
+       namespace_name = Prop.computed __type __id "namespace_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshiftserverless_namespace
+        (aws_redshiftserverless_namespace
+           ?admin_password_secret_kms_key_id ?admin_user_password
+           ?admin_username ?db_name ?default_iam_role_arn ?iam_roles
+           ?id ?kms_key_id ?log_exports ?manage_admin_password ?tags
+           ?tags_all ~namespace_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?admin_password_secret_kms_key_id
+    ?admin_user_password ?admin_username ?db_name
+    ?default_iam_role_arn ?iam_roles ?id ?kms_key_id ?log_exports
+    ?manage_admin_password ?tags ?tags_all ~namespace_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_password_secret_kms_key_id ?admin_user_password
+      ?admin_username ?db_name ?default_iam_role_arn ?iam_roles ?id
+      ?kms_key_id ?log_exports ?manage_admin_password ?tags ?tags_all
+      ~namespace_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,15 @@ val register :
   thumbnail_configuration:thumbnail_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?recording_reconnect_window_seconds:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  destination_configuration:destination_configuration list ->
+  thumbnail_configuration:thumbnail_configuration list ->
+  string ->
+  t Tf_core.resource

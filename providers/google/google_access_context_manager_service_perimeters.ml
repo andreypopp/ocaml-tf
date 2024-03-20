@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type service_perimeters__spec__egress_policies__egress_from__sources = {
   access_level : string prop option; [@option]
@@ -700,23 +698,29 @@ let google_access_context_manager_service_perimeters ?id ?timeouts
 
 type t = { id : string prop; parent : string prop }
 
-let register ?tf_module ?id ?timeouts ~parent ~service_perimeters
-    __resource_id =
-  let __resource_type =
-    "google_access_context_manager_service_perimeters"
-  in
-  let __resource =
-    google_access_context_manager_service_perimeters ?id ?timeouts
-      ~parent ~service_perimeters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_service_perimeters
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~parent ~service_perimeters __id =
+  let __type = "google_access_context_manager_service_perimeters" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       id = Prop.computed __type __id "id";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_service_perimeters
+        (google_access_context_manager_service_perimeters ?id
+           ?timeouts ~parent ~service_perimeters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~parent ~service_perimeters
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~parent ~service_perimeters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

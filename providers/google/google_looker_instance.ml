@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type admin_settings = {
   allowed_email_domains : string prop list option; [@option]
@@ -279,60 +277,65 @@ type t = {
   update_time : string prop;
 }
 
+let make ?consumer_network ?id ?platform_edition ?private_ip_enabled
+    ?project ?public_ip_enabled ?region ?reserved_range ?timeouts
+    ~name ~admin_settings ~custom_domain ~deny_maintenance_period
+    ~encryption_config ~maintenance_window ~oauth_config
+    ~user_metadata __id =
+  let __type = "google_looker_instance" in
+  let __attrs =
+    ({
+       consumer_network =
+         Prop.computed __type __id "consumer_network";
+       create_time = Prop.computed __type __id "create_time";
+       egress_public_ip =
+         Prop.computed __type __id "egress_public_ip";
+       id = Prop.computed __type __id "id";
+       ingress_private_ip =
+         Prop.computed __type __id "ingress_private_ip";
+       ingress_public_ip =
+         Prop.computed __type __id "ingress_public_ip";
+       looker_uri = Prop.computed __type __id "looker_uri";
+       looker_version = Prop.computed __type __id "looker_version";
+       name = Prop.computed __type __id "name";
+       platform_edition =
+         Prop.computed __type __id "platform_edition";
+       private_ip_enabled =
+         Prop.computed __type __id "private_ip_enabled";
+       project = Prop.computed __type __id "project";
+       public_ip_enabled =
+         Prop.computed __type __id "public_ip_enabled";
+       region = Prop.computed __type __id "region";
+       reserved_range = Prop.computed __type __id "reserved_range";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_looker_instance
+        (google_looker_instance ?consumer_network ?id
+           ?platform_edition ?private_ip_enabled ?project
+           ?public_ip_enabled ?region ?reserved_range ?timeouts ~name
+           ~admin_settings ~custom_domain ~deny_maintenance_period
+           ~encryption_config ~maintenance_window ~oauth_config
+           ~user_metadata ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?consumer_network ?id ?platform_edition
     ?private_ip_enabled ?project ?public_ip_enabled ?region
     ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
     ~deny_maintenance_period ~encryption_config ~maintenance_window
-    ~oauth_config ~user_metadata __resource_id =
-  let __resource_type = "google_looker_instance" in
-  let __resource =
-    google_looker_instance ?consumer_network ?id ?platform_edition
-      ?private_ip_enabled ?project ?public_ip_enabled ?region
-      ?reserved_range ?timeouts ~name ~admin_settings ~custom_domain
-      ~deny_maintenance_period ~encryption_config ~maintenance_window
-      ~oauth_config ~user_metadata ()
+    ~oauth_config ~user_metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?consumer_network ?id ?platform_edition ?private_ip_enabled
+      ?project ?public_ip_enabled ?region ?reserved_range ?timeouts
+      ~name ~admin_settings ~custom_domain ~deny_maintenance_period
+      ~encryption_config ~maintenance_window ~oauth_config
+      ~user_metadata __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_looker_instance __resource);
-  let __resource_attributes =
-    ({
-       consumer_network =
-         Prop.computed __resource_type __resource_id
-           "consumer_network";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       egress_public_ip =
-         Prop.computed __resource_type __resource_id
-           "egress_public_ip";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingress_private_ip =
-         Prop.computed __resource_type __resource_id
-           "ingress_private_ip";
-       ingress_public_ip =
-         Prop.computed __resource_type __resource_id
-           "ingress_public_ip";
-       looker_uri =
-         Prop.computed __resource_type __resource_id "looker_uri";
-       looker_version =
-         Prop.computed __resource_type __resource_id "looker_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       platform_edition =
-         Prop.computed __resource_type __resource_id
-           "platform_edition";
-       private_ip_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_ip_enabled";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       public_ip_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_ip_enabled";
-       region = Prop.computed __resource_type __resource_id "region";
-       reserved_range =
-         Prop.computed __resource_type __resource_id "reserved_range";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

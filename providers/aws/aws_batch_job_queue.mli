@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,15 @@ val register :
   compute_environment_order:compute_environment_order list ->
   string ->
   t
+
+val make :
+  ?compute_environments:string prop list ->
+  ?scheduling_policy_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  priority:float prop ->
+  state:string prop ->
+  compute_environment_order:compute_environment_order list ->
+  string ->
+  t Tf_core.resource

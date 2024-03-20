@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_database_mysql_config = {
   backup_hour : float prop option; [@option]  (** backup_hour *)
@@ -136,6 +134,91 @@ type t = {
   wait_timeout : float prop;
 }
 
+let make ?backup_hour ?backup_minute ?binlog_retention_period
+    ?connect_timeout ?default_time_zone ?group_concat_max_len ?id
+    ?information_schema_stats_expiry ?innodb_ft_min_token_size
+    ?innodb_ft_server_stopword_table ?innodb_lock_wait_timeout
+    ?innodb_log_buffer_size ?innodb_online_alter_log_max_size
+    ?innodb_print_all_deadlocks ?innodb_rollback_on_timeout
+    ?interactive_timeout ?internal_tmp_mem_storage_engine
+    ?long_query_time ?max_allowed_packet ?max_heap_table_size
+    ?net_read_timeout ?net_write_timeout ?slow_query_log
+    ?sort_buffer_size ?sql_mode ?sql_require_primary_key
+    ?tmp_table_size ?wait_timeout ~cluster_id __id =
+  let __type = "digitalocean_database_mysql_config" in
+  let __attrs =
+    ({
+       backup_hour = Prop.computed __type __id "backup_hour";
+       backup_minute = Prop.computed __type __id "backup_minute";
+       binlog_retention_period =
+         Prop.computed __type __id "binlog_retention_period";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       connect_timeout = Prop.computed __type __id "connect_timeout";
+       default_time_zone =
+         Prop.computed __type __id "default_time_zone";
+       group_concat_max_len =
+         Prop.computed __type __id "group_concat_max_len";
+       id = Prop.computed __type __id "id";
+       information_schema_stats_expiry =
+         Prop.computed __type __id "information_schema_stats_expiry";
+       innodb_ft_min_token_size =
+         Prop.computed __type __id "innodb_ft_min_token_size";
+       innodb_ft_server_stopword_table =
+         Prop.computed __type __id "innodb_ft_server_stopword_table";
+       innodb_lock_wait_timeout =
+         Prop.computed __type __id "innodb_lock_wait_timeout";
+       innodb_log_buffer_size =
+         Prop.computed __type __id "innodb_log_buffer_size";
+       innodb_online_alter_log_max_size =
+         Prop.computed __type __id "innodb_online_alter_log_max_size";
+       innodb_print_all_deadlocks =
+         Prop.computed __type __id "innodb_print_all_deadlocks";
+       innodb_rollback_on_timeout =
+         Prop.computed __type __id "innodb_rollback_on_timeout";
+       interactive_timeout =
+         Prop.computed __type __id "interactive_timeout";
+       internal_tmp_mem_storage_engine =
+         Prop.computed __type __id "internal_tmp_mem_storage_engine";
+       long_query_time = Prop.computed __type __id "long_query_time";
+       max_allowed_packet =
+         Prop.computed __type __id "max_allowed_packet";
+       max_heap_table_size =
+         Prop.computed __type __id "max_heap_table_size";
+       net_read_timeout =
+         Prop.computed __type __id "net_read_timeout";
+       net_write_timeout =
+         Prop.computed __type __id "net_write_timeout";
+       slow_query_log = Prop.computed __type __id "slow_query_log";
+       sort_buffer_size =
+         Prop.computed __type __id "sort_buffer_size";
+       sql_mode = Prop.computed __type __id "sql_mode";
+       sql_require_primary_key =
+         Prop.computed __type __id "sql_require_primary_key";
+       tmp_table_size = Prop.computed __type __id "tmp_table_size";
+       wait_timeout = Prop.computed __type __id "wait_timeout";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_mysql_config
+        (digitalocean_database_mysql_config ?backup_hour
+           ?backup_minute ?binlog_retention_period ?connect_timeout
+           ?default_time_zone ?group_concat_max_len ?id
+           ?information_schema_stats_expiry ?innodb_ft_min_token_size
+           ?innodb_ft_server_stopword_table ?innodb_lock_wait_timeout
+           ?innodb_log_buffer_size ?innodb_online_alter_log_max_size
+           ?innodb_print_all_deadlocks ?innodb_rollback_on_timeout
+           ?interactive_timeout ?internal_tmp_mem_storage_engine
+           ?long_query_time ?max_allowed_packet ?max_heap_table_size
+           ?net_read_timeout ?net_write_timeout ?slow_query_log
+           ?sort_buffer_size ?sql_mode ?sql_require_primary_key
+           ?tmp_table_size ?wait_timeout ~cluster_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?backup_hour ?backup_minute
     ?binlog_retention_period ?connect_timeout ?default_time_zone
     ?group_concat_max_len ?id ?information_schema_stats_expiry
@@ -147,105 +230,19 @@ let register ?tf_module ?backup_hour ?backup_minute
     ?max_allowed_packet ?max_heap_table_size ?net_read_timeout
     ?net_write_timeout ?slow_query_log ?sort_buffer_size ?sql_mode
     ?sql_require_primary_key ?tmp_table_size ?wait_timeout
-    ~cluster_id __resource_id =
-  let __resource_type = "digitalocean_database_mysql_config" in
-  let __resource =
-    digitalocean_database_mysql_config ?backup_hour ?backup_minute
-      ?binlog_retention_period ?connect_timeout ?default_time_zone
-      ?group_concat_max_len ?id ?information_schema_stats_expiry
-      ?innodb_ft_min_token_size ?innodb_ft_server_stopword_table
-      ?innodb_lock_wait_timeout ?innodb_log_buffer_size
-      ?innodb_online_alter_log_max_size ?innodb_print_all_deadlocks
-      ?innodb_rollback_on_timeout ?interactive_timeout
-      ?internal_tmp_mem_storage_engine ?long_query_time
-      ?max_allowed_packet ?max_heap_table_size ?net_read_timeout
-      ?net_write_timeout ?slow_query_log ?sort_buffer_size ?sql_mode
-      ?sql_require_primary_key ?tmp_table_size ?wait_timeout
-      ~cluster_id ()
+    ~cluster_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?backup_hour ?backup_minute ?binlog_retention_period
+      ?connect_timeout ?default_time_zone ?group_concat_max_len ?id
+      ?information_schema_stats_expiry ?innodb_ft_min_token_size
+      ?innodb_ft_server_stopword_table ?innodb_lock_wait_timeout
+      ?innodb_log_buffer_size ?innodb_online_alter_log_max_size
+      ?innodb_print_all_deadlocks ?innodb_rollback_on_timeout
+      ?interactive_timeout ?internal_tmp_mem_storage_engine
+      ?long_query_time ?max_allowed_packet ?max_heap_table_size
+      ?net_read_timeout ?net_write_timeout ?slow_query_log
+      ?sort_buffer_size ?sql_mode ?sql_require_primary_key
+      ?tmp_table_size ?wait_timeout ~cluster_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_mysql_config __resource);
-  let __resource_attributes =
-    ({
-       backup_hour =
-         Prop.computed __resource_type __resource_id "backup_hour";
-       backup_minute =
-         Prop.computed __resource_type __resource_id "backup_minute";
-       binlog_retention_period =
-         Prop.computed __resource_type __resource_id
-           "binlog_retention_period";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       connect_timeout =
-         Prop.computed __resource_type __resource_id
-           "connect_timeout";
-       default_time_zone =
-         Prop.computed __resource_type __resource_id
-           "default_time_zone";
-       group_concat_max_len =
-         Prop.computed __resource_type __resource_id
-           "group_concat_max_len";
-       id = Prop.computed __resource_type __resource_id "id";
-       information_schema_stats_expiry =
-         Prop.computed __resource_type __resource_id
-           "information_schema_stats_expiry";
-       innodb_ft_min_token_size =
-         Prop.computed __resource_type __resource_id
-           "innodb_ft_min_token_size";
-       innodb_ft_server_stopword_table =
-         Prop.computed __resource_type __resource_id
-           "innodb_ft_server_stopword_table";
-       innodb_lock_wait_timeout =
-         Prop.computed __resource_type __resource_id
-           "innodb_lock_wait_timeout";
-       innodb_log_buffer_size =
-         Prop.computed __resource_type __resource_id
-           "innodb_log_buffer_size";
-       innodb_online_alter_log_max_size =
-         Prop.computed __resource_type __resource_id
-           "innodb_online_alter_log_max_size";
-       innodb_print_all_deadlocks =
-         Prop.computed __resource_type __resource_id
-           "innodb_print_all_deadlocks";
-       innodb_rollback_on_timeout =
-         Prop.computed __resource_type __resource_id
-           "innodb_rollback_on_timeout";
-       interactive_timeout =
-         Prop.computed __resource_type __resource_id
-           "interactive_timeout";
-       internal_tmp_mem_storage_engine =
-         Prop.computed __resource_type __resource_id
-           "internal_tmp_mem_storage_engine";
-       long_query_time =
-         Prop.computed __resource_type __resource_id
-           "long_query_time";
-       max_allowed_packet =
-         Prop.computed __resource_type __resource_id
-           "max_allowed_packet";
-       max_heap_table_size =
-         Prop.computed __resource_type __resource_id
-           "max_heap_table_size";
-       net_read_timeout =
-         Prop.computed __resource_type __resource_id
-           "net_read_timeout";
-       net_write_timeout =
-         Prop.computed __resource_type __resource_id
-           "net_write_timeout";
-       slow_query_log =
-         Prop.computed __resource_type __resource_id "slow_query_log";
-       sort_buffer_size =
-         Prop.computed __resource_type __resource_id
-           "sort_buffer_size";
-       sql_mode =
-         Prop.computed __resource_type __resource_id "sql_mode";
-       sql_require_primary_key =
-         Prop.computed __resource_type __resource_id
-           "sql_require_primary_key";
-       tmp_table_size =
-         Prop.computed __resource_type __resource_id "tmp_table_size";
-       wait_timeout =
-         Prop.computed __resource_type __resource_id "wait_timeout";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

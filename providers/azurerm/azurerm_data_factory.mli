@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -113,3 +113,22 @@ val register :
   vsts_configuration:vsts_configuration list ->
   string ->
   t
+
+val make :
+  ?customer_managed_key_id:string prop ->
+  ?customer_managed_key_identity_id:string prop ->
+  ?id:string prop ->
+  ?managed_virtual_network_enabled:bool prop ->
+  ?public_network_enabled:bool prop ->
+  ?purview_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  github_configuration:github_configuration list ->
+  global_parameter:global_parameter list ->
+  identity:identity list ->
+  vsts_configuration:vsts_configuration list ->
+  string ->
+  t Tf_core.resource

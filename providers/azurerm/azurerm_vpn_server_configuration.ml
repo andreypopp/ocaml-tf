@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type azure_active_directory_authentication = {
   audience : string prop;  (** audience *)
@@ -174,38 +172,51 @@ type t = {
   vpn_protocols : string list prop;
 }
 
+let make ?id ?tags ?vpn_protocols ?timeouts ~location ~name
+    ~resource_group_name ~vpn_authentication_types
+    ~azure_active_directory_authentication
+    ~client_revoked_certificate ~client_root_certificate
+    ~ipsec_policy ~radius __id =
+  let __type = "azurerm_vpn_server_configuration" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       vpn_authentication_types =
+         Prop.computed __type __id "vpn_authentication_types";
+       vpn_protocols = Prop.computed __type __id "vpn_protocols";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_vpn_server_configuration
+        (azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
+           ?timeouts ~location ~name ~resource_group_name
+           ~vpn_authentication_types
+           ~azure_active_directory_authentication
+           ~client_revoked_certificate ~client_root_certificate
+           ~ipsec_policy ~radius ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?tags ?vpn_protocols ?timeouts ~location
     ~name ~resource_group_name ~vpn_authentication_types
     ~azure_active_directory_authentication
     ~client_revoked_certificate ~client_root_certificate
-    ~ipsec_policy ~radius __resource_id =
-  let __resource_type = "azurerm_vpn_server_configuration" in
-  let __resource =
-    azurerm_vpn_server_configuration ?id ?tags ?vpn_protocols
-      ?timeouts ~location ~name ~resource_group_name
-      ~vpn_authentication_types
+    ~ipsec_policy ~radius __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?vpn_protocols ?timeouts ~location ~name
+      ~resource_group_name ~vpn_authentication_types
       ~azure_active_directory_authentication
       ~client_revoked_certificate ~client_root_certificate
-      ~ipsec_policy ~radius ()
+      ~ipsec_policy ~radius __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_vpn_server_configuration __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       vpn_authentication_types =
-         Prop.computed __resource_type __resource_id
-           "vpn_authentication_types";
-       vpn_protocols =
-         Prop.computed __resource_type __resource_id "vpn_protocols";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

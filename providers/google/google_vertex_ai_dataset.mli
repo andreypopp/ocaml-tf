@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,15 @@ val register :
   encryption_spec:encryption_spec list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  metadata_schema_uri:string prop ->
+  encryption_spec:encryption_spec list ->
+  string ->
+  t Tf_core.resource

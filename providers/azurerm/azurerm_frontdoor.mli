@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -186,3 +186,20 @@ val register :
   routing_rule:routing_rule list ->
   string ->
   t
+
+val make :
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?load_balancer_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  backend_pool:backend_pool list ->
+  backend_pool_health_probe:backend_pool_health_probe list ->
+  backend_pool_load_balancing:backend_pool_load_balancing list ->
+  backend_pool_settings:backend_pool_settings list ->
+  frontend_endpoint:frontend_endpoint list ->
+  routing_rule:routing_rule list ->
+  string ->
+  t Tf_core.resource

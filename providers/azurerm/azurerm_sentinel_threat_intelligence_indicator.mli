@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -136,3 +136,29 @@ val register :
   kill_chain_phase:kill_chain_phase list ->
   string ->
   t
+
+val make :
+  ?confidence:float prop ->
+  ?created_by:string prop ->
+  ?description:string prop ->
+  ?extension:string prop ->
+  ?id:string prop ->
+  ?language:string prop ->
+  ?object_marking_refs:string prop list ->
+  ?pattern_version:string prop ->
+  ?revoked:bool prop ->
+  ?tags:string prop list ->
+  ?threat_types:string prop list ->
+  ?validate_until_utc:string prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  pattern:string prop ->
+  pattern_type:string prop ->
+  source:string prop ->
+  validate_from_utc:string prop ->
+  workspace_id:string prop ->
+  external_reference:external_reference list ->
+  granular_marking:granular_marking list ->
+  kill_chain_phase:kill_chain_phase list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type plan = {
   product : string prop;  (** product *)
@@ -68,34 +66,42 @@ type t = {
   workspace_resource_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location
-    ~resource_group_name ~solution_name ~workspace_name
-    ~workspace_resource_id ~plan __resource_id =
-  let __resource_type = "azurerm_log_analytics_solution" in
-  let __resource =
-    azurerm_log_analytics_solution ?id ?tags ?timeouts ~location
-      ~resource_group_name ~solution_name ~workspace_name
-      ~workspace_resource_id ~plan ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_log_analytics_solution __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~resource_group_name
+    ~solution_name ~workspace_name ~workspace_resource_id ~plan __id
+    =
+  let __type = "azurerm_log_analytics_solution" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       solution_name =
-         Prop.computed __resource_type __resource_id "solution_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_name =
-         Prop.computed __resource_type __resource_id "workspace_name";
+         Prop.computed __type __id "resource_group_name";
+       solution_name = Prop.computed __type __id "solution_name";
+       tags = Prop.computed __type __id "tags";
+       workspace_name = Prop.computed __type __id "workspace_name";
        workspace_resource_id =
-         Prop.computed __resource_type __resource_id
-           "workspace_resource_id";
+         Prop.computed __type __id "workspace_resource_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_log_analytics_solution
+        (azurerm_log_analytics_solution ?id ?tags ?timeouts ~location
+           ~resource_group_name ~solution_name ~workspace_name
+           ~workspace_resource_id ~plan ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location
+    ~resource_group_name ~solution_name ~workspace_name
+    ~workspace_resource_id ~plan __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~resource_group_name
+      ~solution_name ~workspace_name ~workspace_resource_id ~plan
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

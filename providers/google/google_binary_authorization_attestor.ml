@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attestation_authority_note__public_keys__pkix_public_key = {
   public_key_pem : string prop option; [@option]
@@ -126,24 +124,33 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?description ?id ?project ?timeouts ~name
-    ~attestation_authority_note __resource_id =
-  let __resource_type = "google_binary_authorization_attestor" in
-  let __resource =
-    google_binary_authorization_attestor ?description ?id ?project
-      ?timeouts ~name ~attestation_authority_note ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_binary_authorization_attestor __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?timeouts ~name
+    ~attestation_authority_note __id =
+  let __type = "google_binary_authorization_attestor" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_binary_authorization_attestor
+        (google_binary_authorization_attestor ?description ?id
+           ?project ?timeouts ~name ~attestation_authority_note ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?timeouts ~name
+    ~attestation_authority_note __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?timeouts ~name
+      ~attestation_authority_note __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

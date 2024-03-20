@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,21 @@ val register :
   notification:notification list ->
   string ->
   t
+
+val make :
+  ?audit_log_enabled:bool prop ->
+  ?client_token_ids:string prop list ->
+  ?id:string prop ->
+  ?log_level:string prop ->
+  ?mode:string prop ->
+  ?parent_registry_id:string prop ->
+  ?sync_message_ttl:string prop ->
+  ?sync_schedule:string prop ->
+  ?sync_window:string prop ->
+  ?timeouts:timeouts ->
+  container_registry_id:string prop ->
+  name:string prop ->
+  sync_token_id:string prop ->
+  notification:notification list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dashboard_attributes = {
   engagement_metrics : string prop option; [@option]
@@ -42,21 +40,31 @@ let aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
 
 type t = { id : string prop; vdm_enabled : string prop }
 
-let register ?tf_module ?id ~vdm_enabled ~dashboard_attributes
-    ~guardian_attributes __resource_id =
-  let __resource_type = "aws_sesv2_account_vdm_attributes" in
-  let __resource =
-    aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
-      ~dashboard_attributes ~guardian_attributes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_account_vdm_attributes __resource);
-  let __resource_attributes =
+let make ?id ~vdm_enabled ~dashboard_attributes ~guardian_attributes
+    __id =
+  let __type = "aws_sesv2_account_vdm_attributes" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       vdm_enabled =
-         Prop.computed __resource_type __resource_id "vdm_enabled";
+       id = Prop.computed __type __id "id";
+       vdm_enabled = Prop.computed __type __id "vdm_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_account_vdm_attributes
+        (aws_sesv2_account_vdm_attributes ?id ~vdm_enabled
+           ~dashboard_attributes ~guardian_attributes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~vdm_enabled ~dashboard_attributes
+    ~guardian_attributes __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~vdm_enabled ~dashboard_attributes ~guardian_attributes
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

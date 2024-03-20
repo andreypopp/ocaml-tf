@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,34 +46,41 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~client_vpn_endpoint_id ~destination_cidr_block
-    ~target_vpc_subnet_id __resource_id =
-  let __resource_type = "aws_ec2_client_vpn_route" in
-  let __resource =
-    aws_ec2_client_vpn_route ?description ?id ?timeouts
-      ~client_vpn_endpoint_id ~destination_cidr_block
-      ~target_vpc_subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_client_vpn_route __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~client_vpn_endpoint_id
+    ~destination_cidr_block ~target_vpc_subnet_id __id =
+  let __type = "aws_ec2_client_vpn_route" in
+  let __attrs =
     ({
        client_vpn_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "client_vpn_endpoint_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "client_vpn_endpoint_id";
+       description = Prop.computed __type __id "description";
        destination_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "destination_cidr_block";
-       id = Prop.computed __resource_type __resource_id "id";
-       origin = Prop.computed __resource_type __resource_id "origin";
+         Prop.computed __type __id "destination_cidr_block";
+       id = Prop.computed __type __id "id";
+       origin = Prop.computed __type __id "origin";
        target_vpc_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "target_vpc_subnet_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "target_vpc_subnet_id";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_client_vpn_route
+        (aws_ec2_client_vpn_route ?description ?id ?timeouts
+           ~client_vpn_endpoint_id ~destination_cidr_block
+           ~target_vpc_subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts
+    ~client_vpn_endpoint_id ~destination_cidr_block
+    ~target_vpc_subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~client_vpn_endpoint_id
+      ~destination_cidr_block ~target_vpc_subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

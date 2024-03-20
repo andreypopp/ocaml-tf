@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,16 @@ val register :
   retention_rule:retention_rule list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?time_zone:string prop ->
+  ?timeouts:timeouts ->
+  backup_repeating_time_intervals:string prop list ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  vault_name:string prop ->
+  default_retention_rule:default_retention_rule list ->
+  retention_rule:retention_rule list ->
+  string ->
+  t Tf_core.resource

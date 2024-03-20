@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,16 @@ val register :
   cache_attributes:cache_attributes list ->
   string ->
   t
+
+val make :
+  ?audit_destination_arn:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  gateway_arn:string prop ->
+  location_arn:string prop ->
+  password:string prop ->
+  username:string prop ->
+  cache_attributes:cache_attributes list ->
+  string ->
+  t Tf_core.resource

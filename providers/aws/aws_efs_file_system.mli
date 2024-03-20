@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,19 @@ val register :
   protection:protection list ->
   string ->
   t
+
+val make :
+  ?availability_zone_name:string prop ->
+  ?creation_token:string prop ->
+  ?encrypted:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?performance_mode:string prop ->
+  ?provisioned_throughput_in_mibps:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?throughput_mode:string prop ->
+  lifecycle_policy:lifecycle_policy list ->
+  protection:protection list ->
+  string ->
+  t Tf_core.resource

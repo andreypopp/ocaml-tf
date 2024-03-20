@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_kinesis_resource_policy = {
   policy : string prop;  (** policy *)
@@ -21,20 +19,26 @@ type t = {
   resource_arn : string prop;
 }
 
-let register ?tf_module ~policy ~resource_arn __resource_id =
-  let __resource_type = "aws_kinesis_resource_policy" in
-  let __resource =
-    aws_kinesis_resource_policy ~policy ~resource_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesis_resource_policy __resource);
-  let __resource_attributes =
+let make ~policy ~resource_arn __id =
+  let __type = "aws_kinesis_resource_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
+       resource_arn = Prop.computed __type __id "resource_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesis_resource_policy
+        (aws_kinesis_resource_policy ~policy ~resource_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~policy ~resource_arn __id =
+  let (r : _ Tf_core.resource) = make ~policy ~resource_arn __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

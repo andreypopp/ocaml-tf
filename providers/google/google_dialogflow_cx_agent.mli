@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -136,3 +136,24 @@ val register :
   text_to_speech_settings:text_to_speech_settings list ->
   string ->
   t
+
+val make :
+  ?avatar_uri:string prop ->
+  ?description:string prop ->
+  ?enable_spell_correction:bool prop ->
+  ?enable_stackdriver_logging:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?security_settings:string prop ->
+  ?supported_language_codes:string prop list ->
+  ?timeouts:timeouts ->
+  default_language_code:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  time_zone:string prop ->
+  advanced_settings:advanced_settings list ->
+  git_integration_settings:git_integration_settings list ->
+  speech_to_text_settings:speech_to_text_settings list ->
+  text_to_speech_settings:text_to_speech_settings list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -181,3 +181,33 @@ val register :
   network_configuration:network_configuration list ->
   string ->
   t
+
+val make :
+  ?airflow_configuration_options:(string * string prop) list ->
+  ?airflow_version:string prop ->
+  ?endpoint_management:string prop ->
+  ?environment_class:string prop ->
+  ?id:string prop ->
+  ?kms_key:string prop ->
+  ?max_workers:float prop ->
+  ?min_workers:float prop ->
+  ?plugins_s3_object_version:string prop ->
+  ?plugins_s3_path:string prop ->
+  ?requirements_s3_object_version:string prop ->
+  ?requirements_s3_path:string prop ->
+  ?schedulers:float prop ->
+  ?startup_script_s3_object_version:string prop ->
+  ?startup_script_s3_path:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?webserver_access_mode:string prop ->
+  ?weekly_maintenance_window_start:string prop ->
+  ?timeouts:timeouts ->
+  dag_s3_path:string prop ->
+  execution_role_arn:string prop ->
+  name:string prop ->
+  source_bucket_arn:string prop ->
+  logging_configuration:logging_configuration list ->
+  network_configuration:network_configuration list ->
+  string ->
+  t Tf_core.resource

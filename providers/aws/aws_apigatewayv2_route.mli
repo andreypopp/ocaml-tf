@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,20 @@ val register :
   request_parameter:request_parameter list ->
   string ->
   t
+
+val make :
+  ?api_key_required:bool prop ->
+  ?authorization_scopes:string prop list ->
+  ?authorization_type:string prop ->
+  ?authorizer_id:string prop ->
+  ?id:string prop ->
+  ?model_selection_expression:string prop ->
+  ?operation_name:string prop ->
+  ?request_models:(string * string prop) list ->
+  ?route_response_selection_expression:string prop ->
+  ?target:string prop ->
+  api_id:string prop ->
+  route_key:string prop ->
+  request_parameter:request_parameter list ->
+  string ->
+  t Tf_core.resource

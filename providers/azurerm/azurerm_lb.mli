@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -76,3 +76,17 @@ val register :
   frontend_ip_configuration:frontend_ip_configuration list ->
   string ->
   t
+
+val make :
+  ?edge_zone:string prop ->
+  ?id:string prop ->
+  ?sku:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  frontend_ip_configuration:frontend_ip_configuration list ->
+  string ->
+  t Tf_core.resource

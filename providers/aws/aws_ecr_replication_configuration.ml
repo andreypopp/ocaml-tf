@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type replication_configuration__rule__destination = {
   region : string prop;  (** region *)
@@ -61,21 +59,28 @@ let aws_ecr_replication_configuration ?id ~replication_configuration
 
 type t = { id : string prop; registry_id : string prop }
 
-let register ?tf_module ?id ~replication_configuration __resource_id
-    =
-  let __resource_type = "aws_ecr_replication_configuration" in
-  let __resource =
-    aws_ecr_replication_configuration ?id ~replication_configuration
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecr_replication_configuration __resource);
-  let __resource_attributes =
+let make ?id ~replication_configuration __id =
+  let __type = "aws_ecr_replication_configuration" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       registry_id =
-         Prop.computed __resource_type __resource_id "registry_id";
+       id = Prop.computed __type __id "id";
+       registry_id = Prop.computed __type __id "registry_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecr_replication_configuration
+        (aws_ecr_replication_configuration ?id
+           ~replication_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~replication_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~replication_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type event_filter = { source : string prop  (** source *) }
 [@@deriving yojson_of]
@@ -46,29 +44,36 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all
-    ~eventbridge_bus ~name ~event_filter __resource_id =
-  let __resource_type = "aws_appintegrations_event_integration" in
-  let __resource =
-    aws_appintegrations_event_integration ?description ?id ?tags
-      ?tags_all ~eventbridge_bus ~name ~event_filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appintegrations_event_integration __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ~eventbridge_bus ~name
+    ~event_filter __id =
+  let __type = "aws_appintegrations_event_integration" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       eventbridge_bus =
-         Prop.computed __resource_type __resource_id
-           "eventbridge_bus";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       eventbridge_bus = Prop.computed __type __id "eventbridge_bus";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appintegrations_event_integration
+        (aws_appintegrations_event_integration ?description ?id ?tags
+           ?tags_all ~eventbridge_bus ~name ~event_filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all
+    ~eventbridge_bus ~name ~event_filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~eventbridge_bus ~name
+      ~event_filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

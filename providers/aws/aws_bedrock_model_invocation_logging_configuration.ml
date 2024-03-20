@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type logging_config__cloudwatch_config__large_data_delivery_s3_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
@@ -80,18 +78,22 @@ let aws_bedrock_model_invocation_logging_configuration
 
 type t = { id : string prop }
 
-let register ?tf_module ~logging_config __resource_id =
-  let __resource_type =
+let make ~logging_config __id =
+  let __type =
     "aws_bedrock_model_invocation_logging_configuration"
   in
-  let __resource =
-    aws_bedrock_model_invocation_logging_configuration
-      ~logging_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_bedrock_model_invocation_logging_configuration
-       __resource);
-  let __resource_attributes =
-    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
-  in
-  __resource_attributes
+  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_bedrock_model_invocation_logging_configuration
+        (aws_bedrock_model_invocation_logging_configuration
+           ~logging_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~logging_config __id =
+  let (r : _ Tf_core.resource) = make ~logging_config __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

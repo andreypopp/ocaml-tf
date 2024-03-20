@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lightsail_domain_entry = {
   domain_name : string prop;  (** domain_name *)
@@ -28,26 +26,33 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?is_alias ~domain_name ~name ~target
-    ~type_ __resource_id =
-  let __resource_type = "aws_lightsail_domain_entry" in
-  let __resource =
-    aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
-      ~target ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_domain_entry __resource);
-  let __resource_attributes =
+let make ?id ?is_alias ~domain_name ~name ~target ~type_ __id =
+  let __type = "aws_lightsail_domain_entry" in
+  let __attrs =
     ({
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_alias =
-         Prop.computed __resource_type __resource_id "is_alias";
-       name = Prop.computed __resource_type __resource_id "name";
-       target = Prop.computed __resource_type __resource_id "target";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       is_alias = Prop.computed __type __id "is_alias";
+       name = Prop.computed __type __id "name";
+       target = Prop.computed __type __id "target";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_domain_entry
+        (aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
+           ~target ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_alias ~domain_name ~name ~target
+    ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_alias ~domain_name ~name ~target ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

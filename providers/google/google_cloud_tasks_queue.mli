@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -86,3 +86,16 @@ val register :
   stackdriver_logging_config:stackdriver_logging_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  app_engine_routing_override:app_engine_routing_override list ->
+  rate_limits:rate_limits list ->
+  retry_config:retry_config list ->
+  stackdriver_logging_config:stackdriver_logging_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,18 @@ val register :
   encryption_config:encryption_config list ->
   string ->
   t
+
+val make :
+  ?database_dialect:string prop ->
+  ?ddl:string prop list ->
+  ?deletion_protection:bool prop ->
+  ?enable_drop_protection:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?version_retention_period:string prop ->
+  ?timeouts:timeouts ->
+  instance:string prop ->
+  name:string prop ->
+  encryption_config:encryption_config list ->
+  string ->
+  t Tf_core.resource

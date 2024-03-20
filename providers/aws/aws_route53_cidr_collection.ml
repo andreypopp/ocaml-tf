@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_cidr_collection = {
   name : string prop;  (** name *)
@@ -21,19 +19,27 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ~name __resource_id =
-  let __resource_type = "aws_route53_cidr_collection" in
-  let __resource = aws_route53_cidr_collection ~name () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_cidr_collection __resource);
-  let __resource_attributes =
+let make ~name __id =
+  let __type = "aws_route53_cidr_collection" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_cidr_collection
+        (aws_route53_cidr_collection ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~name __id =
+  let (r : _ Tf_core.resource) = make ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

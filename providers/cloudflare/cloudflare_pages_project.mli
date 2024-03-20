@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -152,3 +152,14 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  production_branch:string prop ->
+  build_config:build_config list ->
+  deployment_configs:deployment_configs list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

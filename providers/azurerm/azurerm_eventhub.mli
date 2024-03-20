@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,16 @@ val register :
   capture_description:capture_description list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?status:string prop ->
+  ?timeouts:timeouts ->
+  message_retention:float prop ->
+  name:string prop ->
+  namespace_name:string prop ->
+  partition_count:float prop ->
+  resource_group_name:string prop ->
+  capture_description:capture_description list ->
+  string ->
+  t Tf_core.resource

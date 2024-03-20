@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,44 +62,47 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?assembly_version ?content ?content_link_uri
-    ?id ?metadata ?timeouts ~assembly_name ~integration_account_name
-    ~name ~resource_group_name __resource_id =
-  let __resource_type =
-    "azurerm_logic_app_integration_account_assembly"
-  in
-  let __resource =
-    azurerm_logic_app_integration_account_assembly ?assembly_version
-      ?content ?content_link_uri ?id ?metadata ?timeouts
-      ~assembly_name ~integration_account_name ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_integration_account_assembly
-       __resource);
-  let __resource_attributes =
+let make ?assembly_version ?content ?content_link_uri ?id ?metadata
+    ?timeouts ~assembly_name ~integration_account_name ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_logic_app_integration_account_assembly" in
+  let __attrs =
     ({
-       assembly_name =
-         Prop.computed __resource_type __resource_id "assembly_name";
+       assembly_name = Prop.computed __type __id "assembly_name";
        assembly_version =
-         Prop.computed __resource_type __resource_id
-           "assembly_version";
-       content =
-         Prop.computed __resource_type __resource_id "content";
+         Prop.computed __type __id "assembly_version";
+       content = Prop.computed __type __id "content";
        content_link_uri =
-         Prop.computed __resource_type __resource_id
-           "content_link_uri";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "content_link_uri";
+       id = Prop.computed __type __id "id";
        integration_account_name =
-         Prop.computed __resource_type __resource_id
-           "integration_account_name";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "integration_account_name";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_integration_account_assembly
+        (azurerm_logic_app_integration_account_assembly
+           ?assembly_version ?content ?content_link_uri ?id ?metadata
+           ?timeouts ~assembly_name ~integration_account_name ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?assembly_version ?content ?content_link_uri
+    ?id ?metadata ?timeouts ~assembly_name ~integration_account_name
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?assembly_version ?content ?content_link_uri ?id ?metadata
+      ?timeouts ~assembly_name ~integration_account_name ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

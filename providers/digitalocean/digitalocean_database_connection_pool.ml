@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_database_connection_pool = {
   cluster_id : string prop;  (** cluster_id *)
@@ -37,36 +35,40 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?id ?user ~cluster_id ~db_name ~mode ~name
-    ~size __resource_id =
-  let __resource_type = "digitalocean_database_connection_pool" in
-  let __resource =
-    digitalocean_database_connection_pool ?id ?user ~cluster_id
-      ~db_name ~mode ~name ~size ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_database_connection_pool __resource);
-  let __resource_attributes =
+let make ?id ?user ~cluster_id ~db_name ~mode ~name ~size __id =
+  let __type = "digitalocean_database_connection_pool" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       db_name =
-         Prop.computed __resource_type __resource_id "db_name";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       port = Prop.computed __resource_type __resource_id "port";
-       private_host =
-         Prop.computed __resource_type __resource_id "private_host";
-       private_uri =
-         Prop.computed __resource_type __resource_id "private_uri";
-       size = Prop.computed __resource_type __resource_id "size";
-       uri = Prop.computed __resource_type __resource_id "uri";
-       user = Prop.computed __resource_type __resource_id "user";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       db_name = Prop.computed __type __id "db_name";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       port = Prop.computed __type __id "port";
+       private_host = Prop.computed __type __id "private_host";
+       private_uri = Prop.computed __type __id "private_uri";
+       size = Prop.computed __type __id "size";
+       uri = Prop.computed __type __id "uri";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_database_connection_pool
+        (digitalocean_database_connection_pool ?id ?user ~cluster_id
+           ~db_name ~mode ~name ~size ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?user ~cluster_id ~db_name ~mode ~name
+    ~size __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?user ~cluster_id ~db_name ~mode ~name ~size __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

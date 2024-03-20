@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_config__custom_output__properties__value_expression = {
   description : string prop option; [@option]
@@ -163,34 +161,39 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~display_name ~enablement_state
-    ~organization ~custom_config __resource_id =
-  let __resource_type = "google_scc_organization_custom_module" in
-  let __resource =
-    google_scc_organization_custom_module ?id ?timeouts ~display_name
-      ~enablement_state ~organization ~custom_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_scc_organization_custom_module __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~display_name ~enablement_state ~organization
+    ~custom_config __id =
+  let __type = "google_scc_organization_custom_module" in
+  let __attrs =
     ({
-       ancestor_module =
-         Prop.computed __resource_type __resource_id
-           "ancestor_module";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       ancestor_module = Prop.computed __type __id "ancestor_module";
+       display_name = Prop.computed __type __id "display_name";
        enablement_state =
-         Prop.computed __resource_type __resource_id
-           "enablement_state";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_editor =
-         Prop.computed __resource_type __resource_id "last_editor";
-       name = Prop.computed __resource_type __resource_id "name";
-       organization =
-         Prop.computed __resource_type __resource_id "organization";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "enablement_state";
+       id = Prop.computed __type __id "id";
+       last_editor = Prop.computed __type __id "last_editor";
+       name = Prop.computed __type __id "name";
+       organization = Prop.computed __type __id "organization";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_scc_organization_custom_module
+        (google_scc_organization_custom_module ?id ?timeouts
+           ~display_name ~enablement_state ~organization
+           ~custom_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~display_name ~enablement_state
+    ~organization ~custom_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~display_name ~enablement_state ~organization
+      ~custom_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

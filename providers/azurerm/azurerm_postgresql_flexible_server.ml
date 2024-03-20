@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication = {
   active_directory_auth_enabled : bool prop option; [@option]
@@ -195,6 +193,74 @@ type t = {
   zone : string prop;
 }
 
+let make ?administrator_login ?administrator_password
+    ?auto_grow_enabled ?backup_retention_days ?create_mode
+    ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
+    ?point_in_time_restore_time_in_utc ?private_dns_zone_id
+    ?replication_role ?sku_name ?source_server_id ?storage_mb
+    ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
+    ~resource_group_name ~authentication ~customer_managed_key
+    ~high_availability ~identity ~maintenance_window __id =
+  let __type = "azurerm_postgresql_flexible_server" in
+  let __attrs =
+    ({
+       administrator_login =
+         Prop.computed __type __id "administrator_login";
+       administrator_password =
+         Prop.computed __type __id "administrator_password";
+       auto_grow_enabled =
+         Prop.computed __type __id "auto_grow_enabled";
+       backup_retention_days =
+         Prop.computed __type __id "backup_retention_days";
+       create_mode = Prop.computed __type __id "create_mode";
+       delegated_subnet_id =
+         Prop.computed __type __id "delegated_subnet_id";
+       fqdn = Prop.computed __type __id "fqdn";
+       geo_redundant_backup_enabled =
+         Prop.computed __type __id "geo_redundant_backup_enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       point_in_time_restore_time_in_utc =
+         Prop.computed __type __id
+           "point_in_time_restore_time_in_utc";
+       private_dns_zone_id =
+         Prop.computed __type __id "private_dns_zone_id";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       replication_role =
+         Prop.computed __type __id "replication_role";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       source_server_id =
+         Prop.computed __type __id "source_server_id";
+       storage_mb = Prop.computed __type __id "storage_mb";
+       storage_tier = Prop.computed __type __id "storage_tier";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
+       zone = Prop.computed __type __id "zone";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_postgresql_flexible_server
+        (azurerm_postgresql_flexible_server ?administrator_login
+           ?administrator_password ?auto_grow_enabled
+           ?backup_retention_days ?create_mode ?delegated_subnet_id
+           ?geo_redundant_backup_enabled ?id
+           ?point_in_time_restore_time_in_utc ?private_dns_zone_id
+           ?replication_role ?sku_name ?source_server_id ?storage_mb
+           ?storage_tier ?tags ?version ?zone ?timeouts ~location
+           ~name ~resource_group_name ~authentication
+           ~customer_managed_key ~high_availability ~identity
+           ~maintenance_window ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?administrator_login ?administrator_password
     ?auto_grow_enabled ?backup_retention_days ?create_mode
     ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
@@ -202,77 +268,16 @@ let register ?tf_module ?administrator_login ?administrator_password
     ?replication_role ?sku_name ?source_server_id ?storage_mb
     ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
     ~resource_group_name ~authentication ~customer_managed_key
-    ~high_availability ~identity ~maintenance_window __resource_id =
-  let __resource_type = "azurerm_postgresql_flexible_server" in
-  let __resource =
-    azurerm_postgresql_flexible_server ?administrator_login
-      ?administrator_password ?auto_grow_enabled
-      ?backup_retention_days ?create_mode ?delegated_subnet_id
-      ?geo_redundant_backup_enabled ?id
+    ~high_availability ~identity ~maintenance_window __id =
+  let (r : _ Tf_core.resource) =
+    make ?administrator_login ?administrator_password
+      ?auto_grow_enabled ?backup_retention_days ?create_mode
+      ?delegated_subnet_id ?geo_redundant_backup_enabled ?id
       ?point_in_time_restore_time_in_utc ?private_dns_zone_id
       ?replication_role ?sku_name ?source_server_id ?storage_mb
       ?storage_tier ?tags ?version ?zone ?timeouts ~location ~name
       ~resource_group_name ~authentication ~customer_managed_key
-      ~high_availability ~identity ~maintenance_window ()
+      ~high_availability ~identity ~maintenance_window __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_postgresql_flexible_server __resource);
-  let __resource_attributes =
-    ({
-       administrator_login =
-         Prop.computed __resource_type __resource_id
-           "administrator_login";
-       administrator_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_password";
-       auto_grow_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_grow_enabled";
-       backup_retention_days =
-         Prop.computed __resource_type __resource_id
-           "backup_retention_days";
-       create_mode =
-         Prop.computed __resource_type __resource_id "create_mode";
-       delegated_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "delegated_subnet_id";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       geo_redundant_backup_enabled =
-         Prop.computed __resource_type __resource_id
-           "geo_redundant_backup_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       point_in_time_restore_time_in_utc =
-         Prop.computed __resource_type __resource_id
-           "point_in_time_restore_time_in_utc";
-       private_dns_zone_id =
-         Prop.computed __resource_type __resource_id
-           "private_dns_zone_id";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       replication_role =
-         Prop.computed __resource_type __resource_id
-           "replication_role";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       source_server_id =
-         Prop.computed __resource_type __resource_id
-           "source_server_id";
-       storage_mb =
-         Prop.computed __resource_type __resource_id "storage_mb";
-       storage_tier =
-         Prop.computed __resource_type __resource_id "storage_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       zone = Prop.computed __resource_type __resource_id "zone";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

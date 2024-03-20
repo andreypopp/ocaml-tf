@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,17 @@ val register :
   psc_configs:psc_configs list ->
   string ->
   t
+
+val make :
+  ?authorization_mode:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?replica_count:float prop ->
+  ?transit_encryption_mode:string prop ->
+  ?timeouts:timeouts ->
+  shard_count:float prop ->
+  psc_configs:psc_configs list ->
+  string ->
+  t Tf_core.resource

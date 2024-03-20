@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,11 @@ val register :
   query_arg_profile_config:query_arg_profile_config list ->
   string ->
   t
+
+val make :
+  ?comment:string prop ->
+  ?id:string prop ->
+  content_type_profile_config:content_type_profile_config list ->
+  query_arg_profile_config:query_arg_profile_config list ->
+  string ->
+  t Tf_core.resource

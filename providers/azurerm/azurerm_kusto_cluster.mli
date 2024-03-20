@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -129,3 +129,31 @@ val register :
   virtual_network_configuration:virtual_network_configuration list ->
   string ->
   t
+
+val make :
+  ?allowed_fqdns:string prop list ->
+  ?allowed_ip_ranges:string prop list ->
+  ?auto_stop_enabled:bool prop ->
+  ?disk_encryption_enabled:bool prop ->
+  ?double_encryption_enabled:bool prop ->
+  ?engine:string prop ->
+  ?id:string prop ->
+  ?language_extensions:string prop list ->
+  ?outbound_network_access_restricted:bool prop ->
+  ?public_ip_type:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?purge_enabled:bool prop ->
+  ?streaming_ingestion_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?trusted_external_tenants:string prop list ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  identity:identity list ->
+  optimized_auto_scale:optimized_auto_scale list ->
+  sku:sku list ->
+  virtual_network_configuration:virtual_network_configuration list ->
+  string ->
+  t Tf_core.resource

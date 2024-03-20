@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -76,61 +74,66 @@ type t = {
   status : string prop;
 }
 
+let make ?auto_resolve_best_voices_enabled ?contact_flow_logs_enabled
+    ?contact_lens_enabled ?directory_id ?early_media_enabled ?id
+    ?instance_alias ?multi_party_conference_enabled ?timeouts
+    ~identity_management_type ~inbound_calls_enabled
+    ~outbound_calls_enabled __id =
+  let __type = "aws_connect_instance" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       auto_resolve_best_voices_enabled =
+         Prop.computed __type __id "auto_resolve_best_voices_enabled";
+       contact_flow_logs_enabled =
+         Prop.computed __type __id "contact_flow_logs_enabled";
+       contact_lens_enabled =
+         Prop.computed __type __id "contact_lens_enabled";
+       created_time = Prop.computed __type __id "created_time";
+       directory_id = Prop.computed __type __id "directory_id";
+       early_media_enabled =
+         Prop.computed __type __id "early_media_enabled";
+       id = Prop.computed __type __id "id";
+       identity_management_type =
+         Prop.computed __type __id "identity_management_type";
+       inbound_calls_enabled =
+         Prop.computed __type __id "inbound_calls_enabled";
+       instance_alias = Prop.computed __type __id "instance_alias";
+       multi_party_conference_enabled =
+         Prop.computed __type __id "multi_party_conference_enabled";
+       outbound_calls_enabled =
+         Prop.computed __type __id "outbound_calls_enabled";
+       service_role = Prop.computed __type __id "service_role";
+       status = Prop.computed __type __id "status";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_instance
+        (aws_connect_instance ?auto_resolve_best_voices_enabled
+           ?contact_flow_logs_enabled ?contact_lens_enabled
+           ?directory_id ?early_media_enabled ?id ?instance_alias
+           ?multi_party_conference_enabled ?timeouts
+           ~identity_management_type ~inbound_calls_enabled
+           ~outbound_calls_enabled ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_resolve_best_voices_enabled
     ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
     ?early_media_enabled ?id ?instance_alias
     ?multi_party_conference_enabled ?timeouts
     ~identity_management_type ~inbound_calls_enabled
-    ~outbound_calls_enabled __resource_id =
-  let __resource_type = "aws_connect_instance" in
-  let __resource =
-    aws_connect_instance ?auto_resolve_best_voices_enabled
-      ?contact_flow_logs_enabled ?contact_lens_enabled ?directory_id
-      ?early_media_enabled ?id ?instance_alias
-      ?multi_party_conference_enabled ?timeouts
+    ~outbound_calls_enabled __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_resolve_best_voices_enabled ?contact_flow_logs_enabled
+      ?contact_lens_enabled ?directory_id ?early_media_enabled ?id
+      ?instance_alias ?multi_party_conference_enabled ?timeouts
       ~identity_management_type ~inbound_calls_enabled
-      ~outbound_calls_enabled ()
+      ~outbound_calls_enabled __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_instance __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_resolve_best_voices_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_resolve_best_voices_enabled";
-       contact_flow_logs_enabled =
-         Prop.computed __resource_type __resource_id
-           "contact_flow_logs_enabled";
-       contact_lens_enabled =
-         Prop.computed __resource_type __resource_id
-           "contact_lens_enabled";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       early_media_enabled =
-         Prop.computed __resource_type __resource_id
-           "early_media_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_management_type =
-         Prop.computed __resource_type __resource_id
-           "identity_management_type";
-       inbound_calls_enabled =
-         Prop.computed __resource_type __resource_id
-           "inbound_calls_enabled";
-       instance_alias =
-         Prop.computed __resource_type __resource_id "instance_alias";
-       multi_party_conference_enabled =
-         Prop.computed __resource_type __resource_id
-           "multi_party_conference_enabled";
-       outbound_calls_enabled =
-         Prop.computed __resource_type __resource_id
-           "outbound_calls_enabled";
-       service_role =
-         Prop.computed __resource_type __resource_id "service_role";
-       status = Prop.computed __resource_type __resource_id "status";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

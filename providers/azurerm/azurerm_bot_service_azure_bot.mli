@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,29 @@ val register :
   sku:string prop ->
   string ->
   t
+
+val make :
+  ?developer_app_insights_api_key:string prop ->
+  ?developer_app_insights_application_id:string prop ->
+  ?developer_app_insights_key:string prop ->
+  ?display_name:string prop ->
+  ?endpoint:string prop ->
+  ?icon_url:string prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?luis_app_ids:string prop list ->
+  ?luis_key:string prop ->
+  ?microsoft_app_msi_id:string prop ->
+  ?microsoft_app_tenant_id:string prop ->
+  ?microsoft_app_type:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?streaming_endpoint_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  microsoft_app_id:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  string ->
+  t Tf_core.resource

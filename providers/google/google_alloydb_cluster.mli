@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -234,3 +234,29 @@ val register :
   secondary_config:secondary_config list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?cluster_type:string prop ->
+  ?database_version:string prop ->
+  ?deletion_policy:string prop ->
+  ?display_name:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?network:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  location:string prop ->
+  automated_backup_policy:automated_backup_policy list ->
+  continuous_backup_config:continuous_backup_config list ->
+  encryption_config:encryption_config list ->
+  initial_user:initial_user list ->
+  network_config:network_config list ->
+  restore_backup_source:restore_backup_source list ->
+  restore_continuous_backup_source:
+    restore_continuous_backup_source list ->
+  secondary_config:secondary_config list ->
+  string ->
+  t Tf_core.resource

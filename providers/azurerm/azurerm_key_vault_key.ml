@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rotation_policy__automatic = {
   time_after_creation : string prop option; [@option]
@@ -102,56 +100,55 @@ type t = {
   y : string prop;
 }
 
-let register ?tf_module ?curve ?expiration_date ?id ?key_size
-    ?not_before_date ?tags ?timeouts ~key_opts ~key_type
-    ~key_vault_id ~name ~rotation_policy __resource_id =
-  let __resource_type = "azurerm_key_vault_key" in
-  let __resource =
-    azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
-      ?not_before_date ?tags ?timeouts ~key_opts ~key_type
-      ~key_vault_id ~name ~rotation_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_key_vault_key __resource);
-  let __resource_attributes =
+let make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
+    ?timeouts ~key_opts ~key_type ~key_vault_id ~name
+    ~rotation_policy __id =
+  let __type = "azurerm_key_vault_key" in
+  let __attrs =
     ({
-       curve = Prop.computed __resource_type __resource_id "curve";
-       e = Prop.computed __resource_type __resource_id "e";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_opts =
-         Prop.computed __resource_type __resource_id "key_opts";
-       key_size =
-         Prop.computed __resource_type __resource_id "key_size";
-       key_type =
-         Prop.computed __resource_type __resource_id "key_type";
-       key_vault_id =
-         Prop.computed __resource_type __resource_id "key_vault_id";
-       n = Prop.computed __resource_type __resource_id "n";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_before_date =
-         Prop.computed __resource_type __resource_id
-           "not_before_date";
+       curve = Prop.computed __type __id "curve";
+       e = Prop.computed __type __id "e";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       id = Prop.computed __type __id "id";
+       key_opts = Prop.computed __type __id "key_opts";
+       key_size = Prop.computed __type __id "key_size";
+       key_type = Prop.computed __type __id "key_type";
+       key_vault_id = Prop.computed __type __id "key_vault_id";
+       n = Prop.computed __type __id "n";
+       name = Prop.computed __type __id "name";
+       not_before_date = Prop.computed __type __id "not_before_date";
        public_key_openssh =
-         Prop.computed __resource_type __resource_id
-           "public_key_openssh";
-       public_key_pem =
-         Prop.computed __resource_type __resource_id "public_key_pem";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
+         Prop.computed __type __id "public_key_openssh";
+       public_key_pem = Prop.computed __type __id "public_key_pem";
+       resource_id = Prop.computed __type __id "resource_id";
        resource_versionless_id =
-         Prop.computed __resource_type __resource_id
-           "resource_versionless_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-       versionless_id =
-         Prop.computed __resource_type __resource_id "versionless_id";
-       x = Prop.computed __resource_type __resource_id "x";
-       y = Prop.computed __resource_type __resource_id "y";
+         Prop.computed __type __id "resource_versionless_id";
+       tags = Prop.computed __type __id "tags";
+       version = Prop.computed __type __id "version";
+       versionless_id = Prop.computed __type __id "versionless_id";
+       x = Prop.computed __type __id "x";
+       y = Prop.computed __type __id "y";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_key_vault_key
+        (azurerm_key_vault_key ?curve ?expiration_date ?id ?key_size
+           ?not_before_date ?tags ?timeouts ~key_opts ~key_type
+           ~key_vault_id ~name ~rotation_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?curve ?expiration_date ?id ?key_size
+    ?not_before_date ?tags ?timeouts ~key_opts ~key_type
+    ~key_vault_id ~name ~rotation_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?curve ?expiration_date ?id ?key_size ?not_before_date ?tags
+      ?timeouts ~key_opts ~key_type ~key_vault_id ~name
+      ~rotation_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type groups = {
   description : string prop option; [@option]  (** description *)
@@ -144,44 +142,49 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?randomization_salt ?tags
-    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
-    ~scheduled_splits_config __resource_id =
-  let __resource_type = "aws_evidently_launch" in
-  let __resource =
-    aws_evidently_launch ?description ?id ?randomization_salt ?tags
-      ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
-      ~scheduled_splits_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_evidently_launch __resource);
-  let __resource_attributes =
+let make ?description ?id ?randomization_salt ?tags ?tags_all
+    ?timeouts ~name ~project ~groups ~metric_monitors
+    ~scheduled_splits_config __id =
+  let __type = "aws_evidently_launch" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       execution =
-         Prop.computed __resource_type __resource_id "execution";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       created_time = Prop.computed __type __id "created_time";
+       description = Prop.computed __type __id "description";
+       execution = Prop.computed __type __id "execution";
+       id = Prop.computed __type __id "id";
        last_updated_time =
-         Prop.computed __resource_type __resource_id
-           "last_updated_time";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "last_updated_time";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        randomization_salt =
-         Prop.computed __resource_type __resource_id
-           "randomization_salt";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_reason =
-         Prop.computed __resource_type __resource_id "status_reason";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "randomization_salt";
+       status = Prop.computed __type __id "status";
+       status_reason = Prop.computed __type __id "status_reason";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_evidently_launch
+        (aws_evidently_launch ?description ?id ?randomization_salt
+           ?tags ?tags_all ?timeouts ~name ~project ~groups
+           ~metric_monitors ~scheduled_splits_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?randomization_salt ?tags
+    ?tags_all ?timeouts ~name ~project ~groups ~metric_monitors
+    ~scheduled_splits_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?randomization_salt ?tags ?tags_all
+      ?timeouts ~name ~project ~groups ~metric_monitors
+      ~scheduled_splits_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

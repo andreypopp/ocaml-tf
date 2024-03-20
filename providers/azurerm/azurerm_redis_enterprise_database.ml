@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type module_ = {
   args : string prop option; [@option]  (** args *)
@@ -83,51 +81,54 @@ type t = {
   secondary_access_key : string prop;
 }
 
-let register ?tf_module ?client_protocol ?clustering_policy
-    ?eviction_policy ?id ?linked_database_group_nickname
-    ?linked_database_id ?name ?port ?resource_group_name ?timeouts
-    ~cluster_id ~module_ __resource_id =
-  let __resource_type = "azurerm_redis_enterprise_database" in
-  let __resource =
-    azurerm_redis_enterprise_database ?client_protocol
-      ?clustering_policy ?eviction_policy ?id
-      ?linked_database_group_nickname ?linked_database_id ?name ?port
-      ?resource_group_name ?timeouts ~cluster_id ~module_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_redis_enterprise_database __resource);
-  let __resource_attributes =
+let make ?client_protocol ?clustering_policy ?eviction_policy ?id
+    ?linked_database_group_nickname ?linked_database_id ?name ?port
+    ?resource_group_name ?timeouts ~cluster_id ~module_ __id =
+  let __type = "azurerm_redis_enterprise_database" in
+  let __attrs =
     ({
-       client_protocol =
-         Prop.computed __resource_type __resource_id
-           "client_protocol";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
+       client_protocol = Prop.computed __type __id "client_protocol";
+       cluster_id = Prop.computed __type __id "cluster_id";
        clustering_policy =
-         Prop.computed __resource_type __resource_id
-           "clustering_policy";
-       eviction_policy =
-         Prop.computed __resource_type __resource_id
-           "eviction_policy";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "clustering_policy";
+       eviction_policy = Prop.computed __type __id "eviction_policy";
+       id = Prop.computed __type __id "id";
        linked_database_group_nickname =
-         Prop.computed __resource_type __resource_id
-           "linked_database_group_nickname";
+         Prop.computed __type __id "linked_database_group_nickname";
        linked_database_id =
-         Prop.computed __resource_type __resource_id
-           "linked_database_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
+         Prop.computed __type __id "linked_database_id";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
        primary_access_key =
-         Prop.computed __resource_type __resource_id
-           "primary_access_key";
+         Prop.computed __type __id "primary_access_key";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_access_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_access_key";
+         Prop.computed __type __id "secondary_access_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_redis_enterprise_database
+        (azurerm_redis_enterprise_database ?client_protocol
+           ?clustering_policy ?eviction_policy ?id
+           ?linked_database_group_nickname ?linked_database_id ?name
+           ?port ?resource_group_name ?timeouts ~cluster_id ~module_
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_protocol ?clustering_policy
+    ?eviction_policy ?id ?linked_database_group_nickname
+    ?linked_database_id ?name ?port ?resource_group_name ?timeouts
+    ~cluster_id ~module_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_protocol ?clustering_policy ?eviction_policy ?id
+      ?linked_database_group_nickname ?linked_database_id ?name ?port
+      ?resource_group_name ?timeouts ~cluster_id ~module_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

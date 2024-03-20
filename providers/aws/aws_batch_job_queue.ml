@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type compute_environment_order = {
   compute_environment : string prop;  (** compute_environment *)
@@ -70,35 +68,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?compute_environments ?scheduling_policy_arn
-    ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
-    __resource_id =
-  let __resource_type = "aws_batch_job_queue" in
-  let __resource =
-    aws_batch_job_queue ?compute_environments ?scheduling_policy_arn
-      ?tags ?timeouts ~name ~priority ~state
-      ~compute_environment_order ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_batch_job_queue __resource);
-  let __resource_attributes =
+let make ?compute_environments ?scheduling_policy_arn ?tags ?timeouts
+    ~name ~priority ~state ~compute_environment_order __id =
+  let __type = "aws_batch_job_queue" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        compute_environments =
-         Prop.computed __resource_type __resource_id
-           "compute_environments";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "compute_environments";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        scheduling_policy_arn =
-         Prop.computed __resource_type __resource_id
-           "scheduling_policy_arn";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "scheduling_policy_arn";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_batch_job_queue
+        (aws_batch_job_queue ?compute_environments
+           ?scheduling_policy_arn ?tags ?timeouts ~name ~priority
+           ~state ~compute_environment_order ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?compute_environments ?scheduling_policy_arn
+    ?tags ?timeouts ~name ~priority ~state ~compute_environment_order
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?compute_environments ?scheduling_policy_arn ?tags ?timeouts
+      ~name ~priority ~state ~compute_environment_order __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

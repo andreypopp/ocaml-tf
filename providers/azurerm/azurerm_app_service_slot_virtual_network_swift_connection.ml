@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,28 +36,33 @@ type t = {
   subnet_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~app_service_id ~slot_name
-    ~subnet_id __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~app_service_id ~slot_name ~subnet_id __id =
+  let __type =
     "azurerm_app_service_slot_virtual_network_swift_connection"
   in
-  let __resource =
-    azurerm_app_service_slot_virtual_network_swift_connection ?id
-      ?timeouts ~app_service_id ~slot_name ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_slot_virtual_network_swift_connection
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       app_service_id =
-         Prop.computed __resource_type __resource_id "app_service_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       slot_name =
-         Prop.computed __resource_type __resource_id "slot_name";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
+       app_service_id = Prop.computed __type __id "app_service_id";
+       id = Prop.computed __type __id "id";
+       slot_name = Prop.computed __type __id "slot_name";
+       subnet_id = Prop.computed __type __id "subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_slot_virtual_network_swift_connection
+        (azurerm_app_service_slot_virtual_network_swift_connection
+           ?id ?timeouts ~app_service_id ~slot_name ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~app_service_id ~slot_name
+    ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~app_service_id ~slot_name ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

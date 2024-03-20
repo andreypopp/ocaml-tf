@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type run_after = {
   action_name : string prop;  (** action_name *)
@@ -70,29 +68,37 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?body ?headers ?id ?queries ?timeouts
-    ~logic_app_id ~method_ ~name ~uri ~run_after __resource_id =
-  let __resource_type = "azurerm_logic_app_action_http" in
-  let __resource =
-    azurerm_logic_app_action_http ?body ?headers ?id ?queries
-      ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_action_http __resource);
-  let __resource_attributes =
+let make ?body ?headers ?id ?queries ?timeouts ~logic_app_id ~method_
+    ~name ~uri ~run_after __id =
+  let __type = "azurerm_logic_app_action_http" in
+  let __attrs =
     ({
-       body = Prop.computed __resource_type __resource_id "body";
-       headers =
-         Prop.computed __resource_type __resource_id "headers";
-       id = Prop.computed __resource_type __resource_id "id";
-       logic_app_id =
-         Prop.computed __resource_type __resource_id "logic_app_id";
-       method_ = Prop.computed __resource_type __resource_id "method";
-       name = Prop.computed __resource_type __resource_id "name";
-       queries =
-         Prop.computed __resource_type __resource_id "queries";
-       uri = Prop.computed __resource_type __resource_id "uri";
+       body = Prop.computed __type __id "body";
+       headers = Prop.computed __type __id "headers";
+       id = Prop.computed __type __id "id";
+       logic_app_id = Prop.computed __type __id "logic_app_id";
+       method_ = Prop.computed __type __id "method";
+       name = Prop.computed __type __id "name";
+       queries = Prop.computed __type __id "queries";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_action_http
+        (azurerm_logic_app_action_http ?body ?headers ?id ?queries
+           ?timeouts ~logic_app_id ~method_ ~name ~uri ~run_after ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?body ?headers ?id ?queries ?timeouts
+    ~logic_app_id ~method_ ~name ~uri ~run_after __id =
+  let (r : _ Tf_core.resource) =
+    make ?body ?headers ?id ?queries ?timeouts ~logic_app_id ~method_
+      ~name ~uri ~run_after __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

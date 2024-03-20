@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lightsail_bucket_resource_access = {
   bucket_name : string prop;  (** bucket_name *)
@@ -22,23 +20,29 @@ type t = {
   resource_name : string prop;
 }
 
-let register ?tf_module ?id ~bucket_name ~resource_name __resource_id
-    =
-  let __resource_type = "aws_lightsail_bucket_resource_access" in
-  let __resource =
-    aws_lightsail_bucket_resource_access ?id ~bucket_name
-      ~resource_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_bucket_resource_access __resource);
-  let __resource_attributes =
+let make ?id ~bucket_name ~resource_name __id =
+  let __type = "aws_lightsail_bucket_resource_access" in
+  let __attrs =
     ({
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       resource_name =
-         Prop.computed __resource_type __resource_id "resource_name";
+       bucket_name = Prop.computed __type __id "bucket_name";
+       id = Prop.computed __type __id "id";
+       resource_name = Prop.computed __type __id "resource_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_bucket_resource_access
+        (aws_lightsail_bucket_resource_access ?id ~bucket_name
+           ~resource_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~bucket_name ~resource_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~bucket_name ~resource_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

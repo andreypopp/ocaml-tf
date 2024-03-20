@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,38 +65,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?custom_headers ?id ?scope ?status ?tags
-    ?timeouts ~actions ~location ~name ~registry_name
-    ~resource_group_name ~service_uri __resource_id =
-  let __resource_type = "azurerm_container_registry_webhook" in
-  let __resource =
-    azurerm_container_registry_webhook ?custom_headers ?id ?scope
-      ?status ?tags ?timeouts ~actions ~location ~name ~registry_name
-      ~resource_group_name ~service_uri ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry_webhook __resource);
-  let __resource_attributes =
+let make ?custom_headers ?id ?scope ?status ?tags ?timeouts ~actions
+    ~location ~name ~registry_name ~resource_group_name ~service_uri
+    __id =
+  let __type = "azurerm_container_registry_webhook" in
+  let __attrs =
     ({
-       actions =
-         Prop.computed __resource_type __resource_id "actions";
-       custom_headers =
-         Prop.computed __resource_type __resource_id "custom_headers";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       registry_name =
-         Prop.computed __resource_type __resource_id "registry_name";
+       actions = Prop.computed __type __id "actions";
+       custom_headers = Prop.computed __type __id "custom_headers";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       registry_name = Prop.computed __type __id "registry_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       service_uri =
-         Prop.computed __resource_type __resource_id "service_uri";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       scope = Prop.computed __type __id "scope";
+       service_uri = Prop.computed __type __id "service_uri";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry_webhook
+        (azurerm_container_registry_webhook ?custom_headers ?id
+           ?scope ?status ?tags ?timeouts ~actions ~location ~name
+           ~registry_name ~resource_group_name ~service_uri ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_headers ?id ?scope ?status ?tags
+    ?timeouts ~actions ~location ~name ~registry_name
+    ~resource_group_name ~service_uri __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_headers ?id ?scope ?status ?tags ?timeouts ~actions
+      ~location ~name ~registry_name ~resource_group_name
+      ~service_uri __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_secretsmanager_secret_version = {
   id : string prop option; [@option]  (** id *)
@@ -30,30 +28,36 @@ type t = {
   version_stages : string list prop;
 }
 
-let register ?tf_module ?id ?secret_binary ?secret_string
-    ?version_stages ~secret_id __resource_id =
-  let __resource_type = "aws_secretsmanager_secret_version" in
-  let __resource =
-    aws_secretsmanager_secret_version ?id ?secret_binary
-      ?secret_string ?version_stages ~secret_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_secretsmanager_secret_version __resource);
-  let __resource_attributes =
+let make ?id ?secret_binary ?secret_string ?version_stages ~secret_id
+    __id =
+  let __type = "aws_secretsmanager_secret_version" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       secret_binary =
-         Prop.computed __resource_type __resource_id "secret_binary";
-       secret_id =
-         Prop.computed __resource_type __resource_id "secret_id";
-       secret_string =
-         Prop.computed __resource_type __resource_id "secret_string";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-       version_stages =
-         Prop.computed __resource_type __resource_id "version_stages";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       secret_binary = Prop.computed __type __id "secret_binary";
+       secret_id = Prop.computed __type __id "secret_id";
+       secret_string = Prop.computed __type __id "secret_string";
+       version_id = Prop.computed __type __id "version_id";
+       version_stages = Prop.computed __type __id "version_stages";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_secretsmanager_secret_version
+        (aws_secretsmanager_secret_version ?id ?secret_binary
+           ?secret_string ?version_stages ~secret_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?secret_binary ?secret_string
+    ?version_stages ~secret_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?secret_binary ?secret_string ?version_stages ~secret_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

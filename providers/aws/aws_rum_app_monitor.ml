@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type app_monitor_configuration = {
   allow_cookies : bool prop option; [@option]  (** allow_cookies *)
@@ -88,31 +86,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?cw_log_enabled ?id ?tags ?tags_all ~domain
-    ~name ~app_monitor_configuration ~custom_events __resource_id =
-  let __resource_type = "aws_rum_app_monitor" in
-  let __resource =
-    aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all ~domain
-      ~name ~app_monitor_configuration ~custom_events ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rum_app_monitor __resource);
-  let __resource_attributes =
+let make ?cw_log_enabled ?id ?tags ?tags_all ~domain ~name
+    ~app_monitor_configuration ~custom_events __id =
+  let __type = "aws_rum_app_monitor" in
+  let __attrs =
     ({
-       app_monitor_id =
-         Prop.computed __resource_type __resource_id "app_monitor_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cw_log_enabled =
-         Prop.computed __resource_type __resource_id "cw_log_enabled";
-       cw_log_group =
-         Prop.computed __resource_type __resource_id "cw_log_group";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       app_monitor_id = Prop.computed __type __id "app_monitor_id";
+       arn = Prop.computed __type __id "arn";
+       cw_log_enabled = Prop.computed __type __id "cw_log_enabled";
+       cw_log_group = Prop.computed __type __id "cw_log_group";
+       domain = Prop.computed __type __id "domain";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rum_app_monitor
+        (aws_rum_app_monitor ?cw_log_enabled ?id ?tags ?tags_all
+           ~domain ~name ~app_monitor_configuration ~custom_events ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cw_log_enabled ?id ?tags ?tags_all ~domain
+    ~name ~app_monitor_configuration ~custom_events __id =
+  let (r : _ Tf_core.resource) =
+    make ?cw_log_enabled ?id ?tags ?tags_all ~domain ~name
+      ~app_monitor_configuration ~custom_events __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

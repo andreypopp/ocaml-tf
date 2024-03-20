@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,30 +36,34 @@ type t = {
   short_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~attachment_target
-    ~firewall_policy ~name __resource_id =
-  let __resource_type =
-    "google_compute_firewall_policy_association"
-  in
-  let __resource =
-    google_compute_firewall_policy_association ?id ?timeouts
-      ~attachment_target ~firewall_policy ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_firewall_policy_association __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~attachment_target ~firewall_policy ~name __id
+    =
+  let __type = "google_compute_firewall_policy_association" in
+  let __attrs =
     ({
        attachment_target =
-         Prop.computed __resource_type __resource_id
-           "attachment_target";
-       firewall_policy =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       short_name =
-         Prop.computed __resource_type __resource_id "short_name";
+         Prop.computed __type __id "attachment_target";
+       firewall_policy = Prop.computed __type __id "firewall_policy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       short_name = Prop.computed __type __id "short_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_firewall_policy_association
+        (google_compute_firewall_policy_association ?id ?timeouts
+           ~attachment_target ~firewall_policy ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~attachment_target
+    ~firewall_policy ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~attachment_target ~firewall_policy ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

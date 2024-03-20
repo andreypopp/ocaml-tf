@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -124,3 +124,23 @@ val register :
   resource_selectors:resource_selectors list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?enforce:bool prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?metadata:string prop ->
+  ?not_scopes:string prop list ->
+  ?parameters:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  policy_definition_id:string prop ->
+  subscription_id:string prop ->
+  identity:identity list ->
+  non_compliance_message:non_compliance_message list ->
+  overrides:overrides list ->
+  resource_selectors:resource_selectors list ->
+  string ->
+  t Tf_core.resource

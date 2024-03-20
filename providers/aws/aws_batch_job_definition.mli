@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -199,3 +199,21 @@ val register :
   timeout:timeout list ->
   string ->
   t
+
+val make :
+  ?container_properties:string prop ->
+  ?id:string prop ->
+  ?node_properties:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?platform_capabilities:string prop list ->
+  ?propagate_tags:bool prop ->
+  ?scheduling_priority:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  type_:string prop ->
+  eks_properties:eks_properties list ->
+  retry_strategy:retry_strategy list ->
+  timeout:timeout list ->
+  string ->
+  t Tf_core.resource

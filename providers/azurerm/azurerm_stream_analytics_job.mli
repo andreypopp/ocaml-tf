@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,27 @@ val register :
   job_storage_account:job_storage_account list ->
   string ->
   t
+
+val make :
+  ?compatibility_level:string prop ->
+  ?content_storage_policy:string prop ->
+  ?data_locale:string prop ->
+  ?events_late_arrival_max_delay_in_seconds:float prop ->
+  ?events_out_of_order_max_delay_in_seconds:float prop ->
+  ?events_out_of_order_policy:string prop ->
+  ?id:string prop ->
+  ?output_error_policy:string prop ->
+  ?sku_name:string prop ->
+  ?stream_analytics_cluster_id:string prop ->
+  ?streaming_units:float prop ->
+  ?tags:(string * string prop) list ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  transformation_query:string prop ->
+  identity:identity list ->
+  job_storage_account:job_storage_account list ->
+  string ->
+  t Tf_core.resource

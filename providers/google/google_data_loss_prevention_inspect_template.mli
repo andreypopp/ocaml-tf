@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -381,3 +381,14 @@ val register :
   inspect_config:inspect_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?template_id:string prop ->
+  ?timeouts:timeouts ->
+  parent:string prop ->
+  inspect_config:inspect_config list ->
+  string ->
+  t Tf_core.resource

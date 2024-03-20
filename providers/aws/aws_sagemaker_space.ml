@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ownership_settings = {
   owner_user_profile_name : string prop;
@@ -346,36 +344,44 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?id ?space_display_name ?tags ?tags_all
-    ~domain_id ~space_name ~ownership_settings ~space_settings
-    ~space_sharing_settings __resource_id =
-  let __resource_type = "aws_sagemaker_space" in
-  let __resource =
-    aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
-      ~domain_id ~space_name ~ownership_settings ~space_settings
-      ~space_sharing_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_space __resource);
-  let __resource_attributes =
+let make ?id ?space_display_name ?tags ?tags_all ~domain_id
+    ~space_name ~ownership_settings ~space_settings
+    ~space_sharing_settings __id =
+  let __type = "aws_sagemaker_space" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain_id =
-         Prop.computed __resource_type __resource_id "domain_id";
+       arn = Prop.computed __type __id "arn";
+       domain_id = Prop.computed __type __id "domain_id";
        home_efs_file_system_uid =
-         Prop.computed __resource_type __resource_id
-           "home_efs_file_system_uid";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "home_efs_file_system_uid";
+       id = Prop.computed __type __id "id";
        space_display_name =
-         Prop.computed __resource_type __resource_id
-           "space_display_name";
-       space_name =
-         Prop.computed __resource_type __resource_id "space_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "space_display_name";
+       space_name = Prop.computed __type __id "space_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_space
+        (aws_sagemaker_space ?id ?space_display_name ?tags ?tags_all
+           ~domain_id ~space_name ~ownership_settings ~space_settings
+           ~space_sharing_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?space_display_name ?tags ?tags_all
+    ~domain_id ~space_name ~ownership_settings ~space_settings
+    ~space_sharing_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?space_display_name ?tags ?tags_all ~domain_id
+      ~space_name ~ownership_settings ~space_settings
+      ~space_sharing_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

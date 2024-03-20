@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -154,3 +154,31 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?aad_admin:aad_admin list ->
+  ?azuread_authentication_only:bool prop ->
+  ?compute_subnet_id:string prop ->
+  ?data_exfiltration_protection_enabled:bool prop ->
+  ?id:string prop ->
+  ?linking_allowed_for_aad_tenant_ids:string prop list ->
+  ?managed_resource_group_name:string prop ->
+  ?managed_virtual_network_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?purview_id:string prop ->
+  ?sql_aad_admin:sql_aad_admin list ->
+  ?sql_administrator_login:string prop ->
+  ?sql_administrator_login_password:string prop ->
+  ?sql_identity_control_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_data_lake_gen2_filesystem_id:string prop ->
+  azure_devops_repo:azure_devops_repo list ->
+  customer_managed_key:customer_managed_key list ->
+  github_repo:github_repo list ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

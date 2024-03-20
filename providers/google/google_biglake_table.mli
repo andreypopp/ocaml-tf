@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,13 @@ val register :
   hive_options:hive_options list ->
   string ->
   t
+
+val make :
+  ?database:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  hive_options:hive_options list ->
+  string ->
+  t Tf_core.resource

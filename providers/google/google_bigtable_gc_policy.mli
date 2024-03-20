@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,18 @@ val register :
   max_version:max_version list ->
   string ->
   t
+
+val make :
+  ?deletion_policy:string prop ->
+  ?gc_rules:string prop ->
+  ?id:string prop ->
+  ?mode:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  column_family:string prop ->
+  instance_name:string prop ->
+  table:string prop ->
+  max_age:max_age list ->
+  max_version:max_version list ->
+  string ->
+  t Tf_core.resource

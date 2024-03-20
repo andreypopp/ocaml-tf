@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,13 @@ val register :
   trust_store_arn:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?revocations_s3_object_version:string prop ->
+  ?timeouts:timeouts ->
+  revocations_s3_bucket:string prop ->
+  revocations_s3_key:string prop ->
+  trust_store_arn:string prop ->
+  string ->
+  t Tf_core.resource

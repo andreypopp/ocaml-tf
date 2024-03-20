@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
@@ -72,29 +70,36 @@ type t = {
   wait_for_service_account_token : bool prop;
 }
 
-let register ?tf_module ?binary_data ?data ?id ?immutable ?type_
-    ?wait_for_service_account_token ?timeouts ~metadata __resource_id
-    =
-  let __resource_type = "kubernetes_secret" in
-  let __resource =
-    kubernetes_secret ?binary_data ?data ?id ?immutable ?type_
-      ?wait_for_service_account_token ?timeouts ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_secret __resource);
-  let __resource_attributes =
+let make ?binary_data ?data ?id ?immutable ?type_
+    ?wait_for_service_account_token ?timeouts ~metadata __id =
+  let __type = "kubernetes_secret" in
+  let __attrs =
     ({
-       binary_data =
-         Prop.computed __resource_type __resource_id "binary_data";
-       data = Prop.computed __resource_type __resource_id "data";
-       id = Prop.computed __resource_type __resource_id "id";
-       immutable =
-         Prop.computed __resource_type __resource_id "immutable";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       binary_data = Prop.computed __type __id "binary_data";
+       data = Prop.computed __type __id "data";
+       id = Prop.computed __type __id "id";
+       immutable = Prop.computed __type __id "immutable";
+       type_ = Prop.computed __type __id "type";
        wait_for_service_account_token =
-         Prop.computed __resource_type __resource_id
-           "wait_for_service_account_token";
+         Prop.computed __type __id "wait_for_service_account_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_secret
+        (kubernetes_secret ?binary_data ?data ?id ?immutable ?type_
+           ?wait_for_service_account_token ?timeouts ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?binary_data ?data ?id ?immutable ?type_
+    ?wait_for_service_account_token ?timeouts ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?binary_data ?data ?id ?immutable ?type_
+      ?wait_for_service_account_token ?timeouts ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

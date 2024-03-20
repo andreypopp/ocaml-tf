@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -147,3 +147,26 @@ val register :
   dynamic_criteria:dynamic_criteria list ->
   string ->
   t
+
+val make :
+  ?auto_mitigate:bool prop ->
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?frequency:string prop ->
+  ?id:string prop ->
+  ?severity:float prop ->
+  ?tags:(string * string prop) list ->
+  ?target_resource_location:string prop ->
+  ?target_resource_type:string prop ->
+  ?window_size:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  scopes:string prop list ->
+  action:action list ->
+  application_insights_web_test_location_availability_criteria:
+    application_insights_web_test_location_availability_criteria list ->
+  criteria:criteria list ->
+  dynamic_criteria:dynamic_criteria list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -64,41 +62,46 @@ type t = {
   stream_analytics_job_name : string prop;
 }
 
-let register ?tf_module ?batch_max_count ?batch_max_in_bytes ?id
-    ?timeouts ~api_key ~function_app ~function_name ~name
-    ~resource_group_name ~stream_analytics_job_name __resource_id =
-  let __resource_type = "azurerm_stream_analytics_output_function" in
-  let __resource =
-    azurerm_stream_analytics_output_function ?batch_max_count
-      ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
-      ~function_name ~name ~resource_group_name
-      ~stream_analytics_job_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_function __resource);
-  let __resource_attributes =
+let make ?batch_max_count ?batch_max_in_bytes ?id ?timeouts ~api_key
+    ~function_app ~function_name ~name ~resource_group_name
+    ~stream_analytics_job_name __id =
+  let __type = "azurerm_stream_analytics_output_function" in
+  let __attrs =
     ({
-       api_key =
-         Prop.computed __resource_type __resource_id "api_key";
-       batch_max_count =
-         Prop.computed __resource_type __resource_id
-           "batch_max_count";
+       api_key = Prop.computed __type __id "api_key";
+       batch_max_count = Prop.computed __type __id "batch_max_count";
        batch_max_in_bytes =
-         Prop.computed __resource_type __resource_id
-           "batch_max_in_bytes";
-       function_app =
-         Prop.computed __resource_type __resource_id "function_app";
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "batch_max_in_bytes";
+       function_app = Prop.computed __type __id "function_app";
+       function_name = Prop.computed __type __id "function_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
+         Prop.computed __type __id "stream_analytics_job_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_function
+        (azurerm_stream_analytics_output_function ?batch_max_count
+           ?batch_max_in_bytes ?id ?timeouts ~api_key ~function_app
+           ~function_name ~name ~resource_group_name
+           ~stream_analytics_job_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?batch_max_count ?batch_max_in_bytes ?id
+    ?timeouts ~api_key ~function_app ~function_name ~name
+    ~resource_group_name ~stream_analytics_job_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?batch_max_count ?batch_max_in_bytes ?id ?timeouts ~api_key
+      ~function_app ~function_name ~name ~resource_group_name
+      ~stream_analytics_job_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

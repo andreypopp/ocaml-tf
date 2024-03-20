@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,17 @@ val register :
     read_write_endpoint_failover_policy list ->
   string ->
   t
+
+val make :
+  ?databases:string prop list ->
+  ?id:string prop ->
+  ?readonly_endpoint_failover_policy_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  server_id:string prop ->
+  partner_server:partner_server list ->
+  read_write_endpoint_failover_policy:
+    read_write_endpoint_failover_policy list ->
+  string ->
+  t Tf_core.resource

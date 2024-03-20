@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   verification_token:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?landing_page_url:string prop ->
+  ?signing_secret:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  verification_token:string prop ->
+  string ->
+  t Tf_core.resource

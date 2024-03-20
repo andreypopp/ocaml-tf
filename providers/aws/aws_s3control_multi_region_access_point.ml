@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type details__public_access_block = {
   block_public_acls : bool prop option; [@option]
@@ -80,26 +78,32 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?timeouts ~details
-    __resource_id =
-  let __resource_type = "aws_s3control_multi_region_access_point" in
-  let __resource =
-    aws_s3control_multi_region_access_point ?account_id ?id ?timeouts
-      ~details ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3control_multi_region_access_point __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?timeouts ~details __id =
+  let __type = "aws_s3control_multi_region_access_point" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       alias = Prop.computed __resource_type __resource_id "alias";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       status = Prop.computed __resource_type __resource_id "status";
+       account_id = Prop.computed __type __id "account_id";
+       alias = Prop.computed __type __id "alias";
+       arn = Prop.computed __type __id "arn";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3control_multi_region_access_point
+        (aws_s3control_multi_region_access_point ?account_id ?id
+           ?timeouts ~details ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?timeouts ~details __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?timeouts ~details __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

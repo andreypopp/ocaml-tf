@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action = {
   action_group : string prop list;  (** action_group *)
@@ -126,57 +124,60 @@ type t = {
   time_window : float prop;
 }
 
+let make ?authorized_resource_ids ?auto_mitigation_enabled
+    ?description ?enabled ?id ?query_type ?severity ?tags ?throttling
+    ?timeouts ~data_source_id ~frequency ~location ~name ~query
+    ~resource_group_name ~time_window ~action ~trigger __id =
+  let __type = "azurerm_monitor_scheduled_query_rules_alert" in
+  let __attrs =
+    ({
+       authorized_resource_ids =
+         Prop.computed __type __id "authorized_resource_ids";
+       auto_mitigation_enabled =
+         Prop.computed __type __id "auto_mitigation_enabled";
+       data_source_id = Prop.computed __type __id "data_source_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       query = Prop.computed __type __id "query";
+       query_type = Prop.computed __type __id "query_type";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       severity = Prop.computed __type __id "severity";
+       tags = Prop.computed __type __id "tags";
+       throttling = Prop.computed __type __id "throttling";
+       time_window = Prop.computed __type __id "time_window";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_scheduled_query_rules_alert
+        (azurerm_monitor_scheduled_query_rules_alert
+           ?authorized_resource_ids ?auto_mitigation_enabled
+           ?description ?enabled ?id ?query_type ?severity ?tags
+           ?throttling ?timeouts ~data_source_id ~frequency ~location
+           ~name ~query ~resource_group_name ~time_window ~action
+           ~trigger ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authorized_resource_ids
     ?auto_mitigation_enabled ?description ?enabled ?id ?query_type
     ?severity ?tags ?throttling ?timeouts ~data_source_id ~frequency
     ~location ~name ~query ~resource_group_name ~time_window ~action
-    ~trigger __resource_id =
-  let __resource_type =
-    "azurerm_monitor_scheduled_query_rules_alert"
+    ~trigger __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorized_resource_ids ?auto_mitigation_enabled
+      ?description ?enabled ?id ?query_type ?severity ?tags
+      ?throttling ?timeouts ~data_source_id ~frequency ~location
+      ~name ~query ~resource_group_name ~time_window ~action ~trigger
+      __id
   in
-  let __resource =
-    azurerm_monitor_scheduled_query_rules_alert
-      ?authorized_resource_ids ?auto_mitigation_enabled ?description
-      ?enabled ?id ?query_type ?severity ?tags ?throttling ?timeouts
-      ~data_source_id ~frequency ~location ~name ~query
-      ~resource_group_name ~time_window ~action ~trigger ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_scheduled_query_rules_alert __resource);
-  let __resource_attributes =
-    ({
-       authorized_resource_ids =
-         Prop.computed __resource_type __resource_id
-           "authorized_resource_ids";
-       auto_mitigation_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_mitigation_enabled";
-       data_source_id =
-         Prop.computed __resource_type __resource_id "data_source_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       query = Prop.computed __resource_type __resource_id "query";
-       query_type =
-         Prop.computed __resource_type __resource_id "query_type";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       throttling =
-         Prop.computed __resource_type __resource_id "throttling";
-       time_window =
-         Prop.computed __resource_type __resource_id "time_window";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

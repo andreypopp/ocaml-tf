@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,17 @@ val register :
   slot_count:float prop ->
   string ->
   t
+
+val make :
+  ?capacity_commitment_id:string prop ->
+  ?edition:string prop ->
+  ?enforce_single_admin_project_per_org:string prop ->
+  ?id:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?renewal_plan:string prop ->
+  ?timeouts:timeouts ->
+  plan:string prop ->
+  slot_count:float prop ->
+  string ->
+  t Tf_core.resource

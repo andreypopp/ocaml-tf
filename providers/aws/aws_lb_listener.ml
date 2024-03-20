@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_action__authenticate_cognito = {
   authentication_request_extra_params :
@@ -243,39 +241,45 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?alpn_policy ?certificate_arn ?id ?port
-    ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
-    ~load_balancer_arn ~default_action ~mutual_authentication
-    __resource_id =
-  let __resource_type = "aws_lb_listener" in
-  let __resource =
-    aws_lb_listener ?alpn_policy ?certificate_arn ?id ?port ?protocol
-      ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
-      ~default_action ~mutual_authentication ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lb_listener __resource);
-  let __resource_attributes =
+let make ?alpn_policy ?certificate_arn ?id ?port ?protocol
+    ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
+    ~default_action ~mutual_authentication __id =
+  let __type = "aws_lb_listener" in
+  let __attrs =
     ({
-       alpn_policy =
-         Prop.computed __resource_type __resource_id "alpn_policy";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       alpn_policy = Prop.computed __type __id "alpn_policy";
+       arn = Prop.computed __type __id "arn";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
+       id = Prop.computed __type __id "id";
        load_balancer_arn =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_arn";
-       port = Prop.computed __resource_type __resource_id "port";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       ssl_policy =
-         Prop.computed __resource_type __resource_id "ssl_policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "load_balancer_arn";
+       port = Prop.computed __type __id "port";
+       protocol = Prop.computed __type __id "protocol";
+       ssl_policy = Prop.computed __type __id "ssl_policy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lb_listener
+        (aws_lb_listener ?alpn_policy ?certificate_arn ?id ?port
+           ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
+           ~load_balancer_arn ~default_action ~mutual_authentication
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alpn_policy ?certificate_arn ?id ?port
+    ?protocol ?ssl_policy ?tags ?tags_all ?timeouts
+    ~load_balancer_arn ~default_action ~mutual_authentication __id =
+  let (r : _ Tf_core.resource) =
+    make ?alpn_policy ?certificate_arn ?id ?port ?protocol
+      ?ssl_policy ?tags ?tags_all ?timeouts ~load_balancer_arn
+      ~default_action ~mutual_authentication __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

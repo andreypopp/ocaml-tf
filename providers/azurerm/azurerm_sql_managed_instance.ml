@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -108,71 +106,75 @@ type t = {
   vcores : float prop;
 }
 
+let make ?collation ?dns_zone_partner_id ?id ?minimum_tls_version
+    ?proxy_override ?public_data_endpoint_enabled
+    ?storage_account_type ?tags ?timezone_id ?timeouts
+    ~administrator_login ~administrator_login_password ~license_type
+    ~location ~name ~resource_group_name ~sku_name
+    ~storage_size_in_gb ~subnet_id ~vcores ~identity __id =
+  let __type = "azurerm_sql_managed_instance" in
+  let __attrs =
+    ({
+       administrator_login =
+         Prop.computed __type __id "administrator_login";
+       administrator_login_password =
+         Prop.computed __type __id "administrator_login_password";
+       collation = Prop.computed __type __id "collation";
+       dns_zone_partner_id =
+         Prop.computed __type __id "dns_zone_partner_id";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
+       minimum_tls_version =
+         Prop.computed __type __id "minimum_tls_version";
+       name = Prop.computed __type __id "name";
+       proxy_override = Prop.computed __type __id "proxy_override";
+       public_data_endpoint_enabled =
+         Prop.computed __type __id "public_data_endpoint_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku_name = Prop.computed __type __id "sku_name";
+       storage_account_type =
+         Prop.computed __type __id "storage_account_type";
+       storage_size_in_gb =
+         Prop.computed __type __id "storage_size_in_gb";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       timezone_id = Prop.computed __type __id "timezone_id";
+       vcores = Prop.computed __type __id "vcores";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sql_managed_instance
+        (azurerm_sql_managed_instance ?collation ?dns_zone_partner_id
+           ?id ?minimum_tls_version ?proxy_override
+           ?public_data_endpoint_enabled ?storage_account_type ?tags
+           ?timezone_id ?timeouts ~administrator_login
+           ~administrator_login_password ~license_type ~location
+           ~name ~resource_group_name ~sku_name ~storage_size_in_gb
+           ~subnet_id ~vcores ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?collation ?dns_zone_partner_id ?id
     ?minimum_tls_version ?proxy_override
     ?public_data_endpoint_enabled ?storage_account_type ?tags
     ?timezone_id ?timeouts ~administrator_login
     ~administrator_login_password ~license_type ~location ~name
     ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
-    ~vcores ~identity __resource_id =
-  let __resource_type = "azurerm_sql_managed_instance" in
-  let __resource =
-    azurerm_sql_managed_instance ?collation ?dns_zone_partner_id ?id
-      ?minimum_tls_version ?proxy_override
-      ?public_data_endpoint_enabled ?storage_account_type ?tags
-      ?timezone_id ?timeouts ~administrator_login
-      ~administrator_login_password ~license_type ~location ~name
-      ~resource_group_name ~sku_name ~storage_size_in_gb ~subnet_id
-      ~vcores ~identity ()
+    ~vcores ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?collation ?dns_zone_partner_id ?id ?minimum_tls_version
+      ?proxy_override ?public_data_endpoint_enabled
+      ?storage_account_type ?tags ?timezone_id ?timeouts
+      ~administrator_login ~administrator_login_password
+      ~license_type ~location ~name ~resource_group_name ~sku_name
+      ~storage_size_in_gb ~subnet_id ~vcores ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sql_managed_instance __resource);
-  let __resource_attributes =
-    ({
-       administrator_login =
-         Prop.computed __resource_type __resource_id
-           "administrator_login";
-       administrator_login_password =
-         Prop.computed __resource_type __resource_id
-           "administrator_login_password";
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       dns_zone_partner_id =
-         Prop.computed __resource_type __resource_id
-           "dns_zone_partner_id";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       minimum_tls_version =
-         Prop.computed __resource_type __resource_id
-           "minimum_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       proxy_override =
-         Prop.computed __resource_type __resource_id "proxy_override";
-       public_data_endpoint_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_data_endpoint_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       storage_account_type =
-         Prop.computed __resource_type __resource_id
-           "storage_account_type";
-       storage_size_in_gb =
-         Prop.computed __resource_type __resource_id
-           "storage_size_in_gb";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       timezone_id =
-         Prop.computed __resource_type __resource_id "timezone_id";
-       vcores = Prop.computed __resource_type __resource_id "vcores";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

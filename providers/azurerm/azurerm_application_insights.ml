@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -97,76 +95,81 @@ type t = {
   workspace_id : string prop;
 }
 
+let make ?daily_data_cap_in_gb ?daily_data_cap_notifications_disabled
+    ?disable_ip_masking ?force_customer_storage_for_profiler ?id
+    ?internet_ingestion_enabled ?internet_query_enabled
+    ?local_authentication_disabled ?retention_in_days
+    ?sampling_percentage ?tags ?workspace_id ?timeouts
+    ~application_type ~location ~name ~resource_group_name __id =
+  let __type = "azurerm_application_insights" in
+  let __attrs =
+    ({
+       app_id = Prop.computed __type __id "app_id";
+       application_type =
+         Prop.computed __type __id "application_type";
+       connection_string =
+         Prop.computed __type __id "connection_string";
+       daily_data_cap_in_gb =
+         Prop.computed __type __id "daily_data_cap_in_gb";
+       daily_data_cap_notifications_disabled =
+         Prop.computed __type __id
+           "daily_data_cap_notifications_disabled";
+       disable_ip_masking =
+         Prop.computed __type __id "disable_ip_masking";
+       force_customer_storage_for_profiler =
+         Prop.computed __type __id
+           "force_customer_storage_for_profiler";
+       id = Prop.computed __type __id "id";
+       instrumentation_key =
+         Prop.computed __type __id "instrumentation_key";
+       internet_ingestion_enabled =
+         Prop.computed __type __id "internet_ingestion_enabled";
+       internet_query_enabled =
+         Prop.computed __type __id "internet_query_enabled";
+       local_authentication_disabled =
+         Prop.computed __type __id "local_authentication_disabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       retention_in_days =
+         Prop.computed __type __id "retention_in_days";
+       sampling_percentage =
+         Prop.computed __type __id "sampling_percentage";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights
+        (azurerm_application_insights ?daily_data_cap_in_gb
+           ?daily_data_cap_notifications_disabled ?disable_ip_masking
+           ?force_customer_storage_for_profiler ?id
+           ?internet_ingestion_enabled ?internet_query_enabled
+           ?local_authentication_disabled ?retention_in_days
+           ?sampling_percentage ?tags ?workspace_id ?timeouts
+           ~application_type ~location ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?daily_data_cap_in_gb
     ?daily_data_cap_notifications_disabled ?disable_ip_masking
     ?force_customer_storage_for_profiler ?id
     ?internet_ingestion_enabled ?internet_query_enabled
     ?local_authentication_disabled ?retention_in_days
     ?sampling_percentage ?tags ?workspace_id ?timeouts
-    ~application_type ~location ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_application_insights" in
-  let __resource =
-    azurerm_application_insights ?daily_data_cap_in_gb
-      ?daily_data_cap_notifications_disabled ?disable_ip_masking
-      ?force_customer_storage_for_profiler ?id
+    ~application_type ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?daily_data_cap_in_gb ?daily_data_cap_notifications_disabled
+      ?disable_ip_masking ?force_customer_storage_for_profiler ?id
       ?internet_ingestion_enabled ?internet_query_enabled
       ?local_authentication_disabled ?retention_in_days
       ?sampling_percentage ?tags ?workspace_id ?timeouts
-      ~application_type ~location ~name ~resource_group_name ()
+      ~application_type ~location ~name ~resource_group_name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights __resource);
-  let __resource_attributes =
-    ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       application_type =
-         Prop.computed __resource_type __resource_id
-           "application_type";
-       connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       daily_data_cap_in_gb =
-         Prop.computed __resource_type __resource_id
-           "daily_data_cap_in_gb";
-       daily_data_cap_notifications_disabled =
-         Prop.computed __resource_type __resource_id
-           "daily_data_cap_notifications_disabled";
-       disable_ip_masking =
-         Prop.computed __resource_type __resource_id
-           "disable_ip_masking";
-       force_customer_storage_for_profiler =
-         Prop.computed __resource_type __resource_id
-           "force_customer_storage_for_profiler";
-       id = Prop.computed __resource_type __resource_id "id";
-       instrumentation_key =
-         Prop.computed __resource_type __resource_id
-           "instrumentation_key";
-       internet_ingestion_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_ingestion_enabled";
-       internet_query_enabled =
-         Prop.computed __resource_type __resource_id
-           "internet_query_enabled";
-       local_authentication_disabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_disabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retention_in_days =
-         Prop.computed __resource_type __resource_id
-           "retention_in_days";
-       sampling_percentage =
-         Prop.computed __resource_type __resource_id
-           "sampling_percentage";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

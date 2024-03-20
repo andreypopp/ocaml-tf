@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -121,3 +121,27 @@ val register :
   ephemeral_block_device:ephemeral_block_device list ->
   string ->
   t
+
+val make :
+  ?architecture:string prop ->
+  ?boot_mode:string prop ->
+  ?deprecation_time:string prop ->
+  ?description:string prop ->
+  ?ena_support:bool prop ->
+  ?id:string prop ->
+  ?image_location:string prop ->
+  ?imds_support:string prop ->
+  ?kernel_id:string prop ->
+  ?ramdisk_id:string prop ->
+  ?root_device_name:string prop ->
+  ?sriov_net_support:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tpm_support:string prop ->
+  ?virtualization_type:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  ebs_block_device:ebs_block_device list ->
+  ephemeral_block_device:ephemeral_block_device list ->
+  string ->
+  t Tf_core.resource

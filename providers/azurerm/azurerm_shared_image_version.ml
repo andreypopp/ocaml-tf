@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type target_region = {
   disk_encryption_set_id : string prop option; [@option]
@@ -114,61 +112,68 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?blob_uri ?deletion_of_replicated_locations_enabled
+    ?end_of_life_date ?exclude_from_latest ?id ?managed_image_id
+    ?os_disk_snapshot_id ?replication_mode ?storage_account_id ?tags
+    ?timeouts ~gallery_name ~image_name ~location ~name
+    ~resource_group_name ~target_region __id =
+  let __type = "azurerm_shared_image_version" in
+  let __attrs =
+    ({
+       blob_uri = Prop.computed __type __id "blob_uri";
+       deletion_of_replicated_locations_enabled =
+         Prop.computed __type __id
+           "deletion_of_replicated_locations_enabled";
+       end_of_life_date =
+         Prop.computed __type __id "end_of_life_date";
+       exclude_from_latest =
+         Prop.computed __type __id "exclude_from_latest";
+       gallery_name = Prop.computed __type __id "gallery_name";
+       id = Prop.computed __type __id "id";
+       image_name = Prop.computed __type __id "image_name";
+       location = Prop.computed __type __id "location";
+       managed_image_id =
+         Prop.computed __type __id "managed_image_id";
+       name = Prop.computed __type __id "name";
+       os_disk_snapshot_id =
+         Prop.computed __type __id "os_disk_snapshot_id";
+       replication_mode =
+         Prop.computed __type __id "replication_mode";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_shared_image_version
+        (azurerm_shared_image_version ?blob_uri
+           ?deletion_of_replicated_locations_enabled
+           ?end_of_life_date ?exclude_from_latest ?id
+           ?managed_image_id ?os_disk_snapshot_id ?replication_mode
+           ?storage_account_id ?tags ?timeouts ~gallery_name
+           ~image_name ~location ~name ~resource_group_name
+           ~target_region ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?blob_uri
     ?deletion_of_replicated_locations_enabled ?end_of_life_date
     ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
     ?replication_mode ?storage_account_id ?tags ?timeouts
     ~gallery_name ~image_name ~location ~name ~resource_group_name
-    ~target_region __resource_id =
-  let __resource_type = "azurerm_shared_image_version" in
-  let __resource =
-    azurerm_shared_image_version ?blob_uri
-      ?deletion_of_replicated_locations_enabled ?end_of_life_date
-      ?exclude_from_latest ?id ?managed_image_id ?os_disk_snapshot_id
-      ?replication_mode ?storage_account_id ?tags ?timeouts
-      ~gallery_name ~image_name ~location ~name ~resource_group_name
-      ~target_region ()
+    ~target_region __id =
+  let (r : _ Tf_core.resource) =
+    make ?blob_uri ?deletion_of_replicated_locations_enabled
+      ?end_of_life_date ?exclude_from_latest ?id ?managed_image_id
+      ?os_disk_snapshot_id ?replication_mode ?storage_account_id
+      ?tags ?timeouts ~gallery_name ~image_name ~location ~name
+      ~resource_group_name ~target_region __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_shared_image_version __resource);
-  let __resource_attributes =
-    ({
-       blob_uri =
-         Prop.computed __resource_type __resource_id "blob_uri";
-       deletion_of_replicated_locations_enabled =
-         Prop.computed __resource_type __resource_id
-           "deletion_of_replicated_locations_enabled";
-       end_of_life_date =
-         Prop.computed __resource_type __resource_id
-           "end_of_life_date";
-       exclude_from_latest =
-         Prop.computed __resource_type __resource_id
-           "exclude_from_latest";
-       gallery_name =
-         Prop.computed __resource_type __resource_id "gallery_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_name =
-         Prop.computed __resource_type __resource_id "image_name";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_image_id =
-         Prop.computed __resource_type __resource_id
-           "managed_image_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       os_disk_snapshot_id =
-         Prop.computed __resource_type __resource_id
-           "os_disk_snapshot_id";
-       replication_mode =
-         Prop.computed __resource_type __resource_id
-           "replication_mode";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

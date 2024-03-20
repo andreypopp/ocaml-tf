@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,17 @@ val register :
   automatic_update:automatic_update list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  recovery_fabric_name:string prop ->
+  recovery_replication_policy_id:string prop ->
+  recovery_source_protection_container_name:string prop ->
+  recovery_target_protection_container_id:string prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
+  automatic_update:automatic_update list ->
+  string ->
+  t Tf_core.resource

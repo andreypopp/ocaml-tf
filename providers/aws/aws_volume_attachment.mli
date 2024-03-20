@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,15 @@ val register :
   volume_id:string prop ->
   string ->
   t
+
+val make :
+  ?force_detach:bool prop ->
+  ?id:string prop ->
+  ?skip_destroy:bool prop ->
+  ?stop_instance_before_detaching:bool prop ->
+  ?timeouts:timeouts ->
+  device_name:string prop ->
+  instance_id:string prop ->
+  volume_id:string prop ->
+  string ->
+  t Tf_core.resource

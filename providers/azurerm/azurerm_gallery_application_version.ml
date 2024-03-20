@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type manage_action = {
   install : string prop;  (** install *)
@@ -116,43 +114,52 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?config_file ?enable_health_check
-    ?end_of_life_date ?exclude_from_latest ?id ?package_file ?tags
-    ?timeouts ~gallery_application_id ~location ~name ~manage_action
-    ~source ~target_region __resource_id =
-  let __resource_type = "azurerm_gallery_application_version" in
-  let __resource =
-    azurerm_gallery_application_version ?config_file
-      ?enable_health_check ?end_of_life_date ?exclude_from_latest ?id
-      ?package_file ?tags ?timeouts ~gallery_application_id ~location
-      ~name ~manage_action ~source ~target_region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_gallery_application_version __resource);
-  let __resource_attributes =
+let make ?config_file ?enable_health_check ?end_of_life_date
+    ?exclude_from_latest ?id ?package_file ?tags ?timeouts
+    ~gallery_application_id ~location ~name ~manage_action ~source
+    ~target_region __id =
+  let __type = "azurerm_gallery_application_version" in
+  let __attrs =
     ({
-       config_file =
-         Prop.computed __resource_type __resource_id "config_file";
+       config_file = Prop.computed __type __id "config_file";
        enable_health_check =
-         Prop.computed __resource_type __resource_id
-           "enable_health_check";
+         Prop.computed __type __id "enable_health_check";
        end_of_life_date =
-         Prop.computed __resource_type __resource_id
-           "end_of_life_date";
+         Prop.computed __type __id "end_of_life_date";
        exclude_from_latest =
-         Prop.computed __resource_type __resource_id
-           "exclude_from_latest";
+         Prop.computed __type __id "exclude_from_latest";
        gallery_application_id =
-         Prop.computed __resource_type __resource_id
-           "gallery_application_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       package_file =
-         Prop.computed __resource_type __resource_id "package_file";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "gallery_application_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       package_file = Prop.computed __type __id "package_file";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_gallery_application_version
+        (azurerm_gallery_application_version ?config_file
+           ?enable_health_check ?end_of_life_date
+           ?exclude_from_latest ?id ?package_file ?tags ?timeouts
+           ~gallery_application_id ~location ~name ~manage_action
+           ~source ~target_region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?config_file ?enable_health_check
+    ?end_of_life_date ?exclude_from_latest ?id ?package_file ?tags
+    ?timeouts ~gallery_application_id ~location ~name ~manage_action
+    ~source ~target_region __id =
+  let (r : _ Tf_core.resource) =
+    make ?config_file ?enable_health_check ?end_of_life_date
+      ?exclude_from_latest ?id ?package_file ?tags ?timeouts
+      ~gallery_application_id ~location ~name ~manage_action ~source
+      ~target_region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

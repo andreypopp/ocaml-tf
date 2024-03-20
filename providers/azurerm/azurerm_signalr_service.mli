@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -134,3 +134,28 @@ val register :
   upstream_endpoint:upstream_endpoint list ->
   string ->
   t
+
+val make :
+  ?aad_auth_enabled:bool prop ->
+  ?connectivity_logs_enabled:bool prop ->
+  ?http_request_logs_enabled:bool prop ->
+  ?id:string prop ->
+  ?live_trace_enabled:bool prop ->
+  ?local_auth_enabled:bool prop ->
+  ?messaging_logs_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?serverless_connection_timeout_in_seconds:float prop ->
+  ?service_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tls_client_cert_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  cors:cors list ->
+  identity:identity list ->
+  live_trace:live_trace list ->
+  sku:sku list ->
+  upstream_endpoint:upstream_endpoint list ->
+  string ->
+  t Tf_core.resource

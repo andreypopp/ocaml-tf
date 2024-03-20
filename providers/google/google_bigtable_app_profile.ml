@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type single_cluster_routing = {
   allow_transactional_writes : bool prop option; [@option]
@@ -95,41 +93,52 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?description ?id ?ignore_warnings ?instance
+let make ?description ?id ?ignore_warnings ?instance
     ?multi_cluster_routing_cluster_ids ?multi_cluster_routing_use_any
     ?project ?timeouts ~app_profile_id ~single_cluster_routing
-    ~standard_isolation __resource_id =
-  let __resource_type = "google_bigtable_app_profile" in
-  let __resource =
-    google_bigtable_app_profile ?description ?id ?ignore_warnings
-      ?instance ?multi_cluster_routing_cluster_ids
-      ?multi_cluster_routing_use_any ?project ?timeouts
-      ~app_profile_id ~single_cluster_routing ~standard_isolation ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigtable_app_profile __resource);
-  let __resource_attributes =
+    ~standard_isolation __id =
+  let __type = "google_bigtable_app_profile" in
+  let __attrs =
     ({
-       app_profile_id =
-         Prop.computed __resource_type __resource_id "app_profile_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_warnings =
-         Prop.computed __resource_type __resource_id
-           "ignore_warnings";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
+       app_profile_id = Prop.computed __type __id "app_profile_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ignore_warnings = Prop.computed __type __id "ignore_warnings";
+       instance = Prop.computed __type __id "instance";
        multi_cluster_routing_cluster_ids =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "multi_cluster_routing_cluster_ids";
        multi_cluster_routing_use_any =
-         Prop.computed __resource_type __resource_id
-           "multi_cluster_routing_use_any";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "multi_cluster_routing_use_any";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigtable_app_profile
+        (google_bigtable_app_profile ?description ?id
+           ?ignore_warnings ?instance
+           ?multi_cluster_routing_cluster_ids
+           ?multi_cluster_routing_use_any ?project ?timeouts
+           ~app_profile_id ~single_cluster_routing
+           ~standard_isolation ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?ignore_warnings ?instance
+    ?multi_cluster_routing_cluster_ids ?multi_cluster_routing_use_any
+    ?project ?timeouts ~app_profile_id ~single_cluster_routing
+    ~standard_isolation __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?ignore_warnings ?instance
+      ?multi_cluster_routing_cluster_ids
+      ?multi_cluster_routing_use_any ?project ?timeouts
+      ~app_profile_id ~single_cluster_routing ~standard_isolation
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

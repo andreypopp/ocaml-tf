@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -133,3 +133,22 @@ val register :
   resource_settings:resource_settings list ->
   string ->
   t
+
+val make :
+  ?billing_account:string prop ->
+  ?enable_sovereign_controls:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?partner:string prop ->
+  ?provisioned_resources_parent:string prop ->
+  ?violation_notifications_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  compliance_regime:string prop ->
+  display_name:string prop ->
+  location:string prop ->
+  organization:string prop ->
+  kms_settings:kms_settings list ->
+  partner_permissions:partner_permissions list ->
+  resource_settings:resource_settings list ->
+  string ->
+  t Tf_core.resource

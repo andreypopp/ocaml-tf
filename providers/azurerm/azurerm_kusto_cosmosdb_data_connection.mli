@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,17 @@ val register :
   table_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?mapping_rule_name:string prop ->
+  ?retrieval_start_date:string prop ->
+  ?timeouts:timeouts ->
+  cosmosdb_container_id:string prop ->
+  kusto_database_id:string prop ->
+  location:string prop ->
+  managed_identity_id:string prop ->
+  name:string prop ->
+  table_name:string prop ->
+  string ->
+  t Tf_core.resource

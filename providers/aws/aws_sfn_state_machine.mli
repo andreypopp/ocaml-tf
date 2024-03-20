@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,19 @@ val register :
   tracing_configuration:tracing_configuration list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?publish:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  definition:string prop ->
+  role_arn:string prop ->
+  logging_configuration:logging_configuration list ->
+  tracing_configuration:tracing_configuration list ->
+  string ->
+  t Tf_core.resource

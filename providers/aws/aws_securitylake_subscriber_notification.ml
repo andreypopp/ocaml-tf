@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration__https_notification_configuration = {
   authorization_api_key_name : string prop option; [@option]
@@ -67,22 +65,29 @@ type t = {
   subscriber_id : string prop;
 }
 
-let register ?tf_module ~subscriber_id ~configuration __resource_id =
-  let __resource_type = "aws_securitylake_subscriber_notification" in
-  let __resource =
-    aws_securitylake_subscriber_notification ~subscriber_id
-      ~configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securitylake_subscriber_notification __resource);
-  let __resource_attributes =
+let make ~subscriber_id ~configuration __id =
+  let __type = "aws_securitylake_subscriber_notification" in
+  let __attrs =
     ({
-       endpoint_id =
-         Prop.computed __resource_type __resource_id "endpoint_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       subscriber_id =
-         Prop.computed __resource_type __resource_id "subscriber_id";
+       endpoint_id = Prop.computed __type __id "endpoint_id";
+       id = Prop.computed __type __id "id";
+       subscriber_id = Prop.computed __type __id "subscriber_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securitylake_subscriber_notification
+        (aws_securitylake_subscriber_notification ~subscriber_id
+           ~configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~subscriber_id ~configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ~subscriber_id ~configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

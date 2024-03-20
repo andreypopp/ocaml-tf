@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filter = {
   contains : string prop list option; [@option]  (** contains *)
@@ -36,23 +34,29 @@ type t = {
   rule_name : string prop;
 }
 
-let register ?tf_module ?id ~analyzer_name ~rule_name ~filter
-    __resource_id =
-  let __resource_type = "aws_accessanalyzer_archive_rule" in
-  let __resource =
-    aws_accessanalyzer_archive_rule ?id ~analyzer_name ~rule_name
-      ~filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_accessanalyzer_archive_rule __resource);
-  let __resource_attributes =
+let make ?id ~analyzer_name ~rule_name ~filter __id =
+  let __type = "aws_accessanalyzer_archive_rule" in
+  let __attrs =
     ({
-       analyzer_name =
-         Prop.computed __resource_type __resource_id "analyzer_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       rule_name =
-         Prop.computed __resource_type __resource_id "rule_name";
+       analyzer_name = Prop.computed __type __id "analyzer_name";
+       id = Prop.computed __type __id "id";
+       rule_name = Prop.computed __type __id "rule_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_accessanalyzer_archive_rule
+        (aws_accessanalyzer_archive_rule ?id ~analyzer_name
+           ~rule_name ~filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~analyzer_name ~rule_name ~filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~analyzer_name ~rule_name ~filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -158,6 +156,75 @@ type t = {
   tls_enabled : bool prop;
 }
 
+let make ?auto_minor_version_upgrade ?data_tiering ?description
+    ?engine_version ?final_snapshot_name ?id ?kms_key_arn
+    ?maintenance_window ?name ?name_prefix ?num_replicas_per_shard
+    ?num_shards ?parameter_group_name ?port ?security_group_ids
+    ?snapshot_arns ?snapshot_name ?snapshot_retention_limit
+    ?snapshot_window ?sns_topic_arn ?subnet_group_name ?tags
+    ?tags_all ?tls_enabled ?timeouts ~acl_name ~node_type __id =
+  let __type = "aws_memorydb_cluster" in
+  let __attrs =
+    ({
+       acl_name = Prop.computed __type __id "acl_name";
+       arn = Prop.computed __type __id "arn";
+       auto_minor_version_upgrade =
+         Prop.computed __type __id "auto_minor_version_upgrade";
+       cluster_endpoint =
+         Prop.computed __type __id "cluster_endpoint";
+       data_tiering = Prop.computed __type __id "data_tiering";
+       description = Prop.computed __type __id "description";
+       engine_patch_version =
+         Prop.computed __type __id "engine_patch_version";
+       engine_version = Prop.computed __type __id "engine_version";
+       final_snapshot_name =
+         Prop.computed __type __id "final_snapshot_name";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       maintenance_window =
+         Prop.computed __type __id "maintenance_window";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       node_type = Prop.computed __type __id "node_type";
+       num_replicas_per_shard =
+         Prop.computed __type __id "num_replicas_per_shard";
+       num_shards = Prop.computed __type __id "num_shards";
+       parameter_group_name =
+         Prop.computed __type __id "parameter_group_name";
+       port = Prop.computed __type __id "port";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       shards = Prop.computed __type __id "shards";
+       snapshot_arns = Prop.computed __type __id "snapshot_arns";
+       snapshot_name = Prop.computed __type __id "snapshot_name";
+       snapshot_retention_limit =
+         Prop.computed __type __id "snapshot_retention_limit";
+       snapshot_window = Prop.computed __type __id "snapshot_window";
+       sns_topic_arn = Prop.computed __type __id "sns_topic_arn";
+       subnet_group_name =
+         Prop.computed __type __id "subnet_group_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tls_enabled = Prop.computed __type __id "tls_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_memorydb_cluster
+        (aws_memorydb_cluster ?auto_minor_version_upgrade
+           ?data_tiering ?description ?engine_version
+           ?final_snapshot_name ?id ?kms_key_arn ?maintenance_window
+           ?name ?name_prefix ?num_replicas_per_shard ?num_shards
+           ?parameter_group_name ?port ?security_group_ids
+           ?snapshot_arns ?snapshot_name ?snapshot_retention_limit
+           ?snapshot_window ?sns_topic_arn ?subnet_group_name ?tags
+           ?tags_all ?tls_enabled ?timeouts ~acl_name ~node_type ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_minor_version_upgrade ?data_tiering
     ?description ?engine_version ?final_snapshot_name ?id
     ?kms_key_arn ?maintenance_window ?name ?name_prefix
@@ -165,88 +232,15 @@ let register ?tf_module ?auto_minor_version_upgrade ?data_tiering
     ?security_group_ids ?snapshot_arns ?snapshot_name
     ?snapshot_retention_limit ?snapshot_window ?sns_topic_arn
     ?subnet_group_name ?tags ?tags_all ?tls_enabled ?timeouts
-    ~acl_name ~node_type __resource_id =
-  let __resource_type = "aws_memorydb_cluster" in
-  let __resource =
-    aws_memorydb_cluster ?auto_minor_version_upgrade ?data_tiering
-      ?description ?engine_version ?final_snapshot_name ?id
-      ?kms_key_arn ?maintenance_window ?name ?name_prefix
-      ?num_replicas_per_shard ?num_shards ?parameter_group_name ?port
-      ?security_group_ids ?snapshot_arns ?snapshot_name
-      ?snapshot_retention_limit ?snapshot_window ?sns_topic_arn
-      ?subnet_group_name ?tags ?tags_all ?tls_enabled ?timeouts
-      ~acl_name ~node_type ()
+    ~acl_name ~node_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_minor_version_upgrade ?data_tiering ?description
+      ?engine_version ?final_snapshot_name ?id ?kms_key_arn
+      ?maintenance_window ?name ?name_prefix ?num_replicas_per_shard
+      ?num_shards ?parameter_group_name ?port ?security_group_ids
+      ?snapshot_arns ?snapshot_name ?snapshot_retention_limit
+      ?snapshot_window ?sns_topic_arn ?subnet_group_name ?tags
+      ?tags_all ?tls_enabled ?timeouts ~acl_name ~node_type __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_memorydb_cluster __resource);
-  let __resource_attributes =
-    ({
-       acl_name =
-         Prop.computed __resource_type __resource_id "acl_name";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_minor_version_upgrade =
-         Prop.computed __resource_type __resource_id
-           "auto_minor_version_upgrade";
-       cluster_endpoint =
-         Prop.computed __resource_type __resource_id
-           "cluster_endpoint";
-       data_tiering =
-         Prop.computed __resource_type __resource_id "data_tiering";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       engine_patch_version =
-         Prop.computed __resource_type __resource_id
-           "engine_patch_version";
-       engine_version =
-         Prop.computed __resource_type __resource_id "engine_version";
-       final_snapshot_name =
-         Prop.computed __resource_type __resource_id
-           "final_snapshot_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       maintenance_window =
-         Prop.computed __resource_type __resource_id
-           "maintenance_window";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       node_type =
-         Prop.computed __resource_type __resource_id "node_type";
-       num_replicas_per_shard =
-         Prop.computed __resource_type __resource_id
-           "num_replicas_per_shard";
-       num_shards =
-         Prop.computed __resource_type __resource_id "num_shards";
-       parameter_group_name =
-         Prop.computed __resource_type __resource_id
-           "parameter_group_name";
-       port = Prop.computed __resource_type __resource_id "port";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       shards = Prop.computed __resource_type __resource_id "shards";
-       snapshot_arns =
-         Prop.computed __resource_type __resource_id "snapshot_arns";
-       snapshot_name =
-         Prop.computed __resource_type __resource_id "snapshot_name";
-       snapshot_retention_limit =
-         Prop.computed __resource_type __resource_id
-           "snapshot_retention_limit";
-       snapshot_window =
-         Prop.computed __resource_type __resource_id
-           "snapshot_window";
-       sns_topic_arn =
-         Prop.computed __resource_type __resource_id "sns_topic_arn";
-       subnet_group_name =
-         Prop.computed __resource_type __resource_id
-           "subnet_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tls_enabled =
-         Prop.computed __resource_type __resource_id "tls_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

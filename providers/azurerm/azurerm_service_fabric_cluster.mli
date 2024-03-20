@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -261,3 +261,33 @@ val register :
   upgrade_policy:upgrade_policy list ->
   string ->
   t
+
+val make :
+  ?add_on_features:string prop list ->
+  ?cluster_code_version:string prop ->
+  ?id:string prop ->
+  ?service_fabric_zonal_upgrade_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?vmss_zonal_upgrade_mode:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  management_endpoint:string prop ->
+  name:string prop ->
+  reliability_level:string prop ->
+  resource_group_name:string prop ->
+  upgrade_mode:string prop ->
+  vm_image:string prop ->
+  azure_active_directory:azure_active_directory list ->
+  certificate:certificate list ->
+  certificate_common_names:certificate_common_names list ->
+  client_certificate_common_name:client_certificate_common_name list ->
+  client_certificate_thumbprint:client_certificate_thumbprint list ->
+  diagnostics_config:diagnostics_config list ->
+  fabric_settings:fabric_settings list ->
+  node_type:node_type list ->
+  reverse_proxy_certificate:reverse_proxy_certificate list ->
+  reverse_proxy_certificate_common_names:
+    reverse_proxy_certificate_common_names list ->
+  upgrade_policy:upgrade_policy list ->
+  string ->
+  t Tf_core.resource

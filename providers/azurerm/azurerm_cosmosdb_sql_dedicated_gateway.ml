@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,26 +42,34 @@ type t = {
   instance_size : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cosmosdb_account_id
-    ~instance_count ~instance_size __resource_id =
-  let __resource_type = "azurerm_cosmosdb_sql_dedicated_gateway" in
-  let __resource =
-    azurerm_cosmosdb_sql_dedicated_gateway ?id ?timeouts
-      ~cosmosdb_account_id ~instance_count ~instance_size ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_sql_dedicated_gateway __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cosmosdb_account_id ~instance_count
+    ~instance_size __id =
+  let __type = "azurerm_cosmosdb_sql_dedicated_gateway" in
+  let __attrs =
     ({
        cosmosdb_account_id =
-         Prop.computed __resource_type __resource_id
-           "cosmosdb_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       instance_size =
-         Prop.computed __resource_type __resource_id "instance_size";
+         Prop.computed __type __id "cosmosdb_account_id";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       instance_size = Prop.computed __type __id "instance_size";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_sql_dedicated_gateway
+        (azurerm_cosmosdb_sql_dedicated_gateway ?id ?timeouts
+           ~cosmosdb_account_id ~instance_count ~instance_size ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cosmosdb_account_id
+    ~instance_count ~instance_size __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cosmosdb_account_id ~instance_count
+      ~instance_size __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

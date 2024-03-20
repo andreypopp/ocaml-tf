@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -31,3 +31,10 @@ val register :
   shield_protection_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  health_check_arn:string prop ->
+  shield_protection_id:string prop ->
+  string ->
+  t Tf_core.resource

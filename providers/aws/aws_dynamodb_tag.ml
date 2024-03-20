@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dynamodb_tag = {
   id : string prop option; [@option]  (** id *)
@@ -24,21 +22,29 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?id ~key ~resource_arn ~value __resource_id =
-  let __resource_type = "aws_dynamodb_tag" in
-  let __resource =
-    aws_dynamodb_tag ?id ~key ~resource_arn ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dynamodb_tag __resource);
-  let __resource_attributes =
+let make ?id ~key ~resource_arn ~value __id =
+  let __type = "aws_dynamodb_tag" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
-       value = Prop.computed __resource_type __resource_id "value";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       resource_arn = Prop.computed __type __id "resource_arn";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dynamodb_tag
+        (aws_dynamodb_tag ?id ~key ~resource_arn ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~key ~resource_arn ~value __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~key ~resource_arn ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

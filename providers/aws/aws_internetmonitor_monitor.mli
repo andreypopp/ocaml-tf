@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -77,3 +77,18 @@ val register :
     internet_measurements_log_delivery list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?max_city_networks_to_monitor:float prop ->
+  ?resources:string prop list ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?traffic_percentage_to_monitor:float prop ->
+  monitor_name:string prop ->
+  health_events_config:health_events_config list ->
+  internet_measurements_log_delivery:
+    internet_measurements_log_delivery list ->
+  string ->
+  t Tf_core.resource

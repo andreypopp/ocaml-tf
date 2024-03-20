@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,34 +49,39 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?description ?id ?project ?region ?timeouts
-    ~name ~network __resource_id =
-  let __resource_type = "google_compute_vpn_gateway" in
-  let __resource =
-    google_compute_vpn_gateway ?description ?id ?project ?region
-      ?timeouts ~name ~network ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_vpn_gateway __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?region ?timeouts ~name ~network
+    __id =
+  let __type = "google_compute_vpn_gateway" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       gateway_id =
-         Prop.computed __resource_type __resource_id "gateway_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       gateway_id = Prop.computed __type __id "gateway_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_vpn_gateway
+        (google_compute_vpn_gateway ?description ?id ?project ?region
+           ?timeouts ~name ~network ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?region ?timeouts
+    ~name ~network __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?region ?timeouts ~name ~network
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

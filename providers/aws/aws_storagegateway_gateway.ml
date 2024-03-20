@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type maintenance_start_time = {
   day_of_month : string prop option; [@option]  (** day_of_month *)
@@ -153,6 +151,74 @@ type t = {
   tape_drive_type : string prop;
 }
 
+let make ?activation_key ?average_download_rate_limit_in_bits_per_sec
+    ?average_upload_rate_limit_in_bits_per_sec
+    ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
+    ?gateway_vpc_endpoint ?id ?medium_changer_type
+    ?smb_file_share_visibility ?smb_guest_password
+    ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
+    ~gateway_name ~gateway_timezone ~maintenance_start_time
+    ~smb_active_directory_settings __id =
+  let __type = "aws_storagegateway_gateway" in
+  let __attrs =
+    ({
+       activation_key = Prop.computed __type __id "activation_key";
+       arn = Prop.computed __type __id "arn";
+       average_download_rate_limit_in_bits_per_sec =
+         Prop.computed __type __id
+           "average_download_rate_limit_in_bits_per_sec";
+       average_upload_rate_limit_in_bits_per_sec =
+         Prop.computed __type __id
+           "average_upload_rate_limit_in_bits_per_sec";
+       cloudwatch_log_group_arn =
+         Prop.computed __type __id "cloudwatch_log_group_arn";
+       ec2_instance_id = Prop.computed __type __id "ec2_instance_id";
+       endpoint_type = Prop.computed __type __id "endpoint_type";
+       gateway_id = Prop.computed __type __id "gateway_id";
+       gateway_ip_address =
+         Prop.computed __type __id "gateway_ip_address";
+       gateway_name = Prop.computed __type __id "gateway_name";
+       gateway_network_interface =
+         Prop.computed __type __id "gateway_network_interface";
+       gateway_timezone =
+         Prop.computed __type __id "gateway_timezone";
+       gateway_type = Prop.computed __type __id "gateway_type";
+       gateway_vpc_endpoint =
+         Prop.computed __type __id "gateway_vpc_endpoint";
+       host_environment =
+         Prop.computed __type __id "host_environment";
+       id = Prop.computed __type __id "id";
+       medium_changer_type =
+         Prop.computed __type __id "medium_changer_type";
+       smb_file_share_visibility =
+         Prop.computed __type __id "smb_file_share_visibility";
+       smb_guest_password =
+         Prop.computed __type __id "smb_guest_password";
+       smb_security_strategy =
+         Prop.computed __type __id "smb_security_strategy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tape_drive_type = Prop.computed __type __id "tape_drive_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_storagegateway_gateway
+        (aws_storagegateway_gateway ?activation_key
+           ?average_download_rate_limit_in_bits_per_sec
+           ?average_upload_rate_limit_in_bits_per_sec
+           ?cloudwatch_log_group_arn ?gateway_ip_address
+           ?gateway_type ?gateway_vpc_endpoint ?id
+           ?medium_changer_type ?smb_file_share_visibility
+           ?smb_guest_password ?smb_security_strategy ?tags ?tags_all
+           ?tape_drive_type ?timeouts ~gateway_name ~gateway_timezone
+           ~maintenance_start_time ~smb_active_directory_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?activation_key
     ?average_download_rate_limit_in_bits_per_sec
     ?average_upload_rate_limit_in_bits_per_sec
@@ -161,81 +227,16 @@ let register ?tf_module ?activation_key
     ?smb_file_share_visibility ?smb_guest_password
     ?smb_security_strategy ?tags ?tags_all ?tape_drive_type ?timeouts
     ~gateway_name ~gateway_timezone ~maintenance_start_time
-    ~smb_active_directory_settings __resource_id =
-  let __resource_type = "aws_storagegateway_gateway" in
-  let __resource =
-    aws_storagegateway_gateway ?activation_key
-      ?average_download_rate_limit_in_bits_per_sec
+    ~smb_active_directory_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?activation_key ?average_download_rate_limit_in_bits_per_sec
       ?average_upload_rate_limit_in_bits_per_sec
       ?cloudwatch_log_group_arn ?gateway_ip_address ?gateway_type
       ?gateway_vpc_endpoint ?id ?medium_changer_type
       ?smb_file_share_visibility ?smb_guest_password
       ?smb_security_strategy ?tags ?tags_all ?tape_drive_type
       ?timeouts ~gateway_name ~gateway_timezone
-      ~maintenance_start_time ~smb_active_directory_settings ()
+      ~maintenance_start_time ~smb_active_directory_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_storagegateway_gateway __resource);
-  let __resource_attributes =
-    ({
-       activation_key =
-         Prop.computed __resource_type __resource_id "activation_key";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       average_download_rate_limit_in_bits_per_sec =
-         Prop.computed __resource_type __resource_id
-           "average_download_rate_limit_in_bits_per_sec";
-       average_upload_rate_limit_in_bits_per_sec =
-         Prop.computed __resource_type __resource_id
-           "average_upload_rate_limit_in_bits_per_sec";
-       cloudwatch_log_group_arn =
-         Prop.computed __resource_type __resource_id
-           "cloudwatch_log_group_arn";
-       ec2_instance_id =
-         Prop.computed __resource_type __resource_id
-           "ec2_instance_id";
-       endpoint_type =
-         Prop.computed __resource_type __resource_id "endpoint_type";
-       gateway_id =
-         Prop.computed __resource_type __resource_id "gateway_id";
-       gateway_ip_address =
-         Prop.computed __resource_type __resource_id
-           "gateway_ip_address";
-       gateway_name =
-         Prop.computed __resource_type __resource_id "gateway_name";
-       gateway_network_interface =
-         Prop.computed __resource_type __resource_id
-           "gateway_network_interface";
-       gateway_timezone =
-         Prop.computed __resource_type __resource_id
-           "gateway_timezone";
-       gateway_type =
-         Prop.computed __resource_type __resource_id "gateway_type";
-       gateway_vpc_endpoint =
-         Prop.computed __resource_type __resource_id
-           "gateway_vpc_endpoint";
-       host_environment =
-         Prop.computed __resource_type __resource_id
-           "host_environment";
-       id = Prop.computed __resource_type __resource_id "id";
-       medium_changer_type =
-         Prop.computed __resource_type __resource_id
-           "medium_changer_type";
-       smb_file_share_visibility =
-         Prop.computed __resource_type __resource_id
-           "smb_file_share_visibility";
-       smb_guest_password =
-         Prop.computed __resource_type __resource_id
-           "smb_guest_password";
-       smb_security_strategy =
-         Prop.computed __resource_type __resource_id
-           "smb_security_strategy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tape_drive_type =
-         Prop.computed __resource_type __resource_id
-           "tape_drive_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

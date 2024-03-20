@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,11 @@ val register :
   standards_control_arn:string prop ->
   string ->
   t
+
+val make :
+  ?disabled_reason:string prop ->
+  ?id:string prop ->
+  control_status:string prop ->
+  standards_control_arn:string prop ->
+  string ->
+  t Tf_core.resource

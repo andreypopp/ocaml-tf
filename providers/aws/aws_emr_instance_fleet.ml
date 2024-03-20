@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type instance_type_configs__configurations = {
   classification : string prop option; [@option]
@@ -139,36 +137,42 @@ type t = {
   target_spot_capacity : float prop;
 }
 
-let register ?tf_module ?id ?name ?target_on_demand_capacity
-    ?target_spot_capacity ~cluster_id ~instance_type_configs
-    ~launch_specifications __resource_id =
-  let __resource_type = "aws_emr_instance_fleet" in
-  let __resource =
-    aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
-      ?target_spot_capacity ~cluster_id ~instance_type_configs
-      ~launch_specifications ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emr_instance_fleet __resource);
-  let __resource_attributes =
+let make ?id ?name ?target_on_demand_capacity ?target_spot_capacity
+    ~cluster_id ~instance_type_configs ~launch_specifications __id =
+  let __type = "aws_emr_instance_fleet" in
+  let __attrs =
     ({
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        provisioned_on_demand_capacity =
-         Prop.computed __resource_type __resource_id
-           "provisioned_on_demand_capacity";
+         Prop.computed __type __id "provisioned_on_demand_capacity";
        provisioned_spot_capacity =
-         Prop.computed __resource_type __resource_id
-           "provisioned_spot_capacity";
+         Prop.computed __type __id "provisioned_spot_capacity";
        target_on_demand_capacity =
-         Prop.computed __resource_type __resource_id
-           "target_on_demand_capacity";
+         Prop.computed __type __id "target_on_demand_capacity";
        target_spot_capacity =
-         Prop.computed __resource_type __resource_id
-           "target_spot_capacity";
+         Prop.computed __type __id "target_spot_capacity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emr_instance_fleet
+        (aws_emr_instance_fleet ?id ?name ?target_on_demand_capacity
+           ?target_spot_capacity ~cluster_id ~instance_type_configs
+           ~launch_specifications ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?target_on_demand_capacity
+    ?target_spot_capacity ~cluster_id ~instance_type_configs
+    ~launch_specifications __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?target_on_demand_capacity ?target_spot_capacity
+      ~cluster_id ~instance_type_configs ~launch_specifications __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,21 @@ val register :
   config_parameter:config_parameter list ->
   string ->
   t
+
+val make :
+  ?base_capacity:float prop ->
+  ?enhanced_vpc_routing:bool prop ->
+  ?id:string prop ->
+  ?max_capacity:float prop ->
+  ?port:float prop ->
+  ?publicly_accessible:bool prop ->
+  ?security_group_ids:string prop list ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  namespace_name:string prop ->
+  workgroup_name:string prop ->
+  config_parameter:config_parameter list ->
+  string ->
+  t Tf_core.resource

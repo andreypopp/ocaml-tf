@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -64,3 +64,18 @@ val register :
   principal_id:string prop ->
   string ->
   t
+
+val make :
+  ?condition:string prop ->
+  ?condition_version:string prop ->
+  ?delegated_managed_identity_resource_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?role_definition_id:string prop ->
+  ?role_definition_name:string prop ->
+  ?skip_service_principal_aad_check:bool prop ->
+  ?timeouts:timeouts ->
+  principal_id:string prop ->
+  string ->
+  t Tf_core.resource

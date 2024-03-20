@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -33,3 +33,11 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?smart_routing:string prop ->
+  ?tiered_caching:string prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

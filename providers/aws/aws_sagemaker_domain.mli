@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -519,3 +519,21 @@ val register :
   retention_policy:retention_policy list ->
   string ->
   t
+
+val make :
+  ?app_network_access_type:string prop ->
+  ?app_security_group_management:string prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  auth_mode:string prop ->
+  domain_name:string prop ->
+  subnet_ids:string prop list ->
+  vpc_id:string prop ->
+  default_space_settings:default_space_settings list ->
+  default_user_settings:default_user_settings list ->
+  domain_settings:domain_settings list ->
+  retention_policy:retention_policy list ->
+  string ->
+  t Tf_core.resource

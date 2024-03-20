@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration__crawler_configuration = {
   role_arn : string prop;  (** role_arn *)
@@ -74,30 +72,36 @@ type t = {
   source_version : string prop;
 }
 
-let register ?tf_module ?event_classes ?source_version ~source_name
-    ~configuration __resource_id =
-  let __resource_type = "aws_securitylake_custom_log_source" in
-  let __resource =
-    aws_securitylake_custom_log_source ?event_classes ?source_version
-      ~source_name ~configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securitylake_custom_log_source __resource);
-  let __resource_attributes =
+let make ?event_classes ?source_version ~source_name ~configuration
+    __id =
+  let __type = "aws_securitylake_custom_log_source" in
+  let __attrs =
     ({
-       attributes =
-         Prop.computed __resource_type __resource_id "attributes";
-       event_classes =
-         Prop.computed __resource_type __resource_id "event_classes";
-       id = Prop.computed __resource_type __resource_id "id";
+       attributes = Prop.computed __type __id "attributes";
+       event_classes = Prop.computed __type __id "event_classes";
+       id = Prop.computed __type __id "id";
        provider_details =
-         Prop.computed __resource_type __resource_id
-           "provider_details";
-       source_name =
-         Prop.computed __resource_type __resource_id "source_name";
-       source_version =
-         Prop.computed __resource_type __resource_id "source_version";
+         Prop.computed __type __id "provider_details";
+       source_name = Prop.computed __type __id "source_name";
+       source_version = Prop.computed __type __id "source_version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securitylake_custom_log_source
+        (aws_securitylake_custom_log_source ?event_classes
+           ?source_version ~source_name ~configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?event_classes ?source_version ~source_name
+    ~configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?event_classes ?source_version ~source_name ~configuration
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

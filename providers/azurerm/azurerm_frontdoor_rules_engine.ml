@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule__action__request_header = {
   header_action_type : string prop option; [@option]
@@ -121,29 +119,36 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?enabled ?id ?timeouts ~frontdoor_name ~name
-    ~resource_group_name ~rule __resource_id =
-  let __resource_type = "azurerm_frontdoor_rules_engine" in
-  let __resource =
-    azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
-      ~frontdoor_name ~name ~resource_group_name ~rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_frontdoor_rules_engine __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?timeouts ~frontdoor_name ~name
+    ~resource_group_name ~rule __id =
+  let __type = "azurerm_frontdoor_rules_engine" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frontdoor_name =
-         Prop.computed __resource_type __resource_id "frontdoor_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       enabled = Prop.computed __type __id "enabled";
+       frontdoor_name = Prop.computed __type __id "frontdoor_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_frontdoor_rules_engine
+        (azurerm_frontdoor_rules_engine ?enabled ?id ?timeouts
+           ~frontdoor_name ~name ~resource_group_name ~rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?timeouts ~frontdoor_name ~name
+    ~resource_group_name ~rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?timeouts ~frontdoor_name ~name
+      ~resource_group_name ~rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

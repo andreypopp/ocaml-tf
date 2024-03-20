@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_turnstile_widget = {
   account_id : string prop;
@@ -51,31 +49,38 @@ type t = {
   secret : string prop;
 }
 
-let register ?tf_module ?bot_fight_mode ?id ?offlabel ?region
-    ~account_id ~domains ~mode ~name __resource_id =
-  let __resource_type = "cloudflare_turnstile_widget" in
-  let __resource =
-    cloudflare_turnstile_widget ?bot_fight_mode ?id ?offlabel ?region
-      ~account_id ~domains ~mode ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_turnstile_widget __resource);
-  let __resource_attributes =
+let make ?bot_fight_mode ?id ?offlabel ?region ~account_id ~domains
+    ~mode ~name __id =
+  let __type = "cloudflare_turnstile_widget" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       bot_fight_mode =
-         Prop.computed __resource_type __resource_id "bot_fight_mode";
-       domains =
-         Prop.computed __resource_type __resource_id "domains";
-       id = Prop.computed __resource_type __resource_id "id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
-       offlabel =
-         Prop.computed __resource_type __resource_id "offlabel";
-       region = Prop.computed __resource_type __resource_id "region";
-       secret = Prop.computed __resource_type __resource_id "secret";
+       account_id = Prop.computed __type __id "account_id";
+       bot_fight_mode = Prop.computed __type __id "bot_fight_mode";
+       domains = Prop.computed __type __id "domains";
+       id = Prop.computed __type __id "id";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
+       offlabel = Prop.computed __type __id "offlabel";
+       region = Prop.computed __type __id "region";
+       secret = Prop.computed __type __id "secret";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_turnstile_widget
+        (cloudflare_turnstile_widget ?bot_fight_mode ?id ?offlabel
+           ?region ~account_id ~domains ~mode ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bot_fight_mode ?id ?offlabel ?region
+    ~account_id ~domains ~mode ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?bot_fight_mode ?id ?offlabel ?region ~account_id ~domains
+      ~mode ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,34 +52,37 @@ type t = {
   subscription_id : string prop;
 }
 
-let register ?tf_module ?id ?message ?subscription_id ?timeouts
-    ~display_name ~email_addresses ~email_subject ~name __resource_id
-    =
-  let __resource_type = "azurerm_cost_anomaly_alert" in
-  let __resource =
-    azurerm_cost_anomaly_alert ?id ?message ?subscription_id
-      ?timeouts ~display_name ~email_addresses ~email_subject ~name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cost_anomaly_alert __resource);
-  let __resource_attributes =
+let make ?id ?message ?subscription_id ?timeouts ~display_name
+    ~email_addresses ~email_subject ~name __id =
+  let __type = "azurerm_cost_anomaly_alert" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       email_addresses =
-         Prop.computed __resource_type __resource_id
-           "email_addresses";
-       email_subject =
-         Prop.computed __resource_type __resource_id "email_subject";
-       id = Prop.computed __resource_type __resource_id "id";
-       message =
-         Prop.computed __resource_type __resource_id "message";
-       name = Prop.computed __resource_type __resource_id "name";
-       subscription_id =
-         Prop.computed __resource_type __resource_id
-           "subscription_id";
+       display_name = Prop.computed __type __id "display_name";
+       email_addresses = Prop.computed __type __id "email_addresses";
+       email_subject = Prop.computed __type __id "email_subject";
+       id = Prop.computed __type __id "id";
+       message = Prop.computed __type __id "message";
+       name = Prop.computed __type __id "name";
+       subscription_id = Prop.computed __type __id "subscription_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cost_anomaly_alert
+        (azurerm_cost_anomaly_alert ?id ?message ?subscription_id
+           ?timeouts ~display_name ~email_addresses ~email_subject
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?message ?subscription_id ?timeouts
+    ~display_name ~email_addresses ~email_subject ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?message ?subscription_id ?timeouts ~display_name
+      ~email_addresses ~email_subject ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

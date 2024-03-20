@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type firewall = {
   allow : string prop list option; [@option]
@@ -168,62 +166,70 @@ type t = {
   vpc_uuid : string prop;
 }
 
+let make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
+    ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
+    ?http_idle_timeout_seconds ?id ?project_id
+    ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
+    ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
+    __id =
+  let __type = "digitalocean_loadbalancer" in
+  let __attrs =
+    ({
+       algorithm = Prop.computed __type __id "algorithm";
+       disable_lets_encrypt_dns_records =
+         Prop.computed __type __id "disable_lets_encrypt_dns_records";
+       droplet_ids = Prop.computed __type __id "droplet_ids";
+       droplet_tag = Prop.computed __type __id "droplet_tag";
+       enable_backend_keepalive =
+         Prop.computed __type __id "enable_backend_keepalive";
+       enable_proxy_protocol =
+         Prop.computed __type __id "enable_proxy_protocol";
+       http_idle_timeout_seconds =
+         Prop.computed __type __id "http_idle_timeout_seconds";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
+       name = Prop.computed __type __id "name";
+       project_id = Prop.computed __type __id "project_id";
+       redirect_http_to_https =
+         Prop.computed __type __id "redirect_http_to_https";
+       region = Prop.computed __type __id "region";
+       size = Prop.computed __type __id "size";
+       size_unit = Prop.computed __type __id "size_unit";
+       status = Prop.computed __type __id "status";
+       type_ = Prop.computed __type __id "type";
+       urn = Prop.computed __type __id "urn";
+       vpc_uuid = Prop.computed __type __id "vpc_uuid";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_loadbalancer
+        (digitalocean_loadbalancer ?algorithm
+           ?disable_lets_encrypt_dns_records ?droplet_ids
+           ?droplet_tag ?enable_backend_keepalive
+           ?enable_proxy_protocol ?http_idle_timeout_seconds ?id
+           ?project_id ?redirect_http_to_https ?region ?size
+           ?size_unit ?type_ ?vpc_uuid ~name ~firewall
+           ~forwarding_rule ~healthcheck ~sticky_sessions ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?algorithm ?disable_lets_encrypt_dns_records
     ?droplet_ids ?droplet_tag ?enable_backend_keepalive
     ?enable_proxy_protocol ?http_idle_timeout_seconds ?id ?project_id
     ?redirect_http_to_https ?region ?size ?size_unit ?type_ ?vpc_uuid
     ~name ~firewall ~forwarding_rule ~healthcheck ~sticky_sessions
-    __resource_id =
-  let __resource_type = "digitalocean_loadbalancer" in
-  let __resource =
-    digitalocean_loadbalancer ?algorithm
-      ?disable_lets_encrypt_dns_records ?droplet_ids ?droplet_tag
-      ?enable_backend_keepalive ?enable_proxy_protocol
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?algorithm ?disable_lets_encrypt_dns_records ?droplet_ids
+      ?droplet_tag ?enable_backend_keepalive ?enable_proxy_protocol
       ?http_idle_timeout_seconds ?id ?project_id
       ?redirect_http_to_https ?region ?size ?size_unit ?type_
       ?vpc_uuid ~name ~firewall ~forwarding_rule ~healthcheck
-      ~sticky_sessions ()
+      ~sticky_sessions __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_loadbalancer __resource);
-  let __resource_attributes =
-    ({
-       algorithm =
-         Prop.computed __resource_type __resource_id "algorithm";
-       disable_lets_encrypt_dns_records =
-         Prop.computed __resource_type __resource_id
-           "disable_lets_encrypt_dns_records";
-       droplet_ids =
-         Prop.computed __resource_type __resource_id "droplet_ids";
-       droplet_tag =
-         Prop.computed __resource_type __resource_id "droplet_tag";
-       enable_backend_keepalive =
-         Prop.computed __resource_type __resource_id
-           "enable_backend_keepalive";
-       enable_proxy_protocol =
-         Prop.computed __resource_type __resource_id
-           "enable_proxy_protocol";
-       http_idle_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "http_idle_timeout_seconds";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
-       name = Prop.computed __resource_type __resource_id "name";
-       project_id =
-         Prop.computed __resource_type __resource_id "project_id";
-       redirect_http_to_https =
-         Prop.computed __resource_type __resource_id
-           "redirect_http_to_https";
-       region = Prop.computed __resource_type __resource_id "region";
-       size = Prop.computed __resource_type __resource_id "size";
-       size_unit =
-         Prop.computed __resource_type __resource_id "size_unit";
-       status = Prop.computed __resource_type __resource_id "status";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       urn = Prop.computed __resource_type __resource_id "urn";
-       vpc_uuid =
-         Prop.computed __resource_type __resource_id "vpc_uuid";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

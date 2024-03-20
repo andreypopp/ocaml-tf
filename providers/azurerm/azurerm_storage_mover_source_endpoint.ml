@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,29 +51,38 @@ type t = {
   storage_mover_id : string prop;
 }
 
-let register ?tf_module ?description ?export ?id ?nfs_version
-    ?timeouts ~host ~name ~storage_mover_id __resource_id =
-  let __resource_type = "azurerm_storage_mover_source_endpoint" in
-  let __resource =
-    azurerm_storage_mover_source_endpoint ?description ?export ?id
-      ?nfs_version ?timeouts ~host ~name ~storage_mover_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_mover_source_endpoint __resource);
-  let __resource_attributes =
+let make ?description ?export ?id ?nfs_version ?timeouts ~host ~name
+    ~storage_mover_id __id =
+  let __type = "azurerm_storage_mover_source_endpoint" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       export = Prop.computed __resource_type __resource_id "export";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       nfs_version =
-         Prop.computed __resource_type __resource_id "nfs_version";
+       description = Prop.computed __type __id "description";
+       export = Prop.computed __type __id "export";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       nfs_version = Prop.computed __type __id "nfs_version";
        storage_mover_id =
-         Prop.computed __resource_type __resource_id
-           "storage_mover_id";
+         Prop.computed __type __id "storage_mover_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_mover_source_endpoint
+        (azurerm_storage_mover_source_endpoint ?description ?export
+           ?id ?nfs_version ?timeouts ~host ~name ~storage_mover_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?export ?id ?nfs_version
+    ?timeouts ~host ~name ~storage_mover_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?export ?id ?nfs_version ?timeouts ~host ~name
+      ~storage_mover_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

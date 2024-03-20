@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dynamodb_kinesis_streaming_destination = {
   id : string prop option; [@option]  (** id *)
@@ -22,24 +20,29 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?id ~stream_arn ~table_name __resource_id =
-  let __resource_type =
-    "aws_dynamodb_kinesis_streaming_destination"
-  in
-  let __resource =
-    aws_dynamodb_kinesis_streaming_destination ?id ~stream_arn
-      ~table_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dynamodb_kinesis_streaming_destination __resource);
-  let __resource_attributes =
+let make ?id ~stream_arn ~table_name __id =
+  let __type = "aws_dynamodb_kinesis_streaming_destination" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       stream_arn =
-         Prop.computed __resource_type __resource_id "stream_arn";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+       id = Prop.computed __type __id "id";
+       stream_arn = Prop.computed __type __id "stream_arn";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dynamodb_kinesis_streaming_destination
+        (aws_dynamodb_kinesis_streaming_destination ?id ~stream_arn
+           ~table_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~stream_arn ~table_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~stream_arn ~table_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

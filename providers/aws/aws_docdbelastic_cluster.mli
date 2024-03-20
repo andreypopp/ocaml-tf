@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,19 @@ val register :
   shard_count:float prop ->
   string ->
   t
+
+val make :
+  ?kms_key_id:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  admin_user_name:string prop ->
+  admin_user_password:string prop ->
+  auth_type:string prop ->
+  name:string prop ->
+  shard_capacity:float prop ->
+  shard_count:float prop ->
+  string ->
+  t Tf_core.resource

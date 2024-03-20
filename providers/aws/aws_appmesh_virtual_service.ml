@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type spec__provider__virtual_node = {
   virtual_node_name : string prop;  (** virtual_node_name *)
@@ -70,35 +68,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?mesh_owner ?tags ?tags_all ~mesh_name
-    ~name ~spec __resource_id =
-  let __resource_type = "aws_appmesh_virtual_service" in
-  let __resource =
-    aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
-      ~mesh_name ~name ~spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appmesh_virtual_service __resource);
-  let __resource_attributes =
+let make ?id ?mesh_owner ?tags ?tags_all ~mesh_name ~name ~spec __id
+    =
+  let __type = "aws_appmesh_virtual_service" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       created_date = Prop.computed __type __id "created_date";
+       id = Prop.computed __type __id "id";
        last_updated_date =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date";
-       mesh_name =
-         Prop.computed __resource_type __resource_id "mesh_name";
-       mesh_owner =
-         Prop.computed __resource_type __resource_id "mesh_owner";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_owner =
-         Prop.computed __resource_type __resource_id "resource_owner";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "last_updated_date";
+       mesh_name = Prop.computed __type __id "mesh_name";
+       mesh_owner = Prop.computed __type __id "mesh_owner";
+       name = Prop.computed __type __id "name";
+       resource_owner = Prop.computed __type __id "resource_owner";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appmesh_virtual_service
+        (aws_appmesh_virtual_service ?id ?mesh_owner ?tags ?tags_all
+           ~mesh_name ~name ~spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?mesh_owner ?tags ?tags_all ~mesh_name
+    ~name ~spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?mesh_owner ?tags ?tags_all ~mesh_name ~name ~spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

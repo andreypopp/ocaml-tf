@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -132,3 +132,31 @@ val register :
   target_health_state:target_health_state list ->
   string ->
   t
+
+val make :
+  ?connection_termination:bool prop ->
+  ?deregistration_delay:string prop ->
+  ?id:string prop ->
+  ?ip_address_type:string prop ->
+  ?lambda_multi_value_headers_enabled:bool prop ->
+  ?load_balancing_algorithm_type:string prop ->
+  ?load_balancing_anomaly_mitigation:string prop ->
+  ?load_balancing_cross_zone_enabled:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?port:float prop ->
+  ?preserve_client_ip:string prop ->
+  ?protocol:string prop ->
+  ?protocol_version:string prop ->
+  ?proxy_protocol_v2:bool prop ->
+  ?slow_start:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?target_type:string prop ->
+  ?vpc_id:string prop ->
+  health_check:health_check list ->
+  stickiness:stickiness list ->
+  target_failover:target_failover list ->
+  target_health_state:target_health_state list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -86,3 +86,15 @@ val register :
   retention_period:retention_period list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  resource_type:string prop ->
+  lock_configuration:lock_configuration list ->
+  resource_tags:resource_tags list ->
+  retention_period:retention_period list ->
+  string ->
+  t Tf_core.resource

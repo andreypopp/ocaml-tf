@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rbac_authorization = {
   resource_id : string prop;  (** resource_id *)
@@ -57,34 +55,40 @@ type t = {
   secondary_authorization_key : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~data_factory_id
-    ~name ~rbac_authorization __resource_id =
-  let __resource_type =
+let make ?description ?id ?timeouts ~data_factory_id ~name
+    ~rbac_authorization __id =
+  let __type =
     "azurerm_data_factory_integration_runtime_self_hosted"
   in
-  let __resource =
-    azurerm_data_factory_integration_runtime_self_hosted ?description
-      ?id ?timeouts ~data_factory_id ~name ~rbac_authorization ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_integration_runtime_self_hosted
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        primary_authorization_key =
-         Prop.computed __resource_type __resource_id
-           "primary_authorization_key";
+         Prop.computed __type __id "primary_authorization_key";
        secondary_authorization_key =
-         Prop.computed __resource_type __resource_id
-           "secondary_authorization_key";
+         Prop.computed __type __id "secondary_authorization_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_integration_runtime_self_hosted
+        (azurerm_data_factory_integration_runtime_self_hosted
+           ?description ?id ?timeouts ~data_factory_id ~name
+           ~rbac_authorization ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~data_factory_id
+    ~name ~rbac_authorization __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~data_factory_id ~name
+      ~rbac_authorization __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

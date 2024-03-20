@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type application_source__tag_filter = {
   key : string prop;  (** key *)
@@ -199,23 +197,31 @@ type t = {
   scaling_plan_version : float prop;
 }
 
-let register ?tf_module ?id ~name ~application_source
-    ~scaling_instruction __resource_id =
-  let __resource_type = "aws_autoscalingplans_scaling_plan" in
-  let __resource =
-    aws_autoscalingplans_scaling_plan ?id ~name ~application_source
-      ~scaling_instruction ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscalingplans_scaling_plan __resource);
-  let __resource_attributes =
+let make ?id ~name ~application_source ~scaling_instruction __id =
+  let __type = "aws_autoscalingplans_scaling_plan" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        scaling_plan_version =
-         Prop.computed __resource_type __resource_id
-           "scaling_plan_version";
+         Prop.computed __type __id "scaling_plan_version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscalingplans_scaling_plan
+        (aws_autoscalingplans_scaling_plan ?id ~name
+           ~application_source ~scaling_instruction ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~name ~application_source
+    ~scaling_instruction __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~name ~application_source ~scaling_instruction __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

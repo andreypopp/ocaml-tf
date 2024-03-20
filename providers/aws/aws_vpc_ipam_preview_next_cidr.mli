@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,3 +35,11 @@ val register :
   ipam_pool_id:string prop ->
   string ->
   t
+
+val make :
+  ?disallowed_cidrs:string prop list ->
+  ?id:string prop ->
+  ?netmask_length:float prop ->
+  ipam_pool_id:string prop ->
+  string ->
+  t Tf_core.resource

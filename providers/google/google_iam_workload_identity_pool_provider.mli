@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,20 @@ val register :
   saml:saml list ->
   string ->
   t
+
+val make :
+  ?attribute_condition:string prop ->
+  ?attribute_mapping:(string * string prop) list ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  workload_identity_pool_id:string prop ->
+  workload_identity_pool_provider_id:string prop ->
+  aws:aws list ->
+  oidc:oidc list ->
+  saml:saml list ->
+  string ->
+  t Tf_core.resource

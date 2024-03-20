@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint__filter__item = {
   address : string prop option; [@option]  (** address *)
@@ -243,33 +241,43 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?notes ?output_workspace_resource_ids
-    ?tags ?timeouts ~location ~name ~network_watcher_id ~endpoint
-    ~test_configuration ~test_group __resource_id =
-  let __resource_type = "azurerm_network_connection_monitor" in
-  let __resource =
-    azurerm_network_connection_monitor ?id ?notes
-      ?output_workspace_resource_ids ?tags ?timeouts ~location ~name
-      ~network_watcher_id ~endpoint ~test_configuration ~test_group
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_network_connection_monitor __resource);
-  let __resource_attributes =
+let make ?id ?notes ?output_workspace_resource_ids ?tags ?timeouts
+    ~location ~name ~network_watcher_id ~endpoint ~test_configuration
+    ~test_group __id =
+  let __type = "azurerm_network_connection_monitor" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        network_watcher_id =
-         Prop.computed __resource_type __resource_id
-           "network_watcher_id";
-       notes = Prop.computed __resource_type __resource_id "notes";
+         Prop.computed __type __id "network_watcher_id";
+       notes = Prop.computed __type __id "notes";
        output_workspace_resource_ids =
-         Prop.computed __resource_type __resource_id
-           "output_workspace_resource_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "output_workspace_resource_ids";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_network_connection_monitor
+        (azurerm_network_connection_monitor ?id ?notes
+           ?output_workspace_resource_ids ?tags ?timeouts ~location
+           ~name ~network_watcher_id ~endpoint ~test_configuration
+           ~test_group ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?notes ?output_workspace_resource_ids
+    ?tags ?timeouts ~location ~name ~network_watcher_id ~endpoint
+    ~test_configuration ~test_group __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?notes ?output_workspace_resource_ids ?tags ?timeouts
+      ~location ~name ~network_watcher_id ~endpoint
+      ~test_configuration ~test_group __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

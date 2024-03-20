@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,20 @@ val register :
   cloud_run:cloud_run list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?network:string prop ->
+  ?network_endpoint_type:string prop ->
+  ?project:string prop ->
+  ?psc_target_service:string prop ->
+  ?subnetwork:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  region:string prop ->
+  app_engine:app_engine list ->
+  cloud_function:cloud_function list ->
+  cloud_run:cloud_run list ->
+  string ->
+  t Tf_core.resource

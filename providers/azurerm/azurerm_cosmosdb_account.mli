@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -238,3 +238,42 @@ val register :
   virtual_network_rule:virtual_network_rule list ->
   string ->
   t
+
+val make :
+  ?access_key_metadata_writes_enabled:bool prop ->
+  ?analytical_storage_enabled:bool prop ->
+  ?create_mode:string prop ->
+  ?default_identity_type:string prop ->
+  ?enable_automatic_failover:bool prop ->
+  ?enable_free_tier:bool prop ->
+  ?enable_multiple_write_locations:bool prop ->
+  ?id:string prop ->
+  ?ip_range_filter:string prop ->
+  ?is_virtual_network_filter_enabled:bool prop ->
+  ?key_vault_key_id:string prop ->
+  ?kind:string prop ->
+  ?local_authentication_disabled:bool prop ->
+  ?minimal_tls_version:string prop ->
+  ?mongo_server_version:string prop ->
+  ?network_acl_bypass_for_azure_services:bool prop ->
+  ?network_acl_bypass_ids:string prop list ->
+  ?partition_merge_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  offer_type:string prop ->
+  resource_group_name:string prop ->
+  analytical_storage:analytical_storage list ->
+  backup:backup list ->
+  capabilities:capabilities list ->
+  capacity:capacity list ->
+  consistency_policy:consistency_policy list ->
+  cors_rule:cors_rule list ->
+  geo_location:geo_location list ->
+  identity:identity list ->
+  restore:restore list ->
+  virtual_network_rule:virtual_network_rule list ->
+  string ->
+  t Tf_core.resource

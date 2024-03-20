@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,21 @@ val register :
   private_link:private_link list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?health_probes_enabled:bool prop ->
+  ?http_port:float prop ->
+  ?https_port:float prop ->
+  ?id:string prop ->
+  ?origin_host_header:string prop ->
+  ?priority:float prop ->
+  ?weight:float prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_origin_group_id:string prop ->
+  certificate_name_check_enabled:bool prop ->
+  host_name:string prop ->
+  name:string prop ->
+  private_link:private_link list ->
+  string ->
+  t Tf_core.resource

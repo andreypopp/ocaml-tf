@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -74,39 +72,42 @@ type t = {
   validate_for_proxyless : bool prop;
 }
 
-let register ?tf_module ?description ?id ?project ?url_map
-    ?validate_for_proxyless ?timeouts ~name __resource_id =
-  let __resource_type = "google_compute_target_grpc_proxy" in
-  let __resource =
-    google_compute_target_grpc_proxy ?description ?id ?project
-      ?url_map ?validate_for_proxyless ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_target_grpc_proxy __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?url_map ?validate_for_proxyless
+    ?timeouts ~name __id =
+  let __type = "google_compute_target_grpc_proxy" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       fingerprint =
-         Prop.computed __resource_type __resource_id "fingerprint";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       fingerprint = Prop.computed __type __id "fingerprint";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
        self_link_with_id =
-         Prop.computed __resource_type __resource_id
-           "self_link_with_id";
-       url_map =
-         Prop.computed __resource_type __resource_id "url_map";
+         Prop.computed __type __id "self_link_with_id";
+       url_map = Prop.computed __type __id "url_map";
        validate_for_proxyless =
-         Prop.computed __resource_type __resource_id
-           "validate_for_proxyless";
+         Prop.computed __type __id "validate_for_proxyless";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_target_grpc_proxy
+        (google_compute_target_grpc_proxy ?description ?id ?project
+           ?url_map ?validate_for_proxyless ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?url_map
+    ?validate_for_proxyless ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?url_map ?validate_for_proxyless
+      ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

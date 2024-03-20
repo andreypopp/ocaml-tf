@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type allow = {
   ports : string prop list option; [@option]
@@ -205,60 +203,62 @@ type t = {
   target_tags : string list prop;
 }
 
+let make ?description ?destination_ranges ?direction ?disabled
+    ?enable_logging ?id ?priority ?project ?source_ranges
+    ?source_service_accounts ?source_tags ?target_service_accounts
+    ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
+    __id =
+  let __type = "google_compute_firewall" in
+  let __attrs =
+    ({
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       destination_ranges =
+         Prop.computed __type __id "destination_ranges";
+       direction = Prop.computed __type __id "direction";
+       disabled = Prop.computed __type __id "disabled";
+       enable_logging = Prop.computed __type __id "enable_logging";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       source_ranges = Prop.computed __type __id "source_ranges";
+       source_service_accounts =
+         Prop.computed __type __id "source_service_accounts";
+       source_tags = Prop.computed __type __id "source_tags";
+       target_service_accounts =
+         Prop.computed __type __id "target_service_accounts";
+       target_tags = Prop.computed __type __id "target_tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_firewall
+        (google_compute_firewall ?description ?destination_ranges
+           ?direction ?disabled ?enable_logging ?id ?priority
+           ?project ?source_ranges ?source_service_accounts
+           ?source_tags ?target_service_accounts ?target_tags
+           ?timeouts ~name ~network ~allow ~deny ~log_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?destination_ranges ?direction
     ?disabled ?enable_logging ?id ?priority ?project ?source_ranges
     ?source_service_accounts ?source_tags ?target_service_accounts
     ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
-    __resource_id =
-  let __resource_type = "google_compute_firewall" in
-  let __resource =
-    google_compute_firewall ?description ?destination_ranges
-      ?direction ?disabled ?enable_logging ?id ?priority ?project
-      ?source_ranges ?source_service_accounts ?source_tags
-      ?target_service_accounts ?target_tags ?timeouts ~name ~network
-      ~allow ~deny ~log_config ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?destination_ranges ?direction ?disabled
+      ?enable_logging ?id ?priority ?project ?source_ranges
+      ?source_service_accounts ?source_tags ?target_service_accounts
+      ?target_tags ?timeouts ~name ~network ~allow ~deny ~log_config
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_firewall __resource);
-  let __resource_attributes =
-    ({
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       destination_ranges =
-         Prop.computed __resource_type __resource_id
-           "destination_ranges";
-       direction =
-         Prop.computed __resource_type __resource_id "direction";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       enable_logging =
-         Prop.computed __resource_type __resource_id "enable_logging";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       source_ranges =
-         Prop.computed __resource_type __resource_id "source_ranges";
-       source_service_accounts =
-         Prop.computed __resource_type __resource_id
-           "source_service_accounts";
-       source_tags =
-         Prop.computed __resource_type __resource_id "source_tags";
-       target_service_accounts =
-         Prop.computed __resource_type __resource_id
-           "target_service_accounts";
-       target_tags =
-         Prop.computed __resource_type __resource_id "target_tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

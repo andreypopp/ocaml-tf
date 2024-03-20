@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type frontend_private = {
   allocation_method : string prop;  (** allocation_method *)
@@ -135,49 +133,59 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?automatic_upgrade_channel ?capacity
+    ?diagnose_support_enabled ?email ?id ?managed_resource_group
+    ?tags ?timeouts ~location ~name ~resource_group_name ~sku
+    ~frontend_private ~frontend_public ~identity
+    ~logging_storage_account ~network_interface __id =
+  let __type = "azurerm_nginx_deployment" in
+  let __attrs =
+    ({
+       automatic_upgrade_channel =
+         Prop.computed __type __id "automatic_upgrade_channel";
+       capacity = Prop.computed __type __id "capacity";
+       diagnose_support_enabled =
+         Prop.computed __type __id "diagnose_support_enabled";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       location = Prop.computed __type __id "location";
+       managed_resource_group =
+         Prop.computed __type __id "managed_resource_group";
+       name = Prop.computed __type __id "name";
+       nginx_version = Prop.computed __type __id "nginx_version";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_nginx_deployment
+        (azurerm_nginx_deployment ?automatic_upgrade_channel
+           ?capacity ?diagnose_support_enabled ?email ?id
+           ?managed_resource_group ?tags ?timeouts ~location ~name
+           ~resource_group_name ~sku ~frontend_private
+           ~frontend_public ~identity ~logging_storage_account
+           ~network_interface ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?automatic_upgrade_channel ?capacity
     ?diagnose_support_enabled ?email ?id ?managed_resource_group
     ?tags ?timeouts ~location ~name ~resource_group_name ~sku
     ~frontend_private ~frontend_public ~identity
-    ~logging_storage_account ~network_interface __resource_id =
-  let __resource_type = "azurerm_nginx_deployment" in
-  let __resource =
-    azurerm_nginx_deployment ?automatic_upgrade_channel ?capacity
+    ~logging_storage_account ~network_interface __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_upgrade_channel ?capacity
       ?diagnose_support_enabled ?email ?id ?managed_resource_group
       ?tags ?timeouts ~location ~name ~resource_group_name ~sku
       ~frontend_private ~frontend_public ~identity
-      ~logging_storage_account ~network_interface ()
+      ~logging_storage_account ~network_interface __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_nginx_deployment __resource);
-  let __resource_attributes =
-    ({
-       automatic_upgrade_channel =
-         Prop.computed __resource_type __resource_id
-           "automatic_upgrade_channel";
-       capacity =
-         Prop.computed __resource_type __resource_id "capacity";
-       diagnose_support_enabled =
-         Prop.computed __resource_type __resource_id
-           "diagnose_support_enabled";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_resource_group =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group";
-       name = Prop.computed __resource_type __resource_id "name";
-       nginx_version =
-         Prop.computed __resource_type __resource_id "nginx_version";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

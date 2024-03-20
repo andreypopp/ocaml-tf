@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,16 @@ val register :
   iap:iap list ->
   string ->
   t
+
+val make :
+  ?auth_domain:string prop ->
+  ?database_type:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?serving_status:string prop ->
+  ?timeouts:timeouts ->
+  location_id:string prop ->
+  feature_settings:feature_settings list ->
+  iap:iap list ->
+  string ->
+  t Tf_core.resource

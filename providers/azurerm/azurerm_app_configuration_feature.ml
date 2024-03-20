@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type targeting_filter__groups = {
   name : string prop;  (** name *)
@@ -106,39 +104,49 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?enabled ?etag ?id ?key ?label
-    ?locked ?percentage_filter_value ?tags ?timeouts
-    ~configuration_store_id ~name ~targeting_filter
-    ~timewindow_filter __resource_id =
-  let __resource_type = "azurerm_app_configuration_feature" in
-  let __resource =
-    azurerm_app_configuration_feature ?description ?enabled ?etag ?id
-      ?key ?label ?locked ?percentage_filter_value ?tags ?timeouts
-      ~configuration_store_id ~name ~targeting_filter
-      ~timewindow_filter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_configuration_feature __resource);
-  let __resource_attributes =
+let make ?description ?enabled ?etag ?id ?key ?label ?locked
+    ?percentage_filter_value ?tags ?timeouts ~configuration_store_id
+    ~name ~targeting_filter ~timewindow_filter __id =
+  let __type = "azurerm_app_configuration_feature" in
+  let __attrs =
     ({
        configuration_store_id =
-         Prop.computed __resource_type __resource_id
-           "configuration_store_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       label = Prop.computed __resource_type __resource_id "label";
-       locked = Prop.computed __resource_type __resource_id "locked";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "configuration_store_id";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       label = Prop.computed __type __id "label";
+       locked = Prop.computed __type __id "locked";
+       name = Prop.computed __type __id "name";
        percentage_filter_value =
-         Prop.computed __resource_type __resource_id
-           "percentage_filter_value";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "percentage_filter_value";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_configuration_feature
+        (azurerm_app_configuration_feature ?description ?enabled
+           ?etag ?id ?key ?label ?locked ?percentage_filter_value
+           ?tags ?timeouts ~configuration_store_id ~name
+           ~targeting_filter ~timewindow_filter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?enabled ?etag ?id ?key ?label
+    ?locked ?percentage_filter_value ?tags ?timeouts
+    ~configuration_store_id ~name ~targeting_filter
+    ~timewindow_filter __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?etag ?id ?key ?label ?locked
+      ?percentage_filter_value ?tags ?timeouts
+      ~configuration_store_id ~name ~targeting_filter
+      ~timewindow_filter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

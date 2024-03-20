@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,13 @@ val register :
   split:split list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?migrate_traffic:bool prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  service:string prop ->
+  split:split list ->
+  string ->
+  t Tf_core.resource

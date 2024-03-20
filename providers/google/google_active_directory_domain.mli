@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,16 @@ val register :
   reserved_ip_range:string prop ->
   string ->
   t
+
+val make :
+  ?admin:string prop ->
+  ?authorized_networks:string prop list ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  domain_name:string prop ->
+  locations:string prop list ->
+  reserved_ip_range:string prop ->
+  string ->
+  t Tf_core.resource

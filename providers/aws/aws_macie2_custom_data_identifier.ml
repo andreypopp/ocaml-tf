@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_macie2_custom_data_identifier = {
   description : string prop option; [@option]  (** description *)
@@ -53,40 +51,46 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?ignore_words ?keywords
+let make ?description ?id ?ignore_words ?keywords
     ?maximum_match_distance ?name ?name_prefix ?regex ?tags ?tags_all
-    __resource_id =
-  let __resource_type = "aws_macie2_custom_data_identifier" in
-  let __resource =
-    aws_macie2_custom_data_identifier ?description ?id ?ignore_words
-      ?keywords ?maximum_match_distance ?name ?name_prefix ?regex
-      ?tags ?tags_all ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_macie2_custom_data_identifier __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_macie2_custom_data_identifier" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ignore_words =
-         Prop.computed __resource_type __resource_id "ignore_words";
-       keywords =
-         Prop.computed __resource_type __resource_id "keywords";
+       arn = Prop.computed __type __id "arn";
+       created_at = Prop.computed __type __id "created_at";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ignore_words = Prop.computed __type __id "ignore_words";
+       keywords = Prop.computed __type __id "keywords";
        maximum_match_distance =
-         Prop.computed __resource_type __resource_id
-           "maximum_match_distance";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       regex = Prop.computed __resource_type __resource_id "regex";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "maximum_match_distance";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       regex = Prop.computed __type __id "regex";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_macie2_custom_data_identifier
+        (aws_macie2_custom_data_identifier ?description ?id
+           ?ignore_words ?keywords ?maximum_match_distance ?name
+           ?name_prefix ?regex ?tags ?tags_all ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?ignore_words ?keywords
+    ?maximum_match_distance ?name ?name_prefix ?regex ?tags ?tags_all
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?ignore_words ?keywords
+      ?maximum_match_distance ?name ?name_prefix ?regex ?tags
+      ?tags_all __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

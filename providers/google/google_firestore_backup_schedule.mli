@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,14 @@ val register :
   weekly_recurrence:weekly_recurrence list ->
   string ->
   t
+
+val make :
+  ?database:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  retention:string prop ->
+  daily_recurrence:daily_recurrence list ->
+  weekly_recurrence:weekly_recurrence list ->
+  string ->
+  t Tf_core.resource

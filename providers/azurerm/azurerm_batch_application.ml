@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,34 +52,38 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?allow_updates ?default_version ?display_name
-    ?id ?timeouts ~account_name ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_batch_application" in
-  let __resource =
-    azurerm_batch_application ?allow_updates ?default_version
-      ?display_name ?id ?timeouts ~account_name ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_batch_application __resource);
-  let __resource_attributes =
+let make ?allow_updates ?default_version ?display_name ?id ?timeouts
+    ~account_name ~name ~resource_group_name __id =
+  let __type = "azurerm_batch_application" in
+  let __attrs =
     ({
-       account_name =
-         Prop.computed __resource_type __resource_id "account_name";
-       allow_updates =
-         Prop.computed __resource_type __resource_id "allow_updates";
-       default_version =
-         Prop.computed __resource_type __resource_id
-           "default_version";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       account_name = Prop.computed __type __id "account_name";
+       allow_updates = Prop.computed __type __id "allow_updates";
+       default_version = Prop.computed __type __id "default_version";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_batch_application
+        (azurerm_batch_application ?allow_updates ?default_version
+           ?display_name ?id ?timeouts ~account_name ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_updates ?default_version ?display_name
+    ?id ?timeouts ~account_name ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_updates ?default_version ?display_name ?id ?timeouts
+      ~account_name ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

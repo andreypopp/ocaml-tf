@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,35 +56,41 @@ type t = {
   zones : string list prop;
 }
 
-let register ?tf_module ?id ?idle_timeout_in_minutes ?sku_name ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_nat_gateway" in
-  let __resource =
-    azurerm_nat_gateway ?id ?idle_timeout_in_minutes ?sku_name ?tags
-      ?zones ?timeouts ~location ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_nat_gateway __resource);
-  let __resource_attributes =
+let make ?id ?idle_timeout_in_minutes ?sku_name ?tags ?zones
+    ?timeouts ~location ~name ~resource_group_name __id =
+  let __type = "azurerm_nat_gateway" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        idle_timeout_in_minutes =
-         Prop.computed __resource_type __resource_id
-           "idle_timeout_in_minutes";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "idle_timeout_in_minutes";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       resource_guid =
-         Prop.computed __resource_type __resource_id "resource_guid";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zones = Prop.computed __resource_type __resource_id "zones";
+         Prop.computed __type __id "resource_group_name";
+       resource_guid = Prop.computed __type __id "resource_guid";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+       zones = Prop.computed __type __id "zones";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_nat_gateway
+        (azurerm_nat_gateway ?id ?idle_timeout_in_minutes ?sku_name
+           ?tags ?zones ?timeouts ~location ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?idle_timeout_in_minutes ?sku_name ?tags
+    ?zones ?timeouts ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?idle_timeout_in_minutes ?sku_name ?tags ?zones
+      ?timeouts ~location ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_route53_traffic_policy_instance = {
   hosted_zone_id : string prop;  (** hosted_zone_id *)
@@ -36,29 +34,37 @@ type t = {
   ttl : float prop;
 }
 
-let register ?tf_module ?id ~hosted_zone_id ~name ~traffic_policy_id
-    ~traffic_policy_version ~ttl __resource_id =
-  let __resource_type = "aws_route53_traffic_policy_instance" in
-  let __resource =
-    aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
-      ~traffic_policy_id ~traffic_policy_version ~ttl ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_traffic_policy_instance __resource);
-  let __resource_attributes =
+let make ?id ~hosted_zone_id ~name ~traffic_policy_id
+    ~traffic_policy_version ~ttl __id =
+  let __type = "aws_route53_traffic_policy_instance" in
+  let __attrs =
     ({
-       hosted_zone_id =
-         Prop.computed __resource_type __resource_id "hosted_zone_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       hosted_zone_id = Prop.computed __type __id "hosted_zone_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        traffic_policy_id =
-         Prop.computed __resource_type __resource_id
-           "traffic_policy_id";
+         Prop.computed __type __id "traffic_policy_id";
        traffic_policy_version =
-         Prop.computed __resource_type __resource_id
-           "traffic_policy_version";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
+         Prop.computed __type __id "traffic_policy_version";
+       ttl = Prop.computed __type __id "ttl";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_traffic_policy_instance
+        (aws_route53_traffic_policy_instance ?id ~hosted_zone_id
+           ~name ~traffic_policy_id ~traffic_policy_version ~ttl ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~hosted_zone_id ~name ~traffic_policy_id
+    ~traffic_policy_version ~ttl __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~hosted_zone_id ~name ~traffic_policy_id
+      ~traffic_policy_version ~ttl __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

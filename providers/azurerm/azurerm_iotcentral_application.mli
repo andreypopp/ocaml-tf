@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,19 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku:string prop ->
+  ?tags:(string * string prop) list ->
+  ?template:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sub_domain:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

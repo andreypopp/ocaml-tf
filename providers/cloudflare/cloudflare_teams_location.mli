@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,12 @@ val register :
   networks:networks list ->
   string ->
   t
+
+val make :
+  ?client_default:bool prop ->
+  ?id:string prop ->
+  account_id:string prop ->
+  name:string prop ->
+  networks:networks list ->
+  string ->
+  t Tf_core.resource

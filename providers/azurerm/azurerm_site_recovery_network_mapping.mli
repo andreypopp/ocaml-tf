@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,16 @@ val register :
   target_recovery_fabric_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  recovery_vault_name:string prop ->
+  resource_group_name:string prop ->
+  source_network_id:string prop ->
+  source_recovery_fabric_name:string prop ->
+  target_network_id:string prop ->
+  target_recovery_fabric_name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type throttle_settings = {
   burst_limit : float prop;  (** burst_limit *)
@@ -30,28 +28,32 @@ type t = {
   throttle_settings : throttle_settings list prop;
 }
 
-let register ?tf_module ?cloudwatch_role_arn ?id __resource_id =
-  let __resource_type = "aws_api_gateway_account" in
-  let __resource =
-    aws_api_gateway_account ?cloudwatch_role_arn ?id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_account __resource);
-  let __resource_attributes =
+let make ?cloudwatch_role_arn ?id __id =
+  let __type = "aws_api_gateway_account" in
+  let __attrs =
     ({
-       api_key_version =
-         Prop.computed __resource_type __resource_id
-           "api_key_version";
+       api_key_version = Prop.computed __type __id "api_key_version";
        cloudwatch_role_arn =
-         Prop.computed __resource_type __resource_id
-           "cloudwatch_role_arn";
-       features =
-         Prop.computed __resource_type __resource_id "features";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "cloudwatch_role_arn";
+       features = Prop.computed __type __id "features";
+       id = Prop.computed __type __id "id";
        throttle_settings =
-         Prop.computed __resource_type __resource_id
-           "throttle_settings";
+         Prop.computed __type __id "throttle_settings";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_account
+        (aws_api_gateway_account ?cloudwatch_role_arn ?id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cloudwatch_role_arn ?id __id =
+  let (r : _ Tf_core.resource) =
+    make ?cloudwatch_role_arn ?id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -102,3 +102,23 @@ val register :
   raw_disk:raw_disk list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?disk_size_gb:float prop ->
+  ?family:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?licenses:string prop list ->
+  ?project:string prop ->
+  ?source_disk:string prop ->
+  ?source_image:string prop ->
+  ?source_snapshot:string prop ->
+  ?storage_locations:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  guest_os_features:guest_os_features list ->
+  image_encryption_key:image_encryption_key list ->
+  raw_disk:raw_disk list ->
+  string ->
+  t Tf_core.resource

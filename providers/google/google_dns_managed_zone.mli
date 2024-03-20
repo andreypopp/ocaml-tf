@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -146,3 +146,21 @@ val register :
   private_visibility_config:private_visibility_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?visibility:string prop ->
+  ?timeouts:timeouts ->
+  dns_name:string prop ->
+  name:string prop ->
+  cloud_logging_config:cloud_logging_config list ->
+  dnssec_config:dnssec_config list ->
+  forwarding_config:forwarding_config list ->
+  peering_config:peering_config list ->
+  private_visibility_config:private_visibility_config list ->
+  string ->
+  t Tf_core.resource

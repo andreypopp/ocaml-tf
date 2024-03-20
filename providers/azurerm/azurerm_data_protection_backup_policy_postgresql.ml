@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type retention_rule__criteria = {
   absolute_criteria : string prop option; [@option]
@@ -97,40 +95,44 @@ type t = {
   vault_name : string prop;
 }
 
-let register ?tf_module ?id ?time_zone ?timeouts
-    ~backup_repeating_time_intervals ~default_retention_duration
-    ~name ~resource_group_name ~vault_name ~retention_rule
-    __resource_id =
-  let __resource_type =
-    "azurerm_data_protection_backup_policy_postgresql"
-  in
-  let __resource =
-    azurerm_data_protection_backup_policy_postgresql ?id ?time_zone
-      ?timeouts ~backup_repeating_time_intervals
-      ~default_retention_duration ~name ~resource_group_name
-      ~vault_name ~retention_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_protection_backup_policy_postgresql
-       __resource);
-  let __resource_attributes =
+let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
+    ~default_retention_duration ~name ~resource_group_name
+    ~vault_name ~retention_rule __id =
+  let __type = "azurerm_data_protection_backup_policy_postgresql" in
+  let __attrs =
     ({
        backup_repeating_time_intervals =
-         Prop.computed __resource_type __resource_id
-           "backup_repeating_time_intervals";
+         Prop.computed __type __id "backup_repeating_time_intervals";
        default_retention_duration =
-         Prop.computed __resource_type __resource_id
-           "default_retention_duration";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "default_retention_duration";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
-       vault_name =
-         Prop.computed __resource_type __resource_id "vault_name";
+         Prop.computed __type __id "resource_group_name";
+       time_zone = Prop.computed __type __id "time_zone";
+       vault_name = Prop.computed __type __id "vault_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_protection_backup_policy_postgresql
+        (azurerm_data_protection_backup_policy_postgresql ?id
+           ?time_zone ?timeouts ~backup_repeating_time_intervals
+           ~default_retention_duration ~name ~resource_group_name
+           ~vault_name ~retention_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?time_zone ?timeouts
+    ~backup_repeating_time_intervals ~default_retention_duration
+    ~name ~resource_group_name ~vault_name ~retention_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
+      ~default_retention_duration ~name ~resource_group_name
+      ~vault_name ~retention_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

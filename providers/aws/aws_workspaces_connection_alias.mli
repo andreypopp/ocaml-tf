@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,10 @@ val register :
   connection_string:string prop ->
   string ->
   t
+
+val make :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  connection_string:string prop ->
+  string ->
+  t Tf_core.resource

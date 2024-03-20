@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,35 +51,38 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~calculator_name ~data_source __resource_id =
-  let __resource_type = "aws_location_route_calculator" in
-  let __resource =
-    aws_location_route_calculator ?description ?id ?tags ?tags_all
-      ?timeouts ~calculator_name ~data_source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_location_route_calculator __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ?timeouts ~calculator_name
+    ~data_source __id =
+  let __type = "aws_location_route_calculator" in
+  let __attrs =
     ({
-       calculator_arn =
-         Prop.computed __resource_type __resource_id "calculator_arn";
-       calculator_name =
-         Prop.computed __resource_type __resource_id
-           "calculator_name";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       data_source =
-         Prop.computed __resource_type __resource_id "data_source";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       calculator_arn = Prop.computed __type __id "calculator_arn";
+       calculator_name = Prop.computed __type __id "calculator_name";
+       create_time = Prop.computed __type __id "create_time";
+       data_source = Prop.computed __type __id "data_source";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_location_route_calculator
+        (aws_location_route_calculator ?description ?id ?tags
+           ?tags_all ?timeouts ~calculator_name ~data_source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~calculator_name ~data_source __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ?timeouts ~calculator_name
+      ~data_source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

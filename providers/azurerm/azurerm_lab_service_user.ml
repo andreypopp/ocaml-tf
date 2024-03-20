@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -40,25 +38,35 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?additional_usage_quota ?id ?timeouts ~email
-    ~lab_id ~name __resource_id =
-  let __resource_type = "azurerm_lab_service_user" in
-  let __resource =
-    azurerm_lab_service_user ?additional_usage_quota ?id ?timeouts
-      ~email ~lab_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lab_service_user __resource);
-  let __resource_attributes =
+let make ?additional_usage_quota ?id ?timeouts ~email ~lab_id ~name
+    __id =
+  let __type = "azurerm_lab_service_user" in
+  let __attrs =
     ({
        additional_usage_quota =
-         Prop.computed __resource_type __resource_id
-           "additional_usage_quota";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_id = Prop.computed __resource_type __resource_id "lab_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "additional_usage_quota";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       lab_id = Prop.computed __type __id "lab_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lab_service_user
+        (azurerm_lab_service_user ?additional_usage_quota ?id
+           ?timeouts ~email ~lab_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_usage_quota ?id ?timeouts ~email
+    ~lab_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_usage_quota ?id ?timeouts ~email ~lab_id ~name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -41,29 +39,36 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~application_id ~name
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_graph_services_account" in
-  let __resource =
-    azurerm_graph_services_account ?id ?tags ?timeouts
-      ~application_id ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_graph_services_account __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~application_id ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_graph_services_account" in
+  let __attrs =
     ({
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       billing_plan_id =
-         Prop.computed __resource_type __resource_id
-           "billing_plan_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       application_id = Prop.computed __type __id "application_id";
+       billing_plan_id = Prop.computed __type __id "billing_plan_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_graph_services_account
+        (azurerm_graph_services_account ?id ?tags ?timeouts
+           ~application_id ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~application_id ~name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~application_id ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

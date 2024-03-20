@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication_options = {
   active_directory_id : string prop option; [@option]
@@ -145,64 +143,70 @@ type t = {
   vpn_port : float prop;
 }
 
+let make ?description ?dns_servers ?id ?security_group_ids
+    ?self_service_portal ?session_timeout_hours ?split_tunnel ?tags
+    ?tags_all ?transport_protocol ?vpc_id ?vpn_port
+    ~client_cidr_block ~server_certificate_arn
+    ~authentication_options ~client_connect_options
+    ~client_login_banner_options ~connection_log_options __id =
+  let __type = "aws_ec2_client_vpn_endpoint" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       client_cidr_block =
+         Prop.computed __type __id "client_cidr_block";
+       description = Prop.computed __type __id "description";
+       dns_name = Prop.computed __type __id "dns_name";
+       dns_servers = Prop.computed __type __id "dns_servers";
+       id = Prop.computed __type __id "id";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       self_service_portal =
+         Prop.computed __type __id "self_service_portal";
+       self_service_portal_url =
+         Prop.computed __type __id "self_service_portal_url";
+       server_certificate_arn =
+         Prop.computed __type __id "server_certificate_arn";
+       session_timeout_hours =
+         Prop.computed __type __id "session_timeout_hours";
+       split_tunnel = Prop.computed __type __id "split_tunnel";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       transport_protocol =
+         Prop.computed __type __id "transport_protocol";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       vpn_port = Prop.computed __type __id "vpn_port";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_client_vpn_endpoint
+        (aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
+           ?security_group_ids ?self_service_portal
+           ?session_timeout_hours ?split_tunnel ?tags ?tags_all
+           ?transport_protocol ?vpc_id ?vpn_port ~client_cidr_block
+           ~server_certificate_arn ~authentication_options
+           ~client_connect_options ~client_login_banner_options
+           ~connection_log_options ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?dns_servers ?id
     ?security_group_ids ?self_service_portal ?session_timeout_hours
     ?split_tunnel ?tags ?tags_all ?transport_protocol ?vpc_id
     ?vpn_port ~client_cidr_block ~server_certificate_arn
     ~authentication_options ~client_connect_options
-    ~client_login_banner_options ~connection_log_options
-    __resource_id =
-  let __resource_type = "aws_ec2_client_vpn_endpoint" in
-  let __resource =
-    aws_ec2_client_vpn_endpoint ?description ?dns_servers ?id
-      ?security_group_ids ?self_service_portal ?session_timeout_hours
-      ?split_tunnel ?tags ?tags_all ?transport_protocol ?vpc_id
-      ?vpn_port ~client_cidr_block ~server_certificate_arn
+    ~client_login_banner_options ~connection_log_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?dns_servers ?id ?security_group_ids
+      ?self_service_portal ?session_timeout_hours ?split_tunnel ?tags
+      ?tags_all ?transport_protocol ?vpc_id ?vpn_port
+      ~client_cidr_block ~server_certificate_arn
       ~authentication_options ~client_connect_options
-      ~client_login_banner_options ~connection_log_options ()
+      ~client_login_banner_options ~connection_log_options __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_client_vpn_endpoint __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       client_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "client_cidr_block";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       dns_servers =
-         Prop.computed __resource_type __resource_id "dns_servers";
-       id = Prop.computed __resource_type __resource_id "id";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       self_service_portal =
-         Prop.computed __resource_type __resource_id
-           "self_service_portal";
-       self_service_portal_url =
-         Prop.computed __resource_type __resource_id
-           "self_service_portal_url";
-       server_certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "server_certificate_arn";
-       session_timeout_hours =
-         Prop.computed __resource_type __resource_id
-           "session_timeout_hours";
-       split_tunnel =
-         Prop.computed __resource_type __resource_id "split_tunnel";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       transport_protocol =
-         Prop.computed __resource_type __resource_id
-           "transport_protocol";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       vpn_port =
-         Prop.computed __resource_type __resource_id "vpn_port";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

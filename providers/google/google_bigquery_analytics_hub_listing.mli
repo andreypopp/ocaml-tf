@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,24 @@ val register :
   restricted_export_config:restricted_export_config list ->
   string ->
   t
+
+val make :
+  ?categories:string prop list ->
+  ?description:string prop ->
+  ?documentation:string prop ->
+  ?icon:string prop ->
+  ?id:string prop ->
+  ?primary_contact:string prop ->
+  ?project:string prop ->
+  ?request_access:string prop ->
+  ?timeouts:timeouts ->
+  data_exchange_id:string prop ->
+  display_name:string prop ->
+  listing_id:string prop ->
+  location:string prop ->
+  bigquery_dataset:bigquery_dataset list ->
+  data_provider:data_provider list ->
+  publisher:publisher list ->
+  restricted_export_config:restricted_export_config list ->
+  string ->
+  t Tf_core.resource

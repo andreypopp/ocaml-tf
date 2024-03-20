@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,23 +34,31 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?force ?id ?timeouts ~instance_id ~state
-    __resource_id =
-  let __resource_type = "aws_ec2_instance_state" in
-  let __resource =
-    aws_ec2_instance_state ?force ?id ?timeouts ~instance_id ~state
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_instance_state __resource);
-  let __resource_attributes =
+let make ?force ?id ?timeouts ~instance_id ~state __id =
+  let __type = "aws_ec2_instance_state" in
+  let __attrs =
     ({
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       state = Prop.computed __resource_type __resource_id "state";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_instance_state
+        (aws_ec2_instance_state ?force ?id ?timeouts ~instance_id
+           ~state ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force ?id ?timeouts ~instance_id ~state __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?force ?id ?timeouts ~instance_id ~state __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

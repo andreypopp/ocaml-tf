@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -377,3 +377,15 @@ val register :
   user_settings:user_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?single_sign_on_user_identifier:string prop ->
+  ?single_sign_on_user_value:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_id:string prop ->
+  user_profile_name:string prop ->
+  user_settings:user_settings list ->
+  string ->
+  t Tf_core.resource

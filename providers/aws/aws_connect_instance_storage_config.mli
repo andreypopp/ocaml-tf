@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,11 @@ val register :
   storage_config:storage_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  instance_id:string prop ->
+  resource_type:string prop ->
+  storage_config:storage_config list ->
+  string ->
+  t Tf_core.resource

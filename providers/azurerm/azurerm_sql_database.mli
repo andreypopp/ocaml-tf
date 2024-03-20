@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -123,3 +123,29 @@ val register :
   threat_detection_policy:threat_detection_policy list ->
   string ->
   t
+
+val make :
+  ?collation:string prop ->
+  ?create_mode:string prop ->
+  ?edition:string prop ->
+  ?elastic_pool_name:string prop ->
+  ?id:string prop ->
+  ?max_size_bytes:string prop ->
+  ?max_size_gb:string prop ->
+  ?read_scale:bool prop ->
+  ?requested_service_objective_id:string prop ->
+  ?requested_service_objective_name:string prop ->
+  ?restore_point_in_time:string prop ->
+  ?source_database_deletion_date:string prop ->
+  ?source_database_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  server_name:string prop ->
+  import:import list ->
+  threat_detection_policy:threat_detection_policy list ->
+  string ->
+  t Tf_core.resource

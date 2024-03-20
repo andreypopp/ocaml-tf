@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type source__source_data = {
   acm_pca_arn : string prop option; [@option]  (** acm_pca_arn *)
@@ -51,26 +49,33 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?enabled ?id ?tags ?tags_all ~name ~source
-    __resource_id =
-  let __resource_type = "aws_rolesanywhere_trust_anchor" in
-  let __resource =
-    aws_rolesanywhere_trust_anchor ?enabled ?id ?tags ?tags_all ~name
-      ~source ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rolesanywhere_trust_anchor __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?tags ?tags_all ~name ~source __id =
+  let __type = "aws_rolesanywhere_trust_anchor" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rolesanywhere_trust_anchor
+        (aws_rolesanywhere_trust_anchor ?enabled ?id ?tags ?tags_all
+           ~name ~source ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?tags ?tags_all ~name ~source
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?tags ?tags_all ~name ~source __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

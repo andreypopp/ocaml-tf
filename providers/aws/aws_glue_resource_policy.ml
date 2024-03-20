@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_glue_resource_policy = {
   enable_hybrid : string prop option; [@option]  (** enable_hybrid *)
@@ -22,20 +20,28 @@ type t = {
   policy : string prop;
 }
 
-let register ?tf_module ?enable_hybrid ?id ~policy __resource_id =
-  let __resource_type = "aws_glue_resource_policy" in
-  let __resource =
-    aws_glue_resource_policy ?enable_hybrid ?id ~policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_resource_policy __resource);
-  let __resource_attributes =
+let make ?enable_hybrid ?id ~policy __id =
+  let __type = "aws_glue_resource_policy" in
+  let __attrs =
     ({
-       enable_hybrid =
-         Prop.computed __resource_type __resource_id "enable_hybrid";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
+       enable_hybrid = Prop.computed __type __id "enable_hybrid";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_resource_policy
+        (aws_glue_resource_policy ?enable_hybrid ?id ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_hybrid ?id ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_hybrid ?id ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

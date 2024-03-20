@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,15 @@ val register :
   dx_gateway_id:string prop ->
   string ->
   t
+
+val make :
+  ?allowed_prefixes:string prop list ->
+  ?associated_gateway_id:string prop ->
+  ?associated_gateway_owner_account_id:string prop ->
+  ?id:string prop ->
+  ?proposal_id:string prop ->
+  ?vpn_gateway_id:string prop ->
+  ?timeouts:timeouts ->
+  dx_gateway_id:string prop ->
+  string ->
+  t Tf_core.resource

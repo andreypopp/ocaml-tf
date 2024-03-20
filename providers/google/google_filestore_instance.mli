@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,19 @@ val register :
   networks:networks list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  tier:string prop ->
+  file_shares:file_shares list ->
+  networks:networks list ->
+  string ->
+  t Tf_core.resource

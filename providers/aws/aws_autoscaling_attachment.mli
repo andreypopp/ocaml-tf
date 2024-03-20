@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   autoscaling_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?elb:string prop ->
+  ?id:string prop ->
+  ?lb_target_group_arn:string prop ->
+  autoscaling_group_name:string prop ->
+  string ->
+  t Tf_core.resource

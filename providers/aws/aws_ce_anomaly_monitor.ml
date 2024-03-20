@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ce_anomaly_monitor = {
   id : string prop option; [@option]  (** id *)
@@ -43,32 +41,40 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?monitor_dimension ?monitor_specification
-    ?tags ?tags_all ~monitor_type ~name __resource_id =
-  let __resource_type = "aws_ce_anomaly_monitor" in
-  let __resource =
-    aws_ce_anomaly_monitor ?id ?monitor_dimension
-      ?monitor_specification ?tags ?tags_all ~monitor_type ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ce_anomaly_monitor __resource);
-  let __resource_attributes =
+let make ?id ?monitor_dimension ?monitor_specification ?tags
+    ?tags_all ~monitor_type ~name __id =
+  let __type = "aws_ce_anomaly_monitor" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        monitor_dimension =
-         Prop.computed __resource_type __resource_id
-           "monitor_dimension";
+         Prop.computed __type __id "monitor_dimension";
        monitor_specification =
-         Prop.computed __resource_type __resource_id
-           "monitor_specification";
-       monitor_type =
-         Prop.computed __resource_type __resource_id "monitor_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "monitor_specification";
+       monitor_type = Prop.computed __type __id "monitor_type";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ce_anomaly_monitor
+        (aws_ce_anomaly_monitor ?id ?monitor_dimension
+           ?monitor_specification ?tags ?tags_all ~monitor_type ~name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?monitor_dimension ?monitor_specification
+    ?tags ?tags_all ~monitor_type ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?monitor_dimension ?monitor_specification ?tags
+      ?tags_all ~monitor_type ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input_asset = {
   label : string prop option; [@option]  (** label *)
@@ -76,34 +74,42 @@ type t = {
   transform_name : string prop;
 }
 
-let register ?tf_module ?description ?id ?priority ?timeouts
+let make ?description ?id ?priority ?timeouts
     ~media_services_account_name ~name ~resource_group_name
-    ~transform_name ~input_asset ~output_asset __resource_id =
-  let __resource_type = "azurerm_media_job" in
-  let __resource =
-    azurerm_media_job ?description ?id ?priority ?timeouts
-      ~media_services_account_name ~name ~resource_group_name
-      ~transform_name ~input_asset ~output_asset ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_job __resource);
-  let __resource_attributes =
+    ~transform_name ~input_asset ~output_asset __id =
+  let __type = "azurerm_media_job" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       transform_name =
-         Prop.computed __resource_type __resource_id "transform_name";
+         Prop.computed __type __id "resource_group_name";
+       transform_name = Prop.computed __type __id "transform_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_job
+        (azurerm_media_job ?description ?id ?priority ?timeouts
+           ~media_services_account_name ~name ~resource_group_name
+           ~transform_name ~input_asset ~output_asset ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?priority ?timeouts
+    ~media_services_account_name ~name ~resource_group_name
+    ~transform_name ~input_asset ~output_asset __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?priority ?timeouts
+      ~media_services_account_name ~name ~resource_group_name
+      ~transform_name ~input_asset ~output_asset __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

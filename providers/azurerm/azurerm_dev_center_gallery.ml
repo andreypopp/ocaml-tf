@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,25 +34,32 @@ type t = {
   shared_gallery_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~dev_center_id ~name
-    ~shared_gallery_id __resource_id =
-  let __resource_type = "azurerm_dev_center_gallery" in
-  let __resource =
-    azurerm_dev_center_gallery ?id ?timeouts ~dev_center_id ~name
-      ~shared_gallery_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_center_gallery __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~dev_center_id ~name ~shared_gallery_id __id =
+  let __type = "azurerm_dev_center_gallery" in
+  let __attrs =
     ({
-       dev_center_id =
-         Prop.computed __resource_type __resource_id "dev_center_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       dev_center_id = Prop.computed __type __id "dev_center_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        shared_gallery_id =
-         Prop.computed __resource_type __resource_id
-           "shared_gallery_id";
+         Prop.computed __type __id "shared_gallery_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_center_gallery
+        (azurerm_dev_center_gallery ?id ?timeouts ~dev_center_id
+           ~name ~shared_gallery_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~dev_center_id ~name
+    ~shared_gallery_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~dev_center_id ~name ~shared_gallery_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type resource_spec = {
   instance_type : string prop option; [@option]  (** instance_type *)
@@ -72,36 +70,41 @@ type t = {
   user_profile_name : string prop;
 }
 
-let register ?tf_module ?id ?space_name ?tags ?tags_all
-    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
-    __resource_id =
-  let __resource_type = "aws_sagemaker_app" in
-  let __resource =
-    aws_sagemaker_app ?id ?space_name ?tags ?tags_all
-      ?user_profile_name ~app_name ~app_type ~domain_id
-      ~resource_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_app __resource);
-  let __resource_attributes =
+let make ?id ?space_name ?tags ?tags_all ?user_profile_name ~app_name
+    ~app_type ~domain_id ~resource_spec __id =
+  let __type = "aws_sagemaker_app" in
+  let __attrs =
     ({
-       app_name =
-         Prop.computed __resource_type __resource_id "app_name";
-       app_type =
-         Prop.computed __resource_type __resource_id "app_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       domain_id =
-         Prop.computed __resource_type __resource_id "domain_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       space_name =
-         Prop.computed __resource_type __resource_id "space_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       app_name = Prop.computed __type __id "app_name";
+       app_type = Prop.computed __type __id "app_type";
+       arn = Prop.computed __type __id "arn";
+       domain_id = Prop.computed __type __id "domain_id";
+       id = Prop.computed __type __id "id";
+       space_name = Prop.computed __type __id "space_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        user_profile_name =
-         Prop.computed __resource_type __resource_id
-           "user_profile_name";
+         Prop.computed __type __id "user_profile_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_app
+        (aws_sagemaker_app ?id ?space_name ?tags ?tags_all
+           ?user_profile_name ~app_name ~app_type ~domain_id
+           ~resource_spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?space_name ?tags ?tags_all
+    ?user_profile_name ~app_name ~app_type ~domain_id ~resource_spec
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?space_name ?tags ?tags_all ?user_profile_name ~app_name
+      ~app_type ~domain_id ~resource_spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

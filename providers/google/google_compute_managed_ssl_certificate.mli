@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,15 @@ val register :
   managed:managed list ->
   string ->
   t
+
+val make :
+  ?certificate_id:float prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  managed:managed list ->
+  string ->
+  t Tf_core.resource

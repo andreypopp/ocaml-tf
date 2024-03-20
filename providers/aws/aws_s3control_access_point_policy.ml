@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_s3control_access_point_policy = {
   access_point_arn : string prop;  (** access_point_arn *)
@@ -23,25 +21,32 @@ type t = {
   policy : string prop;
 }
 
-let register ?tf_module ?id ~access_point_arn ~policy __resource_id =
-  let __resource_type = "aws_s3control_access_point_policy" in
-  let __resource =
-    aws_s3control_access_point_policy ?id ~access_point_arn ~policy
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3control_access_point_policy __resource);
-  let __resource_attributes =
+let make ?id ~access_point_arn ~policy __id =
+  let __type = "aws_s3control_access_point_policy" in
+  let __attrs =
     ({
        access_point_arn =
-         Prop.computed __resource_type __resource_id
-           "access_point_arn";
+         Prop.computed __type __id "access_point_arn";
        has_public_access_policy =
-         Prop.computed __resource_type __resource_id
-           "has_public_access_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy = Prop.computed __resource_type __resource_id "policy";
+         Prop.computed __type __id "has_public_access_policy";
+       id = Prop.computed __type __id "id";
+       policy = Prop.computed __type __id "policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3control_access_point_policy
+        (aws_s3control_access_point_policy ?id ~access_point_arn
+           ~policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~access_point_arn ~policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~access_point_arn ~policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type exclude__auth_context = {
   ac_id : string prop;
@@ -482,24 +480,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?zone_id ~name ~exclude
-    ~include_ ~require __resource_id =
-  let __resource_type = "cloudflare_access_group" in
-  let __resource =
-    cloudflare_access_group ?account_id ?id ?zone_id ~name ~exclude
-      ~include_ ~require ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_group __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?zone_id ~name ~exclude ~include_ ~require
+    __id =
+  let __type = "cloudflare_access_group" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_group
+        (cloudflare_access_group ?account_id ?id ?zone_id ~name
+           ~exclude ~include_ ~require ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?zone_id ~name ~exclude
+    ~include_ ~require __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?zone_id ~name ~exclude ~include_ ~require
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

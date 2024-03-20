@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rules__filter = {
   blob_types : string prop list;  (** blob_types *)
@@ -85,22 +83,30 @@ let azurerm_storage_blob_inventory_policy ?id ?timeouts
 
 type t = { id : string prop; storage_account_id : string prop }
 
-let register ?tf_module ?id ?timeouts ~storage_account_id ~rules
-    __resource_id =
-  let __resource_type = "azurerm_storage_blob_inventory_policy" in
-  let __resource =
-    azurerm_storage_blob_inventory_policy ?id ?timeouts
-      ~storage_account_id ~rules ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_blob_inventory_policy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~storage_account_id ~rules __id =
+  let __type = "azurerm_storage_blob_inventory_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_blob_inventory_policy
+        (azurerm_storage_blob_inventory_policy ?id ?timeouts
+           ~storage_account_id ~rules ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~storage_account_id ~rules __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~storage_account_id ~rules __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

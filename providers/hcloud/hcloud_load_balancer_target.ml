@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type hcloud_load_balancer_target = {
   id : string prop option; [@option]  (** id *)
@@ -40,30 +38,37 @@ type t = {
   use_private_ip : bool prop;
 }
 
-let register ?tf_module ?id ?ip ?label_selector ?server_id
-    ?use_private_ip ~load_balancer_id ~type_ __resource_id =
-  let __resource_type = "hcloud_load_balancer_target" in
-  let __resource =
-    hcloud_load_balancer_target ?id ?ip ?label_selector ?server_id
-      ?use_private_ip ~load_balancer_id ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_hcloud_load_balancer_target __resource);
-  let __resource_attributes =
+let make ?id ?ip ?label_selector ?server_id ?use_private_ip
+    ~load_balancer_id ~type_ __id =
+  let __type = "hcloud_load_balancer_target" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
-       label_selector =
-         Prop.computed __resource_type __resource_id "label_selector";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
+       label_selector = Prop.computed __type __id "label_selector";
        load_balancer_id =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_id";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       use_private_ip =
-         Prop.computed __resource_type __resource_id "use_private_ip";
+         Prop.computed __type __id "load_balancer_id";
+       server_id = Prop.computed __type __id "server_id";
+       type_ = Prop.computed __type __id "type";
+       use_private_ip = Prop.computed __type __id "use_private_ip";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_hcloud_load_balancer_target
+        (hcloud_load_balancer_target ?id ?ip ?label_selector
+           ?server_id ?use_private_ip ~load_balancer_id ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip ?label_selector ?server_id
+    ?use_private_ip ~load_balancer_id ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip ?label_selector ?server_id ?use_private_ip
+      ~load_balancer_id ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

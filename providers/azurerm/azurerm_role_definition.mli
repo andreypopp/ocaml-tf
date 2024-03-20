@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,15 @@ val register :
   permissions:permissions list ->
   string ->
   t
+
+val make :
+  ?assignable_scopes:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?role_definition_id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  scope:string prop ->
+  permissions:permissions list ->
+  string ->
+  t Tf_core.resource

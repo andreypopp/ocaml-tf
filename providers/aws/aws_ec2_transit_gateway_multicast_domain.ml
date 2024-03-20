@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,39 +56,46 @@ type t = {
   transit_gateway_id : string prop;
 }
 
-let register ?tf_module ?auto_accept_shared_associations ?id
-    ?igmpv2_support ?static_sources_support ?tags ?tags_all ?timeouts
-    ~transit_gateway_id __resource_id =
-  let __resource_type = "aws_ec2_transit_gateway_multicast_domain" in
-  let __resource =
-    aws_ec2_transit_gateway_multicast_domain
-      ?auto_accept_shared_associations ?id ?igmpv2_support
-      ?static_sources_support ?tags ?tags_all ?timeouts
-      ~transit_gateway_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_transit_gateway_multicast_domain __resource);
-  let __resource_attributes =
+let make ?auto_accept_shared_associations ?id ?igmpv2_support
+    ?static_sources_support ?tags ?tags_all ?timeouts
+    ~transit_gateway_id __id =
+  let __type = "aws_ec2_transit_gateway_multicast_domain" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        auto_accept_shared_associations =
-         Prop.computed __resource_type __resource_id
-           "auto_accept_shared_associations";
-       id = Prop.computed __resource_type __resource_id "id";
-       igmpv2_support =
-         Prop.computed __resource_type __resource_id "igmpv2_support";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
+         Prop.computed __type __id "auto_accept_shared_associations";
+       id = Prop.computed __type __id "id";
+       igmpv2_support = Prop.computed __type __id "igmpv2_support";
+       owner_id = Prop.computed __type __id "owner_id";
        static_sources_support =
-         Prop.computed __resource_type __resource_id
-           "static_sources_support";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "static_sources_support";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        transit_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_id";
+         Prop.computed __type __id "transit_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_transit_gateway_multicast_domain
+        (aws_ec2_transit_gateway_multicast_domain
+           ?auto_accept_shared_associations ?id ?igmpv2_support
+           ?static_sources_support ?tags ?tags_all ?timeouts
+           ~transit_gateway_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_accept_shared_associations ?id
+    ?igmpv2_support ?static_sources_support ?tags ?tags_all ?timeouts
+    ~transit_gateway_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_accept_shared_associations ?id ?igmpv2_support
+      ?static_sources_support ?tags ?tags_all ?timeouts
+      ~transit_gateway_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

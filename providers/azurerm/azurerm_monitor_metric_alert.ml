@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action = {
   action_group_id : string prop;  (** action_group_id *)
@@ -195,51 +193,61 @@ type t = {
   window_size : string prop;
 }
 
+let make ?auto_mitigate ?description ?enabled ?frequency ?id
+    ?severity ?tags ?target_resource_location ?target_resource_type
+    ?window_size ?timeouts ~name ~resource_group_name ~scopes ~action
+    ~application_insights_web_test_location_availability_criteria
+    ~criteria ~dynamic_criteria __id =
+  let __type = "azurerm_monitor_metric_alert" in
+  let __attrs =
+    ({
+       auto_mitigate = Prop.computed __type __id "auto_mitigate";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       scopes = Prop.computed __type __id "scopes";
+       severity = Prop.computed __type __id "severity";
+       tags = Prop.computed __type __id "tags";
+       target_resource_location =
+         Prop.computed __type __id "target_resource_location";
+       target_resource_type =
+         Prop.computed __type __id "target_resource_type";
+       window_size = Prop.computed __type __id "window_size";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_metric_alert
+        (azurerm_monitor_metric_alert ?auto_mitigate ?description
+           ?enabled ?frequency ?id ?severity ?tags
+           ?target_resource_location ?target_resource_type
+           ?window_size ?timeouts ~name ~resource_group_name ~scopes
+           ~action
+           ~application_insights_web_test_location_availability_criteria
+           ~criteria ~dynamic_criteria ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_mitigate ?description ?enabled
     ?frequency ?id ?severity ?tags ?target_resource_location
     ?target_resource_type ?window_size ?timeouts ~name
     ~resource_group_name ~scopes ~action
     ~application_insights_web_test_location_availability_criteria
-    ~criteria ~dynamic_criteria __resource_id =
-  let __resource_type = "azurerm_monitor_metric_alert" in
-  let __resource =
-    azurerm_monitor_metric_alert ?auto_mitigate ?description ?enabled
-      ?frequency ?id ?severity ?tags ?target_resource_location
-      ?target_resource_type ?window_size ?timeouts ~name
-      ~resource_group_name ~scopes ~action
+    ~criteria ~dynamic_criteria __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_mitigate ?description ?enabled ?frequency ?id
+      ?severity ?tags ?target_resource_location ?target_resource_type
+      ?window_size ?timeouts ~name ~resource_group_name ~scopes
+      ~action
       ~application_insights_web_test_location_availability_criteria
-      ~criteria ~dynamic_criteria ()
+      ~criteria ~dynamic_criteria __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_metric_alert __resource);
-  let __resource_attributes =
-    ({
-       auto_mitigate =
-         Prop.computed __resource_type __resource_id "auto_mitigate";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scopes = Prop.computed __resource_type __resource_id "scopes";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       target_resource_location =
-         Prop.computed __resource_type __resource_id
-           "target_resource_location";
-       target_resource_type =
-         Prop.computed __resource_type __resource_id
-           "target_resource_type";
-       window_size =
-         Prop.computed __resource_type __resource_id "window_size";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

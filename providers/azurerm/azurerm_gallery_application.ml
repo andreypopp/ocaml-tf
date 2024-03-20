@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -69,42 +67,49 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?end_of_life_date ?eula ?id
+let make ?description ?end_of_life_date ?eula ?id
     ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
-    ~gallery_id ~location ~name ~supported_os_type __resource_id =
-  let __resource_type = "azurerm_gallery_application" in
-  let __resource =
-    azurerm_gallery_application ?description ?end_of_life_date ?eula
-      ?id ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
-      ~gallery_id ~location ~name ~supported_os_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_gallery_application __resource);
-  let __resource_attributes =
+    ~gallery_id ~location ~name ~supported_os_type __id =
+  let __type = "azurerm_gallery_application" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        end_of_life_date =
-         Prop.computed __resource_type __resource_id
-           "end_of_life_date";
-       eula = Prop.computed __resource_type __resource_id "eula";
-       gallery_id =
-         Prop.computed __resource_type __resource_id "gallery_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "end_of_life_date";
+       eula = Prop.computed __type __id "eula";
+       gallery_id = Prop.computed __type __id "gallery_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        privacy_statement_uri =
-         Prop.computed __resource_type __resource_id
-           "privacy_statement_uri";
+         Prop.computed __type __id "privacy_statement_uri";
        release_note_uri =
-         Prop.computed __resource_type __resource_id
-           "release_note_uri";
+         Prop.computed __type __id "release_note_uri";
        supported_os_type =
-         Prop.computed __resource_type __resource_id
-           "supported_os_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "supported_os_type";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_gallery_application
+        (azurerm_gallery_application ?description ?end_of_life_date
+           ?eula ?id ?privacy_statement_uri ?release_note_uri ?tags
+           ?timeouts ~gallery_id ~location ~name ~supported_os_type
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?end_of_life_date ?eula ?id
+    ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
+    ~gallery_id ~location ~name ~supported_os_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?end_of_life_date ?eula ?id
+      ?privacy_statement_uri ?release_note_uri ?tags ?timeouts
+      ~gallery_id ~location ~name ~supported_os_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

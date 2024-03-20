@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,23 +43,29 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~domain_arn ~vpc_options
-    __resource_id =
-  let __resource_type = "aws_opensearch_vpc_endpoint" in
-  let __resource =
-    aws_opensearch_vpc_endpoint ?id ?timeouts ~domain_arn
-      ~vpc_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opensearch_vpc_endpoint __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~domain_arn ~vpc_options __id =
+  let __type = "aws_opensearch_vpc_endpoint" in
+  let __attrs =
     ({
-       domain_arn =
-         Prop.computed __resource_type __resource_id "domain_arn";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
+       domain_arn = Prop.computed __type __id "domain_arn";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opensearch_vpc_endpoint
+        (aws_opensearch_vpc_endpoint ?id ?timeouts ~domain_arn
+           ~vpc_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~domain_arn ~vpc_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~domain_arn ~vpc_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

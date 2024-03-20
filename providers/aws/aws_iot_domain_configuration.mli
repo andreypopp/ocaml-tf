@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,18 @@ val register :
   tls_config:tls_config list ->
   string ->
   t
+
+val make :
+  ?domain_name:string prop ->
+  ?id:string prop ->
+  ?server_certificate_arns:string prop list ->
+  ?service_type:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?validation_certificate_arn:string prop ->
+  name:string prop ->
+  authorizer_config:authorizer_config list ->
+  tls_config:tls_config list ->
+  string ->
+  t Tf_core.resource

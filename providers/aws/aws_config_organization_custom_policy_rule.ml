@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -84,61 +82,64 @@ type t = {
   trigger_types : string list prop;
 }
 
+let make ?debug_log_delivery_accounts ?description ?excluded_accounts
+    ?id ?input_parameters ?maximum_execution_frequency
+    ?resource_id_scope ?resource_types_scope ?tag_key_scope
+    ?tag_value_scope ?timeouts ~name ~policy_runtime ~policy_text
+    ~trigger_types __id =
+  let __type = "aws_config_organization_custom_policy_rule" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       debug_log_delivery_accounts =
+         Prop.computed __type __id "debug_log_delivery_accounts";
+       description = Prop.computed __type __id "description";
+       excluded_accounts =
+         Prop.computed __type __id "excluded_accounts";
+       id = Prop.computed __type __id "id";
+       input_parameters =
+         Prop.computed __type __id "input_parameters";
+       maximum_execution_frequency =
+         Prop.computed __type __id "maximum_execution_frequency";
+       name = Prop.computed __type __id "name";
+       policy_runtime = Prop.computed __type __id "policy_runtime";
+       policy_text = Prop.computed __type __id "policy_text";
+       resource_id_scope =
+         Prop.computed __type __id "resource_id_scope";
+       resource_types_scope =
+         Prop.computed __type __id "resource_types_scope";
+       tag_key_scope = Prop.computed __type __id "tag_key_scope";
+       tag_value_scope = Prop.computed __type __id "tag_value_scope";
+       trigger_types = Prop.computed __type __id "trigger_types";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_organization_custom_policy_rule
+        (aws_config_organization_custom_policy_rule
+           ?debug_log_delivery_accounts ?description
+           ?excluded_accounts ?id ?input_parameters
+           ?maximum_execution_frequency ?resource_id_scope
+           ?resource_types_scope ?tag_key_scope ?tag_value_scope
+           ?timeouts ~name ~policy_runtime ~policy_text
+           ~trigger_types ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?debug_log_delivery_accounts ?description
     ?excluded_accounts ?id ?input_parameters
     ?maximum_execution_frequency ?resource_id_scope
     ?resource_types_scope ?tag_key_scope ?tag_value_scope ?timeouts
-    ~name ~policy_runtime ~policy_text ~trigger_types __resource_id =
-  let __resource_type =
-    "aws_config_organization_custom_policy_rule"
-  in
-  let __resource =
-    aws_config_organization_custom_policy_rule
-      ?debug_log_delivery_accounts ?description ?excluded_accounts
+    ~name ~policy_runtime ~policy_text ~trigger_types __id =
+  let (r : _ Tf_core.resource) =
+    make ?debug_log_delivery_accounts ?description ?excluded_accounts
       ?id ?input_parameters ?maximum_execution_frequency
       ?resource_id_scope ?resource_types_scope ?tag_key_scope
       ?tag_value_scope ?timeouts ~name ~policy_runtime ~policy_text
-      ~trigger_types ()
+      ~trigger_types __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_organization_custom_policy_rule __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       debug_log_delivery_accounts =
-         Prop.computed __resource_type __resource_id
-           "debug_log_delivery_accounts";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       excluded_accounts =
-         Prop.computed __resource_type __resource_id
-           "excluded_accounts";
-       id = Prop.computed __resource_type __resource_id "id";
-       input_parameters =
-         Prop.computed __resource_type __resource_id
-           "input_parameters";
-       maximum_execution_frequency =
-         Prop.computed __resource_type __resource_id
-           "maximum_execution_frequency";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_runtime =
-         Prop.computed __resource_type __resource_id "policy_runtime";
-       policy_text =
-         Prop.computed __resource_type __resource_id "policy_text";
-       resource_id_scope =
-         Prop.computed __resource_type __resource_id
-           "resource_id_scope";
-       resource_types_scope =
-         Prop.computed __resource_type __resource_id
-           "resource_types_scope";
-       tag_key_scope =
-         Prop.computed __resource_type __resource_id "tag_key_scope";
-       tag_value_scope =
-         Prop.computed __resource_type __resource_id
-           "tag_value_scope";
-       trigger_types =
-         Prop.computed __resource_type __resource_id "trigger_types";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

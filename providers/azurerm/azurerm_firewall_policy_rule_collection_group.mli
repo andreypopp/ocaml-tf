@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -147,3 +147,15 @@ val register :
   network_rule_collection:network_rule_collection list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  firewall_policy_id:string prop ->
+  name:string prop ->
+  priority:float prop ->
+  application_rule_collection:application_rule_collection list ->
+  nat_rule_collection:nat_rule_collection list ->
+  network_rule_collection:network_rule_collection list ->
+  string ->
+  t Tf_core.resource

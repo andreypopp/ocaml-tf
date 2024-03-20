@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,47 +49,45 @@ type t = {
   subnet_id : string prop;
 }
 
-let register ?tf_module ?id ?ip_address ?security_groups ?timeouts
-    ~file_system_id ~subnet_id __resource_id =
-  let __resource_type = "aws_efs_mount_target" in
-  let __resource =
-    aws_efs_mount_target ?id ?ip_address ?security_groups ?timeouts
-      ~file_system_id ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_efs_mount_target __resource);
-  let __resource_attributes =
+let make ?id ?ip_address ?security_groups ?timeouts ~file_system_id
+    ~subnet_id __id =
+  let __type = "aws_efs_mount_target" in
+  let __attrs =
     ({
        availability_zone_id =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_id";
+         Prop.computed __type __id "availability_zone_id";
        availability_zone_name =
-         Prop.computed __resource_type __resource_id
-           "availability_zone_name";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       file_system_arn =
-         Prop.computed __resource_type __resource_id
-           "file_system_arn";
-       file_system_id =
-         Prop.computed __resource_type __resource_id "file_system_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
+         Prop.computed __type __id "availability_zone_name";
+       dns_name = Prop.computed __type __id "dns_name";
+       file_system_arn = Prop.computed __type __id "file_system_arn";
+       file_system_id = Prop.computed __type __id "file_system_id";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
        mount_target_dns_name =
-         Prop.computed __resource_type __resource_id
-           "mount_target_dns_name";
+         Prop.computed __type __id "mount_target_dns_name";
        network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
+         Prop.computed __type __id "network_interface_id";
+       owner_id = Prop.computed __type __id "owner_id";
+       security_groups = Prop.computed __type __id "security_groups";
+       subnet_id = Prop.computed __type __id "subnet_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_efs_mount_target
+        (aws_efs_mount_target ?id ?ip_address ?security_groups
+           ?timeouts ~file_system_id ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_address ?security_groups ?timeouts
+    ~file_system_id ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_address ?security_groups ?timeouts ~file_system_id
+      ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

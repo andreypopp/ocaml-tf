@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,39 +56,43 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ?kubernetes_groups ?tags ?tags_all ?type_
-    ?user_name ?timeouts ~cluster_name ~principal_arn __resource_id =
-  let __resource_type = "aws_eks_access_entry" in
-  let __resource =
-    aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
-      ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_access_entry __resource);
-  let __resource_attributes =
+let make ?id ?kubernetes_groups ?tags ?tags_all ?type_ ?user_name
+    ?timeouts ~cluster_name ~principal_arn __id =
+  let __type = "aws_eks_access_entry" in
+  let __attrs =
     ({
        access_entry_arn =
-         Prop.computed __resource_type __resource_id
-           "access_entry_arn";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "access_entry_arn";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
        kubernetes_groups =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_groups";
-       modified_at =
-         Prop.computed __resource_type __resource_id "modified_at";
-       principal_arn =
-         Prop.computed __resource_type __resource_id "principal_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "kubernetes_groups";
+       modified_at = Prop.computed __type __id "modified_at";
+       principal_arn = Prop.computed __type __id "principal_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_access_entry
+        (aws_eks_access_entry ?id ?kubernetes_groups ?tags ?tags_all
+           ?type_ ?user_name ?timeouts ~cluster_name ~principal_arn
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kubernetes_groups ?tags ?tags_all ?type_
+    ?user_name ?timeouts ~cluster_name ~principal_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kubernetes_groups ?tags ?tags_all ?type_ ?user_name
+      ?timeouts ~cluster_name ~principal_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

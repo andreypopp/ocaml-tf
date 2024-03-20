@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type github_action_configuration__code_configuration = {
   runtime_stack : string prop;
@@ -118,42 +116,47 @@ type t = {
   uses_github_action : bool prop;
 }
 
-let register ?tf_module ?branch ?id ?repo_url ?rollback_enabled
-    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
-    ~slot_id ~github_action_configuration __resource_id =
-  let __resource_type = "azurerm_app_service_source_control_slot" in
-  let __resource =
-    azurerm_app_service_source_control_slot ?branch ?id ?repo_url
-      ?rollback_enabled ?use_local_git ?use_manual_integration
-      ?use_mercurial ?timeouts ~slot_id ~github_action_configuration
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_source_control_slot __resource);
-  let __resource_attributes =
+let make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
+    ?use_manual_integration ?use_mercurial ?timeouts ~slot_id
+    ~github_action_configuration __id =
+  let __type = "azurerm_app_service_source_control_slot" in
+  let __attrs =
     ({
-       branch = Prop.computed __resource_type __resource_id "branch";
-       id = Prop.computed __resource_type __resource_id "id";
-       repo_url =
-         Prop.computed __resource_type __resource_id "repo_url";
+       branch = Prop.computed __type __id "branch";
+       id = Prop.computed __type __id "id";
+       repo_url = Prop.computed __type __id "repo_url";
        rollback_enabled =
-         Prop.computed __resource_type __resource_id
-           "rollback_enabled";
-       scm_type =
-         Prop.computed __resource_type __resource_id "scm_type";
-       slot_id =
-         Prop.computed __resource_type __resource_id "slot_id";
-       use_local_git =
-         Prop.computed __resource_type __resource_id "use_local_git";
+         Prop.computed __type __id "rollback_enabled";
+       scm_type = Prop.computed __type __id "scm_type";
+       slot_id = Prop.computed __type __id "slot_id";
+       use_local_git = Prop.computed __type __id "use_local_git";
        use_manual_integration =
-         Prop.computed __resource_type __resource_id
-           "use_manual_integration";
-       use_mercurial =
-         Prop.computed __resource_type __resource_id "use_mercurial";
+         Prop.computed __type __id "use_manual_integration";
+       use_mercurial = Prop.computed __type __id "use_mercurial";
        uses_github_action =
-         Prop.computed __resource_type __resource_id
-           "uses_github_action";
+         Prop.computed __type __id "uses_github_action";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_source_control_slot
+        (azurerm_app_service_source_control_slot ?branch ?id
+           ?repo_url ?rollback_enabled ?use_local_git
+           ?use_manual_integration ?use_mercurial ?timeouts ~slot_id
+           ~github_action_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?branch ?id ?repo_url ?rollback_enabled
+    ?use_local_git ?use_manual_integration ?use_mercurial ?timeouts
+    ~slot_id ~github_action_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?branch ?id ?repo_url ?rollback_enabled ?use_local_git
+      ?use_manual_integration ?use_mercurial ?timeouts ~slot_id
+      ~github_action_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

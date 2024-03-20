@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,13 @@ val register :
   single_sign_on_enabled:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  datadog_monitor_id:string prop ->
+  enterprise_application_id:string prop ->
+  single_sign_on_enabled:string prop ->
+  string ->
+  t Tf_core.resource

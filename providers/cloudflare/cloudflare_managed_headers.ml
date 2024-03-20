@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type managed_request_headers = {
   enabled : bool prop;  (** Whether the headers rule is active. *)
@@ -45,21 +43,31 @@ let cloudflare_managed_headers ?id ~zone_id ~managed_request_headers
 
 type t = { id : string prop; zone_id : string prop }
 
-let register ?tf_module ?id ~zone_id ~managed_request_headers
-    ~managed_response_headers __resource_id =
-  let __resource_type = "cloudflare_managed_headers" in
-  let __resource =
-    cloudflare_managed_headers ?id ~zone_id ~managed_request_headers
-      ~managed_response_headers ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_managed_headers __resource);
-  let __resource_attributes =
+let make ?id ~zone_id ~managed_request_headers
+    ~managed_response_headers __id =
+  let __type = "cloudflare_managed_headers" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       id = Prop.computed __type __id "id";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_managed_headers
+        (cloudflare_managed_headers ?id ~zone_id
+           ~managed_request_headers ~managed_response_headers ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~zone_id ~managed_request_headers
+    ~managed_response_headers __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~zone_id ~managed_request_headers
+      ~managed_response_headers __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

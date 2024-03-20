@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_gre_tunnel = {
   account_id : string prop option; [@option]
@@ -65,48 +63,55 @@ type t = {
   ttl : float prop;
 }
 
-let register ?tf_module ?account_id ?description
-    ?health_check_enabled ?health_check_target ?health_check_type ?id
-    ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
-    ~interface_address ~name __resource_id =
-  let __resource_type = "cloudflare_gre_tunnel" in
-  let __resource =
-    cloudflare_gre_tunnel ?account_id ?description
-      ?health_check_enabled ?health_check_target ?health_check_type
-      ?id ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
-      ~interface_address ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_gre_tunnel __resource);
-  let __resource_attributes =
+let make ?account_id ?description ?health_check_enabled
+    ?health_check_target ?health_check_type ?id ?mtu ?ttl
+    ~cloudflare_gre_endpoint ~customer_gre_endpoint
+    ~interface_address ~name __id =
+  let __type = "cloudflare_gre_tunnel" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        cloudflare_gre_endpoint =
-         Prop.computed __resource_type __resource_id
-           "cloudflare_gre_endpoint";
+         Prop.computed __type __id "cloudflare_gre_endpoint";
        customer_gre_endpoint =
-         Prop.computed __resource_type __resource_id
-           "customer_gre_endpoint";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "customer_gre_endpoint";
+       description = Prop.computed __type __id "description";
        health_check_enabled =
-         Prop.computed __resource_type __resource_id
-           "health_check_enabled";
+         Prop.computed __type __id "health_check_enabled";
        health_check_target =
-         Prop.computed __resource_type __resource_id
-           "health_check_target";
+         Prop.computed __type __id "health_check_target";
        health_check_type =
-         Prop.computed __resource_type __resource_id
-           "health_check_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "health_check_type";
+       id = Prop.computed __type __id "id";
        interface_address =
-         Prop.computed __resource_type __resource_id
-           "interface_address";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
+         Prop.computed __type __id "interface_address";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
+       ttl = Prop.computed __type __id "ttl";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_gre_tunnel
+        (cloudflare_gre_tunnel ?account_id ?description
+           ?health_check_enabled ?health_check_target
+           ?health_check_type ?id ?mtu ?ttl ~cloudflare_gre_endpoint
+           ~customer_gre_endpoint ~interface_address ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?description
+    ?health_check_enabled ?health_check_target ?health_check_type ?id
+    ?mtu ?ttl ~cloudflare_gre_endpoint ~customer_gre_endpoint
+    ~interface_address ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?description ?health_check_enabled
+      ?health_check_target ?health_check_type ?id ?mtu ?ttl
+      ~cloudflare_gre_endpoint ~customer_gre_endpoint
+      ~interface_address ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

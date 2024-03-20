@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   username:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?inherited_role_names:string prop list ->
+  ?timeouts:timeouts ->
+  cosmos_mongo_database_id:string prop ->
+  password:string prop ->
+  username:string prop ->
+  string ->
+  t Tf_core.resource

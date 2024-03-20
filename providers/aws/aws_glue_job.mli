@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -99,3 +99,27 @@ val register :
   notification_property:notification_property list ->
   string ->
   t
+
+val make :
+  ?connections:string prop list ->
+  ?default_arguments:(string * string prop) list ->
+  ?description:string prop ->
+  ?execution_class:string prop ->
+  ?glue_version:string prop ->
+  ?id:string prop ->
+  ?max_capacity:float prop ->
+  ?max_retries:float prop ->
+  ?non_overridable_arguments:(string * string prop) list ->
+  ?number_of_workers:float prop ->
+  ?security_configuration:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeout:float prop ->
+  ?worker_type:string prop ->
+  name:string prop ->
+  role_arn:string prop ->
+  command:command list ->
+  execution_property:execution_property list ->
+  notification_property:notification_property list ->
+  string ->
+  t Tf_core.resource

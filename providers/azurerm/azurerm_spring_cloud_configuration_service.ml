@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type repository = {
   ca_certificate_id : string prop option; [@option]
@@ -91,32 +89,37 @@ type t = {
   spring_cloud_service_id : string prop;
 }
 
-let register ?tf_module ?generation ?id ?refresh_interval_in_seconds
-    ?timeouts ~name ~spring_cloud_service_id ~repository
-    __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_configuration_service"
-  in
-  let __resource =
-    azurerm_spring_cloud_configuration_service ?generation ?id
-      ?refresh_interval_in_seconds ?timeouts ~name
-      ~spring_cloud_service_id ~repository ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_configuration_service __resource);
-  let __resource_attributes =
+let make ?generation ?id ?refresh_interval_in_seconds ?timeouts ~name
+    ~spring_cloud_service_id ~repository __id =
+  let __type = "azurerm_spring_cloud_configuration_service" in
+  let __attrs =
     ({
-       generation =
-         Prop.computed __resource_type __resource_id "generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       generation = Prop.computed __type __id "generation";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        refresh_interval_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "refresh_interval_in_seconds";
+         Prop.computed __type __id "refresh_interval_in_seconds";
        spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
+         Prop.computed __type __id "spring_cloud_service_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_configuration_service
+        (azurerm_spring_cloud_configuration_service ?generation ?id
+           ?refresh_interval_in_seconds ?timeouts ~name
+           ~spring_cloud_service_id ~repository ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?generation ?id ?refresh_interval_in_seconds
+    ?timeouts ~name ~spring_cloud_service_id ~repository __id =
+  let (r : _ Tf_core.resource) =
+    make ?generation ?id ?refresh_interval_in_seconds ?timeouts ~name
+      ~spring_cloud_service_id ~repository __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

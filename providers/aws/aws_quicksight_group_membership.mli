@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,4 +37,13 @@ val register :
     member_name:string prop ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?namespace:string prop ->
+    group_name:string prop ->
+    member_name:string prop ->
+    string ->
+    t Tf_core.resource
 

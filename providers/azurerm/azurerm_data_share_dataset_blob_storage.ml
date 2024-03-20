@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type storage_account = {
   name : string prop;  (** name *)
@@ -64,32 +62,37 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?file_path ?folder_path ?id ?timeouts
-    ~container_name ~data_share_id ~name ~storage_account
-    __resource_id =
-  let __resource_type = "azurerm_data_share_dataset_blob_storage" in
-  let __resource =
-    azurerm_data_share_dataset_blob_storage ?file_path ?folder_path
-      ?id ?timeouts ~container_name ~data_share_id ~name
-      ~storage_account ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_share_dataset_blob_storage __resource);
-  let __resource_attributes =
+let make ?file_path ?folder_path ?id ?timeouts ~container_name
+    ~data_share_id ~name ~storage_account __id =
+  let __type = "azurerm_data_share_dataset_blob_storage" in
+  let __attrs =
     ({
-       container_name =
-         Prop.computed __resource_type __resource_id "container_name";
-       data_share_id =
-         Prop.computed __resource_type __resource_id "data_share_id";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       file_path =
-         Prop.computed __resource_type __resource_id "file_path";
-       folder_path =
-         Prop.computed __resource_type __resource_id "folder_path";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       container_name = Prop.computed __type __id "container_name";
+       data_share_id = Prop.computed __type __id "data_share_id";
+       display_name = Prop.computed __type __id "display_name";
+       file_path = Prop.computed __type __id "file_path";
+       folder_path = Prop.computed __type __id "folder_path";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_share_dataset_blob_storage
+        (azurerm_data_share_dataset_blob_storage ?file_path
+           ?folder_path ?id ?timeouts ~container_name ~data_share_id
+           ~name ~storage_account ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?file_path ?folder_path ?id ?timeouts
+    ~container_name ~data_share_id ~name ~storage_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?file_path ?folder_path ?id ?timeouts ~container_name
+      ~data_share_id ~name ~storage_account __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

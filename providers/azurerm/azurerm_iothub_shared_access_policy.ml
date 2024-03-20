@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,46 +60,48 @@ type t = {
   service_connect : bool prop;
 }
 
-let register ?tf_module ?device_connect ?id ?registry_read
-    ?registry_write ?service_connect ?timeouts ~iothub_name ~name
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_iothub_shared_access_policy" in
-  let __resource =
-    azurerm_iothub_shared_access_policy ?device_connect ?id
-      ?registry_read ?registry_write ?service_connect ?timeouts
-      ~iothub_name ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_shared_access_policy __resource);
-  let __resource_attributes =
+let make ?device_connect ?id ?registry_read ?registry_write
+    ?service_connect ?timeouts ~iothub_name ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_iothub_shared_access_policy" in
+  let __attrs =
     ({
-       device_connect =
-         Prop.computed __resource_type __resource_id "device_connect";
-       id = Prop.computed __resource_type __resource_id "id";
-       iothub_name =
-         Prop.computed __resource_type __resource_id "iothub_name";
-       name = Prop.computed __resource_type __resource_id "name";
+       device_connect = Prop.computed __type __id "device_connect";
+       id = Prop.computed __type __id "id";
+       iothub_name = Prop.computed __type __id "iothub_name";
+       name = Prop.computed __type __id "name";
        primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
-       registry_read =
-         Prop.computed __resource_type __resource_id "registry_read";
-       registry_write =
-         Prop.computed __resource_type __resource_id "registry_write";
+         Prop.computed __type __id "primary_connection_string";
+       primary_key = Prop.computed __type __id "primary_key";
+       registry_read = Prop.computed __type __id "registry_read";
+       registry_write = Prop.computed __type __id "registry_write";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_connection_string";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       service_connect =
-         Prop.computed __resource_type __resource_id
-           "service_connect";
+         Prop.computed __type __id "secondary_connection_string";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       service_connect = Prop.computed __type __id "service_connect";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_shared_access_policy
+        (azurerm_iothub_shared_access_policy ?device_connect ?id
+           ?registry_read ?registry_write ?service_connect ?timeouts
+           ~iothub_name ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?device_connect ?id ?registry_read
+    ?registry_write ?service_connect ?timeouts ~iothub_name ~name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?device_connect ?id ?registry_read ?registry_write
+      ?service_connect ?timeouts ~iothub_name ~name
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

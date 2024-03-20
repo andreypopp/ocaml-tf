@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input = {
   configuration_parameter : bool prop option; [@option]
@@ -70,31 +68,37 @@ type t = {
   stream_analytics_job_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~resource_group_name
-    ~script ~stream_analytics_job_name ~input ~output __resource_id =
-  let __resource_type =
-    "azurerm_stream_analytics_function_javascript_udf"
-  in
-  let __resource =
-    azurerm_stream_analytics_function_javascript_udf ?id ?timeouts
-      ~name ~resource_group_name ~script ~stream_analytics_job_name
-      ~input ~output ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_function_javascript_udf
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~resource_group_name ~script
+    ~stream_analytics_job_name ~input ~output __id =
+  let __type = "azurerm_stream_analytics_function_javascript_udf" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       script = Prop.computed __resource_type __resource_id "script";
+         Prop.computed __type __id "resource_group_name";
+       script = Prop.computed __type __id "script";
        stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
+         Prop.computed __type __id "stream_analytics_job_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_function_javascript_udf
+        (azurerm_stream_analytics_function_javascript_udf ?id
+           ?timeouts ~name ~resource_group_name ~script
+           ~stream_analytics_job_name ~input ~output ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~resource_group_name
+    ~script ~stream_analytics_job_name ~input ~output __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~resource_group_name ~script
+      ~stream_analytics_job_name ~input ~output __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

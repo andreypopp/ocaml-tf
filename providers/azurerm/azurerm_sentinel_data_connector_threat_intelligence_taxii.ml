@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -69,47 +67,50 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?id ?lookback_date ?password
-    ?polling_frequency ?tenant_id ?user_name ?timeouts ~api_root_url
-    ~collection_id ~display_name ~log_analytics_workspace_id ~name
-    __resource_id =
-  let __resource_type =
+let make ?id ?lookback_date ?password ?polling_frequency ?tenant_id
+    ?user_name ?timeouts ~api_root_url ~collection_id ~display_name
+    ~log_analytics_workspace_id ~name __id =
+  let __type =
     "azurerm_sentinel_data_connector_threat_intelligence_taxii"
   in
-  let __resource =
-    azurerm_sentinel_data_connector_threat_intelligence_taxii ?id
-      ?lookback_date ?password ?polling_frequency ?tenant_id
-      ?user_name ?timeouts ~api_root_url ~collection_id ~display_name
-      ~log_analytics_workspace_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_data_connector_threat_intelligence_taxii
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       api_root_url =
-         Prop.computed __resource_type __resource_id "api_root_url";
-       collection_id =
-         Prop.computed __resource_type __resource_id "collection_id";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       api_root_url = Prop.computed __type __id "api_root_url";
+       collection_id = Prop.computed __type __id "collection_id";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       lookback_date =
-         Prop.computed __resource_type __resource_id "lookback_date";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       lookback_date = Prop.computed __type __id "lookback_date";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        polling_frequency =
-         Prop.computed __resource_type __resource_id
-           "polling_frequency";
-       tenant_id =
-         Prop.computed __resource_type __resource_id "tenant_id";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "polling_frequency";
+       tenant_id = Prop.computed __type __id "tenant_id";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_data_connector_threat_intelligence_taxii
+        (azurerm_sentinel_data_connector_threat_intelligence_taxii
+           ?id ?lookback_date ?password ?polling_frequency ?tenant_id
+           ?user_name ?timeouts ~api_root_url ~collection_id
+           ~display_name ~log_analytics_workspace_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?lookback_date ?password
+    ?polling_frequency ?tenant_id ?user_name ?timeouts ~api_root_url
+    ~collection_id ~display_name ~log_analytics_workspace_id ~name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?lookback_date ?password ?polling_frequency ?tenant_id
+      ?user_name ?timeouts ~api_root_url ~collection_id ~display_name
+      ~log_analytics_workspace_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

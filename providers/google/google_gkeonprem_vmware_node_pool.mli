@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -131,3 +131,17 @@ val register :
   node_pool_autoscaling:node_pool_autoscaling list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  vmware_cluster:string prop ->
+  config:config list ->
+  node_pool_autoscaling:node_pool_autoscaling list ->
+  string ->
+  t Tf_core.resource

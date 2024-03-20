@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type command = {
   name : string prop option; [@option]  (** name *)
@@ -122,63 +120,67 @@ type t = {
   worker_type : string prop;
 }
 
+let make ?connections ?default_arguments ?description
+    ?execution_class ?glue_version ?id ?max_capacity ?max_retries
+    ?non_overridable_arguments ?number_of_workers
+    ?security_configuration ?tags ?tags_all ?timeout ?worker_type
+    ~name ~role_arn ~command ~execution_property
+    ~notification_property __id =
+  let __type = "aws_glue_job" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       connections = Prop.computed __type __id "connections";
+       default_arguments =
+         Prop.computed __type __id "default_arguments";
+       description = Prop.computed __type __id "description";
+       execution_class = Prop.computed __type __id "execution_class";
+       glue_version = Prop.computed __type __id "glue_version";
+       id = Prop.computed __type __id "id";
+       max_capacity = Prop.computed __type __id "max_capacity";
+       max_retries = Prop.computed __type __id "max_retries";
+       name = Prop.computed __type __id "name";
+       non_overridable_arguments =
+         Prop.computed __type __id "non_overridable_arguments";
+       number_of_workers =
+         Prop.computed __type __id "number_of_workers";
+       role_arn = Prop.computed __type __id "role_arn";
+       security_configuration =
+         Prop.computed __type __id "security_configuration";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       timeout = Prop.computed __type __id "timeout";
+       worker_type = Prop.computed __type __id "worker_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_job
+        (aws_glue_job ?connections ?default_arguments ?description
+           ?execution_class ?glue_version ?id ?max_capacity
+           ?max_retries ?non_overridable_arguments ?number_of_workers
+           ?security_configuration ?tags ?tags_all ?timeout
+           ?worker_type ~name ~role_arn ~command ~execution_property
+           ~notification_property ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?connections ?default_arguments ?description
     ?execution_class ?glue_version ?id ?max_capacity ?max_retries
     ?non_overridable_arguments ?number_of_workers
     ?security_configuration ?tags ?tags_all ?timeout ?worker_type
     ~name ~role_arn ~command ~execution_property
-    ~notification_property __resource_id =
-  let __resource_type = "aws_glue_job" in
-  let __resource =
-    aws_glue_job ?connections ?default_arguments ?description
+    ~notification_property __id =
+  let (r : _ Tf_core.resource) =
+    make ?connections ?default_arguments ?description
       ?execution_class ?glue_version ?id ?max_capacity ?max_retries
       ?non_overridable_arguments ?number_of_workers
       ?security_configuration ?tags ?tags_all ?timeout ?worker_type
       ~name ~role_arn ~command ~execution_property
-      ~notification_property ()
+      ~notification_property __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_job __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       connections =
-         Prop.computed __resource_type __resource_id "connections";
-       default_arguments =
-         Prop.computed __resource_type __resource_id
-           "default_arguments";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       execution_class =
-         Prop.computed __resource_type __resource_id
-           "execution_class";
-       glue_version =
-         Prop.computed __resource_type __resource_id "glue_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_capacity =
-         Prop.computed __resource_type __resource_id "max_capacity";
-       max_retries =
-         Prop.computed __resource_type __resource_id "max_retries";
-       name = Prop.computed __resource_type __resource_id "name";
-       non_overridable_arguments =
-         Prop.computed __resource_type __resource_id
-           "non_overridable_arguments";
-       number_of_workers =
-         Prop.computed __resource_type __resource_id
-           "number_of_workers";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       security_configuration =
-         Prop.computed __resource_type __resource_id
-           "security_configuration";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       worker_type =
-         Prop.computed __resource_type __resource_id "worker_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

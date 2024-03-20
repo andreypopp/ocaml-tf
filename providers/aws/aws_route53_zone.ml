@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type vpc = {
   vpc_id : string prop;  (** vpc_id *)
@@ -55,38 +53,42 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?comment ?delegation_set_id ?force_destroy
-    ?id ?tags ?tags_all ~name ~vpc __resource_id =
-  let __resource_type = "aws_route53_zone" in
-  let __resource =
-    aws_route53_zone ?comment ?delegation_set_id ?force_destroy ?id
-      ?tags ?tags_all ~name ~vpc ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53_zone __resource);
-  let __resource_attributes =
+let make ?comment ?delegation_set_id ?force_destroy ?id ?tags
+    ?tags_all ~name ~vpc __id =
+  let __type = "aws_route53_zone" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
+       arn = Prop.computed __type __id "arn";
+       comment = Prop.computed __type __id "comment";
        delegation_set_id =
-         Prop.computed __resource_type __resource_id
-           "delegation_set_id";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_servers =
-         Prop.computed __resource_type __resource_id "name_servers";
+         Prop.computed __type __id "delegation_set_id";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_servers = Prop.computed __type __id "name_servers";
        primary_name_server =
-         Prop.computed __resource_type __resource_id
-           "primary_name_server";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "primary_name_server";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53_zone
+        (aws_route53_zone ?comment ?delegation_set_id ?force_destroy
+           ?id ?tags ?tags_all ~name ~vpc ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?delegation_set_id ?force_destroy
+    ?id ?tags ?tags_all ~name ~vpc __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?delegation_set_id ?force_destroy ?id ?tags
+      ?tags_all ~name ~vpc __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

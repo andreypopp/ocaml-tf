@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,34 +59,37 @@ type t = {
   role : string prop;
 }
 
-let register ?tf_module ?id ?object_ ?timeouts ~bucket ~entity ~role
-    __resource_id =
-  let __resource_type =
-    "google_storage_default_object_access_control"
-  in
-  let __resource =
-    google_storage_default_object_access_control ?id ?object_
-      ?timeouts ~bucket ~entity ~role ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_default_object_access_control
-       __resource);
-  let __resource_attributes =
+let make ?id ?object_ ?timeouts ~bucket ~entity ~role __id =
+  let __type = "google_storage_default_object_access_control" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       email = Prop.computed __resource_type __resource_id "email";
-       entity = Prop.computed __resource_type __resource_id "entity";
-       entity_id =
-         Prop.computed __resource_type __resource_id "entity_id";
-       generation =
-         Prop.computed __resource_type __resource_id "generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       object_ = Prop.computed __resource_type __resource_id "object";
-       project_team =
-         Prop.computed __resource_type __resource_id "project_team";
-       role = Prop.computed __resource_type __resource_id "role";
+       bucket = Prop.computed __type __id "bucket";
+       domain = Prop.computed __type __id "domain";
+       email = Prop.computed __type __id "email";
+       entity = Prop.computed __type __id "entity";
+       entity_id = Prop.computed __type __id "entity_id";
+       generation = Prop.computed __type __id "generation";
+       id = Prop.computed __type __id "id";
+       object_ = Prop.computed __type __id "object";
+       project_team = Prop.computed __type __id "project_team";
+       role = Prop.computed __type __id "role";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_default_object_access_control
+        (google_storage_default_object_access_control ?id ?object_
+           ?timeouts ~bucket ~entity ~role ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?object_ ?timeouts ~bucket ~entity ~role
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?object_ ?timeouts ~bucket ~entity ~role __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,28 +48,37 @@ type t = {
   phone : string prop;
 }
 
-let register ?tf_module ?id ?name ?phone ?timeouts
-    ~alert_notifications ~alerts_to_admins ~email __resource_id =
-  let __resource_type = "azurerm_security_center_contact" in
-  let __resource =
-    azurerm_security_center_contact ?id ?name ?phone ?timeouts
-      ~alert_notifications ~alerts_to_admins ~email ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_contact __resource);
-  let __resource_attributes =
+let make ?id ?name ?phone ?timeouts ~alert_notifications
+    ~alerts_to_admins ~email __id =
+  let __type = "azurerm_security_center_contact" in
+  let __attrs =
     ({
        alert_notifications =
-         Prop.computed __resource_type __resource_id
-           "alert_notifications";
+         Prop.computed __type __id "alert_notifications";
        alerts_to_admins =
-         Prop.computed __resource_type __resource_id
-           "alerts_to_admins";
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       phone = Prop.computed __resource_type __resource_id "phone";
+         Prop.computed __type __id "alerts_to_admins";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       phone = Prop.computed __type __id "phone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_contact
+        (azurerm_security_center_contact ?id ?name ?phone ?timeouts
+           ~alert_notifications ~alerts_to_admins ~email ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?phone ?timeouts
+    ~alert_notifications ~alerts_to_admins ~email __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?phone ?timeouts ~alert_notifications
+      ~alerts_to_admins ~email __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -36,4 +36,12 @@ val register :
     ingestion_type:string prop ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    data_set_id:string prop ->
+    ingestion_id:string prop ->
+    ingestion_type:string prop ->
+    string ->
+    t Tf_core.resource
 

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,9 @@ val register :
   emergency_contact:emergency_contact list ->
   string ->
   t
+
+val make :
+  enabled:bool prop ->
+  emergency_contact:emergency_contact list ->
+  string ->
+  t Tf_core.resource

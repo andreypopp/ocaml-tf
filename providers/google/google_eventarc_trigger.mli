@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -131,3 +131,19 @@ val register :
   transport:transport list ->
   string ->
   t
+
+val make :
+  ?channel:string prop ->
+  ?event_data_content_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?service_account:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  destination:destination list ->
+  matching_criteria:matching_criteria list ->
+  transport:transport list ->
+  string ->
+  t Tf_core.resource

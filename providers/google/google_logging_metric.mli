@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,19 @@ val register :
   metric_descriptor:metric_descriptor list ->
   string ->
   t
+
+val make :
+  ?bucket_name:string prop ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?label_extractors:(string * string prop) list ->
+  ?project:string prop ->
+  ?value_extractor:string prop ->
+  ?timeouts:timeouts ->
+  filter:string prop ->
+  name:string prop ->
+  bucket_options:bucket_options list ->
+  metric_descriptor:metric_descriptor list ->
+  string ->
+  t Tf_core.resource

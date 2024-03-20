@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -129,3 +129,22 @@ val register :
   workmail_action:workmail_action list ->
   string ->
   t
+
+val make :
+  ?after:string prop ->
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?recipients:string prop list ->
+  ?scan_enabled:bool prop ->
+  ?tls_policy:string prop ->
+  name:string prop ->
+  rule_set_name:string prop ->
+  add_header_action:add_header_action list ->
+  bounce_action:bounce_action list ->
+  lambda_action:lambda_action list ->
+  s3_action:s3_action list ->
+  sns_action:sns_action list ->
+  stop_action:stop_action list ->
+  workmail_action:workmail_action list ->
+  string ->
+  t Tf_core.resource

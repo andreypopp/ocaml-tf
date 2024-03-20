@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_levels__basic__conditions__device_policy__os_constraints = {
   minimum_version : string prop option; [@option]
@@ -234,22 +232,28 @@ let google_access_context_manager_access_levels ?id ?timeouts ~parent
 
 type t = { id : string prop; parent : string prop }
 
-let register ?tf_module ?id ?timeouts ~parent ~access_levels
-    __resource_id =
-  let __resource_type =
-    "google_access_context_manager_access_levels"
-  in
-  let __resource =
-    google_access_context_manager_access_levels ?id ?timeouts ~parent
-      ~access_levels ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_access_context_manager_access_levels __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~parent ~access_levels __id =
+  let __type = "google_access_context_manager_access_levels" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       id = Prop.computed __type __id "id";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_access_context_manager_access_levels
+        (google_access_context_manager_access_levels ?id ?timeouts
+           ~parent ~access_levels ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~parent ~access_levels __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~parent ~access_levels __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

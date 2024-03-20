@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_config = {
   enable : bool prop;
@@ -215,6 +213,70 @@ type t = {
   udp_idle_timeout_sec : float prop;
 }
 
+let make ?drain_nat_ips ?enable_dynamic_port_allocation
+    ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
+    ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
+    ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
+    ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
+    ?udp_idle_timeout_sec ?timeouts ~name ~router
+    ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
+    ~subnetwork __id =
+  let __type = "google_compute_router_nat" in
+  let __attrs =
+    ({
+       drain_nat_ips = Prop.computed __type __id "drain_nat_ips";
+       enable_dynamic_port_allocation =
+         Prop.computed __type __id "enable_dynamic_port_allocation";
+       enable_endpoint_independent_mapping =
+         Prop.computed __type __id
+           "enable_endpoint_independent_mapping";
+       icmp_idle_timeout_sec =
+         Prop.computed __type __id "icmp_idle_timeout_sec";
+       id = Prop.computed __type __id "id";
+       max_ports_per_vm =
+         Prop.computed __type __id "max_ports_per_vm";
+       min_ports_per_vm =
+         Prop.computed __type __id "min_ports_per_vm";
+       name = Prop.computed __type __id "name";
+       nat_ip_allocate_option =
+         Prop.computed __type __id "nat_ip_allocate_option";
+       nat_ips = Prop.computed __type __id "nat_ips";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       router = Prop.computed __type __id "router";
+       source_subnetwork_ip_ranges_to_nat =
+         Prop.computed __type __id
+           "source_subnetwork_ip_ranges_to_nat";
+       tcp_established_idle_timeout_sec =
+         Prop.computed __type __id "tcp_established_idle_timeout_sec";
+       tcp_time_wait_timeout_sec =
+         Prop.computed __type __id "tcp_time_wait_timeout_sec";
+       tcp_transitory_idle_timeout_sec =
+         Prop.computed __type __id "tcp_transitory_idle_timeout_sec";
+       udp_idle_timeout_sec =
+         Prop.computed __type __id "udp_idle_timeout_sec";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_router_nat
+        (google_compute_router_nat ?drain_nat_ips
+           ?enable_dynamic_port_allocation
+           ?enable_endpoint_independent_mapping
+           ?icmp_idle_timeout_sec ?id ?max_ports_per_vm
+           ?min_ports_per_vm ?nat_ip_allocate_option ?nat_ips
+           ?project ?region ?tcp_established_idle_timeout_sec
+           ?tcp_time_wait_timeout_sec
+           ?tcp_transitory_idle_timeout_sec ?udp_idle_timeout_sec
+           ?timeouts ~name ~router
+           ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
+           ~subnetwork ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?drain_nat_ips
     ?enable_dynamic_port_allocation
     ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
@@ -223,67 +285,16 @@ let register ?tf_module ?drain_nat_ips
     ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
     ?udp_idle_timeout_sec ?timeouts ~name ~router
     ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-    ~subnetwork __resource_id =
-  let __resource_type = "google_compute_router_nat" in
-  let __resource =
-    google_compute_router_nat ?drain_nat_ips
-      ?enable_dynamic_port_allocation
+    ~subnetwork __id =
+  let (r : _ Tf_core.resource) =
+    make ?drain_nat_ips ?enable_dynamic_port_allocation
       ?enable_endpoint_independent_mapping ?icmp_idle_timeout_sec ?id
       ?max_ports_per_vm ?min_ports_per_vm ?nat_ip_allocate_option
       ?nat_ips ?project ?region ?tcp_established_idle_timeout_sec
       ?tcp_time_wait_timeout_sec ?tcp_transitory_idle_timeout_sec
       ?udp_idle_timeout_sec ?timeouts ~name ~router
       ~source_subnetwork_ip_ranges_to_nat ~log_config ~rules
-      ~subnetwork ()
+      ~subnetwork __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_router_nat __resource);
-  let __resource_attributes =
-    ({
-       drain_nat_ips =
-         Prop.computed __resource_type __resource_id "drain_nat_ips";
-       enable_dynamic_port_allocation =
-         Prop.computed __resource_type __resource_id
-           "enable_dynamic_port_allocation";
-       enable_endpoint_independent_mapping =
-         Prop.computed __resource_type __resource_id
-           "enable_endpoint_independent_mapping";
-       icmp_idle_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "icmp_idle_timeout_sec";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_ports_per_vm =
-         Prop.computed __resource_type __resource_id
-           "max_ports_per_vm";
-       min_ports_per_vm =
-         Prop.computed __resource_type __resource_id
-           "min_ports_per_vm";
-       name = Prop.computed __resource_type __resource_id "name";
-       nat_ip_allocate_option =
-         Prop.computed __resource_type __resource_id
-           "nat_ip_allocate_option";
-       nat_ips =
-         Prop.computed __resource_type __resource_id "nat_ips";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       router = Prop.computed __resource_type __resource_id "router";
-       source_subnetwork_ip_ranges_to_nat =
-         Prop.computed __resource_type __resource_id
-           "source_subnetwork_ip_ranges_to_nat";
-       tcp_established_idle_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "tcp_established_idle_timeout_sec";
-       tcp_time_wait_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "tcp_time_wait_timeout_sec";
-       tcp_transitory_idle_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "tcp_transitory_idle_timeout_sec";
-       udp_idle_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "udp_idle_timeout_sec";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

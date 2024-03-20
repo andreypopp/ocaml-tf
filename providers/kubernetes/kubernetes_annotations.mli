@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,15 @@ val register :
   metadata:metadata list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  ?template_annotations:(string * string prop) list ->
+  api_version:string prop ->
+  kind:string prop ->
+  metadata:metadata list ->
+  string ->
+  t Tf_core.resource

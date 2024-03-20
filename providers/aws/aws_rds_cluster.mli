@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -245,3 +245,63 @@ val register :
     serverlessv2_scaling_configuration list ->
   string ->
   t
+
+val make :
+  ?allocated_storage:float prop ->
+  ?allow_major_version_upgrade:bool prop ->
+  ?apply_immediately:bool prop ->
+  ?availability_zones:string prop list ->
+  ?backtrack_window:float prop ->
+  ?backup_retention_period:float prop ->
+  ?cluster_identifier:string prop ->
+  ?cluster_identifier_prefix:string prop ->
+  ?cluster_members:string prop list ->
+  ?copy_tags_to_snapshot:bool prop ->
+  ?database_name:string prop ->
+  ?db_cluster_instance_class:string prop ->
+  ?db_cluster_parameter_group_name:string prop ->
+  ?db_instance_parameter_group_name:string prop ->
+  ?db_subnet_group_name:string prop ->
+  ?db_system_id:string prop ->
+  ?delete_automated_backups:bool prop ->
+  ?deletion_protection:bool prop ->
+  ?domain:string prop ->
+  ?domain_iam_role_name:string prop ->
+  ?enable_global_write_forwarding:bool prop ->
+  ?enable_http_endpoint:bool prop ->
+  ?enabled_cloudwatch_logs_exports:string prop list ->
+  ?engine_mode:string prop ->
+  ?engine_version:string prop ->
+  ?final_snapshot_identifier:string prop ->
+  ?global_cluster_identifier:string prop ->
+  ?iam_database_authentication_enabled:bool prop ->
+  ?iam_roles:string prop list ->
+  ?id:string prop ->
+  ?iops:float prop ->
+  ?kms_key_id:string prop ->
+  ?manage_master_user_password:bool prop ->
+  ?master_password:string prop ->
+  ?master_user_secret_kms_key_id:string prop ->
+  ?master_username:string prop ->
+  ?network_type:string prop ->
+  ?port:float prop ->
+  ?preferred_backup_window:string prop ->
+  ?preferred_maintenance_window:string prop ->
+  ?replication_source_identifier:string prop ->
+  ?skip_final_snapshot:bool prop ->
+  ?snapshot_identifier:string prop ->
+  ?source_region:string prop ->
+  ?storage_encrypted:bool prop ->
+  ?storage_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_security_group_ids:string prop list ->
+  ?timeouts:timeouts ->
+  engine:string prop ->
+  restore_to_point_in_time:restore_to_point_in_time list ->
+  s3_import:s3_import list ->
+  scaling_configuration:scaling_configuration list ->
+  serverlessv2_scaling_configuration:
+    serverlessv2_scaling_configuration list ->
+  string ->
+  t Tf_core.resource

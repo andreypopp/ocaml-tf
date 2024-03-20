@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_service_account_key = {
   id : string prop option; [@option]  (** id *)
@@ -50,46 +48,44 @@ type t = {
   valid_before : string prop;
 }
 
-let register ?tf_module ?id ?keepers ?key_algorithm ?private_key_type
-    ?public_key_data ?public_key_type ~service_account_id
-    __resource_id =
-  let __resource_type = "google_service_account_key" in
-  let __resource =
-    google_service_account_key ?id ?keepers ?key_algorithm
-      ?private_key_type ?public_key_data ?public_key_type
-      ~service_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_service_account_key __resource);
-  let __resource_attributes =
+let make ?id ?keepers ?key_algorithm ?private_key_type
+    ?public_key_data ?public_key_type ~service_account_id __id =
+  let __type = "google_service_account_key" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       keepers =
-         Prop.computed __resource_type __resource_id "keepers";
-       key_algorithm =
-         Prop.computed __resource_type __resource_id "key_algorithm";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
+       id = Prop.computed __type __id "id";
+       keepers = Prop.computed __type __id "keepers";
+       key_algorithm = Prop.computed __type __id "key_algorithm";
+       name = Prop.computed __type __id "name";
+       private_key = Prop.computed __type __id "private_key";
        private_key_type =
-         Prop.computed __resource_type __resource_id
-           "private_key_type";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
-       public_key_data =
-         Prop.computed __resource_type __resource_id
-           "public_key_data";
-       public_key_type =
-         Prop.computed __resource_type __resource_id
-           "public_key_type";
+         Prop.computed __type __id "private_key_type";
+       public_key = Prop.computed __type __id "public_key";
+       public_key_data = Prop.computed __type __id "public_key_data";
+       public_key_type = Prop.computed __type __id "public_key_type";
        service_account_id =
-         Prop.computed __resource_type __resource_id
-           "service_account_id";
-       valid_after =
-         Prop.computed __resource_type __resource_id "valid_after";
-       valid_before =
-         Prop.computed __resource_type __resource_id "valid_before";
+         Prop.computed __type __id "service_account_id";
+       valid_after = Prop.computed __type __id "valid_after";
+       valid_before = Prop.computed __type __id "valid_before";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_service_account_key
+        (google_service_account_key ?id ?keepers ?key_algorithm
+           ?private_key_type ?public_key_data ?public_key_type
+           ~service_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?keepers ?key_algorithm ?private_key_type
+    ?public_key_data ?public_key_type ~service_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?keepers ?key_algorithm ?private_key_type
+      ?public_key_data ?public_key_type ~service_account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

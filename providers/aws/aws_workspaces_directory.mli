@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -90,3 +90,16 @@ val register :
   workspace_creation_properties:workspace_creation_properties list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ip_group_ids:string prop list ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  directory_id:string prop ->
+  self_service_permissions:self_service_permissions list ->
+  workspace_access_properties:workspace_access_properties list ->
+  workspace_creation_properties:workspace_creation_properties list ->
+  string ->
+  t Tf_core.resource

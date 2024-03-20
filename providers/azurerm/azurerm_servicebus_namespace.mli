@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -117,3 +117,23 @@ val register :
   network_rule_set:network_rule_set list ->
   string ->
   t
+
+val make :
+  ?capacity:float prop ->
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?minimum_tls_version:string prop ->
+  ?premium_messaging_partitions:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  customer_managed_key:customer_managed_key list ->
+  identity:identity list ->
+  network_rule_set:network_rule_set list ->
+  string ->
+  t Tf_core.resource

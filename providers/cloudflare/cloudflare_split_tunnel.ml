@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type tunnels = {
   address : string prop option; [@option]
@@ -44,24 +42,31 @@ type t = {
   policy_id : string prop;
 }
 
-let register ?tf_module ?id ?policy_id ~account_id ~mode ~tunnels
-    __resource_id =
-  let __resource_type = "cloudflare_split_tunnel" in
-  let __resource =
-    cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode ~tunnels
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_split_tunnel __resource);
-  let __resource_attributes =
+let make ?id ?policy_id ~account_id ~mode ~tunnels __id =
+  let __type = "cloudflare_split_tunnel" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       policy_id =
-         Prop.computed __resource_type __resource_id "policy_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       mode = Prop.computed __type __id "mode";
+       policy_id = Prop.computed __type __id "policy_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_split_tunnel
+        (cloudflare_split_tunnel ?id ?policy_id ~account_id ~mode
+           ~tunnels ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?policy_id ~account_id ~mode ~tunnels
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?policy_id ~account_id ~mode ~tunnels __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

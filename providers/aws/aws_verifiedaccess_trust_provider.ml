@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type device_options = {
   tenant_id : string prop option; [@option]  (** tenant_id *)
@@ -100,40 +98,47 @@ type t = {
   user_trust_provider_type : string prop;
 }
 
-let register ?tf_module ?description ?device_trust_provider_type ?id
-    ?tags ?tags_all ?user_trust_provider_type ?timeouts
-    ~policy_reference_name ~trust_provider_type ~device_options
-    ~oidc_options __resource_id =
-  let __resource_type = "aws_verifiedaccess_trust_provider" in
-  let __resource =
-    aws_verifiedaccess_trust_provider ?description
-      ?device_trust_provider_type ?id ?tags ?tags_all
-      ?user_trust_provider_type ?timeouts ~policy_reference_name
-      ~trust_provider_type ~device_options ~oidc_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_verifiedaccess_trust_provider __resource);
-  let __resource_attributes =
+let make ?description ?device_trust_provider_type ?id ?tags ?tags_all
+    ?user_trust_provider_type ?timeouts ~policy_reference_name
+    ~trust_provider_type ~device_options ~oidc_options __id =
+  let __type = "aws_verifiedaccess_trust_provider" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        device_trust_provider_type =
-         Prop.computed __resource_type __resource_id
-           "device_trust_provider_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "device_trust_provider_type";
+       id = Prop.computed __type __id "id";
        policy_reference_name =
-         Prop.computed __resource_type __resource_id
-           "policy_reference_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "policy_reference_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        trust_provider_type =
-         Prop.computed __resource_type __resource_id
-           "trust_provider_type";
+         Prop.computed __type __id "trust_provider_type";
        user_trust_provider_type =
-         Prop.computed __resource_type __resource_id
-           "user_trust_provider_type";
+         Prop.computed __type __id "user_trust_provider_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_verifiedaccess_trust_provider
+        (aws_verifiedaccess_trust_provider ?description
+           ?device_trust_provider_type ?id ?tags ?tags_all
+           ?user_trust_provider_type ?timeouts ~policy_reference_name
+           ~trust_provider_type ~device_options ~oidc_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?device_trust_provider_type ?id
+    ?tags ?tags_all ?user_trust_provider_type ?timeouts
+    ~policy_reference_name ~trust_provider_type ~device_options
+    ~oidc_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?device_trust_provider_type ?id ?tags ?tags_all
+      ?user_trust_provider_type ?timeouts ~policy_reference_name
+      ~trust_provider_type ~device_options ~oidc_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,23 @@ val register :
   serialization:serialization list ->
   string ->
   t
+
+val make :
+  ?authentication_mode:string prop ->
+  ?batch_max_wait_time:string prop ->
+  ?batch_min_rows:float prop ->
+  ?blob_write_mode:string prop ->
+  ?id:string prop ->
+  ?storage_account_key:string prop ->
+  ?timeouts:timeouts ->
+  date_format:string prop ->
+  name:string prop ->
+  path_pattern:string prop ->
+  resource_group_name:string prop ->
+  storage_account_name:string prop ->
+  storage_container_name:string prop ->
+  stream_analytics_job_name:string prop ->
+  time_format:string prop ->
+  serialization:serialization list ->
+  string ->
+  t Tf_core.resource

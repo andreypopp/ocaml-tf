@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_flow_config__destination_connector_properties__custom_connector__error_handling_config = {
   bucket_name : string prop option; [@option]  (** bucket_name *)
@@ -1062,32 +1060,41 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?kms_arn ?tags ?tags_all
-    ~name ~destination_flow_config ~source_flow_config ~task
-    ~trigger_config __resource_id =
-  let __resource_type = "aws_appflow_flow" in
-  let __resource =
-    aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all ~name
-      ~destination_flow_config ~source_flow_config ~task
-      ~trigger_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appflow_flow __resource);
-  let __resource_attributes =
+let make ?description ?id ?kms_arn ?tags ?tags_all ~name
+    ~destination_flow_config ~source_flow_config ~task
+    ~trigger_config __id =
+  let __type = "aws_appflow_flow" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       flow_status =
-         Prop.computed __resource_type __resource_id "flow_status";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_arn =
-         Prop.computed __resource_type __resource_id "kms_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       flow_status = Prop.computed __type __id "flow_status";
+       id = Prop.computed __type __id "id";
+       kms_arn = Prop.computed __type __id "kms_arn";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appflow_flow
+        (aws_appflow_flow ?description ?id ?kms_arn ?tags ?tags_all
+           ~name ~destination_flow_config ~source_flow_config ~task
+           ~trigger_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?kms_arn ?tags ?tags_all
+    ~name ~destination_flow_config ~source_flow_config ~task
+    ~trigger_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?kms_arn ?tags ?tags_all ~name
+      ~destination_flow_config ~source_flow_config ~task
+      ~trigger_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

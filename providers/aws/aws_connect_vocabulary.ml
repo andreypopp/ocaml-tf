@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,38 +53,42 @@ type t = {
   vocabulary_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts ~content
-    ~instance_id ~language_code ~name __resource_id =
-  let __resource_type = "aws_connect_vocabulary" in
-  let __resource =
-    aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts ~content
-      ~instance_id ~language_code ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_connect_vocabulary __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~content ~instance_id
+    ~language_code ~name __id =
+  let __type = "aws_connect_vocabulary" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content =
-         Prop.computed __resource_type __resource_id "content";
-       failure_reason =
-         Prop.computed __resource_type __resource_id "failure_reason";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
+       arn = Prop.computed __type __id "arn";
+       content = Prop.computed __type __id "content";
+       failure_reason = Prop.computed __type __id "failure_reason";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       language_code = Prop.computed __type __id "language_code";
        last_modified_time =
-         Prop.computed __resource_type __resource_id
-           "last_modified_time";
-       name = Prop.computed __resource_type __resource_id "name";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vocabulary_id =
-         Prop.computed __resource_type __resource_id "vocabulary_id";
+         Prop.computed __type __id "last_modified_time";
+       name = Prop.computed __type __id "name";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vocabulary_id = Prop.computed __type __id "vocabulary_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_connect_vocabulary
+        (aws_connect_vocabulary ?id ?tags ?tags_all ?timeouts
+           ~content ~instance_id ~language_code ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts ~content
+    ~instance_id ~language_code ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~content ~instance_id
+      ~language_code ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

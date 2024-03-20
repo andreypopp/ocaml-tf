@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -99,69 +97,78 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?cmk_key_vault_url ?description
+    ?developer_app_insights_api_key
+    ?developer_app_insights_application_id
+    ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
+    ?isolated_network_enabled ?public_network_access_enabled
+    ?streaming_endpoint_enabled ?tags ?timeouts ~location
+    ~microsoft_app_id ~name ~resource_group_name ~sku __id =
+  let __type = "azurerm_bot_channels_registration" in
+  let __attrs =
+    ({
+       cmk_key_vault_url =
+         Prop.computed __type __id "cmk_key_vault_url";
+       description = Prop.computed __type __id "description";
+       developer_app_insights_api_key =
+         Prop.computed __type __id "developer_app_insights_api_key";
+       developer_app_insights_application_id =
+         Prop.computed __type __id
+           "developer_app_insights_application_id";
+       developer_app_insights_key =
+         Prop.computed __type __id "developer_app_insights_key";
+       display_name = Prop.computed __type __id "display_name";
+       endpoint = Prop.computed __type __id "endpoint";
+       icon_url = Prop.computed __type __id "icon_url";
+       id = Prop.computed __type __id "id";
+       isolated_network_enabled =
+         Prop.computed __type __id "isolated_network_enabled";
+       location = Prop.computed __type __id "location";
+       microsoft_app_id =
+         Prop.computed __type __id "microsoft_app_id";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       streaming_endpoint_enabled =
+         Prop.computed __type __id "streaming_endpoint_enabled";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channels_registration
+        (azurerm_bot_channels_registration ?cmk_key_vault_url
+           ?description ?developer_app_insights_api_key
+           ?developer_app_insights_application_id
+           ?developer_app_insights_key ?display_name ?endpoint
+           ?icon_url ?id ?isolated_network_enabled
+           ?public_network_access_enabled ?streaming_endpoint_enabled
+           ?tags ?timeouts ~location ~microsoft_app_id ~name
+           ~resource_group_name ~sku ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cmk_key_vault_url ?description
     ?developer_app_insights_api_key
     ?developer_app_insights_application_id
     ?developer_app_insights_key ?display_name ?endpoint ?icon_url ?id
     ?isolated_network_enabled ?public_network_access_enabled
     ?streaming_endpoint_enabled ?tags ?timeouts ~location
-    ~microsoft_app_id ~name ~resource_group_name ~sku __resource_id =
-  let __resource_type = "azurerm_bot_channels_registration" in
-  let __resource =
-    azurerm_bot_channels_registration ?cmk_key_vault_url ?description
+    ~microsoft_app_id ~name ~resource_group_name ~sku __id =
+  let (r : _ Tf_core.resource) =
+    make ?cmk_key_vault_url ?description
       ?developer_app_insights_api_key
       ?developer_app_insights_application_id
       ?developer_app_insights_key ?display_name ?endpoint ?icon_url
       ?id ?isolated_network_enabled ?public_network_access_enabled
       ?streaming_endpoint_enabled ?tags ?timeouts ~location
-      ~microsoft_app_id ~name ~resource_group_name ~sku ()
+      ~microsoft_app_id ~name ~resource_group_name ~sku __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channels_registration __resource);
-  let __resource_attributes =
-    ({
-       cmk_key_vault_url =
-         Prop.computed __resource_type __resource_id
-           "cmk_key_vault_url";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       developer_app_insights_api_key =
-         Prop.computed __resource_type __resource_id
-           "developer_app_insights_api_key";
-       developer_app_insights_application_id =
-         Prop.computed __resource_type __resource_id
-           "developer_app_insights_application_id";
-       developer_app_insights_key =
-         Prop.computed __resource_type __resource_id
-           "developer_app_insights_key";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       icon_url =
-         Prop.computed __resource_type __resource_id "icon_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       isolated_network_enabled =
-         Prop.computed __resource_type __resource_id
-           "isolated_network_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       microsoft_app_id =
-         Prop.computed __resource_type __resource_id
-           "microsoft_app_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       streaming_endpoint_enabled =
-         Prop.computed __resource_type __resource_id
-           "streaming_endpoint_enabled";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

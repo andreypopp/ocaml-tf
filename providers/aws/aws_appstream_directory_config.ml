@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type service_account_credentials = {
   account_name : string prop;  (** account_name *)
@@ -43,28 +41,37 @@ type t = {
   organizational_unit_distinguished_names : string list prop;
 }
 
-let register ?tf_module ?id ~directory_name
-    ~organizational_unit_distinguished_names
-    ~service_account_credentials __resource_id =
-  let __resource_type = "aws_appstream_directory_config" in
-  let __resource =
-    aws_appstream_directory_config ?id ~directory_name
-      ~organizational_unit_distinguished_names
-      ~service_account_credentials ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_directory_config __resource);
-  let __resource_attributes =
+let make ?id ~directory_name ~organizational_unit_distinguished_names
+    ~service_account_credentials __id =
+  let __type = "aws_appstream_directory_config" in
+  let __attrs =
     ({
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       directory_name =
-         Prop.computed __resource_type __resource_id "directory_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       created_time = Prop.computed __type __id "created_time";
+       directory_name = Prop.computed __type __id "directory_name";
+       id = Prop.computed __type __id "id";
        organizational_unit_distinguished_names =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "organizational_unit_distinguished_names";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_directory_config
+        (aws_appstream_directory_config ?id ~directory_name
+           ~organizational_unit_distinguished_names
+           ~service_account_credentials ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~directory_name
+    ~organizational_unit_distinguished_names
+    ~service_account_credentials __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~directory_name ~organizational_unit_distinguished_names
+      ~service_account_credentials __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

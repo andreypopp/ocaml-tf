@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -125,3 +125,18 @@ val register :
   scheduled_splits_config:scheduled_splits_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?randomization_salt:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  project:string prop ->
+  groups:groups list ->
+  metric_monitors:metric_monitors list ->
+  scheduled_splits_config:scheduled_splits_config list ->
+  string ->
+  t Tf_core.resource

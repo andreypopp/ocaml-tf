@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_network_acl_rule = {
   cidr_block : string prop option; [@option]  (** cidr_block *)
@@ -55,43 +53,45 @@ type t = {
   to_port : float prop;
 }
 
-let register ?tf_module ?cidr_block ?egress ?from_port ?icmp_code
-    ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
-    ~protocol ~rule_action ~rule_number __resource_id =
-  let __resource_type = "aws_network_acl_rule" in
-  let __resource =
-    aws_network_acl_rule ?cidr_block ?egress ?from_port ?icmp_code
-      ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
-      ~protocol ~rule_action ~rule_number ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_network_acl_rule __resource);
-  let __resource_attributes =
+let make ?cidr_block ?egress ?from_port ?icmp_code ?icmp_type ?id
+    ?ipv6_cidr_block ?to_port ~network_acl_id ~protocol ~rule_action
+    ~rule_number __id =
+  let __type = "aws_network_acl_rule" in
+  let __attrs =
     ({
-       cidr_block =
-         Prop.computed __resource_type __resource_id "cidr_block";
-       egress = Prop.computed __resource_type __resource_id "egress";
-       from_port =
-         Prop.computed __resource_type __resource_id "from_port";
-       icmp_code =
-         Prop.computed __resource_type __resource_id "icmp_code";
-       icmp_type =
-         Prop.computed __resource_type __resource_id "icmp_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv6_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "ipv6_cidr_block";
-       network_acl_id =
-         Prop.computed __resource_type __resource_id "network_acl_id";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       rule_action =
-         Prop.computed __resource_type __resource_id "rule_action";
-       rule_number =
-         Prop.computed __resource_type __resource_id "rule_number";
-       to_port =
-         Prop.computed __resource_type __resource_id "to_port";
+       cidr_block = Prop.computed __type __id "cidr_block";
+       egress = Prop.computed __type __id "egress";
+       from_port = Prop.computed __type __id "from_port";
+       icmp_code = Prop.computed __type __id "icmp_code";
+       icmp_type = Prop.computed __type __id "icmp_type";
+       id = Prop.computed __type __id "id";
+       ipv6_cidr_block = Prop.computed __type __id "ipv6_cidr_block";
+       network_acl_id = Prop.computed __type __id "network_acl_id";
+       protocol = Prop.computed __type __id "protocol";
+       rule_action = Prop.computed __type __id "rule_action";
+       rule_number = Prop.computed __type __id "rule_number";
+       to_port = Prop.computed __type __id "to_port";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_network_acl_rule
+        (aws_network_acl_rule ?cidr_block ?egress ?from_port
+           ?icmp_code ?icmp_type ?id ?ipv6_cidr_block ?to_port
+           ~network_acl_id ~protocol ~rule_action ~rule_number ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cidr_block ?egress ?from_port ?icmp_code
+    ?icmp_type ?id ?ipv6_cidr_block ?to_port ~network_acl_id
+    ~protocol ~rule_action ~rule_number __id =
+  let (r : _ Tf_core.resource) =
+    make ?cidr_block ?egress ?from_port ?icmp_code ?icmp_type ?id
+      ?ipv6_cidr_block ?to_port ~network_acl_id ~protocol
+      ~rule_action ~rule_number __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

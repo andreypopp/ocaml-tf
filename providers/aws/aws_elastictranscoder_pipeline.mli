@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -95,3 +95,18 @@ val register :
   thumbnail_config_permissions:thumbnail_config_permissions list ->
   string ->
   t
+
+val make :
+  ?aws_kms_key_arn:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?output_bucket:string prop ->
+  input_bucket:string prop ->
+  role:string prop ->
+  content_config:content_config list ->
+  content_config_permissions:content_config_permissions list ->
+  notifications:notifications list ->
+  thumbnail_config:thumbnail_config list ->
+  thumbnail_config_permissions:thumbnail_config_permissions list ->
+  string ->
+  t Tf_core.resource

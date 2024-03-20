@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -216,3 +216,18 @@ val register :
   shutdown_recovery_group:shutdown_recovery_group list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  recovery_vault_id:string prop ->
+  source_recovery_fabric_id:string prop ->
+  target_recovery_fabric_id:string prop ->
+  azure_to_azure_settings:azure_to_azure_settings list ->
+  boot_recovery_group:boot_recovery_group list ->
+  failover_recovery_group:failover_recovery_group list ->
+  recovery_group:recovery_group list ->
+  shutdown_recovery_group:shutdown_recovery_group list ->
+  string ->
+  t Tf_core.resource

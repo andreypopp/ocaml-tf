@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type artifact_config__s3_encryption = {
   encryption_mode : string prop option; [@option]
@@ -157,68 +155,69 @@ type t = {
   zip_file : string prop;
 }
 
+let make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
+    ?s3_key ?s3_version ?start_canary ?success_retention_period ?tags
+    ?tags_all ?zip_file ~artifact_s3_location ~execution_role_arn
+    ~handler ~name ~runtime_version ~artifact_config ~run_config
+    ~schedule ~vpc_config __id =
+  let __type = "aws_synthetics_canary" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       artifact_s3_location =
+         Prop.computed __type __id "artifact_s3_location";
+       delete_lambda = Prop.computed __type __id "delete_lambda";
+       engine_arn = Prop.computed __type __id "engine_arn";
+       execution_role_arn =
+         Prop.computed __type __id "execution_role_arn";
+       failure_retention_period =
+         Prop.computed __type __id "failure_retention_period";
+       handler = Prop.computed __type __id "handler";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       runtime_version = Prop.computed __type __id "runtime_version";
+       s3_bucket = Prop.computed __type __id "s3_bucket";
+       s3_key = Prop.computed __type __id "s3_key";
+       s3_version = Prop.computed __type __id "s3_version";
+       source_location_arn =
+         Prop.computed __type __id "source_location_arn";
+       start_canary = Prop.computed __type __id "start_canary";
+       status = Prop.computed __type __id "status";
+       success_retention_period =
+         Prop.computed __type __id "success_retention_period";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       timeline = Prop.computed __type __id "timeline";
+       zip_file = Prop.computed __type __id "zip_file";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_synthetics_canary
+        (aws_synthetics_canary ?delete_lambda
+           ?failure_retention_period ?id ?s3_bucket ?s3_key
+           ?s3_version ?start_canary ?success_retention_period ?tags
+           ?tags_all ?zip_file ~artifact_s3_location
+           ~execution_role_arn ~handler ~name ~runtime_version
+           ~artifact_config ~run_config ~schedule ~vpc_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?delete_lambda ?failure_retention_period ?id
     ?s3_bucket ?s3_key ?s3_version ?start_canary
     ?success_retention_period ?tags ?tags_all ?zip_file
     ~artifact_s3_location ~execution_role_arn ~handler ~name
     ~runtime_version ~artifact_config ~run_config ~schedule
-    ~vpc_config __resource_id =
-  let __resource_type = "aws_synthetics_canary" in
-  let __resource =
-    aws_synthetics_canary ?delete_lambda ?failure_retention_period
-      ?id ?s3_bucket ?s3_key ?s3_version ?start_canary
-      ?success_retention_period ?tags ?tags_all ?zip_file
-      ~artifact_s3_location ~execution_role_arn ~handler ~name
-      ~runtime_version ~artifact_config ~run_config ~schedule
-      ~vpc_config ()
+    ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_lambda ?failure_retention_period ?id ?s3_bucket
+      ?s3_key ?s3_version ?start_canary ?success_retention_period
+      ?tags ?tags_all ?zip_file ~artifact_s3_location
+      ~execution_role_arn ~handler ~name ~runtime_version
+      ~artifact_config ~run_config ~schedule ~vpc_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_synthetics_canary __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       artifact_s3_location =
-         Prop.computed __resource_type __resource_id
-           "artifact_s3_location";
-       delete_lambda =
-         Prop.computed __resource_type __resource_id "delete_lambda";
-       engine_arn =
-         Prop.computed __resource_type __resource_id "engine_arn";
-       execution_role_arn =
-         Prop.computed __resource_type __resource_id
-           "execution_role_arn";
-       failure_retention_period =
-         Prop.computed __resource_type __resource_id
-           "failure_retention_period";
-       handler =
-         Prop.computed __resource_type __resource_id "handler";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       runtime_version =
-         Prop.computed __resource_type __resource_id
-           "runtime_version";
-       s3_bucket =
-         Prop.computed __resource_type __resource_id "s3_bucket";
-       s3_key = Prop.computed __resource_type __resource_id "s3_key";
-       s3_version =
-         Prop.computed __resource_type __resource_id "s3_version";
-       source_location_arn =
-         Prop.computed __resource_type __resource_id
-           "source_location_arn";
-       start_canary =
-         Prop.computed __resource_type __resource_id "start_canary";
-       status = Prop.computed __resource_type __resource_id "status";
-       success_retention_period =
-         Prop.computed __resource_type __resource_id
-           "success_retention_period";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       timeline =
-         Prop.computed __resource_type __resource_id "timeline";
-       zip_file =
-         Prop.computed __resource_type __resource_id "zip_file";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

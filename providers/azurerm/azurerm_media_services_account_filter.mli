@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,15 @@ val register :
   track_selection:track_selection list ->
   string ->
   t
+
+val make :
+  ?first_quality_bitrate:float prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  media_services_account_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  presentation_time_range:presentation_time_range list ->
+  track_selection:track_selection list ->
+  string ->
+  t Tf_core.resource

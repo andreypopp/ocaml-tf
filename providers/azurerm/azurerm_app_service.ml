@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auth_settings__active_directory = {
   allowed_audiences : string prop list option; [@option]
@@ -557,76 +555,79 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?app_settings ?client_affinity_enabled ?client_cert_enabled
+    ?client_cert_mode ?enabled ?https_only ?id
+    ?key_vault_reference_identity_id ?tags ?timeouts
+    ~app_service_plan_id ~location ~name ~resource_group_name
+    ~auth_settings ~backup ~connection_string ~identity ~logs
+    ~site_config ~source_control ~storage_account __id =
+  let __type = "azurerm_app_service" in
+  let __attrs =
+    ({
+       app_service_plan_id =
+         Prop.computed __type __id "app_service_plan_id";
+       app_settings = Prop.computed __type __id "app_settings";
+       client_affinity_enabled =
+         Prop.computed __type __id "client_affinity_enabled";
+       client_cert_enabled =
+         Prop.computed __type __id "client_cert_enabled";
+       client_cert_mode =
+         Prop.computed __type __id "client_cert_mode";
+       custom_domain_verification_id =
+         Prop.computed __type __id "custom_domain_verification_id";
+       default_site_hostname =
+         Prop.computed __type __id "default_site_hostname";
+       enabled = Prop.computed __type __id "enabled";
+       https_only = Prop.computed __type __id "https_only";
+       id = Prop.computed __type __id "id";
+       key_vault_reference_identity_id =
+         Prop.computed __type __id "key_vault_reference_identity_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       outbound_ip_address_list =
+         Prop.computed __type __id "outbound_ip_address_list";
+       outbound_ip_addresses =
+         Prop.computed __type __id "outbound_ip_addresses";
+       possible_outbound_ip_address_list =
+         Prop.computed __type __id
+           "possible_outbound_ip_address_list";
+       possible_outbound_ip_addresses =
+         Prop.computed __type __id "possible_outbound_ip_addresses";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       site_credential = Prop.computed __type __id "site_credential";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service
+        (azurerm_app_service ?app_settings ?client_affinity_enabled
+           ?client_cert_enabled ?client_cert_mode ?enabled
+           ?https_only ?id ?key_vault_reference_identity_id ?tags
+           ?timeouts ~app_service_plan_id ~location ~name
+           ~resource_group_name ~auth_settings ~backup
+           ~connection_string ~identity ~logs ~site_config
+           ~source_control ~storage_account ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?app_settings ?client_affinity_enabled
     ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
     ?key_vault_reference_identity_id ?tags ?timeouts
     ~app_service_plan_id ~location ~name ~resource_group_name
     ~auth_settings ~backup ~connection_string ~identity ~logs
-    ~site_config ~source_control ~storage_account __resource_id =
-  let __resource_type = "azurerm_app_service" in
-  let __resource =
-    azurerm_app_service ?app_settings ?client_affinity_enabled
-      ?client_cert_enabled ?client_cert_mode ?enabled ?https_only ?id
+    ~site_config ~source_control ~storage_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?app_settings ?client_affinity_enabled ?client_cert_enabled
+      ?client_cert_mode ?enabled ?https_only ?id
       ?key_vault_reference_identity_id ?tags ?timeouts
       ~app_service_plan_id ~location ~name ~resource_group_name
       ~auth_settings ~backup ~connection_string ~identity ~logs
-      ~site_config ~source_control ~storage_account ()
+      ~site_config ~source_control ~storage_account __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service __resource);
-  let __resource_attributes =
-    ({
-       app_service_plan_id =
-         Prop.computed __resource_type __resource_id
-           "app_service_plan_id";
-       app_settings =
-         Prop.computed __resource_type __resource_id "app_settings";
-       client_affinity_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_affinity_enabled";
-       client_cert_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_cert_enabled";
-       client_cert_mode =
-         Prop.computed __resource_type __resource_id
-           "client_cert_mode";
-       custom_domain_verification_id =
-         Prop.computed __resource_type __resource_id
-           "custom_domain_verification_id";
-       default_site_hostname =
-         Prop.computed __resource_type __resource_id
-           "default_site_hostname";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       https_only =
-         Prop.computed __resource_type __resource_id "https_only";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_vault_reference_identity_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_reference_identity_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       outbound_ip_address_list =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_address_list";
-       outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_addresses";
-       possible_outbound_ip_address_list =
-         Prop.computed __resource_type __resource_id
-           "possible_outbound_ip_address_list";
-       possible_outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "possible_outbound_ip_addresses";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       site_credential =
-         Prop.computed __resource_type __resource_id
-           "site_credential";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

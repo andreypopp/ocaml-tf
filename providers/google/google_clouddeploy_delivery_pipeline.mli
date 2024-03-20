@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -284,3 +284,17 @@ val register :
   serial_pipeline:serial_pipeline list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?suspended:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  serial_pipeline:serial_pipeline list ->
+  string ->
+  t Tf_core.resource

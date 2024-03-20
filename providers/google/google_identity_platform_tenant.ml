@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,34 +54,42 @@ type t = {
   project : string prop;
 }
 
-let register ?tf_module ?allow_password_signup ?disable_auth
+let make ?allow_password_signup ?disable_auth
     ?enable_email_link_signin ?id ?project ?timeouts ~display_name
-    __resource_id =
-  let __resource_type = "google_identity_platform_tenant" in
-  let __resource =
-    google_identity_platform_tenant ?allow_password_signup
-      ?disable_auth ?enable_email_link_signin ?id ?project ?timeouts
-      ~display_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_identity_platform_tenant __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "google_identity_platform_tenant" in
+  let __attrs =
     ({
        allow_password_signup =
-         Prop.computed __resource_type __resource_id
-           "allow_password_signup";
-       disable_auth =
-         Prop.computed __resource_type __resource_id "disable_auth";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "allow_password_signup";
+       disable_auth = Prop.computed __type __id "disable_auth";
+       display_name = Prop.computed __type __id "display_name";
        enable_email_link_signin =
-         Prop.computed __resource_type __resource_id
-           "enable_email_link_signin";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "enable_email_link_signin";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_identity_platform_tenant
+        (google_identity_platform_tenant ?allow_password_signup
+           ?disable_auth ?enable_email_link_signin ?id ?project
+           ?timeouts ~display_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_password_signup ?disable_auth
+    ?enable_email_link_signin ?id ?project ?timeouts ~display_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_password_signup ?disable_auth
+      ?enable_email_link_signin ?id ?project ?timeouts ~display_name
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

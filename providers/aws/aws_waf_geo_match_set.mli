@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -38,3 +38,10 @@ val register :
   geo_match_constraint:geo_match_constraint list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  geo_match_constraint:geo_match_constraint list ->
+  string ->
+  t Tf_core.resource

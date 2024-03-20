@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backend_pool__backend = {
   address : string prop;  (** address *)
@@ -297,54 +295,59 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?friendly_name ?id ?load_balancer_enabled
-    ?tags ?timeouts ~name ~resource_group_name ~backend_pool
+let make ?friendly_name ?id ?load_balancer_enabled ?tags ?timeouts
+    ~name ~resource_group_name ~backend_pool
     ~backend_pool_health_probe ~backend_pool_load_balancing
-    ~backend_pool_settings ~frontend_endpoint ~routing_rule
-    __resource_id =
-  let __resource_type = "azurerm_frontdoor" in
-  let __resource =
-    azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled ?tags
-      ?timeouts ~name ~resource_group_name ~backend_pool
-      ~backend_pool_health_probe ~backend_pool_load_balancing
-      ~backend_pool_settings ~frontend_endpoint ~routing_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_frontdoor __resource);
-  let __resource_attributes =
+    ~backend_pool_settings ~frontend_endpoint ~routing_rule __id =
+  let __type = "azurerm_frontdoor" in
+  let __attrs =
     ({
        backend_pool_health_probes =
-         Prop.computed __resource_type __resource_id
-           "backend_pool_health_probes";
+         Prop.computed __type __id "backend_pool_health_probes";
        backend_pool_load_balancing_settings =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "backend_pool_load_balancing_settings";
-       backend_pools =
-         Prop.computed __resource_type __resource_id "backend_pools";
-       cname = Prop.computed __resource_type __resource_id "cname";
+       backend_pools = Prop.computed __type __id "backend_pools";
+       cname = Prop.computed __type __id "cname";
        explicit_resource_order =
-         Prop.computed __resource_type __resource_id
-           "explicit_resource_order";
-       friendly_name =
-         Prop.computed __resource_type __resource_id "friendly_name";
+         Prop.computed __type __id "explicit_resource_order";
+       friendly_name = Prop.computed __type __id "friendly_name";
        frontend_endpoints =
-         Prop.computed __resource_type __resource_id
-           "frontend_endpoints";
+         Prop.computed __type __id "frontend_endpoints";
        header_frontdoor_id =
-         Prop.computed __resource_type __resource_id
-           "header_frontdoor_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "header_frontdoor_id";
+       id = Prop.computed __type __id "id";
        load_balancer_enabled =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_enabled";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "load_balancer_enabled";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       routing_rules =
-         Prop.computed __resource_type __resource_id "routing_rules";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       routing_rules = Prop.computed __type __id "routing_rules";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_frontdoor
+        (azurerm_frontdoor ?friendly_name ?id ?load_balancer_enabled
+           ?tags ?timeouts ~name ~resource_group_name ~backend_pool
+           ~backend_pool_health_probe ~backend_pool_load_balancing
+           ~backend_pool_settings ~frontend_endpoint ~routing_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?friendly_name ?id ?load_balancer_enabled
+    ?tags ?timeouts ~name ~resource_group_name ~backend_pool
+    ~backend_pool_health_probe ~backend_pool_load_balancing
+    ~backend_pool_settings ~frontend_endpoint ~routing_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?friendly_name ?id ?load_balancer_enabled ?tags ?timeouts
+      ~name ~resource_group_name ~backend_pool
+      ~backend_pool_health_probe ~backend_pool_load_balancing
+      ~backend_pool_settings ~frontend_endpoint ~routing_rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

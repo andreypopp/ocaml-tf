@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,18 @@ val register :
   integration_runtime:integration_runtime list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  synapse_workspace_id:string prop ->
+  type_:string prop ->
+  type_properties_json:string prop ->
+  integration_runtime:integration_runtime list ->
+  string ->
+  t Tf_core.resource

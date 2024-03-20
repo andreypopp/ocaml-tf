@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,12 @@ val register :
   delivery_address:delivery_address list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  contact_id:string prop ->
+  name:string prop ->
+  type_:string prop ->
+  delivery_address:delivery_address list ->
+  string ->
+  t Tf_core.resource

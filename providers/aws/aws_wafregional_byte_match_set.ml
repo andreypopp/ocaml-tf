@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type byte_match_tuples__field_to_match = {
   data : string prop option; [@option]  (** data *)
@@ -47,18 +45,28 @@ let aws_wafregional_byte_match_set ?id ~name ~byte_match_tuples () :
 
 type t = { id : string prop; name : string prop }
 
-let register ?tf_module ?id ~name ~byte_match_tuples __resource_id =
-  let __resource_type = "aws_wafregional_byte_match_set" in
-  let __resource =
-    aws_wafregional_byte_match_set ?id ~name ~byte_match_tuples ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_wafregional_byte_match_set __resource);
-  let __resource_attributes =
+let make ?id ~name ~byte_match_tuples __id =
+  let __type = "aws_wafregional_byte_match_set" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_wafregional_byte_match_set
+        (aws_wafregional_byte_match_set ?id ~name ~byte_match_tuples
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~name ~byte_match_tuples __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~name ~byte_match_tuples __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

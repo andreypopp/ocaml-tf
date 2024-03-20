@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_redshift_usage_limit = {
   amount : float prop;  (** amount *)
@@ -47,36 +45,41 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?breach_action ?id ?period ?tags ?tags_all
-    ~amount ~cluster_identifier ~feature_type ~limit_type
-    __resource_id =
-  let __resource_type = "aws_redshift_usage_limit" in
-  let __resource =
-    aws_redshift_usage_limit ?breach_action ?id ?period ?tags
-      ?tags_all ~amount ~cluster_identifier ~feature_type ~limit_type
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_usage_limit __resource);
-  let __resource_attributes =
+let make ?breach_action ?id ?period ?tags ?tags_all ~amount
+    ~cluster_identifier ~feature_type ~limit_type __id =
+  let __type = "aws_redshift_usage_limit" in
+  let __attrs =
     ({
-       amount = Prop.computed __resource_type __resource_id "amount";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       breach_action =
-         Prop.computed __resource_type __resource_id "breach_action";
+       amount = Prop.computed __type __id "amount";
+       arn = Prop.computed __type __id "arn";
+       breach_action = Prop.computed __type __id "breach_action";
        cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       feature_type =
-         Prop.computed __resource_type __resource_id "feature_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       limit_type =
-         Prop.computed __resource_type __resource_id "limit_type";
-       period = Prop.computed __resource_type __resource_id "period";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "cluster_identifier";
+       feature_type = Prop.computed __type __id "feature_type";
+       id = Prop.computed __type __id "id";
+       limit_type = Prop.computed __type __id "limit_type";
+       period = Prop.computed __type __id "period";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_usage_limit
+        (aws_redshift_usage_limit ?breach_action ?id ?period ?tags
+           ?tags_all ~amount ~cluster_identifier ~feature_type
+           ~limit_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?breach_action ?id ?period ?tags ?tags_all
+    ~amount ~cluster_identifier ~feature_type ~limit_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?breach_action ?id ?period ?tags ?tags_all ~amount
+      ~cluster_identifier ~feature_type ~limit_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

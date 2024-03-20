@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -176,3 +176,22 @@ val register :
   networking:networking list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?client:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  azure_region:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_id:string prop ->
+  authorization:authorization list ->
+  azure_services_authentication:azure_services_authentication list ->
+  control_plane:control_plane list ->
+  fleet:fleet list ->
+  networking:networking list ->
+  string ->
+  t Tf_core.resource

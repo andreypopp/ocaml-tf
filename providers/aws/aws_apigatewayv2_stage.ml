@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_log_settings = {
   destination_arn : string prop;  (** destination_arn *)
@@ -124,45 +122,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?auto_deploy ?client_certificate_id
-    ?deployment_id ?description ?id ?stage_variables ?tags ?tags_all
-    ~api_id ~name ~access_log_settings ~default_route_settings
-    ~route_settings __resource_id =
-  let __resource_type = "aws_apigatewayv2_stage" in
-  let __resource =
-    aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
-      ?deployment_id ?description ?id ?stage_variables ?tags
-      ?tags_all ~api_id ~name ~access_log_settings
-      ~default_route_settings ~route_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_stage __resource);
-  let __resource_attributes =
+let make ?auto_deploy ?client_certificate_id ?deployment_id
+    ?description ?id ?stage_variables ?tags ?tags_all ~api_id ~name
+    ~access_log_settings ~default_route_settings ~route_settings __id
+    =
+  let __type = "aws_apigatewayv2_stage" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_deploy =
-         Prop.computed __resource_type __resource_id "auto_deploy";
+       api_id = Prop.computed __type __id "api_id";
+       arn = Prop.computed __type __id "arn";
+       auto_deploy = Prop.computed __type __id "auto_deploy";
        client_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_id";
-       deployment_id =
-         Prop.computed __resource_type __resource_id "deployment_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       execution_arn =
-         Prop.computed __resource_type __resource_id "execution_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       invoke_url =
-         Prop.computed __resource_type __resource_id "invoke_url";
-       name = Prop.computed __resource_type __resource_id "name";
-       stage_variables =
-         Prop.computed __resource_type __resource_id
-           "stage_variables";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "client_certificate_id";
+       deployment_id = Prop.computed __type __id "deployment_id";
+       description = Prop.computed __type __id "description";
+       execution_arn = Prop.computed __type __id "execution_arn";
+       id = Prop.computed __type __id "id";
+       invoke_url = Prop.computed __type __id "invoke_url";
+       name = Prop.computed __type __id "name";
+       stage_variables = Prop.computed __type __id "stage_variables";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_stage
+        (aws_apigatewayv2_stage ?auto_deploy ?client_certificate_id
+           ?deployment_id ?description ?id ?stage_variables ?tags
+           ?tags_all ~api_id ~name ~access_log_settings
+           ~default_route_settings ~route_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_deploy ?client_certificate_id
+    ?deployment_id ?description ?id ?stage_variables ?tags ?tags_all
+    ~api_id ~name ~access_log_settings ~default_route_settings
+    ~route_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_deploy ?client_certificate_id ?deployment_id
+      ?description ?id ?stage_variables ?tags ?tags_all ~api_id ~name
+      ~access_log_settings ~default_route_settings ~route_settings
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

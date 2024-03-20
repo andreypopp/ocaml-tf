@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -48,43 +46,44 @@ type t = {
   send : bool prop;
 }
 
-let register ?tf_module ?id ?listen ?manage ?send ?timeouts ~name
-    ~queue_id __resource_id =
-  let __resource_type =
-    "azurerm_servicebus_queue_authorization_rule"
-  in
-  let __resource =
-    azurerm_servicebus_queue_authorization_rule ?id ?listen ?manage
-      ?send ?timeouts ~name ~queue_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_queue_authorization_rule __resource);
-  let __resource_attributes =
+let make ?id ?listen ?manage ?send ?timeouts ~name ~queue_id __id =
+  let __type = "azurerm_servicebus_queue_authorization_rule" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       listen = Prop.computed __resource_type __resource_id "listen";
-       manage = Prop.computed __resource_type __resource_id "manage";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       listen = Prop.computed __type __id "listen";
+       manage = Prop.computed __type __id "manage";
+       name = Prop.computed __type __id "name";
        primary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string";
+         Prop.computed __type __id "primary_connection_string";
        primary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
-           "primary_connection_string_alias";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
-       queue_id =
-         Prop.computed __resource_type __resource_id "queue_id";
+         Prop.computed __type __id "primary_connection_string_alias";
+       primary_key = Prop.computed __type __id "primary_key";
+       queue_id = Prop.computed __type __id "queue_id";
        secondary_connection_string =
-         Prop.computed __resource_type __resource_id
-           "secondary_connection_string";
+         Prop.computed __type __id "secondary_connection_string";
        secondary_connection_string_alias =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "secondary_connection_string_alias";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       send = Prop.computed __resource_type __resource_id "send";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       send = Prop.computed __type __id "send";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_queue_authorization_rule
+        (azurerm_servicebus_queue_authorization_rule ?id ?listen
+           ?manage ?send ?timeouts ~name ~queue_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?listen ?manage ?send ?timeouts ~name
+    ~queue_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?listen ?manage ?send ?timeouts ~name ~queue_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

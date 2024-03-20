@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_access_ca_certificate = {
   account_id : string prop option; [@option]
@@ -32,28 +30,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?zone_id ~application_id
-    __resource_id =
-  let __resource_type = "cloudflare_access_ca_certificate" in
-  let __resource =
-    cloudflare_access_ca_certificate ?account_id ?id ?zone_id
-      ~application_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_ca_certificate __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?zone_id ~application_id __id =
+  let __type = "cloudflare_access_ca_certificate" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       application_id =
-         Prop.computed __resource_type __resource_id "application_id";
-       aud = Prop.computed __resource_type __resource_id "aud";
-       id = Prop.computed __resource_type __resource_id "id";
-       public_key =
-         Prop.computed __resource_type __resource_id "public_key";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       account_id = Prop.computed __type __id "account_id";
+       application_id = Prop.computed __type __id "application_id";
+       aud = Prop.computed __type __id "aud";
+       id = Prop.computed __type __id "id";
+       public_key = Prop.computed __type __id "public_key";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_ca_certificate
+        (cloudflare_access_ca_certificate ?account_id ?id ?zone_id
+           ~application_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?zone_id ~application_id __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?zone_id ~application_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

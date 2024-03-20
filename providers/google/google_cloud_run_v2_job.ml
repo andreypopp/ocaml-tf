@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type binary_authorization = {
   breakglass_justification : string prop option; [@option]
@@ -411,75 +409,66 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?client ?client_version ?id
-    ?labels ?launch_stage ?project ?timeouts ~location ~name
-    ~binary_authorization ~template __resource_id =
-  let __resource_type = "google_cloud_run_v2_job" in
-  let __resource =
-    google_cloud_run_v2_job ?annotations ?client ?client_version ?id
-      ?labels ?launch_stage ?project ?timeouts ~location ~name
-      ~binary_authorization ~template ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloud_run_v2_job __resource);
-  let __resource_attributes =
+let make ?annotations ?client ?client_version ?id ?labels
+    ?launch_stage ?project ?timeouts ~location ~name
+    ~binary_authorization ~template __id =
+  let __type = "google_cloud_run_v2_job" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       client = Prop.computed __resource_type __resource_id "client";
-       client_version =
-         Prop.computed __resource_type __resource_id "client_version";
-       conditions =
-         Prop.computed __resource_type __resource_id "conditions";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       creator =
-         Prop.computed __resource_type __resource_id "creator";
-       delete_time =
-         Prop.computed __resource_type __resource_id "delete_time";
+       annotations = Prop.computed __type __id "annotations";
+       client = Prop.computed __type __id "client";
+       client_version = Prop.computed __type __id "client_version";
+       conditions = Prop.computed __type __id "conditions";
+       create_time = Prop.computed __type __id "create_time";
+       creator = Prop.computed __type __id "creator";
+       delete_time = Prop.computed __type __id "delete_time";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
+         Prop.computed __type __id "effective_annotations";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       execution_count =
-         Prop.computed __resource_type __resource_id
-           "execution_count";
-       expire_time =
-         Prop.computed __resource_type __resource_id "expire_time";
-       generation =
-         Prop.computed __resource_type __resource_id "generation";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       last_modifier =
-         Prop.computed __resource_type __resource_id "last_modifier";
+         Prop.computed __type __id "effective_labels";
+       etag = Prop.computed __type __id "etag";
+       execution_count = Prop.computed __type __id "execution_count";
+       expire_time = Prop.computed __type __id "expire_time";
+       generation = Prop.computed __type __id "generation";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       last_modifier = Prop.computed __type __id "last_modifier";
        latest_created_execution =
-         Prop.computed __resource_type __resource_id
-           "latest_created_execution";
-       launch_stage =
-         Prop.computed __resource_type __resource_id "launch_stage";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "latest_created_execution";
+       launch_stage = Prop.computed __type __id "launch_stage";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        observed_generation =
-         Prop.computed __resource_type __resource_id
-           "observed_generation";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
+         Prop.computed __type __id "observed_generation";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
        terminal_condition =
-         Prop.computed __resource_type __resource_id
-           "terminal_condition";
+         Prop.computed __type __id "terminal_condition";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloud_run_v2_job
+        (google_cloud_run_v2_job ?annotations ?client ?client_version
+           ?id ?labels ?launch_stage ?project ?timeouts ~location
+           ~name ~binary_authorization ~template ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?client ?client_version ?id
+    ?labels ?launch_stage ?project ?timeouts ~location ~name
+    ~binary_authorization ~template __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?client ?client_version ?id ?labels
+      ?launch_stage ?project ?timeouts ~location ~name
+      ~binary_authorization ~template __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

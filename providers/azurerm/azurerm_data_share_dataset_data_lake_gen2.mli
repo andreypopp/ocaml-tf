@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   storage_account_id:string prop ->
   string ->
   t
+
+val make :
+  ?file_path:string prop ->
+  ?folder_path:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  file_system_name:string prop ->
+  name:string prop ->
+  share_id:string prop ->
+  storage_account_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bucket_options__explicit_buckets = {
   bounds : float prop list;
@@ -183,37 +181,43 @@ type t = {
   value_extractor : string prop;
 }
 
-let register ?tf_module ?bucket_name ?description ?disabled ?id
-    ?label_extractors ?project ?value_extractor ?timeouts ~filter
-    ~name ~bucket_options ~metric_descriptor __resource_id =
-  let __resource_type = "google_logging_metric" in
-  let __resource =
-    google_logging_metric ?bucket_name ?description ?disabled ?id
-      ?label_extractors ?project ?value_extractor ?timeouts ~filter
-      ~name ~bucket_options ~metric_descriptor ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_metric __resource);
-  let __resource_attributes =
+let make ?bucket_name ?description ?disabled ?id ?label_extractors
+    ?project ?value_extractor ?timeouts ~filter ~name ~bucket_options
+    ~metric_descriptor __id =
+  let __type = "google_logging_metric" in
+  let __attrs =
     ({
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       id = Prop.computed __resource_type __resource_id "id";
+       bucket_name = Prop.computed __type __id "bucket_name";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       filter = Prop.computed __type __id "filter";
+       id = Prop.computed __type __id "id";
        label_extractors =
-         Prop.computed __resource_type __resource_id
-           "label_extractors";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       value_extractor =
-         Prop.computed __resource_type __resource_id
-           "value_extractor";
+         Prop.computed __type __id "label_extractors";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       value_extractor = Prop.computed __type __id "value_extractor";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_metric
+        (google_logging_metric ?bucket_name ?description ?disabled
+           ?id ?label_extractors ?project ?value_extractor ?timeouts
+           ~filter ~name ~bucket_options ~metric_descriptor ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bucket_name ?description ?disabled ?id
+    ?label_extractors ?project ?value_extractor ?timeouts ~filter
+    ~name ~bucket_options ~metric_descriptor __id =
+  let (r : _ Tf_core.resource) =
+    make ?bucket_name ?description ?disabled ?id ?label_extractors
+      ?project ?value_extractor ?timeouts ~filter ~name
+      ~bucket_options ~metric_descriptor __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

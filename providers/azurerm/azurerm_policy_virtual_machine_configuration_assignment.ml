@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration__parameter = {
   name : string prop;  (** name *)
@@ -65,28 +63,37 @@ type t = {
   virtual_machine_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~location ~name
-    ~virtual_machine_id ~configuration __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~location ~name ~virtual_machine_id
+    ~configuration __id =
+  let __type =
     "azurerm_policy_virtual_machine_configuration_assignment"
   in
-  let __resource =
-    azurerm_policy_virtual_machine_configuration_assignment ?id
-      ?timeouts ~location ~name ~virtual_machine_id ~configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_policy_virtual_machine_configuration_assignment
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        virtual_machine_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_machine_id";
+         Prop.computed __type __id "virtual_machine_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_policy_virtual_machine_configuration_assignment
+        (azurerm_policy_virtual_machine_configuration_assignment ?id
+           ?timeouts ~location ~name ~virtual_machine_id
+           ~configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~location ~name
+    ~virtual_machine_id ~configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~location ~name ~virtual_machine_id
+      ~configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

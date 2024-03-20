@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_ssl_options = {
   bundle_method : string prop option; [@option]
@@ -66,34 +64,37 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?id ~zone_id ~custom_ssl_options
-    ~custom_ssl_priority __resource_id =
-  let __resource_type = "cloudflare_custom_ssl" in
-  let __resource =
-    cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
-      ~custom_ssl_priority ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_custom_ssl __resource);
-  let __resource_attributes =
+let make ?id ~zone_id ~custom_ssl_options ~custom_ssl_priority __id =
+  let __type = "cloudflare_custom_ssl" in
+  let __attrs =
     ({
-       expires_on =
-         Prop.computed __resource_type __resource_id "expires_on";
-       hosts = Prop.computed __resource_type __resource_id "hosts";
-       id = Prop.computed __resource_type __resource_id "id";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       signature =
-         Prop.computed __resource_type __resource_id "signature";
-       status = Prop.computed __resource_type __resource_id "status";
-       uploaded_on =
-         Prop.computed __resource_type __resource_id "uploaded_on";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       expires_on = Prop.computed __type __id "expires_on";
+       hosts = Prop.computed __type __id "hosts";
+       id = Prop.computed __type __id "id";
+       issuer = Prop.computed __type __id "issuer";
+       modified_on = Prop.computed __type __id "modified_on";
+       priority = Prop.computed __type __id "priority";
+       signature = Prop.computed __type __id "signature";
+       status = Prop.computed __type __id "status";
+       uploaded_on = Prop.computed __type __id "uploaded_on";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_custom_ssl
+        (cloudflare_custom_ssl ?id ~zone_id ~custom_ssl_options
+           ~custom_ssl_priority ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~zone_id ~custom_ssl_options
+    ~custom_ssl_priority __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~zone_id ~custom_ssl_options ~custom_ssl_priority __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,18 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  device_mapping_json:string prop ->
+  eventhub_consumer_group_name:string prop ->
+  eventhub_name:string prop ->
+  eventhub_namespace_name:string prop ->
+  location:string prop ->
+  name:string prop ->
+  workspace_id:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,13 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?account_id:string prop ->
+  ?duration:string prop ->
+  ?id:string prop ->
+  ?min_days_for_renewal:float prop ->
+  ?zone_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

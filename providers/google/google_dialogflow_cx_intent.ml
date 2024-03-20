@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parameters = {
   entity_type : string prop;
@@ -145,48 +143,54 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?is_default_negative_intent
+let make ?description ?id ?is_default_negative_intent
     ?is_default_welcome_intent ?is_fallback ?labels ?language_code
     ?parent ?priority ?timeouts ~display_name ~parameters
-    ~training_phrases __resource_id =
-  let __resource_type = "google_dialogflow_cx_intent" in
-  let __resource =
-    google_dialogflow_cx_intent ?description ?id
-      ?is_default_negative_intent ?is_default_welcome_intent
-      ?is_fallback ?labels ?language_code ?parent ?priority ?timeouts
-      ~display_name ~parameters ~training_phrases ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_intent __resource);
-  let __resource_attributes =
+    ~training_phrases __id =
+  let __type = "google_dialogflow_cx_intent" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
        is_default_negative_intent =
-         Prop.computed __resource_type __resource_id
-           "is_default_negative_intent";
+         Prop.computed __type __id "is_default_negative_intent";
        is_default_welcome_intent =
-         Prop.computed __resource_type __resource_id
-           "is_default_welcome_intent";
-       is_fallback =
-         Prop.computed __resource_type __resource_id "is_fallback";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "is_default_welcome_intent";
+       is_fallback = Prop.computed __type __id "is_fallback";
+       labels = Prop.computed __type __id "labels";
+       language_code = Prop.computed __type __id "language_code";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       priority = Prop.computed __type __id "priority";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_intent
+        (google_dialogflow_cx_intent ?description ?id
+           ?is_default_negative_intent ?is_default_welcome_intent
+           ?is_fallback ?labels ?language_code ?parent ?priority
+           ?timeouts ~display_name ~parameters ~training_phrases ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?is_default_negative_intent
+    ?is_default_welcome_intent ?is_fallback ?labels ?language_code
+    ?parent ?priority ?timeouts ~display_name ~parameters
+    ~training_phrases __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?is_default_negative_intent
+      ?is_default_welcome_intent ?is_fallback ?labels ?language_code
+      ?parent ?priority ?timeouts ~display_name ~parameters
+      ~training_phrases __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

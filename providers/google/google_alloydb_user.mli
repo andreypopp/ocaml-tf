@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,14 @@ val register :
   user_type:string prop ->
   string ->
   t
+
+val make :
+  ?database_roles:string prop list ->
+  ?id:string prop ->
+  ?password:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  user_id:string prop ->
+  user_type:string prop ->
+  string ->
+  t Tf_core.resource

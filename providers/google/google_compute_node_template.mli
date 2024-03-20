@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,18 @@ val register :
   server_binding:server_binding list ->
   string ->
   t
+
+val make :
+  ?cpu_overcommit_type:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?node_affinity_labels:(string * string prop) list ->
+  ?node_type:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  node_type_flexibility:node_type_flexibility list ->
+  server_binding:server_binding list ->
+  string ->
+  t Tf_core.resource

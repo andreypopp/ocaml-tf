@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,16 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?authorized:bool prop ->
+  ?id:string prop ->
+  ?latency_mode:string prop ->
+  ?name:string prop ->
+  ?recording_configuration_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

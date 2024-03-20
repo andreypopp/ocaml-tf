@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -262,3 +262,28 @@ val register :
   view:view list ->
   string ->
   t
+
+val make :
+  ?clustering:string prop list ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?expiration_time:float prop ->
+  ?friendly_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?max_staleness:string prop ->
+  ?project:string prop ->
+  ?require_partition_filter:bool prop ->
+  ?schema:string prop ->
+  dataset_id:string prop ->
+  table_id:string prop ->
+  encryption_configuration:encryption_configuration list ->
+  external_data_configuration:external_data_configuration list ->
+  materialized_view:materialized_view list ->
+  range_partitioning:range_partitioning list ->
+  table_constraints:table_constraints list ->
+  table_replication_info:table_replication_info list ->
+  time_partitioning:time_partitioning list ->
+  view:view list ->
+  string ->
+  t Tf_core.resource

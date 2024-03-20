@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -309,3 +309,23 @@ val register :
   settings:settings list ->
   string ->
   t
+
+val make :
+  ?deletion_protection:bool prop ->
+  ?encryption_key_name:string prop ->
+  ?id:string prop ->
+  ?instance_type:string prop ->
+  ?maintenance_version:string prop ->
+  ?master_instance_name:string prop ->
+  ?name:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?root_password:string prop ->
+  ?timeouts:timeouts ->
+  database_version:string prop ->
+  clone:clone list ->
+  replica_configuration:replica_configuration list ->
+  restore_backup_context:restore_backup_context list ->
+  settings:settings list ->
+  string ->
+  t Tf_core.resource

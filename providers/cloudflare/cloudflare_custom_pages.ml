@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_custom_pages = {
   account_id : string prop option; [@option]
@@ -33,26 +31,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?account_id ?id ?state ?zone_id ~type_ ~url
-    __resource_id =
-  let __resource_type = "cloudflare_custom_pages" in
-  let __resource =
-    cloudflare_custom_pages ?account_id ?id ?state ?zone_id ~type_
-      ~url ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_custom_pages __resource);
-  let __resource_attributes =
+let make ?account_id ?id ?state ?zone_id ~type_ ~url __id =
+  let __type = "cloudflare_custom_pages" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       url = Prop.computed __resource_type __resource_id "url";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
+       url = Prop.computed __type __id "url";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_custom_pages
+        (cloudflare_custom_pages ?account_id ?id ?state ?zone_id
+           ~type_ ~url ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?id ?state ?zone_id ~type_ ~url
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?id ?state ?zone_id ~type_ ~url __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

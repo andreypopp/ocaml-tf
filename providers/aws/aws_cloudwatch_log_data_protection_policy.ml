@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloudwatch_log_data_protection_policy = {
   id : string prop option; [@option]  (** id *)
@@ -22,26 +20,29 @@ type t = {
   policy_document : string prop;
 }
 
-let register ?tf_module ?id ~log_group_name ~policy_document
-    __resource_id =
-  let __resource_type =
-    "aws_cloudwatch_log_data_protection_policy"
-  in
-  let __resource =
-    aws_cloudwatch_log_data_protection_policy ?id ~log_group_name
-      ~policy_document ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudwatch_log_data_protection_policy __resource);
-  let __resource_attributes =
+let make ?id ~log_group_name ~policy_document __id =
+  let __type = "aws_cloudwatch_log_data_protection_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       log_group_name =
-         Prop.computed __resource_type __resource_id "log_group_name";
-       policy_document =
-         Prop.computed __resource_type __resource_id
-           "policy_document";
+       id = Prop.computed __type __id "id";
+       log_group_name = Prop.computed __type __id "log_group_name";
+       policy_document = Prop.computed __type __id "policy_document";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudwatch_log_data_protection_policy
+        (aws_cloudwatch_log_data_protection_policy ?id
+           ~log_group_name ~policy_document ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~log_group_name ~policy_document __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~log_group_name ~policy_document __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

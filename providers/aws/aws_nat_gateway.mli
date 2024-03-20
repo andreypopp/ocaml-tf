@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,18 @@ val register :
   subnet_id:string prop ->
   string ->
   t
+
+val make :
+  ?allocation_id:string prop ->
+  ?connectivity_type:string prop ->
+  ?id:string prop ->
+  ?private_ip:string prop ->
+  ?secondary_allocation_ids:string prop list ->
+  ?secondary_private_ip_address_count:float prop ->
+  ?secondary_private_ip_addresses:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  subnet_id:string prop ->
+  string ->
+  t Tf_core.resource

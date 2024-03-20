@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -105,3 +105,18 @@ val register :
   cdn_policy:cdn_policy list ->
   string ->
   t
+
+val make :
+  ?compression_mode:string prop ->
+  ?custom_response_headers:string prop list ->
+  ?description:string prop ->
+  ?edge_security_policy:string prop ->
+  ?enable_cdn:bool prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  bucket_name:string prop ->
+  name:string prop ->
+  cdn_policy:cdn_policy list ->
+  string ->
+  t Tf_core.resource

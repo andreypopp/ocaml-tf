@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -291,4 +291,20 @@ val register :
     vpc_connection_properties:vpc_connection_properties list ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
+    data_source_id:string prop ->
+    name:string prop ->
+    type_:string prop ->
+    credentials:credentials list ->
+    parameters:parameters list ->
+    permission:permission list ->
+    ssl_properties:ssl_properties list ->
+    vpc_connection_properties:vpc_connection_properties list ->
+    string ->
+    t Tf_core.resource
 

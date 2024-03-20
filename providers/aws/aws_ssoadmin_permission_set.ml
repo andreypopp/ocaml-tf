@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   update : string prop option; [@option]  (** update *)
@@ -56,37 +54,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?relay_state
-    ?session_duration ?tags ?tags_all ?timeouts ~instance_arn ~name
-    __resource_id =
-  let __resource_type = "aws_ssoadmin_permission_set" in
-  let __resource =
-    aws_ssoadmin_permission_set ?description ?id ?relay_state
-      ?session_duration ?tags ?tags_all ?timeouts ~instance_arn ~name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_permission_set __resource);
-  let __resource_attributes =
+let make ?description ?id ?relay_state ?session_duration ?tags
+    ?tags_all ?timeouts ~instance_arn ~name __id =
+  let __type = "aws_ssoadmin_permission_set" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_arn =
-         Prop.computed __resource_type __resource_id "instance_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       relay_state =
-         Prop.computed __resource_type __resource_id "relay_state";
+       arn = Prop.computed __type __id "arn";
+       created_date = Prop.computed __type __id "created_date";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       instance_arn = Prop.computed __type __id "instance_arn";
+       name = Prop.computed __type __id "name";
+       relay_state = Prop.computed __type __id "relay_state";
        session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "session_duration";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_permission_set
+        (aws_ssoadmin_permission_set ?description ?id ?relay_state
+           ?session_duration ?tags ?tags_all ?timeouts ~instance_arn
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?relay_state
+    ?session_duration ?tags ?tags_all ?timeouts ~instance_arn ~name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?relay_state ?session_duration ?tags
+      ?tags_all ?timeouts ~instance_arn ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type model = {
   format : string prop;  (** format *)
@@ -77,31 +75,37 @@ type t = {
   version_upgrade_option : string prop;
 }
 
-let register ?tf_module ?id ?rai_policy_name ?version_upgrade_option
-    ?timeouts ~cognitive_account_id ~name ~model ~scale __resource_id
-    =
-  let __resource_type = "azurerm_cognitive_deployment" in
-  let __resource =
-    azurerm_cognitive_deployment ?id ?rai_policy_name
-      ?version_upgrade_option ?timeouts ~cognitive_account_id ~name
-      ~model ~scale ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cognitive_deployment __resource);
-  let __resource_attributes =
+let make ?id ?rai_policy_name ?version_upgrade_option ?timeouts
+    ~cognitive_account_id ~name ~model ~scale __id =
+  let __type = "azurerm_cognitive_deployment" in
+  let __attrs =
     ({
        cognitive_account_id =
-         Prop.computed __resource_type __resource_id
-           "cognitive_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       rai_policy_name =
-         Prop.computed __resource_type __resource_id
-           "rai_policy_name";
+         Prop.computed __type __id "cognitive_account_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       rai_policy_name = Prop.computed __type __id "rai_policy_name";
        version_upgrade_option =
-         Prop.computed __resource_type __resource_id
-           "version_upgrade_option";
+         Prop.computed __type __id "version_upgrade_option";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cognitive_deployment
+        (azurerm_cognitive_deployment ?id ?rai_policy_name
+           ?version_upgrade_option ?timeouts ~cognitive_account_id
+           ~name ~model ~scale ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?rai_policy_name ?version_upgrade_option
+    ?timeouts ~cognitive_account_id ~name ~model ~scale __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?rai_policy_name ?version_upgrade_option ?timeouts
+      ~cognitive_account_id ~name ~model ~scale __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

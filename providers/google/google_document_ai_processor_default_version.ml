@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,26 +34,29 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~processor ~version
-    __resource_id =
-  let __resource_type =
-    "google_document_ai_processor_default_version"
-  in
-  let __resource =
-    google_document_ai_processor_default_version ?id ?timeouts
-      ~processor ~version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_document_ai_processor_default_version
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~processor ~version __id =
+  let __type = "google_document_ai_processor_default_version" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       processor =
-         Prop.computed __resource_type __resource_id "processor";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       id = Prop.computed __type __id "id";
+       processor = Prop.computed __type __id "processor";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_document_ai_processor_default_version
+        (google_document_ai_processor_default_version ?id ?timeouts
+           ~processor ~version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~processor ~version __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~processor ~version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

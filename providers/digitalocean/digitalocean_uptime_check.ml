@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_uptime_check = {
   enabled : bool prop option; [@option]
@@ -32,26 +30,32 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?enabled ?regions ?type_ ~name ~target
-    __resource_id =
-  let __resource_type = "digitalocean_uptime_check" in
-  let __resource =
-    digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_uptime_check __resource);
-  let __resource_attributes =
+let make ?enabled ?regions ?type_ ~name ~target __id =
+  let __type = "digitalocean_uptime_check" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
-       target = Prop.computed __resource_type __resource_id "target";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       regions = Prop.computed __type __id "regions";
+       target = Prop.computed __type __id "target";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_uptime_check
+        (digitalocean_uptime_check ?enabled ?regions ?type_ ~name
+           ~target ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?regions ?type_ ~name ~target __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?regions ?type_ ~name ~target __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -79,33 +77,40 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ?password ?timeouts ~alias ~environment
-    ~file ~filehash ~keystore ~org_id __resource_id =
-  let __resource_type = "google_apigee_keystores_aliases_pkcs12" in
-  let __resource =
-    google_apigee_keystores_aliases_pkcs12 ?id ?password ?timeouts
-      ~alias ~environment ~file ~filehash ~keystore ~org_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_keystores_aliases_pkcs12 __resource);
-  let __resource_attributes =
+let make ?id ?password ?timeouts ~alias ~environment ~file ~filehash
+    ~keystore ~org_id __id =
+  let __type = "google_apigee_keystores_aliases_pkcs12" in
+  let __attrs =
     ({
-       alias = Prop.computed __resource_type __resource_id "alias";
-       certs_info =
-         Prop.computed __resource_type __resource_id "certs_info";
-       environment =
-         Prop.computed __resource_type __resource_id "environment";
-       file = Prop.computed __resource_type __resource_id "file";
-       filehash =
-         Prop.computed __resource_type __resource_id "filehash";
-       id = Prop.computed __resource_type __resource_id "id";
-       keystore =
-         Prop.computed __resource_type __resource_id "keystore";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       alias = Prop.computed __type __id "alias";
+       certs_info = Prop.computed __type __id "certs_info";
+       environment = Prop.computed __type __id "environment";
+       file = Prop.computed __type __id "file";
+       filehash = Prop.computed __type __id "filehash";
+       id = Prop.computed __type __id "id";
+       keystore = Prop.computed __type __id "keystore";
+       org_id = Prop.computed __type __id "org_id";
+       password = Prop.computed __type __id "password";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_keystores_aliases_pkcs12
+        (google_apigee_keystores_aliases_pkcs12 ?id ?password
+           ?timeouts ~alias ~environment ~file ~filehash ~keystore
+           ~org_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?password ?timeouts ~alias ~environment
+    ~file ~filehash ~keystore ~org_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?password ?timeouts ~alias ~environment ~file ~filehash
+      ~keystore ~org_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

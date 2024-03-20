@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -147,3 +147,29 @@ val register :
   update_config:update_config list ->
   string ->
   t
+
+val make :
+  ?ami_type:string prop ->
+  ?capacity_type:string prop ->
+  ?disk_size:float prop ->
+  ?force_update_version:bool prop ->
+  ?id:string prop ->
+  ?instance_types:string prop list ->
+  ?labels:(string * string prop) list ->
+  ?node_group_name:string prop ->
+  ?node_group_name_prefix:string prop ->
+  ?release_version:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?version:string prop ->
+  ?timeouts:timeouts ->
+  cluster_name:string prop ->
+  node_role_arn:string prop ->
+  subnet_ids:string prop list ->
+  launch_template:launch_template list ->
+  remote_access:remote_access list ->
+  scaling_config:scaling_config list ->
+  taint:taint list ->
+  update_config:update_config list ->
+  string ->
+  t Tf_core.resource

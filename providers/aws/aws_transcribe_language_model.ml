@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input_data_config = {
   data_access_role_arn : string prop;  (** data_access_role_arn *)
@@ -63,32 +61,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~base_model_name ~language_code ~model_name ~input_data_config
-    __resource_id =
-  let __resource_type = "aws_transcribe_language_model" in
-  let __resource =
-    aws_transcribe_language_model ?id ?tags ?tags_all ?timeouts
-      ~base_model_name ~language_code ~model_name ~input_data_config
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transcribe_language_model __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~base_model_name
+    ~language_code ~model_name ~input_data_config __id =
+  let __type = "aws_transcribe_language_model" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       base_model_name =
-         Prop.computed __resource_type __resource_id
-           "base_model_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
-       model_name =
-         Prop.computed __resource_type __resource_id "model_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       base_model_name = Prop.computed __type __id "base_model_name";
+       id = Prop.computed __type __id "id";
+       language_code = Prop.computed __type __id "language_code";
+       model_name = Prop.computed __type __id "model_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transcribe_language_model
+        (aws_transcribe_language_model ?id ?tags ?tags_all ?timeouts
+           ~base_model_name ~language_code ~model_name
+           ~input_data_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~base_model_name ~language_code ~model_name ~input_data_config
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~base_model_name
+      ~language_code ~model_name ~input_data_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

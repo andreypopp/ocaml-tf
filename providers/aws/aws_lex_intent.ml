@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type conclusion_statement__message = {
   content : string prop;  (** content *)
@@ -288,46 +286,53 @@ type t = {
   version : string prop;
 }
 
+let make ?create_version ?description ?id ?parent_intent_signature
+    ?sample_utterances ?timeouts ~name ~conclusion_statement
+    ~confirmation_prompt ~dialog_code_hook ~follow_up_prompt
+    ~fulfillment_activity ~rejection_statement ~slot __id =
+  let __type = "aws_lex_intent" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       checksum = Prop.computed __type __id "checksum";
+       create_version = Prop.computed __type __id "create_version";
+       created_date = Prop.computed __type __id "created_date";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       last_updated_date =
+         Prop.computed __type __id "last_updated_date";
+       name = Prop.computed __type __id "name";
+       parent_intent_signature =
+         Prop.computed __type __id "parent_intent_signature";
+       sample_utterances =
+         Prop.computed __type __id "sample_utterances";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lex_intent
+        (aws_lex_intent ?create_version ?description ?id
+           ?parent_intent_signature ?sample_utterances ?timeouts
+           ~name ~conclusion_statement ~confirmation_prompt
+           ~dialog_code_hook ~follow_up_prompt ~fulfillment_activity
+           ~rejection_statement ~slot ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?create_version ?description ?id
     ?parent_intent_signature ?sample_utterances ?timeouts ~name
     ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
     ~follow_up_prompt ~fulfillment_activity ~rejection_statement
-    ~slot __resource_id =
-  let __resource_type = "aws_lex_intent" in
-  let __resource =
-    aws_lex_intent ?create_version ?description ?id
-      ?parent_intent_signature ?sample_utterances ?timeouts ~name
-      ~conclusion_statement ~confirmation_prompt ~dialog_code_hook
-      ~follow_up_prompt ~fulfillment_activity ~rejection_statement
-      ~slot ()
+    ~slot __id =
+  let (r : _ Tf_core.resource) =
+    make ?create_version ?description ?id ?parent_intent_signature
+      ?sample_utterances ?timeouts ~name ~conclusion_statement
+      ~confirmation_prompt ~dialog_code_hook ~follow_up_prompt
+      ~fulfillment_activity ~rejection_statement ~slot __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lex_intent __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       checksum =
-         Prop.computed __resource_type __resource_id "checksum";
-       create_version =
-         Prop.computed __resource_type __resource_id "create_version";
-       created_date =
-         Prop.computed __resource_type __resource_id "created_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_updated_date =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_intent_signature =
-         Prop.computed __resource_type __resource_id
-           "parent_intent_signature";
-       sample_utterances =
-         Prop.computed __resource_type __resource_id
-           "sample_utterances";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

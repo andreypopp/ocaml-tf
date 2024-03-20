@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_capabilities = {
   ultra_ssd_enabled : bool prop;  (** ultra_ssd_enabled *)
@@ -342,6 +340,61 @@ type t = {
   zones : string list prop;
 }
 
+let make ?availability_set_id ?delete_data_disks_on_termination
+    ?delete_os_disk_on_termination ?id ?license_type
+    ?primary_network_interface_id ?proximity_placement_group_id ?tags
+    ?zones ?timeouts ~location ~name ~network_interface_ids
+    ~resource_group_name ~vm_size ~additional_capabilities
+    ~boot_diagnostics ~identity ~os_profile ~os_profile_linux_config
+    ~os_profile_secrets ~os_profile_windows_config ~plan
+    ~storage_data_disk ~storage_image_reference ~storage_os_disk __id
+    =
+  let __type = "azurerm_virtual_machine" in
+  let __attrs =
+    ({
+       availability_set_id =
+         Prop.computed __type __id "availability_set_id";
+       delete_data_disks_on_termination =
+         Prop.computed __type __id "delete_data_disks_on_termination";
+       delete_os_disk_on_termination =
+         Prop.computed __type __id "delete_os_disk_on_termination";
+       id = Prop.computed __type __id "id";
+       license_type = Prop.computed __type __id "license_type";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       primary_network_interface_id =
+         Prop.computed __type __id "primary_network_interface_id";
+       proximity_placement_group_id =
+         Prop.computed __type __id "proximity_placement_group_id";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       vm_size = Prop.computed __type __id "vm_size";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_machine
+        (azurerm_virtual_machine ?availability_set_id
+           ?delete_data_disks_on_termination
+           ?delete_os_disk_on_termination ?id ?license_type
+           ?primary_network_interface_id
+           ?proximity_placement_group_id ?tags ?zones ?timeouts
+           ~location ~name ~network_interface_ids
+           ~resource_group_name ~vm_size ~additional_capabilities
+           ~boot_diagnostics ~identity ~os_profile
+           ~os_profile_linux_config ~os_profile_secrets
+           ~os_profile_windows_config ~plan ~storage_data_disk
+           ~storage_image_reference ~storage_os_disk ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?availability_set_id
     ?delete_data_disks_on_termination ?delete_os_disk_on_termination
     ?id ?license_type ?primary_network_interface_id
@@ -350,11 +403,9 @@ let register ?tf_module ?availability_set_id
     ~additional_capabilities ~boot_diagnostics ~identity ~os_profile
     ~os_profile_linux_config ~os_profile_secrets
     ~os_profile_windows_config ~plan ~storage_data_disk
-    ~storage_image_reference ~storage_os_disk __resource_id =
-  let __resource_type = "azurerm_virtual_machine" in
-  let __resource =
-    azurerm_virtual_machine ?availability_set_id
-      ?delete_data_disks_on_termination
+    ~storage_image_reference ~storage_os_disk __id =
+  let (r : _ Tf_core.resource) =
+    make ?availability_set_id ?delete_data_disks_on_termination
       ?delete_os_disk_on_termination ?id ?license_type
       ?primary_network_interface_id ?proximity_placement_group_id
       ?tags ?zones ?timeouts ~location ~name ~network_interface_ids
@@ -362,44 +413,7 @@ let register ?tf_module ?availability_set_id
       ~boot_diagnostics ~identity ~os_profile
       ~os_profile_linux_config ~os_profile_secrets
       ~os_profile_windows_config ~plan ~storage_data_disk
-      ~storage_image_reference ~storage_os_disk ()
+      ~storage_image_reference ~storage_os_disk __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_machine __resource);
-  let __resource_attributes =
-    ({
-       availability_set_id =
-         Prop.computed __resource_type __resource_id
-           "availability_set_id";
-       delete_data_disks_on_termination =
-         Prop.computed __resource_type __resource_id
-           "delete_data_disks_on_termination";
-       delete_os_disk_on_termination =
-         Prop.computed __resource_type __resource_id
-           "delete_os_disk_on_termination";
-       id = Prop.computed __resource_type __resource_id "id";
-       license_type =
-         Prop.computed __resource_type __resource_id "license_type";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       primary_network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "primary_network_interface_id";
-       proximity_placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "proximity_placement_group_id";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       vm_size =
-         Prop.computed __resource_type __resource_id "vm_size";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

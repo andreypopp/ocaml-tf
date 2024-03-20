@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type output_data_config = { s3_uri : string prop  (** s3_uri *) }
 [@@deriving yojson_of]
@@ -126,60 +124,60 @@ type t = {
   validation_metrics : validation_metrics list prop;
 }
 
-let register ?tf_module ?custom_model_kms_key_id ?customization_type
-    ?tags ?timeouts ~base_model_identifier ~custom_model_name
-    ~hyperparameters ~job_name ~role_arn ~output_data_config
-    ~training_data_config ~validation_data_config ~vpc_config
-    __resource_id =
-  let __resource_type = "aws_bedrock_custom_model" in
-  let __resource =
-    aws_bedrock_custom_model ?custom_model_kms_key_id
-      ?customization_type ?tags ?timeouts ~base_model_identifier
-      ~custom_model_name ~hyperparameters ~job_name ~role_arn
-      ~output_data_config ~training_data_config
-      ~validation_data_config ~vpc_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_bedrock_custom_model __resource);
-  let __resource_attributes =
+let make ?custom_model_kms_key_id ?customization_type ?tags ?timeouts
+    ~base_model_identifier ~custom_model_name ~hyperparameters
+    ~job_name ~role_arn ~output_data_config ~training_data_config
+    ~validation_data_config ~vpc_config __id =
+  let __type = "aws_bedrock_custom_model" in
+  let __attrs =
     ({
        base_model_identifier =
-         Prop.computed __resource_type __resource_id
-           "base_model_identifier";
+         Prop.computed __type __id "base_model_identifier";
        custom_model_arn =
-         Prop.computed __resource_type __resource_id
-           "custom_model_arn";
+         Prop.computed __type __id "custom_model_arn";
        custom_model_kms_key_id =
-         Prop.computed __resource_type __resource_id
-           "custom_model_kms_key_id";
+         Prop.computed __type __id "custom_model_kms_key_id";
        custom_model_name =
-         Prop.computed __resource_type __resource_id
-           "custom_model_name";
+         Prop.computed __type __id "custom_model_name";
        customization_type =
-         Prop.computed __resource_type __resource_id
-           "customization_type";
-       hyperparameters =
-         Prop.computed __resource_type __resource_id
-           "hyperparameters";
-       id = Prop.computed __resource_type __resource_id "id";
-       job_arn =
-         Prop.computed __resource_type __resource_id "job_arn";
-       job_name =
-         Prop.computed __resource_type __resource_id "job_name";
-       job_status =
-         Prop.computed __resource_type __resource_id "job_status";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "customization_type";
+       hyperparameters = Prop.computed __type __id "hyperparameters";
+       id = Prop.computed __type __id "id";
+       job_arn = Prop.computed __type __id "job_arn";
+       job_name = Prop.computed __type __id "job_name";
+       job_status = Prop.computed __type __id "job_status";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        training_metrics =
-         Prop.computed __resource_type __resource_id
-           "training_metrics";
+         Prop.computed __type __id "training_metrics";
        validation_metrics =
-         Prop.computed __resource_type __resource_id
-           "validation_metrics";
+         Prop.computed __type __id "validation_metrics";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_bedrock_custom_model
+        (aws_bedrock_custom_model ?custom_model_kms_key_id
+           ?customization_type ?tags ?timeouts ~base_model_identifier
+           ~custom_model_name ~hyperparameters ~job_name ~role_arn
+           ~output_data_config ~training_data_config
+           ~validation_data_config ~vpc_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_model_kms_key_id ?customization_type
+    ?tags ?timeouts ~base_model_identifier ~custom_model_name
+    ~hyperparameters ~job_name ~role_arn ~output_data_config
+    ~training_data_config ~validation_data_config ~vpc_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_model_kms_key_id ?customization_type ?tags ?timeouts
+      ~base_model_identifier ~custom_model_name ~hyperparameters
+      ~job_name ~role_arn ~output_data_config ~training_data_config
+      ~validation_data_config ~vpc_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

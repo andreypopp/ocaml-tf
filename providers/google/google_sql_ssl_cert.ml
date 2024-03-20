@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,41 +42,40 @@ type t = {
   sha1_fingerprint : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~common_name ~instance
-    __resource_id =
-  let __resource_type = "google_sql_ssl_cert" in
-  let __resource =
-    google_sql_ssl_cert ?id ?project ?timeouts ~common_name ~instance
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sql_ssl_cert __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~common_name ~instance __id =
+  let __type = "google_sql_ssl_cert" in
+  let __attrs =
     ({
-       cert = Prop.computed __resource_type __resource_id "cert";
+       cert = Prop.computed __type __id "cert";
        cert_serial_number =
-         Prop.computed __resource_type __resource_id
-           "cert_serial_number";
-       common_name =
-         Prop.computed __resource_type __resource_id "common_name";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       expiration_time =
-         Prop.computed __resource_type __resource_id
-           "expiration_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       server_ca_cert =
-         Prop.computed __resource_type __resource_id "server_ca_cert";
+         Prop.computed __type __id "cert_serial_number";
+       common_name = Prop.computed __type __id "common_name";
+       create_time = Prop.computed __type __id "create_time";
+       expiration_time = Prop.computed __type __id "expiration_time";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
+       private_key = Prop.computed __type __id "private_key";
+       project = Prop.computed __type __id "project";
+       server_ca_cert = Prop.computed __type __id "server_ca_cert";
        sha1_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "sha1_fingerprint";
+         Prop.computed __type __id "sha1_fingerprint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sql_ssl_cert
+        (google_sql_ssl_cert ?id ?project ?timeouts ~common_name
+           ~instance ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~common_name ~instance
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~common_name ~instance __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

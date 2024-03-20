@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,19 @@ val register :
   o365_policy:o365_policy list ->
   string ->
   t
+
+val make :
+  ?address_cidrs:string prop list ->
+  ?device_model:string prop ->
+  ?device_vendor:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  virtual_wan_id:string prop ->
+  link:link list ->
+  o365_policy:o365_policy list ->
+  string ->
+  t Tf_core.resource

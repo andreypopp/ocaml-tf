@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type authentication = {
   certificate : string prop option; [@option]  (** certificate *)
@@ -88,31 +86,38 @@ type t = {
   vnet_solution : string prop;
 }
 
-let register ?tf_module ?client_type ?id ?vnet_solution ?timeouts
-    ~app_service_id ~name ~target_resource_id ~authentication
-    ~secret_store __resource_id =
-  let __resource_type = "azurerm_app_service_connection" in
-  let __resource =
-    azurerm_app_service_connection ?client_type ?id ?vnet_solution
-      ?timeouts ~app_service_id ~name ~target_resource_id
-      ~authentication ~secret_store ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_connection __resource);
-  let __resource_attributes =
+let make ?client_type ?id ?vnet_solution ?timeouts ~app_service_id
+    ~name ~target_resource_id ~authentication ~secret_store __id =
+  let __type = "azurerm_app_service_connection" in
+  let __attrs =
     ({
-       app_service_id =
-         Prop.computed __resource_type __resource_id "app_service_id";
-       client_type =
-         Prop.computed __resource_type __resource_id "client_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       app_service_id = Prop.computed __type __id "app_service_id";
+       client_type = Prop.computed __type __id "client_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        target_resource_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_id";
-       vnet_solution =
-         Prop.computed __resource_type __resource_id "vnet_solution";
+         Prop.computed __type __id "target_resource_id";
+       vnet_solution = Prop.computed __type __id "vnet_solution";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_connection
+        (azurerm_app_service_connection ?client_type ?id
+           ?vnet_solution ?timeouts ~app_service_id ~name
+           ~target_resource_id ~authentication ~secret_store ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_type ?id ?vnet_solution ?timeouts
+    ~app_service_id ~name ~target_resource_id ~authentication
+    ~secret_store __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_type ?id ?vnet_solution ?timeouts ~app_service_id
+      ~name ~target_resource_id ~authentication ~secret_store __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

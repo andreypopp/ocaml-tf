@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,33 +54,39 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?accept_language ?description ?id ?timeouts
-    ~parameters ~portfolio_id ~product_id ~type_ __resource_id =
-  let __resource_type = "aws_servicecatalog_constraint" in
-  let __resource =
-    aws_servicecatalog_constraint ?accept_language ?description ?id
-      ?timeouts ~parameters ~portfolio_id ~product_id ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_servicecatalog_constraint __resource);
-  let __resource_attributes =
+let make ?accept_language ?description ?id ?timeouts ~parameters
+    ~portfolio_id ~product_id ~type_ __id =
+  let __type = "aws_servicecatalog_constraint" in
+  let __attrs =
     ({
-       accept_language =
-         Prop.computed __resource_type __resource_id
-           "accept_language";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       portfolio_id =
-         Prop.computed __resource_type __resource_id "portfolio_id";
-       product_id =
-         Prop.computed __resource_type __resource_id "product_id";
-       status = Prop.computed __resource_type __resource_id "status";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       accept_language = Prop.computed __type __id "accept_language";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       owner = Prop.computed __type __id "owner";
+       parameters = Prop.computed __type __id "parameters";
+       portfolio_id = Prop.computed __type __id "portfolio_id";
+       product_id = Prop.computed __type __id "product_id";
+       status = Prop.computed __type __id "status";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_servicecatalog_constraint
+        (aws_servicecatalog_constraint ?accept_language ?description
+           ?id ?timeouts ~parameters ~portfolio_id ~product_id ~type_
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accept_language ?description ?id ?timeouts
+    ~parameters ~portfolio_id ~product_id ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?accept_language ?description ?id ?timeouts ~parameters
+      ~portfolio_id ~product_id ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

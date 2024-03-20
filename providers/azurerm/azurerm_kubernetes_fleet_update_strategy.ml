@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type stage__group = { name : string prop  (** name *) }
 [@@deriving yojson_of]
@@ -56,23 +54,32 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~kubernetes_fleet_manager_id
-    ~name ~stage __resource_id =
-  let __resource_type = "azurerm_kubernetes_fleet_update_strategy" in
-  let __resource =
-    azurerm_kubernetes_fleet_update_strategy ?id ?timeouts
-      ~kubernetes_fleet_manager_id ~name ~stage ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kubernetes_fleet_update_strategy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~kubernetes_fleet_manager_id ~name ~stage __id
+    =
+  let __type = "azurerm_kubernetes_fleet_update_strategy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        kubernetes_fleet_manager_id =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_fleet_manager_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "kubernetes_fleet_manager_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kubernetes_fleet_update_strategy
+        (azurerm_kubernetes_fleet_update_strategy ?id ?timeouts
+           ~kubernetes_fleet_manager_id ~name ~stage ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~kubernetes_fleet_manager_id
+    ~name ~stage __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~kubernetes_fleet_manager_id ~name ~stage __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type media_insights_configuration = {
   configuration_arn : string prop option; [@option]
@@ -49,31 +47,40 @@ type t = {
   voice_connector_id : string prop;
 }
 
-let register ?tf_module ?disabled ?id ?streaming_notification_targets
+let make ?disabled ?id ?streaming_notification_targets
     ~data_retention ~voice_connector_id ~media_insights_configuration
-    __resource_id =
-  let __resource_type = "aws_chime_voice_connector_streaming" in
-  let __resource =
-    aws_chime_voice_connector_streaming ?disabled ?id
-      ?streaming_notification_targets ~data_retention
-      ~voice_connector_id ~media_insights_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_chime_voice_connector_streaming __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_chime_voice_connector_streaming" in
+  let __attrs =
     ({
-       data_retention =
-         Prop.computed __resource_type __resource_id "data_retention";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       data_retention = Prop.computed __type __id "data_retention";
+       disabled = Prop.computed __type __id "disabled";
+       id = Prop.computed __type __id "id";
        streaming_notification_targets =
-         Prop.computed __resource_type __resource_id
-           "streaming_notification_targets";
+         Prop.computed __type __id "streaming_notification_targets";
        voice_connector_id =
-         Prop.computed __resource_type __resource_id
-           "voice_connector_id";
+         Prop.computed __type __id "voice_connector_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_chime_voice_connector_streaming
+        (aws_chime_voice_connector_streaming ?disabled ?id
+           ?streaming_notification_targets ~data_retention
+           ~voice_connector_id ~media_insights_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled ?id ?streaming_notification_targets
+    ~data_retention ~voice_connector_id ~media_insights_configuration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled ?id ?streaming_notification_targets
+      ~data_retention ~voice_connector_id
+      ~media_insights_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

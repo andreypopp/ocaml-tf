@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type copy__destination_encryption_configuration = {
   kms_key_name : string prop;
@@ -586,39 +584,42 @@ type t = {
   user_email : string prop;
 }
 
-let register ?tf_module ?id ?job_timeout_ms ?labels ?location
-    ?project ?timeouts ~job_id ~copy ~extract ~load ~query
-    __resource_id =
-  let __resource_type = "google_bigquery_job" in
-  let __resource =
-    google_bigquery_job ?id ?job_timeout_ms ?labels ?location
-      ?project ?timeouts ~job_id ~copy ~extract ~load ~query ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_job __resource);
-  let __resource_attributes =
+let make ?id ?job_timeout_ms ?labels ?location ?project ?timeouts
+    ~job_id ~copy ~extract ~load ~query __id =
+  let __type = "google_bigquery_job" in
+  let __attrs =
     ({
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       job_id = Prop.computed __resource_type __resource_id "job_id";
-       job_timeout_ms =
-         Prop.computed __resource_type __resource_id "job_timeout_ms";
-       job_type =
-         Prop.computed __resource_type __resource_id "job_type";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       job_id = Prop.computed __type __id "job_id";
+       job_timeout_ms = Prop.computed __type __id "job_timeout_ms";
+       job_type = Prop.computed __type __id "job_type";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       project = Prop.computed __type __id "project";
+       status = Prop.computed __type __id "status";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       user_email =
-         Prop.computed __resource_type __resource_id "user_email";
+         Prop.computed __type __id "terraform_labels";
+       user_email = Prop.computed __type __id "user_email";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_job
+        (google_bigquery_job ?id ?job_timeout_ms ?labels ?location
+           ?project ?timeouts ~job_id ~copy ~extract ~load ~query ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?job_timeout_ms ?labels ?location
+    ?project ?timeouts ~job_id ~copy ~extract ~load ~query __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?job_timeout_ms ?labels ?location ?project ?timeouts
+      ~job_id ~copy ~extract ~load ~query __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

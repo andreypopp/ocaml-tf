@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appstream_user = {
   authentication_type : string prop;  (** authentication_type *)
@@ -42,37 +40,41 @@ type t = {
   user_name : string prop;
 }
 
-let register ?tf_module ?enabled ?first_name ?id ?last_name
-    ?send_email_notification ~authentication_type ~user_name
-    __resource_id =
-  let __resource_type = "aws_appstream_user" in
-  let __resource =
-    aws_appstream_user ?enabled ?first_name ?id ?last_name
-      ?send_email_notification ~authentication_type ~user_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appstream_user __resource);
-  let __resource_attributes =
+let make ?enabled ?first_name ?id ?last_name ?send_email_notification
+    ~authentication_type ~user_name __id =
+  let __type = "aws_appstream_user" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       created_time =
-         Prop.computed __resource_type __resource_id "created_time";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       first_name =
-         Prop.computed __resource_type __resource_id "first_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_name =
-         Prop.computed __resource_type __resource_id "last_name";
+         Prop.computed __type __id "authentication_type";
+       created_time = Prop.computed __type __id "created_time";
+       enabled = Prop.computed __type __id "enabled";
+       first_name = Prop.computed __type __id "first_name";
+       id = Prop.computed __type __id "id";
+       last_name = Prop.computed __type __id "last_name";
        send_email_notification =
-         Prop.computed __resource_type __resource_id
-           "send_email_notification";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "send_email_notification";
+       user_name = Prop.computed __type __id "user_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appstream_user
+        (aws_appstream_user ?enabled ?first_name ?id ?last_name
+           ?send_email_notification ~authentication_type ~user_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?first_name ?id ?last_name
+    ?send_email_notification ~authentication_type ~user_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?first_name ?id ?last_name ?send_email_notification
+      ~authentication_type ~user_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

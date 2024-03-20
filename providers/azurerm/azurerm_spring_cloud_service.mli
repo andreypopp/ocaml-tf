@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -203,3 +203,26 @@ val register :
   trace:trace list ->
   string ->
   t
+
+val make :
+  ?build_agent_pool_size:string prop ->
+  ?id:string prop ->
+  ?log_stream_public_endpoint_enabled:bool prop ->
+  ?managed_environment_id:string prop ->
+  ?service_registry_enabled:bool prop ->
+  ?sku_name:string prop ->
+  ?sku_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  config_server_git_setting:config_server_git_setting list ->
+  container_registry:container_registry list ->
+  default_build_service:default_build_service list ->
+  marketplace:marketplace list ->
+  network:network list ->
+  trace:trace list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,15 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?exclude_app_packages_from_cleanup:string prop list ->
+  ?id:string prop ->
+  ?package_cleanup:bool prop ->
+  ?reboot_after_use:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cdn_policy__bypass_cache_on_request_headers = {
   header_name : string prop option; [@option]
@@ -171,45 +169,49 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?compression_mode ?custom_response_headers
-    ?description ?edge_security_policy ?enable_cdn ?id ?project
-    ?timeouts ~bucket_name ~name ~cdn_policy __resource_id =
-  let __resource_type = "google_compute_backend_bucket" in
-  let __resource =
-    google_compute_backend_bucket ?compression_mode
-      ?custom_response_headers ?description ?edge_security_policy
-      ?enable_cdn ?id ?project ?timeouts ~bucket_name ~name
-      ~cdn_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_backend_bucket __resource);
-  let __resource_attributes =
+let make ?compression_mode ?custom_response_headers ?description
+    ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
+    ~bucket_name ~name ~cdn_policy __id =
+  let __type = "google_compute_backend_bucket" in
+  let __attrs =
     ({
-       bucket_name =
-         Prop.computed __resource_type __resource_id "bucket_name";
+       bucket_name = Prop.computed __type __id "bucket_name";
        compression_mode =
-         Prop.computed __resource_type __resource_id
-           "compression_mode";
+         Prop.computed __type __id "compression_mode";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
+         Prop.computed __type __id "creation_timestamp";
        custom_response_headers =
-         Prop.computed __resource_type __resource_id
-           "custom_response_headers";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "custom_response_headers";
+       description = Prop.computed __type __id "description";
        edge_security_policy =
-         Prop.computed __resource_type __resource_id
-           "edge_security_policy";
-       enable_cdn =
-         Prop.computed __resource_type __resource_id "enable_cdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "edge_security_policy";
+       enable_cdn = Prop.computed __type __id "enable_cdn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_backend_bucket
+        (google_compute_backend_bucket ?compression_mode
+           ?custom_response_headers ?description
+           ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
+           ~bucket_name ~name ~cdn_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?compression_mode ?custom_response_headers
+    ?description ?edge_security_policy ?enable_cdn ?id ?project
+    ?timeouts ~bucket_name ~name ~cdn_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?compression_mode ?custom_response_headers ?description
+      ?edge_security_policy ?enable_cdn ?id ?project ?timeouts
+      ~bucket_name ~name ~cdn_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

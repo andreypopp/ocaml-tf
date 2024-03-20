@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   resource_group_name:string prop ->
   string ->
   t
+
+val make :
+  ?cognitive_account_id:string prop ->
+  ?custom_speech_model_id:string prop ->
+  ?custom_voice_deployment_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  cognitive_service_access_key:string prop ->
+  cognitive_service_location:string prop ->
+  location:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

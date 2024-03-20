@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,16 @@ val register :
   private_key:string prop ->
   string ->
   t
+
+val make :
+  ?certificate_chain:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?path:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  certificate_body:string prop ->
+  private_key:string prop ->
+  string ->
+  t Tf_core.resource

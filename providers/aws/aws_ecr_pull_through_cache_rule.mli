@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -35,3 +35,11 @@ val register :
   upstream_registry_url:string prop ->
   string ->
   t
+
+val make :
+  ?credential_arn:string prop ->
+  ?id:string prop ->
+  ecr_repository_prefix:string prop ->
+  upstream_registry_url:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_autoscaling_notification = {
   group_names : string prop list;  (** group_names *)
@@ -24,25 +22,31 @@ type t = {
   topic_arn : string prop;
 }
 
-let register ?tf_module ?id ~group_names ~notifications ~topic_arn
-    __resource_id =
-  let __resource_type = "aws_autoscaling_notification" in
-  let __resource =
-    aws_autoscaling_notification ?id ~group_names ~notifications
-      ~topic_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscaling_notification __resource);
-  let __resource_attributes =
+let make ?id ~group_names ~notifications ~topic_arn __id =
+  let __type = "aws_autoscaling_notification" in
+  let __attrs =
     ({
-       group_names =
-         Prop.computed __resource_type __resource_id "group_names";
-       id = Prop.computed __resource_type __resource_id "id";
-       notifications =
-         Prop.computed __resource_type __resource_id "notifications";
-       topic_arn =
-         Prop.computed __resource_type __resource_id "topic_arn";
+       group_names = Prop.computed __type __id "group_names";
+       id = Prop.computed __type __id "id";
+       notifications = Prop.computed __type __id "notifications";
+       topic_arn = Prop.computed __type __id "topic_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscaling_notification
+        (aws_autoscaling_notification ?id ~group_names ~notifications
+           ~topic_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~group_names ~notifications ~topic_arn
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~group_names ~notifications ~topic_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

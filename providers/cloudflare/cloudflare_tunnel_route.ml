@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_tunnel_route = {
   account_id : string prop;
@@ -36,30 +34,36 @@ type t = {
   virtual_network_id : string prop;
 }
 
-let register ?tf_module ?comment ?id ?virtual_network_id ~account_id
-    ~network ~tunnel_id __resource_id =
-  let __resource_type = "cloudflare_tunnel_route" in
-  let __resource =
-    cloudflare_tunnel_route ?comment ?id ?virtual_network_id
-      ~account_id ~network ~tunnel_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_tunnel_route __resource);
-  let __resource_attributes =
+let make ?comment ?id ?virtual_network_id ~account_id ~network
+    ~tunnel_id __id =
+  let __type = "cloudflare_tunnel_route" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
-       id = Prop.computed __resource_type __resource_id "id";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       tunnel_id =
-         Prop.computed __resource_type __resource_id "tunnel_id";
+       account_id = Prop.computed __type __id "account_id";
+       comment = Prop.computed __type __id "comment";
+       id = Prop.computed __type __id "id";
+       network = Prop.computed __type __id "network";
+       tunnel_id = Prop.computed __type __id "tunnel_id";
        virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_id";
+         Prop.computed __type __id "virtual_network_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_tunnel_route
+        (cloudflare_tunnel_route ?comment ?id ?virtual_network_id
+           ~account_id ~network ~tunnel_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comment ?id ?virtual_network_id ~account_id
+    ~network ~tunnel_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?comment ?id ?virtual_network_id ~account_id ~network
+      ~tunnel_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backfill_all__mysql_excluded_objects__mysql_databases__mysql_tables__mysql_columns = {
   collation : string prop option; [@option]  (** Column collation. *)
@@ -938,45 +936,52 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?customer_managed_encryption_key
-    ?desired_state ?id ?labels ?project ?timeouts ~display_name
-    ~location ~stream_id ~backfill_all ~backfill_none
-    ~destination_config ~source_config __resource_id =
-  let __resource_type = "google_datastream_stream" in
-  let __resource =
-    google_datastream_stream ?customer_managed_encryption_key
-      ?desired_state ?id ?labels ?project ?timeouts ~display_name
-      ~location ~stream_id ~backfill_all ~backfill_none
-      ~destination_config ~source_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_datastream_stream __resource);
-  let __resource_attributes =
+let make ?customer_managed_encryption_key ?desired_state ?id ?labels
+    ?project ?timeouts ~display_name ~location ~stream_id
+    ~backfill_all ~backfill_none ~destination_config ~source_config
+    __id =
+  let __type = "google_datastream_stream" in
+  let __attrs =
     ({
        customer_managed_encryption_key =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_encryption_key";
-       desired_state =
-         Prop.computed __resource_type __resource_id "desired_state";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "customer_managed_encryption_key";
+       desired_state = Prop.computed __type __id "desired_state";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
-       stream_id =
-         Prop.computed __resource_type __resource_id "stream_id";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
+       stream_id = Prop.computed __type __id "stream_id";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_datastream_stream
+        (google_datastream_stream ?customer_managed_encryption_key
+           ?desired_state ?id ?labels ?project ?timeouts
+           ~display_name ~location ~stream_id ~backfill_all
+           ~backfill_none ~destination_config ~source_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?customer_managed_encryption_key
+    ?desired_state ?id ?labels ?project ?timeouts ~display_name
+    ~location ~stream_id ~backfill_all ~backfill_none
+    ~destination_config ~source_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?customer_managed_encryption_key ?desired_state ?id ?labels
+      ?project ?timeouts ~display_name ~location ~stream_id
+      ~backfill_all ~backfill_none ~destination_config ~source_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

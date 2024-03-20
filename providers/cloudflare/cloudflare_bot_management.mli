@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -56,3 +56,18 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?auto_update_model:bool prop ->
+  ?enable_js:bool prop ->
+  ?fight_mode:bool prop ->
+  ?id:string prop ->
+  ?optimize_wordpress:bool prop ->
+  ?sbfm_definitely_automated:string prop ->
+  ?sbfm_likely_automated:string prop ->
+  ?sbfm_static_resource_protection:bool prop ->
+  ?sbfm_verified_bots:string prop ->
+  ?suppress_session_score:bool prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

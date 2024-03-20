@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type operating_regions = {
   region_name : string prop;  (** region_name *)
@@ -52,32 +50,38 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
-    ~operating_regions __resource_id =
-  let __resource_type = "aws_vpc_ipam_resource_discovery" in
-  let __resource =
-    aws_vpc_ipam_resource_discovery ?description ?id ?tags ?tags_all
-      ?timeouts ~operating_regions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_ipam_resource_discovery __resource);
-  let __resource_attributes =
+let make ?description ?id ?tags ?tags_all ?timeouts
+    ~operating_regions __id =
+  let __type = "aws_vpc_ipam_resource_discovery" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        ipam_resource_discovery_region =
-         Prop.computed __resource_type __resource_id
-           "ipam_resource_discovery_region";
-       is_default =
-         Prop.computed __resource_type __resource_id "is_default";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "ipam_resource_discovery_region";
+       is_default = Prop.computed __type __id "is_default";
+       owner_id = Prop.computed __type __id "owner_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_ipam_resource_discovery
+        (aws_vpc_ipam_resource_discovery ?description ?id ?tags
+           ?tags_all ?timeouts ~operating_regions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~operating_regions __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ?timeouts
+      ~operating_regions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

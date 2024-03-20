@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -154,3 +154,24 @@ val register :
   tcp_health_check:tcp_health_check list ->
   string ->
   t
+
+val make :
+  ?check_interval_sec:float prop ->
+  ?description:string prop ->
+  ?healthy_threshold:float prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeout_sec:float prop ->
+  ?unhealthy_threshold:float prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  grpc_health_check:grpc_health_check list ->
+  http2_health_check:http2_health_check list ->
+  http_health_check:http_health_check list ->
+  https_health_check:https_health_check list ->
+  log_config:log_config list ->
+  ssl_health_check:ssl_health_check list ->
+  tcp_health_check:tcp_health_check list ->
+  string ->
+  t Tf_core.resource

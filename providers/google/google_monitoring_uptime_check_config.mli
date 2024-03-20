@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -170,3 +170,22 @@ val register :
   tcp_check:tcp_check list ->
   string ->
   t
+
+val make :
+  ?checker_type:string prop ->
+  ?id:string prop ->
+  ?period:string prop ->
+  ?project:string prop ->
+  ?selected_regions:string prop list ->
+  ?user_labels:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  timeout:string prop ->
+  content_matchers:content_matchers list ->
+  http_check:http_check list ->
+  monitored_resource:monitored_resource list ->
+  resource_group:resource_group list ->
+  synthetic_monitor:synthetic_monitor list ->
+  tcp_check:tcp_check list ->
+  string ->
+  t Tf_core.resource

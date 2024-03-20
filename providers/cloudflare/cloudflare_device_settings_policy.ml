@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_device_settings_policy = {
   account_id : string prop;
@@ -94,67 +92,67 @@ type t = {
   switch_locked : bool prop;
 }
 
+let make ?allow_mode_switch ?allow_updates ?allowed_to_leave
+    ?auto_connect ?captive_portal ?default ?disable_auto_fallback
+    ?enabled ?exclude_office_ips ?id ?match_ ?precedence
+    ?service_mode_v2_mode ?service_mode_v2_port ?support_url
+    ?switch_locked ~account_id ~description ~name __id =
+  let __type = "cloudflare_device_settings_policy" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       allow_mode_switch =
+         Prop.computed __type __id "allow_mode_switch";
+       allow_updates = Prop.computed __type __id "allow_updates";
+       allowed_to_leave =
+         Prop.computed __type __id "allowed_to_leave";
+       auto_connect = Prop.computed __type __id "auto_connect";
+       captive_portal = Prop.computed __type __id "captive_portal";
+       default = Prop.computed __type __id "default";
+       description = Prop.computed __type __id "description";
+       disable_auto_fallback =
+         Prop.computed __type __id "disable_auto_fallback";
+       enabled = Prop.computed __type __id "enabled";
+       exclude_office_ips =
+         Prop.computed __type __id "exclude_office_ips";
+       id = Prop.computed __type __id "id";
+       match_ = Prop.computed __type __id "match";
+       name = Prop.computed __type __id "name";
+       precedence = Prop.computed __type __id "precedence";
+       service_mode_v2_mode =
+         Prop.computed __type __id "service_mode_v2_mode";
+       service_mode_v2_port =
+         Prop.computed __type __id "service_mode_v2_port";
+       support_url = Prop.computed __type __id "support_url";
+       switch_locked = Prop.computed __type __id "switch_locked";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_device_settings_policy
+        (cloudflare_device_settings_policy ?allow_mode_switch
+           ?allow_updates ?allowed_to_leave ?auto_connect
+           ?captive_portal ?default ?disable_auto_fallback ?enabled
+           ?exclude_office_ips ?id ?match_ ?precedence
+           ?service_mode_v2_mode ?service_mode_v2_port ?support_url
+           ?switch_locked ~account_id ~description ~name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_mode_switch ?allow_updates
     ?allowed_to_leave ?auto_connect ?captive_portal ?default
     ?disable_auto_fallback ?enabled ?exclude_office_ips ?id ?match_
     ?precedence ?service_mode_v2_mode ?service_mode_v2_port
-    ?support_url ?switch_locked ~account_id ~description ~name
-    __resource_id =
-  let __resource_type = "cloudflare_device_settings_policy" in
-  let __resource =
-    cloudflare_device_settings_policy ?allow_mode_switch
-      ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal
-      ?default ?disable_auto_fallback ?enabled ?exclude_office_ips
-      ?id ?match_ ?precedence ?service_mode_v2_mode
-      ?service_mode_v2_port ?support_url ?switch_locked ~account_id
-      ~description ~name ()
+    ?support_url ?switch_locked ~account_id ~description ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_mode_switch ?allow_updates ?allowed_to_leave
+      ?auto_connect ?captive_portal ?default ?disable_auto_fallback
+      ?enabled ?exclude_office_ips ?id ?match_ ?precedence
+      ?service_mode_v2_mode ?service_mode_v2_port ?support_url
+      ?switch_locked ~account_id ~description ~name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_device_settings_policy __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       allow_mode_switch =
-         Prop.computed __resource_type __resource_id
-           "allow_mode_switch";
-       allow_updates =
-         Prop.computed __resource_type __resource_id "allow_updates";
-       allowed_to_leave =
-         Prop.computed __resource_type __resource_id
-           "allowed_to_leave";
-       auto_connect =
-         Prop.computed __resource_type __resource_id "auto_connect";
-       captive_portal =
-         Prop.computed __resource_type __resource_id "captive_portal";
-       default =
-         Prop.computed __resource_type __resource_id "default";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disable_auto_fallback =
-         Prop.computed __resource_type __resource_id
-           "disable_auto_fallback";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       exclude_office_ips =
-         Prop.computed __resource_type __resource_id
-           "exclude_office_ips";
-       id = Prop.computed __resource_type __resource_id "id";
-       match_ = Prop.computed __resource_type __resource_id "match";
-       name = Prop.computed __resource_type __resource_id "name";
-       precedence =
-         Prop.computed __resource_type __resource_id "precedence";
-       service_mode_v2_mode =
-         Prop.computed __resource_type __resource_id
-           "service_mode_v2_mode";
-       service_mode_v2_port =
-         Prop.computed __resource_type __resource_id
-           "service_mode_v2_port";
-       support_url =
-         Prop.computed __resource_type __resource_id "support_url";
-       switch_locked =
-         Prop.computed __resource_type __resource_id "switch_locked";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

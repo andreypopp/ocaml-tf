@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type password_policy__status = {
   locked : bool prop;  (** locked *)
@@ -105,34 +103,40 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?deletion_policy ?host ?id ?password ?project
-    ?type_ ?timeouts ~instance ~name ~password_policy __resource_id =
-  let __resource_type = "google_sql_user" in
-  let __resource =
-    google_sql_user ?deletion_policy ?host ?id ?password ?project
-      ?type_ ?timeouts ~instance ~name ~password_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sql_user __resource);
-  let __resource_attributes =
+let make ?deletion_policy ?host ?id ?password ?project ?type_
+    ?timeouts ~instance ~name ~password_policy __id =
+  let __type = "google_sql_user" in
+  let __attrs =
     ({
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       host = Prop.computed __resource_type __resource_id "host";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       host = Prop.computed __type __id "host";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       project = Prop.computed __type __id "project";
        sql_server_user_details =
-         Prop.computed __resource_type __resource_id
-           "sql_server_user_details";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "sql_server_user_details";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sql_user
+        (google_sql_user ?deletion_policy ?host ?id ?password
+           ?project ?type_ ?timeouts ~instance ~name ~password_policy
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deletion_policy ?host ?id ?password ?project
+    ?type_ ?timeouts ~instance ~name ~password_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_policy ?host ?id ?password ?project ?type_
+      ?timeouts ~instance ~name ~password_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

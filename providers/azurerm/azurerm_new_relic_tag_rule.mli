@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,16 @@ val register :
   metric_tag_filter:metric_tag_filter list ->
   string ->
   t
+
+val make :
+  ?activity_log_enabled:bool prop ->
+  ?azure_active_directory_log_enabled:bool prop ->
+  ?id:string prop ->
+  ?metric_enabled:bool prop ->
+  ?subscription_log_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  monitor_id:string prop ->
+  log_tag_filter:log_tag_filter list ->
+  metric_tag_filter:metric_tag_filter list ->
+  string ->
+  t Tf_core.resource

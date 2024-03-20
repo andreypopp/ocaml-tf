@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -132,3 +132,31 @@ val register :
   managed_network:managed_network list ->
   string ->
   t
+
+val make :
+  ?container_registry_id:string prop ->
+  ?description:string prop ->
+  ?friendly_name:string prop ->
+  ?high_business_impact:bool prop ->
+  ?id:string prop ->
+  ?image_build_compute_name:string prop ->
+  ?kind:string prop ->
+  ?primary_user_assigned_identity:string prop ->
+  ?public_access_behind_virtual_network_enabled:bool prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?sku_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?v1_legacy_mode_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  application_insights_id:string prop ->
+  key_vault_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
+  encryption:encryption list ->
+  feature_store:feature_store list ->
+  identity:identity list ->
+  managed_network:managed_network list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,15 @@ val register :
   vpc:vpc list ->
   string ->
   t
+
+val make :
+  ?comment:string prop ->
+  ?delegation_set_id:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  vpc:vpc list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type configuration_property = {
   description : string prop option; [@option]  (** description *)
@@ -109,32 +107,42 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~category ~provider_name
-    ~version ~configuration_property ~input_artifact_details
-    ~output_artifact_details ~settings __resource_id =
-  let __resource_type = "aws_codepipeline_custom_action_type" in
-  let __resource =
-    aws_codepipeline_custom_action_type ?id ?tags ?tags_all ~category
-      ~provider_name ~version ~configuration_property
-      ~input_artifact_details ~output_artifact_details ~settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codepipeline_custom_action_type __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~category ~provider_name ~version
+    ~configuration_property ~input_artifact_details
+    ~output_artifact_details ~settings __id =
+  let __type = "aws_codepipeline_custom_action_type" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       category =
-         Prop.computed __resource_type __resource_id "category";
-       id = Prop.computed __resource_type __resource_id "id";
-       owner = Prop.computed __resource_type __resource_id "owner";
-       provider_name =
-         Prop.computed __resource_type __resource_id "provider_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       arn = Prop.computed __type __id "arn";
+       category = Prop.computed __type __id "category";
+       id = Prop.computed __type __id "id";
+       owner = Prop.computed __type __id "owner";
+       provider_name = Prop.computed __type __id "provider_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codepipeline_custom_action_type
+        (aws_codepipeline_custom_action_type ?id ?tags ?tags_all
+           ~category ~provider_name ~version ~configuration_property
+           ~input_artifact_details ~output_artifact_details ~settings
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~category ~provider_name
+    ~version ~configuration_property ~input_artifact_details
+    ~output_artifact_details ~settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~category ~provider_name ~version
+      ~configuration_property ~input_artifact_details
+      ~output_artifact_details ~settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

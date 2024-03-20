@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type compute_resources__ec2_configuration = {
   image_id_override : string prop option; [@option]
@@ -160,43 +158,49 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?compute_environment_name
-    ?compute_environment_name_prefix ?id ?service_role ?state ?tags
-    ?tags_all ~type_ ~compute_resources ~eks_configuration
-    ~update_policy __resource_id =
-  let __resource_type = "aws_batch_compute_environment" in
-  let __resource =
-    aws_batch_compute_environment ?compute_environment_name
-      ?compute_environment_name_prefix ?id ?service_role ?state ?tags
-      ?tags_all ~type_ ~compute_resources ~eks_configuration
-      ~update_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_batch_compute_environment __resource);
-  let __resource_attributes =
+let make ?compute_environment_name ?compute_environment_name_prefix
+    ?id ?service_role ?state ?tags ?tags_all ~type_
+    ~compute_resources ~eks_configuration ~update_policy __id =
+  let __type = "aws_batch_compute_environment" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        compute_environment_name =
-         Prop.computed __resource_type __resource_id
-           "compute_environment_name";
+         Prop.computed __type __id "compute_environment_name";
        compute_environment_name_prefix =
-         Prop.computed __resource_type __resource_id
-           "compute_environment_name_prefix";
-       ecs_cluster_arn =
-         Prop.computed __resource_type __resource_id
-           "ecs_cluster_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       service_role =
-         Prop.computed __resource_type __resource_id "service_role";
-       state = Prop.computed __resource_type __resource_id "state";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_reason =
-         Prop.computed __resource_type __resource_id "status_reason";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "compute_environment_name_prefix";
+       ecs_cluster_arn = Prop.computed __type __id "ecs_cluster_arn";
+       id = Prop.computed __type __id "id";
+       service_role = Prop.computed __type __id "service_role";
+       state = Prop.computed __type __id "state";
+       status = Prop.computed __type __id "status";
+       status_reason = Prop.computed __type __id "status_reason";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_batch_compute_environment
+        (aws_batch_compute_environment ?compute_environment_name
+           ?compute_environment_name_prefix ?id ?service_role ?state
+           ?tags ?tags_all ~type_ ~compute_resources
+           ~eks_configuration ~update_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?compute_environment_name
+    ?compute_environment_name_prefix ?id ?service_role ?state ?tags
+    ?tags_all ~type_ ~compute_resources ~eks_configuration
+    ~update_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?compute_environment_name ?compute_environment_name_prefix
+      ?id ?service_role ?state ?tags ?tags_all ~type_
+      ~compute_resources ~eks_configuration ~update_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

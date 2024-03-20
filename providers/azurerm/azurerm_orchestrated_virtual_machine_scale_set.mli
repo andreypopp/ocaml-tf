@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -402,3 +402,43 @@ val register :
   termination_notification:termination_notification list ->
   string ->
   t
+
+val make :
+  ?capacity_reservation_group_id:string prop ->
+  ?encryption_at_host_enabled:bool prop ->
+  ?eviction_policy:string prop ->
+  ?extension_operations_enabled:bool prop ->
+  ?extensions_time_budget:string prop ->
+  ?id:string prop ->
+  ?instances:float prop ->
+  ?license_type:string prop ->
+  ?max_bid_price:float prop ->
+  ?priority:string prop ->
+  ?proximity_placement_group_id:string prop ->
+  ?single_placement_group:bool prop ->
+  ?sku_name:string prop ->
+  ?source_image_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_data_base64:string prop ->
+  ?zone_balance:bool prop ->
+  ?zones:string prop list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  platform_fault_domain_count:float prop ->
+  resource_group_name:string prop ->
+  additional_capabilities:additional_capabilities list ->
+  automatic_instance_repair:automatic_instance_repair list ->
+  boot_diagnostics:boot_diagnostics list ->
+  data_disk:data_disk list ->
+  extension:extension list ->
+  identity:identity list ->
+  network_interface:network_interface list ->
+  os_disk:os_disk list ->
+  os_profile:os_profile list ->
+  plan:plan list ->
+  priority_mix:priority_mix list ->
+  source_image_reference:source_image_reference list ->
+  termination_notification:termination_notification list ->
+  string ->
+  t Tf_core.resource

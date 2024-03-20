@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -53,3 +53,13 @@ val register :
   primary_namespace_id:string prop ->
   string ->
   t
+
+val make :
+  ?alias_authorization_rule_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  partner_namespace_id:string prop ->
+  primary_namespace_id:string prop ->
+  string ->
+  t Tf_core.resource

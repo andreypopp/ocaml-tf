@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -106,3 +106,21 @@ val register :
   microsoft_peering_config:microsoft_peering_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ipv4_enabled:bool prop ->
+  ?peer_asn:float prop ->
+  ?primary_peer_address_prefix:string prop ->
+  ?route_filter_id:string prop ->
+  ?secondary_peer_address_prefix:string prop ->
+  ?shared_key:string prop ->
+  ?timeouts:timeouts ->
+  express_route_circuit_name:string prop ->
+  peering_type:string prop ->
+  resource_group_name:string prop ->
+  vlan_id:float prop ->
+  ipv6:ipv6 list ->
+  microsoft_peering_config:microsoft_peering_config list ->
+  string ->
+  t Tf_core.resource

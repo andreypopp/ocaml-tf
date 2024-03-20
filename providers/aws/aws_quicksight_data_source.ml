@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type credentials__credential_pair = {
   password: string prop;  (** password *)
@@ -415,20 +413,27 @@ type t = {
   type_: string prop;
 }
 
-let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __resource_id =
-  let __resource_type = "aws_quicksight_data_source" in
-  let __resource = aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_data_source __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    data_source_id = Prop.computed __resource_type __resource_id "data_source_id";
-    id = Prop.computed __resource_type __resource_id "id";
-    name = Prop.computed __resource_type __resource_id "name";
-    tags = Prop.computed __resource_type __resource_id "tags";
-    tags_all = Prop.computed __resource_type __resource_id "tags_all";
-    type_ = Prop.computed __resource_type __resource_id "type";
+let make ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id =
+  let __type = "aws_quicksight_data_source" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    data_source_id = Prop.computed __type __id "data_source_id";
+    id = Prop.computed __type __id "id";
+    name = Prop.computed __type __id "name";
+    tags = Prop.computed __type __id "tags";
+    tags_all = Prop.computed __type __id "tags_all";
+    type_ = Prop.computed __type __id "type";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_data_source (aws_quicksight_data_source ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?id ?tags ?tags_all ~data_source_id ~name ~type_ ~credentials ~parameters ~permission ~ssl_properties ~vpc_connection_properties __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

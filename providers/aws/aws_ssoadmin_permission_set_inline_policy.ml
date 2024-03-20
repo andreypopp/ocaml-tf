@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -35,28 +33,34 @@ type t = {
   permission_set_arn : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~inline_policy ~instance_arn
-    ~permission_set_arn __resource_id =
-  let __resource_type =
-    "aws_ssoadmin_permission_set_inline_policy"
-  in
-  let __resource =
-    aws_ssoadmin_permission_set_inline_policy ?id ?timeouts
-      ~inline_policy ~instance_arn ~permission_set_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssoadmin_permission_set_inline_policy __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~inline_policy ~instance_arn
+    ~permission_set_arn __id =
+  let __type = "aws_ssoadmin_permission_set_inline_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       inline_policy =
-         Prop.computed __resource_type __resource_id "inline_policy";
-       instance_arn =
-         Prop.computed __resource_type __resource_id "instance_arn";
+       id = Prop.computed __type __id "id";
+       inline_policy = Prop.computed __type __id "inline_policy";
+       instance_arn = Prop.computed __type __id "instance_arn";
        permission_set_arn =
-         Prop.computed __resource_type __resource_id
-           "permission_set_arn";
+         Prop.computed __type __id "permission_set_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssoadmin_permission_set_inline_policy
+        (aws_ssoadmin_permission_set_inline_policy ?id ?timeouts
+           ~inline_policy ~instance_arn ~permission_set_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~inline_policy ~instance_arn
+    ~permission_set_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~inline_policy ~instance_arn
+      ~permission_set_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

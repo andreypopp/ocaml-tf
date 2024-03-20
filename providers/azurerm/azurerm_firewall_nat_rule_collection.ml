@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type rule = {
   description : string prop option; [@option]  (** description *)
@@ -84,30 +82,38 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~action ~azure_firewall_name
-    ~name ~priority ~resource_group_name ~rule __resource_id =
-  let __resource_type = "azurerm_firewall_nat_rule_collection" in
-  let __resource =
-    azurerm_firewall_nat_rule_collection ?id ?timeouts ~action
-      ~azure_firewall_name ~name ~priority ~resource_group_name ~rule
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_firewall_nat_rule_collection __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~action ~azure_firewall_name ~name ~priority
+    ~resource_group_name ~rule __id =
+  let __type = "azurerm_firewall_nat_rule_collection" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
+       action = Prop.computed __type __id "action";
        azure_firewall_name =
-         Prop.computed __resource_type __resource_id
-           "azure_firewall_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "azure_firewall_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_firewall_nat_rule_collection
+        (azurerm_firewall_nat_rule_collection ?id ?timeouts ~action
+           ~azure_firewall_name ~name ~priority ~resource_group_name
+           ~rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~action ~azure_firewall_name
+    ~name ~priority ~resource_group_name ~rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~action ~azure_firewall_name ~name ~priority
+      ~resource_group_name ~rule __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

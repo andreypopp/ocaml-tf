@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create: string  prop option; [@option] (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
@@ -59,24 +57,31 @@ type t = {
   vpc_connection_id: string prop;
 }
 
-let register ?tf_module ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id __resource_id =
-  let __resource_type = "aws_quicksight_vpc_connection" in
-  let __resource = aws_quicksight_vpc_connection ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_vpc_connection __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    availability_status = Prop.computed __resource_type __resource_id "availability_status";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    dns_resolvers = Prop.computed __resource_type __resource_id "dns_resolvers";
-    id = Prop.computed __resource_type __resource_id "id";
-    name = Prop.computed __resource_type __resource_id "name";
-    role_arn = Prop.computed __resource_type __resource_id "role_arn";
-    security_group_ids = Prop.computed __resource_type __resource_id "security_group_ids";
-    subnet_ids = Prop.computed __resource_type __resource_id "subnet_ids";
-    tags = Prop.computed __resource_type __resource_id "tags";
-    tags_all = Prop.computed __resource_type __resource_id "tags_all";
-    vpc_connection_id = Prop.computed __resource_type __resource_id "vpc_connection_id";
+let make ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id __id =
+  let __type = "aws_quicksight_vpc_connection" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    availability_status = Prop.computed __type __id "availability_status";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    dns_resolvers = Prop.computed __type __id "dns_resolvers";
+    id = Prop.computed __type __id "id";
+    name = Prop.computed __type __id "name";
+    role_arn = Prop.computed __type __id "role_arn";
+    security_group_ids = Prop.computed __type __id "security_group_ids";
+    subnet_ids = Prop.computed __type __id "subnet_ids";
+    tags = Prop.computed __type __id "tags";
+    tags_all = Prop.computed __type __id "tags_all";
+    vpc_connection_id = Prop.computed __type __id "vpc_connection_id";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_vpc_connection (aws_quicksight_vpc_connection ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ?dns_resolvers ?tags ?timeouts ~name ~role_arn ~security_group_ids ~subnet_ids ~vpc_connection_id __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

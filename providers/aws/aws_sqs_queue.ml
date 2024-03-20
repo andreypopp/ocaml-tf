@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sqs_queue = {
   content_based_deduplication : bool prop option; [@option]
@@ -97,77 +95,85 @@ type t = {
   visibility_timeout_seconds : float prop;
 }
 
+let make ?content_based_deduplication ?deduplication_scope
+    ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id
+    ?kms_data_key_reuse_period_seconds ?kms_master_key_id
+    ?max_message_size ?message_retention_seconds ?name ?name_prefix
+    ?policy ?receive_wait_time_seconds ?redrive_allow_policy
+    ?redrive_policy ?sqs_managed_sse_enabled ?tags ?tags_all
+    ?visibility_timeout_seconds __id =
+  let __type = "aws_sqs_queue" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       content_based_deduplication =
+         Prop.computed __type __id "content_based_deduplication";
+       deduplication_scope =
+         Prop.computed __type __id "deduplication_scope";
+       delay_seconds = Prop.computed __type __id "delay_seconds";
+       fifo_queue = Prop.computed __type __id "fifo_queue";
+       fifo_throughput_limit =
+         Prop.computed __type __id "fifo_throughput_limit";
+       id = Prop.computed __type __id "id";
+       kms_data_key_reuse_period_seconds =
+         Prop.computed __type __id
+           "kms_data_key_reuse_period_seconds";
+       kms_master_key_id =
+         Prop.computed __type __id "kms_master_key_id";
+       max_message_size =
+         Prop.computed __type __id "max_message_size";
+       message_retention_seconds =
+         Prop.computed __type __id "message_retention_seconds";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       policy = Prop.computed __type __id "policy";
+       receive_wait_time_seconds =
+         Prop.computed __type __id "receive_wait_time_seconds";
+       redrive_allow_policy =
+         Prop.computed __type __id "redrive_allow_policy";
+       redrive_policy = Prop.computed __type __id "redrive_policy";
+       sqs_managed_sse_enabled =
+         Prop.computed __type __id "sqs_managed_sse_enabled";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
+       visibility_timeout_seconds =
+         Prop.computed __type __id "visibility_timeout_seconds";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sqs_queue
+        (aws_sqs_queue ?content_based_deduplication
+           ?deduplication_scope ?delay_seconds ?fifo_queue
+           ?fifo_throughput_limit ?id
+           ?kms_data_key_reuse_period_seconds ?kms_master_key_id
+           ?max_message_size ?message_retention_seconds ?name
+           ?name_prefix ?policy ?receive_wait_time_seconds
+           ?redrive_allow_policy ?redrive_policy
+           ?sqs_managed_sse_enabled ?tags ?tags_all
+           ?visibility_timeout_seconds ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?content_based_deduplication
     ?deduplication_scope ?delay_seconds ?fifo_queue
     ?fifo_throughput_limit ?id ?kms_data_key_reuse_period_seconds
     ?kms_master_key_id ?max_message_size ?message_retention_seconds
     ?name ?name_prefix ?policy ?receive_wait_time_seconds
     ?redrive_allow_policy ?redrive_policy ?sqs_managed_sse_enabled
-    ?tags ?tags_all ?visibility_timeout_seconds __resource_id =
-  let __resource_type = "aws_sqs_queue" in
-  let __resource =
-    aws_sqs_queue ?content_based_deduplication ?deduplication_scope
+    ?tags ?tags_all ?visibility_timeout_seconds __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_based_deduplication ?deduplication_scope
       ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id
       ?kms_data_key_reuse_period_seconds ?kms_master_key_id
       ?max_message_size ?message_retention_seconds ?name ?name_prefix
       ?policy ?receive_wait_time_seconds ?redrive_allow_policy
       ?redrive_policy ?sqs_managed_sse_enabled ?tags ?tags_all
-      ?visibility_timeout_seconds ()
+      ?visibility_timeout_seconds __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sqs_queue __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       content_based_deduplication =
-         Prop.computed __resource_type __resource_id
-           "content_based_deduplication";
-       deduplication_scope =
-         Prop.computed __resource_type __resource_id
-           "deduplication_scope";
-       delay_seconds =
-         Prop.computed __resource_type __resource_id "delay_seconds";
-       fifo_queue =
-         Prop.computed __resource_type __resource_id "fifo_queue";
-       fifo_throughput_limit =
-         Prop.computed __resource_type __resource_id
-           "fifo_throughput_limit";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_data_key_reuse_period_seconds =
-         Prop.computed __resource_type __resource_id
-           "kms_data_key_reuse_period_seconds";
-       kms_master_key_id =
-         Prop.computed __resource_type __resource_id
-           "kms_master_key_id";
-       max_message_size =
-         Prop.computed __resource_type __resource_id
-           "max_message_size";
-       message_retention_seconds =
-         Prop.computed __resource_type __resource_id
-           "message_retention_seconds";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       receive_wait_time_seconds =
-         Prop.computed __resource_type __resource_id
-           "receive_wait_time_seconds";
-       redrive_allow_policy =
-         Prop.computed __resource_type __resource_id
-           "redrive_allow_policy";
-       redrive_policy =
-         Prop.computed __resource_type __resource_id "redrive_policy";
-       sqs_managed_sse_enabled =
-         Prop.computed __resource_type __resource_id
-           "sqs_managed_sse_enabled";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
-       visibility_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "visibility_timeout_seconds";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

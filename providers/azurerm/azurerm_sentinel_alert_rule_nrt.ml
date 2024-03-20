@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alert_details_override__dynamic_property = {
   name : string prop;  (** name *)
@@ -215,60 +213,66 @@ type t = {
   techniques : string list prop;
 }
 
+let make ?alert_rule_template_guid ?alert_rule_template_version
+    ?custom_details ?description ?enabled ?id ?suppression_duration
+    ?suppression_enabled ?tactics ?techniques ?timeouts ~display_name
+    ~log_analytics_workspace_id ~name ~query ~severity
+    ~alert_details_override ~entity_mapping ~event_grouping ~incident
+    ~sentinel_entity_mapping __id =
+  let __type = "azurerm_sentinel_alert_rule_nrt" in
+  let __attrs =
+    ({
+       alert_rule_template_guid =
+         Prop.computed __type __id "alert_rule_template_guid";
+       alert_rule_template_version =
+         Prop.computed __type __id "alert_rule_template_version";
+       custom_details = Prop.computed __type __id "custom_details";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       log_analytics_workspace_id =
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
+       query = Prop.computed __type __id "query";
+       severity = Prop.computed __type __id "severity";
+       suppression_duration =
+         Prop.computed __type __id "suppression_duration";
+       suppression_enabled =
+         Prop.computed __type __id "suppression_enabled";
+       tactics = Prop.computed __type __id "tactics";
+       techniques = Prop.computed __type __id "techniques";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_alert_rule_nrt
+        (azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
+           ?alert_rule_template_version ?custom_details ?description
+           ?enabled ?id ?suppression_duration ?suppression_enabled
+           ?tactics ?techniques ?timeouts ~display_name
+           ~log_analytics_workspace_id ~name ~query ~severity
+           ~alert_details_override ~entity_mapping ~event_grouping
+           ~incident ~sentinel_entity_mapping ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?alert_rule_template_guid
     ?alert_rule_template_version ?custom_details ?description
     ?enabled ?id ?suppression_duration ?suppression_enabled ?tactics
     ?techniques ?timeouts ~display_name ~log_analytics_workspace_id
     ~name ~query ~severity ~alert_details_override ~entity_mapping
-    ~event_grouping ~incident ~sentinel_entity_mapping __resource_id
-    =
-  let __resource_type = "azurerm_sentinel_alert_rule_nrt" in
-  let __resource =
-    azurerm_sentinel_alert_rule_nrt ?alert_rule_template_guid
-      ?alert_rule_template_version ?custom_details ?description
-      ?enabled ?id ?suppression_duration ?suppression_enabled
-      ?tactics ?techniques ?timeouts ~display_name
-      ~log_analytics_workspace_id ~name ~query ~severity
-      ~alert_details_override ~entity_mapping ~event_grouping
-      ~incident ~sentinel_entity_mapping ()
+    ~event_grouping ~incident ~sentinel_entity_mapping __id =
+  let (r : _ Tf_core.resource) =
+    make ?alert_rule_template_guid ?alert_rule_template_version
+      ?custom_details ?description ?enabled ?id ?suppression_duration
+      ?suppression_enabled ?tactics ?techniques ?timeouts
+      ~display_name ~log_analytics_workspace_id ~name ~query
+      ~severity ~alert_details_override ~entity_mapping
+      ~event_grouping ~incident ~sentinel_entity_mapping __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_alert_rule_nrt __resource);
-  let __resource_attributes =
-    ({
-       alert_rule_template_guid =
-         Prop.computed __resource_type __resource_id
-           "alert_rule_template_guid";
-       alert_rule_template_version =
-         Prop.computed __resource_type __resource_id
-           "alert_rule_template_version";
-       custom_details =
-         Prop.computed __resource_type __resource_id "custom_details";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       query = Prop.computed __resource_type __resource_id "query";
-       severity =
-         Prop.computed __resource_type __resource_id "severity";
-       suppression_duration =
-         Prop.computed __resource_type __resource_id
-           "suppression_duration";
-       suppression_enabled =
-         Prop.computed __resource_type __resource_id
-           "suppression_enabled";
-       tactics =
-         Prop.computed __resource_type __resource_id "tactics";
-       techniques =
-         Prop.computed __resource_type __resource_id "techniques";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

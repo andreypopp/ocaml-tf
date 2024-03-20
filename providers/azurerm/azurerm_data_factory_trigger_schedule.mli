@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -104,3 +104,23 @@ val register :
   schedule:schedule list ->
   string ->
   t
+
+val make :
+  ?activated:bool prop ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?end_time:string prop ->
+  ?frequency:string prop ->
+  ?id:string prop ->
+  ?interval:float prop ->
+  ?pipeline_name:string prop ->
+  ?pipeline_parameters:(string * string prop) list ->
+  ?start_time:string prop ->
+  ?time_zone:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  name:string prop ->
+  pipeline:pipeline list ->
+  schedule:schedule list ->
+  string ->
+  t Tf_core.resource

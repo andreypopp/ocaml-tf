@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_version = {
   name : string prop;
@@ -79,42 +77,49 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?labels
-    ?online_prediction_console_logging ?online_prediction_logging
-    ?project ?regions ?timeouts ~name ~default_version __resource_id
-    =
-  let __resource_type = "google_ml_engine_model" in
-  let __resource =
-    google_ml_engine_model ?description ?id ?labels
-      ?online_prediction_console_logging ?online_prediction_logging
-      ?project ?regions ?timeouts ~name ~default_version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_ml_engine_model __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?online_prediction_console_logging
+    ?online_prediction_logging ?project ?regions ?timeouts ~name
+    ~default_version __id =
+  let __type = "google_ml_engine_model" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
        online_prediction_console_logging =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "online_prediction_console_logging";
        online_prediction_logging =
-         Prop.computed __resource_type __resource_id
-           "online_prediction_logging";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       regions =
-         Prop.computed __resource_type __resource_id "regions";
+         Prop.computed __type __id "online_prediction_logging";
+       project = Prop.computed __type __id "project";
+       regions = Prop.computed __type __id "regions";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_ml_engine_model
+        (google_ml_engine_model ?description ?id ?labels
+           ?online_prediction_console_logging
+           ?online_prediction_logging ?project ?regions ?timeouts
+           ~name ~default_version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels
+    ?online_prediction_console_logging ?online_prediction_logging
+    ?project ?regions ?timeouts ~name ~default_version __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?online_prediction_console_logging
+      ?online_prediction_logging ?project ?regions ?timeouts ~name
+      ~default_version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

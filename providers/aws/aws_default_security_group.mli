@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,14 @@ val register :
   ?vpc_id:string prop ->
   string ->
   t
+
+val make :
+  ?egress:egress list ->
+  ?id:string prop ->
+  ?ingress:ingress list ->
+  ?revoke_rules_on_delete:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?vpc_id:string prop ->
+  string ->
+  t Tf_core.resource

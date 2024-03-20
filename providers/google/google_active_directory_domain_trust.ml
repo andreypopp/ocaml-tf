@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -68,43 +66,47 @@ type t = {
   trust_type : string prop;
 }
 
-let register ?tf_module ?id ?project ?selective_authentication
-    ?timeouts ~domain ~target_dns_ip_addresses ~target_domain_name
-    ~trust_direction ~trust_handshake_secret ~trust_type
-    __resource_id =
-  let __resource_type = "google_active_directory_domain_trust" in
-  let __resource =
-    google_active_directory_domain_trust ?id ?project
-      ?selective_authentication ?timeouts ~domain
-      ~target_dns_ip_addresses ~target_domain_name ~trust_direction
-      ~trust_handshake_secret ~trust_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_active_directory_domain_trust __resource);
-  let __resource_attributes =
+let make ?id ?project ?selective_authentication ?timeouts ~domain
+    ~target_dns_ip_addresses ~target_domain_name ~trust_direction
+    ~trust_handshake_secret ~trust_type __id =
+  let __type = "google_active_directory_domain_trust" in
+  let __attrs =
     ({
-       domain = Prop.computed __resource_type __resource_id "domain";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+       domain = Prop.computed __type __id "domain";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
        selective_authentication =
-         Prop.computed __resource_type __resource_id
-           "selective_authentication";
+         Prop.computed __type __id "selective_authentication";
        target_dns_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "target_dns_ip_addresses";
+         Prop.computed __type __id "target_dns_ip_addresses";
        target_domain_name =
-         Prop.computed __resource_type __resource_id
-           "target_domain_name";
-       trust_direction =
-         Prop.computed __resource_type __resource_id
-           "trust_direction";
+         Prop.computed __type __id "target_domain_name";
+       trust_direction = Prop.computed __type __id "trust_direction";
        trust_handshake_secret =
-         Prop.computed __resource_type __resource_id
-           "trust_handshake_secret";
-       trust_type =
-         Prop.computed __resource_type __resource_id "trust_type";
+         Prop.computed __type __id "trust_handshake_secret";
+       trust_type = Prop.computed __type __id "trust_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_active_directory_domain_trust
+        (google_active_directory_domain_trust ?id ?project
+           ?selective_authentication ?timeouts ~domain
+           ~target_dns_ip_addresses ~target_domain_name
+           ~trust_direction ~trust_handshake_secret ~trust_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?selective_authentication
+    ?timeouts ~domain ~target_dns_ip_addresses ~target_domain_name
+    ~trust_direction ~trust_handshake_secret ~trust_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?selective_authentication ?timeouts ~domain
+      ~target_dns_ip_addresses ~target_domain_name ~trust_direction
+      ~trust_handshake_secret ~trust_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,14 @@ val register :
   targets:targets list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?name:string prop ->
+  ?owner_information:string prop ->
+  resource_type:string prop ->
+  window_id:string prop ->
+  targets:targets list ->
+  string ->
+  t Tf_core.resource

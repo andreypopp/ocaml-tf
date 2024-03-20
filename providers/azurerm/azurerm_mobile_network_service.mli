@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -126,3 +126,16 @@ val register :
   service_qos_policy:service_qos_policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  mobile_network_id:string prop ->
+  name:string prop ->
+  service_precedence:float prop ->
+  pcc_rule:pcc_rule list ->
+  service_qos_policy:service_qos_policy list ->
+  string ->
+  t Tf_core.resource

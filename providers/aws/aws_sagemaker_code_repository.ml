@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type git_config = {
   branch : string prop option; [@option]  (** branch *)
@@ -39,26 +37,33 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ~code_repository_name
-    ~git_config __resource_id =
-  let __resource_type = "aws_sagemaker_code_repository" in
-  let __resource =
-    aws_sagemaker_code_repository ?id ?tags ?tags_all
-      ~code_repository_name ~git_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_code_repository __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~code_repository_name ~git_config __id =
+  let __type = "aws_sagemaker_code_repository" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        code_repository_name =
-         Prop.computed __resource_type __resource_id
-           "code_repository_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "code_repository_name";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_code_repository
+        (aws_sagemaker_code_repository ?id ?tags ?tags_all
+           ~code_repository_name ~git_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ~code_repository_name
+    ~git_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~code_repository_name ~git_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -642,3 +642,17 @@ val register :
   trigger_config:trigger_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  destination_flow_config:destination_flow_config list ->
+  source_flow_config:source_flow_config list ->
+  task:task list ->
+  trigger_config:trigger_config list ->
+  string ->
+  t Tf_core.resource

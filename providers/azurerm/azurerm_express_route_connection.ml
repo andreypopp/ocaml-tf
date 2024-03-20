@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type routing__propagated_route_table = {
   labels : string prop list option; [@option]  (** labels *)
@@ -99,41 +97,52 @@ type t = {
   routing_weight : float prop;
 }
 
-let register ?tf_module ?authorization_key ?enable_internet_security
+let make ?authorization_key ?enable_internet_security
     ?express_route_gateway_bypass_enabled ?id ?routing_weight
     ?timeouts ~express_route_circuit_peering_id
-    ~express_route_gateway_id ~name ~routing __resource_id =
-  let __resource_type = "azurerm_express_route_connection" in
-  let __resource =
-    azurerm_express_route_connection ?authorization_key
-      ?enable_internet_security ?express_route_gateway_bypass_enabled
-      ?id ?routing_weight ?timeouts ~express_route_circuit_peering_id
-      ~express_route_gateway_id ~name ~routing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_connection __resource);
-  let __resource_attributes =
+    ~express_route_gateway_id ~name ~routing __id =
+  let __type = "azurerm_express_route_connection" in
+  let __attrs =
     ({
        authorization_key =
-         Prop.computed __resource_type __resource_id
-           "authorization_key";
+         Prop.computed __type __id "authorization_key";
        enable_internet_security =
-         Prop.computed __resource_type __resource_id
-           "enable_internet_security";
+         Prop.computed __type __id "enable_internet_security";
        express_route_circuit_peering_id =
-         Prop.computed __resource_type __resource_id
-           "express_route_circuit_peering_id";
+         Prop.computed __type __id "express_route_circuit_peering_id";
        express_route_gateway_bypass_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "express_route_gateway_bypass_enabled";
        express_route_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "express_route_gateway_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       routing_weight =
-         Prop.computed __resource_type __resource_id "routing_weight";
+         Prop.computed __type __id "express_route_gateway_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       routing_weight = Prop.computed __type __id "routing_weight";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_connection
+        (azurerm_express_route_connection ?authorization_key
+           ?enable_internet_security
+           ?express_route_gateway_bypass_enabled ?id ?routing_weight
+           ?timeouts ~express_route_circuit_peering_id
+           ~express_route_gateway_id ~name ~routing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorization_key ?enable_internet_security
+    ?express_route_gateway_bypass_enabled ?id ?routing_weight
+    ?timeouts ~express_route_circuit_peering_id
+    ~express_route_gateway_id ~name ~routing __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorization_key ?enable_internet_security
+      ?express_route_gateway_bypass_enabled ?id ?routing_weight
+      ?timeouts ~express_route_circuit_peering_id
+      ~express_route_gateway_id ~name ~routing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,13 @@ val register :
   outbound_rule:outbound_rule list ->
   string ->
   t
+
+val make :
+  ?droplet_ids:float prop list ->
+  ?id:string prop ->
+  ?tags:string prop list ->
+  name:string prop ->
+  inbound_rule:inbound_rule list ->
+  outbound_rule:outbound_rule list ->
+  string ->
+  t Tf_core.resource

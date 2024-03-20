@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,15 @@ val register :
   requester:requester list ->
   string ->
   t
+
+val make :
+  ?auto_accept:bool prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  vpc_peering_connection_id:string prop ->
+  accepter:accepter list ->
+  requester:requester list ->
+  string ->
+  t Tf_core.resource

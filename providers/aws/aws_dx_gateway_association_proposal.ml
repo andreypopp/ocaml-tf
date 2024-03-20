@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_dx_gateway_association_proposal = {
   allowed_prefixes : string prop list option; [@option]
@@ -38,37 +36,43 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?allowed_prefixes ?id ~associated_gateway_id
-    ~dx_gateway_id ~dx_gateway_owner_account_id __resource_id =
-  let __resource_type = "aws_dx_gateway_association_proposal" in
-  let __resource =
-    aws_dx_gateway_association_proposal ?allowed_prefixes ?id
-      ~associated_gateway_id ~dx_gateway_id
-      ~dx_gateway_owner_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_gateway_association_proposal __resource);
-  let __resource_attributes =
+let make ?allowed_prefixes ?id ~associated_gateway_id ~dx_gateway_id
+    ~dx_gateway_owner_account_id __id =
+  let __type = "aws_dx_gateway_association_proposal" in
+  let __attrs =
     ({
        allowed_prefixes =
-         Prop.computed __resource_type __resource_id
-           "allowed_prefixes";
+         Prop.computed __type __id "allowed_prefixes";
        associated_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "associated_gateway_id";
+         Prop.computed __type __id "associated_gateway_id";
        associated_gateway_owner_account_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "associated_gateway_owner_account_id";
        associated_gateway_type =
-         Prop.computed __resource_type __resource_id
-           "associated_gateway_type";
-       dx_gateway_id =
-         Prop.computed __resource_type __resource_id "dx_gateway_id";
+         Prop.computed __type __id "associated_gateway_type";
+       dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
        dx_gateway_owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "dx_gateway_owner_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "dx_gateway_owner_account_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_gateway_association_proposal
+        (aws_dx_gateway_association_proposal ?allowed_prefixes ?id
+           ~associated_gateway_id ~dx_gateway_id
+           ~dx_gateway_owner_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allowed_prefixes ?id ~associated_gateway_id
+    ~dx_gateway_id ~dx_gateway_owner_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_prefixes ?id ~associated_gateway_id ~dx_gateway_id
+      ~dx_gateway_owner_account_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

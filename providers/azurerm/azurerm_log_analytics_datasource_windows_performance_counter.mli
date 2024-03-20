@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,16 @@ val register :
   workspace_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  counter_name:string prop ->
+  instance_name:string prop ->
+  interval_seconds:float prop ->
+  name:string prop ->
+  object_name:string prop ->
+  resource_group_name:string prop ->
+  workspace_name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -33,25 +31,30 @@ type t = {
   owner_account_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~amazon_side_asn ~name
-    __resource_id =
-  let __resource_type = "aws_dx_gateway" in
-  let __resource =
-    aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_gateway __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~amazon_side_asn ~name __id =
+  let __type = "aws_dx_gateway" in
+  let __attrs =
     ({
-       amazon_side_asn =
-         Prop.computed __resource_type __resource_id
-           "amazon_side_asn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       amazon_side_asn = Prop.computed __type __id "amazon_side_asn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
+         Prop.computed __type __id "owner_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_gateway
+        (aws_dx_gateway ?id ?timeouts ~amazon_side_asn ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~amazon_side_asn ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~amazon_side_asn ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type linked_service = {
   name : string prop;  (** name *)
@@ -83,43 +81,48 @@ type t = {
   type_properties_json : string prop;
 }
 
-let register ?tf_module ?additional_properties ?annotations
-    ?description ?folder ?id ?parameters ?schema_json ?timeouts
-    ~data_factory_id ~name ~type_ ~type_properties_json
-    ~linked_service __resource_id =
-  let __resource_type = "azurerm_data_factory_custom_dataset" in
-  let __resource =
-    azurerm_data_factory_custom_dataset ?additional_properties
-      ?annotations ?description ?folder ?id ?parameters ?schema_json
-      ?timeouts ~data_factory_id ~name ~type_ ~type_properties_json
-      ~linked_service ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_factory_custom_dataset __resource);
-  let __resource_attributes =
+let make ?additional_properties ?annotations ?description ?folder ?id
+    ?parameters ?schema_json ?timeouts ~data_factory_id ~name ~type_
+    ~type_properties_json ~linked_service __id =
+  let __type = "azurerm_data_factory_custom_dataset" in
+  let __attrs =
     ({
        additional_properties =
-         Prop.computed __resource_type __resource_id
-           "additional_properties";
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       data_factory_id =
-         Prop.computed __resource_type __resource_id
-           "data_factory_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       folder = Prop.computed __resource_type __resource_id "folder";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       schema_json =
-         Prop.computed __resource_type __resource_id "schema_json";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "additional_properties";
+       annotations = Prop.computed __type __id "annotations";
+       data_factory_id = Prop.computed __type __id "data_factory_id";
+       description = Prop.computed __type __id "description";
+       folder = Prop.computed __type __id "folder";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       schema_json = Prop.computed __type __id "schema_json";
+       type_ = Prop.computed __type __id "type";
        type_properties_json =
-         Prop.computed __resource_type __resource_id
-           "type_properties_json";
+         Prop.computed __type __id "type_properties_json";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_factory_custom_dataset
+        (azurerm_data_factory_custom_dataset ?additional_properties
+           ?annotations ?description ?folder ?id ?parameters
+           ?schema_json ?timeouts ~data_factory_id ~name ~type_
+           ~type_properties_json ~linked_service ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_properties ?annotations
+    ?description ?folder ?id ?parameters ?schema_json ?timeouts
+    ~data_factory_id ~name ~type_ ~type_properties_json
+    ~linked_service __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_properties ?annotations ?description ?folder ?id
+      ?parameters ?schema_json ?timeouts ~data_factory_id ~name
+      ~type_ ~type_properties_json ~linked_service __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type recording_group__exclusion_by_resource_types = {
   resource_types : string prop list option; [@option]
@@ -96,22 +94,30 @@ type t = {
   role_arn : string prop;
 }
 
-let register ?tf_module ?id ?name ~role_arn ~recording_group
-    ~recording_mode __resource_id =
-  let __resource_type = "aws_config_configuration_recorder" in
-  let __resource =
-    aws_config_configuration_recorder ?id ?name ~role_arn
-      ~recording_group ~recording_mode ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_configuration_recorder __resource);
-  let __resource_attributes =
+let make ?id ?name ~role_arn ~recording_group ~recording_mode __id =
+  let __type = "aws_config_configuration_recorder" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_configuration_recorder
+        (aws_config_configuration_recorder ?id ?name ~role_arn
+           ~recording_group ~recording_mode ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ~role_arn ~recording_group
+    ~recording_mode __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ~role_arn ~recording_group ~recording_mode __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -328,3 +328,15 @@ val register :
   conditions:conditions list ->
   string ->
   t
+
+val make :
+  ?behavior_on_match:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  cdn_frontdoor_rule_set_id:string prop ->
+  name:string prop ->
+  order:float prop ->
+  actions:actions list ->
+  conditions:conditions list ->
+  string ->
+  t Tf_core.resource

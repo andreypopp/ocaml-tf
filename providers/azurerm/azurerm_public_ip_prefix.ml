@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,35 +58,41 @@ type t = {
   zones : string list prop;
 }
 
-let register ?tf_module ?id ?ip_version ?prefix_length ?sku ?tags
-    ?zones ?timeouts ~location ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_public_ip_prefix" in
-  let __resource =
-    azurerm_public_ip_prefix ?id ?ip_version ?prefix_length ?sku
-      ?tags ?zones ?timeouts ~location ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_public_ip_prefix __resource);
-  let __resource_attributes =
+let make ?id ?ip_version ?prefix_length ?sku ?tags ?zones ?timeouts
+    ~location ~name ~resource_group_name __id =
+  let __type = "azurerm_public_ip_prefix" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_prefix =
-         Prop.computed __resource_type __resource_id "ip_prefix";
-       ip_version =
-         Prop.computed __resource_type __resource_id "ip_version";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       prefix_length =
-         Prop.computed __resource_type __resource_id "prefix_length";
+       id = Prop.computed __type __id "id";
+       ip_prefix = Prop.computed __type __id "ip_prefix";
+       ip_version = Prop.computed __type __id "ip_version";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       prefix_length = Prop.computed __type __id "prefix_length";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       zones = Prop.computed __resource_type __resource_id "zones";
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+       zones = Prop.computed __type __id "zones";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_public_ip_prefix
+        (azurerm_public_ip_prefix ?id ?ip_version ?prefix_length ?sku
+           ?tags ?zones ?timeouts ~location ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_version ?prefix_length ?sku ?tags
+    ?zones ?timeouts ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ip_version ?prefix_length ?sku ?tags ?zones ?timeouts
+      ~location ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

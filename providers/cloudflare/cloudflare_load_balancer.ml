@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type adaptive_routing = {
   failover_across_pools : bool prop option; [@option]
@@ -383,56 +381,61 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?description ?enabled ?id ?proxied ?session_affinity
+    ?session_affinity_ttl ?steering_policy ?ttl ~default_pool_ids
+    ~fallback_pool_id ~name ~zone_id ~adaptive_routing ~country_pools
+    ~location_strategy ~pop_pools ~random_steering ~region_pools
+    ~rules ~session_affinity_attributes __id =
+  let __type = "cloudflare_load_balancer" in
+  let __attrs =
+    ({
+       created_on = Prop.computed __type __id "created_on";
+       default_pool_ids =
+         Prop.computed __type __id "default_pool_ids";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       fallback_pool_id =
+         Prop.computed __type __id "fallback_pool_id";
+       id = Prop.computed __type __id "id";
+       modified_on = Prop.computed __type __id "modified_on";
+       name = Prop.computed __type __id "name";
+       proxied = Prop.computed __type __id "proxied";
+       session_affinity =
+         Prop.computed __type __id "session_affinity";
+       session_affinity_ttl =
+         Prop.computed __type __id "session_affinity_ttl";
+       steering_policy = Prop.computed __type __id "steering_policy";
+       ttl = Prop.computed __type __id "ttl";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_load_balancer
+        (cloudflare_load_balancer ?description ?enabled ?id ?proxied
+           ?session_affinity ?session_affinity_ttl ?steering_policy
+           ?ttl ~default_pool_ids ~fallback_pool_id ~name ~zone_id
+           ~adaptive_routing ~country_pools ~location_strategy
+           ~pop_pools ~random_steering ~region_pools ~rules
+           ~session_affinity_attributes ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?enabled ?id ?proxied
     ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
     ~default_pool_ids ~fallback_pool_id ~name ~zone_id
     ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
     ~random_steering ~region_pools ~rules
-    ~session_affinity_attributes __resource_id =
-  let __resource_type = "cloudflare_load_balancer" in
-  let __resource =
-    cloudflare_load_balancer ?description ?enabled ?id ?proxied
-      ?session_affinity ?session_affinity_ttl ?steering_policy ?ttl
-      ~default_pool_ids ~fallback_pool_id ~name ~zone_id
-      ~adaptive_routing ~country_pools ~location_strategy ~pop_pools
-      ~random_steering ~region_pools ~rules
-      ~session_affinity_attributes ()
+    ~session_affinity_attributes __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?enabled ?id ?proxied ?session_affinity
+      ?session_affinity_ttl ?steering_policy ?ttl ~default_pool_ids
+      ~fallback_pool_id ~name ~zone_id ~adaptive_routing
+      ~country_pools ~location_strategy ~pop_pools ~random_steering
+      ~region_pools ~rules ~session_affinity_attributes __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_load_balancer __resource);
-  let __resource_attributes =
-    ({
-       created_on =
-         Prop.computed __resource_type __resource_id "created_on";
-       default_pool_ids =
-         Prop.computed __resource_type __resource_id
-           "default_pool_ids";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       fallback_pool_id =
-         Prop.computed __resource_type __resource_id
-           "fallback_pool_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified_on =
-         Prop.computed __resource_type __resource_id "modified_on";
-       name = Prop.computed __resource_type __resource_id "name";
-       proxied =
-         Prop.computed __resource_type __resource_id "proxied";
-       session_affinity =
-         Prop.computed __resource_type __resource_id
-           "session_affinity";
-       session_affinity_ttl =
-         Prop.computed __resource_type __resource_id
-           "session_affinity_ttl";
-       steering_policy =
-         Prop.computed __resource_type __resource_id
-           "steering_policy";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

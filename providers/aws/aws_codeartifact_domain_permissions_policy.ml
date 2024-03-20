@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_codeartifact_domain_permissions_policy = {
   domain : string prop;  (** domain *)
@@ -29,32 +27,35 @@ type t = {
   resource_arn : string prop;
 }
 
-let register ?tf_module ?domain_owner ?id ?policy_revision ~domain
-    ~policy_document __resource_id =
-  let __resource_type =
-    "aws_codeartifact_domain_permissions_policy"
-  in
-  let __resource =
-    aws_codeartifact_domain_permissions_policy ?domain_owner ?id
-      ?policy_revision ~domain ~policy_document ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codeartifact_domain_permissions_policy __resource);
-  let __resource_attributes =
+let make ?domain_owner ?id ?policy_revision ~domain ~policy_document
+    __id =
+  let __type = "aws_codeartifact_domain_permissions_policy" in
+  let __attrs =
     ({
-       domain = Prop.computed __resource_type __resource_id "domain";
-       domain_owner =
-         Prop.computed __resource_type __resource_id "domain_owner";
-       id = Prop.computed __resource_type __resource_id "id";
-       policy_document =
-         Prop.computed __resource_type __resource_id
-           "policy_document";
-       policy_revision =
-         Prop.computed __resource_type __resource_id
-           "policy_revision";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
+       domain = Prop.computed __type __id "domain";
+       domain_owner = Prop.computed __type __id "domain_owner";
+       id = Prop.computed __type __id "id";
+       policy_document = Prop.computed __type __id "policy_document";
+       policy_revision = Prop.computed __type __id "policy_revision";
+       resource_arn = Prop.computed __type __id "resource_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codeartifact_domain_permissions_policy
+        (aws_codeartifact_domain_permissions_policy ?domain_owner ?id
+           ?policy_revision ~domain ~policy_document ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?domain_owner ?id ?policy_revision ~domain
+    ~policy_document __id =
+  let (r : _ Tf_core.resource) =
+    make ?domain_owner ?id ?policy_revision ~domain ~policy_document
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

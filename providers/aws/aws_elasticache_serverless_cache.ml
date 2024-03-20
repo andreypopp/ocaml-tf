@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache_usage_limits__data_storage = {
   maximum : float prop;  (** maximum *)
@@ -132,65 +130,67 @@ type t = {
   user_group_id : string prop;
 }
 
+let make ?daily_snapshot_time ?description ?kms_key_id
+    ?major_engine_version ?security_group_ids
+    ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
+    ?tags ?user_group_id ?timeouts ~engine ~name ~cache_usage_limits
+    __id =
+  let __type = "aws_elasticache_serverless_cache" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       create_time = Prop.computed __type __id "create_time";
+       daily_snapshot_time =
+         Prop.computed __type __id "daily_snapshot_time";
+       description = Prop.computed __type __id "description";
+       endpoint = Prop.computed __type __id "endpoint";
+       engine = Prop.computed __type __id "engine";
+       full_engine_version =
+         Prop.computed __type __id "full_engine_version";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       major_engine_version =
+         Prop.computed __type __id "major_engine_version";
+       name = Prop.computed __type __id "name";
+       reader_endpoint = Prop.computed __type __id "reader_endpoint";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       snapshot_arns_to_restore =
+         Prop.computed __type __id "snapshot_arns_to_restore";
+       snapshot_retention_limit =
+         Prop.computed __type __id "snapshot_retention_limit";
+       status = Prop.computed __type __id "status";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_group_id = Prop.computed __type __id "user_group_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_elasticache_serverless_cache
+        (aws_elasticache_serverless_cache ?daily_snapshot_time
+           ?description ?kms_key_id ?major_engine_version
+           ?security_group_ids ?snapshot_arns_to_restore
+           ?snapshot_retention_limit ?subnet_ids ?tags ?user_group_id
+           ?timeouts ~engine ~name ~cache_usage_limits ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?daily_snapshot_time ?description ?kms_key_id
     ?major_engine_version ?security_group_ids
     ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
     ?tags ?user_group_id ?timeouts ~engine ~name ~cache_usage_limits
-    __resource_id =
-  let __resource_type = "aws_elasticache_serverless_cache" in
-  let __resource =
-    aws_elasticache_serverless_cache ?daily_snapshot_time
-      ?description ?kms_key_id ?major_engine_version
-      ?security_group_ids ?snapshot_arns_to_restore
-      ?snapshot_retention_limit ?subnet_ids ?tags ?user_group_id
-      ?timeouts ~engine ~name ~cache_usage_limits ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?daily_snapshot_time ?description ?kms_key_id
+      ?major_engine_version ?security_group_ids
+      ?snapshot_arns_to_restore ?snapshot_retention_limit ?subnet_ids
+      ?tags ?user_group_id ?timeouts ~engine ~name
+      ~cache_usage_limits __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_elasticache_serverless_cache __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       daily_snapshot_time =
-         Prop.computed __resource_type __resource_id
-           "daily_snapshot_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       engine = Prop.computed __resource_type __resource_id "engine";
-       full_engine_version =
-         Prop.computed __resource_type __resource_id
-           "full_engine_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       major_engine_version =
-         Prop.computed __resource_type __resource_id
-           "major_engine_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       reader_endpoint =
-         Prop.computed __resource_type __resource_id
-           "reader_endpoint";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       snapshot_arns_to_restore =
-         Prop.computed __resource_type __resource_id
-           "snapshot_arns_to_restore";
-       snapshot_retention_limit =
-         Prop.computed __resource_type __resource_id
-           "snapshot_retention_limit";
-       status = Prop.computed __resource_type __resource_id "status";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_group_id =
-         Prop.computed __resource_type __resource_id "user_group_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

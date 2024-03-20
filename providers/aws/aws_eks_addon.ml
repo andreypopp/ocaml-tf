@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -78,54 +76,57 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?addon_version ?configuration_values ?id
-    ?preserve ?resolve_conflicts ?resolve_conflicts_on_create
+let make ?addon_version ?configuration_values ?id ?preserve
+    ?resolve_conflicts ?resolve_conflicts_on_create
     ?resolve_conflicts_on_update ?service_account_role_arn ?tags
-    ?tags_all ?timeouts ~addon_name ~cluster_name __resource_id =
-  let __resource_type = "aws_eks_addon" in
-  let __resource =
-    aws_eks_addon ?addon_version ?configuration_values ?id ?preserve
-      ?resolve_conflicts ?resolve_conflicts_on_create
-      ?resolve_conflicts_on_update ?service_account_role_arn ?tags
-      ?tags_all ?timeouts ~addon_name ~cluster_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eks_addon __resource);
-  let __resource_attributes =
+    ?tags_all ?timeouts ~addon_name ~cluster_name __id =
+  let __type = "aws_eks_addon" in
+  let __attrs =
     ({
-       addon_name =
-         Prop.computed __resource_type __resource_id "addon_name";
-       addon_version =
-         Prop.computed __resource_type __resource_id "addon_version";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
+       addon_name = Prop.computed __type __id "addon_name";
+       addon_version = Prop.computed __type __id "addon_version";
+       arn = Prop.computed __type __id "arn";
+       cluster_name = Prop.computed __type __id "cluster_name";
        configuration_values =
-         Prop.computed __resource_type __resource_id
-           "configuration_values";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       modified_at =
-         Prop.computed __resource_type __resource_id "modified_at";
-       preserve =
-         Prop.computed __resource_type __resource_id "preserve";
+         Prop.computed __type __id "configuration_values";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       modified_at = Prop.computed __type __id "modified_at";
+       preserve = Prop.computed __type __id "preserve";
        resolve_conflicts =
-         Prop.computed __resource_type __resource_id
-           "resolve_conflicts";
+         Prop.computed __type __id "resolve_conflicts";
        resolve_conflicts_on_create =
-         Prop.computed __resource_type __resource_id
-           "resolve_conflicts_on_create";
+         Prop.computed __type __id "resolve_conflicts_on_create";
        resolve_conflicts_on_update =
-         Prop.computed __resource_type __resource_id
-           "resolve_conflicts_on_update";
+         Prop.computed __type __id "resolve_conflicts_on_update";
        service_account_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_account_role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "service_account_role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eks_addon
+        (aws_eks_addon ?addon_version ?configuration_values ?id
+           ?preserve ?resolve_conflicts ?resolve_conflicts_on_create
+           ?resolve_conflicts_on_update ?service_account_role_arn
+           ?tags ?tags_all ?timeouts ~addon_name ~cluster_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?addon_version ?configuration_values ?id
+    ?preserve ?resolve_conflicts ?resolve_conflicts_on_create
+    ?resolve_conflicts_on_update ?service_account_role_arn ?tags
+    ?tags_all ?timeouts ~addon_name ~cluster_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?addon_version ?configuration_values ?id ?preserve
+      ?resolve_conflicts ?resolve_conflicts_on_create
+      ?resolve_conflicts_on_update ?service_account_role_arn ?tags
+      ?tags_all ?timeouts ~addon_name ~cluster_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

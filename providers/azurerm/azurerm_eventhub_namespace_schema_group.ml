@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -46,27 +44,35 @@ type t = {
   schema_type : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~name ~namespace_id
-    ~schema_compatibility ~schema_type __resource_id =
-  let __resource_type = "azurerm_eventhub_namespace_schema_group" in
-  let __resource =
-    azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
-      ~namespace_id ~schema_compatibility ~schema_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventhub_namespace_schema_group __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~name ~namespace_id ~schema_compatibility
+    ~schema_type __id =
+  let __type = "azurerm_eventhub_namespace_schema_group" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       namespace_id =
-         Prop.computed __resource_type __resource_id "namespace_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       namespace_id = Prop.computed __type __id "namespace_id";
        schema_compatibility =
-         Prop.computed __resource_type __resource_id
-           "schema_compatibility";
-       schema_type =
-         Prop.computed __resource_type __resource_id "schema_type";
+         Prop.computed __type __id "schema_compatibility";
+       schema_type = Prop.computed __type __id "schema_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventhub_namespace_schema_group
+        (azurerm_eventhub_namespace_schema_group ?id ?timeouts ~name
+           ~namespace_id ~schema_compatibility ~schema_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~namespace_id
+    ~schema_compatibility ~schema_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~namespace_id ~schema_compatibility
+      ~schema_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

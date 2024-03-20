@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type output_location = {
   s3_bucket_name : string prop;  (** s3_bucket_name *)
@@ -100,64 +98,69 @@ type t = {
   wait_for_success_timeout_seconds : float prop;
 }
 
+let make ?apply_only_at_cron_interval ?association_name
+    ?automation_target_parameter_name ?compliance_severity
+    ?document_version ?id ?instance_id ?max_concurrency ?max_errors
+    ?parameters ?schedule_expression ?sync_compliance
+    ?wait_for_success_timeout_seconds ~name ~output_location ~targets
+    __id =
+  let __type = "aws_ssm_association" in
+  let __attrs =
+    ({
+       apply_only_at_cron_interval =
+         Prop.computed __type __id "apply_only_at_cron_interval";
+       arn = Prop.computed __type __id "arn";
+       association_id = Prop.computed __type __id "association_id";
+       association_name =
+         Prop.computed __type __id "association_name";
+       automation_target_parameter_name =
+         Prop.computed __type __id "automation_target_parameter_name";
+       compliance_severity =
+         Prop.computed __type __id "compliance_severity";
+       document_version =
+         Prop.computed __type __id "document_version";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       max_concurrency = Prop.computed __type __id "max_concurrency";
+       max_errors = Prop.computed __type __id "max_errors";
+       name = Prop.computed __type __id "name";
+       parameters = Prop.computed __type __id "parameters";
+       schedule_expression =
+         Prop.computed __type __id "schedule_expression";
+       sync_compliance = Prop.computed __type __id "sync_compliance";
+       wait_for_success_timeout_seconds =
+         Prop.computed __type __id "wait_for_success_timeout_seconds";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ssm_association
+        (aws_ssm_association ?apply_only_at_cron_interval
+           ?association_name ?automation_target_parameter_name
+           ?compliance_severity ?document_version ?id ?instance_id
+           ?max_concurrency ?max_errors ?parameters
+           ?schedule_expression ?sync_compliance
+           ?wait_for_success_timeout_seconds ~name ~output_location
+           ~targets ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apply_only_at_cron_interval
     ?association_name ?automation_target_parameter_name
     ?compliance_severity ?document_version ?id ?instance_id
     ?max_concurrency ?max_errors ?parameters ?schedule_expression
     ?sync_compliance ?wait_for_success_timeout_seconds ~name
-    ~output_location ~targets __resource_id =
-  let __resource_type = "aws_ssm_association" in
-  let __resource =
-    aws_ssm_association ?apply_only_at_cron_interval
-      ?association_name ?automation_target_parameter_name
-      ?compliance_severity ?document_version ?id ?instance_id
-      ?max_concurrency ?max_errors ?parameters ?schedule_expression
-      ?sync_compliance ?wait_for_success_timeout_seconds ~name
-      ~output_location ~targets ()
+    ~output_location ~targets __id =
+  let (r : _ Tf_core.resource) =
+    make ?apply_only_at_cron_interval ?association_name
+      ?automation_target_parameter_name ?compliance_severity
+      ?document_version ?id ?instance_id ?max_concurrency ?max_errors
+      ?parameters ?schedule_expression ?sync_compliance
+      ?wait_for_success_timeout_seconds ~name ~output_location
+      ~targets __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ssm_association __resource);
-  let __resource_attributes =
-    ({
-       apply_only_at_cron_interval =
-         Prop.computed __resource_type __resource_id
-           "apply_only_at_cron_interval";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
-       association_name =
-         Prop.computed __resource_type __resource_id
-           "association_name";
-       automation_target_parameter_name =
-         Prop.computed __resource_type __resource_id
-           "automation_target_parameter_name";
-       compliance_severity =
-         Prop.computed __resource_type __resource_id
-           "compliance_severity";
-       document_version =
-         Prop.computed __resource_type __resource_id
-           "document_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       max_concurrency =
-         Prop.computed __resource_type __resource_id
-           "max_concurrency";
-       max_errors =
-         Prop.computed __resource_type __resource_id "max_errors";
-       name = Prop.computed __resource_type __resource_id "name";
-       parameters =
-         Prop.computed __resource_type __resource_id "parameters";
-       schedule_expression =
-         Prop.computed __resource_type __resource_id
-           "schedule_expression";
-       sync_compliance =
-         Prop.computed __resource_type __resource_id
-           "sync_compliance";
-       wait_for_success_timeout_seconds =
-         Prop.computed __resource_type __resource_id
-           "wait_for_success_timeout_seconds";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

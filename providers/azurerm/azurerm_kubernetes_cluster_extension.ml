@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type plan = {
   name : string prop;  (** name *)
@@ -97,50 +95,53 @@ type t = {
   version : string prop;
 }
 
-let register ?tf_module ?configuration_protected_settings
-    ?configuration_settings ?id ?release_namespace ?release_train
-    ?target_namespace ?version ?timeouts ~cluster_id ~extension_type
-    ~name ~plan __resource_id =
-  let __resource_type = "azurerm_kubernetes_cluster_extension" in
-  let __resource =
-    azurerm_kubernetes_cluster_extension
-      ?configuration_protected_settings ?configuration_settings ?id
-      ?release_namespace ?release_train ?target_namespace ?version
-      ?timeouts ~cluster_id ~extension_type ~name ~plan ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kubernetes_cluster_extension __resource);
-  let __resource_attributes =
+let make ?configuration_protected_settings ?configuration_settings
+    ?id ?release_namespace ?release_train ?target_namespace ?version
+    ?timeouts ~cluster_id ~extension_type ~name ~plan __id =
+  let __type = "azurerm_kubernetes_cluster_extension" in
+  let __attrs =
     ({
        aks_assigned_identity =
-         Prop.computed __resource_type __resource_id
-           "aks_assigned_identity";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
+         Prop.computed __type __id "aks_assigned_identity";
+       cluster_id = Prop.computed __type __id "cluster_id";
        configuration_protected_settings =
-         Prop.computed __resource_type __resource_id
-           "configuration_protected_settings";
+         Prop.computed __type __id "configuration_protected_settings";
        configuration_settings =
-         Prop.computed __resource_type __resource_id
-           "configuration_settings";
-       current_version =
-         Prop.computed __resource_type __resource_id
-           "current_version";
-       extension_type =
-         Prop.computed __resource_type __resource_id "extension_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "configuration_settings";
+       current_version = Prop.computed __type __id "current_version";
+       extension_type = Prop.computed __type __id "extension_type";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        release_namespace =
-         Prop.computed __resource_type __resource_id
-           "release_namespace";
-       release_train =
-         Prop.computed __resource_type __resource_id "release_train";
+         Prop.computed __type __id "release_namespace";
+       release_train = Prop.computed __type __id "release_train";
        target_namespace =
-         Prop.computed __resource_type __resource_id
-           "target_namespace";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+         Prop.computed __type __id "target_namespace";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kubernetes_cluster_extension
+        (azurerm_kubernetes_cluster_extension
+           ?configuration_protected_settings ?configuration_settings
+           ?id ?release_namespace ?release_train ?target_namespace
+           ?version ?timeouts ~cluster_id ~extension_type ~name ~plan
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?configuration_protected_settings
+    ?configuration_settings ?id ?release_namespace ?release_train
+    ?target_namespace ?version ?timeouts ~cluster_id ~extension_type
+    ~name ~plan __id =
+  let (r : _ Tf_core.resource) =
+    make ?configuration_protected_settings ?configuration_settings
+      ?id ?release_namespace ?release_train ?target_namespace
+      ?version ?timeouts ~cluster_id ~extension_type ~name ~plan __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

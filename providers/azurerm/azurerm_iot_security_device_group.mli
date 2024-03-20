@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,13 @@ val register :
   range_rule:range_rule list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  iothub_id:string prop ->
+  name:string prop ->
+  allow_rule:allow_rule list ->
+  range_rule:range_rule list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -83,49 +81,53 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?base_policy_document ?base_policy_region
+let make ?base_policy_document ?base_policy_region
     ?base_policy_regions ?create_base_policy ?description ?id ?tags
-    ?tags_all ?timeouts ~global_network_id __resource_id =
-  let __resource_type = "aws_networkmanager_core_network" in
-  let __resource =
-    aws_networkmanager_core_network ?base_policy_document
-      ?base_policy_region ?base_policy_regions ?create_base_policy
-      ?description ?id ?tags ?tags_all ?timeouts ~global_network_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_core_network __resource);
-  let __resource_attributes =
+    ?tags_all ?timeouts ~global_network_id __id =
+  let __type = "aws_networkmanager_core_network" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        base_policy_document =
-         Prop.computed __resource_type __resource_id
-           "base_policy_document";
+         Prop.computed __type __id "base_policy_document";
        base_policy_region =
-         Prop.computed __resource_type __resource_id
-           "base_policy_region";
+         Prop.computed __type __id "base_policy_region";
        base_policy_regions =
-         Prop.computed __resource_type __resource_id
-           "base_policy_regions";
+         Prop.computed __type __id "base_policy_regions";
        create_base_policy =
-         Prop.computed __resource_type __resource_id
-           "create_base_policy";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       edges = Prop.computed __resource_type __resource_id "edges";
+         Prop.computed __type __id "create_base_policy";
+       created_at = Prop.computed __type __id "created_at";
+       description = Prop.computed __type __id "description";
+       edges = Prop.computed __type __id "edges";
        global_network_id =
-         Prop.computed __resource_type __resource_id
-           "global_network_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       segments =
-         Prop.computed __resource_type __resource_id "segments";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "global_network_id";
+       id = Prop.computed __type __id "id";
+       segments = Prop.computed __type __id "segments";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_core_network
+        (aws_networkmanager_core_network ?base_policy_document
+           ?base_policy_region ?base_policy_regions
+           ?create_base_policy ?description ?id ?tags ?tags_all
+           ?timeouts ~global_network_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?base_policy_document ?base_policy_region
+    ?base_policy_regions ?create_base_policy ?description ?id ?tags
+    ?tags_all ?timeouts ~global_network_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?base_policy_document ?base_policy_region
+      ?base_policy_regions ?create_base_policy ?description ?id ?tags
+      ?tags_all ?timeouts ~global_network_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

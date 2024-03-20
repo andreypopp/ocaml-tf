@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connection_configuration__route__propagated_route_table = {
   ids : string prop list;  (** ids *)
@@ -130,43 +128,52 @@ type t = {
   vpn_server_configuration_id : string prop;
 }
 
-let register ?tf_module ?dns_servers ?id
-    ?routing_preference_internet_enabled ?tags ?timeouts ~location
-    ~name ~resource_group_name ~scale_unit ~virtual_hub_id
-    ~vpn_server_configuration_id ~connection_configuration
-    __resource_id =
-  let __resource_type = "azurerm_point_to_site_vpn_gateway" in
-  let __resource =
-    azurerm_point_to_site_vpn_gateway ?dns_servers ?id
-      ?routing_preference_internet_enabled ?tags ?timeouts ~location
-      ~name ~resource_group_name ~scale_unit ~virtual_hub_id
-      ~vpn_server_configuration_id ~connection_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_point_to_site_vpn_gateway __resource);
-  let __resource_attributes =
+let make ?dns_servers ?id ?routing_preference_internet_enabled ?tags
+    ?timeouts ~location ~name ~resource_group_name ~scale_unit
+    ~virtual_hub_id ~vpn_server_configuration_id
+    ~connection_configuration __id =
+  let __type = "azurerm_point_to_site_vpn_gateway" in
+  let __attrs =
     ({
-       dns_servers =
-         Prop.computed __resource_type __resource_id "dns_servers";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       dns_servers = Prop.computed __type __id "dns_servers";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        routing_preference_internet_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "routing_preference_internet_enabled";
-       scale_unit =
-         Prop.computed __resource_type __resource_id "scale_unit";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+       scale_unit = Prop.computed __type __id "scale_unit";
+       tags = Prop.computed __type __id "tags";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
        vpn_server_configuration_id =
-         Prop.computed __resource_type __resource_id
-           "vpn_server_configuration_id";
+         Prop.computed __type __id "vpn_server_configuration_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_point_to_site_vpn_gateway
+        (azurerm_point_to_site_vpn_gateway ?dns_servers ?id
+           ?routing_preference_internet_enabled ?tags ?timeouts
+           ~location ~name ~resource_group_name ~scale_unit
+           ~virtual_hub_id ~vpn_server_configuration_id
+           ~connection_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?dns_servers ?id
+    ?routing_preference_internet_enabled ?tags ?timeouts ~location
+    ~name ~resource_group_name ~scale_unit ~virtual_hub_id
+    ~vpn_server_configuration_id ~connection_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?dns_servers ?id ?routing_preference_internet_enabled ?tags
+      ?timeouts ~location ~name ~resource_group_name ~scale_unit
+      ~virtual_hub_id ~vpn_server_configuration_id
+      ~connection_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

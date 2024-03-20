@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,31 +49,36 @@ type t = {
   service : string prop;
 }
 
-let register ?tf_module ?deletion_policy ?id ?timeouts ~network
-    ~reserved_peering_ranges ~service __resource_id =
-  let __resource_type = "google_service_networking_connection" in
-  let __resource =
-    google_service_networking_connection ?deletion_policy ?id
-      ?timeouts ~network ~reserved_peering_ranges ~service ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_service_networking_connection __resource);
-  let __resource_attributes =
+let make ?deletion_policy ?id ?timeouts ~network
+    ~reserved_peering_ranges ~service __id =
+  let __type = "google_service_networking_connection" in
+  let __attrs =
     ({
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       peering =
-         Prop.computed __resource_type __resource_id "peering";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       id = Prop.computed __type __id "id";
+       network = Prop.computed __type __id "network";
+       peering = Prop.computed __type __id "peering";
        reserved_peering_ranges =
-         Prop.computed __resource_type __resource_id
-           "reserved_peering_ranges";
-       service =
-         Prop.computed __resource_type __resource_id "service";
+         Prop.computed __type __id "reserved_peering_ranges";
+       service = Prop.computed __type __id "service";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_service_networking_connection
+        (google_service_networking_connection ?deletion_policy ?id
+           ?timeouts ~network ~reserved_peering_ranges ~service ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deletion_policy ?id ?timeouts ~network
+    ~reserved_peering_ranges ~service __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_policy ?id ?timeouts ~network
+      ~reserved_peering_ranges ~service __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

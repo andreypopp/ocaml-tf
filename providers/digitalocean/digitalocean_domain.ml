@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_domain = {
   id : string prop option; [@option]  (** id *)
@@ -24,20 +22,28 @@ type t = {
   urn : string prop;
 }
 
-let register ?tf_module ?id ?ip_address ~name __resource_id =
-  let __resource_type = "digitalocean_domain" in
-  let __resource = digitalocean_domain ?id ?ip_address ~name () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_domain __resource);
-  let __resource_attributes =
+let make ?id ?ip_address ~name __id =
+  let __type = "digitalocean_domain" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       name = Prop.computed __resource_type __resource_id "name";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-       urn = Prop.computed __resource_type __resource_id "urn";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
+       name = Prop.computed __type __id "name";
+       ttl = Prop.computed __type __id "ttl";
+       urn = Prop.computed __type __id "urn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_domain
+        (digitalocean_domain ?id ?ip_address ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ip_address ~name __id =
+  let (r : _ Tf_core.resource) = make ?id ?ip_address ~name __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

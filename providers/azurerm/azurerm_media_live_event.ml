@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cross_site_access_policy = {
   client_access_policy : string prop option; [@option]
@@ -191,53 +189,59 @@ type t = {
   use_static_hostname : bool prop;
 }
 
+let make ?auto_start_enabled ?description ?hostname_prefix ?id
+    ?stream_options ?tags ?transcription_languages
+    ?use_static_hostname ?timeouts ~location
+    ~media_services_account_name ~name ~resource_group_name
+    ~cross_site_access_policy ~encoding ~input ~preview __id =
+  let __type = "azurerm_media_live_event" in
+  let __attrs =
+    ({
+       auto_start_enabled =
+         Prop.computed __type __id "auto_start_enabled";
+       description = Prop.computed __type __id "description";
+       hostname_prefix = Prop.computed __type __id "hostname_prefix";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       media_services_account_name =
+         Prop.computed __type __id "media_services_account_name";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       stream_options = Prop.computed __type __id "stream_options";
+       tags = Prop.computed __type __id "tags";
+       transcription_languages =
+         Prop.computed __type __id "transcription_languages";
+       use_static_hostname =
+         Prop.computed __type __id "use_static_hostname";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_media_live_event
+        (azurerm_media_live_event ?auto_start_enabled ?description
+           ?hostname_prefix ?id ?stream_options ?tags
+           ?transcription_languages ?use_static_hostname ?timeouts
+           ~location ~media_services_account_name ~name
+           ~resource_group_name ~cross_site_access_policy ~encoding
+           ~input ~preview ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_start_enabled ?description
     ?hostname_prefix ?id ?stream_options ?tags
     ?transcription_languages ?use_static_hostname ?timeouts ~location
     ~media_services_account_name ~name ~resource_group_name
-    ~cross_site_access_policy ~encoding ~input ~preview __resource_id
-    =
-  let __resource_type = "azurerm_media_live_event" in
-  let __resource =
-    azurerm_media_live_event ?auto_start_enabled ?description
-      ?hostname_prefix ?id ?stream_options ?tags
-      ?transcription_languages ?use_static_hostname ?timeouts
-      ~location ~media_services_account_name ~name
-      ~resource_group_name ~cross_site_access_policy ~encoding ~input
-      ~preview ()
+    ~cross_site_access_policy ~encoding ~input ~preview __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_start_enabled ?description ?hostname_prefix ?id
+      ?stream_options ?tags ?transcription_languages
+      ?use_static_hostname ?timeouts ~location
+      ~media_services_account_name ~name ~resource_group_name
+      ~cross_site_access_policy ~encoding ~input ~preview __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_media_live_event __resource);
-  let __resource_attributes =
-    ({
-       auto_start_enabled =
-         Prop.computed __resource_type __resource_id
-           "auto_start_enabled";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       hostname_prefix =
-         Prop.computed __resource_type __resource_id
-           "hostname_prefix";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       media_services_account_name =
-         Prop.computed __resource_type __resource_id
-           "media_services_account_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       stream_options =
-         Prop.computed __resource_type __resource_id "stream_options";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       transcription_languages =
-         Prop.computed __resource_type __resource_id
-           "transcription_languages";
-       use_static_hostname =
-         Prop.computed __resource_type __resource_id
-           "use_static_hostname";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

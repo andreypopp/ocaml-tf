@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sns_platform_application = {
   apple_platform_bundle_id : string prop option; [@option]
@@ -76,6 +74,62 @@ type t = {
   success_feedback_sample_rate : string prop;
 }
 
+let make ?apple_platform_bundle_id ?apple_platform_team_id
+    ?event_delivery_failure_topic_arn
+    ?event_endpoint_created_topic_arn
+    ?event_endpoint_deleted_topic_arn
+    ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn ?id
+    ?platform_principal ?success_feedback_role_arn
+    ?success_feedback_sample_rate ~name ~platform
+    ~platform_credential __id =
+  let __type = "aws_sns_platform_application" in
+  let __attrs =
+    ({
+       apple_platform_bundle_id =
+         Prop.computed __type __id "apple_platform_bundle_id";
+       apple_platform_team_id =
+         Prop.computed __type __id "apple_platform_team_id";
+       arn = Prop.computed __type __id "arn";
+       event_delivery_failure_topic_arn =
+         Prop.computed __type __id "event_delivery_failure_topic_arn";
+       event_endpoint_created_topic_arn =
+         Prop.computed __type __id "event_endpoint_created_topic_arn";
+       event_endpoint_deleted_topic_arn =
+         Prop.computed __type __id "event_endpoint_deleted_topic_arn";
+       event_endpoint_updated_topic_arn =
+         Prop.computed __type __id "event_endpoint_updated_topic_arn";
+       failure_feedback_role_arn =
+         Prop.computed __type __id "failure_feedback_role_arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       platform = Prop.computed __type __id "platform";
+       platform_credential =
+         Prop.computed __type __id "platform_credential";
+       platform_principal =
+         Prop.computed __type __id "platform_principal";
+       success_feedback_role_arn =
+         Prop.computed __type __id "success_feedback_role_arn";
+       success_feedback_sample_rate =
+         Prop.computed __type __id "success_feedback_sample_rate";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sns_platform_application
+        (aws_sns_platform_application ?apple_platform_bundle_id
+           ?apple_platform_team_id ?event_delivery_failure_topic_arn
+           ?event_endpoint_created_topic_arn
+           ?event_endpoint_deleted_topic_arn
+           ?event_endpoint_updated_topic_arn
+           ?failure_feedback_role_arn ?id ?platform_principal
+           ?success_feedback_role_arn ?success_feedback_sample_rate
+           ~name ~platform ~platform_credential ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?apple_platform_bundle_id
     ?apple_platform_team_id ?event_delivery_failure_topic_arn
     ?event_endpoint_created_topic_arn
@@ -83,61 +137,16 @@ let register ?tf_module ?apple_platform_bundle_id
     ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn ?id
     ?platform_principal ?success_feedback_role_arn
     ?success_feedback_sample_rate ~name ~platform
-    ~platform_credential __resource_id =
-  let __resource_type = "aws_sns_platform_application" in
-  let __resource =
-    aws_sns_platform_application ?apple_platform_bundle_id
-      ?apple_platform_team_id ?event_delivery_failure_topic_arn
+    ~platform_credential __id =
+  let (r : _ Tf_core.resource) =
+    make ?apple_platform_bundle_id ?apple_platform_team_id
+      ?event_delivery_failure_topic_arn
       ?event_endpoint_created_topic_arn
       ?event_endpoint_deleted_topic_arn
       ?event_endpoint_updated_topic_arn ?failure_feedback_role_arn
       ?id ?platform_principal ?success_feedback_role_arn
       ?success_feedback_sample_rate ~name ~platform
-      ~platform_credential ()
+      ~platform_credential __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sns_platform_application __resource);
-  let __resource_attributes =
-    ({
-       apple_platform_bundle_id =
-         Prop.computed __resource_type __resource_id
-           "apple_platform_bundle_id";
-       apple_platform_team_id =
-         Prop.computed __resource_type __resource_id
-           "apple_platform_team_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       event_delivery_failure_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "event_delivery_failure_topic_arn";
-       event_endpoint_created_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "event_endpoint_created_topic_arn";
-       event_endpoint_deleted_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "event_endpoint_deleted_topic_arn";
-       event_endpoint_updated_topic_arn =
-         Prop.computed __resource_type __resource_id
-           "event_endpoint_updated_topic_arn";
-       failure_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "failure_feedback_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       platform_credential =
-         Prop.computed __resource_type __resource_id
-           "platform_credential";
-       platform_principal =
-         Prop.computed __resource_type __resource_id
-           "platform_principal";
-       success_feedback_role_arn =
-         Prop.computed __resource_type __resource_id
-           "success_feedback_role_arn";
-       success_feedback_sample_rate =
-         Prop.computed __resource_type __resource_id
-           "success_feedback_sample_rate";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

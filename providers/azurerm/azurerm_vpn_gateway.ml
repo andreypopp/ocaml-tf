@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string prop list;  (** custom_ips *)
@@ -104,39 +102,47 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let register ?tf_module ?bgp_route_translation_for_nat_enabled ?id
+let make ?bgp_route_translation_for_nat_enabled ?id
     ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-    ~resource_group_name ~virtual_hub_id ~bgp_settings __resource_id
-    =
-  let __resource_type = "azurerm_vpn_gateway" in
-  let __resource =
-    azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled ?id
-      ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
-      ~resource_group_name ~virtual_hub_id ~bgp_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_vpn_gateway __resource);
-  let __resource_attributes =
+    ~resource_group_name ~virtual_hub_id ~bgp_settings __id =
+  let __type = "azurerm_vpn_gateway" in
+  let __attrs =
     ({
        bgp_route_translation_for_nat_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "bgp_route_translation_for_nat_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        routing_preference =
-         Prop.computed __resource_type __resource_id
-           "routing_preference";
-       scale_unit =
-         Prop.computed __resource_type __resource_id "scale_unit";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+         Prop.computed __type __id "routing_preference";
+       scale_unit = Prop.computed __type __id "scale_unit";
+       tags = Prop.computed __type __id "tags";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_vpn_gateway
+        (azurerm_vpn_gateway ?bgp_route_translation_for_nat_enabled
+           ?id ?routing_preference ?scale_unit ?tags ?timeouts
+           ~location ~name ~resource_group_name ~virtual_hub_id
+           ~bgp_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bgp_route_translation_for_nat_enabled ?id
+    ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
+    ~resource_group_name ~virtual_hub_id ~bgp_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?bgp_route_translation_for_nat_enabled ?id
+      ?routing_preference ?scale_unit ?tags ?timeouts ~location ~name
+      ~resource_group_name ~virtual_hub_id ~bgp_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

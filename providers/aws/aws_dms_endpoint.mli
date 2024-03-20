@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -254,3 +254,35 @@ val register :
   s3_settings:s3_settings list ->
   string ->
   t
+
+val make :
+  ?certificate_arn:string prop ->
+  ?database_name:string prop ->
+  ?extra_connection_attributes:string prop ->
+  ?id:string prop ->
+  ?kms_key_arn:string prop ->
+  ?password:string prop ->
+  ?pause_replication_tasks:bool prop ->
+  ?port:float prop ->
+  ?secrets_manager_access_role_arn:string prop ->
+  ?secrets_manager_arn:string prop ->
+  ?server_name:string prop ->
+  ?service_access_role:string prop ->
+  ?ssl_mode:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?username:string prop ->
+  ?timeouts:timeouts ->
+  endpoint_id:string prop ->
+  endpoint_type:string prop ->
+  engine_name:string prop ->
+  elasticsearch_settings:elasticsearch_settings list ->
+  kafka_settings:kafka_settings list ->
+  kinesis_settings:kinesis_settings list ->
+  mongodb_settings:mongodb_settings list ->
+  postgres_settings:postgres_settings list ->
+  redis_settings:redis_settings list ->
+  redshift_settings:redshift_settings list ->
+  s3_settings:s3_settings list ->
+  string ->
+  t Tf_core.resource

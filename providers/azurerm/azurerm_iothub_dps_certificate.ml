@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,32 +48,39 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?is_verified ?timeouts
-    ~certificate_content ~iot_dps_name ~name ~resource_group_name
-    __resource_id =
-  let __resource_type = "azurerm_iothub_dps_certificate" in
-  let __resource =
-    azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
-      ~certificate_content ~iot_dps_name ~name ~resource_group_name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_dps_certificate __resource);
-  let __resource_attributes =
+let make ?id ?is_verified ?timeouts ~certificate_content
+    ~iot_dps_name ~name ~resource_group_name __id =
+  let __type = "azurerm_iothub_dps_certificate" in
+  let __attrs =
     ({
        certificate_content =
-         Prop.computed __resource_type __resource_id
-           "certificate_content";
-       id = Prop.computed __resource_type __resource_id "id";
-       iot_dps_name =
-         Prop.computed __resource_type __resource_id "iot_dps_name";
-       is_verified =
-         Prop.computed __resource_type __resource_id "is_verified";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "certificate_content";
+       id = Prop.computed __type __id "id";
+       iot_dps_name = Prop.computed __type __id "iot_dps_name";
+       is_verified = Prop.computed __type __id "is_verified";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_dps_certificate
+        (azurerm_iothub_dps_certificate ?id ?is_verified ?timeouts
+           ~certificate_content ~iot_dps_name ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?is_verified ?timeouts
+    ~certificate_content ~iot_dps_name ~name ~resource_group_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?is_verified ?timeouts ~certificate_content
+      ~iot_dps_name ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

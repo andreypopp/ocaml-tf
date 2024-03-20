@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -323,3 +323,21 @@ val register :
   stream_declaration:stream_declaration list ->
   string ->
   t
+
+val make :
+  ?data_collection_endpoint_id:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  data_flow:data_flow list ->
+  data_sources:data_sources list ->
+  destinations:destinations list ->
+  identity:identity list ->
+  stream_declaration:stream_declaration list ->
+  string ->
+  t Tf_core.resource

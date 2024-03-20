@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action__response = {
   body : string prop;
@@ -127,32 +125,38 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?bypass_url_patterns ?description ?disabled
-    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_
-    __resource_id =
-  let __resource_type = "cloudflare_rate_limit" in
-  let __resource =
-    cloudflare_rate_limit ?bypass_url_patterns ?description ?disabled
-      ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_rate_limit __resource);
-  let __resource_attributes =
+let make ?bypass_url_patterns ?description ?disabled ?id ~period
+    ~threshold ~zone_id ~action ~correlate ~match_ __id =
+  let __type = "cloudflare_rate_limit" in
+  let __attrs =
     ({
        bypass_url_patterns =
-         Prop.computed __resource_type __resource_id
-           "bypass_url_patterns";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       period = Prop.computed __resource_type __resource_id "period";
-       threshold =
-         Prop.computed __resource_type __resource_id "threshold";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "bypass_url_patterns";
+       description = Prop.computed __type __id "description";
+       disabled = Prop.computed __type __id "disabled";
+       id = Prop.computed __type __id "id";
+       period = Prop.computed __type __id "period";
+       threshold = Prop.computed __type __id "threshold";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_rate_limit
+        (cloudflare_rate_limit ?bypass_url_patterns ?description
+           ?disabled ?id ~period ~threshold ~zone_id ~action
+           ~correlate ~match_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bypass_url_patterns ?description ?disabled
+    ?id ~period ~threshold ~zone_id ~action ~correlate ~match_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass_url_patterns ?description ?disabled ?id ~period
+      ~threshold ~zone_id ~action ~correlate ~match_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

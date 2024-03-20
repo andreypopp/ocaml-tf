@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type catalog_target = {
   connection_name : string prop option; [@option]
@@ -268,50 +266,63 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?classifiers ?configuration ?description ?id ?schedule
+    ?security_configuration ?table_prefix ?tags ?tags_all
+    ~database_name ~name ~role ~catalog_target ~delta_target
+    ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
+    ~lake_formation_configuration ~lineage_configuration
+    ~mongodb_target ~recrawl_policy ~s3_target ~schema_change_policy
+    __id =
+  let __type = "aws_glue_crawler" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       classifiers = Prop.computed __type __id "classifiers";
+       configuration = Prop.computed __type __id "configuration";
+       database_name = Prop.computed __type __id "database_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       role = Prop.computed __type __id "role";
+       schedule = Prop.computed __type __id "schedule";
+       security_configuration =
+         Prop.computed __type __id "security_configuration";
+       table_prefix = Prop.computed __type __id "table_prefix";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_crawler
+        (aws_glue_crawler ?classifiers ?configuration ?description
+           ?id ?schedule ?security_configuration ?table_prefix ?tags
+           ?tags_all ~database_name ~name ~role ~catalog_target
+           ~delta_target ~dynamodb_target ~hudi_target
+           ~iceberg_target ~jdbc_target ~lake_formation_configuration
+           ~lineage_configuration ~mongodb_target ~recrawl_policy
+           ~s3_target ~schema_change_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?classifiers ?configuration ?description ?id
     ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
     ~database_name ~name ~role ~catalog_target ~delta_target
     ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
     ~lake_formation_configuration ~lineage_configuration
     ~mongodb_target ~recrawl_policy ~s3_target ~schema_change_policy
-    __resource_id =
-  let __resource_type = "aws_glue_crawler" in
-  let __resource =
-    aws_glue_crawler ?classifiers ?configuration ?description ?id
-      ?schedule ?security_configuration ?table_prefix ?tags ?tags_all
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?classifiers ?configuration ?description ?id ?schedule
+      ?security_configuration ?table_prefix ?tags ?tags_all
       ~database_name ~name ~role ~catalog_target ~delta_target
       ~dynamodb_target ~hudi_target ~iceberg_target ~jdbc_target
       ~lake_formation_configuration ~lineage_configuration
       ~mongodb_target ~recrawl_policy ~s3_target
-      ~schema_change_policy ()
+      ~schema_change_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_crawler __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       classifiers =
-         Prop.computed __resource_type __resource_id "classifiers";
-       configuration =
-         Prop.computed __resource_type __resource_id "configuration";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       role = Prop.computed __resource_type __resource_id "role";
-       schedule =
-         Prop.computed __resource_type __resource_id "schedule";
-       security_configuration =
-         Prop.computed __resource_type __resource_id
-           "security_configuration";
-       table_prefix =
-         Prop.computed __resource_type __resource_id "table_prefix";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

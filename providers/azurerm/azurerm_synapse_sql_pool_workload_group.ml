@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -65,47 +63,58 @@ type t = {
   sql_pool_id : string prop;
 }
 
+let make ?id ?importance ?max_resource_percent_per_request
+    ?min_resource_percent_per_request
+    ?query_execution_timeout_in_seconds ?timeouts
+    ~max_resource_percent ~min_resource_percent ~name ~sql_pool_id
+    __id =
+  let __type = "azurerm_synapse_sql_pool_workload_group" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       importance = Prop.computed __type __id "importance";
+       max_resource_percent =
+         Prop.computed __type __id "max_resource_percent";
+       max_resource_percent_per_request =
+         Prop.computed __type __id "max_resource_percent_per_request";
+       min_resource_percent =
+         Prop.computed __type __id "min_resource_percent";
+       min_resource_percent_per_request =
+         Prop.computed __type __id "min_resource_percent_per_request";
+       name = Prop.computed __type __id "name";
+       query_execution_timeout_in_seconds =
+         Prop.computed __type __id
+           "query_execution_timeout_in_seconds";
+       sql_pool_id = Prop.computed __type __id "sql_pool_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_synapse_sql_pool_workload_group
+        (azurerm_synapse_sql_pool_workload_group ?id ?importance
+           ?max_resource_percent_per_request
+           ?min_resource_percent_per_request
+           ?query_execution_timeout_in_seconds ?timeouts
+           ~max_resource_percent ~min_resource_percent ~name
+           ~sql_pool_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?importance
     ?max_resource_percent_per_request
     ?min_resource_percent_per_request
     ?query_execution_timeout_in_seconds ?timeouts
     ~max_resource_percent ~min_resource_percent ~name ~sql_pool_id
-    __resource_id =
-  let __resource_type = "azurerm_synapse_sql_pool_workload_group" in
-  let __resource =
-    azurerm_synapse_sql_pool_workload_group ?id ?importance
-      ?max_resource_percent_per_request
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?importance ?max_resource_percent_per_request
       ?min_resource_percent_per_request
       ?query_execution_timeout_in_seconds ?timeouts
       ~max_resource_percent ~min_resource_percent ~name ~sql_pool_id
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_synapse_sql_pool_workload_group __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       importance =
-         Prop.computed __resource_type __resource_id "importance";
-       max_resource_percent =
-         Prop.computed __resource_type __resource_id
-           "max_resource_percent";
-       max_resource_percent_per_request =
-         Prop.computed __resource_type __resource_id
-           "max_resource_percent_per_request";
-       min_resource_percent =
-         Prop.computed __resource_type __resource_id
-           "min_resource_percent";
-       min_resource_percent_per_request =
-         Prop.computed __resource_type __resource_id
-           "min_resource_percent_per_request";
-       name = Prop.computed __resource_type __resource_id "name";
-       query_execution_timeout_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "query_execution_timeout_in_seconds";
-       sql_pool_id =
-         Prop.computed __resource_type __resource_id "sql_pool_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

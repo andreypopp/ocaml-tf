@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cognito_identity_providers = {
   client_id : string prop option; [@option]  (** client_id *)
@@ -74,50 +72,57 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?allow_classic_flow ?allow_unauthenticated_identities
+    ?developer_provider_name ?id ?openid_connect_provider_arns
+    ?saml_provider_arns ?supported_login_providers ?tags ?tags_all
+    ~identity_pool_name ~cognito_identity_providers __id =
+  let __type = "aws_cognito_identity_pool" in
+  let __attrs =
+    ({
+       allow_classic_flow =
+         Prop.computed __type __id "allow_classic_flow";
+       allow_unauthenticated_identities =
+         Prop.computed __type __id "allow_unauthenticated_identities";
+       arn = Prop.computed __type __id "arn";
+       developer_provider_name =
+         Prop.computed __type __id "developer_provider_name";
+       id = Prop.computed __type __id "id";
+       identity_pool_name =
+         Prop.computed __type __id "identity_pool_name";
+       openid_connect_provider_arns =
+         Prop.computed __type __id "openid_connect_provider_arns";
+       saml_provider_arns =
+         Prop.computed __type __id "saml_provider_arns";
+       supported_login_providers =
+         Prop.computed __type __id "supported_login_providers";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_identity_pool
+        (aws_cognito_identity_pool ?allow_classic_flow
+           ?allow_unauthenticated_identities ?developer_provider_name
+           ?id ?openid_connect_provider_arns ?saml_provider_arns
+           ?supported_login_providers ?tags ?tags_all
+           ~identity_pool_name ~cognito_identity_providers ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_classic_flow
     ?allow_unauthenticated_identities ?developer_provider_name ?id
     ?openid_connect_provider_arns ?saml_provider_arns
     ?supported_login_providers ?tags ?tags_all ~identity_pool_name
-    ~cognito_identity_providers __resource_id =
-  let __resource_type = "aws_cognito_identity_pool" in
-  let __resource =
-    aws_cognito_identity_pool ?allow_classic_flow
-      ?allow_unauthenticated_identities ?developer_provider_name ?id
-      ?openid_connect_provider_arns ?saml_provider_arns
-      ?supported_login_providers ?tags ?tags_all ~identity_pool_name
-      ~cognito_identity_providers ()
+    ~cognito_identity_providers __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_classic_flow ?allow_unauthenticated_identities
+      ?developer_provider_name ?id ?openid_connect_provider_arns
+      ?saml_provider_arns ?supported_login_providers ?tags ?tags_all
+      ~identity_pool_name ~cognito_identity_providers __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_identity_pool __resource);
-  let __resource_attributes =
-    ({
-       allow_classic_flow =
-         Prop.computed __resource_type __resource_id
-           "allow_classic_flow";
-       allow_unauthenticated_identities =
-         Prop.computed __resource_type __resource_id
-           "allow_unauthenticated_identities";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       developer_provider_name =
-         Prop.computed __resource_type __resource_id
-           "developer_provider_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_pool_name =
-         Prop.computed __resource_type __resource_id
-           "identity_pool_name";
-       openid_connect_provider_arns =
-         Prop.computed __resource_type __resource_id
-           "openid_connect_provider_arns";
-       saml_provider_arns =
-         Prop.computed __resource_type __resource_id
-           "saml_provider_arns";
-       supported_login_providers =
-         Prop.computed __resource_type __resource_id
-           "supported_login_providers";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

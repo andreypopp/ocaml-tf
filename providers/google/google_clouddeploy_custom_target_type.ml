@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_actions__include_skaffold_modules__git = {
   path : string prop option; [@option]
@@ -131,49 +129,49 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?annotations ?description ?id ?labels
-    ?project ?timeouts ~location ~name ~custom_actions __resource_id
-    =
-  let __resource_type = "google_clouddeploy_custom_target_type" in
-  let __resource =
-    google_clouddeploy_custom_target_type ?annotations ?description
-      ?id ?labels ?project ?timeouts ~location ~name ~custom_actions
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_clouddeploy_custom_target_type __resource);
-  let __resource_attributes =
+let make ?annotations ?description ?id ?labels ?project ?timeouts
+    ~location ~name ~custom_actions __id =
+  let __type = "google_clouddeploy_custom_target_type" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       annotations = Prop.computed __type __id "annotations";
+       create_time = Prop.computed __type __id "create_time";
        custom_target_type_id =
-         Prop.computed __resource_type __resource_id
-           "custom_target_type_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "custom_target_type_id";
+       description = Prop.computed __type __id "description";
        effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
+         Prop.computed __type __id "effective_annotations";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "effective_labels";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_clouddeploy_custom_target_type
+        (google_clouddeploy_custom_target_type ?annotations
+           ?description ?id ?labels ?project ?timeouts ~location
+           ~name ~custom_actions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?description ?id ?labels
+    ?project ?timeouts ~location ~name ~custom_actions __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?description ?id ?labels ?project ?timeouts
+      ~location ~name ~custom_actions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

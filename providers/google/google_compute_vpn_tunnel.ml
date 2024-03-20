@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -136,86 +134,83 @@ type t = {
   vpn_gateway_interface : float prop;
 }
 
+let make ?description ?id ?ike_version ?labels
+    ?local_traffic_selector ?peer_external_gateway
+    ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
+    ?project ?region ?remote_traffic_selector ?router
+    ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface ?timeouts
+    ~name ~shared_secret __id =
+  let __type = "google_compute_vpn_tunnel" in
+  let __attrs =
+    ({
+       creation_timestamp =
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       detailed_status = Prop.computed __type __id "detailed_status";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       ike_version = Prop.computed __type __id "ike_version";
+       label_fingerprint =
+         Prop.computed __type __id "label_fingerprint";
+       labels = Prop.computed __type __id "labels";
+       local_traffic_selector =
+         Prop.computed __type __id "local_traffic_selector";
+       name = Prop.computed __type __id "name";
+       peer_external_gateway =
+         Prop.computed __type __id "peer_external_gateway";
+       peer_external_gateway_interface =
+         Prop.computed __type __id "peer_external_gateway_interface";
+       peer_gcp_gateway =
+         Prop.computed __type __id "peer_gcp_gateway";
+       peer_ip = Prop.computed __type __id "peer_ip";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       remote_traffic_selector =
+         Prop.computed __type __id "remote_traffic_selector";
+       router = Prop.computed __type __id "router";
+       self_link = Prop.computed __type __id "self_link";
+       shared_secret = Prop.computed __type __id "shared_secret";
+       shared_secret_hash =
+         Prop.computed __type __id "shared_secret_hash";
+       target_vpn_gateway =
+         Prop.computed __type __id "target_vpn_gateway";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       tunnel_id = Prop.computed __type __id "tunnel_id";
+       vpn_gateway = Prop.computed __type __id "vpn_gateway";
+       vpn_gateway_interface =
+         Prop.computed __type __id "vpn_gateway_interface";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_vpn_tunnel
+        (google_compute_vpn_tunnel ?description ?id ?ike_version
+           ?labels ?local_traffic_selector ?peer_external_gateway
+           ?peer_external_gateway_interface ?peer_gcp_gateway
+           ?peer_ip ?project ?region ?remote_traffic_selector ?router
+           ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface
+           ?timeouts ~name ~shared_secret ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?ike_version ?labels
     ?local_traffic_selector ?peer_external_gateway
     ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
     ?project ?region ?remote_traffic_selector ?router
     ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface ?timeouts
-    ~name ~shared_secret __resource_id =
-  let __resource_type = "google_compute_vpn_tunnel" in
-  let __resource =
-    google_compute_vpn_tunnel ?description ?id ?ike_version ?labels
+    ~name ~shared_secret __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?ike_version ?labels
       ?local_traffic_selector ?peer_external_gateway
       ?peer_external_gateway_interface ?peer_gcp_gateway ?peer_ip
       ?project ?region ?remote_traffic_selector ?router
       ?target_vpn_gateway ?vpn_gateway ?vpn_gateway_interface
-      ?timeouts ~name ~shared_secret ()
+      ?timeouts ~name ~shared_secret __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_vpn_tunnel __resource);
-  let __resource_attributes =
-    ({
-       creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       detailed_status =
-         Prop.computed __resource_type __resource_id
-           "detailed_status";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       ike_version =
-         Prop.computed __resource_type __resource_id "ike_version";
-       label_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "label_fingerprint";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       local_traffic_selector =
-         Prop.computed __resource_type __resource_id
-           "local_traffic_selector";
-       name = Prop.computed __resource_type __resource_id "name";
-       peer_external_gateway =
-         Prop.computed __resource_type __resource_id
-           "peer_external_gateway";
-       peer_external_gateway_interface =
-         Prop.computed __resource_type __resource_id
-           "peer_external_gateway_interface";
-       peer_gcp_gateway =
-         Prop.computed __resource_type __resource_id
-           "peer_gcp_gateway";
-       peer_ip =
-         Prop.computed __resource_type __resource_id "peer_ip";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       remote_traffic_selector =
-         Prop.computed __resource_type __resource_id
-           "remote_traffic_selector";
-       router = Prop.computed __resource_type __resource_id "router";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       shared_secret =
-         Prop.computed __resource_type __resource_id "shared_secret";
-       shared_secret_hash =
-         Prop.computed __resource_type __resource_id
-           "shared_secret_hash";
-       target_vpn_gateway =
-         Prop.computed __resource_type __resource_id
-           "target_vpn_gateway";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       tunnel_id =
-         Prop.computed __resource_type __resource_id "tunnel_id";
-       vpn_gateway =
-         Prop.computed __resource_type __resource_id "vpn_gateway";
-       vpn_gateway_interface =
-         Prop.computed __resource_type __resource_id
-           "vpn_gateway_interface";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

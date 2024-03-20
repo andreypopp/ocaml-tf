@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,13 @@ val register :
   tunnel_interface:tunnel_interface list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?virtual_network_id:string prop ->
+  ?timeouts:timeouts ->
+  loadbalancer_id:string prop ->
+  name:string prop ->
+  tunnel_interface:tunnel_interface list ->
+  string ->
+  t Tf_core.resource

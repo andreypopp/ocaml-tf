@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -191,3 +191,16 @@ val register :
   server_timing_headers_config:server_timing_headers_config list ->
   string ->
   t
+
+val make :
+  ?comment:string prop ->
+  ?etag:string prop ->
+  ?id:string prop ->
+  name:string prop ->
+  cors_config:cors_config list ->
+  custom_headers_config:custom_headers_config list ->
+  remove_headers_config:remove_headers_config list ->
+  security_headers_config:security_headers_config list ->
+  server_timing_headers_config:server_timing_headers_config list ->
+  string ->
+  t Tf_core.resource

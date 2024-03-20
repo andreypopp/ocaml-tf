@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -117,3 +117,28 @@ val register :
   md5_authentication_key:md5_authentication_key list ->
   string ->
   t
+
+val make :
+  ?advertise_mode:string prop ->
+  ?advertised_groups:string prop list ->
+  ?advertised_route_priority:float prop ->
+  ?enable:bool prop ->
+  ?enable_ipv6:bool prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?ipv6_nexthop_address:string prop ->
+  ?peer_ip_address:string prop ->
+  ?peer_ipv6_nexthop_address:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?router_appliance_instance:string prop ->
+  ?timeouts:timeouts ->
+  interface:string prop ->
+  name:string prop ->
+  peer_asn:float prop ->
+  router:string prop ->
+  advertised_ip_ranges:advertised_ip_ranges list ->
+  bfd:bfd list ->
+  md5_authentication_key:md5_authentication_key list ->
+  string ->
+  t Tf_core.resource

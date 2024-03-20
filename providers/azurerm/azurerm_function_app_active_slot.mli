@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,11 @@ val register :
   slot_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?overwrite_network_config:bool prop ->
+  ?timeouts:timeouts ->
+  slot_id:string prop ->
+  string ->
+  t Tf_core.resource

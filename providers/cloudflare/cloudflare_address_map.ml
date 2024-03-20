@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ips = { ip : string prop  (** An IPv4 or IPv6 address. *) }
 [@@deriving yojson_of]
@@ -61,31 +59,36 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?default_sni ?description ?id ~account_id
-    ~enabled ~ips ~memberships __resource_id =
-  let __resource_type = "cloudflare_address_map" in
-  let __resource =
-    cloudflare_address_map ?default_sni ?description ?id ~account_id
-      ~enabled ~ips ~memberships ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_address_map __resource);
-  let __resource_attributes =
+let make ?default_sni ?description ?id ~account_id ~enabled ~ips
+    ~memberships __id =
+  let __type = "cloudflare_address_map" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       can_delete =
-         Prop.computed __resource_type __resource_id "can_delete";
-       can_modify_ips =
-         Prop.computed __resource_type __resource_id "can_modify_ips";
-       default_sni =
-         Prop.computed __resource_type __resource_id "default_sni";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       account_id = Prop.computed __type __id "account_id";
+       can_delete = Prop.computed __type __id "can_delete";
+       can_modify_ips = Prop.computed __type __id "can_modify_ips";
+       default_sni = Prop.computed __type __id "default_sni";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_address_map
+        (cloudflare_address_map ?default_sni ?description ?id
+           ~account_id ~enabled ~ips ~memberships ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_sni ?description ?id ~account_id
+    ~enabled ~ips ~memberships __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_sni ?description ?id ~account_id ~enabled ~ips
+      ~memberships __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,15 @@ val register :
   versioning:versioning list ->
   string ->
   t
+
+val make :
+  ?acl:string prop ->
+  ?force_destroy:bool prop ->
+  ?id:string prop ->
+  ?region:string prop ->
+  name:string prop ->
+  cors_rule:cors_rule list ->
+  lifecycle_rule:lifecycle_rule list ->
+  versioning:versioning list ->
+  string ->
+  t Tf_core.resource

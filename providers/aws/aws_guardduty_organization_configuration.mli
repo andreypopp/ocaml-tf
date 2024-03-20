@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,12 @@ val register :
   datasources:datasources list ->
   string ->
   t
+
+val make :
+  ?auto_enable:bool prop ->
+  ?auto_enable_organization_members:string prop ->
+  ?id:string prop ->
+  detector_id:string prop ->
+  datasources:datasources list ->
+  string ->
+  t Tf_core.resource

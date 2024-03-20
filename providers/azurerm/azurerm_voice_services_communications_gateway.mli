@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,23 @@ val register :
   service_location:service_location list ->
   string ->
   t
+
+val make :
+  ?api_bridge:string prop ->
+  ?auto_generated_domain_name_label_scope:string prop ->
+  ?emergency_dial_strings:string prop list ->
+  ?id:string prop ->
+  ?microsoft_teams_voicemail_pilot_number:string prop ->
+  ?on_prem_mcp_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  codecs:string prop ->
+  connectivity:string prop ->
+  e911_type:string prop ->
+  location:string prop ->
+  name:string prop ->
+  platforms:string prop list ->
+  resource_group_name:string prop ->
+  service_location:service_location list ->
+  string ->
+  t Tf_core.resource

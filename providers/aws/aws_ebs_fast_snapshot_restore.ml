@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -34,25 +32,32 @@ type t = {
   state : string prop;
 }
 
-let register ?tf_module ?timeouts ~availability_zone ~snapshot_id
-    __resource_id =
-  let __resource_type = "aws_ebs_fast_snapshot_restore" in
-  let __resource =
-    aws_ebs_fast_snapshot_restore ?timeouts ~availability_zone
-      ~snapshot_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ebs_fast_snapshot_restore __resource);
-  let __resource_attributes =
+let make ?timeouts ~availability_zone ~snapshot_id __id =
+  let __type = "aws_ebs_fast_snapshot_restore" in
+  let __attrs =
     ({
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       id = Prop.computed __resource_type __resource_id "id";
-       snapshot_id =
-         Prop.computed __resource_type __resource_id "snapshot_id";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "availability_zone";
+       id = Prop.computed __type __id "id";
+       snapshot_id = Prop.computed __type __id "snapshot_id";
+       state = Prop.computed __type __id "state";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ebs_fast_snapshot_restore
+        (aws_ebs_fast_snapshot_restore ?timeouts ~availability_zone
+           ~snapshot_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~availability_zone ~snapshot_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?timeouts ~availability_zone ~snapshot_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

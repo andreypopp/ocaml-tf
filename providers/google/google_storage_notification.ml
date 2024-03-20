@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_storage_notification = {
   bucket : string prop;  (** The name of the bucket. *)
@@ -46,37 +44,40 @@ type t = {
   topic : string prop;
 }
 
-let register ?tf_module ?custom_attributes ?event_types ?id
-    ?object_name_prefix ~bucket ~payload_format ~topic __resource_id
-    =
-  let __resource_type = "google_storage_notification" in
-  let __resource =
-    google_storage_notification ?custom_attributes ?event_types ?id
-      ?object_name_prefix ~bucket ~payload_format ~topic ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_storage_notification __resource);
-  let __resource_attributes =
+let make ?custom_attributes ?event_types ?id ?object_name_prefix
+    ~bucket ~payload_format ~topic __id =
+  let __type = "google_storage_notification" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
+       bucket = Prop.computed __type __id "bucket";
        custom_attributes =
-         Prop.computed __resource_type __resource_id
-           "custom_attributes";
-       event_types =
-         Prop.computed __resource_type __resource_id "event_types";
-       id = Prop.computed __resource_type __resource_id "id";
-       notification_id =
-         Prop.computed __resource_type __resource_id
-           "notification_id";
+         Prop.computed __type __id "custom_attributes";
+       event_types = Prop.computed __type __id "event_types";
+       id = Prop.computed __type __id "id";
+       notification_id = Prop.computed __type __id "notification_id";
        object_name_prefix =
-         Prop.computed __resource_type __resource_id
-           "object_name_prefix";
-       payload_format =
-         Prop.computed __resource_type __resource_id "payload_format";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       topic = Prop.computed __resource_type __resource_id "topic";
+         Prop.computed __type __id "object_name_prefix";
+       payload_format = Prop.computed __type __id "payload_format";
+       self_link = Prop.computed __type __id "self_link";
+       topic = Prop.computed __type __id "topic";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_storage_notification
+        (google_storage_notification ?custom_attributes ?event_types
+           ?id ?object_name_prefix ~bucket ~payload_format ~topic ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_attributes ?event_types ?id
+    ?object_name_prefix ~bucket ~payload_format ~topic __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_attributes ?event_types ?id ?object_name_prefix
+      ~bucket ~payload_format ~topic __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

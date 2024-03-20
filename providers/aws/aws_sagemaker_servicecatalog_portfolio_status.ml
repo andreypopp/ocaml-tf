@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sagemaker_servicecatalog_portfolio_status = {
   id : string prop option; [@option]  (** id *)
@@ -17,21 +15,25 @@ let aws_sagemaker_servicecatalog_portfolio_status ?id ~status () :
 
 type t = { id : string prop; status : string prop }
 
-let register ?tf_module ?id ~status __resource_id =
-  let __resource_type =
-    "aws_sagemaker_servicecatalog_portfolio_status"
-  in
-  let __resource =
-    aws_sagemaker_servicecatalog_portfolio_status ?id ~status ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_servicecatalog_portfolio_status
-       __resource);
-  let __resource_attributes =
+let make ?id ~status __id =
+  let __type = "aws_sagemaker_servicecatalog_portfolio_status" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       status = Prop.computed __resource_type __resource_id "status";
+       id = Prop.computed __type __id "id";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_servicecatalog_portfolio_status
+        (aws_sagemaker_servicecatalog_portfolio_status ?id ~status ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~status __id =
+  let (r : _ Tf_core.resource) = make ?id ~status __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

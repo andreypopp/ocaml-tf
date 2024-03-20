@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -85,66 +83,63 @@ type t = {
   validity_in_years : float prop;
 }
 
-let register ?tf_module ?auto_renew ?csr ?distinguished_name ?id
-    ?key_size ?product_type ?tags ?validity_in_years ?timeouts
-    ~location ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_app_service_certificate_order" in
-  let __resource =
-    azurerm_app_service_certificate_order ?auto_renew ?csr
-      ?distinguished_name ?id ?key_size ?product_type ?tags
-      ?validity_in_years ?timeouts ~location ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_certificate_order __resource);
-  let __resource_attributes =
+let make ?auto_renew ?csr ?distinguished_name ?id ?key_size
+    ?product_type ?tags ?validity_in_years ?timeouts ~location ~name
+    ~resource_group_name __id =
+  let __type = "azurerm_app_service_certificate_order" in
+  let __attrs =
     ({
        app_service_certificate_not_renewable_reasons =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "app_service_certificate_not_renewable_reasons";
-       auto_renew =
-         Prop.computed __resource_type __resource_id "auto_renew";
-       certificates =
-         Prop.computed __resource_type __resource_id "certificates";
-       csr = Prop.computed __resource_type __resource_id "csr";
+       auto_renew = Prop.computed __type __id "auto_renew";
+       certificates = Prop.computed __type __id "certificates";
+       csr = Prop.computed __type __id "csr";
        distinguished_name =
-         Prop.computed __resource_type __resource_id
-           "distinguished_name";
+         Prop.computed __type __id "distinguished_name";
        domain_verification_token =
-         Prop.computed __resource_type __resource_id
-           "domain_verification_token";
-       expiration_time =
-         Prop.computed __resource_type __resource_id
-           "expiration_time";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "domain_verification_token";
+       expiration_time = Prop.computed __type __id "expiration_time";
+       id = Prop.computed __type __id "id";
        intermediate_thumbprint =
-         Prop.computed __resource_type __resource_id
-           "intermediate_thumbprint";
+         Prop.computed __type __id "intermediate_thumbprint";
        is_private_key_external =
-         Prop.computed __resource_type __resource_id
-           "is_private_key_external";
-       key_size =
-         Prop.computed __resource_type __resource_id "key_size";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       product_type =
-         Prop.computed __resource_type __resource_id "product_type";
+         Prop.computed __type __id "is_private_key_external";
+       key_size = Prop.computed __type __id "key_size";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       product_type = Prop.computed __type __id "product_type";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       root_thumbprint =
-         Prop.computed __resource_type __resource_id
-           "root_thumbprint";
+         Prop.computed __type __id "resource_group_name";
+       root_thumbprint = Prop.computed __type __id "root_thumbprint";
        signed_certificate_thumbprint =
-         Prop.computed __resource_type __resource_id
-           "signed_certificate_thumbprint";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "signed_certificate_thumbprint";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
        validity_in_years =
-         Prop.computed __resource_type __resource_id
-           "validity_in_years";
+         Prop.computed __type __id "validity_in_years";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_certificate_order
+        (azurerm_app_service_certificate_order ?auto_renew ?csr
+           ?distinguished_name ?id ?key_size ?product_type ?tags
+           ?validity_in_years ?timeouts ~location ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_renew ?csr ?distinguished_name ?id
+    ?key_size ?product_type ?tags ?validity_in_years ?timeouts
+    ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_renew ?csr ?distinguished_name ?id ?key_size
+      ?product_type ?tags ?validity_in_years ?timeouts ~location
+      ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

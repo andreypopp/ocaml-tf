@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_repository_association__nfs = {
   dns_ips : string prop list option; [@option]  (** dns_ips *)
@@ -150,61 +148,64 @@ type t = {
   vpc_id : string prop;
 }
 
+let make ?copy_tags_to_data_repository_associations ?id ?kms_key_id
+    ?security_group_ids ?tags ?tags_all ?timeouts ~file_cache_type
+    ~file_cache_type_version ~storage_capacity ~subnet_ids
+    ~data_repository_association ~lustre_configuration __id =
+  let __type = "aws_fsx_file_cache" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       copy_tags_to_data_repository_associations =
+         Prop.computed __type __id
+           "copy_tags_to_data_repository_associations";
+       data_repository_association_ids =
+         Prop.computed __type __id "data_repository_association_ids";
+       dns_name = Prop.computed __type __id "dns_name";
+       file_cache_id = Prop.computed __type __id "file_cache_id";
+       file_cache_type = Prop.computed __type __id "file_cache_type";
+       file_cache_type_version =
+         Prop.computed __type __id "file_cache_type_version";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       storage_capacity =
+         Prop.computed __type __id "storage_capacity";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_file_cache
+        (aws_fsx_file_cache
+           ?copy_tags_to_data_repository_associations ?id ?kms_key_id
+           ?security_group_ids ?tags ?tags_all ?timeouts
+           ~file_cache_type ~file_cache_type_version
+           ~storage_capacity ~subnet_ids ~data_repository_association
+           ~lustre_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?copy_tags_to_data_repository_associations
     ?id ?kms_key_id ?security_group_ids ?tags ?tags_all ?timeouts
     ~file_cache_type ~file_cache_type_version ~storage_capacity
     ~subnet_ids ~data_repository_association ~lustre_configuration
-    __resource_id =
-  let __resource_type = "aws_fsx_file_cache" in
-  let __resource =
-    aws_fsx_file_cache ?copy_tags_to_data_repository_associations ?id
-      ?kms_key_id ?security_group_ids ?tags ?tags_all ?timeouts
-      ~file_cache_type ~file_cache_type_version ~storage_capacity
-      ~subnet_ids ~data_repository_association ~lustre_configuration
-      ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?copy_tags_to_data_repository_associations ?id ?kms_key_id
+      ?security_group_ids ?tags ?tags_all ?timeouts ~file_cache_type
+      ~file_cache_type_version ~storage_capacity ~subnet_ids
+      ~data_repository_association ~lustre_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_file_cache __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       copy_tags_to_data_repository_associations =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_data_repository_associations";
-       data_repository_association_ids =
-         Prop.computed __resource_type __resource_id
-           "data_repository_association_ids";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       file_cache_id =
-         Prop.computed __resource_type __resource_id "file_cache_id";
-       file_cache_type =
-         Prop.computed __resource_type __resource_id
-           "file_cache_type";
-       file_cache_type_version =
-         Prop.computed __resource_type __resource_id
-           "file_cache_type_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       storage_capacity =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

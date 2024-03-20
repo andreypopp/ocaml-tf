@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_spec = {
   kms_key_name : string prop;
@@ -77,43 +75,46 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?project ?region
-    ?timeouts ~display_name ~encryption_spec __resource_id =
-  let __resource_type = "google_vertex_ai_tensorboard" in
-  let __resource =
-    google_vertex_ai_tensorboard ?description ?id ?labels ?project
-      ?region ?timeouts ~display_name ~encryption_spec ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vertex_ai_tensorboard __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?project ?region ?timeouts
+    ~display_name ~encryption_spec __id =
+  let __type = "google_vertex_ai_tensorboard" in
+  let __attrs =
     ({
        blob_storage_path_prefix =
-         Prop.computed __resource_type __resource_id
-           "blob_storage_path_prefix";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "blob_storage_path_prefix";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       run_count =
-         Prop.computed __resource_type __resource_id "run_count";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       run_count = Prop.computed __type __id "run_count";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vertex_ai_tensorboard
+        (google_vertex_ai_tensorboard ?description ?id ?labels
+           ?project ?region ?timeouts ~display_name ~encryption_spec
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?project ?region
+    ?timeouts ~display_name ~encryption_spec __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?project ?region ?timeouts
+      ~display_name ~encryption_spec __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

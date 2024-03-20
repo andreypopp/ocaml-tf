@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -39,4 +39,12 @@ val register :
     web_acl_arn:string prop ->
     string ->
     t
+
+val make :
+    ?id:string prop ->
+    ?timeouts:timeouts ->
+    resource_arn:string prop ->
+    web_acl_arn:string prop ->
+    string ->
+    t Tf_core.resource
 

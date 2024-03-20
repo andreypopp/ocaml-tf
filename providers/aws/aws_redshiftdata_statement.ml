@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type parameters = {
   name : string prop;  (** name *)
@@ -68,37 +66,43 @@ type t = {
   workgroup_name : string prop;
 }
 
-let register ?tf_module ?cluster_identifier ?db_user ?id ?secret_arn
-    ?statement_name ?with_event ?workgroup_name ?timeouts ~database
-    ~sql ~parameters __resource_id =
-  let __resource_type = "aws_redshiftdata_statement" in
-  let __resource =
-    aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
-      ?secret_arn ?statement_name ?with_event ?workgroup_name
-      ?timeouts ~database ~sql ~parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshiftdata_statement __resource);
-  let __resource_attributes =
+let make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
+    ?with_event ?workgroup_name ?timeouts ~database ~sql ~parameters
+    __id =
+  let __type = "aws_redshiftdata_statement" in
+  let __attrs =
     ({
        cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       db_user =
-         Prop.computed __resource_type __resource_id "db_user";
-       id = Prop.computed __resource_type __resource_id "id";
-       secret_arn =
-         Prop.computed __resource_type __resource_id "secret_arn";
-       sql = Prop.computed __resource_type __resource_id "sql";
-       statement_name =
-         Prop.computed __resource_type __resource_id "statement_name";
-       with_event =
-         Prop.computed __resource_type __resource_id "with_event";
-       workgroup_name =
-         Prop.computed __resource_type __resource_id "workgroup_name";
+         Prop.computed __type __id "cluster_identifier";
+       database = Prop.computed __type __id "database";
+       db_user = Prop.computed __type __id "db_user";
+       id = Prop.computed __type __id "id";
+       secret_arn = Prop.computed __type __id "secret_arn";
+       sql = Prop.computed __type __id "sql";
+       statement_name = Prop.computed __type __id "statement_name";
+       with_event = Prop.computed __type __id "with_event";
+       workgroup_name = Prop.computed __type __id "workgroup_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshiftdata_statement
+        (aws_redshiftdata_statement ?cluster_identifier ?db_user ?id
+           ?secret_arn ?statement_name ?with_event ?workgroup_name
+           ?timeouts ~database ~sql ~parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cluster_identifier ?db_user ?id ?secret_arn
+    ?statement_name ?with_event ?workgroup_name ?timeouts ~database
+    ~sql ~parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?cluster_identifier ?db_user ?id ?secret_arn ?statement_name
+      ?with_event ?workgroup_name ?timeouts ~database ~sql
+      ~parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

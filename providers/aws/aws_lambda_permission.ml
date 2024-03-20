@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_lambda_permission = {
   action : string prop;  (** action *)
@@ -60,48 +58,53 @@ type t = {
   statement_id_prefix : string prop;
 }
 
-let register ?tf_module ?event_source_token ?function_url_auth_type
-    ?id ?principal_org_id ?qualifier ?source_account ?source_arn
+let make ?event_source_token ?function_url_auth_type ?id
+    ?principal_org_id ?qualifier ?source_account ?source_arn
     ?statement_id ?statement_id_prefix ~action ~function_name
-    ~principal __resource_id =
-  let __resource_type = "aws_lambda_permission" in
-  let __resource =
-    aws_lambda_permission ?event_source_token ?function_url_auth_type
-      ?id ?principal_org_id ?qualifier ?source_account ?source_arn
-      ?statement_id ?statement_id_prefix ~action ~function_name
-      ~principal ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_permission __resource);
-  let __resource_attributes =
+    ~principal __id =
+  let __type = "aws_lambda_permission" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
+       action = Prop.computed __type __id "action";
        event_source_token =
-         Prop.computed __resource_type __resource_id
-           "event_source_token";
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
+         Prop.computed __type __id "event_source_token";
+       function_name = Prop.computed __type __id "function_name";
        function_url_auth_type =
-         Prop.computed __resource_type __resource_id
-           "function_url_auth_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
+         Prop.computed __type __id "function_url_auth_type";
+       id = Prop.computed __type __id "id";
+       principal = Prop.computed __type __id "principal";
        principal_org_id =
-         Prop.computed __resource_type __resource_id
-           "principal_org_id";
-       qualifier =
-         Prop.computed __resource_type __resource_id "qualifier";
-       source_account =
-         Prop.computed __resource_type __resource_id "source_account";
-       source_arn =
-         Prop.computed __resource_type __resource_id "source_arn";
-       statement_id =
-         Prop.computed __resource_type __resource_id "statement_id";
+         Prop.computed __type __id "principal_org_id";
+       qualifier = Prop.computed __type __id "qualifier";
+       source_account = Prop.computed __type __id "source_account";
+       source_arn = Prop.computed __type __id "source_arn";
+       statement_id = Prop.computed __type __id "statement_id";
        statement_id_prefix =
-         Prop.computed __resource_type __resource_id
-           "statement_id_prefix";
+         Prop.computed __type __id "statement_id_prefix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_permission
+        (aws_lambda_permission ?event_source_token
+           ?function_url_auth_type ?id ?principal_org_id ?qualifier
+           ?source_account ?source_arn ?statement_id
+           ?statement_id_prefix ~action ~function_name ~principal ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?event_source_token ?function_url_auth_type
+    ?id ?principal_org_id ?qualifier ?source_account ?source_arn
+    ?statement_id ?statement_id_prefix ~action ~function_name
+    ~principal __id =
+  let (r : _ Tf_core.resource) =
+    make ?event_source_token ?function_url_auth_type ?id
+      ?principal_org_id ?qualifier ?source_account ?source_arn
+      ?statement_id ?statement_id_prefix ~action ~function_name
+      ~principal __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

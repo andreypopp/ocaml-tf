@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   delete : string prop option; [@option]  (** delete *)
@@ -82,64 +80,63 @@ type t = {
   vpc : bool prop;
 }
 
-let register ?tf_module ?address ?associate_with_private_ip
+let make ?address ?associate_with_private_ip
     ?customer_owned_ipv4_pool ?domain ?id ?instance
     ?network_border_group ?network_interface ?public_ipv4_pool ?tags
-    ?tags_all ?vpc ?timeouts __resource_id =
-  let __resource_type = "aws_eip" in
-  let __resource =
-    aws_eip ?address ?associate_with_private_ip
-      ?customer_owned_ipv4_pool ?domain ?id ?instance
-      ?network_border_group ?network_interface ?public_ipv4_pool
-      ?tags ?tags_all ?vpc ?timeouts ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_eip __resource);
-  let __resource_attributes =
+    ?tags_all ?vpc ?timeouts __id =
+  let __type = "aws_eip" in
+  let __attrs =
     ({
-       address =
-         Prop.computed __resource_type __resource_id "address";
-       allocation_id =
-         Prop.computed __resource_type __resource_id "allocation_id";
+       address = Prop.computed __type __id "address";
+       allocation_id = Prop.computed __type __id "allocation_id";
        associate_with_private_ip =
-         Prop.computed __resource_type __resource_id
-           "associate_with_private_ip";
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
-       carrier_ip =
-         Prop.computed __resource_type __resource_id "carrier_ip";
+         Prop.computed __type __id "associate_with_private_ip";
+       association_id = Prop.computed __type __id "association_id";
+       carrier_ip = Prop.computed __type __id "carrier_ip";
        customer_owned_ip =
-         Prop.computed __resource_type __resource_id
-           "customer_owned_ip";
+         Prop.computed __type __id "customer_owned_ip";
        customer_owned_ipv4_pool =
-         Prop.computed __resource_type __resource_id
-           "customer_owned_ipv4_pool";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
+         Prop.computed __type __id "customer_owned_ipv4_pool";
+       domain = Prop.computed __type __id "domain";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
        network_border_group =
-         Prop.computed __resource_type __resource_id
-           "network_border_group";
+         Prop.computed __type __id "network_border_group";
        network_interface =
-         Prop.computed __resource_type __resource_id
-           "network_interface";
-       private_dns =
-         Prop.computed __resource_type __resource_id "private_dns";
-       private_ip =
-         Prop.computed __resource_type __resource_id "private_ip";
-       public_dns =
-         Prop.computed __resource_type __resource_id "public_dns";
-       public_ip =
-         Prop.computed __resource_type __resource_id "public_ip";
+         Prop.computed __type __id "network_interface";
+       private_dns = Prop.computed __type __id "private_dns";
+       private_ip = Prop.computed __type __id "private_ip";
+       public_dns = Prop.computed __type __id "public_dns";
+       public_ip = Prop.computed __type __id "public_ip";
        public_ipv4_pool =
-         Prop.computed __resource_type __resource_id
-           "public_ipv4_pool";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc = Prop.computed __resource_type __resource_id "vpc";
+         Prop.computed __type __id "public_ipv4_pool";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc = Prop.computed __type __id "vpc";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_eip
+        (aws_eip ?address ?associate_with_private_ip
+           ?customer_owned_ipv4_pool ?domain ?id ?instance
+           ?network_border_group ?network_interface ?public_ipv4_pool
+           ?tags ?tags_all ?vpc ?timeouts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?address ?associate_with_private_ip
+    ?customer_owned_ipv4_pool ?domain ?id ?instance
+    ?network_border_group ?network_interface ?public_ipv4_pool ?tags
+    ?tags_all ?vpc ?timeouts __id =
+  let (r : _ Tf_core.resource) =
+    make ?address ?associate_with_private_ip
+      ?customer_owned_ipv4_pool ?domain ?id ?instance
+      ?network_border_group ?network_interface ?public_ipv4_pool
+      ?tags ?tags_all ?vpc ?timeouts __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

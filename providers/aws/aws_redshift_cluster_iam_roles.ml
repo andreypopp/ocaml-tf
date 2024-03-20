@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,27 +43,35 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?default_iam_role_arn ?iam_role_arns ?id
-    ?timeouts ~cluster_identifier __resource_id =
-  let __resource_type = "aws_redshift_cluster_iam_roles" in
-  let __resource =
-    aws_redshift_cluster_iam_roles ?default_iam_role_arn
-      ?iam_role_arns ?id ?timeouts ~cluster_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshift_cluster_iam_roles __resource);
-  let __resource_attributes =
+let make ?default_iam_role_arn ?iam_role_arns ?id ?timeouts
+    ~cluster_identifier __id =
+  let __type = "aws_redshift_cluster_iam_roles" in
+  let __attrs =
     ({
        cluster_identifier =
-         Prop.computed __resource_type __resource_id
-           "cluster_identifier";
+         Prop.computed __type __id "cluster_identifier";
        default_iam_role_arn =
-         Prop.computed __resource_type __resource_id
-           "default_iam_role_arn";
-       iam_role_arns =
-         Prop.computed __resource_type __resource_id "iam_role_arns";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "default_iam_role_arn";
+       iam_role_arns = Prop.computed __type __id "iam_role_arns";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshift_cluster_iam_roles
+        (aws_redshift_cluster_iam_roles ?default_iam_role_arn
+           ?iam_role_arns ?id ?timeouts ~cluster_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_iam_role_arn ?iam_role_arns ?id
+    ?timeouts ~cluster_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_iam_role_arn ?iam_role_arns ?id ?timeouts
+      ~cluster_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

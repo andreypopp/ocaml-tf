@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -107,3 +107,15 @@ val register :
   ethereum_details:ethereum_details list ->
   string ->
   t
+
+val make :
+  ?blockchain_type:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  blockchain_node_id:string prop ->
+  location:string prop ->
+  ethereum_details:ethereum_details list ->
+  string ->
+  t Tf_core.resource

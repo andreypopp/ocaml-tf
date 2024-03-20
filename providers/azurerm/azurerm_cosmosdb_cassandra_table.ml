@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscale_settings = {
   max_throughput : float prop option; [@option]  (** max_throughput *)
@@ -100,32 +98,42 @@ type t = {
   throughput : float prop;
 }
 
-let register ?tf_module ?analytical_storage_ttl ?default_ttl ?id
-    ?throughput ?timeouts ~cassandra_keyspace_id ~name
-    ~autoscale_settings ~schema __resource_id =
-  let __resource_type = "azurerm_cosmosdb_cassandra_table" in
-  let __resource =
-    azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
-      ?default_ttl ?id ?throughput ?timeouts ~cassandra_keyspace_id
-      ~name ~autoscale_settings ~schema ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cosmosdb_cassandra_table __resource);
-  let __resource_attributes =
+let make ?analytical_storage_ttl ?default_ttl ?id ?throughput
+    ?timeouts ~cassandra_keyspace_id ~name ~autoscale_settings
+    ~schema __id =
+  let __type = "azurerm_cosmosdb_cassandra_table" in
+  let __attrs =
     ({
        analytical_storage_ttl =
-         Prop.computed __resource_type __resource_id
-           "analytical_storage_ttl";
+         Prop.computed __type __id "analytical_storage_ttl";
        cassandra_keyspace_id =
-         Prop.computed __resource_type __resource_id
-           "cassandra_keyspace_id";
-       default_ttl =
-         Prop.computed __resource_type __resource_id "default_ttl";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       throughput =
-         Prop.computed __resource_type __resource_id "throughput";
+         Prop.computed __type __id "cassandra_keyspace_id";
+       default_ttl = Prop.computed __type __id "default_ttl";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       throughput = Prop.computed __type __id "throughput";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cosmosdb_cassandra_table
+        (azurerm_cosmosdb_cassandra_table ?analytical_storage_ttl
+           ?default_ttl ?id ?throughput ?timeouts
+           ~cassandra_keyspace_id ~name ~autoscale_settings ~schema
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?analytical_storage_ttl ?default_ttl ?id
+    ?throughput ?timeouts ~cassandra_keyspace_id ~name
+    ~autoscale_settings ~schema __id =
+  let (r : _ Tf_core.resource) =
+    make ?analytical_storage_ttl ?default_ttl ?id ?throughput
+      ?timeouts ~cassandra_keyspace_id ~name ~autoscale_settings
+      ~schema __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

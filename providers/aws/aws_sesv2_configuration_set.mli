@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -97,3 +97,17 @@ val register :
   vdm_options:vdm_options list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  configuration_set_name:string prop ->
+  delivery_options:delivery_options list ->
+  reputation_options:reputation_options list ->
+  sending_options:sending_options list ->
+  suppression_options:suppression_options list ->
+  tracking_options:tracking_options list ->
+  vdm_options:vdm_options list ->
+  string ->
+  t Tf_core.resource

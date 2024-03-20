@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type business_identity = {
   qualifier : string prop;  (** qualifier *)
@@ -61,33 +59,38 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?metadata ?timeouts
-    ~integration_account_name ~name ~resource_group_name
-    ~business_identity __resource_id =
-  let __resource_type =
-    "azurerm_logic_app_integration_account_partner"
-  in
-  let __resource =
-    azurerm_logic_app_integration_account_partner ?id ?metadata
-      ?timeouts ~integration_account_name ~name ~resource_group_name
-      ~business_identity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logic_app_integration_account_partner
-       __resource);
-  let __resource_attributes =
+let make ?id ?metadata ?timeouts ~integration_account_name ~name
+    ~resource_group_name ~business_identity __id =
+  let __type = "azurerm_logic_app_integration_account_partner" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        integration_account_name =
-         Prop.computed __resource_type __resource_id
-           "integration_account_name";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "integration_account_name";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logic_app_integration_account_partner
+        (azurerm_logic_app_integration_account_partner ?id ?metadata
+           ?timeouts ~integration_account_name ~name
+           ~resource_group_name ~business_identity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?metadata ?timeouts
+    ~integration_account_name ~name ~resource_group_name
+    ~business_identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?metadata ?timeouts ~integration_account_name ~name
+      ~resource_group_name ~business_identity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_origin_ca_certificate = {
   csr : string prop;
@@ -43,34 +41,39 @@ type t = {
   requested_validity : float prop;
 }
 
-let register ?tf_module ?id ?min_days_for_renewal ?requested_validity
-    ~csr ~hostnames ~request_type __resource_id =
-  let __resource_type = "cloudflare_origin_ca_certificate" in
-  let __resource =
-    cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
-      ?requested_validity ~csr ~hostnames ~request_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_origin_ca_certificate __resource);
-  let __resource_attributes =
+let make ?id ?min_days_for_renewal ?requested_validity ~csr
+    ~hostnames ~request_type __id =
+  let __type = "cloudflare_origin_ca_certificate" in
+  let __attrs =
     ({
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
-       csr = Prop.computed __resource_type __resource_id "csr";
-       expires_on =
-         Prop.computed __resource_type __resource_id "expires_on";
-       hostnames =
-         Prop.computed __resource_type __resource_id "hostnames";
-       id = Prop.computed __resource_type __resource_id "id";
+       certificate = Prop.computed __type __id "certificate";
+       csr = Prop.computed __type __id "csr";
+       expires_on = Prop.computed __type __id "expires_on";
+       hostnames = Prop.computed __type __id "hostnames";
+       id = Prop.computed __type __id "id";
        min_days_for_renewal =
-         Prop.computed __resource_type __resource_id
-           "min_days_for_renewal";
-       request_type =
-         Prop.computed __resource_type __resource_id "request_type";
+         Prop.computed __type __id "min_days_for_renewal";
+       request_type = Prop.computed __type __id "request_type";
        requested_validity =
-         Prop.computed __resource_type __resource_id
-           "requested_validity";
+         Prop.computed __type __id "requested_validity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_origin_ca_certificate
+        (cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
+           ?requested_validity ~csr ~hostnames ~request_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?min_days_for_renewal ?requested_validity
+    ~csr ~hostnames ~request_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?min_days_for_renewal ?requested_validity ~csr
+      ~hostnames ~request_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

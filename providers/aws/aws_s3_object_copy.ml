@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type grant = {
   email : string prop option; [@option]  (** email *)
@@ -200,6 +198,123 @@ type t = {
   website_redirect : string prop;
 }
 
+let make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
+    ?content_disposition ?content_encoding ?content_language
+    ?content_type ?copy_if_match ?copy_if_modified_since
+    ?copy_if_none_match ?copy_if_unmodified_since ?customer_algorithm
+    ?customer_key ?customer_key_md5 ?expected_bucket_owner
+    ?expected_source_bucket_owner ?expires ?force_destroy ?id
+    ?kms_encryption_context ?kms_key_id ?metadata ?metadata_directive
+    ?object_lock_legal_hold_status ?object_lock_mode
+    ?object_lock_retain_until_date ?request_payer
+    ?server_side_encryption ?source_customer_algorithm
+    ?source_customer_key ?source_customer_key_md5 ?storage_class
+    ?tagging_directive ?tags ?tags_all ?website_redirect ~bucket ~key
+    ~source ~grant __id =
+  let __type = "aws_s3_object_copy" in
+  let __attrs =
+    ({
+       acl = Prop.computed __type __id "acl";
+       arn = Prop.computed __type __id "arn";
+       bucket = Prop.computed __type __id "bucket";
+       bucket_key_enabled =
+         Prop.computed __type __id "bucket_key_enabled";
+       cache_control = Prop.computed __type __id "cache_control";
+       checksum_algorithm =
+         Prop.computed __type __id "checksum_algorithm";
+       checksum_crc32 = Prop.computed __type __id "checksum_crc32";
+       checksum_crc32c = Prop.computed __type __id "checksum_crc32c";
+       checksum_sha1 = Prop.computed __type __id "checksum_sha1";
+       checksum_sha256 = Prop.computed __type __id "checksum_sha256";
+       content_disposition =
+         Prop.computed __type __id "content_disposition";
+       content_encoding =
+         Prop.computed __type __id "content_encoding";
+       content_language =
+         Prop.computed __type __id "content_language";
+       content_type = Prop.computed __type __id "content_type";
+       copy_if_match = Prop.computed __type __id "copy_if_match";
+       copy_if_modified_since =
+         Prop.computed __type __id "copy_if_modified_since";
+       copy_if_none_match =
+         Prop.computed __type __id "copy_if_none_match";
+       copy_if_unmodified_since =
+         Prop.computed __type __id "copy_if_unmodified_since";
+       customer_algorithm =
+         Prop.computed __type __id "customer_algorithm";
+       customer_key = Prop.computed __type __id "customer_key";
+       customer_key_md5 =
+         Prop.computed __type __id "customer_key_md5";
+       etag = Prop.computed __type __id "etag";
+       expected_bucket_owner =
+         Prop.computed __type __id "expected_bucket_owner";
+       expected_source_bucket_owner =
+         Prop.computed __type __id "expected_source_bucket_owner";
+       expiration = Prop.computed __type __id "expiration";
+       expires = Prop.computed __type __id "expires";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       key = Prop.computed __type __id "key";
+       kms_encryption_context =
+         Prop.computed __type __id "kms_encryption_context";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       last_modified = Prop.computed __type __id "last_modified";
+       metadata = Prop.computed __type __id "metadata";
+       metadata_directive =
+         Prop.computed __type __id "metadata_directive";
+       object_lock_legal_hold_status =
+         Prop.computed __type __id "object_lock_legal_hold_status";
+       object_lock_mode =
+         Prop.computed __type __id "object_lock_mode";
+       object_lock_retain_until_date =
+         Prop.computed __type __id "object_lock_retain_until_date";
+       request_charged = Prop.computed __type __id "request_charged";
+       request_payer = Prop.computed __type __id "request_payer";
+       server_side_encryption =
+         Prop.computed __type __id "server_side_encryption";
+       source = Prop.computed __type __id "source";
+       source_customer_algorithm =
+         Prop.computed __type __id "source_customer_algorithm";
+       source_customer_key =
+         Prop.computed __type __id "source_customer_key";
+       source_customer_key_md5 =
+         Prop.computed __type __id "source_customer_key_md5";
+       source_version_id =
+         Prop.computed __type __id "source_version_id";
+       storage_class = Prop.computed __type __id "storage_class";
+       tagging_directive =
+         Prop.computed __type __id "tagging_directive";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       version_id = Prop.computed __type __id "version_id";
+       website_redirect =
+         Prop.computed __type __id "website_redirect";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_object_copy
+        (aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
+           ?checksum_algorithm ?content_disposition ?content_encoding
+           ?content_language ?content_type ?copy_if_match
+           ?copy_if_modified_since ?copy_if_none_match
+           ?copy_if_unmodified_since ?customer_algorithm
+           ?customer_key ?customer_key_md5 ?expected_bucket_owner
+           ?expected_source_bucket_owner ?expires ?force_destroy ?id
+           ?kms_encryption_context ?kms_key_id ?metadata
+           ?metadata_directive ?object_lock_legal_hold_status
+           ?object_lock_mode ?object_lock_retain_until_date
+           ?request_payer ?server_side_encryption
+           ?source_customer_algorithm ?source_customer_key
+           ?source_customer_key_md5 ?storage_class ?tagging_directive
+           ?tags ?tags_all ?website_redirect ~bucket ~key ~source
+           ~grant ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?checksum_algorithm ?content_disposition ?content_encoding
     ?content_language ?content_type ?copy_if_match
@@ -213,150 +328,21 @@ let register ?tf_module ?acl ?bucket_key_enabled ?cache_control
     ?server_side_encryption ?source_customer_algorithm
     ?source_customer_key ?source_customer_key_md5 ?storage_class
     ?tagging_directive ?tags ?tags_all ?website_redirect ~bucket ~key
-    ~source ~grant __resource_id =
-  let __resource_type = "aws_s3_object_copy" in
-  let __resource =
-    aws_s3_object_copy ?acl ?bucket_key_enabled ?cache_control
-      ?checksum_algorithm ?content_disposition ?content_encoding
-      ?content_language ?content_type ?copy_if_match
-      ?copy_if_modified_since ?copy_if_none_match
-      ?copy_if_unmodified_since ?customer_algorithm ?customer_key
-      ?customer_key_md5 ?expected_bucket_owner
-      ?expected_source_bucket_owner ?expires ?force_destroy ?id
-      ?kms_encryption_context ?kms_key_id ?metadata
-      ?metadata_directive ?object_lock_legal_hold_status
+    ~source ~grant __id =
+  let (r : _ Tf_core.resource) =
+    make ?acl ?bucket_key_enabled ?cache_control ?checksum_algorithm
+      ?content_disposition ?content_encoding ?content_language
+      ?content_type ?copy_if_match ?copy_if_modified_since
+      ?copy_if_none_match ?copy_if_unmodified_since
+      ?customer_algorithm ?customer_key ?customer_key_md5
+      ?expected_bucket_owner ?expected_source_bucket_owner ?expires
+      ?force_destroy ?id ?kms_encryption_context ?kms_key_id
+      ?metadata ?metadata_directive ?object_lock_legal_hold_status
       ?object_lock_mode ?object_lock_retain_until_date ?request_payer
       ?server_side_encryption ?source_customer_algorithm
       ?source_customer_key ?source_customer_key_md5 ?storage_class
       ?tagging_directive ?tags ?tags_all ?website_redirect ~bucket
-      ~key ~source ~grant ()
+      ~key ~source ~grant __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_object_copy __resource);
-  let __resource_attributes =
-    ({
-       acl = Prop.computed __resource_type __resource_id "acl";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       bucket_key_enabled =
-         Prop.computed __resource_type __resource_id
-           "bucket_key_enabled";
-       cache_control =
-         Prop.computed __resource_type __resource_id "cache_control";
-       checksum_algorithm =
-         Prop.computed __resource_type __resource_id
-           "checksum_algorithm";
-       checksum_crc32 =
-         Prop.computed __resource_type __resource_id "checksum_crc32";
-       checksum_crc32c =
-         Prop.computed __resource_type __resource_id
-           "checksum_crc32c";
-       checksum_sha1 =
-         Prop.computed __resource_type __resource_id "checksum_sha1";
-       checksum_sha256 =
-         Prop.computed __resource_type __resource_id
-           "checksum_sha256";
-       content_disposition =
-         Prop.computed __resource_type __resource_id
-           "content_disposition";
-       content_encoding =
-         Prop.computed __resource_type __resource_id
-           "content_encoding";
-       content_language =
-         Prop.computed __resource_type __resource_id
-           "content_language";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       copy_if_match =
-         Prop.computed __resource_type __resource_id "copy_if_match";
-       copy_if_modified_since =
-         Prop.computed __resource_type __resource_id
-           "copy_if_modified_since";
-       copy_if_none_match =
-         Prop.computed __resource_type __resource_id
-           "copy_if_none_match";
-       copy_if_unmodified_since =
-         Prop.computed __resource_type __resource_id
-           "copy_if_unmodified_since";
-       customer_algorithm =
-         Prop.computed __resource_type __resource_id
-           "customer_algorithm";
-       customer_key =
-         Prop.computed __resource_type __resource_id "customer_key";
-       customer_key_md5 =
-         Prop.computed __resource_type __resource_id
-           "customer_key_md5";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       expected_source_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_source_bucket_owner";
-       expiration =
-         Prop.computed __resource_type __resource_id "expiration";
-       expires =
-         Prop.computed __resource_type __resource_id "expires";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       key = Prop.computed __resource_type __resource_id "key";
-       kms_encryption_context =
-         Prop.computed __resource_type __resource_id
-           "kms_encryption_context";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       last_modified =
-         Prop.computed __resource_type __resource_id "last_modified";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       metadata_directive =
-         Prop.computed __resource_type __resource_id
-           "metadata_directive";
-       object_lock_legal_hold_status =
-         Prop.computed __resource_type __resource_id
-           "object_lock_legal_hold_status";
-       object_lock_mode =
-         Prop.computed __resource_type __resource_id
-           "object_lock_mode";
-       object_lock_retain_until_date =
-         Prop.computed __resource_type __resource_id
-           "object_lock_retain_until_date";
-       request_charged =
-         Prop.computed __resource_type __resource_id
-           "request_charged";
-       request_payer =
-         Prop.computed __resource_type __resource_id "request_payer";
-       server_side_encryption =
-         Prop.computed __resource_type __resource_id
-           "server_side_encryption";
-       source = Prop.computed __resource_type __resource_id "source";
-       source_customer_algorithm =
-         Prop.computed __resource_type __resource_id
-           "source_customer_algorithm";
-       source_customer_key =
-         Prop.computed __resource_type __resource_id
-           "source_customer_key";
-       source_customer_key_md5 =
-         Prop.computed __resource_type __resource_id
-           "source_customer_key_md5";
-       source_version_id =
-         Prop.computed __resource_type __resource_id
-           "source_version_id";
-       storage_class =
-         Prop.computed __resource_type __resource_id "storage_class";
-       tagging_directive =
-         Prop.computed __resource_type __resource_id
-           "tagging_directive";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       version_id =
-         Prop.computed __resource_type __resource_id "version_id";
-       website_redirect =
-         Prop.computed __resource_type __resource_id
-           "website_redirect";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

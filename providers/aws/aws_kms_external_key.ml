@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_kms_external_key = {
   bypass_policy_lockout_safety_check : bool prop option; [@option]
@@ -60,52 +58,55 @@ type t = {
   valid_to : string prop;
 }
 
-let register ?tf_module ?bypass_policy_lockout_safety_check
-    ?deletion_window_in_days ?description ?enabled ?id
-    ?key_material_base64 ?multi_region ?policy ?tags ?tags_all
-    ?valid_to __resource_id =
-  let __resource_type = "aws_kms_external_key" in
-  let __resource =
-    aws_kms_external_key ?bypass_policy_lockout_safety_check
-      ?deletion_window_in_days ?description ?enabled ?id
-      ?key_material_base64 ?multi_region ?policy ?tags ?tags_all
-      ?valid_to ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kms_external_key __resource);
-  let __resource_attributes =
+let make ?bypass_policy_lockout_safety_check ?deletion_window_in_days
+    ?description ?enabled ?id ?key_material_base64 ?multi_region
+    ?policy ?tags ?tags_all ?valid_to __id =
+  let __type = "aws_kms_external_key" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        bypass_policy_lockout_safety_check =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "bypass_policy_lockout_safety_check";
        deletion_window_in_days =
-         Prop.computed __resource_type __resource_id
-           "deletion_window_in_days";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+         Prop.computed __type __id "deletion_window_in_days";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
        expiration_model =
-         Prop.computed __resource_type __resource_id
-           "expiration_model";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "expiration_model";
+       id = Prop.computed __type __id "id";
        key_material_base64 =
-         Prop.computed __resource_type __resource_id
-           "key_material_base64";
-       key_state =
-         Prop.computed __resource_type __resource_id "key_state";
-       key_usage =
-         Prop.computed __resource_type __resource_id "key_usage";
-       multi_region =
-         Prop.computed __resource_type __resource_id "multi_region";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       valid_to =
-         Prop.computed __resource_type __resource_id "valid_to";
+         Prop.computed __type __id "key_material_base64";
+       key_state = Prop.computed __type __id "key_state";
+       key_usage = Prop.computed __type __id "key_usage";
+       multi_region = Prop.computed __type __id "multi_region";
+       policy = Prop.computed __type __id "policy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       valid_to = Prop.computed __type __id "valid_to";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kms_external_key
+        (aws_kms_external_key ?bypass_policy_lockout_safety_check
+           ?deletion_window_in_days ?description ?enabled ?id
+           ?key_material_base64 ?multi_region ?policy ?tags ?tags_all
+           ?valid_to ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bypass_policy_lockout_safety_check
+    ?deletion_window_in_days ?description ?enabled ?id
+    ?key_material_base64 ?multi_region ?policy ?tags ?tags_all
+    ?valid_to __id =
+  let (r : _ Tf_core.resource) =
+    make ?bypass_policy_lockout_safety_check ?deletion_window_in_days
+      ?description ?enabled ?id ?key_material_base64 ?multi_region
+      ?policy ?tags ?tags_all ?valid_to __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,16 @@ val register :
   value:string prop ->
   string ->
   t
+
+val make :
+  ?content_type:string prop ->
+  ?expiration_date:string prop ->
+  ?id:string prop ->
+  ?not_before_date:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  value:string prop ->
+  string ->
+  t Tf_core.resource

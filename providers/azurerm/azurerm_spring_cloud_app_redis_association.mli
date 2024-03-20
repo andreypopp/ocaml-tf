@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   spring_cloud_app_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ssl_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  redis_access_key:string prop ->
+  redis_cache_id:string prop ->
+  spring_cloud_app_id:string prop ->
+  string ->
+  t Tf_core.resource

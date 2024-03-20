@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_amplify_branch = {
   app_id : string prop;  (** app_id *)
@@ -95,81 +93,83 @@ type t = {
   ttl : string prop;
 }
 
+let make ?backend_environment_arn ?basic_auth_credentials
+    ?description ?display_name ?enable_auto_build ?enable_basic_auth
+    ?enable_notification ?enable_performance_mode
+    ?enable_pull_request_preview ?environment_variables ?framework
+    ?id ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
+    ~app_id ~branch_name __id =
+  let __type = "aws_amplify_branch" in
+  let __attrs =
+    ({
+       app_id = Prop.computed __type __id "app_id";
+       arn = Prop.computed __type __id "arn";
+       associated_resources =
+         Prop.computed __type __id "associated_resources";
+       backend_environment_arn =
+         Prop.computed __type __id "backend_environment_arn";
+       basic_auth_credentials =
+         Prop.computed __type __id "basic_auth_credentials";
+       branch_name = Prop.computed __type __id "branch_name";
+       custom_domains = Prop.computed __type __id "custom_domains";
+       description = Prop.computed __type __id "description";
+       destination_branch =
+         Prop.computed __type __id "destination_branch";
+       display_name = Prop.computed __type __id "display_name";
+       enable_auto_build =
+         Prop.computed __type __id "enable_auto_build";
+       enable_basic_auth =
+         Prop.computed __type __id "enable_basic_auth";
+       enable_notification =
+         Prop.computed __type __id "enable_notification";
+       enable_performance_mode =
+         Prop.computed __type __id "enable_performance_mode";
+       enable_pull_request_preview =
+         Prop.computed __type __id "enable_pull_request_preview";
+       environment_variables =
+         Prop.computed __type __id "environment_variables";
+       framework = Prop.computed __type __id "framework";
+       id = Prop.computed __type __id "id";
+       pull_request_environment_name =
+         Prop.computed __type __id "pull_request_environment_name";
+       source_branch = Prop.computed __type __id "source_branch";
+       stage = Prop.computed __type __id "stage";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       ttl = Prop.computed __type __id "ttl";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_amplify_branch
+        (aws_amplify_branch ?backend_environment_arn
+           ?basic_auth_credentials ?description ?display_name
+           ?enable_auto_build ?enable_basic_auth ?enable_notification
+           ?enable_performance_mode ?enable_pull_request_preview
+           ?environment_variables ?framework ?id
+           ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
+           ~app_id ~branch_name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?backend_environment_arn
     ?basic_auth_credentials ?description ?display_name
     ?enable_auto_build ?enable_basic_auth ?enable_notification
     ?enable_performance_mode ?enable_pull_request_preview
     ?environment_variables ?framework ?id
     ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
-    ~app_id ~branch_name __resource_id =
-  let __resource_type = "aws_amplify_branch" in
-  let __resource =
-    aws_amplify_branch ?backend_environment_arn
-      ?basic_auth_credentials ?description ?display_name
-      ?enable_auto_build ?enable_basic_auth ?enable_notification
+    ~app_id ~branch_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?backend_environment_arn ?basic_auth_credentials
+      ?description ?display_name ?enable_auto_build
+      ?enable_basic_auth ?enable_notification
       ?enable_performance_mode ?enable_pull_request_preview
       ?environment_variables ?framework ?id
       ?pull_request_environment_name ?stage ?tags ?tags_all ?ttl
-      ~app_id ~branch_name ()
+      ~app_id ~branch_name __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_amplify_branch __resource);
-  let __resource_attributes =
-    ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       associated_resources =
-         Prop.computed __resource_type __resource_id
-           "associated_resources";
-       backend_environment_arn =
-         Prop.computed __resource_type __resource_id
-           "backend_environment_arn";
-       basic_auth_credentials =
-         Prop.computed __resource_type __resource_id
-           "basic_auth_credentials";
-       branch_name =
-         Prop.computed __resource_type __resource_id "branch_name";
-       custom_domains =
-         Prop.computed __resource_type __resource_id "custom_domains";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       destination_branch =
-         Prop.computed __resource_type __resource_id
-           "destination_branch";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enable_auto_build =
-         Prop.computed __resource_type __resource_id
-           "enable_auto_build";
-       enable_basic_auth =
-         Prop.computed __resource_type __resource_id
-           "enable_basic_auth";
-       enable_notification =
-         Prop.computed __resource_type __resource_id
-           "enable_notification";
-       enable_performance_mode =
-         Prop.computed __resource_type __resource_id
-           "enable_performance_mode";
-       enable_pull_request_preview =
-         Prop.computed __resource_type __resource_id
-           "enable_pull_request_preview";
-       environment_variables =
-         Prop.computed __resource_type __resource_id
-           "environment_variables";
-       framework =
-         Prop.computed __resource_type __resource_id "framework";
-       id = Prop.computed __resource_type __resource_id "id";
-       pull_request_environment_name =
-         Prop.computed __resource_type __resource_id
-           "pull_request_environment_name";
-       source_branch =
-         Prop.computed __resource_type __resource_id "source_branch";
-       stage = Prop.computed __resource_type __resource_id "stage";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

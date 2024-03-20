@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,12 @@ val register :
   routing_policy:routing_policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  virtual_hub_id:string prop ->
+  routing_policy:routing_policy list ->
+  string ->
+  t Tf_core.resource

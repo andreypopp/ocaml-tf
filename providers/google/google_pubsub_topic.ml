@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
@@ -107,36 +105,44 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?kms_key_name ?labels
-    ?message_retention_duration ?project ?timeouts ~name
-    ~message_storage_policy ~schema_settings __resource_id =
-  let __resource_type = "google_pubsub_topic" in
-  let __resource =
-    google_pubsub_topic ?id ?kms_key_name ?labels
-      ?message_retention_duration ?project ?timeouts ~name
-      ~message_storage_policy ~schema_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_pubsub_topic __resource);
-  let __resource_attributes =
+let make ?id ?kms_key_name ?labels ?message_retention_duration
+    ?project ?timeouts ~name ~message_storage_policy ~schema_settings
+    __id =
+  let __type = "google_pubsub_topic" in
+  let __attrs =
     ({
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_name =
-         Prop.computed __resource_type __resource_id "kms_key_name";
-       labels = Prop.computed __resource_type __resource_id "labels";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       kms_key_name = Prop.computed __type __id "kms_key_name";
+       labels = Prop.computed __type __id "labels";
        message_retention_duration =
-         Prop.computed __resource_type __resource_id
-           "message_retention_duration";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "message_retention_duration";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_pubsub_topic
+        (google_pubsub_topic ?id ?kms_key_name ?labels
+           ?message_retention_duration ?project ?timeouts ~name
+           ~message_storage_policy ~schema_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kms_key_name ?labels
+    ?message_retention_duration ?project ?timeouts ~name
+    ~message_storage_policy ~schema_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kms_key_name ?labels ?message_retention_duration
+      ?project ?timeouts ~name ~message_storage_policy
+      ~schema_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

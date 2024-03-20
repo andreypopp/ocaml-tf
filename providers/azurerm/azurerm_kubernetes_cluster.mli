@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -704,3 +704,68 @@ val register :
   workload_autoscaler_profile:workload_autoscaler_profile list ->
   string ->
   t
+
+val make :
+  ?api_server_authorized_ip_ranges:string prop list ->
+  ?automatic_channel_upgrade:string prop ->
+  ?azure_policy_enabled:bool prop ->
+  ?custom_ca_trust_certificates_base64:string prop list ->
+  ?disk_encryption_set_id:string prop ->
+  ?dns_prefix:string prop ->
+  ?dns_prefix_private_cluster:string prop ->
+  ?edge_zone:string prop ->
+  ?enable_pod_security_policy:bool prop ->
+  ?http_application_routing_enabled:bool prop ->
+  ?id:string prop ->
+  ?image_cleaner_enabled:bool prop ->
+  ?image_cleaner_interval_hours:float prop ->
+  ?kubernetes_version:string prop ->
+  ?local_account_disabled:bool prop ->
+  ?node_os_channel_upgrade:string prop ->
+  ?node_resource_group:string prop ->
+  ?oidc_issuer_enabled:bool prop ->
+  ?open_service_mesh_enabled:bool prop ->
+  ?private_cluster_enabled:bool prop ->
+  ?private_cluster_public_fqdn_enabled:bool prop ->
+  ?private_dns_zone_id:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?role_based_access_control_enabled:bool prop ->
+  ?run_command_enabled:bool prop ->
+  ?sku_tier:string prop ->
+  ?support_plan:string prop ->
+  ?tags:(string * string prop) list ->
+  ?workload_identity_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  aci_connector_linux:aci_connector_linux list ->
+  api_server_access_profile:api_server_access_profile list ->
+  auto_scaler_profile:auto_scaler_profile list ->
+  azure_active_directory_role_based_access_control:
+    azure_active_directory_role_based_access_control list ->
+  confidential_computing:confidential_computing list ->
+  default_node_pool:default_node_pool list ->
+  http_proxy_config:http_proxy_config list ->
+  identity:identity list ->
+  ingress_application_gateway:ingress_application_gateway list ->
+  key_management_service:key_management_service list ->
+  key_vault_secrets_provider:key_vault_secrets_provider list ->
+  kubelet_identity:kubelet_identity list ->
+  linux_profile:linux_profile list ->
+  maintenance_window:maintenance_window list ->
+  maintenance_window_auto_upgrade:
+    maintenance_window_auto_upgrade list ->
+  maintenance_window_node_os:maintenance_window_node_os list ->
+  microsoft_defender:microsoft_defender list ->
+  monitor_metrics:monitor_metrics list ->
+  network_profile:network_profile list ->
+  oms_agent:oms_agent list ->
+  service_mesh_profile:service_mesh_profile list ->
+  service_principal:service_principal list ->
+  storage_profile:storage_profile list ->
+  web_app_routing:web_app_routing list ->
+  windows_profile:windows_profile list ->
+  workload_autoscaler_profile:workload_autoscaler_profile list ->
+  string ->
+  t Tf_core.resource

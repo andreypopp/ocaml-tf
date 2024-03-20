@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -643,3 +643,14 @@ val register :
   connector_profile_config:connector_profile_config list ->
   string ->
   t
+
+val make :
+  ?connector_label:string prop ->
+  ?id:string prop ->
+  ?kms_arn:string prop ->
+  connection_mode:string prop ->
+  connector_type:string prop ->
+  name:string prop ->
+  connector_profile_config:connector_profile_config list ->
+  string ->
+  t Tf_core.resource

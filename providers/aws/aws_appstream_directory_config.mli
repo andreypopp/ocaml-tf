@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -42,3 +42,11 @@ val register :
   service_account_credentials:service_account_credentials list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  directory_name:string prop ->
+  organizational_unit_distinguished_names:string prop list ->
+  service_account_credentials:service_account_credentials list ->
+  string ->
+  t Tf_core.resource

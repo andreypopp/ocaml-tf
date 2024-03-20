@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,17 @@ val register :
   namespace_junction:namespace_junction list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?verification_timer_in_seconds:float prop ->
+  ?write_back_timer_in_seconds:float prop ->
+  ?timeouts:timeouts ->
+  cache_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  target_host_name:string prop ->
+  usage_model:string prop ->
+  namespace_junction:namespace_junction list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_auditmanager_account_registration = {
   delegated_admin_account : string prop option; [@option]
@@ -27,28 +25,37 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?delegated_admin_account
-    ?deregister_on_destroy ?kms_key __resource_id =
-  let __resource_type = "aws_auditmanager_account_registration" in
-  let __resource =
-    aws_auditmanager_account_registration ?delegated_admin_account
-      ?deregister_on_destroy ?kms_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_auditmanager_account_registration __resource);
-  let __resource_attributes =
+let make ?delegated_admin_account ?deregister_on_destroy ?kms_key
+    __id =
+  let __type = "aws_auditmanager_account_registration" in
+  let __attrs =
     ({
        delegated_admin_account =
-         Prop.computed __resource_type __resource_id
-           "delegated_admin_account";
+         Prop.computed __type __id "delegated_admin_account";
        deregister_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "deregister_on_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key =
-         Prop.computed __resource_type __resource_id "kms_key";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "deregister_on_destroy";
+       id = Prop.computed __type __id "id";
+       kms_key = Prop.computed __type __id "kms_key";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_auditmanager_account_registration
+        (aws_auditmanager_account_registration
+           ?delegated_admin_account ?deregister_on_destroy ?kms_key
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delegated_admin_account
+    ?deregister_on_destroy ?kms_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?delegated_admin_account ?deregister_on_destroy ?kms_key
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

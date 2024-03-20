@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -35,24 +33,30 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~metrics_scope ~name
-    __resource_id =
-  let __resource_type = "google_monitoring_monitored_project" in
-  let __resource =
-    google_monitoring_monitored_project ?id ?timeouts ~metrics_scope
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_monitored_project __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~metrics_scope ~name __id =
+  let __type = "google_monitoring_monitored_project" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       metrics_scope =
-         Prop.computed __resource_type __resource_id "metrics_scope";
-       name = Prop.computed __resource_type __resource_id "name";
+       create_time = Prop.computed __type __id "create_time";
+       id = Prop.computed __type __id "id";
+       metrics_scope = Prop.computed __type __id "metrics_scope";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_monitored_project
+        (google_monitoring_monitored_project ?id ?timeouts
+           ~metrics_scope ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~metrics_scope ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~metrics_scope ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

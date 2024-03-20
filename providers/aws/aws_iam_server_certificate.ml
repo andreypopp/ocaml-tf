@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_server_certificate = {
   certificate_body : string prop;  (** certificate_body *)
@@ -50,41 +48,44 @@ type t = {
   upload_date : string prop;
 }
 
-let register ?tf_module ?certificate_chain ?id ?name ?name_prefix
-    ?path ?tags ?tags_all ~certificate_body ~private_key
-    __resource_id =
-  let __resource_type = "aws_iam_server_certificate" in
-  let __resource =
-    aws_iam_server_certificate ?certificate_chain ?id ?name
-      ?name_prefix ?path ?tags ?tags_all ~certificate_body
-      ~private_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_server_certificate __resource);
-  let __resource_attributes =
+let make ?certificate_chain ?id ?name ?name_prefix ?path ?tags
+    ?tags_all ~certificate_body ~private_key __id =
+  let __type = "aws_iam_server_certificate" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        certificate_body =
-         Prop.computed __resource_type __resource_id
-           "certificate_body";
+         Prop.computed __type __id "certificate_body";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       expiration =
-         Prop.computed __resource_type __resource_id "expiration";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       path = Prop.computed __resource_type __resource_id "path";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       upload_date =
-         Prop.computed __resource_type __resource_id "upload_date";
+         Prop.computed __type __id "certificate_chain";
+       expiration = Prop.computed __type __id "expiration";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       path = Prop.computed __type __id "path";
+       private_key = Prop.computed __type __id "private_key";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       upload_date = Prop.computed __type __id "upload_date";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_server_certificate
+        (aws_iam_server_certificate ?certificate_chain ?id ?name
+           ?name_prefix ?path ?tags ?tags_all ~certificate_body
+           ~private_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_chain ?id ?name ?name_prefix
+    ?path ?tags ?tags_all ~certificate_body ~private_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_chain ?id ?name ?name_prefix ?path ?tags
+      ?tags_all ~certificate_body ~private_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

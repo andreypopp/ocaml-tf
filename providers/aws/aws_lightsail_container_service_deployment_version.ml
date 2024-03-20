@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type container = {
   command : string prop list option; [@option]  (** command *)
@@ -89,29 +87,35 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?id ?timeouts ~service_name ~container
-    ~public_endpoint __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~service_name ~container ~public_endpoint __id
+    =
+  let __type =
     "aws_lightsail_container_service_deployment_version"
   in
-  let __resource =
-    aws_lightsail_container_service_deployment_version ?id ?timeouts
-      ~service_name ~container ~public_endpoint ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lightsail_container_service_deployment_version
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       state = Prop.computed __resource_type __resource_id "state";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       service_name = Prop.computed __type __id "service_name";
+       state = Prop.computed __type __id "state";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lightsail_container_service_deployment_version
+        (aws_lightsail_container_service_deployment_version ?id
+           ?timeouts ~service_name ~container ~public_endpoint ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~service_name ~container
+    ~public_endpoint __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~service_name ~container ~public_endpoint __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,39 +54,41 @@ type t = {
   vpc_identifier : string prop;
 }
 
-let register ?tf_module ?id ?security_group_ids ?tags ?tags_all
-    ?timeouts ~service_network_identifier ~vpc_identifier
-    __resource_id =
-  let __resource_type =
-    "aws_vpclattice_service_network_vpc_association"
-  in
-  let __resource =
-    aws_vpclattice_service_network_vpc_association ?id
-      ?security_group_ids ?tags ?tags_all ?timeouts
-      ~service_network_identifier ~vpc_identifier ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_service_network_vpc_association
-       __resource);
-  let __resource_attributes =
+let make ?id ?security_group_ids ?tags ?tags_all ?timeouts
+    ~service_network_identifier ~vpc_identifier __id =
+  let __type = "aws_vpclattice_service_network_vpc_association" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_by =
-         Prop.computed __resource_type __resource_id "created_by";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       created_by = Prop.computed __type __id "created_by";
+       id = Prop.computed __type __id "id";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
+         Prop.computed __type __id "security_group_ids";
        service_network_identifier =
-         Prop.computed __resource_type __resource_id
-           "service_network_identifier";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_identifier =
-         Prop.computed __resource_type __resource_id "vpc_identifier";
+         Prop.computed __type __id "service_network_identifier";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_identifier = Prop.computed __type __id "vpc_identifier";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_service_network_vpc_association
+        (aws_vpclattice_service_network_vpc_association ?id
+           ?security_group_ids ?tags ?tags_all ?timeouts
+           ~service_network_identifier ~vpc_identifier ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?security_group_ids ?tags ?tags_all
+    ?timeouts ~service_network_identifier ~vpc_identifier __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?security_group_ids ?tags ?tags_all ?timeouts
+      ~service_network_identifier ~vpc_identifier __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

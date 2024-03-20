@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -130,3 +130,18 @@ val register :
   kustomizations:kustomizations list ->
   string ->
   t
+
+val make :
+  ?continuous_reconciliation_enabled:bool prop ->
+  ?id:string prop ->
+  ?scope:string prop ->
+  ?timeouts:timeouts ->
+  cluster_id:string prop ->
+  name:string prop ->
+  namespace:string prop ->
+  blob_storage:blob_storage list ->
+  bucket:bucket list ->
+  git_repository:git_repository list ->
+  kustomizations:kustomizations list ->
+  string ->
+  t Tf_core.resource

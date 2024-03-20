@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,24 +36,30 @@ type t = {
   secret : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~brand ~display_name
-    __resource_id =
-  let __resource_type = "google_iap_client" in
-  let __resource =
-    google_iap_client ?id ?timeouts ~brand ~display_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_iap_client __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~brand ~display_name __id =
+  let __type = "google_iap_client" in
+  let __attrs =
     ({
-       brand = Prop.computed __resource_type __resource_id "brand";
-       client_id =
-         Prop.computed __resource_type __resource_id "client_id";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       secret = Prop.computed __resource_type __resource_id "secret";
+       brand = Prop.computed __type __id "brand";
+       client_id = Prop.computed __type __id "client_id";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       secret = Prop.computed __type __id "secret";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_iap_client
+        (google_iap_client ?id ?timeouts ~brand ~display_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~brand ~display_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~brand ~display_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

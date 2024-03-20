@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,17 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?user_plane_access_ipv4_address:string prop ->
+  ?user_plane_access_ipv4_gateway:string prop ->
+  ?user_plane_access_ipv4_subnet:string prop ->
+  ?user_plane_access_name:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  mobile_network_packet_core_control_plane_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

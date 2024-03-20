@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type acl_configuration = {
   s3_acl_option : string prop;  (** s3_acl_option *)
@@ -65,32 +63,41 @@ type t = {
   properties : (string * string) list prop;
 }
 
-let register ?tf_module ?bucket ?comment ?expected_bucket_owner
-    ?force_destroy ?id ?properties ~name ~acl_configuration
-    ~encryption_configuration __resource_id =
-  let __resource_type = "aws_athena_database" in
-  let __resource =
-    aws_athena_database ?bucket ?comment ?expected_bucket_owner
-      ?force_destroy ?id ?properties ~name ~acl_configuration
-      ~encryption_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_athena_database __resource);
-  let __resource_attributes =
+let make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
+    ?properties ~name ~acl_configuration ~encryption_configuration
+    __id =
+  let __type = "aws_athena_database" in
+  let __attrs =
     ({
-       bucket = Prop.computed __resource_type __resource_id "bucket";
-       comment =
-         Prop.computed __resource_type __resource_id "comment";
+       bucket = Prop.computed __type __id "bucket";
+       comment = Prop.computed __type __id "comment";
        expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       properties =
-         Prop.computed __resource_type __resource_id "properties";
+         Prop.computed __type __id "expected_bucket_owner";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       properties = Prop.computed __type __id "properties";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_athena_database
+        (aws_athena_database ?bucket ?comment ?expected_bucket_owner
+           ?force_destroy ?id ?properties ~name ~acl_configuration
+           ~encryption_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?bucket ?comment ?expected_bucket_owner
+    ?force_destroy ?id ?properties ~name ~acl_configuration
+    ~encryption_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?bucket ?comment ?expected_bucket_owner ?force_destroy ?id
+      ?properties ~name ~acl_configuration ~encryption_configuration
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

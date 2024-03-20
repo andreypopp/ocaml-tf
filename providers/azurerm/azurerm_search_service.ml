@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = { type_ : string prop [@key "type"]  (** type *) }
 [@@deriving yojson_of]
@@ -105,65 +103,71 @@ type t = {
   tags : (string * string) list prop;
 }
 
+let make ?allowed_ips ?authentication_failure_mode
+    ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
+    ?local_authentication_enabled ?partition_count
+    ?public_network_access_enabled ?replica_count
+    ?semantic_search_sku ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~identity __id =
+  let __type = "azurerm_search_service" in
+  let __attrs =
+    ({
+       allowed_ips = Prop.computed __type __id "allowed_ips";
+       authentication_failure_mode =
+         Prop.computed __type __id "authentication_failure_mode";
+       customer_managed_key_enforcement_enabled =
+         Prop.computed __type __id
+           "customer_managed_key_enforcement_enabled";
+       hosting_mode = Prop.computed __type __id "hosting_mode";
+       id = Prop.computed __type __id "id";
+       local_authentication_enabled =
+         Prop.computed __type __id "local_authentication_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       partition_count = Prop.computed __type __id "partition_count";
+       primary_key = Prop.computed __type __id "primary_key";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       query_keys = Prop.computed __type __id "query_keys";
+       replica_count = Prop.computed __type __id "replica_count";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       secondary_key = Prop.computed __type __id "secondary_key";
+       semantic_search_sku =
+         Prop.computed __type __id "semantic_search_sku";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_search_service
+        (azurerm_search_service ?allowed_ips
+           ?authentication_failure_mode
+           ?customer_managed_key_enforcement_enabled ?hosting_mode
+           ?id ?local_authentication_enabled ?partition_count
+           ?public_network_access_enabled ?replica_count
+           ?semantic_search_sku ?tags ?timeouts ~location ~name
+           ~resource_group_name ~sku ~identity ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allowed_ips ?authentication_failure_mode
     ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
     ?local_authentication_enabled ?partition_count
     ?public_network_access_enabled ?replica_count
     ?semantic_search_sku ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~identity __resource_id =
-  let __resource_type = "azurerm_search_service" in
-  let __resource =
-    azurerm_search_service ?allowed_ips ?authentication_failure_mode
+    ~resource_group_name ~sku ~identity __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_ips ?authentication_failure_mode
       ?customer_managed_key_enforcement_enabled ?hosting_mode ?id
       ?local_authentication_enabled ?partition_count
       ?public_network_access_enabled ?replica_count
       ?semantic_search_sku ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~identity ()
+      ~resource_group_name ~sku ~identity __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_search_service __resource);
-  let __resource_attributes =
-    ({
-       allowed_ips =
-         Prop.computed __resource_type __resource_id "allowed_ips";
-       authentication_failure_mode =
-         Prop.computed __resource_type __resource_id
-           "authentication_failure_mode";
-       customer_managed_key_enforcement_enabled =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key_enforcement_enabled";
-       hosting_mode =
-         Prop.computed __resource_type __resource_id "hosting_mode";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       partition_count =
-         Prop.computed __resource_type __resource_id
-           "partition_count";
-       primary_key =
-         Prop.computed __resource_type __resource_id "primary_key";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       query_keys =
-         Prop.computed __resource_type __resource_id "query_keys";
-       replica_count =
-         Prop.computed __resource_type __resource_id "replica_count";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       secondary_key =
-         Prop.computed __resource_type __resource_id "secondary_key";
-       semantic_search_sku =
-         Prop.computed __resource_type __resource_id
-           "semantic_search_sku";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

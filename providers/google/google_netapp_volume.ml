@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type export_policy__rules = {
   access_type : string prop option; [@option]
@@ -290,96 +288,82 @@ type t = {
   used_gib : string prop;
 }
 
+let make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
+    ?project ?restricted_actions ?security_style ?smb_settings
+    ?snapshot_directory ?unix_permissions ?timeouts ~capacity_gib
+    ~location ~name ~protocols ~share_name ~storage_pool
+    ~export_policy ~restore_parameters ~snapshot_policy __id =
+  let __type = "google_netapp_volume" in
+  let __attrs =
+    ({
+       active_directory =
+         Prop.computed __type __id "active_directory";
+       capacity_gib = Prop.computed __type __id "capacity_gib";
+       create_time = Prop.computed __type __id "create_time";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       encryption_type = Prop.computed __type __id "encryption_type";
+       has_replication = Prop.computed __type __id "has_replication";
+       id = Prop.computed __type __id "id";
+       kerberos_enabled =
+         Prop.computed __type __id "kerberos_enabled";
+       kms_config = Prop.computed __type __id "kms_config";
+       labels = Prop.computed __type __id "labels";
+       ldap_enabled = Prop.computed __type __id "ldap_enabled";
+       location = Prop.computed __type __id "location";
+       mount_options = Prop.computed __type __id "mount_options";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       protocols = Prop.computed __type __id "protocols";
+       psa_range = Prop.computed __type __id "psa_range";
+       restricted_actions =
+         Prop.computed __type __id "restricted_actions";
+       security_style = Prop.computed __type __id "security_style";
+       service_level = Prop.computed __type __id "service_level";
+       share_name = Prop.computed __type __id "share_name";
+       smb_settings = Prop.computed __type __id "smb_settings";
+       snapshot_directory =
+         Prop.computed __type __id "snapshot_directory";
+       state = Prop.computed __type __id "state";
+       state_details = Prop.computed __type __id "state_details";
+       storage_pool = Prop.computed __type __id "storage_pool";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       unix_permissions =
+         Prop.computed __type __id "unix_permissions";
+       used_gib = Prop.computed __type __id "used_gib";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_netapp_volume
+        (google_netapp_volume ?deletion_policy ?description ?id
+           ?kerberos_enabled ?labels ?project ?restricted_actions
+           ?security_style ?smb_settings ?snapshot_directory
+           ?unix_permissions ?timeouts ~capacity_gib ~location ~name
+           ~protocols ~share_name ~storage_pool ~export_policy
+           ~restore_parameters ~snapshot_policy ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?deletion_policy ?description ?id
     ?kerberos_enabled ?labels ?project ?restricted_actions
     ?security_style ?smb_settings ?snapshot_directory
     ?unix_permissions ?timeouts ~capacity_gib ~location ~name
     ~protocols ~share_name ~storage_pool ~export_policy
-    ~restore_parameters ~snapshot_policy __resource_id =
-  let __resource_type = "google_netapp_volume" in
-  let __resource =
-    google_netapp_volume ?deletion_policy ?description ?id
-      ?kerberos_enabled ?labels ?project ?restricted_actions
-      ?security_style ?smb_settings ?snapshot_directory
-      ?unix_permissions ?timeouts ~capacity_gib ~location ~name
-      ~protocols ~share_name ~storage_pool ~export_policy
-      ~restore_parameters ~snapshot_policy ()
+    ~restore_parameters ~snapshot_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_policy ?description ?id ?kerberos_enabled ?labels
+      ?project ?restricted_actions ?security_style ?smb_settings
+      ?snapshot_directory ?unix_permissions ?timeouts ~capacity_gib
+      ~location ~name ~protocols ~share_name ~storage_pool
+      ~export_policy ~restore_parameters ~snapshot_policy __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_netapp_volume __resource);
-  let __resource_attributes =
-    ({
-       active_directory =
-         Prop.computed __resource_type __resource_id
-           "active_directory";
-       capacity_gib =
-         Prop.computed __resource_type __resource_id "capacity_gib";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       encryption_type =
-         Prop.computed __resource_type __resource_id
-           "encryption_type";
-       has_replication =
-         Prop.computed __resource_type __resource_id
-           "has_replication";
-       id = Prop.computed __resource_type __resource_id "id";
-       kerberos_enabled =
-         Prop.computed __resource_type __resource_id
-           "kerberos_enabled";
-       kms_config =
-         Prop.computed __resource_type __resource_id "kms_config";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       ldap_enabled =
-         Prop.computed __resource_type __resource_id "ldap_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       mount_options =
-         Prop.computed __resource_type __resource_id "mount_options";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       protocols =
-         Prop.computed __resource_type __resource_id "protocols";
-       psa_range =
-         Prop.computed __resource_type __resource_id "psa_range";
-       restricted_actions =
-         Prop.computed __resource_type __resource_id
-           "restricted_actions";
-       security_style =
-         Prop.computed __resource_type __resource_id "security_style";
-       service_level =
-         Prop.computed __resource_type __resource_id "service_level";
-       share_name =
-         Prop.computed __resource_type __resource_id "share_name";
-       smb_settings =
-         Prop.computed __resource_type __resource_id "smb_settings";
-       snapshot_directory =
-         Prop.computed __resource_type __resource_id
-           "snapshot_directory";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_details =
-         Prop.computed __resource_type __resource_id "state_details";
-       storage_pool =
-         Prop.computed __resource_type __resource_id "storage_pool";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       unix_permissions =
-         Prop.computed __resource_type __resource_id
-           "unix_permissions";
-       used_gib =
-         Prop.computed __resource_type __resource_id "used_gib";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

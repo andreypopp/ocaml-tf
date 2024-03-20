@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,42 +60,48 @@ type t = {
   versioning_scheme : string prop;
 }
 
-let register ?tf_module ?description ?id ?version_header_name
-    ?version_query_name ?timeouts ~api_management_name ~display_name
-    ~name ~resource_group_name ~versioning_scheme __resource_id =
-  let __resource_type = "azurerm_api_management_api_version_set" in
-  let __resource =
-    azurerm_api_management_api_version_set ?description ?id
-      ?version_header_name ?version_query_name ?timeouts
-      ~api_management_name ~display_name ~name ~resource_group_name
-      ~versioning_scheme ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_api_version_set __resource);
-  let __resource_attributes =
+let make ?description ?id ?version_header_name ?version_query_name
+    ?timeouts ~api_management_name ~display_name ~name
+    ~resource_group_name ~versioning_scheme __id =
+  let __type = "azurerm_api_management_api_version_set" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "api_management_name";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        version_header_name =
-         Prop.computed __resource_type __resource_id
-           "version_header_name";
+         Prop.computed __type __id "version_header_name";
        version_query_name =
-         Prop.computed __resource_type __resource_id
-           "version_query_name";
+         Prop.computed __type __id "version_query_name";
        versioning_scheme =
-         Prop.computed __resource_type __resource_id
-           "versioning_scheme";
+         Prop.computed __type __id "versioning_scheme";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_api_version_set
+        (azurerm_api_management_api_version_set ?description ?id
+           ?version_header_name ?version_query_name ?timeouts
+           ~api_management_name ~display_name ~name
+           ~resource_group_name ~versioning_scheme ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?version_header_name
+    ?version_query_name ?timeouts ~api_management_name ~display_name
+    ~name ~resource_group_name ~versioning_scheme __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?version_header_name ?version_query_name
+      ?timeouts ~api_management_name ~display_name ~name
+      ~resource_group_name ~versioning_scheme __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

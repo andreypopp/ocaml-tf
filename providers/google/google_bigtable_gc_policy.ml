@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type max_age = {
   days : float prop option; [@option]
@@ -82,34 +80,39 @@ type t = {
   table : string prop;
 }
 
-let register ?tf_module ?deletion_policy ?gc_rules ?id ?mode ?project
-    ?timeouts ~column_family ~instance_name ~table ~max_age
-    ~max_version __resource_id =
-  let __resource_type = "google_bigtable_gc_policy" in
-  let __resource =
-    google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id ?mode
-      ?project ?timeouts ~column_family ~instance_name ~table
-      ~max_age ~max_version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigtable_gc_policy __resource);
-  let __resource_attributes =
+let make ?deletion_policy ?gc_rules ?id ?mode ?project ?timeouts
+    ~column_family ~instance_name ~table ~max_age ~max_version __id =
+  let __type = "google_bigtable_gc_policy" in
+  let __attrs =
     ({
-       column_family =
-         Prop.computed __resource_type __resource_id "column_family";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       gc_rules =
-         Prop.computed __resource_type __resource_id "gc_rules";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_name =
-         Prop.computed __resource_type __resource_id "instance_name";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       table = Prop.computed __resource_type __resource_id "table";
+       column_family = Prop.computed __type __id "column_family";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       gc_rules = Prop.computed __type __id "gc_rules";
+       id = Prop.computed __type __id "id";
+       instance_name = Prop.computed __type __id "instance_name";
+       mode = Prop.computed __type __id "mode";
+       project = Prop.computed __type __id "project";
+       table = Prop.computed __type __id "table";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigtable_gc_policy
+        (google_bigtable_gc_policy ?deletion_policy ?gc_rules ?id
+           ?mode ?project ?timeouts ~column_family ~instance_name
+           ~table ~max_age ~max_version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?deletion_policy ?gc_rules ?id ?mode ?project
+    ?timeouts ~column_family ~instance_name ~table ~max_age
+    ~max_version __id =
+  let (r : _ Tf_core.resource) =
+    make ?deletion_policy ?gc_rules ?id ?mode ?project ?timeouts
+      ~column_family ~instance_name ~table ~max_age ~max_version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

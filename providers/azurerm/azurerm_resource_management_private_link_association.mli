@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,13 @@ val register :
   resource_management_private_link_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  management_group_id:string prop ->
+  public_network_access_enabled:bool prop ->
+  resource_management_private_link_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscaling_policy__cpu_utilization = {
   predictive_method : string prop option; [@option]
@@ -250,31 +248,38 @@ type t = {
   target : string prop;
 }
 
-let register ?tf_module ?description ?id ?project ?region ?timeouts
-    ~name ~target ~autoscaling_policy __resource_id =
-  let __resource_type = "google_compute_region_autoscaler" in
-  let __resource =
-    google_compute_region_autoscaler ?description ?id ?project
-      ?region ?timeouts ~name ~target ~autoscaling_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_region_autoscaler __resource);
-  let __resource_attributes =
+let make ?description ?id ?project ?region ?timeouts ~name ~target
+    ~autoscaling_policy __id =
+  let __type = "google_compute_region_autoscaler" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       target = Prop.computed __resource_type __resource_id "target";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       self_link = Prop.computed __type __id "self_link";
+       target = Prop.computed __type __id "target";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_region_autoscaler
+        (google_compute_region_autoscaler ?description ?id ?project
+           ?region ?timeouts ~name ~target ~autoscaling_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?project ?region ?timeouts
+    ~name ~target ~autoscaling_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?project ?region ?timeouts ~name ~target
+      ~autoscaling_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

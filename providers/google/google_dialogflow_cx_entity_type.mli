@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,18 @@ val register :
   excluded_phrases:excluded_phrases list ->
   string ->
   t
+
+val make :
+  ?auto_expansion_mode:string prop ->
+  ?enable_fuzzy_extraction:bool prop ->
+  ?id:string prop ->
+  ?language_code:string prop ->
+  ?parent:string prop ->
+  ?redact:bool prop ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  kind:string prop ->
+  entities:entities list ->
+  excluded_phrases:excluded_phrases list ->
+  string ->
+  t Tf_core.resource

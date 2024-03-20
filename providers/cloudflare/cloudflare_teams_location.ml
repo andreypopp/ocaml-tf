@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type networks = {
   network : string prop;
@@ -43,35 +41,38 @@ type t = {
   policy_ids : string list prop;
 }
 
-let register ?tf_module ?client_default ?id ~account_id ~name
-    ~networks __resource_id =
-  let __resource_type = "cloudflare_teams_location" in
-  let __resource =
-    cloudflare_teams_location ?client_default ?id ~account_id ~name
-      ~networks ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_teams_location __resource);
-  let __resource_attributes =
+let make ?client_default ?id ~account_id ~name ~networks __id =
+  let __type = "cloudflare_teams_location" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
+       account_id = Prop.computed __type __id "account_id";
        anonymized_logs_enabled =
-         Prop.computed __resource_type __resource_id
-           "anonymized_logs_enabled";
-       client_default =
-         Prop.computed __resource_type __resource_id "client_default";
-       doh_subdomain =
-         Prop.computed __resource_type __resource_id "doh_subdomain";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
+         Prop.computed __type __id "anonymized_logs_enabled";
+       client_default = Prop.computed __type __id "client_default";
+       doh_subdomain = Prop.computed __type __id "doh_subdomain";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
        ipv4_destination =
-         Prop.computed __resource_type __resource_id
-           "ipv4_destination";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_ids =
-         Prop.computed __resource_type __resource_id "policy_ids";
+         Prop.computed __type __id "ipv4_destination";
+       name = Prop.computed __type __id "name";
+       policy_ids = Prop.computed __type __id "policy_ids";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_teams_location
+        (cloudflare_teams_location ?client_default ?id ~account_id
+           ~name ~networks ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?client_default ?id ~account_id ~name
+    ~networks __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_default ?id ~account_id ~name ~networks __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache = {
   compression_enabled : bool prop option; [@option]
@@ -112,63 +110,71 @@ type t = {
   supported_protocols : string list prop;
 }
 
+let make ?cdn_frontdoor_custom_domain_ids ?cdn_frontdoor_origin_path
+    ?cdn_frontdoor_rule_set_ids ?enabled ?forwarding_protocol
+    ?https_redirect_enabled ?id ?link_to_default_domain ?timeouts
+    ~cdn_frontdoor_endpoint_id ~cdn_frontdoor_origin_group_id
+    ~cdn_frontdoor_origin_ids ~name ~patterns_to_match
+    ~supported_protocols ~cache __id =
+  let __type = "azurerm_cdn_frontdoor_route" in
+  let __attrs =
+    ({
+       cdn_frontdoor_custom_domain_ids =
+         Prop.computed __type __id "cdn_frontdoor_custom_domain_ids";
+       cdn_frontdoor_endpoint_id =
+         Prop.computed __type __id "cdn_frontdoor_endpoint_id";
+       cdn_frontdoor_origin_group_id =
+         Prop.computed __type __id "cdn_frontdoor_origin_group_id";
+       cdn_frontdoor_origin_ids =
+         Prop.computed __type __id "cdn_frontdoor_origin_ids";
+       cdn_frontdoor_origin_path =
+         Prop.computed __type __id "cdn_frontdoor_origin_path";
+       cdn_frontdoor_rule_set_ids =
+         Prop.computed __type __id "cdn_frontdoor_rule_set_ids";
+       enabled = Prop.computed __type __id "enabled";
+       forwarding_protocol =
+         Prop.computed __type __id "forwarding_protocol";
+       https_redirect_enabled =
+         Prop.computed __type __id "https_redirect_enabled";
+       id = Prop.computed __type __id "id";
+       link_to_default_domain =
+         Prop.computed __type __id "link_to_default_domain";
+       name = Prop.computed __type __id "name";
+       patterns_to_match =
+         Prop.computed __type __id "patterns_to_match";
+       supported_protocols =
+         Prop.computed __type __id "supported_protocols";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_route
+        (azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
+           ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids
+           ?enabled ?forwarding_protocol ?https_redirect_enabled ?id
+           ?link_to_default_domain ?timeouts
+           ~cdn_frontdoor_endpoint_id ~cdn_frontdoor_origin_group_id
+           ~cdn_frontdoor_origin_ids ~name ~patterns_to_match
+           ~supported_protocols ~cache ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cdn_frontdoor_custom_domain_ids
     ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
     ?forwarding_protocol ?https_redirect_enabled ?id
     ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
     ~cdn_frontdoor_origin_group_id ~cdn_frontdoor_origin_ids ~name
-    ~patterns_to_match ~supported_protocols ~cache __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_route" in
-  let __resource =
-    azurerm_cdn_frontdoor_route ?cdn_frontdoor_custom_domain_ids
-      ?cdn_frontdoor_origin_path ?cdn_frontdoor_rule_set_ids ?enabled
-      ?forwarding_protocol ?https_redirect_enabled ?id
-      ?link_to_default_domain ?timeouts ~cdn_frontdoor_endpoint_id
-      ~cdn_frontdoor_origin_group_id ~cdn_frontdoor_origin_ids ~name
-      ~patterns_to_match ~supported_protocols ~cache ()
+    ~patterns_to_match ~supported_protocols ~cache __id =
+  let (r : _ Tf_core.resource) =
+    make ?cdn_frontdoor_custom_domain_ids ?cdn_frontdoor_origin_path
+      ?cdn_frontdoor_rule_set_ids ?enabled ?forwarding_protocol
+      ?https_redirect_enabled ?id ?link_to_default_domain ?timeouts
+      ~cdn_frontdoor_endpoint_id ~cdn_frontdoor_origin_group_id
+      ~cdn_frontdoor_origin_ids ~name ~patterns_to_match
+      ~supported_protocols ~cache __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_route __resource);
-  let __resource_attributes =
-    ({
-       cdn_frontdoor_custom_domain_ids =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_custom_domain_ids";
-       cdn_frontdoor_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_endpoint_id";
-       cdn_frontdoor_origin_group_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_origin_group_id";
-       cdn_frontdoor_origin_ids =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_origin_ids";
-       cdn_frontdoor_origin_path =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_origin_path";
-       cdn_frontdoor_rule_set_ids =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_rule_set_ids";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       forwarding_protocol =
-         Prop.computed __resource_type __resource_id
-           "forwarding_protocol";
-       https_redirect_enabled =
-         Prop.computed __resource_type __resource_id
-           "https_redirect_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       link_to_default_domain =
-         Prop.computed __resource_type __resource_id
-           "link_to_default_domain";
-       name = Prop.computed __resource_type __resource_id "name";
-       patterns_to_match =
-         Prop.computed __resource_type __resource_id
-           "patterns_to_match";
-       supported_protocols =
-         Prop.computed __resource_type __resource_id
-           "supported_protocols";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

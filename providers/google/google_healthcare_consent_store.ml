@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -75,37 +73,43 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?default_consent_ttl
-    ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
-    ~name __resource_id =
-  let __resource_type = "google_healthcare_consent_store" in
-  let __resource =
-    google_healthcare_consent_store ?default_consent_ttl
-      ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_healthcare_consent_store __resource);
-  let __resource_attributes =
+let make ?default_consent_ttl ?enable_consent_create_on_update ?id
+    ?labels ?timeouts ~dataset ~name __id =
+  let __type = "google_healthcare_consent_store" in
+  let __attrs =
     ({
-       dataset =
-         Prop.computed __resource_type __resource_id "dataset";
+       dataset = Prop.computed __type __id "dataset";
        default_consent_ttl =
-         Prop.computed __resource_type __resource_id
-           "default_consent_ttl";
+         Prop.computed __type __id "default_consent_ttl";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
+         Prop.computed __type __id "effective_labels";
        enable_consent_create_on_update =
-         Prop.computed __resource_type __resource_id
-           "enable_consent_create_on_update";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enable_consent_create_on_update";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_healthcare_consent_store
+        (google_healthcare_consent_store ?default_consent_ttl
+           ?enable_consent_create_on_update ?id ?labels ?timeouts
+           ~dataset ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_consent_ttl
+    ?enable_consent_create_on_update ?id ?labels ?timeouts ~dataset
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_consent_ttl ?enable_consent_create_on_update ?id
+      ?labels ?timeouts ~dataset ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

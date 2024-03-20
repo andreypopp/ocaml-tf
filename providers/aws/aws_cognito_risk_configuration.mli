@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -154,3 +154,15 @@ val register :
   risk_exception_configuration:risk_exception_configuration list ->
   string ->
   t
+
+val make :
+  ?client_id:string prop ->
+  ?id:string prop ->
+  user_pool_id:string prop ->
+  account_takeover_risk_configuration:
+    account_takeover_risk_configuration list ->
+  compromised_credentials_risk_configuration:
+    compromised_credentials_risk_configuration list ->
+  risk_exception_configuration:risk_exception_configuration list ->
+  string ->
+  t Tf_core.resource

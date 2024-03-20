@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -94,46 +92,51 @@ type t = {
   volume_encryption_key : string prop;
 }
 
-let register ?tf_module ?id ?root_volume_encryption_enabled ?tags
-    ?tags_all ?user_volume_encryption_enabled ?volume_encryption_key
-    ?timeouts ~bundle_id ~directory_id ~user_name
-    ~workspace_properties __resource_id =
-  let __resource_type = "aws_workspaces_workspace" in
-  let __resource =
-    aws_workspaces_workspace ?id ?root_volume_encryption_enabled
-      ?tags ?tags_all ?user_volume_encryption_enabled
-      ?volume_encryption_key ?timeouts ~bundle_id ~directory_id
-      ~user_name ~workspace_properties ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_workspaces_workspace __resource);
-  let __resource_attributes =
+let make ?id ?root_volume_encryption_enabled ?tags ?tags_all
+    ?user_volume_encryption_enabled ?volume_encryption_key ?timeouts
+    ~bundle_id ~directory_id ~user_name ~workspace_properties __id =
+  let __type = "aws_workspaces_workspace" in
+  let __attrs =
     ({
-       bundle_id =
-         Prop.computed __resource_type __resource_id "bundle_id";
-       computer_name =
-         Prop.computed __resource_type __resource_id "computer_name";
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
+       bundle_id = Prop.computed __type __id "bundle_id";
+       computer_name = Prop.computed __type __id "computer_name";
+       directory_id = Prop.computed __type __id "directory_id";
+       id = Prop.computed __type __id "id";
+       ip_address = Prop.computed __type __id "ip_address";
        root_volume_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "root_volume_encryption_enabled";
-       state = Prop.computed __resource_type __resource_id "state";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       user_name =
-         Prop.computed __resource_type __resource_id "user_name";
+         Prop.computed __type __id "root_volume_encryption_enabled";
+       state = Prop.computed __type __id "state";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       user_name = Prop.computed __type __id "user_name";
        user_volume_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "user_volume_encryption_enabled";
+         Prop.computed __type __id "user_volume_encryption_enabled";
        volume_encryption_key =
-         Prop.computed __resource_type __resource_id
-           "volume_encryption_key";
+         Prop.computed __type __id "volume_encryption_key";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_workspaces_workspace
+        (aws_workspaces_workspace ?id ?root_volume_encryption_enabled
+           ?tags ?tags_all ?user_volume_encryption_enabled
+           ?volume_encryption_key ?timeouts ~bundle_id ~directory_id
+           ~user_name ~workspace_properties ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?root_volume_encryption_enabled ?tags
+    ?tags_all ?user_volume_encryption_enabled ?volume_encryption_key
+    ?timeouts ~bundle_id ~directory_id ~user_name
+    ~workspace_properties __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?root_volume_encryption_enabled ?tags ?tags_all
+      ?user_volume_encryption_enabled ?volume_encryption_key
+      ?timeouts ~bundle_id ~directory_id ~user_name
+      ~workspace_properties __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

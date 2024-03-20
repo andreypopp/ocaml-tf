@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cluster_setting = {
   name : string prop;  (** name *)
@@ -80,52 +78,55 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?allowed_user_ip_cidrs
-    ?front_end_scale_factor ?id ?internal_load_balancing_mode
-    ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
-    ~subnet_id ~cluster_setting __resource_id =
-  let __resource_type = "azurerm_app_service_environment" in
-  let __resource =
-    azurerm_app_service_environment ?allowed_user_ip_cidrs
-      ?front_end_scale_factor ?id ?internal_load_balancing_mode
-      ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
-      ~subnet_id ~cluster_setting ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_environment __resource);
-  let __resource_attributes =
+let make ?allowed_user_ip_cidrs ?front_end_scale_factor ?id
+    ?internal_load_balancing_mode ?pricing_tier ?tags ?timeouts ~name
+    ~resource_group_name ~subnet_id ~cluster_setting __id =
+  let __type = "azurerm_app_service_environment" in
+  let __attrs =
     ({
        allowed_user_ip_cidrs =
-         Prop.computed __resource_type __resource_id
-           "allowed_user_ip_cidrs";
+         Prop.computed __type __id "allowed_user_ip_cidrs";
        front_end_scale_factor =
-         Prop.computed __resource_type __resource_id
-           "front_end_scale_factor";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "front_end_scale_factor";
+       id = Prop.computed __type __id "id";
        internal_ip_address =
-         Prop.computed __resource_type __resource_id
-           "internal_ip_address";
+         Prop.computed __type __id "internal_ip_address";
        internal_load_balancing_mode =
-         Prop.computed __resource_type __resource_id
-           "internal_load_balancing_mode";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "internal_load_balancing_mode";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        outbound_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "outbound_ip_addresses";
-       pricing_tier =
-         Prop.computed __resource_type __resource_id "pricing_tier";
+         Prop.computed __type __id "outbound_ip_addresses";
+       pricing_tier = Prop.computed __type __id "pricing_tier";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        service_ip_address =
-         Prop.computed __resource_type __resource_id
-           "service_ip_address";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "service_ip_address";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_environment
+        (azurerm_app_service_environment ?allowed_user_ip_cidrs
+           ?front_end_scale_factor ?id ?internal_load_balancing_mode
+           ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
+           ~subnet_id ~cluster_setting ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allowed_user_ip_cidrs
+    ?front_end_scale_factor ?id ?internal_load_balancing_mode
+    ?pricing_tier ?tags ?timeouts ~name ~resource_group_name
+    ~subnet_id ~cluster_setting __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_user_ip_cidrs ?front_end_scale_factor ?id
+      ?internal_load_balancing_mode ?pricing_tier ?tags ?timeouts
+      ~name ~resource_group_name ~subnet_id ~cluster_setting __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

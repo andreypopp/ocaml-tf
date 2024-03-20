@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -57,38 +55,45 @@ type t = {
   thumbprint : string prop;
 }
 
-let register ?tf_module ?certificate_content ?exclude_private_key ?id
+let make ?certificate_content ?exclude_private_key ?id
     ?key_vault_certificate_id ?timeouts ~name ~resource_group_name
-    ~service_name __resource_id =
-  let __resource_type = "azurerm_spring_cloud_certificate" in
-  let __resource =
-    azurerm_spring_cloud_certificate ?certificate_content
-      ?exclude_private_key ?id ?key_vault_certificate_id ?timeouts
-      ~name ~resource_group_name ~service_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_certificate __resource);
-  let __resource_attributes =
+    ~service_name __id =
+  let __type = "azurerm_spring_cloud_certificate" in
+  let __attrs =
     ({
        certificate_content =
-         Prop.computed __resource_type __resource_id
-           "certificate_content";
+         Prop.computed __type __id "certificate_content";
        exclude_private_key =
-         Prop.computed __resource_type __resource_id
-           "exclude_private_key";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "exclude_private_key";
+       id = Prop.computed __type __id "id";
        key_vault_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "key_vault_certificate_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "key_vault_certificate_id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
+         Prop.computed __type __id "resource_group_name";
+       service_name = Prop.computed __type __id "service_name";
+       thumbprint = Prop.computed __type __id "thumbprint";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_certificate
+        (azurerm_spring_cloud_certificate ?certificate_content
+           ?exclude_private_key ?id ?key_vault_certificate_id
+           ?timeouts ~name ~resource_group_name ~service_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_content ?exclude_private_key ?id
+    ?key_vault_certificate_id ?timeouts ~name ~resource_group_name
+    ~service_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_content ?exclude_private_key ?id
+      ?key_vault_certificate_id ?timeouts ~name ~resource_group_name
+      ~service_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

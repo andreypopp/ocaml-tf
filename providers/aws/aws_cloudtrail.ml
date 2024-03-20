@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_event_selector__field_selector = {
   ends_with : string prop list option; [@option]  (** ends_with *)
@@ -164,64 +162,70 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
+    ?enable_log_file_validation ?enable_logging ?id
+    ?include_global_service_events ?is_multi_region_trail
+    ?is_organization_trail ?kms_key_id ?s3_key_prefix ?sns_topic_name
+    ?tags ?tags_all ~name ~s3_bucket_name ~advanced_event_selector
+    ~event_selector ~insight_selector __id =
+  let __type = "aws_cloudtrail" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       cloud_watch_logs_group_arn =
+         Prop.computed __type __id "cloud_watch_logs_group_arn";
+       cloud_watch_logs_role_arn =
+         Prop.computed __type __id "cloud_watch_logs_role_arn";
+       enable_log_file_validation =
+         Prop.computed __type __id "enable_log_file_validation";
+       enable_logging = Prop.computed __type __id "enable_logging";
+       home_region = Prop.computed __type __id "home_region";
+       id = Prop.computed __type __id "id";
+       include_global_service_events =
+         Prop.computed __type __id "include_global_service_events";
+       is_multi_region_trail =
+         Prop.computed __type __id "is_multi_region_trail";
+       is_organization_trail =
+         Prop.computed __type __id "is_organization_trail";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
+       s3_bucket_name = Prop.computed __type __id "s3_bucket_name";
+       s3_key_prefix = Prop.computed __type __id "s3_key_prefix";
+       sns_topic_name = Prop.computed __type __id "sns_topic_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudtrail
+        (aws_cloudtrail ?cloud_watch_logs_group_arn
+           ?cloud_watch_logs_role_arn ?enable_log_file_validation
+           ?enable_logging ?id ?include_global_service_events
+           ?is_multi_region_trail ?is_organization_trail ?kms_key_id
+           ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
+           ~s3_bucket_name ~advanced_event_selector ~event_selector
+           ~insight_selector ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cloud_watch_logs_group_arn
     ?cloud_watch_logs_role_arn ?enable_log_file_validation
     ?enable_logging ?id ?include_global_service_events
     ?is_multi_region_trail ?is_organization_trail ?kms_key_id
     ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
     ~s3_bucket_name ~advanced_event_selector ~event_selector
-    ~insight_selector __resource_id =
-  let __resource_type = "aws_cloudtrail" in
-  let __resource =
-    aws_cloudtrail ?cloud_watch_logs_group_arn
-      ?cloud_watch_logs_role_arn ?enable_log_file_validation
-      ?enable_logging ?id ?include_global_service_events
-      ?is_multi_region_trail ?is_organization_trail ?kms_key_id
-      ?s3_key_prefix ?sns_topic_name ?tags ?tags_all ~name
-      ~s3_bucket_name ~advanced_event_selector ~event_selector
-      ~insight_selector ()
+    ~insight_selector __id =
+  let (r : _ Tf_core.resource) =
+    make ?cloud_watch_logs_group_arn ?cloud_watch_logs_role_arn
+      ?enable_log_file_validation ?enable_logging ?id
+      ?include_global_service_events ?is_multi_region_trail
+      ?is_organization_trail ?kms_key_id ?s3_key_prefix
+      ?sns_topic_name ?tags ?tags_all ~name ~s3_bucket_name
+      ~advanced_event_selector ~event_selector ~insight_selector __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudtrail __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       cloud_watch_logs_group_arn =
-         Prop.computed __resource_type __resource_id
-           "cloud_watch_logs_group_arn";
-       cloud_watch_logs_role_arn =
-         Prop.computed __resource_type __resource_id
-           "cloud_watch_logs_role_arn";
-       enable_log_file_validation =
-         Prop.computed __resource_type __resource_id
-           "enable_log_file_validation";
-       enable_logging =
-         Prop.computed __resource_type __resource_id "enable_logging";
-       home_region =
-         Prop.computed __resource_type __resource_id "home_region";
-       id = Prop.computed __resource_type __resource_id "id";
-       include_global_service_events =
-         Prop.computed __resource_type __resource_id
-           "include_global_service_events";
-       is_multi_region_trail =
-         Prop.computed __resource_type __resource_id
-           "is_multi_region_trail";
-       is_organization_trail =
-         Prop.computed __resource_type __resource_id
-           "is_organization_trail";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       s3_bucket_name =
-         Prop.computed __resource_type __resource_id "s3_bucket_name";
-       s3_key_prefix =
-         Prop.computed __resource_type __resource_id "s3_key_prefix";
-       sns_topic_name =
-         Prop.computed __resource_type __resource_id "sns_topic_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

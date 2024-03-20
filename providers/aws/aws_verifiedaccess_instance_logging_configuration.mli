@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,10 @@ val register :
   access_logs:access_logs list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  verifiedaccess_instance_id:string prop ->
+  access_logs:access_logs list ->
+  string ->
+  t Tf_core.resource

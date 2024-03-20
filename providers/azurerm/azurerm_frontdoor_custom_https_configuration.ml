@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_https_configuration = {
   azure_key_vault_certificate_secret_name : string prop option;
@@ -73,30 +71,37 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts
-    ~custom_https_provisioning_enabled ~frontend_endpoint_id
-    ~custom_https_configuration __resource_id =
-  let __resource_type =
-    "azurerm_frontdoor_custom_https_configuration"
-  in
-  let __resource =
-    azurerm_frontdoor_custom_https_configuration ?id ?timeouts
-      ~custom_https_provisioning_enabled ~frontend_endpoint_id
-      ~custom_https_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_frontdoor_custom_https_configuration
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~custom_https_provisioning_enabled
+    ~frontend_endpoint_id ~custom_https_configuration __id =
+  let __type = "azurerm_frontdoor_custom_https_configuration" in
+  let __attrs =
     ({
        custom_https_provisioning_enabled =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "custom_https_provisioning_enabled";
        frontend_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "frontend_endpoint_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "frontend_endpoint_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_frontdoor_custom_https_configuration
+        (azurerm_frontdoor_custom_https_configuration ?id ?timeouts
+           ~custom_https_provisioning_enabled ~frontend_endpoint_id
+           ~custom_https_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts
+    ~custom_https_provisioning_enabled ~frontend_endpoint_id
+    ~custom_https_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~custom_https_provisioning_enabled
+      ~frontend_endpoint_id ~custom_https_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

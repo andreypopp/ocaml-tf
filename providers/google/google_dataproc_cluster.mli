@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -486,3 +486,16 @@ val register :
   virtual_cluster_config:virtual_cluster_config list ->
   string ->
   t
+
+val make :
+  ?graceful_decommission_timeout:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  cluster_config:cluster_config list ->
+  virtual_cluster_config:virtual_cluster_config list ->
+  string ->
+  t Tf_core.resource

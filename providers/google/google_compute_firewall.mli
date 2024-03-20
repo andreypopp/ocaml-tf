@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,26 @@ val register :
   log_config:log_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?destination_ranges:string prop list ->
+  ?direction:string prop ->
+  ?disabled:bool prop ->
+  ?enable_logging:bool prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?project:string prop ->
+  ?source_ranges:string prop list ->
+  ?source_service_accounts:string prop list ->
+  ?source_tags:string prop list ->
+  ?target_service_accounts:string prop list ->
+  ?target_tags:string prop list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  network:string prop ->
+  allow:allow list ->
+  deny:deny list ->
+  log_config:log_config list ->
+  string ->
+  t Tf_core.resource

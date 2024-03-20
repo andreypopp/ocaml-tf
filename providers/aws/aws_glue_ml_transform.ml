@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input_record_tables = {
   catalog_id : string prop option; [@option]  (** catalog_id *)
@@ -119,48 +117,51 @@ type t = {
   worker_type : string prop;
 }
 
-let register ?tf_module ?description ?glue_version ?id ?max_capacity
-    ?max_retries ?number_of_workers ?tags ?tags_all ?timeout
-    ?worker_type ~name ~role_arn ~input_record_tables ~parameters
-    __resource_id =
-  let __resource_type = "aws_glue_ml_transform" in
-  let __resource =
-    aws_glue_ml_transform ?description ?glue_version ?id
-      ?max_capacity ?max_retries ?number_of_workers ?tags ?tags_all
-      ?timeout ?worker_type ~name ~role_arn ~input_record_tables
-      ~parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_glue_ml_transform __resource);
-  let __resource_attributes =
+let make ?description ?glue_version ?id ?max_capacity ?max_retries
+    ?number_of_workers ?tags ?tags_all ?timeout ?worker_type ~name
+    ~role_arn ~input_record_tables ~parameters __id =
+  let __type = "aws_glue_ml_transform" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       glue_version =
-         Prop.computed __resource_type __resource_id "glue_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       label_count =
-         Prop.computed __resource_type __resource_id "label_count";
-       max_capacity =
-         Prop.computed __resource_type __resource_id "max_capacity";
-       max_retries =
-         Prop.computed __resource_type __resource_id "max_retries";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       glue_version = Prop.computed __type __id "glue_version";
+       id = Prop.computed __type __id "id";
+       label_count = Prop.computed __type __id "label_count";
+       max_capacity = Prop.computed __type __id "max_capacity";
+       max_retries = Prop.computed __type __id "max_retries";
+       name = Prop.computed __type __id "name";
        number_of_workers =
-         Prop.computed __resource_type __resource_id
-           "number_of_workers";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       schema = Prop.computed __resource_type __resource_id "schema";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       worker_type =
-         Prop.computed __resource_type __resource_id "worker_type";
+         Prop.computed __type __id "number_of_workers";
+       role_arn = Prop.computed __type __id "role_arn";
+       schema = Prop.computed __type __id "schema";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       timeout = Prop.computed __type __id "timeout";
+       worker_type = Prop.computed __type __id "worker_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_glue_ml_transform
+        (aws_glue_ml_transform ?description ?glue_version ?id
+           ?max_capacity ?max_retries ?number_of_workers ?tags
+           ?tags_all ?timeout ?worker_type ~name ~role_arn
+           ~input_record_tables ~parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?glue_version ?id ?max_capacity
+    ?max_retries ?number_of_workers ?tags ?tags_all ?timeout
+    ?worker_type ~name ~role_arn ~input_record_tables ~parameters
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?glue_version ?id ?max_capacity ?max_retries
+      ?number_of_workers ?tags ?tags_all ?timeout ?worker_type ~name
+      ~role_arn ~input_record_tables ~parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

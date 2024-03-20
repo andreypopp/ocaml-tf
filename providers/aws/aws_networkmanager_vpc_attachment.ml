@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type options = {
   appliance_mode_support : bool prop option; [@option]
@@ -72,49 +70,48 @@ type t = {
   vpc_arn : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~core_network_id ~subnet_arns ~vpc_arn ~options __resource_id =
-  let __resource_type = "aws_networkmanager_vpc_attachment" in
-  let __resource =
-    aws_networkmanager_vpc_attachment ?id ?tags ?tags_all ?timeouts
-      ~core_network_id ~subnet_arns ~vpc_arn ~options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_vpc_attachment __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~core_network_id ~subnet_arns
+    ~vpc_arn ~options __id =
+  let __type = "aws_networkmanager_vpc_attachment" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        attachment_policy_rule_number =
-         Prop.computed __resource_type __resource_id
-           "attachment_policy_rule_number";
-       attachment_type =
-         Prop.computed __resource_type __resource_id
-           "attachment_type";
+         Prop.computed __type __id "attachment_policy_rule_number";
+       attachment_type = Prop.computed __type __id "attachment_type";
        core_network_arn =
-         Prop.computed __resource_type __resource_id
-           "core_network_arn";
-       core_network_id =
-         Prop.computed __resource_type __resource_id
-           "core_network_id";
-       edge_location =
-         Prop.computed __resource_type __resource_id "edge_location";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "core_network_arn";
+       core_network_id = Prop.computed __type __id "core_network_id";
+       edge_location = Prop.computed __type __id "edge_location";
+       id = Prop.computed __type __id "id";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
-       segment_name =
-         Prop.computed __resource_type __resource_id "segment_name";
-       state = Prop.computed __resource_type __resource_id "state";
-       subnet_arns =
-         Prop.computed __resource_type __resource_id "subnet_arns";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_arn =
-         Prop.computed __resource_type __resource_id "vpc_arn";
+         Prop.computed __type __id "owner_account_id";
+       resource_arn = Prop.computed __type __id "resource_arn";
+       segment_name = Prop.computed __type __id "segment_name";
+       state = Prop.computed __type __id "state";
+       subnet_arns = Prop.computed __type __id "subnet_arns";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_arn = Prop.computed __type __id "vpc_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_vpc_attachment
+        (aws_networkmanager_vpc_attachment ?id ?tags ?tags_all
+           ?timeouts ~core_network_id ~subnet_arns ~vpc_arn ~options
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~core_network_id ~subnet_arns ~vpc_arn ~options __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~core_network_id ~subnet_arns
+      ~vpc_arn ~options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

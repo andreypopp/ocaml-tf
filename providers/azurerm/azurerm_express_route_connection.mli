@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,17 @@ val register :
   routing:routing list ->
   string ->
   t
+
+val make :
+  ?authorization_key:string prop ->
+  ?enable_internet_security:bool prop ->
+  ?express_route_gateway_bypass_enabled:bool prop ->
+  ?id:string prop ->
+  ?routing_weight:float prop ->
+  ?timeouts:timeouts ->
+  express_route_circuit_peering_id:string prop ->
+  express_route_gateway_id:string prop ->
+  name:string prop ->
+  routing:routing list ->
+  string ->
+  t Tf_core.resource

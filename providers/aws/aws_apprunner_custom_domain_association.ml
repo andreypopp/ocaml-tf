@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type certificate_validation_records = {
   name : string prop;  (** name *)
@@ -38,32 +36,36 @@ type t = {
   status : string prop;
 }
 
-let register ?tf_module ?enable_www_subdomain ?id ~domain_name
-    ~service_arn __resource_id =
-  let __resource_type = "aws_apprunner_custom_domain_association" in
-  let __resource =
-    aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
-      ~domain_name ~service_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apprunner_custom_domain_association __resource);
-  let __resource_attributes =
+let make ?enable_www_subdomain ?id ~domain_name ~service_arn __id =
+  let __type = "aws_apprunner_custom_domain_association" in
+  let __attrs =
     ({
        certificate_validation_records =
-         Prop.computed __resource_type __resource_id
-           "certificate_validation_records";
-       dns_target =
-         Prop.computed __resource_type __resource_id "dns_target";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
+         Prop.computed __type __id "certificate_validation_records";
+       dns_target = Prop.computed __type __id "dns_target";
+       domain_name = Prop.computed __type __id "domain_name";
        enable_www_subdomain =
-         Prop.computed __resource_type __resource_id
-           "enable_www_subdomain";
-       id = Prop.computed __resource_type __resource_id "id";
-       service_arn =
-         Prop.computed __resource_type __resource_id "service_arn";
-       status = Prop.computed __resource_type __resource_id "status";
+         Prop.computed __type __id "enable_www_subdomain";
+       id = Prop.computed __type __id "id";
+       service_arn = Prop.computed __type __id "service_arn";
+       status = Prop.computed __type __id "status";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apprunner_custom_domain_association
+        (aws_apprunner_custom_domain_association
+           ?enable_www_subdomain ?id ~domain_name ~service_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enable_www_subdomain ?id ~domain_name
+    ~service_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?enable_www_subdomain ?id ~domain_name ~service_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

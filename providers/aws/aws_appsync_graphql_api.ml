@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_authentication_provider__lambda_authorizer_config = {
   authorizer_result_ttl_in_seconds : float prop option; [@option]
@@ -205,49 +203,59 @@ type t = {
   xray_enabled : bool prop;
 }
 
+let make ?id ?introspection_config ?query_depth_limit
+    ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
+    ?xray_enabled ~authentication_type ~name
+    ~additional_authentication_provider ~lambda_authorizer_config
+    ~log_config ~openid_connect_config ~user_pool_config __id =
+  let __type = "aws_appsync_graphql_api" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       authentication_type =
+         Prop.computed __type __id "authentication_type";
+       id = Prop.computed __type __id "id";
+       introspection_config =
+         Prop.computed __type __id "introspection_config";
+       name = Prop.computed __type __id "name";
+       query_depth_limit =
+         Prop.computed __type __id "query_depth_limit";
+       resolver_count_limit =
+         Prop.computed __type __id "resolver_count_limit";
+       schema = Prop.computed __type __id "schema";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uris = Prop.computed __type __id "uris";
+       visibility = Prop.computed __type __id "visibility";
+       xray_enabled = Prop.computed __type __id "xray_enabled";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_graphql_api
+        (aws_appsync_graphql_api ?id ?introspection_config
+           ?query_depth_limit ?resolver_count_limit ?schema ?tags
+           ?tags_all ?visibility ?xray_enabled ~authentication_type
+           ~name ~additional_authentication_provider
+           ~lambda_authorizer_config ~log_config
+           ~openid_connect_config ~user_pool_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?introspection_config ?query_depth_limit
     ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
     ?xray_enabled ~authentication_type ~name
     ~additional_authentication_provider ~lambda_authorizer_config
-    ~log_config ~openid_connect_config ~user_pool_config
-    __resource_id =
-  let __resource_type = "aws_appsync_graphql_api" in
-  let __resource =
-    aws_appsync_graphql_api ?id ?introspection_config
-      ?query_depth_limit ?resolver_count_limit ?schema ?tags
-      ?tags_all ?visibility ?xray_enabled ~authentication_type ~name
+    ~log_config ~openid_connect_config ~user_pool_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?introspection_config ?query_depth_limit
+      ?resolver_count_limit ?schema ?tags ?tags_all ?visibility
+      ?xray_enabled ~authentication_type ~name
       ~additional_authentication_provider ~lambda_authorizer_config
-      ~log_config ~openid_connect_config ~user_pool_config ()
+      ~log_config ~openid_connect_config ~user_pool_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_graphql_api __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       introspection_config =
-         Prop.computed __resource_type __resource_id
-           "introspection_config";
-       name = Prop.computed __resource_type __resource_id "name";
-       query_depth_limit =
-         Prop.computed __resource_type __resource_id
-           "query_depth_limit";
-       resolver_count_limit =
-         Prop.computed __resource_type __resource_id
-           "resolver_count_limit";
-       schema = Prop.computed __resource_type __resource_id "schema";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uris = Prop.computed __resource_type __resource_id "uris";
-       visibility =
-         Prop.computed __resource_type __resource_id "visibility";
-       xray_enabled =
-         Prop.computed __resource_type __resource_id "xray_enabled";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

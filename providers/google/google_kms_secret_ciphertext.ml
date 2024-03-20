@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -45,28 +43,35 @@ type t = {
   plaintext : string prop;
 }
 
-let register ?tf_module ?additional_authenticated_data ?id ?timeouts
-    ~crypto_key ~plaintext __resource_id =
-  let __resource_type = "google_kms_secret_ciphertext" in
-  let __resource =
-    google_kms_secret_ciphertext ?additional_authenticated_data ?id
-      ?timeouts ~crypto_key ~plaintext ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_kms_secret_ciphertext __resource);
-  let __resource_attributes =
+let make ?additional_authenticated_data ?id ?timeouts ~crypto_key
+    ~plaintext __id =
+  let __type = "google_kms_secret_ciphertext" in
+  let __attrs =
     ({
        additional_authenticated_data =
-         Prop.computed __resource_type __resource_id
-           "additional_authenticated_data";
-       ciphertext =
-         Prop.computed __resource_type __resource_id "ciphertext";
-       crypto_key =
-         Prop.computed __resource_type __resource_id "crypto_key";
-       id = Prop.computed __resource_type __resource_id "id";
-       plaintext =
-         Prop.computed __resource_type __resource_id "plaintext";
+         Prop.computed __type __id "additional_authenticated_data";
+       ciphertext = Prop.computed __type __id "ciphertext";
+       crypto_key = Prop.computed __type __id "crypto_key";
+       id = Prop.computed __type __id "id";
+       plaintext = Prop.computed __type __id "plaintext";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_kms_secret_ciphertext
+        (google_kms_secret_ciphertext ?additional_authenticated_data
+           ?id ?timeouts ~crypto_key ~plaintext ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_authenticated_data ?id ?timeouts
+    ~crypto_key ~plaintext __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_authenticated_data ?id ?timeouts ~crypto_key
+      ~plaintext __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

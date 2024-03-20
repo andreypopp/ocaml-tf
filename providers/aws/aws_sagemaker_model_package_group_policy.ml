@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_sagemaker_model_package_group_policy = {
   id : string prop option; [@option]  (** id *)
@@ -24,25 +22,31 @@ type t = {
   resource_policy : string prop;
 }
 
-let register ?tf_module ?id ~model_package_group_name
-    ~resource_policy __resource_id =
-  let __resource_type = "aws_sagemaker_model_package_group_policy" in
-  let __resource =
-    aws_sagemaker_model_package_group_policy ?id
-      ~model_package_group_name ~resource_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_model_package_group_policy __resource);
-  let __resource_attributes =
+let make ?id ~model_package_group_name ~resource_policy __id =
+  let __type = "aws_sagemaker_model_package_group_policy" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        model_package_group_name =
-         Prop.computed __resource_type __resource_id
-           "model_package_group_name";
-       resource_policy =
-         Prop.computed __resource_type __resource_id
-           "resource_policy";
+         Prop.computed __type __id "model_package_group_name";
+       resource_policy = Prop.computed __type __id "resource_policy";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_model_package_group_policy
+        (aws_sagemaker_model_package_group_policy ?id
+           ~model_package_group_name ~resource_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~model_package_group_name
+    ~resource_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~model_package_group_name ~resource_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

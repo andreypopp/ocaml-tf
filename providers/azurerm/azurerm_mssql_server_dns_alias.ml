@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -35,25 +33,30 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~mssql_server_id ~name
-    __resource_id =
-  let __resource_type = "azurerm_mssql_server_dns_alias" in
-  let __resource =
-    azurerm_mssql_server_dns_alias ?id ?timeouts ~mssql_server_id
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_server_dns_alias __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~mssql_server_id ~name __id =
+  let __type = "azurerm_mssql_server_dns_alias" in
+  let __attrs =
     ({
-       dns_record =
-         Prop.computed __resource_type __resource_id "dns_record";
-       id = Prop.computed __resource_type __resource_id "id";
-       mssql_server_id =
-         Prop.computed __resource_type __resource_id
-           "mssql_server_id";
-       name = Prop.computed __resource_type __resource_id "name";
+       dns_record = Prop.computed __type __id "dns_record";
+       id = Prop.computed __type __id "id";
+       mssql_server_id = Prop.computed __type __id "mssql_server_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_server_dns_alias
+        (azurerm_mssql_server_dns_alias ?id ?timeouts
+           ~mssql_server_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~mssql_server_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~mssql_server_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

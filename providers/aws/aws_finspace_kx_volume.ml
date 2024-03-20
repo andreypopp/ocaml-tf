@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type nas1_configuration = {
   size : float prop;  (** size *)
@@ -84,48 +82,52 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+let make ?description ?id ?tags ?tags_all ?timeouts
     ~availability_zones ~az_mode ~environment_id ~name ~type_
-    ~nas1_configuration __resource_id =
-  let __resource_type = "aws_finspace_kx_volume" in
-  let __resource =
-    aws_finspace_kx_volume ?description ?id ?tags ?tags_all ?timeouts
-      ~availability_zones ~az_mode ~environment_id ~name ~type_
-      ~nas1_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_finspace_kx_volume __resource);
-  let __resource_attributes =
+    ~nas1_configuration __id =
+  let __type = "aws_finspace_kx_volume" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        attached_clusters =
-         Prop.computed __resource_type __resource_id
-           "attached_clusters";
+         Prop.computed __type __id "attached_clusters";
        availability_zones =
-         Prop.computed __resource_type __resource_id
-           "availability_zones";
-       az_mode =
-         Prop.computed __resource_type __resource_id "az_mode";
+         Prop.computed __type __id "availability_zones";
+       az_mode = Prop.computed __type __id "az_mode";
        created_timestamp =
-         Prop.computed __resource_type __resource_id
-           "created_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "created_timestamp";
+       description = Prop.computed __type __id "description";
+       environment_id = Prop.computed __type __id "environment_id";
+       id = Prop.computed __type __id "id";
        last_modified_timestamp =
-         Prop.computed __resource_type __resource_id
-           "last_modified_timestamp";
-       name = Prop.computed __resource_type __resource_id "name";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_reason =
-         Prop.computed __resource_type __resource_id "status_reason";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "last_modified_timestamp";
+       name = Prop.computed __type __id "name";
+       status = Prop.computed __type __id "status";
+       status_reason = Prop.computed __type __id "status_reason";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_finspace_kx_volume
+        (aws_finspace_kx_volume ?description ?id ?tags ?tags_all
+           ?timeouts ~availability_zones ~az_mode ~environment_id
+           ~name ~type_ ~nas1_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ?timeouts
+    ~availability_zones ~az_mode ~environment_id ~name ~type_
+    ~nas1_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ?timeouts
+      ~availability_zones ~az_mode ~environment_id ~name ~type_
+      ~nas1_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

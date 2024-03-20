@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_filter = {
   description : string prop option; [@option]
@@ -35,27 +33,33 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?description ?id ?paused ?ref ~expression
-    ~zone_id __resource_id =
-  let __resource_type = "cloudflare_filter" in
-  let __resource =
-    cloudflare_filter ?description ?id ?paused ?ref ~expression
-      ~zone_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_filter __resource);
-  let __resource_attributes =
+let make ?description ?id ?paused ?ref ~expression ~zone_id __id =
+  let __type = "cloudflare_filter" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       expression =
-         Prop.computed __resource_type __resource_id "expression";
-       id = Prop.computed __resource_type __resource_id "id";
-       paused = Prop.computed __resource_type __resource_id "paused";
-       ref = Prop.computed __resource_type __resource_id "ref";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       description = Prop.computed __type __id "description";
+       expression = Prop.computed __type __id "expression";
+       id = Prop.computed __type __id "id";
+       paused = Prop.computed __type __id "paused";
+       ref = Prop.computed __type __id "ref";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_filter
+        (cloudflare_filter ?description ?id ?paused ?ref ~expression
+           ~zone_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?paused ?ref ~expression
+    ~zone_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?paused ?ref ~expression ~zone_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

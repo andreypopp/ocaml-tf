@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_auditmanager_organization_admin_account_registration = {
   admin_account_id : string prop;  (** admin_account_id *)
@@ -21,27 +19,30 @@ type t = {
   organization_id : string prop;
 }
 
-let register ?tf_module ~admin_account_id __resource_id =
-  let __resource_type =
+let make ~admin_account_id __id =
+  let __type =
     "aws_auditmanager_organization_admin_account_registration"
   in
-  let __resource =
-    aws_auditmanager_organization_admin_account_registration
-      ~admin_account_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_auditmanager_organization_admin_account_registration
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        admin_account_id =
-         Prop.computed __resource_type __resource_id
-           "admin_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       organization_id =
-         Prop.computed __resource_type __resource_id
-           "organization_id";
+         Prop.computed __type __id "admin_account_id";
+       id = Prop.computed __type __id "id";
+       organization_id = Prop.computed __type __id "organization_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_auditmanager_organization_admin_account_registration
+        (aws_auditmanager_organization_admin_account_registration
+           ~admin_account_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ~admin_account_id __id =
+  let (r : _ Tf_core.resource) = make ~admin_account_id __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

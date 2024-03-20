@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_certificate = {
   certificate_chain : string prop option; [@option]
@@ -45,38 +43,43 @@ type t = {
   uuid : string prop;
 }
 
-let register ?tf_module ?certificate_chain ?domains ?id
-    ?leaf_certificate ?private_key ?type_ ~name __resource_id =
-  let __resource_type = "digitalocean_certificate" in
-  let __resource =
-    digitalocean_certificate ?certificate_chain ?domains ?id
-      ?leaf_certificate ?private_key ?type_ ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_certificate __resource);
-  let __resource_attributes =
+let make ?certificate_chain ?domains ?id ?leaf_certificate
+    ?private_key ?type_ ~name __id =
+  let __type = "digitalocean_certificate" in
+  let __attrs =
     ({
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       domains =
-         Prop.computed __resource_type __resource_id "domains";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "certificate_chain";
+       domains = Prop.computed __type __id "domains";
+       id = Prop.computed __type __id "id";
        leaf_certificate =
-         Prop.computed __resource_type __resource_id
-           "leaf_certificate";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_after =
-         Prop.computed __resource_type __resource_id "not_after";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
+         Prop.computed __type __id "leaf_certificate";
+       name = Prop.computed __type __id "name";
+       not_after = Prop.computed __type __id "not_after";
+       private_key = Prop.computed __type __id "private_key";
        sha1_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "sha1_fingerprint";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uuid = Prop.computed __resource_type __resource_id "uuid";
+         Prop.computed __type __id "sha1_fingerprint";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
+       uuid = Prop.computed __type __id "uuid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_certificate
+        (digitalocean_certificate ?certificate_chain ?domains ?id
+           ?leaf_certificate ?private_key ?type_ ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_chain ?domains ?id
+    ?leaf_certificate ?private_key ?type_ ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_chain ?domains ?id ?leaf_certificate
+      ?private_key ?type_ ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

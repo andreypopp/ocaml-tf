@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,31 +48,36 @@ type t = {
   rulestack_id : string prop;
 }
 
-let register ?tf_module ?audit_comment ?description ?id ?timeouts
-    ~name ~prefix_list ~rulestack_id __resource_id =
-  let __resource_type =
-    "azurerm_palo_alto_local_rulestack_prefix_list"
-  in
-  let __resource =
-    azurerm_palo_alto_local_rulestack_prefix_list ?audit_comment
-      ?description ?id ?timeouts ~name ~prefix_list ~rulestack_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_palo_alto_local_rulestack_prefix_list
-       __resource);
-  let __resource_attributes =
+let make ?audit_comment ?description ?id ?timeouts ~name ~prefix_list
+    ~rulestack_id __id =
+  let __type = "azurerm_palo_alto_local_rulestack_prefix_list" in
+  let __attrs =
     ({
-       audit_comment =
-         Prop.computed __resource_type __resource_id "audit_comment";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       prefix_list =
-         Prop.computed __resource_type __resource_id "prefix_list";
-       rulestack_id =
-         Prop.computed __resource_type __resource_id "rulestack_id";
+       audit_comment = Prop.computed __type __id "audit_comment";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       prefix_list = Prop.computed __type __id "prefix_list";
+       rulestack_id = Prop.computed __type __id "rulestack_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_palo_alto_local_rulestack_prefix_list
+        (azurerm_palo_alto_local_rulestack_prefix_list ?audit_comment
+           ?description ?id ?timeouts ~name ~prefix_list
+           ~rulestack_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?audit_comment ?description ?id ?timeouts
+    ~name ~prefix_list ~rulestack_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?audit_comment ?description ?id ?timeouts ~name ~prefix_list
+      ~rulestack_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

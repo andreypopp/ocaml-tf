@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,15 @@ val register :
   portal_options:portal_options list ->
   string ->
   t
+
+val make :
+  ?client_token:string prop ->
+  ?description:string prop ->
+  ?status:string prop ->
+  ?tags:(string * string prop) list ->
+  application_provider_arn:string prop ->
+  instance_arn:string prop ->
+  name:string prop ->
+  portal_options:portal_options list ->
+  string ->
+  t Tf_core.resource

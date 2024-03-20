@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -200,6 +198,94 @@ type t = {
   unmanaged_disk : unmanaged_disk list prop;
 }
 
+let make ?id ?managed_disk ?multi_vm_group_name ?network_interface
+    ?target_availability_set_id
+    ?target_boot_diagnostic_storage_account_id
+    ?target_capacity_reservation_group_id ?target_edge_zone
+    ?target_network_id ?target_proximity_placement_group_id
+    ?target_virtual_machine_scale_set_id ?target_zone
+    ?test_network_id ?unmanaged_disk ?timeouts ~name
+    ~recovery_replication_policy_id ~recovery_vault_name
+    ~resource_group_name ~source_recovery_fabric_name
+    ~source_recovery_protection_container_name ~source_vm_id
+    ~target_recovery_fabric_id
+    ~target_recovery_protection_container_id
+    ~target_resource_group_id __id =
+  let __type = "azurerm_site_recovery_replicated_vm" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       managed_disk = Prop.computed __type __id "managed_disk";
+       multi_vm_group_name =
+         Prop.computed __type __id "multi_vm_group_name";
+       name = Prop.computed __type __id "name";
+       network_interface =
+         Prop.computed __type __id "network_interface";
+       recovery_replication_policy_id =
+         Prop.computed __type __id "recovery_replication_policy_id";
+       recovery_vault_name =
+         Prop.computed __type __id "recovery_vault_name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       source_recovery_fabric_name =
+         Prop.computed __type __id "source_recovery_fabric_name";
+       source_recovery_protection_container_name =
+         Prop.computed __type __id
+           "source_recovery_protection_container_name";
+       source_vm_id = Prop.computed __type __id "source_vm_id";
+       target_availability_set_id =
+         Prop.computed __type __id "target_availability_set_id";
+       target_boot_diagnostic_storage_account_id =
+         Prop.computed __type __id
+           "target_boot_diagnostic_storage_account_id";
+       target_capacity_reservation_group_id =
+         Prop.computed __type __id
+           "target_capacity_reservation_group_id";
+       target_edge_zone =
+         Prop.computed __type __id "target_edge_zone";
+       target_network_id =
+         Prop.computed __type __id "target_network_id";
+       target_proximity_placement_group_id =
+         Prop.computed __type __id
+           "target_proximity_placement_group_id";
+       target_recovery_fabric_id =
+         Prop.computed __type __id "target_recovery_fabric_id";
+       target_recovery_protection_container_id =
+         Prop.computed __type __id
+           "target_recovery_protection_container_id";
+       target_resource_group_id =
+         Prop.computed __type __id "target_resource_group_id";
+       target_virtual_machine_scale_set_id =
+         Prop.computed __type __id
+           "target_virtual_machine_scale_set_id";
+       target_zone = Prop.computed __type __id "target_zone";
+       test_network_id = Prop.computed __type __id "test_network_id";
+       unmanaged_disk = Prop.computed __type __id "unmanaged_disk";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_site_recovery_replicated_vm
+        (azurerm_site_recovery_replicated_vm ?id ?managed_disk
+           ?multi_vm_group_name ?network_interface
+           ?target_availability_set_id
+           ?target_boot_diagnostic_storage_account_id
+           ?target_capacity_reservation_group_id ?target_edge_zone
+           ?target_network_id ?target_proximity_placement_group_id
+           ?target_virtual_machine_scale_set_id ?target_zone
+           ?test_network_id ?unmanaged_disk ?timeouts ~name
+           ~recovery_replication_policy_id ~recovery_vault_name
+           ~resource_group_name ~source_recovery_fabric_name
+           ~source_recovery_protection_container_name ~source_vm_id
+           ~target_recovery_fabric_id
+           ~target_recovery_protection_container_id
+           ~target_resource_group_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?id ?managed_disk ?multi_vm_group_name
     ?network_interface ?target_availability_set_id
     ?target_boot_diagnostic_storage_account_id
@@ -212,11 +298,9 @@ let register ?tf_module ?id ?managed_disk ?multi_vm_group_name
     ~source_recovery_protection_container_name ~source_vm_id
     ~target_recovery_fabric_id
     ~target_recovery_protection_container_id
-    ~target_resource_group_id __resource_id =
-  let __resource_type = "azurerm_site_recovery_replicated_vm" in
-  let __resource =
-    azurerm_site_recovery_replicated_vm ?id ?managed_disk
-      ?multi_vm_group_name ?network_interface
+    ~target_resource_group_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?managed_disk ?multi_vm_group_name ?network_interface
       ?target_availability_set_id
       ?target_boot_diagnostic_storage_account_id
       ?target_capacity_reservation_group_id ?target_edge_zone
@@ -228,77 +312,7 @@ let register ?tf_module ?id ?managed_disk ?multi_vm_group_name
       ~source_recovery_protection_container_name ~source_vm_id
       ~target_recovery_fabric_id
       ~target_recovery_protection_container_id
-      ~target_resource_group_id ()
+      ~target_resource_group_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_site_recovery_replicated_vm __resource);
-  let __resource_attributes =
-    ({
-       id = Prop.computed __resource_type __resource_id "id";
-       managed_disk =
-         Prop.computed __resource_type __resource_id "managed_disk";
-       multi_vm_group_name =
-         Prop.computed __resource_type __resource_id
-           "multi_vm_group_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_interface =
-         Prop.computed __resource_type __resource_id
-           "network_interface";
-       recovery_replication_policy_id =
-         Prop.computed __resource_type __resource_id
-           "recovery_replication_policy_id";
-       recovery_vault_name =
-         Prop.computed __resource_type __resource_id
-           "recovery_vault_name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       source_recovery_fabric_name =
-         Prop.computed __resource_type __resource_id
-           "source_recovery_fabric_name";
-       source_recovery_protection_container_name =
-         Prop.computed __resource_type __resource_id
-           "source_recovery_protection_container_name";
-       source_vm_id =
-         Prop.computed __resource_type __resource_id "source_vm_id";
-       target_availability_set_id =
-         Prop.computed __resource_type __resource_id
-           "target_availability_set_id";
-       target_boot_diagnostic_storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "target_boot_diagnostic_storage_account_id";
-       target_capacity_reservation_group_id =
-         Prop.computed __resource_type __resource_id
-           "target_capacity_reservation_group_id";
-       target_edge_zone =
-         Prop.computed __resource_type __resource_id
-           "target_edge_zone";
-       target_network_id =
-         Prop.computed __resource_type __resource_id
-           "target_network_id";
-       target_proximity_placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "target_proximity_placement_group_id";
-       target_recovery_fabric_id =
-         Prop.computed __resource_type __resource_id
-           "target_recovery_fabric_id";
-       target_recovery_protection_container_id =
-         Prop.computed __resource_type __resource_id
-           "target_recovery_protection_container_id";
-       target_resource_group_id =
-         Prop.computed __resource_type __resource_id
-           "target_resource_group_id";
-       target_virtual_machine_scale_set_id =
-         Prop.computed __resource_type __resource_id
-           "target_virtual_machine_scale_set_id";
-       target_zone =
-         Prop.computed __resource_type __resource_id "target_zone";
-       test_network_id =
-         Prop.computed __resource_type __resource_id
-           "test_network_id";
-       unmanaged_disk =
-         Prop.computed __resource_type __resource_id "unmanaged_disk";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -48,3 +48,13 @@ val register :
   ?timeouts:timeouts ->
   string ->
   t
+
+val make :
+  ?customer_managed_key_enabled:bool prop ->
+  ?id:string prop ->
+  ?resource_group_name:string prop ->
+  ?workspace_id:string prop ->
+  ?workspace_name:string prop ->
+  ?timeouts:timeouts ->
+  string ->
+  t Tf_core.resource

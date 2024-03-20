@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type identity = {
   identity_ids : string prop list;  (** identity_ids *)
@@ -598,44 +596,48 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?managed_resource_group_name ?tags
-    ?timeouts ~app_location ~environment ~location ~name
-    ~resource_group_name ~sap_fqdn ~sap_product ~identity
-    ~three_tier_configuration __resource_id =
-  let __resource_type =
-    "azurerm_workloads_sap_three_tier_virtual_instance"
-  in
-  let __resource =
-    azurerm_workloads_sap_three_tier_virtual_instance ?id
-      ?managed_resource_group_name ?tags ?timeouts ~app_location
-      ~environment ~location ~name ~resource_group_name ~sap_fqdn
-      ~sap_product ~identity ~three_tier_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_workloads_sap_three_tier_virtual_instance
-       __resource);
-  let __resource_attributes =
+let make ?id ?managed_resource_group_name ?tags ?timeouts
+    ~app_location ~environment ~location ~name ~resource_group_name
+    ~sap_fqdn ~sap_product ~identity ~three_tier_configuration __id =
+  let __type = "azurerm_workloads_sap_three_tier_virtual_instance" in
+  let __attrs =
     ({
-       app_location =
-         Prop.computed __resource_type __resource_id "app_location";
-       environment =
-         Prop.computed __resource_type __resource_id "environment";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       app_location = Prop.computed __type __id "app_location";
+       environment = Prop.computed __type __id "environment";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        managed_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group_name";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "managed_resource_group_name";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sap_fqdn =
-         Prop.computed __resource_type __resource_id "sap_fqdn";
-       sap_product =
-         Prop.computed __resource_type __resource_id "sap_product";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sap_fqdn = Prop.computed __type __id "sap_fqdn";
+       sap_product = Prop.computed __type __id "sap_product";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_workloads_sap_three_tier_virtual_instance
+        (azurerm_workloads_sap_three_tier_virtual_instance ?id
+           ?managed_resource_group_name ?tags ?timeouts ~app_location
+           ~environment ~location ~name ~resource_group_name
+           ~sap_fqdn ~sap_product ~identity ~three_tier_configuration
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?managed_resource_group_name ?tags
+    ?timeouts ~app_location ~environment ~location ~name
+    ~resource_group_name ~sap_fqdn ~sap_product ~identity
+    ~three_tier_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?managed_resource_group_name ?tags ?timeouts
+      ~app_location ~environment ~location ~name ~resource_group_name
+      ~sap_fqdn ~sap_product ~identity ~three_tier_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

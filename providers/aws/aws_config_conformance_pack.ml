@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type input_parameter = {
   parameter_name : string prop;  (** parameter_name *)
@@ -53,34 +51,39 @@ type t = {
   template_s3_uri : string prop;
 }
 
-let register ?tf_module ?delivery_s3_bucket ?delivery_s3_key_prefix
-    ?id ?template_body ?template_s3_uri ~name ~input_parameter
-    __resource_id =
-  let __resource_type = "aws_config_conformance_pack" in
-  let __resource =
-    aws_config_conformance_pack ?delivery_s3_bucket
-      ?delivery_s3_key_prefix ?id ?template_body ?template_s3_uri
-      ~name ~input_parameter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_config_conformance_pack __resource);
-  let __resource_attributes =
+let make ?delivery_s3_bucket ?delivery_s3_key_prefix ?id
+    ?template_body ?template_s3_uri ~name ~input_parameter __id =
+  let __type = "aws_config_conformance_pack" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        delivery_s3_bucket =
-         Prop.computed __resource_type __resource_id
-           "delivery_s3_bucket";
+         Prop.computed __type __id "delivery_s3_bucket";
        delivery_s3_key_prefix =
-         Prop.computed __resource_type __resource_id
-           "delivery_s3_key_prefix";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       template_body =
-         Prop.computed __resource_type __resource_id "template_body";
-       template_s3_uri =
-         Prop.computed __resource_type __resource_id
-           "template_s3_uri";
+         Prop.computed __type __id "delivery_s3_key_prefix";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       template_body = Prop.computed __type __id "template_body";
+       template_s3_uri = Prop.computed __type __id "template_s3_uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_config_conformance_pack
+        (aws_config_conformance_pack ?delivery_s3_bucket
+           ?delivery_s3_key_prefix ?id ?template_body
+           ?template_s3_uri ~name ~input_parameter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delivery_s3_bucket ?delivery_s3_key_prefix
+    ?id ?template_body ?template_s3_uri ~name ~input_parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?delivery_s3_bucket ?delivery_s3_key_prefix ?id
+      ?template_body ?template_s3_uri ~name ~input_parameter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

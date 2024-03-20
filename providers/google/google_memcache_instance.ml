@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type maintenance_policy__weekly_maintenance_window__start_time = {
   hours : float prop option; [@option]
@@ -195,61 +193,63 @@ type t = {
   zones : string list prop;
 }
 
-let register ?tf_module ?authorized_network ?display_name ?id ?labels
+let make ?authorized_network ?display_name ?id ?labels
     ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
     ?timeouts ~name ~node_count ~maintenance_policy
-    ~memcache_parameters ~node_config __resource_id =
-  let __resource_type = "google_memcache_instance" in
-  let __resource =
-    google_memcache_instance ?authorized_network ?display_name ?id
-      ?labels ?memcache_version ?project ?region
-      ?reserved_ip_range_id ?zones ?timeouts ~name ~node_count
-      ~maintenance_policy ~memcache_parameters ~node_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_memcache_instance __resource);
-  let __resource_attributes =
+    ~memcache_parameters ~node_config __id =
+  let __type = "google_memcache_instance" in
+  let __attrs =
     ({
        authorized_network =
-         Prop.computed __resource_type __resource_id
-           "authorized_network";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+         Prop.computed __type __id "authorized_network";
+       create_time = Prop.computed __type __id "create_time";
        discovery_endpoint =
-         Prop.computed __resource_type __resource_id
-           "discovery_endpoint";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "discovery_endpoint";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
        maintenance_schedule =
-         Prop.computed __resource_type __resource_id
-           "maintenance_schedule";
+         Prop.computed __type __id "maintenance_schedule";
        memcache_full_version =
-         Prop.computed __resource_type __resource_id
-           "memcache_full_version";
-       memcache_nodes =
-         Prop.computed __resource_type __resource_id "memcache_nodes";
+         Prop.computed __type __id "memcache_full_version";
+       memcache_nodes = Prop.computed __type __id "memcache_nodes";
        memcache_version =
-         Prop.computed __resource_type __resource_id
-           "memcache_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_count =
-         Prop.computed __resource_type __resource_id "node_count";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "memcache_version";
+       name = Prop.computed __type __id "name";
+       node_count = Prop.computed __type __id "node_count";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        reserved_ip_range_id =
-         Prop.computed __resource_type __resource_id
-           "reserved_ip_range_id";
+         Prop.computed __type __id "reserved_ip_range_id";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       zones = Prop.computed __resource_type __resource_id "zones";
+         Prop.computed __type __id "terraform_labels";
+       zones = Prop.computed __type __id "zones";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_memcache_instance
+        (google_memcache_instance ?authorized_network ?display_name
+           ?id ?labels ?memcache_version ?project ?region
+           ?reserved_ip_range_id ?zones ?timeouts ~name ~node_count
+           ~maintenance_policy ~memcache_parameters ~node_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorized_network ?display_name ?id ?labels
+    ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
+    ?timeouts ~name ~node_count ~maintenance_policy
+    ~memcache_parameters ~node_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorized_network ?display_name ?id ?labels
+      ?memcache_version ?project ?region ?reserved_ip_range_id ?zones
+      ?timeouts ~name ~node_count ~maintenance_policy
+      ~memcache_parameters ~node_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

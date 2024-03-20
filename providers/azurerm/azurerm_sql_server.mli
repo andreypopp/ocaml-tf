@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,19 @@ val register :
   threat_detection_policy:threat_detection_policy list ->
   string ->
   t
+
+val make :
+  ?connection_policy:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  administrator_login:string prop ->
+  administrator_login_password:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  version:string prop ->
+  identity:identity list ->
+  threat_detection_policy:threat_detection_policy list ->
+  string ->
+  t Tf_core.resource

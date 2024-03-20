@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alloydb__settings__initial_user = {
   password : string prop;  (** The initial password for the user. *)
@@ -424,48 +422,52 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?display_name ?id ?labels ?location ?project
-    ?timeouts ~connection_profile_id ~alloydb ~cloudsql ~mysql
-    ~oracle ~postgresql __resource_id =
-  let __resource_type =
+let make ?display_name ?id ?labels ?location ?project ?timeouts
+    ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
+    ~postgresql __id =
+  let __type =
     "google_database_migration_service_connection_profile"
   in
-  let __resource =
-    google_database_migration_service_connection_profile
-      ?display_name ?id ?labels ?location ?project ?timeouts
-      ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
-      ~postgresql ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_database_migration_service_connection_profile
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        connection_profile_id =
-         Prop.computed __resource_type __resource_id
-           "connection_profile_id";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       dbprovider =
-         Prop.computed __resource_type __resource_id "dbprovider";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
+         Prop.computed __type __id "connection_profile_id";
+       create_time = Prop.computed __type __id "create_time";
+       dbprovider = Prop.computed __type __id "dbprovider";
+       display_name = Prop.computed __type __id "display_name";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       error = Prop.computed __resource_type __resource_id "error";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
+         Prop.computed __type __id "effective_labels";
+       error = Prop.computed __type __id "error";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_database_migration_service_connection_profile
+        (google_database_migration_service_connection_profile
+           ?display_name ?id ?labels ?location ?project ?timeouts
+           ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
+           ~postgresql ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?labels ?location ?project
+    ?timeouts ~connection_profile_id ~alloydb ~cloudsql ~mysql
+    ~oracle ~postgresql __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?labels ?location ?project ?timeouts
+      ~connection_profile_id ~alloydb ~cloudsql ~mysql ~oracle
+      ~postgresql __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

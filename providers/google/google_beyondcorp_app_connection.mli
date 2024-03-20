@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -73,3 +73,18 @@ val register :
   gateway:gateway list ->
   string ->
   t
+
+val make :
+  ?connectors:string prop list ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?type_:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  application_endpoint:application_endpoint list ->
+  gateway:gateway list ->
+  string ->
+  t Tf_core.resource

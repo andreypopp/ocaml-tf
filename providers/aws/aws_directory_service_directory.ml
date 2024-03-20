@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type connect_settings = {
   customer_dns_ips : string prop list;  (** customer_dns_ips *)
@@ -104,51 +102,56 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?alias ?description
-    ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
-    ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
-    ~password ~connect_settings ~vpc_settings __resource_id =
-  let __resource_type = "aws_directory_service_directory" in
-  let __resource =
-    aws_directory_service_directory ?alias ?description
-      ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
-      ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
-      ~password ~connect_settings ~vpc_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_directory_service_directory __resource);
-  let __resource_attributes =
+let make ?alias ?description ?desired_number_of_domain_controllers
+    ?edition ?enable_sso ?id ?short_name ?size ?tags ?tags_all ?type_
+    ?timeouts ~name ~password ~connect_settings ~vpc_settings __id =
+  let __type = "aws_directory_service_directory" in
+  let __attrs =
     ({
-       access_url =
-         Prop.computed __resource_type __resource_id "access_url";
-       alias = Prop.computed __resource_type __resource_id "alias";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       access_url = Prop.computed __type __id "access_url";
+       alias = Prop.computed __type __id "alias";
+       description = Prop.computed __type __id "description";
        desired_number_of_domain_controllers =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "desired_number_of_domain_controllers";
        dns_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "dns_ip_addresses";
-       edition =
-         Prop.computed __resource_type __resource_id "edition";
-       enable_sso =
-         Prop.computed __resource_type __resource_id "enable_sso";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "dns_ip_addresses";
+       edition = Prop.computed __type __id "edition";
+       enable_sso = Prop.computed __type __id "enable_sso";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        security_group_id =
-         Prop.computed __resource_type __resource_id
-           "security_group_id";
-       short_name =
-         Prop.computed __resource_type __resource_id "short_name";
-       size = Prop.computed __resource_type __resource_id "size";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "security_group_id";
+       short_name = Prop.computed __type __id "short_name";
+       size = Prop.computed __type __id "size";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_directory_service_directory
+        (aws_directory_service_directory ?alias ?description
+           ?desired_number_of_domain_controllers ?edition ?enable_sso
+           ?id ?short_name ?size ?tags ?tags_all ?type_ ?timeouts
+           ~name ~password ~connect_settings ~vpc_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?alias ?description
+    ?desired_number_of_domain_controllers ?edition ?enable_sso ?id
+    ?short_name ?size ?tags ?tags_all ?type_ ?timeouts ~name
+    ~password ~connect_settings ~vpc_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias ?description ?desired_number_of_domain_controllers
+      ?edition ?enable_sso ?id ?short_name ?size ?tags ?tags_all
+      ?type_ ?timeouts ~name ~password ~connect_settings
+      ~vpc_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

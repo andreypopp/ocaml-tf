@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -51,3 +51,13 @@ val register :
   dkim_signing_attributes:dkim_signing_attributes list ->
   string ->
   t
+
+val make :
+  ?configuration_set_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  email_identity:string prop ->
+  dkim_signing_attributes:dkim_signing_attributes list ->
+  string ->
+  t Tf_core.resource

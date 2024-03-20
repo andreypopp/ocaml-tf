@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -30,3 +30,10 @@ val register :
   backup_policy:backup_policy list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  file_system_id:string prop ->
+  backup_policy:backup_policy list ->
+  string ->
+  t Tf_core.resource

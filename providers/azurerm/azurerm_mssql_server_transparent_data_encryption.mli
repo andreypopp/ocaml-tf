@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,12 @@ val register :
   server_id:string prop ->
   string ->
   t
+
+val make :
+  ?auto_rotation_enabled:bool prop ->
+  ?id:string prop ->
+  ?key_vault_key_id:string prop ->
+  ?timeouts:timeouts ->
+  server_id:string prop ->
+  string ->
+  t Tf_core.resource

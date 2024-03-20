@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -210,3 +210,24 @@ val register :
   frontend_response:frontend_response list ->
   string ->
   t
+
+val make :
+  ?always_log_errors:bool prop ->
+  ?http_correlation_protocol:string prop ->
+  ?id:string prop ->
+  ?log_client_ip:bool prop ->
+  ?operation_name_format:string prop ->
+  ?sampling_percentage:float prop ->
+  ?verbosity:string prop ->
+  ?timeouts:timeouts ->
+  api_management_logger_id:string prop ->
+  api_management_name:string prop ->
+  api_name:string prop ->
+  identifier:string prop ->
+  resource_group_name:string prop ->
+  backend_request:backend_request list ->
+  backend_response:backend_response list ->
+  frontend_request:frontend_request list ->
+  frontend_response:frontend_response list ->
+  string ->
+  t Tf_core.resource

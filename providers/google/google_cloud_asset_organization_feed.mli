@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,17 @@ val register :
   feed_output_config:feed_output_config list ->
   string ->
   t
+
+val make :
+  ?asset_names:string prop list ->
+  ?asset_types:string prop list ->
+  ?content_type:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  billing_project:string prop ->
+  feed_id:string prop ->
+  org_id:string prop ->
+  condition:condition list ->
+  feed_output_config:feed_output_config list ->
+  string ->
+  t Tf_core.resource

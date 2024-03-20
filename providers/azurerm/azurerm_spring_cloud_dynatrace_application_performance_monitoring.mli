@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -65,3 +65,18 @@ val register :
   tenant_token:string prop ->
   string ->
   t
+
+val make :
+  ?api_token:string prop ->
+  ?api_url:string prop ->
+  ?environment_id:string prop ->
+  ?globally_enabled:bool prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  connection_point:string prop ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  tenant:string prop ->
+  tenant_token:string prop ->
+  string ->
+  t Tf_core.resource

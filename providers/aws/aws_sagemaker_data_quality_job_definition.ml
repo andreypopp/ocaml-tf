@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_quality_app_specification = {
   environment : (string * string prop) list option; [@option]
@@ -316,34 +314,44 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?name ?tags ?tags_all ~role_arn
+let make ?id ?name ?tags ?tags_all ~role_arn
     ~data_quality_app_specification ~data_quality_baseline_config
     ~data_quality_job_input ~data_quality_job_output_config
-    ~job_resources ~network_config ~stopping_condition __resource_id
-    =
-  let __resource_type =
-    "aws_sagemaker_data_quality_job_definition"
-  in
-  let __resource =
-    aws_sagemaker_data_quality_job_definition ?id ?name ?tags
-      ?tags_all ~role_arn ~data_quality_app_specification
-      ~data_quality_baseline_config ~data_quality_job_input
-      ~data_quality_job_output_config ~job_resources ~network_config
-      ~stopping_condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_data_quality_job_definition __resource);
-  let __resource_attributes =
+    ~job_resources ~network_config ~stopping_condition __id =
+  let __type = "aws_sagemaker_data_quality_job_definition" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_data_quality_job_definition
+        (aws_sagemaker_data_quality_job_definition ?id ?name ?tags
+           ?tags_all ~role_arn ~data_quality_app_specification
+           ~data_quality_baseline_config ~data_quality_job_input
+           ~data_quality_job_output_config ~job_resources
+           ~network_config ~stopping_condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?tags ?tags_all ~role_arn
+    ~data_quality_app_specification ~data_quality_baseline_config
+    ~data_quality_job_input ~data_quality_job_output_config
+    ~job_resources ~network_config ~stopping_condition __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?tags ?tags_all ~role_arn
+      ~data_quality_app_specification ~data_quality_baseline_config
+      ~data_quality_job_input ~data_quality_job_output_config
+      ~job_resources ~network_config ~stopping_condition __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

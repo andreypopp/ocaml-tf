@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type export_config__s3_destination = {
   bucket : string prop;  (** bucket *)
@@ -58,29 +56,37 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?delete_reports ?id ?tags ?tags_all ~name
-    ~type_ ~export_config __resource_id =
-  let __resource_type = "aws_codebuild_report_group" in
-  let __resource =
-    aws_codebuild_report_group ?delete_reports ?id ?tags ?tags_all
-      ~name ~type_ ~export_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codebuild_report_group __resource);
-  let __resource_attributes =
+let make ?delete_reports ?id ?tags ?tags_all ~name ~type_
+    ~export_config __id =
+  let __type = "aws_codebuild_report_group" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created =
-         Prop.computed __resource_type __resource_id "created";
-       delete_reports =
-         Prop.computed __resource_type __resource_id "delete_reports";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       arn = Prop.computed __type __id "arn";
+       created = Prop.computed __type __id "created";
+       delete_reports = Prop.computed __type __id "delete_reports";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codebuild_report_group
+        (aws_codebuild_report_group ?delete_reports ?id ?tags
+           ?tags_all ~name ~type_ ~export_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?delete_reports ?id ?tags ?tags_all ~name
+    ~type_ ~export_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?delete_reports ?id ?tags ?tags_all ~name ~type_
+      ~export_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

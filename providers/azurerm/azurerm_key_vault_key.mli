@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -92,3 +92,19 @@ val register :
   rotation_policy:rotation_policy list ->
   string ->
   t
+
+val make :
+  ?curve:string prop ->
+  ?expiration_date:string prop ->
+  ?id:string prop ->
+  ?key_size:float prop ->
+  ?not_before_date:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  key_opts:string prop list ->
+  key_type:string prop ->
+  key_vault_id:string prop ->
+  name:string prop ->
+  rotation_policy:rotation_policy list ->
+  string ->
+  t Tf_core.resource

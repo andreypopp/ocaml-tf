@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,3 +50,16 @@ val register :
   hsm_server_public_certificate:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  description:string prop ->
+  hsm_configuration_identifier:string prop ->
+  hsm_ip_address:string prop ->
+  hsm_partition_name:string prop ->
+  hsm_partition_password:string prop ->
+  hsm_server_public_certificate:string prop ->
+  string ->
+  t Tf_core.resource

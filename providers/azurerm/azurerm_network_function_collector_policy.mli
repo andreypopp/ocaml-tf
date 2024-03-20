@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,15 @@ val register :
   ipfx_ingestion:ipfx_ingestion list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  traffic_collector_id:string prop ->
+  ipfx_emission:ipfx_emission list ->
+  ipfx_ingestion:ipfx_ingestion list ->
+  string ->
+  t Tf_core.resource

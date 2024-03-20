@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -54,3 +54,17 @@ val register :
   ?tags_all:(string * string prop) list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?ignore_words:string prop list ->
+  ?keywords:string prop list ->
+  ?maximum_match_distance:float prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?regex:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -60,3 +60,19 @@ val register :
   server_hostname:string prop ->
   string ->
   t
+
+val make :
+  ?access_key:string prop ->
+  ?id:string prop ->
+  ?secret_key:string prop ->
+  ?server_certificate:string prop ->
+  ?server_port:float prop ->
+  ?server_protocol:string prop ->
+  ?subdirectory:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  agent_arns:string prop list ->
+  bucket_name:string prop ->
+  server_hostname:string prop ->
+  string ->
+  t Tf_core.resource

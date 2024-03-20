@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -54,30 +52,36 @@ type t = {
   user_type : string prop;
 }
 
-let register ?tf_module ?database_roles ?id ?password ?timeouts
-    ~cluster ~user_id ~user_type __resource_id =
-  let __resource_type = "google_alloydb_user" in
-  let __resource =
-    google_alloydb_user ?database_roles ?id ?password ?timeouts
-      ~cluster ~user_id ~user_type ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_alloydb_user __resource);
-  let __resource_attributes =
+let make ?database_roles ?id ?password ?timeouts ~cluster ~user_id
+    ~user_type __id =
+  let __type = "google_alloydb_user" in
+  let __attrs =
     ({
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       database_roles =
-         Prop.computed __resource_type __resource_id "database_roles";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
-       user_type =
-         Prop.computed __resource_type __resource_id "user_type";
+       cluster = Prop.computed __type __id "cluster";
+       database_roles = Prop.computed __type __id "database_roles";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
+       user_id = Prop.computed __type __id "user_id";
+       user_type = Prop.computed __type __id "user_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_alloydb_user
+        (google_alloydb_user ?database_roles ?id ?password ?timeouts
+           ~cluster ~user_id ~user_type ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?database_roles ?id ?password ?timeouts
+    ~cluster ~user_id ~user_type __id =
+  let (r : _ Tf_core.resource) =
+    make ?database_roles ?id ?password ?timeouts ~cluster ~user_id
+      ~user_type __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

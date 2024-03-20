@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,19 @@ val register :
   service_provider_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?scopes:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  bot_name:string prop ->
+  client_id:string prop ->
+  client_secret:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  service_provider_name:string prop ->
+  string ->
+  t Tf_core.resource

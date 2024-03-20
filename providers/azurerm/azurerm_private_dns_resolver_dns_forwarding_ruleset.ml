@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,35 +50,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name
+let make ?id ?tags ?timeouts ~location ~name
     ~private_dns_resolver_outbound_endpoint_ids ~resource_group_name
-    __resource_id =
-  let __resource_type =
+    __id =
+  let __type =
     "azurerm_private_dns_resolver_dns_forwarding_ruleset"
   in
-  let __resource =
-    azurerm_private_dns_resolver_dns_forwarding_ruleset ?id ?tags
-      ?timeouts ~location ~name
-      ~private_dns_resolver_outbound_endpoint_ids
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_dns_resolver_dns_forwarding_ruleset
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        private_dns_resolver_outbound_endpoint_ids =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "private_dns_resolver_outbound_endpoint_ids";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_dns_resolver_dns_forwarding_ruleset
+        (azurerm_private_dns_resolver_dns_forwarding_ruleset ?id
+           ?tags ?timeouts ~location ~name
+           ~private_dns_resolver_outbound_endpoint_ids
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name
+    ~private_dns_resolver_outbound_endpoint_ids ~resource_group_name
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name
+      ~private_dns_resolver_outbound_endpoint_ids
+      ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

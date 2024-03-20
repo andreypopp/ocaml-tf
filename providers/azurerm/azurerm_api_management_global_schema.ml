@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,33 +51,40 @@ type t = {
   value : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts
-    ~api_management_name ~resource_group_name ~schema_id ~type_
-    ~value __resource_id =
-  let __resource_type = "azurerm_api_management_global_schema" in
-  let __resource =
-    azurerm_api_management_global_schema ?description ?id ?timeouts
-      ~api_management_name ~resource_group_name ~schema_id ~type_
-      ~value ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_global_schema __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~api_management_name
+    ~resource_group_name ~schema_id ~type_ ~value __id =
+  let __type = "azurerm_api_management_global_schema" in
+  let __attrs =
     ({
        api_management_name =
-         Prop.computed __resource_type __resource_id
-           "api_management_name";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "api_management_name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       schema_id =
-         Prop.computed __resource_type __resource_id "schema_id";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "resource_group_name";
+       schema_id = Prop.computed __type __id "schema_id";
+       type_ = Prop.computed __type __id "type";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_global_schema
+        (azurerm_api_management_global_schema ?description ?id
+           ?timeouts ~api_management_name ~resource_group_name
+           ~schema_id ~type_ ~value ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts
+    ~api_management_name ~resource_group_name ~schema_id ~type_
+    ~value __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~api_management_name
+      ~resource_group_name ~schema_id ~type_ ~value __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

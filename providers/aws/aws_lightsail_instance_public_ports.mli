@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -39,3 +39,10 @@ val register :
   port_info:port_info list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  instance_name:string prop ->
+  port_info:port_info list ->
+  string ->
+  t Tf_core.resource

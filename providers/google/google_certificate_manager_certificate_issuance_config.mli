@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -82,3 +82,18 @@ val register :
   certificate_authority_config:certificate_authority_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  key_algorithm:string prop ->
+  lifetime:string prop ->
+  name:string prop ->
+  rotation_window_percentage:float prop ->
+  certificate_authority_config:certificate_authority_config list ->
+  string ->
+  t Tf_core.resource

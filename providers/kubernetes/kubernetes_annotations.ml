@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   name : string prop;  (** The name of the resource. *)
@@ -57,31 +55,37 @@ type t = {
   template_annotations : (string * string) list prop;
 }
 
-let register ?tf_module ?annotations ?field_manager ?force ?id
-    ?template_annotations ~api_version ~kind ~metadata __resource_id
-    =
-  let __resource_type = "kubernetes_annotations" in
-  let __resource =
-    kubernetes_annotations ?annotations ?field_manager ?force ?id
-      ?template_annotations ~api_version ~kind ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_annotations __resource);
-  let __resource_attributes =
+let make ?annotations ?field_manager ?force ?id ?template_annotations
+    ~api_version ~kind ~metadata __id =
+  let __type = "kubernetes_annotations" in
+  let __attrs =
     ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       api_version =
-         Prop.computed __resource_type __resource_id "api_version";
-       field_manager =
-         Prop.computed __resource_type __resource_id "field_manager";
-       force = Prop.computed __resource_type __resource_id "force";
-       id = Prop.computed __resource_type __resource_id "id";
-       kind = Prop.computed __resource_type __resource_id "kind";
+       annotations = Prop.computed __type __id "annotations";
+       api_version = Prop.computed __type __id "api_version";
+       field_manager = Prop.computed __type __id "field_manager";
+       force = Prop.computed __type __id "force";
+       id = Prop.computed __type __id "id";
+       kind = Prop.computed __type __id "kind";
        template_annotations =
-         Prop.computed __resource_type __resource_id
-           "template_annotations";
+         Prop.computed __type __id "template_annotations";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_annotations
+        (kubernetes_annotations ?annotations ?field_manager ?force
+           ?id ?template_annotations ~api_version ~kind ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?annotations ?field_manager ?force ?id
+    ?template_annotations ~api_version ~kind ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?field_manager ?force ?id ?template_annotations
+      ~api_version ~kind ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

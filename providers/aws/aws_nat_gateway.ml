@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,52 +68,58 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?allocation_id ?connectivity_type ?id ?private_ip
+    ?secondary_allocation_ids ?secondary_private_ip_address_count
+    ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
+    ~subnet_id __id =
+  let __type = "aws_nat_gateway" in
+  let __attrs =
+    ({
+       allocation_id = Prop.computed __type __id "allocation_id";
+       association_id = Prop.computed __type __id "association_id";
+       connectivity_type =
+         Prop.computed __type __id "connectivity_type";
+       id = Prop.computed __type __id "id";
+       network_interface_id =
+         Prop.computed __type __id "network_interface_id";
+       private_ip = Prop.computed __type __id "private_ip";
+       public_ip = Prop.computed __type __id "public_ip";
+       secondary_allocation_ids =
+         Prop.computed __type __id "secondary_allocation_ids";
+       secondary_private_ip_address_count =
+         Prop.computed __type __id
+           "secondary_private_ip_address_count";
+       secondary_private_ip_addresses =
+         Prop.computed __type __id "secondary_private_ip_addresses";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_nat_gateway
+        (aws_nat_gateway ?allocation_id ?connectivity_type ?id
+           ?private_ip ?secondary_allocation_ids
+           ?secondary_private_ip_address_count
+           ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
+           ~subnet_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allocation_id ?connectivity_type ?id
     ?private_ip ?secondary_allocation_ids
     ?secondary_private_ip_address_count
     ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
-    ~subnet_id __resource_id =
-  let __resource_type = "aws_nat_gateway" in
-  let __resource =
-    aws_nat_gateway ?allocation_id ?connectivity_type ?id ?private_ip
+    ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?allocation_id ?connectivity_type ?id ?private_ip
       ?secondary_allocation_ids ?secondary_private_ip_address_count
       ?secondary_private_ip_addresses ?tags ?tags_all ?timeouts
-      ~subnet_id ()
+      ~subnet_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_nat_gateway __resource);
-  let __resource_attributes =
-    ({
-       allocation_id =
-         Prop.computed __resource_type __resource_id "allocation_id";
-       association_id =
-         Prop.computed __resource_type __resource_id "association_id";
-       connectivity_type =
-         Prop.computed __resource_type __resource_id
-           "connectivity_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       private_ip =
-         Prop.computed __resource_type __resource_id "private_ip";
-       public_ip =
-         Prop.computed __resource_type __resource_id "public_ip";
-       secondary_allocation_ids =
-         Prop.computed __resource_type __resource_id
-           "secondary_allocation_ids";
-       secondary_private_ip_address_count =
-         Prop.computed __resource_type __resource_id
-           "secondary_private_ip_address_count";
-       secondary_private_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "secondary_private_ip_addresses";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

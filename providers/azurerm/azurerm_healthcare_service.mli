@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -88,3 +88,20 @@ val register :
   cors_configuration:cors_configuration list ->
   string ->
   t
+
+val make :
+  ?access_policy_object_ids:string prop list ->
+  ?cosmosdb_key_vault_key_versionless_id:string prop ->
+  ?cosmosdb_throughput:float prop ->
+  ?id:string prop ->
+  ?kind:string prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  authentication_configuration:authentication_configuration list ->
+  cors_configuration:cors_configuration list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -47,25 +45,32 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?definition ?id ?project ?type_ ?timeouts
-    ~name __resource_id =
-  let __resource_type = "google_pubsub_schema" in
-  let __resource =
-    google_pubsub_schema ?definition ?id ?project ?type_ ?timeouts
-      ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_pubsub_schema __resource);
-  let __resource_attributes =
+let make ?definition ?id ?project ?type_ ?timeouts ~name __id =
+  let __type = "google_pubsub_schema" in
+  let __attrs =
     ({
-       definition =
-         Prop.computed __resource_type __resource_id "definition";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       definition = Prop.computed __type __id "definition";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_pubsub_schema
+        (google_pubsub_schema ?definition ?id ?project ?type_
+           ?timeouts ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?definition ?id ?project ?type_ ?timeouts
+    ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?definition ?id ?project ?type_ ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

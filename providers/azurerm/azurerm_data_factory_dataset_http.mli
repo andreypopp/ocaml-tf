@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -81,3 +81,21 @@ val register :
   schema_column:schema_column list ->
   string ->
   t
+
+val make :
+  ?additional_properties:(string * string prop) list ->
+  ?annotations:string prop list ->
+  ?description:string prop ->
+  ?folder:string prop ->
+  ?id:string prop ->
+  ?parameters:(string * string prop) list ->
+  ?relative_url:string prop ->
+  ?request_body:string prop ->
+  ?request_method:string prop ->
+  ?timeouts:timeouts ->
+  data_factory_id:string prop ->
+  linked_service_name:string prop ->
+  name:string prop ->
+  schema_column:schema_column list ->
+  string ->
+  t Tf_core.resource

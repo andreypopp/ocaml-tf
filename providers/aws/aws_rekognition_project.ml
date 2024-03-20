@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -36,24 +34,31 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?auto_update ?feature ?timeouts ~name
-    __resource_id =
-  let __resource_type = "aws_rekognition_project" in
-  let __resource =
-    aws_rekognition_project ?auto_update ?feature ?timeouts ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_rekognition_project __resource);
-  let __resource_attributes =
+let make ?auto_update ?feature ?timeouts ~name __id =
+  let __type = "aws_rekognition_project" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_update =
-         Prop.computed __resource_type __resource_id "auto_update";
-       feature =
-         Prop.computed __resource_type __resource_id "feature";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       auto_update = Prop.computed __type __id "auto_update";
+       feature = Prop.computed __type __id "feature";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_rekognition_project
+        (aws_rekognition_project ?auto_update ?feature ?timeouts
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_update ?feature ?timeouts ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_update ?feature ?timeouts ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

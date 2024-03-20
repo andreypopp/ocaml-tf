@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type elasticsearch_settings = {
   endpoint_uri : string prop;  (** endpoint_uri *)
@@ -509,6 +507,62 @@ type t = {
   username : string prop;
 }
 
+let make ?certificate_arn ?database_name ?extra_connection_attributes
+    ?id ?kms_key_arn ?password ?pause_replication_tasks ?port
+    ?secrets_manager_access_role_arn ?secrets_manager_arn
+    ?server_name ?service_access_role ?ssl_mode ?tags ?tags_all
+    ?username ?timeouts ~endpoint_id ~endpoint_type ~engine_name
+    ~elasticsearch_settings ~kafka_settings ~kinesis_settings
+    ~mongodb_settings ~postgres_settings ~redis_settings
+    ~redshift_settings ~s3_settings __id =
+  let __type = "aws_dms_endpoint" in
+  let __attrs =
+    ({
+       certificate_arn = Prop.computed __type __id "certificate_arn";
+       database_name = Prop.computed __type __id "database_name";
+       endpoint_arn = Prop.computed __type __id "endpoint_arn";
+       endpoint_id = Prop.computed __type __id "endpoint_id";
+       endpoint_type = Prop.computed __type __id "endpoint_type";
+       engine_name = Prop.computed __type __id "engine_name";
+       extra_connection_attributes =
+         Prop.computed __type __id "extra_connection_attributes";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       password = Prop.computed __type __id "password";
+       pause_replication_tasks =
+         Prop.computed __type __id "pause_replication_tasks";
+       port = Prop.computed __type __id "port";
+       secrets_manager_access_role_arn =
+         Prop.computed __type __id "secrets_manager_access_role_arn";
+       secrets_manager_arn =
+         Prop.computed __type __id "secrets_manager_arn";
+       server_name = Prop.computed __type __id "server_name";
+       service_access_role =
+         Prop.computed __type __id "service_access_role";
+       ssl_mode = Prop.computed __type __id "ssl_mode";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       username = Prop.computed __type __id "username";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dms_endpoint
+        (aws_dms_endpoint ?certificate_arn ?database_name
+           ?extra_connection_attributes ?id ?kms_key_arn ?password
+           ?pause_replication_tasks ?port
+           ?secrets_manager_access_role_arn ?secrets_manager_arn
+           ?server_name ?service_access_role ?ssl_mode ?tags
+           ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
+           ~engine_name ~elasticsearch_settings ~kafka_settings
+           ~kinesis_settings ~mongodb_settings ~postgres_settings
+           ~redis_settings ~redshift_settings ~s3_settings ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?certificate_arn ?database_name
     ?extra_connection_attributes ?id ?kms_key_arn ?password
     ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
@@ -516,67 +570,16 @@ let register ?tf_module ?certificate_arn ?database_name
     ?tags ?tags_all ?username ?timeouts ~endpoint_id ~endpoint_type
     ~engine_name ~elasticsearch_settings ~kafka_settings
     ~kinesis_settings ~mongodb_settings ~postgres_settings
-    ~redis_settings ~redshift_settings ~s3_settings __resource_id =
-  let __resource_type = "aws_dms_endpoint" in
-  let __resource =
-    aws_dms_endpoint ?certificate_arn ?database_name
-      ?extra_connection_attributes ?id ?kms_key_arn ?password
-      ?pause_replication_tasks ?port ?secrets_manager_access_role_arn
-      ?secrets_manager_arn ?server_name ?service_access_role
-      ?ssl_mode ?tags ?tags_all ?username ?timeouts ~endpoint_id
-      ~endpoint_type ~engine_name ~elasticsearch_settings
-      ~kafka_settings ~kinesis_settings ~mongodb_settings
-      ~postgres_settings ~redis_settings ~redshift_settings
-      ~s3_settings ()
+    ~redis_settings ~redshift_settings ~s3_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_arn ?database_name ?extra_connection_attributes
+      ?id ?kms_key_arn ?password ?pause_replication_tasks ?port
+      ?secrets_manager_access_role_arn ?secrets_manager_arn
+      ?server_name ?service_access_role ?ssl_mode ?tags ?tags_all
+      ?username ?timeouts ~endpoint_id ~endpoint_type ~engine_name
+      ~elasticsearch_settings ~kafka_settings ~kinesis_settings
+      ~mongodb_settings ~postgres_settings ~redis_settings
+      ~redshift_settings ~s3_settings __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dms_endpoint __resource);
-  let __resource_attributes =
-    ({
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       endpoint_arn =
-         Prop.computed __resource_type __resource_id "endpoint_arn";
-       endpoint_id =
-         Prop.computed __resource_type __resource_id "endpoint_id";
-       endpoint_type =
-         Prop.computed __resource_type __resource_id "endpoint_type";
-       engine_name =
-         Prop.computed __resource_type __resource_id "engine_name";
-       extra_connection_attributes =
-         Prop.computed __resource_type __resource_id
-           "extra_connection_attributes";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       pause_replication_tasks =
-         Prop.computed __resource_type __resource_id
-           "pause_replication_tasks";
-       port = Prop.computed __resource_type __resource_id "port";
-       secrets_manager_access_role_arn =
-         Prop.computed __resource_type __resource_id
-           "secrets_manager_access_role_arn";
-       secrets_manager_arn =
-         Prop.computed __resource_type __resource_id
-           "secrets_manager_arn";
-       server_name =
-         Prop.computed __resource_type __resource_id "server_name";
-       service_access_role =
-         Prop.computed __resource_type __resource_id
-           "service_access_role";
-       ssl_mode =
-         Prop.computed __resource_type __resource_id "ssl_mode";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

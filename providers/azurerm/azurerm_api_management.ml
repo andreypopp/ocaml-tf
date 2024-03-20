@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type additional_location__virtual_network_configuration = {
   subnet_id : string prop;  (** subnet_id *)
@@ -504,6 +502,75 @@ type t = {
   zones : string list prop;
 }
 
+let make ?client_certificate_enabled ?gateway_disabled ?id
+    ?min_api_version ?notification_sender_email ?policy
+    ?public_ip_address_id ?public_network_access_enabled ?tags
+    ?virtual_network_type ?zones ?timeouts ~location ~name
+    ~publisher_email ~publisher_name ~resource_group_name ~sku_name
+    ~additional_location ~certificate ~delegation
+    ~hostname_configuration ~identity ~protocols ~security ~sign_in
+    ~sign_up ~tenant_access ~virtual_network_configuration __id =
+  let __type = "azurerm_api_management" in
+  let __attrs =
+    ({
+       client_certificate_enabled =
+         Prop.computed __type __id "client_certificate_enabled";
+       developer_portal_url =
+         Prop.computed __type __id "developer_portal_url";
+       gateway_disabled =
+         Prop.computed __type __id "gateway_disabled";
+       gateway_regional_url =
+         Prop.computed __type __id "gateway_regional_url";
+       gateway_url = Prop.computed __type __id "gateway_url";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       management_api_url =
+         Prop.computed __type __id "management_api_url";
+       min_api_version = Prop.computed __type __id "min_api_version";
+       name = Prop.computed __type __id "name";
+       notification_sender_email =
+         Prop.computed __type __id "notification_sender_email";
+       policy = Prop.computed __type __id "policy";
+       portal_url = Prop.computed __type __id "portal_url";
+       private_ip_addresses =
+         Prop.computed __type __id "private_ip_addresses";
+       public_ip_address_id =
+         Prop.computed __type __id "public_ip_address_id";
+       public_ip_addresses =
+         Prop.computed __type __id "public_ip_addresses";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       publisher_email = Prop.computed __type __id "publisher_email";
+       publisher_name = Prop.computed __type __id "publisher_name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       scm_url = Prop.computed __type __id "scm_url";
+       sku_name = Prop.computed __type __id "sku_name";
+       tags = Prop.computed __type __id "tags";
+       virtual_network_type =
+         Prop.computed __type __id "virtual_network_type";
+       zones = Prop.computed __type __id "zones";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management
+        (azurerm_api_management ?client_certificate_enabled
+           ?gateway_disabled ?id ?min_api_version
+           ?notification_sender_email ?policy ?public_ip_address_id
+           ?public_network_access_enabled ?tags ?virtual_network_type
+           ?zones ?timeouts ~location ~name ~publisher_email
+           ~publisher_name ~resource_group_name ~sku_name
+           ~additional_location ~certificate ~delegation
+           ~hostname_configuration ~identity ~protocols ~security
+           ~sign_in ~sign_up ~tenant_access
+           ~virtual_network_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?client_certificate_enabled ?gateway_disabled
     ?id ?min_api_version ?notification_sender_email ?policy
     ?public_ip_address_id ?public_network_access_enabled ?tags
@@ -511,84 +578,16 @@ let register ?tf_module ?client_certificate_enabled ?gateway_disabled
     ~publisher_email ~publisher_name ~resource_group_name ~sku_name
     ~additional_location ~certificate ~delegation
     ~hostname_configuration ~identity ~protocols ~security ~sign_in
-    ~sign_up ~tenant_access ~virtual_network_configuration
-    __resource_id =
-  let __resource_type = "azurerm_api_management" in
-  let __resource =
-    azurerm_api_management ?client_certificate_enabled
-      ?gateway_disabled ?id ?min_api_version
-      ?notification_sender_email ?policy ?public_ip_address_id
-      ?public_network_access_enabled ?tags ?virtual_network_type
-      ?zones ?timeouts ~location ~name ~publisher_email
-      ~publisher_name ~resource_group_name ~sku_name
+    ~sign_up ~tenant_access ~virtual_network_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?client_certificate_enabled ?gateway_disabled ?id
+      ?min_api_version ?notification_sender_email ?policy
+      ?public_ip_address_id ?public_network_access_enabled ?tags
+      ?virtual_network_type ?zones ?timeouts ~location ~name
+      ~publisher_email ~publisher_name ~resource_group_name ~sku_name
       ~additional_location ~certificate ~delegation
       ~hostname_configuration ~identity ~protocols ~security ~sign_in
-      ~sign_up ~tenant_access ~virtual_network_configuration ()
+      ~sign_up ~tenant_access ~virtual_network_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management __resource);
-  let __resource_attributes =
-    ({
-       client_certificate_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_certificate_enabled";
-       developer_portal_url =
-         Prop.computed __resource_type __resource_id
-           "developer_portal_url";
-       gateway_disabled =
-         Prop.computed __resource_type __resource_id
-           "gateway_disabled";
-       gateway_regional_url =
-         Prop.computed __resource_type __resource_id
-           "gateway_regional_url";
-       gateway_url =
-         Prop.computed __resource_type __resource_id "gateway_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       management_api_url =
-         Prop.computed __resource_type __resource_id
-           "management_api_url";
-       min_api_version =
-         Prop.computed __resource_type __resource_id
-           "min_api_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       notification_sender_email =
-         Prop.computed __resource_type __resource_id
-           "notification_sender_email";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       portal_url =
-         Prop.computed __resource_type __resource_id "portal_url";
-       private_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "private_ip_addresses";
-       public_ip_address_id =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address_id";
-       public_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "public_ip_addresses";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       publisher_email =
-         Prop.computed __resource_type __resource_id
-           "publisher_email";
-       publisher_name =
-         Prop.computed __resource_type __resource_id "publisher_name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       scm_url =
-         Prop.computed __resource_type __resource_id "scm_url";
-       sku_name =
-         Prop.computed __resource_type __resource_id "sku_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       virtual_network_type =
-         Prop.computed __resource_type __resource_id
-           "virtual_network_type";
-       zones = Prop.computed __resource_type __resource_id "zones";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type closing_setting__closing_response__message_group__message__custom_payload = {
   value : string prop;  (** value *)
@@ -14763,45 +14761,55 @@ type t = {
   parent_intent_signature : string prop;
 }
 
+let make ?description ?parent_intent_signature ?timeouts ~bot_id
+    ~bot_version ~locale_id ~name ~closing_setting
+    ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
+    ~initial_response_setting ~input_context ~kendra_configuration
+    ~output_context ~sample_utterance ~slot_priority __id =
+  let __type = "aws_lexv2models_intent" in
+  let __attrs =
+    ({
+       bot_id = Prop.computed __type __id "bot_id";
+       bot_version = Prop.computed __type __id "bot_version";
+       creation_date_time =
+         Prop.computed __type __id "creation_date_time";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       intent_id = Prop.computed __type __id "intent_id";
+       last_updated_date_time =
+         Prop.computed __type __id "last_updated_date_time";
+       locale_id = Prop.computed __type __id "locale_id";
+       name = Prop.computed __type __id "name";
+       parent_intent_signature =
+         Prop.computed __type __id "parent_intent_signature";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lexv2models_intent
+        (aws_lexv2models_intent ?description ?parent_intent_signature
+           ?timeouts ~bot_id ~bot_version ~locale_id ~name
+           ~closing_setting ~confirmation_setting ~dialog_code_hook
+           ~fulfillment_code_hook ~initial_response_setting
+           ~input_context ~kendra_configuration ~output_context
+           ~sample_utterance ~slot_priority ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?parent_intent_signature
     ?timeouts ~bot_id ~bot_version ~locale_id ~name ~closing_setting
     ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
     ~initial_response_setting ~input_context ~kendra_configuration
-    ~output_context ~sample_utterance ~slot_priority __resource_id =
-  let __resource_type = "aws_lexv2models_intent" in
-  let __resource =
-    aws_lexv2models_intent ?description ?parent_intent_signature
-      ?timeouts ~bot_id ~bot_version ~locale_id ~name
-      ~closing_setting ~confirmation_setting ~dialog_code_hook
-      ~fulfillment_code_hook ~initial_response_setting ~input_context
-      ~kendra_configuration ~output_context ~sample_utterance
-      ~slot_priority ()
+    ~output_context ~sample_utterance ~slot_priority __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?parent_intent_signature ?timeouts ~bot_id
+      ~bot_version ~locale_id ~name ~closing_setting
+      ~confirmation_setting ~dialog_code_hook ~fulfillment_code_hook
+      ~initial_response_setting ~input_context ~kendra_configuration
+      ~output_context ~sample_utterance ~slot_priority __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lexv2models_intent __resource);
-  let __resource_attributes =
-    ({
-       bot_id = Prop.computed __resource_type __resource_id "bot_id";
-       bot_version =
-         Prop.computed __resource_type __resource_id "bot_version";
-       creation_date_time =
-         Prop.computed __resource_type __resource_id
-           "creation_date_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       intent_id =
-         Prop.computed __resource_type __resource_id "intent_id";
-       last_updated_date_time =
-         Prop.computed __resource_type __resource_id
-           "last_updated_date_time";
-       locale_id =
-         Prop.computed __resource_type __resource_id "locale_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent_intent_signature =
-         Prop.computed __resource_type __resource_id
-           "parent_intent_signature";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

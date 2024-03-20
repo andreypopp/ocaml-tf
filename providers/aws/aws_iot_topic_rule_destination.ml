@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,22 +42,30 @@ let aws_iot_topic_rule_destination ?enabled ?id ?timeouts
 
 type t = { arn : string prop; enabled : bool prop; id : string prop }
 
-let register ?tf_module ?enabled ?id ?timeouts ~vpc_configuration
-    __resource_id =
-  let __resource_type = "aws_iot_topic_rule_destination" in
-  let __resource =
-    aws_iot_topic_rule_destination ?enabled ?id ?timeouts
-      ~vpc_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iot_topic_rule_destination __resource);
-  let __resource_attributes =
+let make ?enabled ?id ?timeouts ~vpc_configuration __id =
+  let __type = "aws_iot_topic_rule_destination" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iot_topic_rule_destination
+        (aws_iot_topic_rule_destination ?enabled ?id ?timeouts
+           ~vpc_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ?timeouts ~vpc_configuration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?timeouts ~vpc_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

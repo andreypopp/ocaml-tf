@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -183,3 +183,28 @@ val register :
   volume:volume list ->
   string ->
   t
+
+val make :
+  ?cpu:string prop ->
+  ?execution_role_arn:string prop ->
+  ?id:string prop ->
+  ?ipc_mode:string prop ->
+  ?memory:string prop ->
+  ?network_mode:string prop ->
+  ?pid_mode:string prop ->
+  ?requires_compatibilities:string prop list ->
+  ?skip_destroy:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?task_role_arn:string prop ->
+  ?track_latest:bool prop ->
+  container_definitions:string prop ->
+  family:string prop ->
+  ephemeral_storage:ephemeral_storage list ->
+  inference_accelerator:inference_accelerator list ->
+  placement_constraints:placement_constraints list ->
+  proxy_configuration:proxy_configuration list ->
+  runtime_platform:runtime_platform list ->
+  volume:volume list ->
+  string ->
+  t Tf_core.resource

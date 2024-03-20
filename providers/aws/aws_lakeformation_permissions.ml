@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type data_cells_filter = {
   database_name : string prop;  (** database_name *)
@@ -157,35 +155,45 @@ type t = {
   principal : string prop;
 }
 
-let register ?tf_module ?catalog_id ?catalog_resource ?id
+let make ?catalog_id ?catalog_resource ?id
     ?permissions_with_grant_option ~permissions ~principal
     ~data_cells_filter ~data_location ~database ~lf_tag
-    ~lf_tag_policy ~table ~table_with_columns __resource_id =
-  let __resource_type = "aws_lakeformation_permissions" in
-  let __resource =
-    aws_lakeformation_permissions ?catalog_id ?catalog_resource ?id
-      ?permissions_with_grant_option ~permissions ~principal
-      ~data_cells_filter ~data_location ~database ~lf_tag
-      ~lf_tag_policy ~table ~table_with_columns ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lakeformation_permissions __resource);
-  let __resource_attributes =
+    ~lf_tag_policy ~table ~table_with_columns __id =
+  let __type = "aws_lakeformation_permissions" in
+  let __attrs =
     ({
-       catalog_id =
-         Prop.computed __resource_type __resource_id "catalog_id";
+       catalog_id = Prop.computed __type __id "catalog_id";
        catalog_resource =
-         Prop.computed __resource_type __resource_id
-           "catalog_resource";
-       id = Prop.computed __resource_type __resource_id "id";
-       permissions =
-         Prop.computed __resource_type __resource_id "permissions";
+         Prop.computed __type __id "catalog_resource";
+       id = Prop.computed __type __id "id";
+       permissions = Prop.computed __type __id "permissions";
        permissions_with_grant_option =
-         Prop.computed __resource_type __resource_id
-           "permissions_with_grant_option";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
+         Prop.computed __type __id "permissions_with_grant_option";
+       principal = Prop.computed __type __id "principal";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lakeformation_permissions
+        (aws_lakeformation_permissions ?catalog_id ?catalog_resource
+           ?id ?permissions_with_grant_option ~permissions ~principal
+           ~data_cells_filter ~data_location ~database ~lf_tag
+           ~lf_tag_policy ~table ~table_with_columns ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?catalog_id ?catalog_resource ?id
+    ?permissions_with_grant_option ~permissions ~principal
+    ~data_cells_filter ~data_location ~database ~lf_tag
+    ~lf_tag_policy ~table ~table_with_columns __id =
+  let (r : _ Tf_core.resource) =
+    make ?catalog_id ?catalog_resource ?id
+      ?permissions_with_grant_option ~permissions ~principal
+      ~data_cells_filter ~data_location ~database ~lf_tag
+      ~lf_tag_policy ~table ~table_with_columns __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

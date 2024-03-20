@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type network_access_control = {
   prefix_list_ids : string prop list;  (** prefix_list_ids *)
@@ -118,68 +116,71 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?configuration ?data_sources ?description ?grafana_version
+    ?id ?name ?notification_destinations ?organization_role_name
+    ?organizational_units ?role_arn ?stack_set_name ?tags ?tags_all
+    ?timeouts ~account_access_type ~authentication_providers
+    ~permission_type ~network_access_control ~vpc_configuration __id
+    =
+  let __type = "aws_grafana_workspace" in
+  let __attrs =
+    ({
+       account_access_type =
+         Prop.computed __type __id "account_access_type";
+       arn = Prop.computed __type __id "arn";
+       authentication_providers =
+         Prop.computed __type __id "authentication_providers";
+       configuration = Prop.computed __type __id "configuration";
+       data_sources = Prop.computed __type __id "data_sources";
+       description = Prop.computed __type __id "description";
+       endpoint = Prop.computed __type __id "endpoint";
+       grafana_version = Prop.computed __type __id "grafana_version";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       notification_destinations =
+         Prop.computed __type __id "notification_destinations";
+       organization_role_name =
+         Prop.computed __type __id "organization_role_name";
+       organizational_units =
+         Prop.computed __type __id "organizational_units";
+       permission_type = Prop.computed __type __id "permission_type";
+       role_arn = Prop.computed __type __id "role_arn";
+       saml_configuration_status =
+         Prop.computed __type __id "saml_configuration_status";
+       stack_set_name = Prop.computed __type __id "stack_set_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_grafana_workspace
+        (aws_grafana_workspace ?configuration ?data_sources
+           ?description ?grafana_version ?id ?name
+           ?notification_destinations ?organization_role_name
+           ?organizational_units ?role_arn ?stack_set_name ?tags
+           ?tags_all ?timeouts ~account_access_type
+           ~authentication_providers ~permission_type
+           ~network_access_control ~vpc_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?configuration ?data_sources ?description
     ?grafana_version ?id ?name ?notification_destinations
     ?organization_role_name ?organizational_units ?role_arn
     ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
     ~authentication_providers ~permission_type
-    ~network_access_control ~vpc_configuration __resource_id =
-  let __resource_type = "aws_grafana_workspace" in
-  let __resource =
-    aws_grafana_workspace ?configuration ?data_sources ?description
-      ?grafana_version ?id ?name ?notification_destinations
-      ?organization_role_name ?organizational_units ?role_arn
-      ?stack_set_name ?tags ?tags_all ?timeouts ~account_access_type
-      ~authentication_providers ~permission_type
-      ~network_access_control ~vpc_configuration ()
+    ~network_access_control ~vpc_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?configuration ?data_sources ?description ?grafana_version
+      ?id ?name ?notification_destinations ?organization_role_name
+      ?organizational_units ?role_arn ?stack_set_name ?tags ?tags_all
+      ?timeouts ~account_access_type ~authentication_providers
+      ~permission_type ~network_access_control ~vpc_configuration
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_grafana_workspace __resource);
-  let __resource_attributes =
-    ({
-       account_access_type =
-         Prop.computed __resource_type __resource_id
-           "account_access_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authentication_providers =
-         Prop.computed __resource_type __resource_id
-           "authentication_providers";
-       configuration =
-         Prop.computed __resource_type __resource_id "configuration";
-       data_sources =
-         Prop.computed __resource_type __resource_id "data_sources";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       grafana_version =
-         Prop.computed __resource_type __resource_id
-           "grafana_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       notification_destinations =
-         Prop.computed __resource_type __resource_id
-           "notification_destinations";
-       organization_role_name =
-         Prop.computed __resource_type __resource_id
-           "organization_role_name";
-       organizational_units =
-         Prop.computed __resource_type __resource_id
-           "organizational_units";
-       permission_type =
-         Prop.computed __resource_type __resource_id
-           "permission_type";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       saml_configuration_status =
-         Prop.computed __resource_type __resource_id
-           "saml_configuration_status";
-       stack_set_name =
-         Prop.computed __resource_type __resource_id "stack_set_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

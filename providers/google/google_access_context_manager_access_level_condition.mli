@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -89,3 +89,17 @@ val register :
   vpc_network_sources:vpc_network_sources list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?ip_subnetworks:string prop list ->
+  ?members:string prop list ->
+  ?negate:bool prop ->
+  ?regions:string prop list ->
+  ?required_access_levels:string prop list ->
+  ?timeouts:timeouts ->
+  access_level:string prop ->
+  device_policy:device_policy list ->
+  vpc_network_sources:vpc_network_sources list ->
+  string ->
+  t Tf_core.resource

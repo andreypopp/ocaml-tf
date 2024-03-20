@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type local_data__local_datas = {
   name : string prop;  (** For example, www.example.com. *)
@@ -75,28 +73,34 @@ type t = {
   rule_name : string prop;
 }
 
-let register ?tf_module ?id ?project ?timeouts ~dns_name
-    ~response_policy ~rule_name ~local_data __resource_id =
-  let __resource_type = "google_dns_response_policy_rule" in
-  let __resource =
-    google_dns_response_policy_rule ?id ?project ?timeouts ~dns_name
-      ~response_policy ~rule_name ~local_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dns_response_policy_rule __resource);
-  let __resource_attributes =
+let make ?id ?project ?timeouts ~dns_name ~response_policy ~rule_name
+    ~local_data __id =
+  let __type = "google_dns_response_policy_rule" in
+  let __attrs =
     ({
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       response_policy =
-         Prop.computed __resource_type __resource_id
-           "response_policy";
-       rule_name =
-         Prop.computed __resource_type __resource_id "rule_name";
+       dns_name = Prop.computed __type __id "dns_name";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       response_policy = Prop.computed __type __id "response_policy";
+       rule_name = Prop.computed __type __id "rule_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dns_response_policy_rule
+        (google_dns_response_policy_rule ?id ?project ?timeouts
+           ~dns_name ~response_policy ~rule_name ~local_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?timeouts ~dns_name
+    ~response_policy ~rule_name ~local_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?timeouts ~dns_name ~response_policy ~rule_name
+      ~local_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

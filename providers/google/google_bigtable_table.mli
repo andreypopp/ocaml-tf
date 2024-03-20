@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,16 @@ val register :
   column_family:column_family list ->
   string ->
   t
+
+val make :
+  ?change_stream_retention:string prop ->
+  ?deletion_protection:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?split_keys:string prop list ->
+  ?timeouts:timeouts ->
+  instance_name:string prop ->
+  name:string prop ->
+  column_family:column_family list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alternate_path_hints = {
   component_arn : string prop;  (** component_arn *)
@@ -839,52 +837,51 @@ type t = {
   warning_message : string prop;
 }
 
-let register ?tf_module ?filter_in_arns ?id ?tags ?tags_all
-    ?wait_for_completion ~network_insights_path_id __resource_id =
-  let __resource_type = "aws_ec2_network_insights_analysis" in
-  let __resource =
-    aws_ec2_network_insights_analysis ?filter_in_arns ?id ?tags
-      ?tags_all ?wait_for_completion ~network_insights_path_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_network_insights_analysis __resource);
-  let __resource_attributes =
+let make ?filter_in_arns ?id ?tags ?tags_all ?wait_for_completion
+    ~network_insights_path_id __id =
+  let __type = "aws_ec2_network_insights_analysis" in
+  let __attrs =
     ({
        alternate_path_hints =
-         Prop.computed __resource_type __resource_id
-           "alternate_path_hints";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       explanations =
-         Prop.computed __resource_type __resource_id "explanations";
-       filter_in_arns =
-         Prop.computed __resource_type __resource_id "filter_in_arns";
+         Prop.computed __type __id "alternate_path_hints";
+       arn = Prop.computed __type __id "arn";
+       explanations = Prop.computed __type __id "explanations";
+       filter_in_arns = Prop.computed __type __id "filter_in_arns";
        forward_path_components =
-         Prop.computed __resource_type __resource_id
-           "forward_path_components";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "forward_path_components";
+       id = Prop.computed __type __id "id";
        network_insights_path_id =
-         Prop.computed __resource_type __resource_id
-           "network_insights_path_id";
-       path_found =
-         Prop.computed __resource_type __resource_id "path_found";
+         Prop.computed __type __id "network_insights_path_id";
+       path_found = Prop.computed __type __id "path_found";
        return_path_components =
-         Prop.computed __resource_type __resource_id
-           "return_path_components";
-       start_date =
-         Prop.computed __resource_type __resource_id "start_date";
-       status = Prop.computed __resource_type __resource_id "status";
-       status_message =
-         Prop.computed __resource_type __resource_id "status_message";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "return_path_components";
+       start_date = Prop.computed __type __id "start_date";
+       status = Prop.computed __type __id "status";
+       status_message = Prop.computed __type __id "status_message";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        wait_for_completion =
-         Prop.computed __resource_type __resource_id
-           "wait_for_completion";
-       warning_message =
-         Prop.computed __resource_type __resource_id
-           "warning_message";
+         Prop.computed __type __id "wait_for_completion";
+       warning_message = Prop.computed __type __id "warning_message";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_network_insights_analysis
+        (aws_ec2_network_insights_analysis ?filter_in_arns ?id ?tags
+           ?tags_all ?wait_for_completion ~network_insights_path_id
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?filter_in_arns ?id ?tags ?tags_all
+    ?wait_for_completion ~network_insights_path_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?filter_in_arns ?id ?tags ?tags_all ?wait_for_completion
+      ~network_insights_path_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

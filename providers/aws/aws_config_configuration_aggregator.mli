@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,14 @@ val register :
     organization_aggregation_source list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  account_aggregation_source:account_aggregation_source list ->
+  organization_aggregation_source:
+    organization_aggregation_source list ->
+  string ->
+  t Tf_core.resource

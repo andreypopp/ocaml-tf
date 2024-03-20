@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type export_data_options = {
   time_frame : string prop;  (** time_frame *)
@@ -82,40 +80,48 @@ type t = {
   recurrence_type : string prop;
 }
 
-let register ?tf_module ?active ?id ?timeouts ~billing_account_id
-    ~name ~recurrence_period_end_date ~recurrence_period_start_date
+let make ?active ?id ?timeouts ~billing_account_id ~name
+    ~recurrence_period_end_date ~recurrence_period_start_date
     ~recurrence_type ~export_data_options
-    ~export_data_storage_location __resource_id =
-  let __resource_type =
-    "azurerm_billing_account_cost_management_export"
-  in
-  let __resource =
-    azurerm_billing_account_cost_management_export ?active ?id
-      ?timeouts ~billing_account_id ~name ~recurrence_period_end_date
-      ~recurrence_period_start_date ~recurrence_type
-      ~export_data_options ~export_data_storage_location ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_billing_account_cost_management_export
-       __resource);
-  let __resource_attributes =
+    ~export_data_storage_location __id =
+  let __type = "azurerm_billing_account_cost_management_export" in
+  let __attrs =
     ({
-       active = Prop.computed __resource_type __resource_id "active";
+       active = Prop.computed __type __id "active";
        billing_account_id =
-         Prop.computed __resource_type __resource_id
-           "billing_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "billing_account_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        recurrence_period_end_date =
-         Prop.computed __resource_type __resource_id
-           "recurrence_period_end_date";
+         Prop.computed __type __id "recurrence_period_end_date";
        recurrence_period_start_date =
-         Prop.computed __resource_type __resource_id
-           "recurrence_period_start_date";
-       recurrence_type =
-         Prop.computed __resource_type __resource_id
-           "recurrence_type";
+         Prop.computed __type __id "recurrence_period_start_date";
+       recurrence_type = Prop.computed __type __id "recurrence_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_billing_account_cost_management_export
+        (azurerm_billing_account_cost_management_export ?active ?id
+           ?timeouts ~billing_account_id ~name
+           ~recurrence_period_end_date ~recurrence_period_start_date
+           ~recurrence_type ~export_data_options
+           ~export_data_storage_location ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?active ?id ?timeouts ~billing_account_id
+    ~name ~recurrence_period_end_date ~recurrence_period_start_date
+    ~recurrence_type ~export_data_options
+    ~export_data_storage_location __id =
+  let (r : _ Tf_core.resource) =
+    make ?active ?id ?timeouts ~billing_account_id ~name
+      ~recurrence_period_end_date ~recurrence_period_start_date
+      ~recurrence_type ~export_data_options
+      ~export_data_storage_location __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

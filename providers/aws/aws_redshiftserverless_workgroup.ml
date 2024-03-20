@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type config_parameter = {
   parameter_key : string prop;  (** parameter_key *)
@@ -112,52 +110,56 @@ type t = {
   workgroup_name : string prop;
 }
 
-let register ?tf_module ?base_capacity ?enhanced_vpc_routing ?id
-    ?max_capacity ?port ?publicly_accessible ?security_group_ids
-    ?subnet_ids ?tags ?tags_all ?timeouts ~namespace_name
-    ~workgroup_name ~config_parameter __resource_id =
-  let __resource_type = "aws_redshiftserverless_workgroup" in
-  let __resource =
-    aws_redshiftserverless_workgroup ?base_capacity
-      ?enhanced_vpc_routing ?id ?max_capacity ?port
-      ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
-      ?tags_all ?timeouts ~namespace_name ~workgroup_name
-      ~config_parameter ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_redshiftserverless_workgroup __resource);
-  let __resource_attributes =
+let make ?base_capacity ?enhanced_vpc_routing ?id ?max_capacity ?port
+    ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+    ?tags_all ?timeouts ~namespace_name ~workgroup_name
+    ~config_parameter __id =
+  let __type = "aws_redshiftserverless_workgroup" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       base_capacity =
-         Prop.computed __resource_type __resource_id "base_capacity";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
+       arn = Prop.computed __type __id "arn";
+       base_capacity = Prop.computed __type __id "base_capacity";
+       endpoint = Prop.computed __type __id "endpoint";
        enhanced_vpc_routing =
-         Prop.computed __resource_type __resource_id
-           "enhanced_vpc_routing";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_capacity =
-         Prop.computed __resource_type __resource_id "max_capacity";
-       namespace_name =
-         Prop.computed __resource_type __resource_id "namespace_name";
-       port = Prop.computed __resource_type __resource_id "port";
+         Prop.computed __type __id "enhanced_vpc_routing";
+       id = Prop.computed __type __id "id";
+       max_capacity = Prop.computed __type __id "max_capacity";
+       namespace_name = Prop.computed __type __id "namespace_name";
+       port = Prop.computed __type __id "port";
        publicly_accessible =
-         Prop.computed __resource_type __resource_id
-           "publicly_accessible";
+         Prop.computed __type __id "publicly_accessible";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       workgroup_id =
-         Prop.computed __resource_type __resource_id "workgroup_id";
-       workgroup_name =
-         Prop.computed __resource_type __resource_id "workgroup_name";
+         Prop.computed __type __id "security_group_ids";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       workgroup_id = Prop.computed __type __id "workgroup_id";
+       workgroup_name = Prop.computed __type __id "workgroup_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_redshiftserverless_workgroup
+        (aws_redshiftserverless_workgroup ?base_capacity
+           ?enhanced_vpc_routing ?id ?max_capacity ?port
+           ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+           ?tags_all ?timeouts ~namespace_name ~workgroup_name
+           ~config_parameter ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?base_capacity ?enhanced_vpc_routing ?id
+    ?max_capacity ?port ?publicly_accessible ?security_group_ids
+    ?subnet_ids ?tags ?tags_all ?timeouts ~namespace_name
+    ~workgroup_name ~config_parameter __id =
+  let (r : _ Tf_core.resource) =
+    make ?base_capacity ?enhanced_vpc_routing ?id ?max_capacity ?port
+      ?publicly_accessible ?security_group_ids ?subnet_ids ?tags
+      ?tags_all ?timeouts ~namespace_name ~workgroup_name
+      ~config_parameter __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

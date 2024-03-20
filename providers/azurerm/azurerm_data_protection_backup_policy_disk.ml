@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type retention_rule__criteria = {
   absolute_criteria : string prop option; [@option]
@@ -78,34 +76,42 @@ type t = {
   vault_id : string prop;
 }
 
-let register ?tf_module ?id ?time_zone ?timeouts
-    ~backup_repeating_time_intervals ~default_retention_duration
-    ~name ~vault_id ~retention_rule __resource_id =
-  let __resource_type =
-    "azurerm_data_protection_backup_policy_disk"
-  in
-  let __resource =
-    azurerm_data_protection_backup_policy_disk ?id ?time_zone
-      ?timeouts ~backup_repeating_time_intervals
-      ~default_retention_duration ~name ~vault_id ~retention_rule ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_protection_backup_policy_disk __resource);
-  let __resource_attributes =
+let make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
+    ~default_retention_duration ~name ~vault_id ~retention_rule __id
+    =
+  let __type = "azurerm_data_protection_backup_policy_disk" in
+  let __attrs =
     ({
        backup_repeating_time_intervals =
-         Prop.computed __resource_type __resource_id
-           "backup_repeating_time_intervals";
+         Prop.computed __type __id "backup_repeating_time_intervals";
        default_retention_duration =
-         Prop.computed __resource_type __resource_id
-           "default_retention_duration";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       time_zone =
-         Prop.computed __resource_type __resource_id "time_zone";
-       vault_id =
-         Prop.computed __resource_type __resource_id "vault_id";
+         Prop.computed __type __id "default_retention_duration";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       time_zone = Prop.computed __type __id "time_zone";
+       vault_id = Prop.computed __type __id "vault_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_protection_backup_policy_disk
+        (azurerm_data_protection_backup_policy_disk ?id ?time_zone
+           ?timeouts ~backup_repeating_time_intervals
+           ~default_retention_duration ~name ~vault_id
+           ~retention_rule ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?time_zone ?timeouts
+    ~backup_repeating_time_intervals ~default_retention_duration
+    ~name ~vault_id ~retention_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?time_zone ?timeouts ~backup_repeating_time_intervals
+      ~default_retention_duration ~name ~vault_id ~retention_rule
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

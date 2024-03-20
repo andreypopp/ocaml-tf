@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,13 @@ val register :
   workforce_vpc_config:workforce_vpc_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  workforce_name:string prop ->
+  cognito_config:cognito_config list ->
+  oidc_config:oidc_config list ->
+  source_ip_config:source_ip_config list ->
+  workforce_vpc_config:workforce_vpc_config list ->
+  string ->
+  t Tf_core.resource

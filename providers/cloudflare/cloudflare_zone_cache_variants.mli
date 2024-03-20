@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,20 @@ val register :
   zone_id:string prop ->
   string ->
   t
+
+val make :
+  ?avif:string prop list ->
+  ?bmp:string prop list ->
+  ?gif:string prop list ->
+  ?id:string prop ->
+  ?jp2:string prop list ->
+  ?jpeg:string prop list ->
+  ?jpg:string prop list ->
+  ?jpg2:string prop list ->
+  ?png:string prop list ->
+  ?tif:string prop list ->
+  ?tiff:string prop list ->
+  ?webp:string prop list ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

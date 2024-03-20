@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cors_headers = {
   allow_all_headers : bool prop option; [@option]
@@ -282,6 +280,81 @@ type t = {
   zone_id : string prop;
 }
 
+let make ?account_id ?allow_authenticate_via_warp ?allowed_idps
+    ?app_launcher_logo_url ?app_launcher_visible
+    ?auto_redirect_to_identity ?bg_color ?custom_deny_message
+    ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
+    ?domain ?enable_binding_cookie ?header_bg_color
+    ?http_only_cookie_attribute ?id ?logo_url ?name
+    ?same_site_cookie_attribute ?self_hosted_domains
+    ?service_auth_401_redirect ?session_duration ?skip_interstitial
+    ?tags ?type_ ?zone_id ~cors_headers ~footer_links
+    ~landing_page_design ~saas_app __id =
+  let __type = "cloudflare_access_application" in
+  let __attrs =
+    ({
+       account_id = Prop.computed __type __id "account_id";
+       allow_authenticate_via_warp =
+         Prop.computed __type __id "allow_authenticate_via_warp";
+       allowed_idps = Prop.computed __type __id "allowed_idps";
+       app_launcher_logo_url =
+         Prop.computed __type __id "app_launcher_logo_url";
+       app_launcher_visible =
+         Prop.computed __type __id "app_launcher_visible";
+       aud = Prop.computed __type __id "aud";
+       auto_redirect_to_identity =
+         Prop.computed __type __id "auto_redirect_to_identity";
+       bg_color = Prop.computed __type __id "bg_color";
+       custom_deny_message =
+         Prop.computed __type __id "custom_deny_message";
+       custom_deny_url = Prop.computed __type __id "custom_deny_url";
+       custom_non_identity_deny_url =
+         Prop.computed __type __id "custom_non_identity_deny_url";
+       custom_pages = Prop.computed __type __id "custom_pages";
+       domain = Prop.computed __type __id "domain";
+       enable_binding_cookie =
+         Prop.computed __type __id "enable_binding_cookie";
+       header_bg_color = Prop.computed __type __id "header_bg_color";
+       http_only_cookie_attribute =
+         Prop.computed __type __id "http_only_cookie_attribute";
+       id = Prop.computed __type __id "id";
+       logo_url = Prop.computed __type __id "logo_url";
+       name = Prop.computed __type __id "name";
+       same_site_cookie_attribute =
+         Prop.computed __type __id "same_site_cookie_attribute";
+       self_hosted_domains =
+         Prop.computed __type __id "self_hosted_domains";
+       service_auth_401_redirect =
+         Prop.computed __type __id "service_auth_401_redirect";
+       session_duration =
+         Prop.computed __type __id "session_duration";
+       skip_interstitial =
+         Prop.computed __type __id "skip_interstitial";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       zone_id = Prop.computed __type __id "zone_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_access_application
+        (cloudflare_access_application ?account_id
+           ?allow_authenticate_via_warp ?allowed_idps
+           ?app_launcher_logo_url ?app_launcher_visible
+           ?auto_redirect_to_identity ?bg_color ?custom_deny_message
+           ?custom_deny_url ?custom_non_identity_deny_url
+           ?custom_pages ?domain ?enable_binding_cookie
+           ?header_bg_color ?http_only_cookie_attribute ?id ?logo_url
+           ?name ?same_site_cookie_attribute ?self_hosted_domains
+           ?service_auth_401_redirect ?session_duration
+           ?skip_interstitial ?tags ?type_ ?zone_id ~cors_headers
+           ~footer_links ~landing_page_design ~saas_app ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?allowed_idps ?app_launcher_logo_url ?app_launcher_visible
     ?auto_redirect_to_identity ?bg_color ?custom_deny_message
@@ -291,11 +364,9 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
     ?same_site_cookie_attribute ?self_hosted_domains
     ?service_auth_401_redirect ?session_duration ?skip_interstitial
     ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-    ~landing_page_design ~saas_app __resource_id =
-  let __resource_type = "cloudflare_access_application" in
-  let __resource =
-    cloudflare_access_application ?account_id
-      ?allow_authenticate_via_warp ?allowed_idps
+    ~landing_page_design ~saas_app __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?allow_authenticate_via_warp ?allowed_idps
       ?app_launcher_logo_url ?app_launcher_visible
       ?auto_redirect_to_identity ?bg_color ?custom_deny_message
       ?custom_deny_url ?custom_non_identity_deny_url ?custom_pages
@@ -304,76 +375,7 @@ let register ?tf_module ?account_id ?allow_authenticate_via_warp
       ?same_site_cookie_attribute ?self_hosted_domains
       ?service_auth_401_redirect ?session_duration ?skip_interstitial
       ?tags ?type_ ?zone_id ~cors_headers ~footer_links
-      ~landing_page_design ~saas_app ()
+      ~landing_page_design ~saas_app __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_access_application __resource);
-  let __resource_attributes =
-    ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       allow_authenticate_via_warp =
-         Prop.computed __resource_type __resource_id
-           "allow_authenticate_via_warp";
-       allowed_idps =
-         Prop.computed __resource_type __resource_id "allowed_idps";
-       app_launcher_logo_url =
-         Prop.computed __resource_type __resource_id
-           "app_launcher_logo_url";
-       app_launcher_visible =
-         Prop.computed __resource_type __resource_id
-           "app_launcher_visible";
-       aud = Prop.computed __resource_type __resource_id "aud";
-       auto_redirect_to_identity =
-         Prop.computed __resource_type __resource_id
-           "auto_redirect_to_identity";
-       bg_color =
-         Prop.computed __resource_type __resource_id "bg_color";
-       custom_deny_message =
-         Prop.computed __resource_type __resource_id
-           "custom_deny_message";
-       custom_deny_url =
-         Prop.computed __resource_type __resource_id
-           "custom_deny_url";
-       custom_non_identity_deny_url =
-         Prop.computed __resource_type __resource_id
-           "custom_non_identity_deny_url";
-       custom_pages =
-         Prop.computed __resource_type __resource_id "custom_pages";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       enable_binding_cookie =
-         Prop.computed __resource_type __resource_id
-           "enable_binding_cookie";
-       header_bg_color =
-         Prop.computed __resource_type __resource_id
-           "header_bg_color";
-       http_only_cookie_attribute =
-         Prop.computed __resource_type __resource_id
-           "http_only_cookie_attribute";
-       id = Prop.computed __resource_type __resource_id "id";
-       logo_url =
-         Prop.computed __resource_type __resource_id "logo_url";
-       name = Prop.computed __resource_type __resource_id "name";
-       same_site_cookie_attribute =
-         Prop.computed __resource_type __resource_id
-           "same_site_cookie_attribute";
-       self_hosted_domains =
-         Prop.computed __resource_type __resource_id
-           "self_hosted_domains";
-       service_auth_401_redirect =
-         Prop.computed __resource_type __resource_id
-           "service_auth_401_redirect";
-       session_duration =
-         Prop.computed __resource_type __resource_id
-           "session_duration";
-       skip_interstitial =
-         Prop.computed __resource_type __resource_id
-           "skip_interstitial";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

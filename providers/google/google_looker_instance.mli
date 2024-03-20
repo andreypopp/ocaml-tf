@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -166,3 +166,24 @@ val register :
   user_metadata:user_metadata list ->
   string ->
   t
+
+val make :
+  ?consumer_network:string prop ->
+  ?id:string prop ->
+  ?platform_edition:string prop ->
+  ?private_ip_enabled:bool prop ->
+  ?project:string prop ->
+  ?public_ip_enabled:bool prop ->
+  ?region:string prop ->
+  ?reserved_range:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  admin_settings:admin_settings list ->
+  custom_domain:custom_domain list ->
+  deny_maintenance_period:deny_maintenance_period list ->
+  encryption_config:encryption_config list ->
+  maintenance_window:maintenance_window list ->
+  oauth_config:oauth_config list ->
+  user_metadata:user_metadata list ->
+  string ->
+  t Tf_core.resource

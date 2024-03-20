@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_directory_service_conditional_forwarder = {
   directory_id : string prop;  (** directory_id *)
@@ -25,28 +23,32 @@ type t = {
   remote_domain_name : string prop;
 }
 
-let register ?tf_module ?id ~directory_id ~dns_ips
-    ~remote_domain_name __resource_id =
-  let __resource_type =
-    "aws_directory_service_conditional_forwarder"
-  in
-  let __resource =
-    aws_directory_service_conditional_forwarder ?id ~directory_id
-      ~dns_ips ~remote_domain_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_directory_service_conditional_forwarder __resource);
-  let __resource_attributes =
+let make ?id ~directory_id ~dns_ips ~remote_domain_name __id =
+  let __type = "aws_directory_service_conditional_forwarder" in
+  let __attrs =
     ({
-       directory_id =
-         Prop.computed __resource_type __resource_id "directory_id";
-       dns_ips =
-         Prop.computed __resource_type __resource_id "dns_ips";
-       id = Prop.computed __resource_type __resource_id "id";
+       directory_id = Prop.computed __type __id "directory_id";
+       dns_ips = Prop.computed __type __id "dns_ips";
+       id = Prop.computed __type __id "id";
        remote_domain_name =
-         Prop.computed __resource_type __resource_id
-           "remote_domain_name";
+         Prop.computed __type __id "remote_domain_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_directory_service_conditional_forwarder
+        (aws_directory_service_conditional_forwarder ?id
+           ~directory_id ~dns_ips ~remote_domain_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~directory_id ~dns_ips
+    ~remote_domain_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~directory_id ~dns_ips ~remote_domain_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

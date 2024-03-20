@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_worker_secret = {
   account_id : string prop;
@@ -30,26 +28,32 @@ type t = {
   secret_text : string prop;
 }
 
-let register ?tf_module ?id ~account_id ~name ~script_name
-    ~secret_text __resource_id =
-  let __resource_type = "cloudflare_worker_secret" in
-  let __resource =
-    cloudflare_worker_secret ?id ~account_id ~name ~script_name
-      ~secret_text ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_worker_secret __resource);
-  let __resource_attributes =
+let make ?id ~account_id ~name ~script_name ~secret_text __id =
+  let __type = "cloudflare_worker_secret" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       script_name =
-         Prop.computed __resource_type __resource_id "script_name";
-       secret_text =
-         Prop.computed __resource_type __resource_id "secret_text";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       script_name = Prop.computed __type __id "script_name";
+       secret_text = Prop.computed __type __id "secret_text";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_worker_secret
+        (cloudflare_worker_secret ?id ~account_id ~name ~script_name
+           ~secret_text ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~account_id ~name ~script_name
+    ~secret_text __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~account_id ~name ~script_name ~secret_text __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

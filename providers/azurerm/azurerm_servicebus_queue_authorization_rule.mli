@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,14 @@ val register :
   queue_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?listen:bool prop ->
+  ?manage:bool prop ->
+  ?send:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  queue_id:string prop ->
+  string ->
+  t Tf_core.resource

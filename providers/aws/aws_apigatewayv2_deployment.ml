@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_apigatewayv2_deployment = {
   api_id : string prop;  (** api_id *)
@@ -26,25 +24,31 @@ type t = {
   triggers : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?triggers ~api_id
-    __resource_id =
-  let __resource_type = "aws_apigatewayv2_deployment" in
-  let __resource =
-    aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_apigatewayv2_deployment __resource);
-  let __resource_attributes =
+let make ?description ?id ?triggers ~api_id __id =
+  let __type = "aws_apigatewayv2_deployment" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       auto_deployed =
-         Prop.computed __resource_type __resource_id "auto_deployed";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       triggers =
-         Prop.computed __resource_type __resource_id "triggers";
+       api_id = Prop.computed __type __id "api_id";
+       auto_deployed = Prop.computed __type __id "auto_deployed";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       triggers = Prop.computed __type __id "triggers";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_apigatewayv2_deployment
+        (aws_apigatewayv2_deployment ?description ?id ?triggers
+           ~api_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?triggers ~api_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?triggers ~api_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

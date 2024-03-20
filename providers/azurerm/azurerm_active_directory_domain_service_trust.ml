@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,36 +50,39 @@ type t = {
   trusted_domain_fqdn : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~domain_service_id ~name
-    ~password ~trusted_domain_dns_ips ~trusted_domain_fqdn
-    __resource_id =
-  let __resource_type =
-    "azurerm_active_directory_domain_service_trust"
-  in
-  let __resource =
-    azurerm_active_directory_domain_service_trust ?id ?timeouts
-      ~domain_service_id ~name ~password ~trusted_domain_dns_ips
-      ~trusted_domain_fqdn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_active_directory_domain_service_trust
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~domain_service_id ~name ~password
+    ~trusted_domain_dns_ips ~trusted_domain_fqdn __id =
+  let __type = "azurerm_active_directory_domain_service_trust" in
+  let __attrs =
     ({
        domain_service_id =
-         Prop.computed __resource_type __resource_id
-           "domain_service_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "domain_service_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        trusted_domain_dns_ips =
-         Prop.computed __resource_type __resource_id
-           "trusted_domain_dns_ips";
+         Prop.computed __type __id "trusted_domain_dns_ips";
        trusted_domain_fqdn =
-         Prop.computed __resource_type __resource_id
-           "trusted_domain_fqdn";
+         Prop.computed __type __id "trusted_domain_fqdn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_active_directory_domain_service_trust
+        (azurerm_active_directory_domain_service_trust ?id ?timeouts
+           ~domain_service_id ~name ~password ~trusted_domain_dns_ips
+           ~trusted_domain_fqdn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~domain_service_id ~name
+    ~password ~trusted_domain_dns_ips ~trusted_domain_fqdn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~domain_service_id ~name ~password
+      ~trusted_domain_dns_ips ~trusted_domain_fqdn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type gallery_image_reference = {
   offer : string prop;  (** offer *)
@@ -114,59 +112,64 @@ type t = {
   username : string prop;
 }
 
+let make ?allow_claim ?disallow_public_ip_address ?id ?notes
+    ?password ?ssh_key ?tags ?timeouts ~lab_name ~lab_subnet_name
+    ~lab_virtual_network_id ~location ~name ~resource_group_name
+    ~size ~storage_type ~username ~gallery_image_reference
+    ~inbound_nat_rule __id =
+  let __type = "azurerm_dev_test_linux_virtual_machine" in
+  let __attrs =
+    ({
+       allow_claim = Prop.computed __type __id "allow_claim";
+       disallow_public_ip_address =
+         Prop.computed __type __id "disallow_public_ip_address";
+       fqdn = Prop.computed __type __id "fqdn";
+       id = Prop.computed __type __id "id";
+       lab_name = Prop.computed __type __id "lab_name";
+       lab_subnet_name = Prop.computed __type __id "lab_subnet_name";
+       lab_virtual_network_id =
+         Prop.computed __type __id "lab_virtual_network_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       notes = Prop.computed __type __id "notes";
+       password = Prop.computed __type __id "password";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       size = Prop.computed __type __id "size";
+       ssh_key = Prop.computed __type __id "ssh_key";
+       storage_type = Prop.computed __type __id "storage_type";
+       tags = Prop.computed __type __id "tags";
+       unique_identifier =
+         Prop.computed __type __id "unique_identifier";
+       username = Prop.computed __type __id "username";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_test_linux_virtual_machine
+        (azurerm_dev_test_linux_virtual_machine ?allow_claim
+           ?disallow_public_ip_address ?id ?notes ?password ?ssh_key
+           ?tags ?timeouts ~lab_name ~lab_subnet_name
+           ~lab_virtual_network_id ~location ~name
+           ~resource_group_name ~size ~storage_type ~username
+           ~gallery_image_reference ~inbound_nat_rule ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?allow_claim ?disallow_public_ip_address ?id
     ?notes ?password ?ssh_key ?tags ?timeouts ~lab_name
     ~lab_subnet_name ~lab_virtual_network_id ~location ~name
     ~resource_group_name ~size ~storage_type ~username
-    ~gallery_image_reference ~inbound_nat_rule __resource_id =
-  let __resource_type = "azurerm_dev_test_linux_virtual_machine" in
-  let __resource =
-    azurerm_dev_test_linux_virtual_machine ?allow_claim
-      ?disallow_public_ip_address ?id ?notes ?password ?ssh_key ?tags
-      ?timeouts ~lab_name ~lab_subnet_name ~lab_virtual_network_id
-      ~location ~name ~resource_group_name ~size ~storage_type
-      ~username ~gallery_image_reference ~inbound_nat_rule ()
+    ~gallery_image_reference ~inbound_nat_rule __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_claim ?disallow_public_ip_address ?id ?notes
+      ?password ?ssh_key ?tags ?timeouts ~lab_name ~lab_subnet_name
+      ~lab_virtual_network_id ~location ~name ~resource_group_name
+      ~size ~storage_type ~username ~gallery_image_reference
+      ~inbound_nat_rule __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_test_linux_virtual_machine __resource);
-  let __resource_attributes =
-    ({
-       allow_claim =
-         Prop.computed __resource_type __resource_id "allow_claim";
-       disallow_public_ip_address =
-         Prop.computed __resource_type __resource_id
-           "disallow_public_ip_address";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_name =
-         Prop.computed __resource_type __resource_id "lab_name";
-       lab_subnet_name =
-         Prop.computed __resource_type __resource_id
-           "lab_subnet_name";
-       lab_virtual_network_id =
-         Prop.computed __resource_type __resource_id
-           "lab_virtual_network_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       notes = Prop.computed __resource_type __resource_id "notes";
-       password =
-         Prop.computed __resource_type __resource_id "password";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       size = Prop.computed __resource_type __resource_id "size";
-       ssh_key =
-         Prop.computed __resource_type __resource_id "ssh_key";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       unique_identifier =
-         Prop.computed __resource_type __resource_id
-           "unique_identifier";
-       username =
-         Prop.computed __resource_type __resource_id "username";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

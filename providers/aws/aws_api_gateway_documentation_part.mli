@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,11 @@ val register :
   location:location list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  properties:string prop ->
+  rest_api_id:string prop ->
+  location:location list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type instance_metadata_service_configuration = {
   minimum_instance_metadata_service_version : string prop option;
@@ -100,69 +98,73 @@ type t = {
   volume_size : float prop;
 }
 
+let make ?accelerator_types ?additional_code_repositories
+    ?default_code_repository ?direct_internet_access ?id ?kms_key_id
+    ?lifecycle_config_name ?platform_identifier ?root_access
+    ?security_groups ?subnet_id ?tags ?tags_all ?volume_size
+    ~instance_type ~name ~role_arn
+    ~instance_metadata_service_configuration __id =
+  let __type = "aws_sagemaker_notebook_instance" in
+  let __attrs =
+    ({
+       accelerator_types =
+         Prop.computed __type __id "accelerator_types";
+       additional_code_repositories =
+         Prop.computed __type __id "additional_code_repositories";
+       arn = Prop.computed __type __id "arn";
+       default_code_repository =
+         Prop.computed __type __id "default_code_repository";
+       direct_internet_access =
+         Prop.computed __type __id "direct_internet_access";
+       id = Prop.computed __type __id "id";
+       instance_type = Prop.computed __type __id "instance_type";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       lifecycle_config_name =
+         Prop.computed __type __id "lifecycle_config_name";
+       name = Prop.computed __type __id "name";
+       network_interface_id =
+         Prop.computed __type __id "network_interface_id";
+       platform_identifier =
+         Prop.computed __type __id "platform_identifier";
+       role_arn = Prop.computed __type __id "role_arn";
+       root_access = Prop.computed __type __id "root_access";
+       security_groups = Prop.computed __type __id "security_groups";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url = Prop.computed __type __id "url";
+       volume_size = Prop.computed __type __id "volume_size";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sagemaker_notebook_instance
+        (aws_sagemaker_notebook_instance ?accelerator_types
+           ?additional_code_repositories ?default_code_repository
+           ?direct_internet_access ?id ?kms_key_id
+           ?lifecycle_config_name ?platform_identifier ?root_access
+           ?security_groups ?subnet_id ?tags ?tags_all ?volume_size
+           ~instance_type ~name ~role_arn
+           ~instance_metadata_service_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?accelerator_types
     ?additional_code_repositories ?default_code_repository
     ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
     ?platform_identifier ?root_access ?security_groups ?subnet_id
     ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
-    ~instance_metadata_service_configuration __resource_id =
-  let __resource_type = "aws_sagemaker_notebook_instance" in
-  let __resource =
-    aws_sagemaker_notebook_instance ?accelerator_types
-      ?additional_code_repositories ?default_code_repository
-      ?direct_internet_access ?id ?kms_key_id ?lifecycle_config_name
-      ?platform_identifier ?root_access ?security_groups ?subnet_id
-      ?tags ?tags_all ?volume_size ~instance_type ~name ~role_arn
-      ~instance_metadata_service_configuration ()
+    ~instance_metadata_service_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?accelerator_types ?additional_code_repositories
+      ?default_code_repository ?direct_internet_access ?id
+      ?kms_key_id ?lifecycle_config_name ?platform_identifier
+      ?root_access ?security_groups ?subnet_id ?tags ?tags_all
+      ?volume_size ~instance_type ~name ~role_arn
+      ~instance_metadata_service_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sagemaker_notebook_instance __resource);
-  let __resource_attributes =
-    ({
-       accelerator_types =
-         Prop.computed __resource_type __resource_id
-           "accelerator_types";
-       additional_code_repositories =
-         Prop.computed __resource_type __resource_id
-           "additional_code_repositories";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       default_code_repository =
-         Prop.computed __resource_type __resource_id
-           "default_code_repository";
-       direct_internet_access =
-         Prop.computed __resource_type __resource_id
-           "direct_internet_access";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       lifecycle_config_name =
-         Prop.computed __resource_type __resource_id
-           "lifecycle_config_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       platform_identifier =
-         Prop.computed __resource_type __resource_id
-           "platform_identifier";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       root_access =
-         Prop.computed __resource_type __resource_id "root_access";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url = Prop.computed __resource_type __resource_id "url";
-       volume_size =
-         Prop.computed __resource_type __resource_id "volume_size";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

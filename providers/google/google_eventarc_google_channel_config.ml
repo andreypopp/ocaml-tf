@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -43,29 +41,34 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?crypto_key_name ?id ?project ?timeouts
-    ~location ~name __resource_id =
-  let __resource_type = "google_eventarc_google_channel_config" in
-  let __resource =
-    google_eventarc_google_channel_config ?crypto_key_name ?id
-      ?project ?timeouts ~location ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_eventarc_google_channel_config __resource);
-  let __resource_attributes =
+let make ?crypto_key_name ?id ?project ?timeouts ~location ~name __id
+    =
+  let __type = "google_eventarc_google_channel_config" in
+  let __attrs =
     ({
-       crypto_key_name =
-         Prop.computed __resource_type __resource_id
-           "crypto_key_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       crypto_key_name = Prop.computed __type __id "crypto_key_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_eventarc_google_channel_config
+        (google_eventarc_google_channel_config ?crypto_key_name ?id
+           ?project ?timeouts ~location ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?crypto_key_name ?id ?project ?timeouts
+    ~location ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?crypto_key_name ?id ?project ?timeouts ~location ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

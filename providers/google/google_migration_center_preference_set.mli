@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -135,3 +135,15 @@ val register :
   virtual_machine_preferences:virtual_machine_preferences list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  preference_set_id:string prop ->
+  virtual_machine_preferences:virtual_machine_preferences list ->
+  string ->
+  t Tf_core.resource

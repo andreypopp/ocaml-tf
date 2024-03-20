@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -127,3 +127,11 @@ val register :
   scaling_instruction:scaling_instruction list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  name:string prop ->
+  application_source:application_source list ->
+  scaling_instruction:scaling_instruction list ->
+  string ->
+  t Tf_core.resource

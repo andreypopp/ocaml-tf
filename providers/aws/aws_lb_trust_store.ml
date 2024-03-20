@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -61,41 +59,51 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?ca_certificates_bundle_s3_object_version ?id
-    ?name ?name_prefix ?tags ?tags_all ?timeouts
+let make ?ca_certificates_bundle_s3_object_version ?id ?name
+    ?name_prefix ?tags ?tags_all ?timeouts
     ~ca_certificates_bundle_s3_bucket ~ca_certificates_bundle_s3_key
-    __resource_id =
-  let __resource_type = "aws_lb_trust_store" in
-  let __resource =
-    aws_lb_trust_store ?ca_certificates_bundle_s3_object_version ?id
-      ?name ?name_prefix ?tags ?tags_all ?timeouts
-      ~ca_certificates_bundle_s3_bucket
-      ~ca_certificates_bundle_s3_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lb_trust_store __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_lb_trust_store" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       arn_suffix =
-         Prop.computed __resource_type __resource_id "arn_suffix";
+       arn = Prop.computed __type __id "arn";
+       arn_suffix = Prop.computed __type __id "arn_suffix";
        ca_certificates_bundle_s3_bucket =
-         Prop.computed __resource_type __resource_id
-           "ca_certificates_bundle_s3_bucket";
+         Prop.computed __type __id "ca_certificates_bundle_s3_bucket";
        ca_certificates_bundle_s3_key =
-         Prop.computed __resource_type __resource_id
-           "ca_certificates_bundle_s3_key";
+         Prop.computed __type __id "ca_certificates_bundle_s3_key";
        ca_certificates_bundle_s3_object_version =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "ca_certificates_bundle_s3_object_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lb_trust_store
+        (aws_lb_trust_store ?ca_certificates_bundle_s3_object_version
+           ?id ?name ?name_prefix ?tags ?tags_all ?timeouts
+           ~ca_certificates_bundle_s3_bucket
+           ~ca_certificates_bundle_s3_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?ca_certificates_bundle_s3_object_version ?id
+    ?name ?name_prefix ?tags ?tags_all ?timeouts
+    ~ca_certificates_bundle_s3_bucket ~ca_certificates_bundle_s3_key
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?ca_certificates_bundle_s3_object_version ?id ?name
+      ?name_prefix ?tags ?tags_all ?timeouts
+      ~ca_certificates_bundle_s3_bucket
+      ~ca_certificates_bundle_s3_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type routing_configuration = {
   state_machine_version_arn : string prop;
@@ -49,25 +47,33 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?description ?id ?timeouts ~name
-    ~routing_configuration __resource_id =
-  let __resource_type = "aws_sfn_alias" in
-  let __resource =
-    aws_sfn_alias ?description ?id ?timeouts ~name
-      ~routing_configuration ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sfn_alias __resource);
-  let __resource_attributes =
+let make ?description ?id ?timeouts ~name ~routing_configuration __id
+    =
+  let __type = "aws_sfn_alias" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       arn = Prop.computed __type __id "arn";
+       creation_date = Prop.computed __type __id "creation_date";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sfn_alias
+        (aws_sfn_alias ?description ?id ?timeouts ~name
+           ~routing_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?timeouts ~name
+    ~routing_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?timeouts ~name ~routing_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

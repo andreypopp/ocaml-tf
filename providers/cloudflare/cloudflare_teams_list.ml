@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_teams_list = {
   account_id : string prop;
@@ -35,26 +33,33 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ?id ?items ~account_id ~name
-    ~type_ __resource_id =
-  let __resource_type = "cloudflare_teams_list" in
-  let __resource =
-    cloudflare_teams_list ?description ?id ?items ~account_id ~name
-      ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_teams_list __resource);
-  let __resource_attributes =
+let make ?description ?id ?items ~account_id ~name ~type_ __id =
+  let __type = "cloudflare_teams_list" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       items = Prop.computed __resource_type __resource_id "items";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       account_id = Prop.computed __type __id "account_id";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       items = Prop.computed __type __id "items";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_teams_list
+        (cloudflare_teams_list ?description ?id ?items ~account_id
+           ~name ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?items ~account_id ~name
+    ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?items ~account_id ~name ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

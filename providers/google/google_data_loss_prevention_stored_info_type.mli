@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -127,3 +127,16 @@ val register :
   regex:regex list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?stored_info_type_id:string prop ->
+  ?timeouts:timeouts ->
+  parent:string prop ->
+  dictionary:dictionary list ->
+  large_custom_dictionary:large_custom_dictionary list ->
+  regex:regex list ->
+  string ->
+  t Tf_core.resource

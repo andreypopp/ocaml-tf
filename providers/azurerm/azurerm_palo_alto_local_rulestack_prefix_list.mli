@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   rulestack_id:string prop ->
   string ->
   t
+
+val make :
+  ?audit_comment:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  prefix_list:string prop list ->
+  rulestack_id:string prop ->
+  string ->
+  t Tf_core.resource

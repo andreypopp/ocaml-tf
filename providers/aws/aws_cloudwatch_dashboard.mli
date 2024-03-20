@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -32,3 +32,10 @@ val register :
   dashboard_name:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  dashboard_body:string prop ->
+  dashboard_name:string prop ->
+  string ->
+  t Tf_core.resource

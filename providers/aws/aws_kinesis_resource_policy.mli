@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -29,3 +29,9 @@ val register :
   resource_arn:string prop ->
   string ->
   t
+
+val make :
+  policy:string prop ->
+  resource_arn:string prop ->
+  string ->
+  t Tf_core.resource

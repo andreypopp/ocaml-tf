@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type automated_backup_policy__encryption_config = {
   kms_key_name : string prop option; [@option]
@@ -356,76 +354,76 @@ type t = {
   uid : string prop;
 }
 
+let make ?annotations ?cluster_type ?database_version
+    ?deletion_policy ?display_name ?etag ?id ?labels ?network
+    ?project ?timeouts ~cluster_id ~location ~automated_backup_policy
+    ~continuous_backup_config ~encryption_config ~initial_user
+    ~network_config ~restore_backup_source
+    ~restore_continuous_backup_source ~secondary_config __id =
+  let __type = "google_alloydb_cluster" in
+  let __attrs =
+    ({
+       annotations = Prop.computed __type __id "annotations";
+       backup_source = Prop.computed __type __id "backup_source";
+       cluster_id = Prop.computed __type __id "cluster_id";
+       cluster_type = Prop.computed __type __id "cluster_type";
+       continuous_backup_info =
+         Prop.computed __type __id "continuous_backup_info";
+       database_version =
+         Prop.computed __type __id "database_version";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       display_name = Prop.computed __type __id "display_name";
+       effective_annotations =
+         Prop.computed __type __id "effective_annotations";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       encryption_info = Prop.computed __type __id "encryption_info";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       migration_source =
+         Prop.computed __type __id "migration_source";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       project = Prop.computed __type __id "project";
+       reconciling = Prop.computed __type __id "reconciling";
+       state = Prop.computed __type __id "state";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_alloydb_cluster
+        (google_alloydb_cluster ?annotations ?cluster_type
+           ?database_version ?deletion_policy ?display_name ?etag ?id
+           ?labels ?network ?project ?timeouts ~cluster_id ~location
+           ~automated_backup_policy ~continuous_backup_config
+           ~encryption_config ~initial_user ~network_config
+           ~restore_backup_source ~restore_continuous_backup_source
+           ~secondary_config ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?annotations ?cluster_type ?database_version
     ?deletion_policy ?display_name ?etag ?id ?labels ?network
     ?project ?timeouts ~cluster_id ~location ~automated_backup_policy
     ~continuous_backup_config ~encryption_config ~initial_user
     ~network_config ~restore_backup_source
-    ~restore_continuous_backup_source ~secondary_config __resource_id
-    =
-  let __resource_type = "google_alloydb_cluster" in
-  let __resource =
-    google_alloydb_cluster ?annotations ?cluster_type
-      ?database_version ?deletion_policy ?display_name ?etag ?id
-      ?labels ?network ?project ?timeouts ~cluster_id ~location
+    ~restore_continuous_backup_source ~secondary_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?annotations ?cluster_type ?database_version
+      ?deletion_policy ?display_name ?etag ?id ?labels ?network
+      ?project ?timeouts ~cluster_id ~location
       ~automated_backup_policy ~continuous_backup_config
       ~encryption_config ~initial_user ~network_config
       ~restore_backup_source ~restore_continuous_backup_source
-      ~secondary_config ()
+      ~secondary_config __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_alloydb_cluster __resource);
-  let __resource_attributes =
-    ({
-       annotations =
-         Prop.computed __resource_type __resource_id "annotations";
-       backup_source =
-         Prop.computed __resource_type __resource_id "backup_source";
-       cluster_id =
-         Prop.computed __resource_type __resource_id "cluster_id";
-       cluster_type =
-         Prop.computed __resource_type __resource_id "cluster_type";
-       continuous_backup_info =
-         Prop.computed __resource_type __resource_id
-           "continuous_backup_info";
-       database_version =
-         Prop.computed __resource_type __resource_id
-           "database_version";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       effective_annotations =
-         Prop.computed __resource_type __resource_id
-           "effective_annotations";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       encryption_info =
-         Prop.computed __resource_type __resource_id
-           "encryption_info";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       migration_source =
-         Prop.computed __resource_type __resource_id
-           "migration_source";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       reconciling =
-         Prop.computed __resource_type __resource_id "reconciling";
-       state = Prop.computed __resource_type __resource_id "state";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

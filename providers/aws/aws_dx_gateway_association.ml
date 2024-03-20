@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,45 +58,51 @@ type t = {
   vpn_gateway_id : string prop;
 }
 
-let register ?tf_module ?allowed_prefixes ?associated_gateway_id
+let make ?allowed_prefixes ?associated_gateway_id
     ?associated_gateway_owner_account_id ?id ?proposal_id
-    ?vpn_gateway_id ?timeouts ~dx_gateway_id __resource_id =
-  let __resource_type = "aws_dx_gateway_association" in
-  let __resource =
-    aws_dx_gateway_association ?allowed_prefixes
-      ?associated_gateway_id ?associated_gateway_owner_account_id ?id
-      ?proposal_id ?vpn_gateway_id ?timeouts ~dx_gateway_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dx_gateway_association __resource);
-  let __resource_attributes =
+    ?vpn_gateway_id ?timeouts ~dx_gateway_id __id =
+  let __type = "aws_dx_gateway_association" in
+  let __attrs =
     ({
        allowed_prefixes =
-         Prop.computed __resource_type __resource_id
-           "allowed_prefixes";
+         Prop.computed __type __id "allowed_prefixes";
        associated_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "associated_gateway_id";
+         Prop.computed __type __id "associated_gateway_id";
        associated_gateway_owner_account_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "associated_gateway_owner_account_id";
        associated_gateway_type =
-         Prop.computed __resource_type __resource_id
-           "associated_gateway_type";
+         Prop.computed __type __id "associated_gateway_type";
        dx_gateway_association_id =
-         Prop.computed __resource_type __resource_id
-           "dx_gateway_association_id";
-       dx_gateway_id =
-         Prop.computed __resource_type __resource_id "dx_gateway_id";
+         Prop.computed __type __id "dx_gateway_association_id";
+       dx_gateway_id = Prop.computed __type __id "dx_gateway_id";
        dx_gateway_owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "dx_gateway_owner_account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       proposal_id =
-         Prop.computed __resource_type __resource_id "proposal_id";
-       vpn_gateway_id =
-         Prop.computed __resource_type __resource_id "vpn_gateway_id";
+         Prop.computed __type __id "dx_gateway_owner_account_id";
+       id = Prop.computed __type __id "id";
+       proposal_id = Prop.computed __type __id "proposal_id";
+       vpn_gateway_id = Prop.computed __type __id "vpn_gateway_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dx_gateway_association
+        (aws_dx_gateway_association ?allowed_prefixes
+           ?associated_gateway_id
+           ?associated_gateway_owner_account_id ?id ?proposal_id
+           ?vpn_gateway_id ?timeouts ~dx_gateway_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allowed_prefixes ?associated_gateway_id
+    ?associated_gateway_owner_account_id ?id ?proposal_id
+    ?vpn_gateway_id ?timeouts ~dx_gateway_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?allowed_prefixes ?associated_gateway_id
+      ?associated_gateway_owner_account_id ?id ?proposal_id
+      ?vpn_gateway_id ?timeouts ~dx_gateway_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type artifact_store__encryption_key = {
   id : string prop;  (** id *)
@@ -236,32 +234,39 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?execution_mode ?id ?pipeline_type ?tags
-    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
-    ~variable __resource_id =
-  let __resource_type = "aws_codepipeline" in
-  let __resource =
-    aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
-      ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
-      ~variable ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codepipeline __resource);
-  let __resource_attributes =
+let make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~name
+    ~role_arn ~artifact_store ~stage ~trigger ~variable __id =
+  let __type = "aws_codepipeline" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       execution_mode =
-         Prop.computed __resource_type __resource_id "execution_mode";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       pipeline_type =
-         Prop.computed __resource_type __resource_id "pipeline_type";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       execution_mode = Prop.computed __type __id "execution_mode";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       pipeline_type = Prop.computed __type __id "pipeline_type";
+       role_arn = Prop.computed __type __id "role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codepipeline
+        (aws_codepipeline ?execution_mode ?id ?pipeline_type ?tags
+           ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
+           ~variable ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?execution_mode ?id ?pipeline_type ?tags
+    ?tags_all ~name ~role_arn ~artifact_store ~stage ~trigger
+    ~variable __id =
+  let (r : _ Tf_core.resource) =
+    make ?execution_mode ?id ?pipeline_type ?tags ?tags_all ~name
+      ~role_arn ~artifact_store ~stage ~trigger ~variable __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

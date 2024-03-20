@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -47,27 +45,36 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?group ?id ?timeouts ~kubernetes_cluster_id
-    ~kubernetes_fleet_id ~name __resource_id =
-  let __resource_type = "azurerm_kubernetes_fleet_member" in
-  let __resource =
-    azurerm_kubernetes_fleet_member ?group ?id ?timeouts
-      ~kubernetes_cluster_id ~kubernetes_fleet_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kubernetes_fleet_member __resource);
-  let __resource_attributes =
+let make ?group ?id ?timeouts ~kubernetes_cluster_id
+    ~kubernetes_fleet_id ~name __id =
+  let __type = "azurerm_kubernetes_fleet_member" in
+  let __attrs =
     ({
-       group = Prop.computed __resource_type __resource_id "group";
-       id = Prop.computed __resource_type __resource_id "id";
+       group = Prop.computed __type __id "group";
+       id = Prop.computed __type __id "id";
        kubernetes_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_cluster_id";
+         Prop.computed __type __id "kubernetes_cluster_id";
        kubernetes_fleet_id =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_fleet_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "kubernetes_fleet_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kubernetes_fleet_member
+        (azurerm_kubernetes_fleet_member ?group ?id ?timeouts
+           ~kubernetes_cluster_id ~kubernetes_fleet_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?group ?id ?timeouts ~kubernetes_cluster_id
+    ~kubernetes_fleet_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?group ?id ?timeouts ~kubernetes_cluster_id
+      ~kubernetes_fleet_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

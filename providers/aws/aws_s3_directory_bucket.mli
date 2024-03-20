@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -43,3 +43,12 @@ val register :
   location:location list ->
   string ->
   t
+
+val make :
+  ?data_redundancy:string prop ->
+  ?force_destroy:bool prop ->
+  ?type_:string prop ->
+  bucket:string prop ->
+  location:location list ->
+  string ->
+  t Tf_core.resource

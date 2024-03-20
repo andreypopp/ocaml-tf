@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type access_control_policy__grant__grantee = {
   email_address : string prop option; [@option]  (** email_address *)
@@ -71,24 +69,34 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?acl ?expected_bucket_owner ?id ~bucket
-    ~access_control_policy __resource_id =
-  let __resource_type = "aws_s3_bucket_acl" in
-  let __resource =
-    aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id ~bucket
-      ~access_control_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_s3_bucket_acl __resource);
-  let __resource_attributes =
+let make ?acl ?expected_bucket_owner ?id ~bucket
+    ~access_control_policy __id =
+  let __type = "aws_s3_bucket_acl" in
+  let __attrs =
     ({
-       acl = Prop.computed __resource_type __resource_id "acl";
-       bucket = Prop.computed __resource_type __resource_id "bucket";
+       acl = Prop.computed __type __id "acl";
+       bucket = Prop.computed __type __id "bucket";
        expected_bucket_owner =
-         Prop.computed __resource_type __resource_id
-           "expected_bucket_owner";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "expected_bucket_owner";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_s3_bucket_acl
+        (aws_s3_bucket_acl ?acl ?expected_bucket_owner ?id ~bucket
+           ~access_control_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?acl ?expected_bucket_owner ?id ~bucket
+    ~access_control_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?acl ?expected_bucket_owner ?id ~bucket
+      ~access_control_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

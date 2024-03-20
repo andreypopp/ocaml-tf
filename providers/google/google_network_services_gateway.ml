@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -120,66 +118,69 @@ type t = {
   update_time : string prop;
 }
 
+let make ?addresses ?certificate_urls
+    ?delete_swg_autogen_router_on_destroy ?description
+    ?gateway_security_policy ?id ?labels ?location ?network ?project
+    ?scope ?server_tls_policy ?subnetwork ?timeouts ~name ~ports
+    ~type_ __id =
+  let __type = "google_network_services_gateway" in
+  let __attrs =
+    ({
+       addresses = Prop.computed __type __id "addresses";
+       certificate_urls =
+         Prop.computed __type __id "certificate_urls";
+       create_time = Prop.computed __type __id "create_time";
+       delete_swg_autogen_router_on_destroy =
+         Prop.computed __type __id
+           "delete_swg_autogen_router_on_destroy";
+       description = Prop.computed __type __id "description";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       gateway_security_policy =
+         Prop.computed __type __id "gateway_security_policy";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       ports = Prop.computed __type __id "ports";
+       project = Prop.computed __type __id "project";
+       scope = Prop.computed __type __id "scope";
+       self_link = Prop.computed __type __id "self_link";
+       server_tls_policy =
+         Prop.computed __type __id "server_tls_policy";
+       subnetwork = Prop.computed __type __id "subnetwork";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       type_ = Prop.computed __type __id "type";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_services_gateway
+        (google_network_services_gateway ?addresses ?certificate_urls
+           ?delete_swg_autogen_router_on_destroy ?description
+           ?gateway_security_policy ?id ?labels ?location ?network
+           ?project ?scope ?server_tls_policy ?subnetwork ?timeouts
+           ~name ~ports ~type_ ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?addresses ?certificate_urls
     ?delete_swg_autogen_router_on_destroy ?description
     ?gateway_security_policy ?id ?labels ?location ?network ?project
     ?scope ?server_tls_policy ?subnetwork ?timeouts ~name ~ports
-    ~type_ __resource_id =
-  let __resource_type = "google_network_services_gateway" in
-  let __resource =
-    google_network_services_gateway ?addresses ?certificate_urls
+    ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?addresses ?certificate_urls
       ?delete_swg_autogen_router_on_destroy ?description
       ?gateway_security_policy ?id ?labels ?location ?network
       ?project ?scope ?server_tls_policy ?subnetwork ?timeouts ~name
-      ~ports ~type_ ()
+      ~ports ~type_ __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_services_gateway __resource);
-  let __resource_attributes =
-    ({
-       addresses =
-         Prop.computed __resource_type __resource_id "addresses";
-       certificate_urls =
-         Prop.computed __resource_type __resource_id
-           "certificate_urls";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       delete_swg_autogen_router_on_destroy =
-         Prop.computed __resource_type __resource_id
-           "delete_swg_autogen_router_on_destroy";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       gateway_security_policy =
-         Prop.computed __resource_type __resource_id
-           "gateway_security_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       ports = Prop.computed __resource_type __resource_id "ports";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       scope = Prop.computed __resource_type __resource_id "scope";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       server_tls_policy =
-         Prop.computed __resource_type __resource_id
-           "server_tls_policy";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

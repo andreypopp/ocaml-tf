@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type google_cloud_run_service_iam_policy = {
   id : string prop option; [@option]  (** id *)
@@ -27,28 +25,33 @@ type t = {
   service : string prop;
 }
 
-let register ?tf_module ?id ?location ?project ~policy_data ~service
-    __resource_id =
-  let __resource_type = "google_cloud_run_service_iam_policy" in
-  let __resource =
-    google_cloud_run_service_iam_policy ?id ?location ?project
-      ~policy_data ~service ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloud_run_service_iam_policy __resource);
-  let __resource_attributes =
+let make ?id ?location ?project ~policy_data ~service __id =
+  let __type = "google_cloud_run_service_iam_policy" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       policy_data =
-         Prop.computed __resource_type __resource_id "policy_data";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       service =
-         Prop.computed __resource_type __resource_id "service";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       policy_data = Prop.computed __type __id "policy_data";
+       project = Prop.computed __type __id "project";
+       service = Prop.computed __type __id "service";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloud_run_service_iam_policy
+        (google_cloud_run_service_iam_policy ?id ?location ?project
+           ~policy_data ~service ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?location ?project ~policy_data ~service
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?location ?project ~policy_data ~service __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

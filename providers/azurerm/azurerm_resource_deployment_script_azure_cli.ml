@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type container = {
   container_group_name : string prop option; [@option]
@@ -132,61 +130,64 @@ type t = {
   version : string prop;
 }
 
+let make ?cleanup_preference ?command_line ?force_update_tag ?id
+    ?primary_script_uri ?script_content ?supporting_script_uris ?tags
+    ?timeout ?timeouts ~location ~name ~resource_group_name
+    ~retention_interval ~version ~container ~environment_variable
+    ~identity ~storage_account __id =
+  let __type = "azurerm_resource_deployment_script_azure_cli" in
+  let __attrs =
+    ({
+       cleanup_preference =
+         Prop.computed __type __id "cleanup_preference";
+       command_line = Prop.computed __type __id "command_line";
+       force_update_tag =
+         Prop.computed __type __id "force_update_tag";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       outputs = Prop.computed __type __id "outputs";
+       primary_script_uri =
+         Prop.computed __type __id "primary_script_uri";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       retention_interval =
+         Prop.computed __type __id "retention_interval";
+       script_content = Prop.computed __type __id "script_content";
+       supporting_script_uris =
+         Prop.computed __type __id "supporting_script_uris";
+       tags = Prop.computed __type __id "tags";
+       timeout = Prop.computed __type __id "timeout";
+       version = Prop.computed __type __id "version";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_resource_deployment_script_azure_cli
+        (azurerm_resource_deployment_script_azure_cli
+           ?cleanup_preference ?command_line ?force_update_tag ?id
+           ?primary_script_uri ?script_content
+           ?supporting_script_uris ?tags ?timeout ?timeouts ~location
+           ~name ~resource_group_name ~retention_interval ~version
+           ~container ~environment_variable ~identity
+           ~storage_account ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cleanup_preference ?command_line
     ?force_update_tag ?id ?primary_script_uri ?script_content
     ?supporting_script_uris ?tags ?timeout ?timeouts ~location ~name
     ~resource_group_name ~retention_interval ~version ~container
-    ~environment_variable ~identity ~storage_account __resource_id =
-  let __resource_type =
-    "azurerm_resource_deployment_script_azure_cli"
-  in
-  let __resource =
-    azurerm_resource_deployment_script_azure_cli ?cleanup_preference
-      ?command_line ?force_update_tag ?id ?primary_script_uri
-      ?script_content ?supporting_script_uris ?tags ?timeout
-      ?timeouts ~location ~name ~resource_group_name
+    ~environment_variable ~identity ~storage_account __id =
+  let (r : _ Tf_core.resource) =
+    make ?cleanup_preference ?command_line ?force_update_tag ?id
+      ?primary_script_uri ?script_content ?supporting_script_uris
+      ?tags ?timeout ?timeouts ~location ~name ~resource_group_name
       ~retention_interval ~version ~container ~environment_variable
-      ~identity ~storage_account ()
+      ~identity ~storage_account __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_resource_deployment_script_azure_cli
-       __resource);
-  let __resource_attributes =
-    ({
-       cleanup_preference =
-         Prop.computed __resource_type __resource_id
-           "cleanup_preference";
-       command_line =
-         Prop.computed __resource_type __resource_id "command_line";
-       force_update_tag =
-         Prop.computed __resource_type __resource_id
-           "force_update_tag";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       outputs =
-         Prop.computed __resource_type __resource_id "outputs";
-       primary_script_uri =
-         Prop.computed __resource_type __resource_id
-           "primary_script_uri";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       retention_interval =
-         Prop.computed __resource_type __resource_id
-           "retention_interval";
-       script_content =
-         Prop.computed __resource_type __resource_id "script_content";
-       supporting_script_uris =
-         Prop.computed __resource_type __resource_id
-           "supporting_script_uris";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       timeout =
-         Prop.computed __resource_type __resource_id "timeout";
-       version =
-         Prop.computed __resource_type __resource_id "version";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

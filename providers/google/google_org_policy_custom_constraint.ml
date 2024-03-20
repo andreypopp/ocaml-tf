@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -67,37 +65,41 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id ?timeouts
-    ~action_type ~condition ~method_types ~name ~parent
-    ~resource_types __resource_id =
-  let __resource_type = "google_org_policy_custom_constraint" in
-  let __resource =
-    google_org_policy_custom_constraint ?description ?display_name
-      ?id ?timeouts ~action_type ~condition ~method_types ~name
-      ~parent ~resource_types ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_org_policy_custom_constraint __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?timeouts ~action_type
+    ~condition ~method_types ~name ~parent ~resource_types __id =
+  let __type = "google_org_policy_custom_constraint" in
+  let __attrs =
     ({
-       action_type =
-         Prop.computed __resource_type __resource_id "action_type";
-       condition =
-         Prop.computed __resource_type __resource_id "condition";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       method_types =
-         Prop.computed __resource_type __resource_id "method_types";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       resource_types =
-         Prop.computed __resource_type __resource_id "resource_types";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+       action_type = Prop.computed __type __id "action_type";
+       condition = Prop.computed __type __id "condition";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       method_types = Prop.computed __type __id "method_types";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       resource_types = Prop.computed __type __id "resource_types";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_org_policy_custom_constraint
+        (google_org_policy_custom_constraint ?description
+           ?display_name ?id ?timeouts ~action_type ~condition
+           ~method_types ~name ~parent ~resource_types ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id ?timeouts
+    ~action_type ~condition ~method_types ~name ~parent
+    ~resource_types __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?timeouts ~action_type
+      ~condition ~method_types ~name ~parent ~resource_types __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

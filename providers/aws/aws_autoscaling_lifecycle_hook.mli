@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -49,3 +49,16 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?default_result:string prop ->
+  ?heartbeat_timeout:float prop ->
+  ?id:string prop ->
+  ?notification_metadata:string prop ->
+  ?notification_target_arn:string prop ->
+  ?role_arn:string prop ->
+  autoscaling_group_name:string prop ->
+  lifecycle_transition:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

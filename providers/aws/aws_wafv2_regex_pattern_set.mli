@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -50,4 +50,15 @@ val register :
     regular_expression:regular_expression list ->
     string ->
     t
+
+val make :
+    ?description:string prop ->
+    ?id:string prop ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
+    name:string prop ->
+    scope:string prop ->
+    regular_expression:regular_expression list ->
+    string ->
+    t Tf_core.resource
 

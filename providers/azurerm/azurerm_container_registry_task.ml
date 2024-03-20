@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type agent_setting = { cpu : float prop  (** cpu *) }
 [@@deriving yojson_of]
@@ -301,44 +299,53 @@ type t = {
   timeout_in_seconds : float prop;
 }
 
+let make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
+    ?tags ?timeout_in_seconds ?timeouts ~container_registry_id ~name
+    ~agent_setting ~base_image_trigger ~docker_step ~encoded_step
+    ~file_step ~identity ~platform ~registry_credential
+    ~source_trigger ~timer_trigger __id =
+  let __type = "azurerm_container_registry_task" in
+  let __attrs =
+    ({
+       agent_pool_name = Prop.computed __type __id "agent_pool_name";
+       container_registry_id =
+         Prop.computed __type __id "container_registry_id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       is_system_task = Prop.computed __type __id "is_system_task";
+       log_template = Prop.computed __type __id "log_template";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       timeout_in_seconds =
+         Prop.computed __type __id "timeout_in_seconds";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_container_registry_task
+        (azurerm_container_registry_task ?agent_pool_name ?enabled
+           ?id ?is_system_task ?log_template ?tags
+           ?timeout_in_seconds ?timeouts ~container_registry_id ~name
+           ~agent_setting ~base_image_trigger ~docker_step
+           ~encoded_step ~file_step ~identity ~platform
+           ~registry_credential ~source_trigger ~timer_trigger ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?agent_pool_name ?enabled ?id ?is_system_task
     ?log_template ?tags ?timeout_in_seconds ?timeouts
     ~container_registry_id ~name ~agent_setting ~base_image_trigger
     ~docker_step ~encoded_step ~file_step ~identity ~platform
-    ~registry_credential ~source_trigger ~timer_trigger __resource_id
-    =
-  let __resource_type = "azurerm_container_registry_task" in
-  let __resource =
-    azurerm_container_registry_task ?agent_pool_name ?enabled ?id
-      ?is_system_task ?log_template ?tags ?timeout_in_seconds
-      ?timeouts ~container_registry_id ~name ~agent_setting
-      ~base_image_trigger ~docker_step ~encoded_step ~file_step
-      ~identity ~platform ~registry_credential ~source_trigger
-      ~timer_trigger ()
+    ~registry_credential ~source_trigger ~timer_trigger __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_pool_name ?enabled ?id ?is_system_task ?log_template
+      ?tags ?timeout_in_seconds ?timeouts ~container_registry_id
+      ~name ~agent_setting ~base_image_trigger ~docker_step
+      ~encoded_step ~file_step ~identity ~platform
+      ~registry_credential ~source_trigger ~timer_trigger __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_container_registry_task __resource);
-  let __resource_attributes =
-    ({
-       agent_pool_name =
-         Prop.computed __resource_type __resource_id
-           "agent_pool_name";
-       container_registry_id =
-         Prop.computed __resource_type __resource_id
-           "container_registry_id";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_system_task =
-         Prop.computed __resource_type __resource_id "is_system_task";
-       log_template =
-         Prop.computed __resource_type __resource_id "log_template";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       timeout_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "timeout_in_seconds";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

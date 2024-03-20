@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,20 @@ val register :
   traffic_analytics:traffic_analytics list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?location:string prop ->
+  ?tags:(string * string prop) list ->
+  ?version:float prop ->
+  ?timeouts:timeouts ->
+  enabled:bool prop ->
+  name:string prop ->
+  network_security_group_id:string prop ->
+  network_watcher_name:string prop ->
+  resource_group_name:string prop ->
+  storage_account_id:string prop ->
+  retention_policy:retention_policy list ->
+  traffic_analytics:traffic_analytics list ->
+  string ->
+  t Tf_core.resource

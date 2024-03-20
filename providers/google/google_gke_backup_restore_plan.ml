@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type restore_config__cluster_resource_restore_scope__excluded_group_kinds = {
   resource_group : string prop option; [@option]
@@ -343,43 +341,45 @@ type t = {
   uid : string prop;
 }
 
-let register ?tf_module ?description ?id ?labels ?project ?timeouts
-    ~backup_plan ~cluster ~location ~name ~restore_config
-    __resource_id =
-  let __resource_type = "google_gke_backup_restore_plan" in
-  let __resource =
-    google_gke_backup_restore_plan ?description ?id ?labels ?project
-      ?timeouts ~backup_plan ~cluster ~location ~name ~restore_config
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_gke_backup_restore_plan __resource);
-  let __resource_attributes =
+let make ?description ?id ?labels ?project ?timeouts ~backup_plan
+    ~cluster ~location ~name ~restore_config __id =
+  let __type = "google_gke_backup_restore_plan" in
+  let __attrs =
     ({
-       backup_plan =
-         Prop.computed __resource_type __resource_id "backup_plan";
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       backup_plan = Prop.computed __type __id "backup_plan";
+       cluster = Prop.computed __type __id "cluster";
+       description = Prop.computed __type __id "description";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       state = Prop.computed __resource_type __resource_id "state";
-       state_reason =
-         Prop.computed __resource_type __resource_id "state_reason";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       state = Prop.computed __type __id "state";
+       state_reason = Prop.computed __type __id "state_reason";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       uid = Prop.computed __resource_type __resource_id "uid";
+         Prop.computed __type __id "terraform_labels";
+       uid = Prop.computed __type __id "uid";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_gke_backup_restore_plan
+        (google_gke_backup_restore_plan ?description ?id ?labels
+           ?project ?timeouts ~backup_plan ~cluster ~location ~name
+           ~restore_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?labels ?project ?timeouts
+    ~backup_plan ~cluster ~location ~name ~restore_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?labels ?project ?timeouts ~backup_plan
+      ~cluster ~location ~name ~restore_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

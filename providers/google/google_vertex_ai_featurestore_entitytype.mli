@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -100,3 +100,14 @@ val register :
   monitoring_config:monitoring_config list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?name:string prop ->
+  ?timeouts:timeouts ->
+  featurestore:string prop ->
+  monitoring_config:monitoring_config list ->
+  string ->
+  t Tf_core.resource

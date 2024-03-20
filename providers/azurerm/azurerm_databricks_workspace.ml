@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_parameters = {
   machine_learning_workspace_id : string prop option; [@option]
@@ -175,6 +173,81 @@ type t = {
   workspace_url : string prop;
 }
 
+let make ?customer_managed_key_enabled ?id
+    ?infrastructure_encryption_enabled
+    ?load_balancer_backend_address_pool_id
+    ?managed_disk_cmk_key_vault_key_id
+    ?managed_disk_cmk_rotation_to_latest_version_enabled
+    ?managed_resource_group_name
+    ?managed_services_cmk_key_vault_key_id
+    ?network_security_group_rules_required
+    ?public_network_access_enabled ?tags ?timeouts ~location ~name
+    ~resource_group_name ~sku ~custom_parameters __id =
+  let __type = "azurerm_databricks_workspace" in
+  let __attrs =
+    ({
+       customer_managed_key_enabled =
+         Prop.computed __type __id "customer_managed_key_enabled";
+       disk_encryption_set_id =
+         Prop.computed __type __id "disk_encryption_set_id";
+       id = Prop.computed __type __id "id";
+       infrastructure_encryption_enabled =
+         Prop.computed __type __id
+           "infrastructure_encryption_enabled";
+       load_balancer_backend_address_pool_id =
+         Prop.computed __type __id
+           "load_balancer_backend_address_pool_id";
+       location = Prop.computed __type __id "location";
+       managed_disk_cmk_key_vault_key_id =
+         Prop.computed __type __id
+           "managed_disk_cmk_key_vault_key_id";
+       managed_disk_cmk_rotation_to_latest_version_enabled =
+         Prop.computed __type __id
+           "managed_disk_cmk_rotation_to_latest_version_enabled";
+       managed_disk_identity =
+         Prop.computed __type __id "managed_disk_identity";
+       managed_resource_group_id =
+         Prop.computed __type __id "managed_resource_group_id";
+       managed_resource_group_name =
+         Prop.computed __type __id "managed_resource_group_name";
+       managed_services_cmk_key_vault_key_id =
+         Prop.computed __type __id
+           "managed_services_cmk_key_vault_key_id";
+       name = Prop.computed __type __id "name";
+       network_security_group_rules_required =
+         Prop.computed __type __id
+           "network_security_group_rules_required";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       storage_account_identity =
+         Prop.computed __type __id "storage_account_identity";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
+       workspace_url = Prop.computed __type __id "workspace_url";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_databricks_workspace
+        (azurerm_databricks_workspace ?customer_managed_key_enabled
+           ?id ?infrastructure_encryption_enabled
+           ?load_balancer_backend_address_pool_id
+           ?managed_disk_cmk_key_vault_key_id
+           ?managed_disk_cmk_rotation_to_latest_version_enabled
+           ?managed_resource_group_name
+           ?managed_services_cmk_key_vault_key_id
+           ?network_security_group_rules_required
+           ?public_network_access_enabled ?tags ?timeouts ~location
+           ~name ~resource_group_name ~sku ~custom_parameters ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?customer_managed_key_enabled ?id
     ?infrastructure_encryption_enabled
     ?load_balancer_backend_address_pool_id
@@ -184,10 +257,9 @@ let register ?tf_module ?customer_managed_key_enabled ?id
     ?managed_services_cmk_key_vault_key_id
     ?network_security_group_rules_required
     ?public_network_access_enabled ?tags ?timeouts ~location ~name
-    ~resource_group_name ~sku ~custom_parameters __resource_id =
-  let __resource_type = "azurerm_databricks_workspace" in
-  let __resource =
-    azurerm_databricks_workspace ?customer_managed_key_enabled ?id
+    ~resource_group_name ~sku ~custom_parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?customer_managed_key_enabled ?id
       ?infrastructure_encryption_enabled
       ?load_balancer_backend_address_pool_id
       ?managed_disk_cmk_key_vault_key_id
@@ -196,65 +268,7 @@ let register ?tf_module ?customer_managed_key_enabled ?id
       ?managed_services_cmk_key_vault_key_id
       ?network_security_group_rules_required
       ?public_network_access_enabled ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ~custom_parameters ()
+      ~resource_group_name ~sku ~custom_parameters __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_databricks_workspace __resource);
-  let __resource_attributes =
-    ({
-       customer_managed_key_enabled =
-         Prop.computed __resource_type __resource_id
-           "customer_managed_key_enabled";
-       disk_encryption_set_id =
-         Prop.computed __resource_type __resource_id
-           "disk_encryption_set_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       infrastructure_encryption_enabled =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_encryption_enabled";
-       load_balancer_backend_address_pool_id =
-         Prop.computed __resource_type __resource_id
-           "load_balancer_backend_address_pool_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_disk_cmk_key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "managed_disk_cmk_key_vault_key_id";
-       managed_disk_cmk_rotation_to_latest_version_enabled =
-         Prop.computed __resource_type __resource_id
-           "managed_disk_cmk_rotation_to_latest_version_enabled";
-       managed_disk_identity =
-         Prop.computed __resource_type __resource_id
-           "managed_disk_identity";
-       managed_resource_group_id =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group_id";
-       managed_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "managed_resource_group_name";
-       managed_services_cmk_key_vault_key_id =
-         Prop.computed __resource_type __resource_id
-           "managed_services_cmk_key_vault_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       network_security_group_rules_required =
-         Prop.computed __resource_type __resource_id
-           "network_security_group_rules_required";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       storage_account_identity =
-         Prop.computed __resource_type __resource_id
-           "storage_account_identity";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-       workspace_url =
-         Prop.computed __resource_type __resource_id "workspace_url";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -158,3 +158,31 @@ val register :
   user:user list ->
   string ->
   t
+
+val make :
+  ?apply_immediately:bool prop ->
+  ?authentication_strategy:string prop ->
+  ?auto_minor_version_upgrade:bool prop ->
+  ?data_replication_mode:string prop ->
+  ?data_replication_primary_broker_arn:string prop ->
+  ?deployment_mode:string prop ->
+  ?id:string prop ->
+  ?publicly_accessible:bool prop ->
+  ?security_groups:string prop list ->
+  ?storage_type:string prop ->
+  ?subnet_ids:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  broker_name:string prop ->
+  engine_type:string prop ->
+  engine_version:string prop ->
+  host_instance_type:string prop ->
+  configuration:configuration list ->
+  encryption_options:encryption_options list ->
+  ldap_server_metadata:ldap_server_metadata list ->
+  logs:logs list ->
+  maintenance_window_start_time:maintenance_window_start_time list ->
+  user:user list ->
+  string ->
+  t Tf_core.resource

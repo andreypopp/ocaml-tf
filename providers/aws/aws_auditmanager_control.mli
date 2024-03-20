@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,14 @@ val register :
   control_mapping_sources:control_mapping_sources list ->
   string ->
   t
+
+val make :
+  ?action_plan_instructions:string prop ->
+  ?action_plan_title:string prop ->
+  ?description:string prop ->
+  ?tags:(string * string prop) list ->
+  ?testing_information:string prop ->
+  name:string prop ->
+  control_mapping_sources:control_mapping_sources list ->
+  string ->
+  t Tf_core.resource

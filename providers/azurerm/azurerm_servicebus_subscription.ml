@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type client_scoped_subscription = {
   client_id : string prop option; [@option]  (** client_id *)
@@ -108,6 +106,64 @@ type t = {
   topic_id : string prop;
 }
 
+let make ?auto_delete_on_idle ?client_scoped_subscription_enabled
+    ?dead_lettering_on_filter_evaluation_error
+    ?dead_lettering_on_message_expiration ?default_message_ttl
+    ?enable_batched_operations ?forward_dead_lettered_messages_to
+    ?forward_to ?id ?lock_duration ?requires_session ?status
+    ?timeouts ~max_delivery_count ~name ~topic_id
+    ~client_scoped_subscription __id =
+  let __type = "azurerm_servicebus_subscription" in
+  let __attrs =
+    ({
+       auto_delete_on_idle =
+         Prop.computed __type __id "auto_delete_on_idle";
+       client_scoped_subscription_enabled =
+         Prop.computed __type __id
+           "client_scoped_subscription_enabled";
+       dead_lettering_on_filter_evaluation_error =
+         Prop.computed __type __id
+           "dead_lettering_on_filter_evaluation_error";
+       dead_lettering_on_message_expiration =
+         Prop.computed __type __id
+           "dead_lettering_on_message_expiration";
+       default_message_ttl =
+         Prop.computed __type __id "default_message_ttl";
+       enable_batched_operations =
+         Prop.computed __type __id "enable_batched_operations";
+       forward_dead_lettered_messages_to =
+         Prop.computed __type __id
+           "forward_dead_lettered_messages_to";
+       forward_to = Prop.computed __type __id "forward_to";
+       id = Prop.computed __type __id "id";
+       lock_duration = Prop.computed __type __id "lock_duration";
+       max_delivery_count =
+         Prop.computed __type __id "max_delivery_count";
+       name = Prop.computed __type __id "name";
+       requires_session =
+         Prop.computed __type __id "requires_session";
+       status = Prop.computed __type __id "status";
+       topic_id = Prop.computed __type __id "topic_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_servicebus_subscription
+        (azurerm_servicebus_subscription ?auto_delete_on_idle
+           ?client_scoped_subscription_enabled
+           ?dead_lettering_on_filter_evaluation_error
+           ?dead_lettering_on_message_expiration ?default_message_ttl
+           ?enable_batched_operations
+           ?forward_dead_lettered_messages_to ?forward_to ?id
+           ?lock_duration ?requires_session ?status ?timeouts
+           ~max_delivery_count ~name ~topic_id
+           ~client_scoped_subscription ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?auto_delete_on_idle
     ?client_scoped_subscription_enabled
     ?dead_lettering_on_filter_evaluation_error
@@ -115,59 +171,15 @@ let register ?tf_module ?auto_delete_on_idle
     ?enable_batched_operations ?forward_dead_lettered_messages_to
     ?forward_to ?id ?lock_duration ?requires_session ?status
     ?timeouts ~max_delivery_count ~name ~topic_id
-    ~client_scoped_subscription __resource_id =
-  let __resource_type = "azurerm_servicebus_subscription" in
-  let __resource =
-    azurerm_servicebus_subscription ?auto_delete_on_idle
-      ?client_scoped_subscription_enabled
+    ~client_scoped_subscription __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_delete_on_idle ?client_scoped_subscription_enabled
       ?dead_lettering_on_filter_evaluation_error
       ?dead_lettering_on_message_expiration ?default_message_ttl
       ?enable_batched_operations ?forward_dead_lettered_messages_to
       ?forward_to ?id ?lock_duration ?requires_session ?status
       ?timeouts ~max_delivery_count ~name ~topic_id
-      ~client_scoped_subscription ()
+      ~client_scoped_subscription __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_servicebus_subscription __resource);
-  let __resource_attributes =
-    ({
-       auto_delete_on_idle =
-         Prop.computed __resource_type __resource_id
-           "auto_delete_on_idle";
-       client_scoped_subscription_enabled =
-         Prop.computed __resource_type __resource_id
-           "client_scoped_subscription_enabled";
-       dead_lettering_on_filter_evaluation_error =
-         Prop.computed __resource_type __resource_id
-           "dead_lettering_on_filter_evaluation_error";
-       dead_lettering_on_message_expiration =
-         Prop.computed __resource_type __resource_id
-           "dead_lettering_on_message_expiration";
-       default_message_ttl =
-         Prop.computed __resource_type __resource_id
-           "default_message_ttl";
-       enable_batched_operations =
-         Prop.computed __resource_type __resource_id
-           "enable_batched_operations";
-       forward_dead_lettered_messages_to =
-         Prop.computed __resource_type __resource_id
-           "forward_dead_lettered_messages_to";
-       forward_to =
-         Prop.computed __resource_type __resource_id "forward_to";
-       id = Prop.computed __resource_type __resource_id "id";
-       lock_duration =
-         Prop.computed __resource_type __resource_id "lock_duration";
-       max_delivery_count =
-         Prop.computed __resource_type __resource_id
-           "max_delivery_count";
-       name = Prop.computed __resource_type __resource_id "name";
-       requires_session =
-         Prop.computed __resource_type __resource_id
-           "requires_session";
-       status = Prop.computed __resource_type __resource_id "status";
-       topic_id =
-         Prop.computed __resource_type __resource_id "topic_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

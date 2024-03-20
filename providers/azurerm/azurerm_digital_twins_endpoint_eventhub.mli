@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?dead_letter_storage_secret:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  digital_twins_id:string prop ->
+  eventhub_primary_connection_string:string prop ->
+  eventhub_secondary_connection_string:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -111,3 +111,22 @@ val register :
   validation_rules:validation_rules list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?enabled:bool prop ->
+  ?frequency:float prop ->
+  ?id:string prop ->
+  ?retry_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeout:float prop ->
+  ?timeouts:timeouts ->
+  application_insights_id:string prop ->
+  geo_locations:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  request:request list ->
+  validation_rules:validation_rules list ->
+  string ->
+  t Tf_core.resource

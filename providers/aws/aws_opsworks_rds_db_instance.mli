@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -37,3 +37,12 @@ val register :
   stack_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  db_password:string prop ->
+  db_user:string prop ->
+  rds_db_instance_arn:string prop ->
+  stack_id:string prop ->
+  string ->
+  t Tf_core.resource

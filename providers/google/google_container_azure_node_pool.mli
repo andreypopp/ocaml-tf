@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -122,3 +122,21 @@ val register :
   max_pods_constraint:max_pods_constraint list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?azure_availability_zone:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  subnet_id:string prop ->
+  version:string prop ->
+  autoscaling:autoscaling list ->
+  config:config list ->
+  management:management list ->
+  max_pods_constraint:max_pods_constraint list ->
+  string ->
+  t Tf_core.resource

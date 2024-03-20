@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cdn_managed_https = {
   certificate_type : string prop;  (** certificate_type *)
@@ -74,25 +72,34 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~cdn_endpoint_id ~host_name
-    ~name ~cdn_managed_https ~user_managed_https __resource_id =
-  let __resource_type = "azurerm_cdn_endpoint_custom_domain" in
-  let __resource =
-    azurerm_cdn_endpoint_custom_domain ?id ?timeouts ~cdn_endpoint_id
-      ~host_name ~name ~cdn_managed_https ~user_managed_https ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_endpoint_custom_domain __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~cdn_endpoint_id ~host_name ~name
+    ~cdn_managed_https ~user_managed_https __id =
+  let __type = "azurerm_cdn_endpoint_custom_domain" in
+  let __attrs =
     ({
-       cdn_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_endpoint_id";
-       host_name =
-         Prop.computed __resource_type __resource_id "host_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       cdn_endpoint_id = Prop.computed __type __id "cdn_endpoint_id";
+       host_name = Prop.computed __type __id "host_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_endpoint_custom_domain
+        (azurerm_cdn_endpoint_custom_domain ?id ?timeouts
+           ~cdn_endpoint_id ~host_name ~name ~cdn_managed_https
+           ~user_managed_https ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~cdn_endpoint_id ~host_name
+    ~name ~cdn_managed_https ~user_managed_https __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~cdn_endpoint_id ~host_name ~name
+      ~cdn_managed_https ~user_managed_https __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

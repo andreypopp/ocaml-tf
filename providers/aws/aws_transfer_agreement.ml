@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_transfer_agreement = {
   access_role : string prop;  (** access_role *)
@@ -49,42 +47,47 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?id ?tags ?tags_all ~access_role
+let make ?description ?id ?tags ?tags_all ~access_role
     ~base_directory ~local_profile_id ~partner_profile_id ~server_id
-    __resource_id =
-  let __resource_type = "aws_transfer_agreement" in
-  let __resource =
-    aws_transfer_agreement ?description ?id ?tags ?tags_all
-      ~access_role ~base_directory ~local_profile_id
-      ~partner_profile_id ~server_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_transfer_agreement __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_transfer_agreement" in
+  let __attrs =
     ({
-       access_role =
-         Prop.computed __resource_type __resource_id "access_role";
-       agreement_id =
-         Prop.computed __resource_type __resource_id "agreement_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       base_directory =
-         Prop.computed __resource_type __resource_id "base_directory";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
+       access_role = Prop.computed __type __id "access_role";
+       agreement_id = Prop.computed __type __id "agreement_id";
+       arn = Prop.computed __type __id "arn";
+       base_directory = Prop.computed __type __id "base_directory";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
        local_profile_id =
-         Prop.computed __resource_type __resource_id
-           "local_profile_id";
+         Prop.computed __type __id "local_profile_id";
        partner_profile_id =
-         Prop.computed __resource_type __resource_id
-           "partner_profile_id";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       status = Prop.computed __resource_type __resource_id "status";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "partner_profile_id";
+       server_id = Prop.computed __type __id "server_id";
+       status = Prop.computed __type __id "status";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_transfer_agreement
+        (aws_transfer_agreement ?description ?id ?tags ?tags_all
+           ~access_role ~base_directory ~local_profile_id
+           ~partner_profile_id ~server_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?tags ?tags_all ~access_role
+    ~base_directory ~local_profile_id ~partner_profile_id ~server_id
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?tags ?tags_all ~access_role
+      ~base_directory ~local_profile_id ~partner_profile_id
+      ~server_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

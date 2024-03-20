@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -68,3 +68,17 @@ val register :
   value_from_key_vault:value_from_key_vault list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?secret:bool prop ->
+  ?tags:string prop list ->
+  ?value:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  display_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  value_from_key_vault:value_from_key_vault list ->
+  string ->
+  t Tf_core.resource

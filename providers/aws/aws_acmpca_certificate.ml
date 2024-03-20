@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type validity = {
   type_ : string prop; [@key "type"]  (** type *)
@@ -53,41 +51,46 @@ type t = {
   template_arn : string prop;
 }
 
-let register ?tf_module ?api_passthrough ?id ?template_arn
+let make ?api_passthrough ?id ?template_arn
     ~certificate_authority_arn ~certificate_signing_request
-    ~signing_algorithm ~validity __resource_id =
-  let __resource_type = "aws_acmpca_certificate" in
-  let __resource =
-    aws_acmpca_certificate ?api_passthrough ?id ?template_arn
-      ~certificate_authority_arn ~certificate_signing_request
-      ~signing_algorithm ~validity ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_acmpca_certificate __resource);
-  let __resource_attributes =
+    ~signing_algorithm ~validity __id =
+  let __type = "aws_acmpca_certificate" in
+  let __attrs =
     ({
-       api_passthrough =
-         Prop.computed __resource_type __resource_id
-           "api_passthrough";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate =
-         Prop.computed __resource_type __resource_id "certificate";
+       api_passthrough = Prop.computed __type __id "api_passthrough";
+       arn = Prop.computed __type __id "arn";
+       certificate = Prop.computed __type __id "certificate";
        certificate_authority_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_authority_arn";
+         Prop.computed __type __id "certificate_authority_arn";
        certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
+         Prop.computed __type __id "certificate_chain";
        certificate_signing_request =
-         Prop.computed __resource_type __resource_id
-           "certificate_signing_request";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "certificate_signing_request";
+       id = Prop.computed __type __id "id";
        signing_algorithm =
-         Prop.computed __resource_type __resource_id
-           "signing_algorithm";
-       template_arn =
-         Prop.computed __resource_type __resource_id "template_arn";
+         Prop.computed __type __id "signing_algorithm";
+       template_arn = Prop.computed __type __id "template_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_acmpca_certificate
+        (aws_acmpca_certificate ?api_passthrough ?id ?template_arn
+           ~certificate_authority_arn ~certificate_signing_request
+           ~signing_algorithm ~validity ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_passthrough ?id ?template_arn
+    ~certificate_authority_arn ~certificate_signing_request
+    ~signing_algorithm ~validity __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_passthrough ?id ?template_arn
+      ~certificate_authority_arn ~certificate_signing_request
+      ~signing_algorithm ~validity __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

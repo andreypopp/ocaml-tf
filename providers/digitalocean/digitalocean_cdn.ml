@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_cdn = {
   certificate_id : string prop option; [@option]
@@ -42,32 +40,38 @@ type t = {
   ttl : float prop;
 }
 
-let register ?tf_module ?certificate_id ?certificate_name
-    ?custom_domain ?id ?ttl ~origin __resource_id =
-  let __resource_type = "digitalocean_cdn" in
-  let __resource =
-    digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
-      ?id ?ttl ~origin ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_cdn __resource);
-  let __resource_attributes =
+let make ?certificate_id ?certificate_name ?custom_domain ?id ?ttl
+    ~origin __id =
+  let __type = "digitalocean_cdn" in
+  let __attrs =
     ({
-       certificate_id =
-         Prop.computed __resource_type __resource_id "certificate_id";
+       certificate_id = Prop.computed __type __id "certificate_id";
        certificate_name =
-         Prop.computed __resource_type __resource_id
-           "certificate_name";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       custom_domain =
-         Prop.computed __resource_type __resource_id "custom_domain";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       id = Prop.computed __resource_type __resource_id "id";
-       origin = Prop.computed __resource_type __resource_id "origin";
-       ttl = Prop.computed __resource_type __resource_id "ttl";
+         Prop.computed __type __id "certificate_name";
+       created_at = Prop.computed __type __id "created_at";
+       custom_domain = Prop.computed __type __id "custom_domain";
+       endpoint = Prop.computed __type __id "endpoint";
+       id = Prop.computed __type __id "id";
+       origin = Prop.computed __type __id "origin";
+       ttl = Prop.computed __type __id "ttl";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_cdn
+        (digitalocean_cdn ?certificate_id ?certificate_name
+           ?custom_domain ?id ?ttl ~origin ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_id ?certificate_name
+    ?custom_domain ?id ?ttl ~origin __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_id ?certificate_name ?custom_domain ?id ?ttl
+      ~origin __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,11 @@ val register :
   custom_ssl_priority:custom_ssl_priority list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  zone_id:string prop ->
+  custom_ssl_options:custom_ssl_options list ->
+  custom_ssl_priority:custom_ssl_priority list ->
+  string ->
+  t Tf_core.resource

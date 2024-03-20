@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -119,3 +119,20 @@ val register :
   network_configuration:network_configuration list ->
   string ->
   t
+
+val make :
+  ?architecture:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  name:string prop ->
+  release_label:string prop ->
+  type_:string prop ->
+  auto_start_configuration:auto_start_configuration list ->
+  auto_stop_configuration:auto_stop_configuration list ->
+  image_configuration:image_configuration list ->
+  initial_capacity:initial_capacity list ->
+  maximum_capacity:maximum_capacity list ->
+  network_configuration:network_configuration list ->
+  string ->
+  t Tf_core.resource

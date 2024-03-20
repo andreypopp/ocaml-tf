@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_access_key = {
   id : string prop option; [@option]  (** id *)
@@ -30,36 +28,38 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?id ?pgp_key ?status ~user __resource_id =
-  let __resource_type = "aws_iam_access_key" in
-  let __resource =
-    aws_iam_access_key ?id ?pgp_key ?status ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_access_key __resource);
-  let __resource_attributes =
+let make ?id ?pgp_key ?status ~user __id =
+  let __type = "aws_iam_access_key" in
+  let __attrs =
     ({
-       create_date =
-         Prop.computed __resource_type __resource_id "create_date";
+       create_date = Prop.computed __type __id "create_date";
        encrypted_secret =
-         Prop.computed __resource_type __resource_id
-           "encrypted_secret";
+         Prop.computed __type __id "encrypted_secret";
        encrypted_ses_smtp_password_v4 =
-         Prop.computed __resource_type __resource_id
-           "encrypted_ses_smtp_password_v4";
-       id = Prop.computed __resource_type __resource_id "id";
-       key_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "key_fingerprint";
-       pgp_key =
-         Prop.computed __resource_type __resource_id "pgp_key";
-       secret = Prop.computed __resource_type __resource_id "secret";
+         Prop.computed __type __id "encrypted_ses_smtp_password_v4";
+       id = Prop.computed __type __id "id";
+       key_fingerprint = Prop.computed __type __id "key_fingerprint";
+       pgp_key = Prop.computed __type __id "pgp_key";
+       secret = Prop.computed __type __id "secret";
        ses_smtp_password_v4 =
-         Prop.computed __resource_type __resource_id
-           "ses_smtp_password_v4";
-       status = Prop.computed __resource_type __resource_id "status";
-       user = Prop.computed __resource_type __resource_id "user";
+         Prop.computed __type __id "ses_smtp_password_v4";
+       status = Prop.computed __type __id "status";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_access_key
+        (aws_iam_access_key ?id ?pgp_key ?status ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?pgp_key ?status ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?pgp_key ?status ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_api_gateway_method = {
   api_key_required : bool prop option; [@option]
@@ -62,49 +60,53 @@ type t = {
   rest_api_id : string prop;
 }
 
-let register ?tf_module ?api_key_required ?authorization_scopes
-    ?authorizer_id ?id ?operation_name ?request_models
-    ?request_parameters ?request_validator_id ~authorization
-    ~http_method ~resource_id ~rest_api_id __resource_id =
-  let __resource_type = "aws_api_gateway_method" in
-  let __resource =
-    aws_api_gateway_method ?api_key_required ?authorization_scopes
-      ?authorizer_id ?id ?operation_name ?request_models
-      ?request_parameters ?request_validator_id ~authorization
-      ~http_method ~resource_id ~rest_api_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_method __resource);
-  let __resource_attributes =
+let make ?api_key_required ?authorization_scopes ?authorizer_id ?id
+    ?operation_name ?request_models ?request_parameters
+    ?request_validator_id ~authorization ~http_method ~resource_id
+    ~rest_api_id __id =
+  let __type = "aws_api_gateway_method" in
+  let __attrs =
     ({
        api_key_required =
-         Prop.computed __resource_type __resource_id
-           "api_key_required";
-       authorization =
-         Prop.computed __resource_type __resource_id "authorization";
+         Prop.computed __type __id "api_key_required";
+       authorization = Prop.computed __type __id "authorization";
        authorization_scopes =
-         Prop.computed __resource_type __resource_id
-           "authorization_scopes";
-       authorizer_id =
-         Prop.computed __resource_type __resource_id "authorizer_id";
-       http_method =
-         Prop.computed __resource_type __resource_id "http_method";
-       id = Prop.computed __resource_type __resource_id "id";
-       operation_name =
-         Prop.computed __resource_type __resource_id "operation_name";
-       request_models =
-         Prop.computed __resource_type __resource_id "request_models";
+         Prop.computed __type __id "authorization_scopes";
+       authorizer_id = Prop.computed __type __id "authorizer_id";
+       http_method = Prop.computed __type __id "http_method";
+       id = Prop.computed __type __id "id";
+       operation_name = Prop.computed __type __id "operation_name";
+       request_models = Prop.computed __type __id "request_models";
        request_parameters =
-         Prop.computed __resource_type __resource_id
-           "request_parameters";
+         Prop.computed __type __id "request_parameters";
        request_validator_id =
-         Prop.computed __resource_type __resource_id
-           "request_validator_id";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       rest_api_id =
-         Prop.computed __resource_type __resource_id "rest_api_id";
+         Prop.computed __type __id "request_validator_id";
+       resource_id = Prop.computed __type __id "resource_id";
+       rest_api_id = Prop.computed __type __id "rest_api_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_method
+        (aws_api_gateway_method ?api_key_required
+           ?authorization_scopes ?authorizer_id ?id ?operation_name
+           ?request_models ?request_parameters ?request_validator_id
+           ~authorization ~http_method ~resource_id ~rest_api_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_key_required ?authorization_scopes
+    ?authorizer_id ?id ?operation_name ?request_models
+    ?request_parameters ?request_validator_id ~authorization
+    ~http_method ~resource_id ~rest_api_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_key_required ?authorization_scopes ?authorizer_id ?id
+      ?operation_name ?request_models ?request_parameters
+      ?request_validator_id ~authorization ~http_method ~resource_id
+      ~rest_api_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

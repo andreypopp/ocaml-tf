@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_xray_sampling_rule = {
   attributes : (string * string prop) list option; [@option]
@@ -67,49 +65,51 @@ type t = {
   version : float prop;
 }
 
-let register ?tf_module ?attributes ?id ?rule_name ?tags ?tags_all
-    ~fixed_rate ~host ~http_method ~priority ~reservoir_size
-    ~resource_arn ~service_name ~service_type ~url_path ~version
-    __resource_id =
-  let __resource_type = "aws_xray_sampling_rule" in
-  let __resource =
-    aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags ?tags_all
-      ~fixed_rate ~host ~http_method ~priority ~reservoir_size
-      ~resource_arn ~service_name ~service_type ~url_path ~version ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_xray_sampling_rule __resource);
-  let __resource_attributes =
+let make ?attributes ?id ?rule_name ?tags ?tags_all ~fixed_rate ~host
+    ~http_method ~priority ~reservoir_size ~resource_arn
+    ~service_name ~service_type ~url_path ~version __id =
+  let __type = "aws_xray_sampling_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       attributes =
-         Prop.computed __resource_type __resource_id "attributes";
-       fixed_rate =
-         Prop.computed __resource_type __resource_id "fixed_rate";
-       host = Prop.computed __resource_type __resource_id "host";
-       http_method =
-         Prop.computed __resource_type __resource_id "http_method";
-       id = Prop.computed __resource_type __resource_id "id";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       reservoir_size =
-         Prop.computed __resource_type __resource_id "reservoir_size";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
-       rule_name =
-         Prop.computed __resource_type __resource_id "rule_name";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       service_type =
-         Prop.computed __resource_type __resource_id "service_type";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       url_path =
-         Prop.computed __resource_type __resource_id "url_path";
-       version =
-         Prop.computed __resource_type __resource_id "version";
+       arn = Prop.computed __type __id "arn";
+       attributes = Prop.computed __type __id "attributes";
+       fixed_rate = Prop.computed __type __id "fixed_rate";
+       host = Prop.computed __type __id "host";
+       http_method = Prop.computed __type __id "http_method";
+       id = Prop.computed __type __id "id";
+       priority = Prop.computed __type __id "priority";
+       reservoir_size = Prop.computed __type __id "reservoir_size";
+       resource_arn = Prop.computed __type __id "resource_arn";
+       rule_name = Prop.computed __type __id "rule_name";
+       service_name = Prop.computed __type __id "service_name";
+       service_type = Prop.computed __type __id "service_type";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       url_path = Prop.computed __type __id "url_path";
+       version = Prop.computed __type __id "version";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_xray_sampling_rule
+        (aws_xray_sampling_rule ?attributes ?id ?rule_name ?tags
+           ?tags_all ~fixed_rate ~host ~http_method ~priority
+           ~reservoir_size ~resource_arn ~service_name ~service_type
+           ~url_path ~version ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?attributes ?id ?rule_name ?tags ?tags_all
+    ~fixed_rate ~host ~http_method ~priority ~reservoir_size
+    ~resource_arn ~service_name ~service_type ~url_path ~version __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?attributes ?id ?rule_name ?tags ?tags_all ~fixed_rate ~host
+      ~http_method ~priority ~reservoir_size ~resource_arn
+      ~service_name ~service_type ~url_path ~version __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

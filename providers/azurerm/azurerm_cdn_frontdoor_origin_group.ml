@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type health_probe = {
   interval_in_seconds : float prop;  (** interval_in_seconds *)
@@ -90,33 +88,47 @@ type t = {
   session_affinity_enabled : bool prop;
 }
 
-let register ?tf_module ?id
+let make ?id
     ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
     ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-    ~name ~health_probe ~load_balancing __resource_id =
-  let __resource_type = "azurerm_cdn_frontdoor_origin_group" in
-  let __resource =
-    azurerm_cdn_frontdoor_origin_group ?id
-      ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
-      ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
-      ~name ~health_probe ~load_balancing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_cdn_frontdoor_origin_group __resource);
-  let __resource_attributes =
+    ~name ~health_probe ~load_balancing __id =
+  let __type = "azurerm_cdn_frontdoor_origin_group" in
+  let __attrs =
     ({
        cdn_frontdoor_profile_id =
-         Prop.computed __resource_type __resource_id
-           "cdn_frontdoor_profile_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "cdn_frontdoor_profile_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        restore_traffic_time_to_healed_or_new_endpoint_in_minutes =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "restore_traffic_time_to_healed_or_new_endpoint_in_minutes";
        session_affinity_enabled =
-         Prop.computed __resource_type __resource_id
-           "session_affinity_enabled";
+         Prop.computed __type __id "session_affinity_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_cdn_frontdoor_origin_group
+        (azurerm_cdn_frontdoor_origin_group ?id
+           ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
+           ?session_affinity_enabled ?timeouts
+           ~cdn_frontdoor_profile_id ~name ~health_probe
+           ~load_balancing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id
+    ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
+    ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
+    ~name ~health_probe ~load_balancing __id =
+  let (r : _ Tf_core.resource) =
+    make ?id
+      ?restore_traffic_time_to_healed_or_new_endpoint_in_minutes
+      ?session_affinity_enabled ?timeouts ~cdn_frontdoor_profile_id
+      ~name ~health_probe ~load_balancing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

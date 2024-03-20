@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition__string_equals = {
   key : string prop;  (** key *)
@@ -108,28 +106,35 @@ type t = {
   resources : string list prop;
 }
 
-let register ?tf_module ?id ?not_resources ?resources ~iam_role_arn
-    ~name ~plan_id ~condition ~selection_tag __resource_id =
-  let __resource_type = "aws_backup_selection" in
-  let __resource =
-    aws_backup_selection ?id ?not_resources ?resources ~iam_role_arn
-      ~name ~plan_id ~condition ~selection_tag ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_backup_selection __resource);
-  let __resource_attributes =
+let make ?id ?not_resources ?resources ~iam_role_arn ~name ~plan_id
+    ~condition ~selection_tag __id =
+  let __type = "aws_backup_selection" in
+  let __attrs =
     ({
-       iam_role_arn =
-         Prop.computed __resource_type __resource_id "iam_role_arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       not_resources =
-         Prop.computed __resource_type __resource_id "not_resources";
-       plan_id =
-         Prop.computed __resource_type __resource_id "plan_id";
-       resources =
-         Prop.computed __resource_type __resource_id "resources";
+       iam_role_arn = Prop.computed __type __id "iam_role_arn";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       not_resources = Prop.computed __type __id "not_resources";
+       plan_id = Prop.computed __type __id "plan_id";
+       resources = Prop.computed __type __id "resources";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_backup_selection
+        (aws_backup_selection ?id ?not_resources ?resources
+           ~iam_role_arn ~name ~plan_id ~condition ~selection_tag ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?not_resources ?resources ~iam_role_arn
+    ~name ~plan_id ~condition ~selection_tag __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?not_resources ?resources ~iam_role_arn ~name ~plan_id
+      ~condition ~selection_tag __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

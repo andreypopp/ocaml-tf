@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type encryption_settings__disk_encryption_key = {
   secret_url : string prop;  (** secret_url *)
@@ -107,48 +105,52 @@ type t = {
   trusted_launch_enabled : bool prop;
 }
 
-let register ?tf_module ?disk_size_gb ?id ?incremental_enabled
-    ?source_resource_id ?source_uri ?storage_account_id ?tags
-    ?timeouts ~create_option ~location ~name ~resource_group_name
-    ~encryption_settings __resource_id =
-  let __resource_type = "azurerm_snapshot" in
-  let __resource =
-    azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
-      ?source_resource_id ?source_uri ?storage_account_id ?tags
-      ?timeouts ~create_option ~location ~name ~resource_group_name
-      ~encryption_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_snapshot __resource);
-  let __resource_attributes =
+let make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
+    ?source_uri ?storage_account_id ?tags ?timeouts ~create_option
+    ~location ~name ~resource_group_name ~encryption_settings __id =
+  let __type = "azurerm_snapshot" in
+  let __attrs =
     ({
-       create_option =
-         Prop.computed __resource_type __resource_id "create_option";
-       disk_size_gb =
-         Prop.computed __resource_type __resource_id "disk_size_gb";
-       id = Prop.computed __resource_type __resource_id "id";
+       create_option = Prop.computed __type __id "create_option";
+       disk_size_gb = Prop.computed __type __id "disk_size_gb";
+       id = Prop.computed __type __id "id";
        incremental_enabled =
-         Prop.computed __resource_type __resource_id
-           "incremental_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "incremental_enabled";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        source_resource_id =
-         Prop.computed __resource_type __resource_id
-           "source_resource_id";
-       source_uri =
-         Prop.computed __resource_type __resource_id "source_uri";
+         Prop.computed __type __id "source_resource_id";
+       source_uri = Prop.computed __type __id "source_uri";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "storage_account_id";
+       tags = Prop.computed __type __id "tags";
        trusted_launch_enabled =
-         Prop.computed __resource_type __resource_id
-           "trusted_launch_enabled";
+         Prop.computed __type __id "trusted_launch_enabled";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_snapshot
+        (azurerm_snapshot ?disk_size_gb ?id ?incremental_enabled
+           ?source_resource_id ?source_uri ?storage_account_id ?tags
+           ?timeouts ~create_option ~location ~name
+           ~resource_group_name ~encryption_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disk_size_gb ?id ?incremental_enabled
+    ?source_resource_id ?source_uri ?storage_account_id ?tags
+    ?timeouts ~create_option ~location ~name ~resource_group_name
+    ~encryption_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?disk_size_gb ?id ?incremental_enabled ?source_resource_id
+      ?source_uri ?storage_account_id ?tags ?timeouts ~create_option
+      ~location ~name ~resource_group_name ~encryption_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

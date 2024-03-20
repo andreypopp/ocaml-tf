@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -95,73 +93,75 @@ type t = {
   vpc_peering_connection_id : string prop;
 }
 
+let make ?carrier_gateway_id ?core_network_arn
+    ?destination_cidr_block ?destination_ipv6_cidr_block
+    ?destination_prefix_list_id ?egress_only_gateway_id ?gateway_id
+    ?id ?local_gateway_id ?nat_gateway_id ?network_interface_id
+    ?transit_gateway_id ?vpc_endpoint_id ?vpc_peering_connection_id
+    ?timeouts ~route_table_id __id =
+  let __type = "aws_route" in
+  let __attrs =
+    ({
+       carrier_gateway_id =
+         Prop.computed __type __id "carrier_gateway_id";
+       core_network_arn =
+         Prop.computed __type __id "core_network_arn";
+       destination_cidr_block =
+         Prop.computed __type __id "destination_cidr_block";
+       destination_ipv6_cidr_block =
+         Prop.computed __type __id "destination_ipv6_cidr_block";
+       destination_prefix_list_id =
+         Prop.computed __type __id "destination_prefix_list_id";
+       egress_only_gateway_id =
+         Prop.computed __type __id "egress_only_gateway_id";
+       gateway_id = Prop.computed __type __id "gateway_id";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       instance_owner_id =
+         Prop.computed __type __id "instance_owner_id";
+       local_gateway_id =
+         Prop.computed __type __id "local_gateway_id";
+       nat_gateway_id = Prop.computed __type __id "nat_gateway_id";
+       network_interface_id =
+         Prop.computed __type __id "network_interface_id";
+       origin = Prop.computed __type __id "origin";
+       route_table_id = Prop.computed __type __id "route_table_id";
+       state = Prop.computed __type __id "state";
+       transit_gateway_id =
+         Prop.computed __type __id "transit_gateway_id";
+       vpc_endpoint_id = Prop.computed __type __id "vpc_endpoint_id";
+       vpc_peering_connection_id =
+         Prop.computed __type __id "vpc_peering_connection_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route
+        (aws_route ?carrier_gateway_id ?core_network_arn
+           ?destination_cidr_block ?destination_ipv6_cidr_block
+           ?destination_prefix_list_id ?egress_only_gateway_id
+           ?gateway_id ?id ?local_gateway_id ?nat_gateway_id
+           ?network_interface_id ?transit_gateway_id ?vpc_endpoint_id
+           ?vpc_peering_connection_id ?timeouts ~route_table_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?carrier_gateway_id ?core_network_arn
     ?destination_cidr_block ?destination_ipv6_cidr_block
     ?destination_prefix_list_id ?egress_only_gateway_id ?gateway_id
     ?id ?local_gateway_id ?nat_gateway_id ?network_interface_id
     ?transit_gateway_id ?vpc_endpoint_id ?vpc_peering_connection_id
-    ?timeouts ~route_table_id __resource_id =
-  let __resource_type = "aws_route" in
-  let __resource =
-    aws_route ?carrier_gateway_id ?core_network_arn
+    ?timeouts ~route_table_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?carrier_gateway_id ?core_network_arn
       ?destination_cidr_block ?destination_ipv6_cidr_block
       ?destination_prefix_list_id ?egress_only_gateway_id ?gateway_id
       ?id ?local_gateway_id ?nat_gateway_id ?network_interface_id
       ?transit_gateway_id ?vpc_endpoint_id ?vpc_peering_connection_id
-      ?timeouts ~route_table_id ()
+      ?timeouts ~route_table_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route __resource);
-  let __resource_attributes =
-    ({
-       carrier_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "carrier_gateway_id";
-       core_network_arn =
-         Prop.computed __resource_type __resource_id
-           "core_network_arn";
-       destination_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "destination_cidr_block";
-       destination_ipv6_cidr_block =
-         Prop.computed __resource_type __resource_id
-           "destination_ipv6_cidr_block";
-       destination_prefix_list_id =
-         Prop.computed __resource_type __resource_id
-           "destination_prefix_list_id";
-       egress_only_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "egress_only_gateway_id";
-       gateway_id =
-         Prop.computed __resource_type __resource_id "gateway_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       instance_owner_id =
-         Prop.computed __resource_type __resource_id
-           "instance_owner_id";
-       local_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "local_gateway_id";
-       nat_gateway_id =
-         Prop.computed __resource_type __resource_id "nat_gateway_id";
-       network_interface_id =
-         Prop.computed __resource_type __resource_id
-           "network_interface_id";
-       origin = Prop.computed __resource_type __resource_id "origin";
-       route_table_id =
-         Prop.computed __resource_type __resource_id "route_table_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       transit_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_id";
-       vpc_endpoint_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_id";
-       vpc_peering_connection_id =
-         Prop.computed __resource_type __resource_id
-           "vpc_peering_connection_id";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

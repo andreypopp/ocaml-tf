@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type enabled_log__retention_policy = {
   days : float prop option; [@option]  (** days *)
@@ -100,35 +98,43 @@ type t = {
   storage_account_id : string prop;
 }
 
-let register ?tf_module ?eventhub_authorization_rule_id
-    ?eventhub_name ?id ?log_analytics_workspace_id
-    ?storage_account_id ?timeouts ~name ~enabled_log ~log
-    __resource_id =
-  let __resource_type = "azurerm_monitor_aad_diagnostic_setting" in
-  let __resource =
-    azurerm_monitor_aad_diagnostic_setting
-      ?eventhub_authorization_rule_id ?eventhub_name ?id
-      ?log_analytics_workspace_id ?storage_account_id ?timeouts ~name
-      ~enabled_log ~log ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_monitor_aad_diagnostic_setting __resource);
-  let __resource_attributes =
+let make ?eventhub_authorization_rule_id ?eventhub_name ?id
+    ?log_analytics_workspace_id ?storage_account_id ?timeouts ~name
+    ~enabled_log ~log __id =
+  let __type = "azurerm_monitor_aad_diagnostic_setting" in
+  let __attrs =
     ({
        eventhub_authorization_rule_id =
-         Prop.computed __resource_type __resource_id
-           "eventhub_authorization_rule_id";
-       eventhub_name =
-         Prop.computed __resource_type __resource_id "eventhub_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "eventhub_authorization_rule_id";
+       eventhub_name = Prop.computed __type __id "eventhub_name";
+       id = Prop.computed __type __id "id";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
        storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
+         Prop.computed __type __id "storage_account_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_monitor_aad_diagnostic_setting
+        (azurerm_monitor_aad_diagnostic_setting
+           ?eventhub_authorization_rule_id ?eventhub_name ?id
+           ?log_analytics_workspace_id ?storage_account_id ?timeouts
+           ~name ~enabled_log ~log ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?eventhub_authorization_rule_id
+    ?eventhub_name ?id ?log_analytics_workspace_id
+    ?storage_account_id ?timeouts ~name ~enabled_log ~log __id =
+  let (r : _ Tf_core.resource) =
+    make ?eventhub_authorization_rule_id ?eventhub_name ?id
+      ?log_analytics_workspace_id ?storage_account_id ?timeouts ~name
+      ~enabled_log ~log __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

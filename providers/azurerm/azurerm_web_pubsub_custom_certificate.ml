@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,28 +36,36 @@ type t = {
   web_pubsub_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~custom_certificate_id ~name
-    ~web_pubsub_id __resource_id =
-  let __resource_type = "azurerm_web_pubsub_custom_certificate" in
-  let __resource =
-    azurerm_web_pubsub_custom_certificate ?id ?timeouts
-      ~custom_certificate_id ~name ~web_pubsub_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_web_pubsub_custom_certificate __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~custom_certificate_id ~name ~web_pubsub_id
+    __id =
+  let __type = "azurerm_web_pubsub_custom_certificate" in
+  let __attrs =
     ({
        certificate_version =
-         Prop.computed __resource_type __resource_id
-           "certificate_version";
+         Prop.computed __type __id "certificate_version";
        custom_certificate_id =
-         Prop.computed __resource_type __resource_id
-           "custom_certificate_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       web_pubsub_id =
-         Prop.computed __resource_type __resource_id "web_pubsub_id";
+         Prop.computed __type __id "custom_certificate_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       web_pubsub_id = Prop.computed __type __id "web_pubsub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_web_pubsub_custom_certificate
+        (azurerm_web_pubsub_custom_certificate ?id ?timeouts
+           ~custom_certificate_id ~name ~web_pubsub_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~custom_certificate_id ~name
+    ~web_pubsub_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~custom_certificate_id ~name ~web_pubsub_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

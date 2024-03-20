@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
@@ -63,12 +61,19 @@ let kubernetes_ingress_class ?id ~metadata ~spec () :
 
 type t = { id : string prop }
 
-let register ?tf_module ?id ~metadata ~spec __resource_id =
-  let __resource_type = "kubernetes_ingress_class" in
-  let __resource = kubernetes_ingress_class ?id ~metadata ~spec () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_ingress_class __resource);
-  let __resource_attributes =
-    ({ id = Prop.computed __resource_type __resource_id "id" } : t)
-  in
-  __resource_attributes
+let make ?id ~metadata ~spec __id =
+  let __type = "kubernetes_ingress_class" in
+  let __attrs = ({ id = Prop.computed __type __id "id" } : t) in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_ingress_class
+        (kubernetes_ingress_class ?id ~metadata ~spec ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~metadata ~spec __id =
+  let (r : _ Tf_core.resource) = make ?id ~metadata ~spec __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

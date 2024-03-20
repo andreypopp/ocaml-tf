@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type feature_settings = {
   split_health_checks : bool prop;  (** split_health_checks *)
@@ -92,45 +90,46 @@ type t = {
   url_dispatch_rule : url_dispatch_rule list prop;
 }
 
-let register ?tf_module ?auth_domain ?database_type ?id ?project
-    ?serving_status ?timeouts ~location_id ~feature_settings ~iap
-    __resource_id =
-  let __resource_type = "google_app_engine_application" in
-  let __resource =
-    google_app_engine_application ?auth_domain ?database_type ?id
-      ?project ?serving_status ?timeouts ~location_id
-      ~feature_settings ~iap ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_app_engine_application __resource);
-  let __resource_attributes =
+let make ?auth_domain ?database_type ?id ?project ?serving_status
+    ?timeouts ~location_id ~feature_settings ~iap __id =
+  let __type = "google_app_engine_application" in
+  let __attrs =
     ({
-       app_id = Prop.computed __resource_type __resource_id "app_id";
-       auth_domain =
-         Prop.computed __resource_type __resource_id "auth_domain";
-       code_bucket =
-         Prop.computed __resource_type __resource_id "code_bucket";
-       database_type =
-         Prop.computed __resource_type __resource_id "database_type";
-       default_bucket =
-         Prop.computed __resource_type __resource_id "default_bucket";
+       app_id = Prop.computed __type __id "app_id";
+       auth_domain = Prop.computed __type __id "auth_domain";
+       code_bucket = Prop.computed __type __id "code_bucket";
+       database_type = Prop.computed __type __id "database_type";
+       default_bucket = Prop.computed __type __id "default_bucket";
        default_hostname =
-         Prop.computed __resource_type __resource_id
-           "default_hostname";
-       gcr_domain =
-         Prop.computed __resource_type __resource_id "gcr_domain";
-       id = Prop.computed __resource_type __resource_id "id";
-       location_id =
-         Prop.computed __resource_type __resource_id "location_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       serving_status =
-         Prop.computed __resource_type __resource_id "serving_status";
+         Prop.computed __type __id "default_hostname";
+       gcr_domain = Prop.computed __type __id "gcr_domain";
+       id = Prop.computed __type __id "id";
+       location_id = Prop.computed __type __id "location_id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       serving_status = Prop.computed __type __id "serving_status";
        url_dispatch_rule =
-         Prop.computed __resource_type __resource_id
-           "url_dispatch_rule";
+         Prop.computed __type __id "url_dispatch_rule";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_app_engine_application
+        (google_app_engine_application ?auth_domain ?database_type
+           ?id ?project ?serving_status ?timeouts ~location_id
+           ~feature_settings ~iap ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auth_domain ?database_type ?id ?project
+    ?serving_status ?timeouts ~location_id ~feature_settings ~iap
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?auth_domain ?database_type ?id ?project ?serving_status
+      ?timeouts ~location_id ~feature_settings ~iap __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

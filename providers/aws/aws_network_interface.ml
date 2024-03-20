@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type attachment = {
   device_index : float prop;  (** device_index *)
@@ -118,88 +116,85 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?description ?id ?interface_type ?ipv4_prefix_count
+    ?ipv4_prefixes ?ipv6_address_count ?ipv6_address_list
+    ?ipv6_address_list_enabled ?ipv6_addresses ?ipv6_prefix_count
+    ?ipv6_prefixes ?private_ip ?private_ip_list
+    ?private_ip_list_enabled ?private_ips ?private_ips_count
+    ?security_groups ?source_dest_check ?tags ?tags_all ~subnet_id
+    ~attachment __id =
+  let __type = "aws_network_interface" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       interface_type = Prop.computed __type __id "interface_type";
+       ipv4_prefix_count =
+         Prop.computed __type __id "ipv4_prefix_count";
+       ipv4_prefixes = Prop.computed __type __id "ipv4_prefixes";
+       ipv6_address_count =
+         Prop.computed __type __id "ipv6_address_count";
+       ipv6_address_list =
+         Prop.computed __type __id "ipv6_address_list";
+       ipv6_address_list_enabled =
+         Prop.computed __type __id "ipv6_address_list_enabled";
+       ipv6_addresses = Prop.computed __type __id "ipv6_addresses";
+       ipv6_prefix_count =
+         Prop.computed __type __id "ipv6_prefix_count";
+       ipv6_prefixes = Prop.computed __type __id "ipv6_prefixes";
+       mac_address = Prop.computed __type __id "mac_address";
+       outpost_arn = Prop.computed __type __id "outpost_arn";
+       owner_id = Prop.computed __type __id "owner_id";
+       private_dns_name =
+         Prop.computed __type __id "private_dns_name";
+       private_ip = Prop.computed __type __id "private_ip";
+       private_ip_list = Prop.computed __type __id "private_ip_list";
+       private_ip_list_enabled =
+         Prop.computed __type __id "private_ip_list_enabled";
+       private_ips = Prop.computed __type __id "private_ips";
+       private_ips_count =
+         Prop.computed __type __id "private_ips_count";
+       security_groups = Prop.computed __type __id "security_groups";
+       source_dest_check =
+         Prop.computed __type __id "source_dest_check";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_network_interface
+        (aws_network_interface ?description ?id ?interface_type
+           ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
+           ?ipv6_address_list ?ipv6_address_list_enabled
+           ?ipv6_addresses ?ipv6_prefix_count ?ipv6_prefixes
+           ?private_ip ?private_ip_list ?private_ip_list_enabled
+           ?private_ips ?private_ips_count ?security_groups
+           ?source_dest_check ?tags ?tags_all ~subnet_id ~attachment
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?interface_type
     ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
     ?ipv6_address_list ?ipv6_address_list_enabled ?ipv6_addresses
     ?ipv6_prefix_count ?ipv6_prefixes ?private_ip ?private_ip_list
     ?private_ip_list_enabled ?private_ips ?private_ips_count
     ?security_groups ?source_dest_check ?tags ?tags_all ~subnet_id
-    ~attachment __resource_id =
-  let __resource_type = "aws_network_interface" in
-  let __resource =
-    aws_network_interface ?description ?id ?interface_type
-      ?ipv4_prefix_count ?ipv4_prefixes ?ipv6_address_count
-      ?ipv6_address_list ?ipv6_address_list_enabled ?ipv6_addresses
-      ?ipv6_prefix_count ?ipv6_prefixes ?private_ip ?private_ip_list
+    ~attachment __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?interface_type ?ipv4_prefix_count
+      ?ipv4_prefixes ?ipv6_address_count ?ipv6_address_list
+      ?ipv6_address_list_enabled ?ipv6_addresses ?ipv6_prefix_count
+      ?ipv6_prefixes ?private_ip ?private_ip_list
       ?private_ip_list_enabled ?private_ips ?private_ips_count
       ?security_groups ?source_dest_check ?tags ?tags_all ~subnet_id
-      ~attachment ()
+      ~attachment __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_network_interface __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       interface_type =
-         Prop.computed __resource_type __resource_id "interface_type";
-       ipv4_prefix_count =
-         Prop.computed __resource_type __resource_id
-           "ipv4_prefix_count";
-       ipv4_prefixes =
-         Prop.computed __resource_type __resource_id "ipv4_prefixes";
-       ipv6_address_count =
-         Prop.computed __resource_type __resource_id
-           "ipv6_address_count";
-       ipv6_address_list =
-         Prop.computed __resource_type __resource_id
-           "ipv6_address_list";
-       ipv6_address_list_enabled =
-         Prop.computed __resource_type __resource_id
-           "ipv6_address_list_enabled";
-       ipv6_addresses =
-         Prop.computed __resource_type __resource_id "ipv6_addresses";
-       ipv6_prefix_count =
-         Prop.computed __resource_type __resource_id
-           "ipv6_prefix_count";
-       ipv6_prefixes =
-         Prop.computed __resource_type __resource_id "ipv6_prefixes";
-       mac_address =
-         Prop.computed __resource_type __resource_id "mac_address";
-       outpost_arn =
-         Prop.computed __resource_type __resource_id "outpost_arn";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       private_dns_name =
-         Prop.computed __resource_type __resource_id
-           "private_dns_name";
-       private_ip =
-         Prop.computed __resource_type __resource_id "private_ip";
-       private_ip_list =
-         Prop.computed __resource_type __resource_id
-           "private_ip_list";
-       private_ip_list_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_ip_list_enabled";
-       private_ips =
-         Prop.computed __resource_type __resource_id "private_ips";
-       private_ips_count =
-         Prop.computed __resource_type __resource_id
-           "private_ips_count";
-       security_groups =
-         Prop.computed __resource_type __resource_id
-           "security_groups";
-       source_dest_check =
-         Prop.computed __resource_type __resource_id
-           "source_dest_check";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

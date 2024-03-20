@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -115,3 +115,27 @@ val register :
   smb_active_directory_settings:smb_active_directory_settings list ->
   string ->
   t
+
+val make :
+  ?activation_key:string prop ->
+  ?average_download_rate_limit_in_bits_per_sec:float prop ->
+  ?average_upload_rate_limit_in_bits_per_sec:float prop ->
+  ?cloudwatch_log_group_arn:string prop ->
+  ?gateway_ip_address:string prop ->
+  ?gateway_type:string prop ->
+  ?gateway_vpc_endpoint:string prop ->
+  ?id:string prop ->
+  ?medium_changer_type:string prop ->
+  ?smb_file_share_visibility:bool prop ->
+  ?smb_guest_password:string prop ->
+  ?smb_security_strategy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?tape_drive_type:string prop ->
+  ?timeouts:timeouts ->
+  gateway_name:string prop ->
+  gateway_timezone:string prop ->
+  maintenance_start_time:maintenance_start_time list ->
+  smb_active_directory_settings:smb_active_directory_settings list ->
+  string ->
+  t Tf_core.resource

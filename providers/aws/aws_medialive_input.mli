@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -98,3 +98,20 @@ val register :
   vpc:vpc list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?input_security_groups:string prop list ->
+  ?role_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  type_:string prop ->
+  destinations:destinations list ->
+  input_devices:input_devices list ->
+  media_connect_flows:media_connect_flows list ->
+  sources:sources list ->
+  vpc:vpc list ->
+  string ->
+  t Tf_core.resource

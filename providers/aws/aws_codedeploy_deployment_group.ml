@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alarm_configuration = {
   alarms : string prop list option; [@option]  (** alarms *)
@@ -325,56 +323,69 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?autoscaling_groups ?deployment_config_name ?id
+    ?outdated_instances_strategy ?tags ?tags_all ~app_name
+    ~deployment_group_name ~service_role_arn ~alarm_configuration
+    ~auto_rollback_configuration ~blue_green_deployment_config
+    ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
+    ~load_balancer_info ~on_premises_instance_tag_filter
+    ~trigger_configuration __id =
+  let __type = "aws_codedeploy_deployment_group" in
+  let __attrs =
+    ({
+       app_name = Prop.computed __type __id "app_name";
+       arn = Prop.computed __type __id "arn";
+       autoscaling_groups =
+         Prop.computed __type __id "autoscaling_groups";
+       compute_platform =
+         Prop.computed __type __id "compute_platform";
+       deployment_config_name =
+         Prop.computed __type __id "deployment_config_name";
+       deployment_group_id =
+         Prop.computed __type __id "deployment_group_id";
+       deployment_group_name =
+         Prop.computed __type __id "deployment_group_name";
+       id = Prop.computed __type __id "id";
+       outdated_instances_strategy =
+         Prop.computed __type __id "outdated_instances_strategy";
+       service_role_arn =
+         Prop.computed __type __id "service_role_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codedeploy_deployment_group
+        (aws_codedeploy_deployment_group ?autoscaling_groups
+           ?deployment_config_name ?id ?outdated_instances_strategy
+           ?tags ?tags_all ~app_name ~deployment_group_name
+           ~service_role_arn ~alarm_configuration
+           ~auto_rollback_configuration ~blue_green_deployment_config
+           ~deployment_style ~ec2_tag_filter ~ec2_tag_set
+           ~ecs_service ~load_balancer_info
+           ~on_premises_instance_tag_filter ~trigger_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?autoscaling_groups ?deployment_config_name
     ?id ?outdated_instances_strategy ?tags ?tags_all ~app_name
     ~deployment_group_name ~service_role_arn ~alarm_configuration
     ~auto_rollback_configuration ~blue_green_deployment_config
     ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
     ~load_balancer_info ~on_premises_instance_tag_filter
-    ~trigger_configuration __resource_id =
-  let __resource_type = "aws_codedeploy_deployment_group" in
-  let __resource =
-    aws_codedeploy_deployment_group ?autoscaling_groups
-      ?deployment_config_name ?id ?outdated_instances_strategy ?tags
-      ?tags_all ~app_name ~deployment_group_name ~service_role_arn
-      ~alarm_configuration ~auto_rollback_configuration
-      ~blue_green_deployment_config ~deployment_style ~ec2_tag_filter
-      ~ec2_tag_set ~ecs_service ~load_balancer_info
-      ~on_premises_instance_tag_filter ~trigger_configuration ()
+    ~trigger_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?autoscaling_groups ?deployment_config_name ?id
+      ?outdated_instances_strategy ?tags ?tags_all ~app_name
+      ~deployment_group_name ~service_role_arn ~alarm_configuration
+      ~auto_rollback_configuration ~blue_green_deployment_config
+      ~deployment_style ~ec2_tag_filter ~ec2_tag_set ~ecs_service
+      ~load_balancer_info ~on_premises_instance_tag_filter
+      ~trigger_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codedeploy_deployment_group __resource);
-  let __resource_attributes =
-    ({
-       app_name =
-         Prop.computed __resource_type __resource_id "app_name";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       autoscaling_groups =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_groups";
-       compute_platform =
-         Prop.computed __resource_type __resource_id
-           "compute_platform";
-       deployment_config_name =
-         Prop.computed __resource_type __resource_id
-           "deployment_config_name";
-       deployment_group_id =
-         Prop.computed __resource_type __resource_id
-           "deployment_group_id";
-       deployment_group_name =
-         Prop.computed __resource_type __resource_id
-           "deployment_group_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       outdated_instances_strategy =
-         Prop.computed __resource_type __resource_id
-           "outdated_instances_strategy";
-       service_role_arn =
-         Prop.computed __resource_type __resource_id
-           "service_role_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

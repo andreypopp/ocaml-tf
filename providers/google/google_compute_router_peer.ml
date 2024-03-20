@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advertised_ip_ranges = {
   description : string prop option; [@option]
@@ -209,64 +207,69 @@ type t = {
   router_appliance_instance : string prop;
 }
 
+let make ?advertise_mode ?advertised_groups
+    ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
+    ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
+    ?project ?region ?router_appliance_instance ?timeouts ~interface
+    ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
+    ~md5_authentication_key __id =
+  let __type = "google_compute_router_peer" in
+  let __attrs =
+    ({
+       advertise_mode = Prop.computed __type __id "advertise_mode";
+       advertised_groups =
+         Prop.computed __type __id "advertised_groups";
+       advertised_route_priority =
+         Prop.computed __type __id "advertised_route_priority";
+       enable = Prop.computed __type __id "enable";
+       enable_ipv6 = Prop.computed __type __id "enable_ipv6";
+       id = Prop.computed __type __id "id";
+       interface = Prop.computed __type __id "interface";
+       ip_address = Prop.computed __type __id "ip_address";
+       ipv6_nexthop_address =
+         Prop.computed __type __id "ipv6_nexthop_address";
+       management_type = Prop.computed __type __id "management_type";
+       name = Prop.computed __type __id "name";
+       peer_asn = Prop.computed __type __id "peer_asn";
+       peer_ip_address = Prop.computed __type __id "peer_ip_address";
+       peer_ipv6_nexthop_address =
+         Prop.computed __type __id "peer_ipv6_nexthop_address";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       router = Prop.computed __type __id "router";
+       router_appliance_instance =
+         Prop.computed __type __id "router_appliance_instance";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_router_peer
+        (google_compute_router_peer ?advertise_mode
+           ?advertised_groups ?advertised_route_priority ?enable
+           ?enable_ipv6 ?id ?ip_address ?ipv6_nexthop_address
+           ?peer_ip_address ?peer_ipv6_nexthop_address ?project
+           ?region ?router_appliance_instance ?timeouts ~interface
+           ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
+           ~md5_authentication_key ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?advertise_mode ?advertised_groups
     ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
     ?ipv6_nexthop_address ?peer_ip_address ?peer_ipv6_nexthop_address
     ?project ?region ?router_appliance_instance ?timeouts ~interface
     ~name ~peer_asn ~router ~advertised_ip_ranges ~bfd
-    ~md5_authentication_key __resource_id =
-  let __resource_type = "google_compute_router_peer" in
-  let __resource =
-    google_compute_router_peer ?advertise_mode ?advertised_groups
+    ~md5_authentication_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?advertise_mode ?advertised_groups
       ?advertised_route_priority ?enable ?enable_ipv6 ?id ?ip_address
       ?ipv6_nexthop_address ?peer_ip_address
       ?peer_ipv6_nexthop_address ?project ?region
       ?router_appliance_instance ?timeouts ~interface ~name ~peer_asn
-      ~router ~advertised_ip_ranges ~bfd ~md5_authentication_key ()
+      ~router ~advertised_ip_ranges ~bfd ~md5_authentication_key __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_router_peer __resource);
-  let __resource_attributes =
-    ({
-       advertise_mode =
-         Prop.computed __resource_type __resource_id "advertise_mode";
-       advertised_groups =
-         Prop.computed __resource_type __resource_id
-           "advertised_groups";
-       advertised_route_priority =
-         Prop.computed __resource_type __resource_id
-           "advertised_route_priority";
-       enable = Prop.computed __resource_type __resource_id "enable";
-       enable_ipv6 =
-         Prop.computed __resource_type __resource_id "enable_ipv6";
-       id = Prop.computed __resource_type __resource_id "id";
-       interface =
-         Prop.computed __resource_type __resource_id "interface";
-       ip_address =
-         Prop.computed __resource_type __resource_id "ip_address";
-       ipv6_nexthop_address =
-         Prop.computed __resource_type __resource_id
-           "ipv6_nexthop_address";
-       management_type =
-         Prop.computed __resource_type __resource_id
-           "management_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       peer_asn =
-         Prop.computed __resource_type __resource_id "peer_asn";
-       peer_ip_address =
-         Prop.computed __resource_type __resource_id
-           "peer_ip_address";
-       peer_ipv6_nexthop_address =
-         Prop.computed __resource_type __resource_id
-           "peer_ipv6_nexthop_address";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       router = Prop.computed __resource_type __resource_id "router";
-       router_appliance_instance =
-         Prop.computed __resource_type __resource_id
-           "router_appliance_instance";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,31 +48,37 @@ type t = {
   write_access_id : string prop;
 }
 
-let register ?tf_module ?id ?read_access_id ?write_access_id
-    ?timeouts ~resource_group_name ~workspace_id __resource_id =
-  let __resource_type = "azurerm_log_analytics_linked_service" in
-  let __resource =
-    azurerm_log_analytics_linked_service ?id ?read_access_id
-      ?write_access_id ?timeouts ~resource_group_name ~workspace_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_log_analytics_linked_service __resource);
-  let __resource_attributes =
+let make ?id ?read_access_id ?write_access_id ?timeouts
+    ~resource_group_name ~workspace_id __id =
+  let __type = "azurerm_log_analytics_linked_service" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       read_access_id =
-         Prop.computed __resource_type __resource_id "read_access_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       read_access_id = Prop.computed __type __id "read_access_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       workspace_id =
-         Prop.computed __resource_type __resource_id "workspace_id";
-       write_access_id =
-         Prop.computed __resource_type __resource_id
-           "write_access_id";
+         Prop.computed __type __id "resource_group_name";
+       workspace_id = Prop.computed __type __id "workspace_id";
+       write_access_id = Prop.computed __type __id "write_access_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_log_analytics_linked_service
+        (azurerm_log_analytics_linked_service ?id ?read_access_id
+           ?write_access_id ?timeouts ~resource_group_name
+           ~workspace_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?read_access_id ?write_access_id
+    ?timeouts ~resource_group_name ~workspace_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?read_access_id ?write_access_id ?timeouts
+      ~resource_group_name ~workspace_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

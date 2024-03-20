@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -58,36 +56,43 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?default_duration ?description ?id ?labels
-    ?timeouts ~display_name ~item_search_key
-    ~log_analytics_workspace_id ~name __resource_id =
-  let __resource_type = "azurerm_sentinel_watchlist" in
-  let __resource =
-    azurerm_sentinel_watchlist ?default_duration ?description ?id
-      ?labels ?timeouts ~display_name ~item_search_key
-      ~log_analytics_workspace_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_watchlist __resource);
-  let __resource_attributes =
+let make ?default_duration ?description ?id ?labels ?timeouts
+    ~display_name ~item_search_key ~log_analytics_workspace_id ~name
+    __id =
+  let __type = "azurerm_sentinel_watchlist" in
+  let __attrs =
     ({
        default_duration =
-         Prop.computed __resource_type __resource_id
-           "default_duration";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       item_search_key =
-         Prop.computed __resource_type __resource_id
-           "item_search_key";
-       labels = Prop.computed __resource_type __resource_id "labels";
+         Prop.computed __type __id "default_duration";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       item_search_key = Prop.computed __type __id "item_search_key";
+       labels = Prop.computed __type __id "labels";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_watchlist
+        (azurerm_sentinel_watchlist ?default_duration ?description
+           ?id ?labels ?timeouts ~display_name ~item_search_key
+           ~log_analytics_workspace_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_duration ?description ?id ?labels
+    ?timeouts ~display_name ~item_search_key
+    ~log_analytics_workspace_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_duration ?description ?id ?labels ?timeouts
+      ~display_name ~item_search_key ~log_analytics_workspace_id
+      ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type minimum_healthy_hosts = {
   type_ : string prop option; [@option] [@key "type"]  (** type *)
@@ -79,30 +77,38 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?compute_platform ?id ~deployment_config_name
-    ~minimum_healthy_hosts ~traffic_routing_config __resource_id =
-  let __resource_type = "aws_codedeploy_deployment_config" in
-  let __resource =
-    aws_codedeploy_deployment_config ?compute_platform ?id
-      ~deployment_config_name ~minimum_healthy_hosts
-      ~traffic_routing_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_codedeploy_deployment_config __resource);
-  let __resource_attributes =
+let make ?compute_platform ?id ~deployment_config_name
+    ~minimum_healthy_hosts ~traffic_routing_config __id =
+  let __type = "aws_codedeploy_deployment_config" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        compute_platform =
-         Prop.computed __resource_type __resource_id
-           "compute_platform";
+         Prop.computed __type __id "compute_platform";
        deployment_config_id =
-         Prop.computed __resource_type __resource_id
-           "deployment_config_id";
+         Prop.computed __type __id "deployment_config_id";
        deployment_config_name =
-         Prop.computed __resource_type __resource_id
-           "deployment_config_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "deployment_config_name";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_codedeploy_deployment_config
+        (aws_codedeploy_deployment_config ?compute_platform ?id
+           ~deployment_config_name ~minimum_healthy_hosts
+           ~traffic_routing_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?compute_platform ?id ~deployment_config_name
+    ~minimum_healthy_hosts ~traffic_routing_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?compute_platform ?id ~deployment_config_name
+      ~minimum_healthy_hosts ~traffic_routing_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

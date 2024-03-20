@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type sku = {
   family : string prop;  (** family *)
@@ -90,57 +88,62 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?allow_classic_operations ?authorization_key
+let make ?allow_classic_operations ?authorization_key
     ?bandwidth_in_gbps ?bandwidth_in_mbps ?express_route_port_id ?id
     ?peering_location ?service_provider_name ?tags ?timeouts
-    ~location ~name ~resource_group_name ~sku __resource_id =
-  let __resource_type = "azurerm_express_route_circuit" in
-  let __resource =
-    azurerm_express_route_circuit ?allow_classic_operations
-      ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
-      ?express_route_port_id ?id ?peering_location
-      ?service_provider_name ?tags ?timeouts ~location ~name
-      ~resource_group_name ~sku ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_express_route_circuit __resource);
-  let __resource_attributes =
+    ~location ~name ~resource_group_name ~sku __id =
+  let __type = "azurerm_express_route_circuit" in
+  let __attrs =
     ({
        allow_classic_operations =
-         Prop.computed __resource_type __resource_id
-           "allow_classic_operations";
+         Prop.computed __type __id "allow_classic_operations";
        authorization_key =
-         Prop.computed __resource_type __resource_id
-           "authorization_key";
+         Prop.computed __type __id "authorization_key";
        bandwidth_in_gbps =
-         Prop.computed __resource_type __resource_id
-           "bandwidth_in_gbps";
+         Prop.computed __type __id "bandwidth_in_gbps";
        bandwidth_in_mbps =
-         Prop.computed __resource_type __resource_id
-           "bandwidth_in_mbps";
+         Prop.computed __type __id "bandwidth_in_mbps";
        express_route_port_id =
-         Prop.computed __resource_type __resource_id
-           "express_route_port_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "express_route_port_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        peering_location =
-         Prop.computed __resource_type __resource_id
-           "peering_location";
+         Prop.computed __type __id "peering_location";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_key =
-         Prop.computed __resource_type __resource_id "service_key";
+         Prop.computed __type __id "resource_group_name";
+       service_key = Prop.computed __type __id "service_key";
        service_provider_name =
-         Prop.computed __resource_type __resource_id
-           "service_provider_name";
+         Prop.computed __type __id "service_provider_name";
        service_provider_provisioning_state =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "service_provider_provisioning_state";
-       tags = Prop.computed __resource_type __resource_id "tags";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_express_route_circuit
+        (azurerm_express_route_circuit ?allow_classic_operations
+           ?authorization_key ?bandwidth_in_gbps ?bandwidth_in_mbps
+           ?express_route_port_id ?id ?peering_location
+           ?service_provider_name ?tags ?timeouts ~location ~name
+           ~resource_group_name ~sku ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?allow_classic_operations ?authorization_key
+    ?bandwidth_in_gbps ?bandwidth_in_mbps ?express_route_port_id ?id
+    ?peering_location ?service_provider_name ?tags ?timeouts
+    ~location ~name ~resource_group_name ~sku __id =
+  let (r : _ Tf_core.resource) =
+    make ?allow_classic_operations ?authorization_key
+      ?bandwidth_in_gbps ?bandwidth_in_mbps ?express_route_port_id
+      ?id ?peering_location ?service_provider_name ?tags ?timeouts
+      ~location ~name ~resource_group_name ~sku __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

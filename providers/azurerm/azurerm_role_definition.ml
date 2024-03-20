@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type permissions = {
   actions : string prop list option; [@option]  (** actions *)
@@ -71,33 +69,39 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?assignable_scopes ?description ?id
-    ?role_definition_id ?timeouts ~name ~scope ~permissions
-    __resource_id =
-  let __resource_type = "azurerm_role_definition" in
-  let __resource =
-    azurerm_role_definition ?assignable_scopes ?description ?id
-      ?role_definition_id ?timeouts ~name ~scope ~permissions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_role_definition __resource);
-  let __resource_attributes =
+let make ?assignable_scopes ?description ?id ?role_definition_id
+    ?timeouts ~name ~scope ~permissions __id =
+  let __type = "azurerm_role_definition" in
+  let __attrs =
     ({
        assignable_scopes =
-         Prop.computed __resource_type __resource_id
-           "assignable_scopes";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "assignable_scopes";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        role_definition_id =
-         Prop.computed __resource_type __resource_id
-           "role_definition_id";
+         Prop.computed __type __id "role_definition_id";
        role_definition_resource_id =
-         Prop.computed __resource_type __resource_id
-           "role_definition_resource_id";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "role_definition_resource_id";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_role_definition
+        (azurerm_role_definition ?assignable_scopes ?description ?id
+           ?role_definition_id ?timeouts ~name ~scope ~permissions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?assignable_scopes ?description ?id
+    ?role_definition_id ?timeouts ~name ~scope ~permissions __id =
+  let (r : _ Tf_core.resource) =
+    make ?assignable_scopes ?description ?id ?role_definition_id
+      ?timeouts ~name ~scope ~permissions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

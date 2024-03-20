@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dns_options = {
   dns_record_ip_type : string prop option; [@option]
@@ -111,65 +109,63 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?auto_accept ?id ?ip_address_type ?policy
+let make ?auto_accept ?id ?ip_address_type ?policy
     ?private_dns_enabled ?route_table_ids ?security_group_ids
     ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-    ~service_name ~vpc_id ~dns_options __resource_id =
-  let __resource_type = "aws_vpc_endpoint" in
-  let __resource =
-    aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
-      ?private_dns_enabled ?route_table_ids ?security_group_ids
-      ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
-      ~service_name ~vpc_id ~dns_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpc_endpoint __resource);
-  let __resource_attributes =
+    ~service_name ~vpc_id ~dns_options __id =
+  let __type = "aws_vpc_endpoint" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_accept =
-         Prop.computed __resource_type __resource_id "auto_accept";
-       cidr_blocks =
-         Prop.computed __resource_type __resource_id "cidr_blocks";
-       dns_entry =
-         Prop.computed __resource_type __resource_id "dns_entry";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_address_type =
-         Prop.computed __resource_type __resource_id
-           "ip_address_type";
+       arn = Prop.computed __type __id "arn";
+       auto_accept = Prop.computed __type __id "auto_accept";
+       cidr_blocks = Prop.computed __type __id "cidr_blocks";
+       dns_entry = Prop.computed __type __id "dns_entry";
+       id = Prop.computed __type __id "id";
+       ip_address_type = Prop.computed __type __id "ip_address_type";
        network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       policy = Prop.computed __resource_type __resource_id "policy";
-       prefix_list_id =
-         Prop.computed __resource_type __resource_id "prefix_list_id";
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
+       policy = Prop.computed __type __id "policy";
+       prefix_list_id = Prop.computed __type __id "prefix_list_id";
        private_dns_enabled =
-         Prop.computed __resource_type __resource_id
-           "private_dns_enabled";
+         Prop.computed __type __id "private_dns_enabled";
        requester_managed =
-         Prop.computed __resource_type __resource_id
-           "requester_managed";
-       route_table_ids =
-         Prop.computed __resource_type __resource_id
-           "route_table_ids";
+         Prop.computed __type __id "requester_managed";
+       route_table_ids = Prop.computed __type __id "route_table_ids";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       state = Prop.computed __resource_type __resource_id "state";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "security_group_ids";
+       service_name = Prop.computed __type __id "service_name";
+       state = Prop.computed __type __id "state";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        vpc_endpoint_type =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_type";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "vpc_endpoint_type";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpc_endpoint
+        (aws_vpc_endpoint ?auto_accept ?id ?ip_address_type ?policy
+           ?private_dns_enabled ?route_table_ids ?security_group_ids
+           ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+           ~service_name ~vpc_id ~dns_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?auto_accept ?id ?ip_address_type ?policy
+    ?private_dns_enabled ?route_table_ids ?security_group_ids
+    ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+    ~service_name ~vpc_id ~dns_options __id =
+  let (r : _ Tf_core.resource) =
+    make ?auto_accept ?id ?ip_address_type ?policy
+      ?private_dns_enabled ?route_table_ids ?security_group_ids
+      ?subnet_ids ?tags ?tags_all ?vpc_endpoint_type ?timeouts
+      ~service_name ~vpc_id ~dns_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,4 +71,18 @@ val register :
     permissions:permissions list ->
     string ->
     t
+
+val make :
+    ?aws_account_id:string prop ->
+    ?folder_type:string prop ->
+    ?id:string prop ->
+    ?name:string prop ->
+    ?parent_folder_arn:string prop ->
+    ?tags:(string * string  prop) list ->
+    ?tags_all:(string * string  prop) list ->
+    ?timeouts:timeouts ->
+    folder_id:string prop ->
+    permissions:permissions list ->
+    string ->
+    t Tf_core.resource
 

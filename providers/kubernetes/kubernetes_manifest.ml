@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type field_manager = {
   force_conflicts : bool prop option; [@option]
@@ -95,26 +93,33 @@ type t = {
   wait_for : wait_for prop;
 }
 
-let register ?tf_module ?computed_fields ?object_ ?wait_for ~manifest
-    ~field_manager ~timeouts ~wait __resource_id =
-  let __resource_type = "kubernetes_manifest" in
-  let __resource =
-    kubernetes_manifest ?computed_fields ?object_ ?wait_for ~manifest
-      ~field_manager ~timeouts ~wait ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_manifest __resource);
-  let __resource_attributes =
+let make ?computed_fields ?object_ ?wait_for ~manifest ~field_manager
+    ~timeouts ~wait __id =
+  let __type = "kubernetes_manifest" in
+  let __attrs =
     ({
-       computed_fields =
-         Prop.computed __resource_type __resource_id
-           "computed_fields";
-       manifest =
-         Prop.computed __resource_type __resource_id "manifest";
-       object_ = Prop.computed __resource_type __resource_id "object";
-       wait_for =
-         Prop.computed __resource_type __resource_id "wait_for";
+       computed_fields = Prop.computed __type __id "computed_fields";
+       manifest = Prop.computed __type __id "manifest";
+       object_ = Prop.computed __type __id "object";
+       wait_for = Prop.computed __type __id "wait_for";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_manifest
+        (kubernetes_manifest ?computed_fields ?object_ ?wait_for
+           ~manifest ~field_manager ~timeouts ~wait ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?computed_fields ?object_ ?wait_for ~manifest
+    ~field_manager ~timeouts ~wait __id =
+  let (r : _ Tf_core.resource) =
+    make ?computed_fields ?object_ ?wait_for ~manifest ~field_manager
+      ~timeouts ~wait __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

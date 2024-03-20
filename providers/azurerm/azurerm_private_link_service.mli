@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,19 @@ val register :
   nat_ip_configuration:nat_ip_configuration list ->
   string ->
   t
+
+val make :
+  ?auto_approval_subscription_ids:string prop list ->
+  ?enable_proxy_protocol:bool prop ->
+  ?fqdns:string prop list ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?visibility_subscription_ids:string prop list ->
+  ?timeouts:timeouts ->
+  load_balancer_frontend_ip_configuration_ids:string prop list ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  nat_ip_configuration:nat_ip_configuration list ->
+  string ->
+  t Tf_core.resource

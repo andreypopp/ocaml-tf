@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -62,39 +60,44 @@ type t = {
   threshold : string prop;
 }
 
-let register ?tf_module ?description ?fact_data ?id ?tags ?timeouts
-    ~evaluator_type ~lab_name ~name ~policy_set_name
-    ~resource_group_name ~threshold __resource_id =
-  let __resource_type = "azurerm_dev_test_policy" in
-  let __resource =
-    azurerm_dev_test_policy ?description ?fact_data ?id ?tags
-      ?timeouts ~evaluator_type ~lab_name ~name ~policy_set_name
-      ~resource_group_name ~threshold ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_dev_test_policy __resource);
-  let __resource_attributes =
+let make ?description ?fact_data ?id ?tags ?timeouts ~evaluator_type
+    ~lab_name ~name ~policy_set_name ~resource_group_name ~threshold
+    __id =
+  let __type = "azurerm_dev_test_policy" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       evaluator_type =
-         Prop.computed __resource_type __resource_id "evaluator_type";
-       fact_data =
-         Prop.computed __resource_type __resource_id "fact_data";
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_name =
-         Prop.computed __resource_type __resource_id "lab_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_set_name =
-         Prop.computed __resource_type __resource_id
-           "policy_set_name";
+       description = Prop.computed __type __id "description";
+       evaluator_type = Prop.computed __type __id "evaluator_type";
+       fact_data = Prop.computed __type __id "fact_data";
+       id = Prop.computed __type __id "id";
+       lab_name = Prop.computed __type __id "lab_name";
+       name = Prop.computed __type __id "name";
+       policy_set_name = Prop.computed __type __id "policy_set_name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       threshold =
-         Prop.computed __resource_type __resource_id "threshold";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       threshold = Prop.computed __type __id "threshold";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_dev_test_policy
+        (azurerm_dev_test_policy ?description ?fact_data ?id ?tags
+           ?timeouts ~evaluator_type ~lab_name ~name ~policy_set_name
+           ~resource_group_name ~threshold ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?fact_data ?id ?tags ?timeouts
+    ~evaluator_type ~lab_name ~name ~policy_set_name
+    ~resource_group_name ~threshold __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?fact_data ?id ?tags ?timeouts ~evaluator_type
+      ~lab_name ~name ~policy_set_name ~resource_group_name
+      ~threshold __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

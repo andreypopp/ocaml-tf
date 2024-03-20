@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type capacity_specification = {
   read_capacity_units : float prop option; [@option]
@@ -180,34 +178,46 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?default_time_to_live ?id ?tags ?tags_all
-    ?timeouts ~keyspace_name ~table_name ~capacity_specification
+let make ?default_time_to_live ?id ?tags ?tags_all ?timeouts
+    ~keyspace_name ~table_name ~capacity_specification
     ~client_side_timestamps ~comment ~encryption_specification
-    ~point_in_time_recovery ~schema_definition ~ttl __resource_id =
-  let __resource_type = "aws_keyspaces_table" in
-  let __resource =
-    aws_keyspaces_table ?default_time_to_live ?id ?tags ?tags_all
-      ?timeouts ~keyspace_name ~table_name ~capacity_specification
-      ~client_side_timestamps ~comment ~encryption_specification
-      ~point_in_time_recovery ~schema_definition ~ttl ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_keyspaces_table __resource);
-  let __resource_attributes =
+    ~point_in_time_recovery ~schema_definition ~ttl __id =
+  let __type = "aws_keyspaces_table" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        default_time_to_live =
-         Prop.computed __resource_type __resource_id
-           "default_time_to_live";
-       id = Prop.computed __resource_type __resource_id "id";
-       keyspace_name =
-         Prop.computed __resource_type __resource_id "keyspace_name";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "default_time_to_live";
+       id = Prop.computed __type __id "id";
+       keyspace_name = Prop.computed __type __id "keyspace_name";
+       table_name = Prop.computed __type __id "table_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_keyspaces_table
+        (aws_keyspaces_table ?default_time_to_live ?id ?tags
+           ?tags_all ?timeouts ~keyspace_name ~table_name
+           ~capacity_specification ~client_side_timestamps ~comment
+           ~encryption_specification ~point_in_time_recovery
+           ~schema_definition ~ttl ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?default_time_to_live ?id ?tags ?tags_all
+    ?timeouts ~keyspace_name ~table_name ~capacity_specification
+    ~client_side_timestamps ~comment ~encryption_specification
+    ~point_in_time_recovery ~schema_definition ~ttl __id =
+  let (r : _ Tf_core.resource) =
+    make ?default_time_to_live ?id ?tags ?tags_all ?timeouts
+      ~keyspace_name ~table_name ~capacity_specification
+      ~client_side_timestamps ~comment ~encryption_specification
+      ~point_in_time_recovery ~schema_definition ~ttl __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

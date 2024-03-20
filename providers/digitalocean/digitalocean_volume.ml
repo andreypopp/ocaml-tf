@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type digitalocean_volume = {
   description : string prop option; [@option]  (** description *)
@@ -54,44 +52,49 @@ type t = {
   urn : string prop;
 }
 
-let register ?tf_module ?description ?filesystem_type ?id
-    ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
-    ?tags ~name ~region ~size __resource_id =
-  let __resource_type = "digitalocean_volume" in
-  let __resource =
-    digitalocean_volume ?description ?filesystem_type ?id
-      ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
-      ?tags ~name ~region ~size ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_volume __resource);
-  let __resource_attributes =
+let make ?description ?filesystem_type ?id ?initial_filesystem_label
+    ?initial_filesystem_type ?snapshot_id ?tags ~name ~region ~size
+    __id =
+  let __type = "digitalocean_volume" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       droplet_ids =
-         Prop.computed __resource_type __resource_id "droplet_ids";
+       description = Prop.computed __type __id "description";
+       droplet_ids = Prop.computed __type __id "droplet_ids";
        filesystem_label =
-         Prop.computed __resource_type __resource_id
-           "filesystem_label";
-       filesystem_type =
-         Prop.computed __resource_type __resource_id
-           "filesystem_type";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "filesystem_label";
+       filesystem_type = Prop.computed __type __id "filesystem_type";
+       id = Prop.computed __type __id "id";
        initial_filesystem_label =
-         Prop.computed __resource_type __resource_id
-           "initial_filesystem_label";
+         Prop.computed __type __id "initial_filesystem_label";
        initial_filesystem_type =
-         Prop.computed __resource_type __resource_id
-           "initial_filesystem_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       region = Prop.computed __resource_type __resource_id "region";
-       size = Prop.computed __resource_type __resource_id "size";
-       snapshot_id =
-         Prop.computed __resource_type __resource_id "snapshot_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       urn = Prop.computed __resource_type __resource_id "urn";
+         Prop.computed __type __id "initial_filesystem_type";
+       name = Prop.computed __type __id "name";
+       region = Prop.computed __type __id "region";
+       size = Prop.computed __type __id "size";
+       snapshot_id = Prop.computed __type __id "snapshot_id";
+       tags = Prop.computed __type __id "tags";
+       urn = Prop.computed __type __id "urn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_volume
+        (digitalocean_volume ?description ?filesystem_type ?id
+           ?initial_filesystem_label ?initial_filesystem_type
+           ?snapshot_id ?tags ~name ~region ~size ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?filesystem_type ?id
+    ?initial_filesystem_label ?initial_filesystem_type ?snapshot_id
+    ?tags ~name ~region ~size __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?filesystem_type ?id ?initial_filesystem_label
+      ?initial_filesystem_type ?snapshot_id ?tags ~name ~region ~size
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

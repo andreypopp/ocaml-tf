@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,35 +54,43 @@ type t = {
   virtual_hub_id : string prop;
 }
 
-let register ?tf_module ?id ?private_ip_address
-    ?private_ip_allocation_method ?timeouts ~name
-    ~public_ip_address_id ~subnet_id ~virtual_hub_id __resource_id =
-  let __resource_type = "azurerm_virtual_hub_ip" in
-  let __resource =
-    azurerm_virtual_hub_ip ?id ?private_ip_address
-      ?private_ip_allocation_method ?timeouts ~name
-      ~public_ip_address_id ~subnet_id ~virtual_hub_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_hub_ip __resource);
-  let __resource_attributes =
+let make ?id ?private_ip_address ?private_ip_allocation_method
+    ?timeouts ~name ~public_ip_address_id ~subnet_id ~virtual_hub_id
+    __id =
+  let __type = "azurerm_virtual_hub_ip" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
+         Prop.computed __type __id "private_ip_address";
        private_ip_allocation_method =
-         Prop.computed __resource_type __resource_id
-           "private_ip_allocation_method";
+         Prop.computed __type __id "private_ip_allocation_method";
        public_ip_address_id =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address_id";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       virtual_hub_id =
-         Prop.computed __resource_type __resource_id "virtual_hub_id";
+         Prop.computed __type __id "public_ip_address_id";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       virtual_hub_id = Prop.computed __type __id "virtual_hub_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_hub_ip
+        (azurerm_virtual_hub_ip ?id ?private_ip_address
+           ?private_ip_allocation_method ?timeouts ~name
+           ~public_ip_address_id ~subnet_id ~virtual_hub_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?private_ip_address
+    ?private_ip_allocation_method ?timeouts ~name
+    ~public_ip_address_id ~subnet_id ~virtual_hub_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?private_ip_address ?private_ip_allocation_method
+      ?timeouts ~name ~public_ip_address_id ~subnet_id
+      ~virtual_hub_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

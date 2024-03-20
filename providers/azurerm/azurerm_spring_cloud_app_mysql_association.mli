@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   username:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  database_name:string prop ->
+  mysql_server_id:string prop ->
+  name:string prop ->
+  password:string prop ->
+  spring_cloud_app_id:string prop ->
+  username:string prop ->
+  string ->
+  t Tf_core.resource

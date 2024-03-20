@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -162,3 +162,34 @@ val register :
     subscription_key_parameter_names list ->
   string ->
   t
+
+val make :
+  ?api_type:string prop ->
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?path:string prop ->
+  ?protocols:string prop list ->
+  ?revision_description:string prop ->
+  ?service_url:string prop ->
+  ?soap_pass_through:bool prop ->
+  ?source_api_id:string prop ->
+  ?subscription_required:bool prop ->
+  ?terms_of_service_url:string prop ->
+  ?version:string prop ->
+  ?version_description:string prop ->
+  ?version_set_id:string prop ->
+  ?timeouts:timeouts ->
+  api_management_name:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  revision:string prop ->
+  contact:contact list ->
+  import:import list ->
+  license:license list ->
+  oauth2_authorization:oauth2_authorization list ->
+  openid_authentication:openid_authentication list ->
+  subscription_key_parameter_names:
+    subscription_key_parameter_names list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -54,44 +52,46 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?preserve_client_ip ?security_group_ids ?tags
-    ?timeouts ~subnet_id __resource_id =
-  let __resource_type = "aws_ec2_instance_connect_endpoint" in
-  let __resource =
-    aws_ec2_instance_connect_endpoint ?preserve_client_ip
-      ?security_group_ids ?tags ?timeouts ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_instance_connect_endpoint __resource);
-  let __resource_attributes =
+let make ?preserve_client_ip ?security_group_ids ?tags ?timeouts
+    ~subnet_id __id =
+  let __type = "aws_ec2_instance_connect_endpoint" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       fips_dns_name =
-         Prop.computed __resource_type __resource_id "fips_dns_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "availability_zone";
+       dns_name = Prop.computed __type __id "dns_name";
+       fips_dns_name = Prop.computed __type __id "fips_dns_name";
+       id = Prop.computed __type __id "id";
        network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
        preserve_client_ip =
-         Prop.computed __resource_type __resource_id
-           "preserve_client_ip";
+         Prop.computed __type __id "preserve_client_ip";
        security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "security_group_ids";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_instance_connect_endpoint
+        (aws_ec2_instance_connect_endpoint ?preserve_client_ip
+           ?security_group_ids ?tags ?timeouts ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?preserve_client_ip ?security_group_ids ?tags
+    ?timeouts ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?preserve_client_ip ?security_group_ids ?tags ?timeouts
+      ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

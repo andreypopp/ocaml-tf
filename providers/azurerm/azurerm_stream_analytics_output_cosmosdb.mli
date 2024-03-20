@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -58,3 +58,16 @@ val register :
   stream_analytics_job_id:string prop ->
   string ->
   t
+
+val make :
+  ?document_id:string prop ->
+  ?id:string prop ->
+  ?partition_key:string prop ->
+  ?timeouts:timeouts ->
+  container_name:string prop ->
+  cosmosdb_account_key:string prop ->
+  cosmosdb_sql_database_id:string prop ->
+  name:string prop ->
+  stream_analytics_job_id:string prop ->
+  string ->
+  t Tf_core.resource

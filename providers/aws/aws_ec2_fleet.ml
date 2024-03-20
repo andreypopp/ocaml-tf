@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type fleet_instance_set = {
   instance_ids : string prop list option; [@option]
@@ -479,60 +477,74 @@ type t = {
   valid_until : string prop;
 }
 
+let make ?context ?excess_capacity_termination_policy ?fleet_state
+    ?fulfilled_capacity ?fulfilled_on_demand_capacity ?id
+    ?replace_unhealthy_instances ?tags ?tags_all ?terminate_instances
+    ?terminate_instances_with_expiration ?type_ ?valid_from
+    ?valid_until ?timeouts ~fleet_instance_set
+    ~launch_template_config ~on_demand_options ~spot_options
+    ~target_capacity_specification __id =
+  let __type = "aws_ec2_fleet" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       context = Prop.computed __type __id "context";
+       excess_capacity_termination_policy =
+         Prop.computed __type __id
+           "excess_capacity_termination_policy";
+       fleet_state = Prop.computed __type __id "fleet_state";
+       fulfilled_capacity =
+         Prop.computed __type __id "fulfilled_capacity";
+       fulfilled_on_demand_capacity =
+         Prop.computed __type __id "fulfilled_on_demand_capacity";
+       id = Prop.computed __type __id "id";
+       replace_unhealthy_instances =
+         Prop.computed __type __id "replace_unhealthy_instances";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       terminate_instances =
+         Prop.computed __type __id "terminate_instances";
+       terminate_instances_with_expiration =
+         Prop.computed __type __id
+           "terminate_instances_with_expiration";
+       type_ = Prop.computed __type __id "type";
+       valid_from = Prop.computed __type __id "valid_from";
+       valid_until = Prop.computed __type __id "valid_until";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_fleet
+        (aws_ec2_fleet ?context ?excess_capacity_termination_policy
+           ?fleet_state ?fulfilled_capacity
+           ?fulfilled_on_demand_capacity ?id
+           ?replace_unhealthy_instances ?tags ?tags_all
+           ?terminate_instances ?terminate_instances_with_expiration
+           ?type_ ?valid_from ?valid_until ?timeouts
+           ~fleet_instance_set ~launch_template_config
+           ~on_demand_options ~spot_options
+           ~target_capacity_specification ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?context ?excess_capacity_termination_policy
     ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
     ?id ?replace_unhealthy_instances ?tags ?tags_all
     ?terminate_instances ?terminate_instances_with_expiration ?type_
     ?valid_from ?valid_until ?timeouts ~fleet_instance_set
     ~launch_template_config ~on_demand_options ~spot_options
-    ~target_capacity_specification __resource_id =
-  let __resource_type = "aws_ec2_fleet" in
-  let __resource =
-    aws_ec2_fleet ?context ?excess_capacity_termination_policy
-      ?fleet_state ?fulfilled_capacity ?fulfilled_on_demand_capacity
-      ?id ?replace_unhealthy_instances ?tags ?tags_all
+    ~target_capacity_specification __id =
+  let (r : _ Tf_core.resource) =
+    make ?context ?excess_capacity_termination_policy ?fleet_state
+      ?fulfilled_capacity ?fulfilled_on_demand_capacity ?id
+      ?replace_unhealthy_instances ?tags ?tags_all
       ?terminate_instances ?terminate_instances_with_expiration
       ?type_ ?valid_from ?valid_until ?timeouts ~fleet_instance_set
       ~launch_template_config ~on_demand_options ~spot_options
-      ~target_capacity_specification ()
+      ~target_capacity_specification __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_fleet __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       context =
-         Prop.computed __resource_type __resource_id "context";
-       excess_capacity_termination_policy =
-         Prop.computed __resource_type __resource_id
-           "excess_capacity_termination_policy";
-       fleet_state =
-         Prop.computed __resource_type __resource_id "fleet_state";
-       fulfilled_capacity =
-         Prop.computed __resource_type __resource_id
-           "fulfilled_capacity";
-       fulfilled_on_demand_capacity =
-         Prop.computed __resource_type __resource_id
-           "fulfilled_on_demand_capacity";
-       id = Prop.computed __resource_type __resource_id "id";
-       replace_unhealthy_instances =
-         Prop.computed __resource_type __resource_id
-           "replace_unhealthy_instances";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       terminate_instances =
-         Prop.computed __resource_type __resource_id
-           "terminate_instances";
-       terminate_instances_with_expiration =
-         Prop.computed __resource_type __resource_id
-           "terminate_instances_with_expiration";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       valid_from =
-         Prop.computed __resource_type __resource_id "valid_from";
-       valid_until =
-         Prop.computed __resource_type __resource_id "valid_until";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

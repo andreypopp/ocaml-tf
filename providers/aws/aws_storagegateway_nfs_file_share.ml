@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
@@ -135,75 +133,76 @@ type t = {
   vpc_endpoint_dns_name : string prop;
 }
 
+let make ?audit_destination_arn ?bucket_region ?default_storage_class
+    ?file_share_name ?guess_mime_type_enabled ?id ?kms_encrypted
+    ?kms_key_arn ?notification_policy ?object_acl ?read_only
+    ?requester_pays ?squash ?tags ?tags_all ?vpc_endpoint_dns_name
+    ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn
+    ~cache_attributes ~nfs_file_share_defaults __id =
+  let __type = "aws_storagegateway_nfs_file_share" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       audit_destination_arn =
+         Prop.computed __type __id "audit_destination_arn";
+       bucket_region = Prop.computed __type __id "bucket_region";
+       client_list = Prop.computed __type __id "client_list";
+       default_storage_class =
+         Prop.computed __type __id "default_storage_class";
+       file_share_name = Prop.computed __type __id "file_share_name";
+       fileshare_id = Prop.computed __type __id "fileshare_id";
+       gateway_arn = Prop.computed __type __id "gateway_arn";
+       guess_mime_type_enabled =
+         Prop.computed __type __id "guess_mime_type_enabled";
+       id = Prop.computed __type __id "id";
+       kms_encrypted = Prop.computed __type __id "kms_encrypted";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       location_arn = Prop.computed __type __id "location_arn";
+       notification_policy =
+         Prop.computed __type __id "notification_policy";
+       object_acl = Prop.computed __type __id "object_acl";
+       path = Prop.computed __type __id "path";
+       read_only = Prop.computed __type __id "read_only";
+       requester_pays = Prop.computed __type __id "requester_pays";
+       role_arn = Prop.computed __type __id "role_arn";
+       squash = Prop.computed __type __id "squash";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_endpoint_dns_name =
+         Prop.computed __type __id "vpc_endpoint_dns_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_storagegateway_nfs_file_share
+        (aws_storagegateway_nfs_file_share ?audit_destination_arn
+           ?bucket_region ?default_storage_class ?file_share_name
+           ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
+           ?notification_policy ?object_acl ?read_only
+           ?requester_pays ?squash ?tags ?tags_all
+           ?vpc_endpoint_dns_name ?timeouts ~client_list ~gateway_arn
+           ~location_arn ~role_arn ~cache_attributes
+           ~nfs_file_share_defaults ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?audit_destination_arn ?bucket_region
     ?default_storage_class ?file_share_name ?guess_mime_type_enabled
     ?id ?kms_encrypted ?kms_key_arn ?notification_policy ?object_acl
     ?read_only ?requester_pays ?squash ?tags ?tags_all
     ?vpc_endpoint_dns_name ?timeouts ~client_list ~gateway_arn
     ~location_arn ~role_arn ~cache_attributes
-    ~nfs_file_share_defaults __resource_id =
-  let __resource_type = "aws_storagegateway_nfs_file_share" in
-  let __resource =
-    aws_storagegateway_nfs_file_share ?audit_destination_arn
-      ?bucket_region ?default_storage_class ?file_share_name
-      ?guess_mime_type_enabled ?id ?kms_encrypted ?kms_key_arn
-      ?notification_policy ?object_acl ?read_only ?requester_pays
-      ?squash ?tags ?tags_all ?vpc_endpoint_dns_name ?timeouts
-      ~client_list ~gateway_arn ~location_arn ~role_arn
-      ~cache_attributes ~nfs_file_share_defaults ()
+    ~nfs_file_share_defaults __id =
+  let (r : _ Tf_core.resource) =
+    make ?audit_destination_arn ?bucket_region ?default_storage_class
+      ?file_share_name ?guess_mime_type_enabled ?id ?kms_encrypted
+      ?kms_key_arn ?notification_policy ?object_acl ?read_only
+      ?requester_pays ?squash ?tags ?tags_all ?vpc_endpoint_dns_name
+      ?timeouts ~client_list ~gateway_arn ~location_arn ~role_arn
+      ~cache_attributes ~nfs_file_share_defaults __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_storagegateway_nfs_file_share __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       audit_destination_arn =
-         Prop.computed __resource_type __resource_id
-           "audit_destination_arn";
-       bucket_region =
-         Prop.computed __resource_type __resource_id "bucket_region";
-       client_list =
-         Prop.computed __resource_type __resource_id "client_list";
-       default_storage_class =
-         Prop.computed __resource_type __resource_id
-           "default_storage_class";
-       file_share_name =
-         Prop.computed __resource_type __resource_id
-           "file_share_name";
-       fileshare_id =
-         Prop.computed __resource_type __resource_id "fileshare_id";
-       gateway_arn =
-         Prop.computed __resource_type __resource_id "gateway_arn";
-       guess_mime_type_enabled =
-         Prop.computed __resource_type __resource_id
-           "guess_mime_type_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_encrypted =
-         Prop.computed __resource_type __resource_id "kms_encrypted";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       location_arn =
-         Prop.computed __resource_type __resource_id "location_arn";
-       notification_policy =
-         Prop.computed __resource_type __resource_id
-           "notification_policy";
-       object_acl =
-         Prop.computed __resource_type __resource_id "object_acl";
-       path = Prop.computed __resource_type __resource_id "path";
-       read_only =
-         Prop.computed __resource_type __resource_id "read_only";
-       requester_pays =
-         Prop.computed __resource_type __resource_id "requester_pays";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       squash = Prop.computed __resource_type __resource_id "squash";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_endpoint_dns_name =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_dns_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

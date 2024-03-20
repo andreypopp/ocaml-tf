@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,45 +61,50 @@ type t = {
   virtual_router_ips : string list prop;
 }
 
-let register ?tf_module ?branch_to_branch_traffic_enabled ?id ?tags
-    ?timeouts ~location ~name ~public_ip_address_id
-    ~resource_group_name ~sku ~subnet_id __resource_id =
-  let __resource_type = "azurerm_route_server" in
-  let __resource =
-    azurerm_route_server ?branch_to_branch_traffic_enabled ?id ?tags
-      ?timeouts ~location ~name ~public_ip_address_id
-      ~resource_group_name ~sku ~subnet_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_route_server __resource);
-  let __resource_attributes =
+let make ?branch_to_branch_traffic_enabled ?id ?tags ?timeouts
+    ~location ~name ~public_ip_address_id ~resource_group_name ~sku
+    ~subnet_id __id =
+  let __type = "azurerm_route_server" in
+  let __attrs =
     ({
        branch_to_branch_traffic_enabled =
-         Prop.computed __resource_type __resource_id
-           "branch_to_branch_traffic_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "branch_to_branch_traffic_enabled";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        public_ip_address_id =
-         Prop.computed __resource_type __resource_id
-           "public_ip_address_id";
+         Prop.computed __type __id "public_ip_address_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       routing_state =
-         Prop.computed __resource_type __resource_id "routing_state";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       routing_state = Prop.computed __type __id "routing_state";
+       sku = Prop.computed __type __id "sku";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
        virtual_router_asn =
-         Prop.computed __resource_type __resource_id
-           "virtual_router_asn";
+         Prop.computed __type __id "virtual_router_asn";
        virtual_router_ips =
-         Prop.computed __resource_type __resource_id
-           "virtual_router_ips";
+         Prop.computed __type __id "virtual_router_ips";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_route_server
+        (azurerm_route_server ?branch_to_branch_traffic_enabled ?id
+           ?tags ?timeouts ~location ~name ~public_ip_address_id
+           ~resource_group_name ~sku ~subnet_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?branch_to_branch_traffic_enabled ?id ?tags
+    ?timeouts ~location ~name ~public_ip_address_id
+    ~resource_group_name ~sku ~subnet_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?branch_to_branch_traffic_enabled ?id ?tags ?timeouts
+      ~location ~name ~public_ip_address_id ~resource_group_name ~sku
+      ~subnet_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type job_template_data__configuration_overrides__application_configuration__configurations = {
   classification : string prop option; [@option]
@@ -208,26 +206,35 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?kms_key_arn ?tags ?tags_all ?timeouts
-    ~name ~job_template_data __resource_id =
-  let __resource_type = "aws_emrcontainers_job_template" in
-  let __resource =
-    aws_emrcontainers_job_template ?id ?kms_key_arn ?tags ?tags_all
-      ?timeouts ~name ~job_template_data ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_emrcontainers_job_template __resource);
-  let __resource_attributes =
+let make ?id ?kms_key_arn ?tags ?tags_all ?timeouts ~name
+    ~job_template_data __id =
+  let __type = "aws_emrcontainers_job_template" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       name = Prop.computed __resource_type __resource_id "name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       name = Prop.computed __type __id "name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_emrcontainers_job_template
+        (aws_emrcontainers_job_template ?id ?kms_key_arn ?tags
+           ?tags_all ?timeouts ~name ~job_template_data ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?kms_key_arn ?tags ?tags_all ?timeouts
+    ~name ~job_template_data __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?kms_key_arn ?tags ?tags_all ?timeouts ~name
+      ~job_template_data __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

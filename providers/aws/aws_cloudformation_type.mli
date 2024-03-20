@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -59,3 +59,13 @@ val register :
   logging_config:logging_config list ->
   string ->
   t
+
+val make :
+  ?execution_role_arn:string prop ->
+  ?id:string prop ->
+  ?type_:string prop ->
+  schema_handler_package:string prop ->
+  type_name:string prop ->
+  logging_config:logging_config list ->
+  string ->
+  t Tf_core.resource

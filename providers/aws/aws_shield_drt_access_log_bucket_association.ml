@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
@@ -34,27 +32,31 @@ type t = {
   role_arn_association_id : string prop;
 }
 
-let register ?tf_module ?timeouts ~log_bucket
-    ~role_arn_association_id __resource_id =
-  let __resource_type =
-    "aws_shield_drt_access_log_bucket_association"
-  in
-  let __resource =
-    aws_shield_drt_access_log_bucket_association ?timeouts
-      ~log_bucket ~role_arn_association_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_shield_drt_access_log_bucket_association
-       __resource);
-  let __resource_attributes =
+let make ?timeouts ~log_bucket ~role_arn_association_id __id =
+  let __type = "aws_shield_drt_access_log_bucket_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       log_bucket =
-         Prop.computed __resource_type __resource_id "log_bucket";
+       id = Prop.computed __type __id "id";
+       log_bucket = Prop.computed __type __id "log_bucket";
        role_arn_association_id =
-         Prop.computed __resource_type __resource_id
-           "role_arn_association_id";
+         Prop.computed __type __id "role_arn_association_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_shield_drt_access_log_bucket_association
+        (aws_shield_drt_access_log_bucket_association ?timeouts
+           ~log_bucket ~role_arn_association_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?timeouts ~log_bucket
+    ~role_arn_association_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?timeouts ~log_bucket ~role_arn_association_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

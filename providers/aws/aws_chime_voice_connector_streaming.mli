@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,13 @@ val register :
   media_insights_configuration:media_insights_configuration list ->
   string ->
   t
+
+val make :
+  ?disabled:bool prop ->
+  ?id:string prop ->
+  ?streaming_notification_targets:string prop list ->
+  data_retention:float prop ->
+  voice_connector_id:string prop ->
+  media_insights_configuration:media_insights_configuration list ->
+  string ->
+  t Tf_core.resource

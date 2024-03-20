@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type frontend_ip_configuration = {
   gateway_load_balancer_frontend_ip_configuration_id :
@@ -100,39 +98,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
-    ~location ~name ~resource_group_name ~frontend_ip_configuration
-    __resource_id =
-  let __resource_type = "azurerm_lb" in
-  let __resource =
-    azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
-      ~location ~name ~resource_group_name ~frontend_ip_configuration
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lb __resource);
-  let __resource_attributes =
+let make ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts ~location
+    ~name ~resource_group_name ~frontend_ip_configuration __id =
+  let __type = "azurerm_lb" in
+  let __attrs =
     ({
-       edge_zone =
-         Prop.computed __resource_type __resource_id "edge_zone";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       edge_zone = Prop.computed __type __id "edge_zone";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        private_ip_address =
-         Prop.computed __resource_type __resource_id
-           "private_ip_address";
+         Prop.computed __type __id "private_ip_address";
        private_ip_addresses =
-         Prop.computed __resource_type __resource_id
-           "private_ip_addresses";
+         Prop.computed __type __id "private_ip_addresses";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       sku_tier =
-         Prop.computed __resource_type __resource_id "sku_tier";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       sku_tier = Prop.computed __type __id "sku_tier";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lb
+        (azurerm_lb ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
+           ~location ~name ~resource_group_name
+           ~frontend_ip_configuration ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts
+    ~location ~name ~resource_group_name ~frontend_ip_configuration
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?edge_zone ?id ?sku ?sku_tier ?tags ?timeouts ~location
+      ~name ~resource_group_name ~frontend_ip_configuration __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

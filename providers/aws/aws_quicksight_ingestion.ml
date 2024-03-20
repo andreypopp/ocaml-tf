@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_quicksight_ingestion = {
   aws_account_id: string  prop option; [@option] (** aws_account_id *)
@@ -30,19 +28,26 @@ type t = {
   ingestion_type: string prop;
 }
 
-let register ?tf_module ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type __resource_id =
-  let __resource_type = "aws_quicksight_ingestion" in
-  let __resource = aws_quicksight_ingestion ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type () in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_quicksight_ingestion __resource);
-  let __resource_attributes = ({
-    arn = Prop.computed __resource_type __resource_id "arn";
-    aws_account_id = Prop.computed __resource_type __resource_id "aws_account_id";
-    data_set_id = Prop.computed __resource_type __resource_id "data_set_id";
-    id = Prop.computed __resource_type __resource_id "id";
-    ingestion_id = Prop.computed __resource_type __resource_id "ingestion_id";
-    ingestion_status = Prop.computed __resource_type __resource_id "ingestion_status";
-    ingestion_type = Prop.computed __resource_type __resource_id "ingestion_type";
+let make ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type __id =
+  let __type = "aws_quicksight_ingestion" in
+  let __attrs = ({
+    arn = Prop.computed __type __id "arn";
+    aws_account_id = Prop.computed __type __id "aws_account_id";
+    data_set_id = Prop.computed __type __id "data_set_id";
+    id = Prop.computed __type __id "id";
+    ingestion_id = Prop.computed __type __id "ingestion_id";
+    ingestion_status = Prop.computed __type __id "ingestion_status";
+    ingestion_type = Prop.computed __type __id "ingestion_type";
   } : t) in
-  __resource_attributes;;
+  {Tf_core.
+    id=__id;
+    type_=__type;
+    json=yojson_of_aws_quicksight_ingestion (aws_quicksight_ingestion ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type ());
+    attrs=__attrs;
+  };;
+
+let register ?tf_module ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type __id =
+  let (r : _ Tf_core.resource) = make ?aws_account_id ~data_set_id ~ingestion_id ~ingestion_type __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs;;
 

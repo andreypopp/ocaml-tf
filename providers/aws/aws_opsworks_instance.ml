@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type ebs_block_device = {
   delete_on_termination : bool prop option; [@option]
@@ -199,6 +197,98 @@ type t = {
   virtualization_type : string prop;
 }
 
+let make ?agent_version ?ami_id ?architecture ?auto_scaling_type
+    ?availability_zone ?created_at ?delete_ebs ?delete_eip
+    ?ebs_optimized ?ecs_cluster_arn ?elastic_ip ?hostname ?id
+    ?infrastructure_class ?install_updates_on_boot
+    ?instance_profile_arn ?instance_type ?os ?root_device_type
+    ?security_group_ids ?ssh_key_name ?state ?status ?subnet_id
+    ?tenancy ?virtualization_type ?timeouts ~layer_ids ~stack_id
+    ~ebs_block_device ~ephemeral_block_device ~root_block_device __id
+    =
+  let __type = "aws_opsworks_instance" in
+  let __attrs =
+    ({
+       agent_version = Prop.computed __type __id "agent_version";
+       ami_id = Prop.computed __type __id "ami_id";
+       architecture = Prop.computed __type __id "architecture";
+       auto_scaling_type =
+         Prop.computed __type __id "auto_scaling_type";
+       availability_zone =
+         Prop.computed __type __id "availability_zone";
+       created_at = Prop.computed __type __id "created_at";
+       delete_ebs = Prop.computed __type __id "delete_ebs";
+       delete_eip = Prop.computed __type __id "delete_eip";
+       ebs_optimized = Prop.computed __type __id "ebs_optimized";
+       ec2_instance_id = Prop.computed __type __id "ec2_instance_id";
+       ecs_cluster_arn = Prop.computed __type __id "ecs_cluster_arn";
+       elastic_ip = Prop.computed __type __id "elastic_ip";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       infrastructure_class =
+         Prop.computed __type __id "infrastructure_class";
+       install_updates_on_boot =
+         Prop.computed __type __id "install_updates_on_boot";
+       instance_profile_arn =
+         Prop.computed __type __id "instance_profile_arn";
+       instance_type = Prop.computed __type __id "instance_type";
+       last_service_error_id =
+         Prop.computed __type __id "last_service_error_id";
+       layer_ids = Prop.computed __type __id "layer_ids";
+       os = Prop.computed __type __id "os";
+       platform = Prop.computed __type __id "platform";
+       private_dns = Prop.computed __type __id "private_dns";
+       private_ip = Prop.computed __type __id "private_ip";
+       public_dns = Prop.computed __type __id "public_dns";
+       public_ip = Prop.computed __type __id "public_ip";
+       registered_by = Prop.computed __type __id "registered_by";
+       reported_agent_version =
+         Prop.computed __type __id "reported_agent_version";
+       reported_os_family =
+         Prop.computed __type __id "reported_os_family";
+       reported_os_name =
+         Prop.computed __type __id "reported_os_name";
+       reported_os_version =
+         Prop.computed __type __id "reported_os_version";
+       root_device_type =
+         Prop.computed __type __id "root_device_type";
+       root_device_volume_id =
+         Prop.computed __type __id "root_device_volume_id";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       ssh_host_dsa_key_fingerprint =
+         Prop.computed __type __id "ssh_host_dsa_key_fingerprint";
+       ssh_host_rsa_key_fingerprint =
+         Prop.computed __type __id "ssh_host_rsa_key_fingerprint";
+       ssh_key_name = Prop.computed __type __id "ssh_key_name";
+       stack_id = Prop.computed __type __id "stack_id";
+       state = Prop.computed __type __id "state";
+       status = Prop.computed __type __id "status";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tenancy = Prop.computed __type __id "tenancy";
+       virtualization_type =
+         Prop.computed __type __id "virtualization_type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opsworks_instance
+        (aws_opsworks_instance ?agent_version ?ami_id ?architecture
+           ?auto_scaling_type ?availability_zone ?created_at
+           ?delete_ebs ?delete_eip ?ebs_optimized ?ecs_cluster_arn
+           ?elastic_ip ?hostname ?id ?infrastructure_class
+           ?install_updates_on_boot ?instance_profile_arn
+           ?instance_type ?os ?root_device_type ?security_group_ids
+           ?ssh_key_name ?state ?status ?subnet_id ?tenancy
+           ?virtualization_type ?timeouts ~layer_ids ~stack_id
+           ~ebs_block_device ~ephemeral_block_device
+           ~root_block_device ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?agent_version ?ami_id ?architecture
     ?auto_scaling_type ?availability_zone ?created_at ?delete_ebs
     ?delete_eip ?ebs_optimized ?ecs_cluster_arn ?elastic_ip ?hostname
@@ -206,123 +296,18 @@ let register ?tf_module ?agent_version ?ami_id ?architecture
     ?instance_profile_arn ?instance_type ?os ?root_device_type
     ?security_group_ids ?ssh_key_name ?state ?status ?subnet_id
     ?tenancy ?virtualization_type ?timeouts ~layer_ids ~stack_id
-    ~ebs_block_device ~ephemeral_block_device ~root_block_device
-    __resource_id =
-  let __resource_type = "aws_opsworks_instance" in
-  let __resource =
-    aws_opsworks_instance ?agent_version ?ami_id ?architecture
-      ?auto_scaling_type ?availability_zone ?created_at ?delete_ebs
-      ?delete_eip ?ebs_optimized ?ecs_cluster_arn ?elastic_ip
-      ?hostname ?id ?infrastructure_class ?install_updates_on_boot
+    ~ebs_block_device ~ephemeral_block_device ~root_block_device __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?agent_version ?ami_id ?architecture ?auto_scaling_type
+      ?availability_zone ?created_at ?delete_ebs ?delete_eip
+      ?ebs_optimized ?ecs_cluster_arn ?elastic_ip ?hostname ?id
+      ?infrastructure_class ?install_updates_on_boot
       ?instance_profile_arn ?instance_type ?os ?root_device_type
       ?security_group_ids ?ssh_key_name ?state ?status ?subnet_id
       ?tenancy ?virtualization_type ?timeouts ~layer_ids ~stack_id
-      ~ebs_block_device ~ephemeral_block_device ~root_block_device ()
+      ~ebs_block_device ~ephemeral_block_device ~root_block_device
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opsworks_instance __resource);
-  let __resource_attributes =
-    ({
-       agent_version =
-         Prop.computed __resource_type __resource_id "agent_version";
-       ami_id = Prop.computed __resource_type __resource_id "ami_id";
-       architecture =
-         Prop.computed __resource_type __resource_id "architecture";
-       auto_scaling_type =
-         Prop.computed __resource_type __resource_id
-           "auto_scaling_type";
-       availability_zone =
-         Prop.computed __resource_type __resource_id
-           "availability_zone";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       delete_ebs =
-         Prop.computed __resource_type __resource_id "delete_ebs";
-       delete_eip =
-         Prop.computed __resource_type __resource_id "delete_eip";
-       ebs_optimized =
-         Prop.computed __resource_type __resource_id "ebs_optimized";
-       ec2_instance_id =
-         Prop.computed __resource_type __resource_id
-           "ec2_instance_id";
-       ecs_cluster_arn =
-         Prop.computed __resource_type __resource_id
-           "ecs_cluster_arn";
-       elastic_ip =
-         Prop.computed __resource_type __resource_id "elastic_ip";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       infrastructure_class =
-         Prop.computed __resource_type __resource_id
-           "infrastructure_class";
-       install_updates_on_boot =
-         Prop.computed __resource_type __resource_id
-           "install_updates_on_boot";
-       instance_profile_arn =
-         Prop.computed __resource_type __resource_id
-           "instance_profile_arn";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       last_service_error_id =
-         Prop.computed __resource_type __resource_id
-           "last_service_error_id";
-       layer_ids =
-         Prop.computed __resource_type __resource_id "layer_ids";
-       os = Prop.computed __resource_type __resource_id "os";
-       platform =
-         Prop.computed __resource_type __resource_id "platform";
-       private_dns =
-         Prop.computed __resource_type __resource_id "private_dns";
-       private_ip =
-         Prop.computed __resource_type __resource_id "private_ip";
-       public_dns =
-         Prop.computed __resource_type __resource_id "public_dns";
-       public_ip =
-         Prop.computed __resource_type __resource_id "public_ip";
-       registered_by =
-         Prop.computed __resource_type __resource_id "registered_by";
-       reported_agent_version =
-         Prop.computed __resource_type __resource_id
-           "reported_agent_version";
-       reported_os_family =
-         Prop.computed __resource_type __resource_id
-           "reported_os_family";
-       reported_os_name =
-         Prop.computed __resource_type __resource_id
-           "reported_os_name";
-       reported_os_version =
-         Prop.computed __resource_type __resource_id
-           "reported_os_version";
-       root_device_type =
-         Prop.computed __resource_type __resource_id
-           "root_device_type";
-       root_device_volume_id =
-         Prop.computed __resource_type __resource_id
-           "root_device_volume_id";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       ssh_host_dsa_key_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "ssh_host_dsa_key_fingerprint";
-       ssh_host_rsa_key_fingerprint =
-         Prop.computed __resource_type __resource_id
-           "ssh_host_rsa_key_fingerprint";
-       ssh_key_name =
-         Prop.computed __resource_type __resource_id "ssh_key_name";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
-       state = Prop.computed __resource_type __resource_id "state";
-       status = Prop.computed __resource_type __resource_id "status";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tenancy =
-         Prop.computed __resource_type __resource_id "tenancy";
-       virtualization_type =
-         Prop.computed __resource_type __resource_id
-           "virtualization_type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   delete : string prop option; [@option]  (** delete *)
@@ -41,30 +39,35 @@ type t = {
   urn : string prop;
 }
 
-let register ?tf_module ?description ?id ?ip_range ?timeouts ~name
-    ~region __resource_id =
-  let __resource_type = "digitalocean_vpc" in
-  let __resource =
-    digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
-      ~region ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_vpc __resource);
-  let __resource_attributes =
+let make ?description ?id ?ip_range ?timeouts ~name ~region __id =
+  let __type = "digitalocean_vpc" in
+  let __attrs =
     ({
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       default =
-         Prop.computed __resource_type __resource_id "default";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_range =
-         Prop.computed __resource_type __resource_id "ip_range";
-       name = Prop.computed __resource_type __resource_id "name";
-       region = Prop.computed __resource_type __resource_id "region";
-       urn = Prop.computed __resource_type __resource_id "urn";
+       created_at = Prop.computed __type __id "created_at";
+       default = Prop.computed __type __id "default";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       ip_range = Prop.computed __type __id "ip_range";
+       name = Prop.computed __type __id "name";
+       region = Prop.computed __type __id "region";
+       urn = Prop.computed __type __id "urn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_vpc
+        (digitalocean_vpc ?description ?id ?ip_range ?timeouts ~name
+           ~region ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?ip_range ?timeouts ~name
+    ~region __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?ip_range ?timeouts ~name ~region __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

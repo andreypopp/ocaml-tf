@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -63,40 +61,47 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?managed ?platform_fault_domain_count
+let make ?id ?managed ?platform_fault_domain_count
     ?platform_update_domain_count ?proximity_placement_group_id ?tags
-    ?timeouts ~location ~name ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_availability_set" in
-  let __resource =
-    azurerm_availability_set ?id ?managed
-      ?platform_fault_domain_count ?platform_update_domain_count
-      ?proximity_placement_group_id ?tags ?timeouts ~location ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_availability_set __resource);
-  let __resource_attributes =
+    ?timeouts ~location ~name ~resource_group_name __id =
+  let __type = "azurerm_availability_set" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed =
-         Prop.computed __resource_type __resource_id "managed";
-       name = Prop.computed __resource_type __resource_id "name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       managed = Prop.computed __type __id "managed";
+       name = Prop.computed __type __id "name";
        platform_fault_domain_count =
-         Prop.computed __resource_type __resource_id
-           "platform_fault_domain_count";
+         Prop.computed __type __id "platform_fault_domain_count";
        platform_update_domain_count =
-         Prop.computed __resource_type __resource_id
-           "platform_update_domain_count";
+         Prop.computed __type __id "platform_update_domain_count";
        proximity_placement_group_id =
-         Prop.computed __resource_type __resource_id
-           "proximity_placement_group_id";
+         Prop.computed __type __id "proximity_placement_group_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_availability_set
+        (azurerm_availability_set ?id ?managed
+           ?platform_fault_domain_count ?platform_update_domain_count
+           ?proximity_placement_group_id ?tags ?timeouts ~location
+           ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?managed ?platform_fault_domain_count
+    ?platform_update_domain_count ?proximity_placement_group_id ?tags
+    ?timeouts ~location ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?managed ?platform_fault_domain_count
+      ?platform_update_domain_count ?proximity_placement_group_id
+      ?tags ?timeouts ~location ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

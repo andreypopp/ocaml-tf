@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,19 @@ val register :
   sync_config:sync_config list ->
   string ->
   t
+
+val make :
+  ?code:string prop ->
+  ?description:string prop ->
+  ?function_version:string prop ->
+  ?id:string prop ->
+  ?max_batch_size:float prop ->
+  ?request_mapping_template:string prop ->
+  ?response_mapping_template:string prop ->
+  api_id:string prop ->
+  data_source:string prop ->
+  name:string prop ->
+  runtime:runtime list ->
+  sync_config:sync_config list ->
+  string ->
+  t Tf_core.resource

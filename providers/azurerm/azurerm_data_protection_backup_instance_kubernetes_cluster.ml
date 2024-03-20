@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type backup_datasource_parameters = {
   cluster_scoped_resources_enabled : bool prop option; [@option]
@@ -90,40 +88,47 @@ type t = {
   vault_id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~backup_policy_id
-    ~kubernetes_cluster_id ~location ~name
-    ~snapshot_resource_group_name ~vault_id
-    ~backup_datasource_parameters __resource_id =
-  let __resource_type =
+let make ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
+    ~location ~name ~snapshot_resource_group_name ~vault_id
+    ~backup_datasource_parameters __id =
+  let __type =
     "azurerm_data_protection_backup_instance_kubernetes_cluster"
   in
-  let __resource =
-    azurerm_data_protection_backup_instance_kubernetes_cluster ?id
-      ?timeouts ~backup_policy_id ~kubernetes_cluster_id ~location
-      ~name ~snapshot_resource_group_name ~vault_id
-      ~backup_datasource_parameters ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_data_protection_backup_instance_kubernetes_cluster
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        backup_policy_id =
-         Prop.computed __resource_type __resource_id
-           "backup_policy_id";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "backup_policy_id";
+       id = Prop.computed __type __id "id";
        kubernetes_cluster_id =
-         Prop.computed __resource_type __resource_id
-           "kubernetes_cluster_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "kubernetes_cluster_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        snapshot_resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "snapshot_resource_group_name";
-       vault_id =
-         Prop.computed __resource_type __resource_id "vault_id";
+         Prop.computed __type __id "snapshot_resource_group_name";
+       vault_id = Prop.computed __type __id "vault_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_data_protection_backup_instance_kubernetes_cluster
+        (azurerm_data_protection_backup_instance_kubernetes_cluster
+           ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
+           ~location ~name ~snapshot_resource_group_name ~vault_id
+           ~backup_datasource_parameters ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~backup_policy_id
+    ~kubernetes_cluster_id ~location ~name
+    ~snapshot_resource_group_name ~vault_id
+    ~backup_datasource_parameters __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~backup_policy_id ~kubernetes_cluster_id
+      ~location ~name ~snapshot_resource_group_name ~vault_id
+      ~backup_datasource_parameters __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

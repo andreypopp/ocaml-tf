@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -41,3 +41,11 @@ val register :
   guardian_attributes:guardian_attributes list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  vdm_enabled:string prop ->
+  dashboard_attributes:dashboard_attributes list ->
+  guardian_attributes:guardian_attributes list ->
+  string ->
+  t Tf_core.resource

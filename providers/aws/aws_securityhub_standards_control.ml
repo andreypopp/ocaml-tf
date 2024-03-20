@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_securityhub_standards_control = {
   control_status : string prop;  (** control_status *)
@@ -33,44 +31,43 @@ type t = {
   title : string prop;
 }
 
-let register ?tf_module ?disabled_reason ?id ~control_status
-    ~standards_control_arn __resource_id =
-  let __resource_type = "aws_securityhub_standards_control" in
-  let __resource =
-    aws_securityhub_standards_control ?disabled_reason ?id
-      ~control_status ~standards_control_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_securityhub_standards_control __resource);
-  let __resource_attributes =
+let make ?disabled_reason ?id ~control_status ~standards_control_arn
+    __id =
+  let __type = "aws_securityhub_standards_control" in
+  let __attrs =
     ({
-       control_id =
-         Prop.computed __resource_type __resource_id "control_id";
-       control_status =
-         Prop.computed __resource_type __resource_id "control_status";
+       control_id = Prop.computed __type __id "control_id";
+       control_status = Prop.computed __type __id "control_status";
        control_status_updated_at =
-         Prop.computed __resource_type __resource_id
-           "control_status_updated_at";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disabled_reason =
-         Prop.computed __resource_type __resource_id
-           "disabled_reason";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "control_status_updated_at";
+       description = Prop.computed __type __id "description";
+       disabled_reason = Prop.computed __type __id "disabled_reason";
+       id = Prop.computed __type __id "id";
        related_requirements =
-         Prop.computed __resource_type __resource_id
-           "related_requirements";
-       remediation_url =
-         Prop.computed __resource_type __resource_id
-           "remediation_url";
-       severity_rating =
-         Prop.computed __resource_type __resource_id
-           "severity_rating";
+         Prop.computed __type __id "related_requirements";
+       remediation_url = Prop.computed __type __id "remediation_url";
+       severity_rating = Prop.computed __type __id "severity_rating";
        standards_control_arn =
-         Prop.computed __resource_type __resource_id
-           "standards_control_arn";
-       title = Prop.computed __resource_type __resource_id "title";
+         Prop.computed __type __id "standards_control_arn";
+       title = Prop.computed __type __id "title";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_securityhub_standards_control
+        (aws_securityhub_standards_control ?disabled_reason ?id
+           ~control_status ~standards_control_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?disabled_reason ?id ~control_status
+    ~standards_control_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?disabled_reason ?id ~control_status ~standards_control_arn
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,27 +50,34 @@ type t = {
   restrictions : string list prop;
 }
 
-let register ?tf_module ?id ?timeouts ~origin ~parent ~reason
-    ~restrictions __resource_id =
-  let __resource_type = "google_resource_manager_lien" in
-  let __resource =
-    google_resource_manager_lien ?id ?timeouts ~origin ~parent
-      ~reason ~restrictions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_resource_manager_lien __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~origin ~parent ~reason ~restrictions __id =
+  let __type = "google_resource_manager_lien" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       origin = Prop.computed __resource_type __resource_id "origin";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       reason = Prop.computed __resource_type __resource_id "reason";
-       restrictions =
-         Prop.computed __resource_type __resource_id "restrictions";
+       create_time = Prop.computed __type __id "create_time";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       origin = Prop.computed __type __id "origin";
+       parent = Prop.computed __type __id "parent";
+       reason = Prop.computed __type __id "reason";
+       restrictions = Prop.computed __type __id "restrictions";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_resource_manager_lien
+        (google_resource_manager_lien ?id ?timeouts ~origin ~parent
+           ~reason ~restrictions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~origin ~parent ~reason
+    ~restrictions __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~origin ~parent ~reason ~restrictions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cloud9_environment_ec2 = {
   automatic_stop_time_minutes : float prop option; [@option]
@@ -57,43 +55,47 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?automatic_stop_time_minutes ?connection_type
-    ?description ?id ?owner_arn ?subnet_id ?tags ?tags_all ~image_id
-    ~instance_type ~name __resource_id =
-  let __resource_type = "aws_cloud9_environment_ec2" in
-  let __resource =
-    aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
-      ?connection_type ?description ?id ?owner_arn ?subnet_id ?tags
-      ?tags_all ~image_id ~instance_type ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloud9_environment_ec2 __resource);
-  let __resource_attributes =
+let make ?automatic_stop_time_minutes ?connection_type ?description
+    ?id ?owner_arn ?subnet_id ?tags ?tags_all ~image_id
+    ~instance_type ~name __id =
+  let __type = "aws_cloud9_environment_ec2" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        automatic_stop_time_minutes =
-         Prop.computed __resource_type __resource_id
-           "automatic_stop_time_minutes";
-       connection_type =
-         Prop.computed __resource_type __resource_id
-           "connection_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       image_id =
-         Prop.computed __resource_type __resource_id "image_id";
-       instance_type =
-         Prop.computed __resource_type __resource_id "instance_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       owner_arn =
-         Prop.computed __resource_type __resource_id "owner_arn";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "automatic_stop_time_minutes";
+       connection_type = Prop.computed __type __id "connection_type";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       image_id = Prop.computed __type __id "image_id";
+       instance_type = Prop.computed __type __id "instance_type";
+       name = Prop.computed __type __id "name";
+       owner_arn = Prop.computed __type __id "owner_arn";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloud9_environment_ec2
+        (aws_cloud9_environment_ec2 ?automatic_stop_time_minutes
+           ?connection_type ?description ?id ?owner_arn ?subnet_id
+           ?tags ?tags_all ~image_id ~instance_type ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?automatic_stop_time_minutes ?connection_type
+    ?description ?id ?owner_arn ?subnet_id ?tags ?tags_all ~image_id
+    ~instance_type ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?automatic_stop_time_minutes ?connection_type ?description
+      ?id ?owner_arn ?subnet_id ?tags ?tags_all ~image_id
+      ~instance_type ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

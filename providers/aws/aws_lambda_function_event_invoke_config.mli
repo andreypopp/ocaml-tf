@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,13 @@ val register :
   destination_config:destination_config list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?maximum_event_age_in_seconds:float prop ->
+  ?maximum_retry_attempts:float prop ->
+  ?qualifier:string prop ->
+  function_name:string prop ->
+  destination_config:destination_config list ->
+  string ->
+  t Tf_core.resource

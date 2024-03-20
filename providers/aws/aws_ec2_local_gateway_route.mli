@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -34,3 +34,11 @@ val register :
   local_gateway_virtual_interface_group_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  destination_cidr_block:string prop ->
+  local_gateway_route_table_id:string prop ->
+  local_gateway_virtual_interface_group_id:string prop ->
+  string ->
+  t Tf_core.resource

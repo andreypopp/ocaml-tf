@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -50,33 +48,39 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?description
-    ?external_documentation_description ?external_documentation_url
-    ?id ?timeouts ~api_tag_id __resource_id =
-  let __resource_type =
-    "azurerm_api_management_api_tag_description"
-  in
-  let __resource =
-    azurerm_api_management_api_tag_description ?description
-      ?external_documentation_description ?external_documentation_url
-      ?id ?timeouts ~api_tag_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_api_tag_description __resource);
-  let __resource_attributes =
+let make ?description ?external_documentation_description
+    ?external_documentation_url ?id ?timeouts ~api_tag_id __id =
+  let __type = "azurerm_api_management_api_tag_description" in
+  let __attrs =
     ({
-       api_tag_id =
-         Prop.computed __resource_type __resource_id "api_tag_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+       api_tag_id = Prop.computed __type __id "api_tag_id";
+       description = Prop.computed __type __id "description";
        external_documentation_description =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "external_documentation_description";
        external_documentation_url =
-         Prop.computed __resource_type __resource_id
-           "external_documentation_url";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "external_documentation_url";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_api_tag_description
+        (azurerm_api_management_api_tag_description ?description
+           ?external_documentation_description
+           ?external_documentation_url ?id ?timeouts ~api_tag_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description
+    ?external_documentation_description ?external_documentation_url
+    ?id ?timeouts ~api_tag_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?external_documentation_description
+      ?external_documentation_url ?id ?timeouts ~api_tag_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

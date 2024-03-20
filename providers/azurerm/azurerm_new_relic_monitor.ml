@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type plan = {
   billing_cycle : string prop option; [@option]  (** billing_cycle *)
@@ -94,44 +92,47 @@ type t = {
   user_id : string prop;
 }
 
-let register ?tf_module ?account_creation_source ?account_id ?id
-    ?ingestion_key ?org_creation_source ?organization_id ?user_id
-    ?timeouts ~location ~name ~resource_group_name ~plan ~user
-    __resource_id =
-  let __resource_type = "azurerm_new_relic_monitor" in
-  let __resource =
-    azurerm_new_relic_monitor ?account_creation_source ?account_id
-      ?id ?ingestion_key ?org_creation_source ?organization_id
-      ?user_id ?timeouts ~location ~name ~resource_group_name ~plan
-      ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_new_relic_monitor __resource);
-  let __resource_attributes =
+let make ?account_creation_source ?account_id ?id ?ingestion_key
+    ?org_creation_source ?organization_id ?user_id ?timeouts
+    ~location ~name ~resource_group_name ~plan ~user __id =
+  let __type = "azurerm_new_relic_monitor" in
+  let __attrs =
     ({
        account_creation_source =
-         Prop.computed __resource_type __resource_id
-           "account_creation_source";
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingestion_key =
-         Prop.computed __resource_type __resource_id "ingestion_key";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "account_creation_source";
+       account_id = Prop.computed __type __id "account_id";
+       id = Prop.computed __type __id "id";
+       ingestion_key = Prop.computed __type __id "ingestion_key";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        org_creation_source =
-         Prop.computed __resource_type __resource_id
-           "org_creation_source";
-       organization_id =
-         Prop.computed __resource_type __resource_id
-           "organization_id";
+         Prop.computed __type __id "org_creation_source";
+       organization_id = Prop.computed __type __id "organization_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       user_id =
-         Prop.computed __resource_type __resource_id "user_id";
+         Prop.computed __type __id "resource_group_name";
+       user_id = Prop.computed __type __id "user_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_new_relic_monitor
+        (azurerm_new_relic_monitor ?account_creation_source
+           ?account_id ?id ?ingestion_key ?org_creation_source
+           ?organization_id ?user_id ?timeouts ~location ~name
+           ~resource_group_name ~plan ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_creation_source ?account_id ?id
+    ?ingestion_key ?org_creation_source ?organization_id ?user_id
+    ?timeouts ~location ~name ~resource_group_name ~plan ~user __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_creation_source ?account_id ?id ?ingestion_key
+      ?org_creation_source ?organization_id ?user_id ?timeouts
+      ~location ~name ~resource_group_name ~plan ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

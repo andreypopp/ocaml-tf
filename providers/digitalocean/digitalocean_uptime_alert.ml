@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type notifications__slack = {
   channel : string prop;  (** The Slack channel to send alerts to *)
@@ -64,28 +62,36 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?comparison ?period ?threshold ~check_id
-    ~name ~type_ ~notifications __resource_id =
-  let __resource_type = "digitalocean_uptime_alert" in
-  let __resource =
-    digitalocean_uptime_alert ?comparison ?period ?threshold
-      ~check_id ~name ~type_ ~notifications ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_uptime_alert __resource);
-  let __resource_attributes =
+let make ?comparison ?period ?threshold ~check_id ~name ~type_
+    ~notifications __id =
+  let __type = "digitalocean_uptime_alert" in
+  let __attrs =
     ({
-       check_id =
-         Prop.computed __resource_type __resource_id "check_id";
-       comparison =
-         Prop.computed __resource_type __resource_id "comparison";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       period = Prop.computed __resource_type __resource_id "period";
-       threshold =
-         Prop.computed __resource_type __resource_id "threshold";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       check_id = Prop.computed __type __id "check_id";
+       comparison = Prop.computed __type __id "comparison";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       period = Prop.computed __type __id "period";
+       threshold = Prop.computed __type __id "threshold";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_uptime_alert
+        (digitalocean_uptime_alert ?comparison ?period ?threshold
+           ~check_id ~name ~type_ ~notifications ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?comparison ?period ?threshold ~check_id
+    ~name ~type_ ~notifications __id =
+  let (r : _ Tf_core.resource) =
+    make ?comparison ?period ?threshold ~check_id ~name ~type_
+      ~notifications __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

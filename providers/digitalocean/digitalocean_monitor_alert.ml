@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alerts__slack = {
   channel : string prop;  (** The Slack channel to send alerts to *)
@@ -68,32 +66,39 @@ type t = {
   window : string prop;
 }
 
-let register ?tf_module ?enabled ?entities ?id ?tags ~compare
-    ~description ~type_ ~value ~window ~alerts __resource_id =
-  let __resource_type = "digitalocean_monitor_alert" in
-  let __resource =
-    digitalocean_monitor_alert ?enabled ?entities ?id ?tags ~compare
-      ~description ~type_ ~value ~window ~alerts ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_digitalocean_monitor_alert __resource);
-  let __resource_attributes =
+let make ?enabled ?entities ?id ?tags ~compare ~description ~type_
+    ~value ~window ~alerts __id =
+  let __type = "digitalocean_monitor_alert" in
+  let __attrs =
     ({
-       compare =
-         Prop.computed __resource_type __resource_id "compare";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       entities =
-         Prop.computed __resource_type __resource_id "entities";
-       id = Prop.computed __resource_type __resource_id "id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       uuid = Prop.computed __resource_type __resource_id "uuid";
-       value = Prop.computed __resource_type __resource_id "value";
-       window = Prop.computed __resource_type __resource_id "window";
+       compare = Prop.computed __type __id "compare";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
+       entities = Prop.computed __type __id "entities";
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+       uuid = Prop.computed __type __id "uuid";
+       value = Prop.computed __type __id "value";
+       window = Prop.computed __type __id "window";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_monitor_alert
+        (digitalocean_monitor_alert ?enabled ?entities ?id ?tags
+           ~compare ~description ~type_ ~value ~window ~alerts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?entities ?id ?tags ~compare
+    ~description ~type_ ~value ~window ~alerts __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?entities ?id ?tags ~compare ~description ~type_
+      ~value ~window ~alerts __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

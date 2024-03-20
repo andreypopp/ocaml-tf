@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -41,29 +39,32 @@ type t = {
   parent : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~display_name ~parent
-    __resource_id =
-  let __resource_type = "google_folder" in
-  let __resource =
-    google_folder ?id ?timeouts ~display_name ~parent ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_folder __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~display_name ~parent __id =
+  let __type = "google_folder" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       folder_id =
-         Prop.computed __resource_type __resource_id "folder_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       lifecycle_state =
-         Prop.computed __resource_type __resource_id
-           "lifecycle_state";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       create_time = Prop.computed __type __id "create_time";
+       display_name = Prop.computed __type __id "display_name";
+       folder_id = Prop.computed __type __id "folder_id";
+       id = Prop.computed __type __id "id";
+       lifecycle_state = Prop.computed __type __id "lifecycle_state";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_folder
+        (google_folder ?id ?timeouts ~display_name ~parent ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~display_name ~parent __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~display_name ~parent __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

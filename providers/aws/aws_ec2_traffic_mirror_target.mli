@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -45,3 +45,14 @@ val register :
   ?tags_all:(string * string prop) list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?gateway_load_balancer_endpoint_id:string prop ->
+  ?id:string prop ->
+  ?network_interface_id:string prop ->
+  ?network_load_balancer_arn:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  string ->
+  t Tf_core.resource

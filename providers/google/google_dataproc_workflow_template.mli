@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -592,3 +592,18 @@ val register :
   placement:placement list ->
   string ->
   t
+
+val make :
+  ?dag_timeout:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?project:string prop ->
+  ?version:float prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  jobs:jobs list ->
+  parameters:parameters list ->
+  placement:placement list ->
+  string ->
+  t Tf_core.resource

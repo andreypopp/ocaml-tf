@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -120,3 +120,18 @@ val register :
   private_service_connection:private_service_connection list ->
   string ->
   t
+
+val make :
+  ?custom_network_interface_name:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  subnet_id:string prop ->
+  ip_configuration:ip_configuration list ->
+  private_dns_zone_group:private_dns_zone_group list ->
+  private_service_connection:private_service_connection list ->
+  string ->
+  t Tf_core.resource

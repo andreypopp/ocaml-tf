@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type stream_mode_details = {
   stream_mode : string prop;  (** stream_mode *)
@@ -81,44 +79,49 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?arn ?encryption_type
-    ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
-    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
-    ~stream_mode_details __resource_id =
-  let __resource_type = "aws_kinesis_stream" in
-  let __resource =
-    aws_kinesis_stream ?arn ?encryption_type
-      ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
-      ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts
-      ~name ~stream_mode_details ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_kinesis_stream __resource);
-  let __resource_attributes =
+let make ?arn ?encryption_type ?enforce_consumer_deletion ?id
+    ?kms_key_id ?retention_period ?shard_count ?shard_level_metrics
+    ?tags ?tags_all ?timeouts ~name ~stream_mode_details __id =
+  let __type = "aws_kinesis_stream" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       encryption_type =
-         Prop.computed __resource_type __resource_id
-           "encryption_type";
+       arn = Prop.computed __type __id "arn";
+       encryption_type = Prop.computed __type __id "encryption_type";
        enforce_consumer_deletion =
-         Prop.computed __resource_type __resource_id
-           "enforce_consumer_deletion";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "enforce_consumer_deletion";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       name = Prop.computed __type __id "name";
        retention_period =
-         Prop.computed __resource_type __resource_id
-           "retention_period";
-       shard_count =
-         Prop.computed __resource_type __resource_id "shard_count";
+         Prop.computed __type __id "retention_period";
+       shard_count = Prop.computed __type __id "shard_count";
        shard_level_metrics =
-         Prop.computed __resource_type __resource_id
-           "shard_level_metrics";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "shard_level_metrics";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_kinesis_stream
+        (aws_kinesis_stream ?arn ?encryption_type
+           ?enforce_consumer_deletion ?id ?kms_key_id
+           ?retention_period ?shard_count ?shard_level_metrics ?tags
+           ?tags_all ?timeouts ~name ~stream_mode_details ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?arn ?encryption_type
+    ?enforce_consumer_deletion ?id ?kms_key_id ?retention_period
+    ?shard_count ?shard_level_metrics ?tags ?tags_all ?timeouts ~name
+    ~stream_mode_details __id =
+  let (r : _ Tf_core.resource) =
+    make ?arn ?encryption_type ?enforce_consumer_deletion ?id
+      ?kms_key_id ?retention_period ?shard_count ?shard_level_metrics
+      ?tags ?tags_all ?timeouts ~name ~stream_mode_details __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

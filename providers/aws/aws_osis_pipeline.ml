@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type buffer_options = {
   persistent_buffer_enabled : bool prop;
@@ -117,40 +115,48 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?tags ?timeouts ~max_units ~min_units
+let make ?tags ?timeouts ~max_units ~min_units
     ~pipeline_configuration_body ~pipeline_name ~buffer_options
     ~encryption_at_rest_options ~log_publishing_options ~vpc_options
-    __resource_id =
-  let __resource_type = "aws_osis_pipeline" in
-  let __resource =
-    aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
-      ~pipeline_configuration_body ~pipeline_name ~buffer_options
-      ~encryption_at_rest_options ~log_publishing_options
-      ~vpc_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_osis_pipeline __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_osis_pipeline" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        ingest_endpoint_urls =
-         Prop.computed __resource_type __resource_id
-           "ingest_endpoint_urls";
-       max_units =
-         Prop.computed __resource_type __resource_id "max_units";
-       min_units =
-         Prop.computed __resource_type __resource_id "min_units";
-       pipeline_arn =
-         Prop.computed __resource_type __resource_id "pipeline_arn";
+         Prop.computed __type __id "ingest_endpoint_urls";
+       max_units = Prop.computed __type __id "max_units";
+       min_units = Prop.computed __type __id "min_units";
+       pipeline_arn = Prop.computed __type __id "pipeline_arn";
        pipeline_configuration_body =
-         Prop.computed __resource_type __resource_id
-           "pipeline_configuration_body";
-       pipeline_name =
-         Prop.computed __resource_type __resource_id "pipeline_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "pipeline_configuration_body";
+       pipeline_name = Prop.computed __type __id "pipeline_name";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_osis_pipeline
+        (aws_osis_pipeline ?tags ?timeouts ~max_units ~min_units
+           ~pipeline_configuration_body ~pipeline_name
+           ~buffer_options ~encryption_at_rest_options
+           ~log_publishing_options ~vpc_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?tags ?timeouts ~max_units ~min_units
+    ~pipeline_configuration_body ~pipeline_name ~buffer_options
+    ~encryption_at_rest_options ~log_publishing_options ~vpc_options
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?tags ?timeouts ~max_units ~min_units
+      ~pipeline_configuration_body ~pipeline_name ~buffer_options
+      ~encryption_at_rest_options ~log_publishing_options
+      ~vpc_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

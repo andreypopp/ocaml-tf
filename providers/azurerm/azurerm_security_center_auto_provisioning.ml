@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -30,22 +28,28 @@ let azurerm_security_center_auto_provisioning ?id ?timeouts
 
 type t = { auto_provision : string prop; id : string prop }
 
-let register ?tf_module ?id ?timeouts ~auto_provision __resource_id =
-  let __resource_type =
-    "azurerm_security_center_auto_provisioning"
-  in
-  let __resource =
-    azurerm_security_center_auto_provisioning ?id ?timeouts
-      ~auto_provision ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_security_center_auto_provisioning __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~auto_provision __id =
+  let __type = "azurerm_security_center_auto_provisioning" in
+  let __attrs =
     ({
-       auto_provision =
-         Prop.computed __resource_type __resource_id "auto_provision";
-       id = Prop.computed __resource_type __resource_id "id";
+       auto_provision = Prop.computed __type __id "auto_provision";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_security_center_auto_provisioning
+        (azurerm_security_center_auto_provisioning ?id ?timeouts
+           ~auto_provision ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~auto_provision __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~auto_provision __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dataset__dataset = {
   dataset_id : string prop;
@@ -157,38 +155,45 @@ type t = {
   user_by_email : string prop;
 }
 
-let register ?tf_module ?domain ?group_by_email ?iam_member ?id
-    ?project ?role ?special_group ?user_by_email ?timeouts
-    ~dataset_id ~dataset ~routine ~view __resource_id =
-  let __resource_type = "google_bigquery_dataset_access" in
-  let __resource =
-    google_bigquery_dataset_access ?domain ?group_by_email
-      ?iam_member ?id ?project ?role ?special_group ?user_by_email
-      ?timeouts ~dataset_id ~dataset ~routine ~view ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_bigquery_dataset_access __resource);
-  let __resource_attributes =
+let make ?domain ?group_by_email ?iam_member ?id ?project ?role
+    ?special_group ?user_by_email ?timeouts ~dataset_id ~dataset
+    ~routine ~view __id =
+  let __type = "google_bigquery_dataset_access" in
+  let __attrs =
     ({
        api_updated_member =
-         Prop.computed __resource_type __resource_id
-           "api_updated_member";
-       dataset_id =
-         Prop.computed __resource_type __resource_id "dataset_id";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       group_by_email =
-         Prop.computed __resource_type __resource_id "group_by_email";
-       iam_member =
-         Prop.computed __resource_type __resource_id "iam_member";
-       id = Prop.computed __resource_type __resource_id "id";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       role = Prop.computed __resource_type __resource_id "role";
-       special_group =
-         Prop.computed __resource_type __resource_id "special_group";
-       user_by_email =
-         Prop.computed __resource_type __resource_id "user_by_email";
+         Prop.computed __type __id "api_updated_member";
+       dataset_id = Prop.computed __type __id "dataset_id";
+       domain = Prop.computed __type __id "domain";
+       group_by_email = Prop.computed __type __id "group_by_email";
+       iam_member = Prop.computed __type __id "iam_member";
+       id = Prop.computed __type __id "id";
+       project = Prop.computed __type __id "project";
+       role = Prop.computed __type __id "role";
+       special_group = Prop.computed __type __id "special_group";
+       user_by_email = Prop.computed __type __id "user_by_email";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_bigquery_dataset_access
+        (google_bigquery_dataset_access ?domain ?group_by_email
+           ?iam_member ?id ?project ?role ?special_group
+           ?user_by_email ?timeouts ~dataset_id ~dataset ~routine
+           ~view ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?domain ?group_by_email ?iam_member ?id
+    ?project ?role ?special_group ?user_by_email ?timeouts
+    ~dataset_id ~dataset ~routine ~view __id =
+  let (r : _ Tf_core.resource) =
+    make ?domain ?group_by_email ?iam_member ?id ?project ?role
+      ?special_group ?user_by_email ?timeouts ~dataset_id ~dataset
+      ~routine ~view __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

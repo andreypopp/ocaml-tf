@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,35 +58,44 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?continue_on_errors_enabled
+let make ?continue_on_errors_enabled
     ?force_an_update_when_value_changed ?id ?sas_token
-    ?script_content ?url ?timeouts ~database_id ~name __resource_id =
-  let __resource_type = "azurerm_kusto_script" in
-  let __resource =
-    azurerm_kusto_script ?continue_on_errors_enabled
-      ?force_an_update_when_value_changed ?id ?sas_token
-      ?script_content ?url ?timeouts ~database_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_script __resource);
-  let __resource_attributes =
+    ?script_content ?url ?timeouts ~database_id ~name __id =
+  let __type = "azurerm_kusto_script" in
+  let __attrs =
     ({
        continue_on_errors_enabled =
-         Prop.computed __resource_type __resource_id
-           "continue_on_errors_enabled";
-       database_id =
-         Prop.computed __resource_type __resource_id "database_id";
+         Prop.computed __type __id "continue_on_errors_enabled";
+       database_id = Prop.computed __type __id "database_id";
        force_an_update_when_value_changed =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "force_an_update_when_value_changed";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       sas_token =
-         Prop.computed __resource_type __resource_id "sas_token";
-       script_content =
-         Prop.computed __resource_type __resource_id "script_content";
-       url = Prop.computed __resource_type __resource_id "url";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       sas_token = Prop.computed __type __id "sas_token";
+       script_content = Prop.computed __type __id "script_content";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_script
+        (azurerm_kusto_script ?continue_on_errors_enabled
+           ?force_an_update_when_value_changed ?id ?sas_token
+           ?script_content ?url ?timeouts ~database_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?continue_on_errors_enabled
+    ?force_an_update_when_value_changed ?id ?sas_token
+    ?script_content ?url ?timeouts ~database_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?continue_on_errors_enabled
+      ?force_an_update_when_value_changed ?id ?sas_token
+      ?script_content ?url ?timeouts ~database_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

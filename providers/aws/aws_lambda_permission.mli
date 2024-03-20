@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -57,3 +57,19 @@ val register :
   principal:string prop ->
   string ->
   t
+
+val make :
+  ?event_source_token:string prop ->
+  ?function_url_auth_type:string prop ->
+  ?id:string prop ->
+  ?principal_org_id:string prop ->
+  ?qualifier:string prop ->
+  ?source_account:string prop ->
+  ?source_arn:string prop ->
+  ?statement_id:string prop ->
+  ?statement_id_prefix:string prop ->
+  action:string prop ->
+  function_name:string prop ->
+  principal:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -94,68 +92,73 @@ type t = {
   table_name : string prop;
 }
 
+let make ?blob_storage_event_type ?data_format ?database_routing_type
+    ?eventgrid_resource_id ?id ?managed_identity_resource_id
+    ?mapping_rule_name ?skip_first_record ?table_name ?timeouts
+    ~cluster_name ~database_name ~eventhub_consumer_group_name
+    ~eventhub_id ~location ~name ~resource_group_name
+    ~storage_account_id __id =
+  let __type = "azurerm_kusto_eventgrid_data_connection" in
+  let __attrs =
+    ({
+       blob_storage_event_type =
+         Prop.computed __type __id "blob_storage_event_type";
+       cluster_name = Prop.computed __type __id "cluster_name";
+       data_format = Prop.computed __type __id "data_format";
+       database_name = Prop.computed __type __id "database_name";
+       database_routing_type =
+         Prop.computed __type __id "database_routing_type";
+       eventgrid_resource_id =
+         Prop.computed __type __id "eventgrid_resource_id";
+       eventhub_consumer_group_name =
+         Prop.computed __type __id "eventhub_consumer_group_name";
+       eventhub_id = Prop.computed __type __id "eventhub_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       managed_identity_resource_id =
+         Prop.computed __type __id "managed_identity_resource_id";
+       mapping_rule_name =
+         Prop.computed __type __id "mapping_rule_name";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       skip_first_record =
+         Prop.computed __type __id "skip_first_record";
+       storage_account_id =
+         Prop.computed __type __id "storage_account_id";
+       table_name = Prop.computed __type __id "table_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_kusto_eventgrid_data_connection
+        (azurerm_kusto_eventgrid_data_connection
+           ?blob_storage_event_type ?data_format
+           ?database_routing_type ?eventgrid_resource_id ?id
+           ?managed_identity_resource_id ?mapping_rule_name
+           ?skip_first_record ?table_name ?timeouts ~cluster_name
+           ~database_name ~eventhub_consumer_group_name ~eventhub_id
+           ~location ~name ~resource_group_name ~storage_account_id
+           ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?blob_storage_event_type ?data_format
     ?database_routing_type ?eventgrid_resource_id ?id
     ?managed_identity_resource_id ?mapping_rule_name
     ?skip_first_record ?table_name ?timeouts ~cluster_name
     ~database_name ~eventhub_consumer_group_name ~eventhub_id
-    ~location ~name ~resource_group_name ~storage_account_id
-    __resource_id =
-  let __resource_type = "azurerm_kusto_eventgrid_data_connection" in
-  let __resource =
-    azurerm_kusto_eventgrid_data_connection ?blob_storage_event_type
-      ?data_format ?database_routing_type ?eventgrid_resource_id ?id
-      ?managed_identity_resource_id ?mapping_rule_name
-      ?skip_first_record ?table_name ?timeouts ~cluster_name
-      ~database_name ~eventhub_consumer_group_name ~eventhub_id
-      ~location ~name ~resource_group_name ~storage_account_id ()
+    ~location ~name ~resource_group_name ~storage_account_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?blob_storage_event_type ?data_format ?database_routing_type
+      ?eventgrid_resource_id ?id ?managed_identity_resource_id
+      ?mapping_rule_name ?skip_first_record ?table_name ?timeouts
+      ~cluster_name ~database_name ~eventhub_consumer_group_name
+      ~eventhub_id ~location ~name ~resource_group_name
+      ~storage_account_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_kusto_eventgrid_data_connection __resource);
-  let __resource_attributes =
-    ({
-       blob_storage_event_type =
-         Prop.computed __resource_type __resource_id
-           "blob_storage_event_type";
-       cluster_name =
-         Prop.computed __resource_type __resource_id "cluster_name";
-       data_format =
-         Prop.computed __resource_type __resource_id "data_format";
-       database_name =
-         Prop.computed __resource_type __resource_id "database_name";
-       database_routing_type =
-         Prop.computed __resource_type __resource_id
-           "database_routing_type";
-       eventgrid_resource_id =
-         Prop.computed __resource_type __resource_id
-           "eventgrid_resource_id";
-       eventhub_consumer_group_name =
-         Prop.computed __resource_type __resource_id
-           "eventhub_consumer_group_name";
-       eventhub_id =
-         Prop.computed __resource_type __resource_id "eventhub_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       managed_identity_resource_id =
-         Prop.computed __resource_type __resource_id
-           "managed_identity_resource_id";
-       mapping_rule_name =
-         Prop.computed __resource_type __resource_id
-           "mapping_rule_name";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       skip_first_record =
-         Prop.computed __resource_type __resource_id
-           "skip_first_record";
-       storage_account_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_id";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type s3_config = {
   bucket_access_role_arn : string prop;  (** bucket_access_role_arn *)
@@ -54,33 +52,39 @@ type t = {
   uri : string prop;
 }
 
-let register ?tf_module ?agent_arns ?id ?s3_storage_class ?tags
-    ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config __resource_id =
-  let __resource_type = "aws_datasync_location_s3" in
-  let __resource =
-    aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class ?tags
-      ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_datasync_location_s3 __resource);
-  let __resource_attributes =
+let make ?agent_arns ?id ?s3_storage_class ?tags ?tags_all
+    ~s3_bucket_arn ~subdirectory ~s3_config __id =
+  let __type = "aws_datasync_location_s3" in
+  let __attrs =
     ({
-       agent_arns =
-         Prop.computed __resource_type __resource_id "agent_arns";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       s3_bucket_arn =
-         Prop.computed __resource_type __resource_id "s3_bucket_arn";
+       agent_arns = Prop.computed __type __id "agent_arns";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       s3_bucket_arn = Prop.computed __type __id "s3_bucket_arn";
        s3_storage_class =
-         Prop.computed __resource_type __resource_id
-           "s3_storage_class";
-       subdirectory =
-         Prop.computed __resource_type __resource_id "subdirectory";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       uri = Prop.computed __resource_type __resource_id "uri";
+         Prop.computed __type __id "s3_storage_class";
+       subdirectory = Prop.computed __type __id "subdirectory";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       uri = Prop.computed __type __id "uri";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_datasync_location_s3
+        (aws_datasync_location_s3 ?agent_arns ?id ?s3_storage_class
+           ?tags ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?agent_arns ?id ?s3_storage_class ?tags
+    ?tags_all ~s3_bucket_arn ~subdirectory ~s3_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?agent_arns ?id ?s3_storage_class ?tags ?tags_all
+      ~s3_bucket_arn ~subdirectory ~s3_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

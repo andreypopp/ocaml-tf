@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -163,3 +163,16 @@ val register :
   rule_based_matching:rule_based_matching list ->
   string ->
   t
+
+val make :
+  ?dead_letter_queue_url:string prop ->
+  ?default_encryption_key:string prop ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  default_expiration_days:float prop ->
+  domain_name:string prop ->
+  matching:matching list ->
+  rule_based_matching:rule_based_matching list ->
+  string ->
+  t Tf_core.resource

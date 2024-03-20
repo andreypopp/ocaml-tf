@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_user = {
   force_destroy : bool prop option; [@option]
@@ -43,32 +41,39 @@ type t = {
   unique_id : string prop;
 }
 
-let register ?tf_module ?force_destroy ?id ?path
-    ?permissions_boundary ?tags ?tags_all ~name __resource_id =
-  let __resource_type = "aws_iam_user" in
-  let __resource =
-    aws_iam_user ?force_destroy ?id ?path ?permissions_boundary ?tags
-      ?tags_all ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_user __resource);
-  let __resource_attributes =
+let make ?force_destroy ?id ?path ?permissions_boundary ?tags
+    ?tags_all ~name __id =
+  let __type = "aws_iam_user" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       force_destroy =
-         Prop.computed __resource_type __resource_id "force_destroy";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
+       arn = Prop.computed __type __id "arn";
+       force_destroy = Prop.computed __type __id "force_destroy";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
        permissions_boundary =
-         Prop.computed __resource_type __resource_id
-           "permissions_boundary";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       unique_id =
-         Prop.computed __resource_type __resource_id "unique_id";
+         Prop.computed __type __id "permissions_boundary";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       unique_id = Prop.computed __type __id "unique_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_user
+        (aws_iam_user ?force_destroy ?id ?path ?permissions_boundary
+           ?tags ?tags_all ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_destroy ?id ?path
+    ?permissions_boundary ?tags ?tags_all ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_destroy ?id ?path ?permissions_boundary ?tags
+      ?tags_all ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type autoscaling_policy = {
   max_nodes : float prop option; [@option]
@@ -128,42 +126,47 @@ type t = {
   zone : string prop;
 }
 
-let register ?tf_module ?description ?id ?initial_size
-    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
-    ~autoscaling_policy ~maintenance_window ~share_settings
-    __resource_id =
-  let __resource_type = "google_compute_node_group" in
-  let __resource =
-    google_compute_node_group ?description ?id ?initial_size
-      ?maintenance_policy ?name ?project ?zone ?timeouts
-      ~node_template ~autoscaling_policy ~maintenance_window
-      ~share_settings ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_node_group __resource);
-  let __resource_attributes =
+let make ?description ?id ?initial_size ?maintenance_policy ?name
+    ?project ?zone ?timeouts ~node_template ~autoscaling_policy
+    ~maintenance_window ~share_settings __id =
+  let __type = "google_compute_node_group" in
+  let __attrs =
     ({
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       initial_size =
-         Prop.computed __resource_type __resource_id "initial_size";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       initial_size = Prop.computed __type __id "initial_size";
        maintenance_policy =
-         Prop.computed __resource_type __resource_id
-           "maintenance_policy";
-       name = Prop.computed __resource_type __resource_id "name";
-       node_template =
-         Prop.computed __resource_type __resource_id "node_template";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       size = Prop.computed __resource_type __resource_id "size";
-       zone = Prop.computed __resource_type __resource_id "zone";
+         Prop.computed __type __id "maintenance_policy";
+       name = Prop.computed __type __id "name";
+       node_template = Prop.computed __type __id "node_template";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       size = Prop.computed __type __id "size";
+       zone = Prop.computed __type __id "zone";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_node_group
+        (google_compute_node_group ?description ?id ?initial_size
+           ?maintenance_policy ?name ?project ?zone ?timeouts
+           ~node_template ~autoscaling_policy ~maintenance_window
+           ~share_settings ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?initial_size
+    ?maintenance_policy ?name ?project ?zone ?timeouts ~node_template
+    ~autoscaling_policy ~maintenance_window ~share_settings __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?initial_size ?maintenance_policy ?name
+      ?project ?zone ?timeouts ~node_template ~autoscaling_policy
+      ~maintenance_window ~share_settings __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

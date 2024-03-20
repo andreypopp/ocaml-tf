@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_autoscaling_attachment = {
   autoscaling_group_name : string prop;
@@ -26,26 +24,33 @@ type t = {
   lb_target_group_arn : string prop;
 }
 
-let register ?tf_module ?elb ?id ?lb_target_group_arn
-    ~autoscaling_group_name __resource_id =
-  let __resource_type = "aws_autoscaling_attachment" in
-  let __resource =
-    aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
-      ~autoscaling_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscaling_attachment __resource);
-  let __resource_attributes =
+let make ?elb ?id ?lb_target_group_arn ~autoscaling_group_name __id =
+  let __type = "aws_autoscaling_attachment" in
+  let __attrs =
     ({
        autoscaling_group_name =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_group_name";
-       elb = Prop.computed __resource_type __resource_id "elb";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "autoscaling_group_name";
+       elb = Prop.computed __type __id "elb";
+       id = Prop.computed __type __id "id";
        lb_target_group_arn =
-         Prop.computed __resource_type __resource_id
-           "lb_target_group_arn";
+         Prop.computed __type __id "lb_target_group_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscaling_attachment
+        (aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
+           ~autoscaling_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?elb ?id ?lb_target_group_arn
+    ~autoscaling_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?elb ?id ?lb_target_group_arn ~autoscaling_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

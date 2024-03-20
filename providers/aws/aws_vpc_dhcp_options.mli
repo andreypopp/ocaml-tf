@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,15 @@ val register :
   ?tags_all:(string * string prop) list ->
   string ->
   t
+
+val make :
+  ?domain_name:string prop ->
+  ?domain_name_servers:string prop list ->
+  ?id:string prop ->
+  ?netbios_name_servers:string prop list ->
+  ?netbios_node_type:string prop ->
+  ?ntp_servers:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  string ->
+  t Tf_core.resource

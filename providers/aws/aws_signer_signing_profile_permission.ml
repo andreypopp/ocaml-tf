@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_signer_signing_profile_permission = {
   action : string prop;  (** action *)
@@ -41,34 +39,38 @@ type t = {
   statement_id_prefix : string prop;
 }
 
-let register ?tf_module ?id ?profile_version ?statement_id
-    ?statement_id_prefix ~action ~principal ~profile_name
-    __resource_id =
-  let __resource_type = "aws_signer_signing_profile_permission" in
-  let __resource =
-    aws_signer_signing_profile_permission ?id ?profile_version
-      ?statement_id ?statement_id_prefix ~action ~principal
-      ~profile_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_signer_signing_profile_permission __resource);
-  let __resource_attributes =
+let make ?id ?profile_version ?statement_id ?statement_id_prefix
+    ~action ~principal ~profile_name __id =
+  let __type = "aws_signer_signing_profile_permission" in
+  let __attrs =
     ({
-       action = Prop.computed __resource_type __resource_id "action";
-       id = Prop.computed __resource_type __resource_id "id";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
-       profile_name =
-         Prop.computed __resource_type __resource_id "profile_name";
-       profile_version =
-         Prop.computed __resource_type __resource_id
-           "profile_version";
-       statement_id =
-         Prop.computed __resource_type __resource_id "statement_id";
+       action = Prop.computed __type __id "action";
+       id = Prop.computed __type __id "id";
+       principal = Prop.computed __type __id "principal";
+       profile_name = Prop.computed __type __id "profile_name";
+       profile_version = Prop.computed __type __id "profile_version";
+       statement_id = Prop.computed __type __id "statement_id";
        statement_id_prefix =
-         Prop.computed __resource_type __resource_id
-           "statement_id_prefix";
+         Prop.computed __type __id "statement_id_prefix";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_signer_signing_profile_permission
+        (aws_signer_signing_profile_permission ?id ?profile_version
+           ?statement_id ?statement_id_prefix ~action ~principal
+           ~profile_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?profile_version ?statement_id
+    ?statement_id_prefix ~action ~principal ~profile_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?profile_version ?statement_id ?statement_id_prefix
+      ~action ~principal ~profile_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

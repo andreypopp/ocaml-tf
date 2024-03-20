@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -98,3 +98,20 @@ val register :
   disk_container:disk_container list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?encrypted:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?permanent_restore:bool prop ->
+  ?role_name:string prop ->
+  ?storage_tier:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?temporary_restore_days:float prop ->
+  ?timeouts:timeouts ->
+  client_data:client_data list ->
+  disk_container:disk_container list ->
+  string ->
+  t Tf_core.resource

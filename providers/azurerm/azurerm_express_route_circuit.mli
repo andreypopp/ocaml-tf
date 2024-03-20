@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -78,3 +78,21 @@ val register :
   sku:sku list ->
   string ->
   t
+
+val make :
+  ?allow_classic_operations:bool prop ->
+  ?authorization_key:string prop ->
+  ?bandwidth_in_gbps:float prop ->
+  ?bandwidth_in_mbps:float prop ->
+  ?express_route_port_id:string prop ->
+  ?id:string prop ->
+  ?peering_location:string prop ->
+  ?service_provider_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:sku list ->
+  string ->
+  t Tf_core.resource

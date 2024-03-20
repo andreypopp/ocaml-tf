@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type accelerator_config = {
   core_count : float prop;
@@ -277,6 +275,82 @@ type t = {
   update_time : string prop;
 }
 
+let make ?boot_disk_size_gb ?boot_disk_type ?create_time
+    ?custom_gpu_driver_path ?data_disk_size_gb ?data_disk_type
+    ?desired_state ?disk_encryption ?id ?install_gpu_driver
+    ?instance_owners ?kms_key ?labels ?metadata ?network ?nic_type
+    ?no_proxy_access ?no_public_ip ?no_remove_data_disk
+    ?post_startup_script ?project ?service_account
+    ?service_account_scopes ?subnet ?tags ?update_time ?timeouts
+    ~location ~machine_type ~name ~accelerator_config
+    ~container_image ~reservation_affinity ~shielded_instance_config
+    ~vm_image __id =
+  let __type = "google_notebooks_instance" in
+  let __attrs =
+    ({
+       boot_disk_size_gb =
+         Prop.computed __type __id "boot_disk_size_gb";
+       boot_disk_type = Prop.computed __type __id "boot_disk_type";
+       create_time = Prop.computed __type __id "create_time";
+       custom_gpu_driver_path =
+         Prop.computed __type __id "custom_gpu_driver_path";
+       data_disk_size_gb =
+         Prop.computed __type __id "data_disk_size_gb";
+       data_disk_type = Prop.computed __type __id "data_disk_type";
+       desired_state = Prop.computed __type __id "desired_state";
+       disk_encryption = Prop.computed __type __id "disk_encryption";
+       effective_labels =
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       install_gpu_driver =
+         Prop.computed __type __id "install_gpu_driver";
+       instance_owners = Prop.computed __type __id "instance_owners";
+       kms_key = Prop.computed __type __id "kms_key";
+       labels = Prop.computed __type __id "labels";
+       location = Prop.computed __type __id "location";
+       machine_type = Prop.computed __type __id "machine_type";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       network = Prop.computed __type __id "network";
+       nic_type = Prop.computed __type __id "nic_type";
+       no_proxy_access = Prop.computed __type __id "no_proxy_access";
+       no_public_ip = Prop.computed __type __id "no_public_ip";
+       no_remove_data_disk =
+         Prop.computed __type __id "no_remove_data_disk";
+       post_startup_script =
+         Prop.computed __type __id "post_startup_script";
+       project = Prop.computed __type __id "project";
+       proxy_uri = Prop.computed __type __id "proxy_uri";
+       service_account = Prop.computed __type __id "service_account";
+       service_account_scopes =
+         Prop.computed __type __id "service_account_scopes";
+       state = Prop.computed __type __id "state";
+       subnet = Prop.computed __type __id "subnet";
+       tags = Prop.computed __type __id "tags";
+       terraform_labels =
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_notebooks_instance
+        (google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
+           ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
+           ?data_disk_type ?desired_state ?disk_encryption ?id
+           ?install_gpu_driver ?instance_owners ?kms_key ?labels
+           ?metadata ?network ?nic_type ?no_proxy_access
+           ?no_public_ip ?no_remove_data_disk ?post_startup_script
+           ?project ?service_account ?service_account_scopes ?subnet
+           ?tags ?update_time ?timeouts ~location ~machine_type ~name
+           ~accelerator_config ~container_image ~reservation_affinity
+           ~shielded_instance_config ~vm_image ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?boot_disk_size_gb ?boot_disk_type
     ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
     ?data_disk_type ?desired_state ?disk_encryption ?id
@@ -286,98 +360,18 @@ let register ?tf_module ?boot_disk_size_gb ?boot_disk_type
     ?service_account ?service_account_scopes ?subnet ?tags
     ?update_time ?timeouts ~location ~machine_type ~name
     ~accelerator_config ~container_image ~reservation_affinity
-    ~shielded_instance_config ~vm_image __resource_id =
-  let __resource_type = "google_notebooks_instance" in
-  let __resource =
-    google_notebooks_instance ?boot_disk_size_gb ?boot_disk_type
-      ?create_time ?custom_gpu_driver_path ?data_disk_size_gb
-      ?data_disk_type ?desired_state ?disk_encryption ?id
-      ?install_gpu_driver ?instance_owners ?kms_key ?labels ?metadata
-      ?network ?nic_type ?no_proxy_access ?no_public_ip
-      ?no_remove_data_disk ?post_startup_script ?project
-      ?service_account ?service_account_scopes ?subnet ?tags
-      ?update_time ?timeouts ~location ~machine_type ~name
-      ~accelerator_config ~container_image ~reservation_affinity
-      ~shielded_instance_config ~vm_image ()
+    ~shielded_instance_config ~vm_image __id =
+  let (r : _ Tf_core.resource) =
+    make ?boot_disk_size_gb ?boot_disk_type ?create_time
+      ?custom_gpu_driver_path ?data_disk_size_gb ?data_disk_type
+      ?desired_state ?disk_encryption ?id ?install_gpu_driver
+      ?instance_owners ?kms_key ?labels ?metadata ?network ?nic_type
+      ?no_proxy_access ?no_public_ip ?no_remove_data_disk
+      ?post_startup_script ?project ?service_account
+      ?service_account_scopes ?subnet ?tags ?update_time ?timeouts
+      ~location ~machine_type ~name ~accelerator_config
+      ~container_image ~reservation_affinity
+      ~shielded_instance_config ~vm_image __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_notebooks_instance __resource);
-  let __resource_attributes =
-    ({
-       boot_disk_size_gb =
-         Prop.computed __resource_type __resource_id
-           "boot_disk_size_gb";
-       boot_disk_type =
-         Prop.computed __resource_type __resource_id "boot_disk_type";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       custom_gpu_driver_path =
-         Prop.computed __resource_type __resource_id
-           "custom_gpu_driver_path";
-       data_disk_size_gb =
-         Prop.computed __resource_type __resource_id
-           "data_disk_size_gb";
-       data_disk_type =
-         Prop.computed __resource_type __resource_id "data_disk_type";
-       desired_state =
-         Prop.computed __resource_type __resource_id "desired_state";
-       disk_encryption =
-         Prop.computed __resource_type __resource_id
-           "disk_encryption";
-       effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       install_gpu_driver =
-         Prop.computed __resource_type __resource_id
-           "install_gpu_driver";
-       instance_owners =
-         Prop.computed __resource_type __resource_id
-           "instance_owners";
-       kms_key =
-         Prop.computed __resource_type __resource_id "kms_key";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       machine_type =
-         Prop.computed __resource_type __resource_id "machine_type";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       network =
-         Prop.computed __resource_type __resource_id "network";
-       nic_type =
-         Prop.computed __resource_type __resource_id "nic_type";
-       no_proxy_access =
-         Prop.computed __resource_type __resource_id
-           "no_proxy_access";
-       no_public_ip =
-         Prop.computed __resource_type __resource_id "no_public_ip";
-       no_remove_data_disk =
-         Prop.computed __resource_type __resource_id
-           "no_remove_data_disk";
-       post_startup_script =
-         Prop.computed __resource_type __resource_id
-           "post_startup_script";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       proxy_uri =
-         Prop.computed __resource_type __resource_id "proxy_uri";
-       service_account =
-         Prop.computed __resource_type __resource_id
-           "service_account";
-       service_account_scopes =
-         Prop.computed __resource_type __resource_id
-           "service_account_scopes";
-       state = Prop.computed __resource_type __resource_id "state";
-       subnet = Prop.computed __resource_type __resource_id "subnet";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

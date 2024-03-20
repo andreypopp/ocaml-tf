@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,14 @@ val register :
   target_object_key_format:target_object_key_format list ->
   string ->
   t
+
+val make :
+  ?expected_bucket_owner:string prop ->
+  ?id:string prop ->
+  bucket:string prop ->
+  target_bucket:string prop ->
+  target_prefix:string prop ->
+  target_grant:target_grant list ->
+  target_object_key_format:target_object_key_format list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -33,23 +31,31 @@ type t = {
   ip : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~destination_pool_name ~ip
-    __resource_id =
-  let __resource_type = "aws_sesv2_dedicated_ip_assignment" in
-  let __resource =
-    aws_sesv2_dedicated_ip_assignment ?id ?timeouts
-      ~destination_pool_name ~ip ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_sesv2_dedicated_ip_assignment __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~destination_pool_name ~ip __id =
+  let __type = "aws_sesv2_dedicated_ip_assignment" in
+  let __attrs =
     ({
        destination_pool_name =
-         Prop.computed __resource_type __resource_id
-           "destination_pool_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip = Prop.computed __resource_type __resource_id "ip";
+         Prop.computed __type __id "destination_pool_name";
+       id = Prop.computed __type __id "id";
+       ip = Prop.computed __type __id "ip";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_sesv2_dedicated_ip_assignment
+        (aws_sesv2_dedicated_ip_assignment ?id ?timeouts
+           ~destination_pool_name ~ip ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~destination_pool_name ~ip __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~destination_pool_name ~ip __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloudflare_mtls_certificate = {
   account_id : string prop;
@@ -39,36 +37,38 @@ type t = {
   uploaded_on : string prop;
 }
 
-let register ?tf_module ?id ?name ?private_key ~account_id ~ca
-    ~certificates __resource_id =
-  let __resource_type = "cloudflare_mtls_certificate" in
-  let __resource =
-    cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
-      ~ca ~certificates ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_mtls_certificate __resource);
-  let __resource_attributes =
+let make ?id ?name ?private_key ~account_id ~ca ~certificates __id =
+  let __type = "cloudflare_mtls_certificate" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       ca = Prop.computed __resource_type __resource_id "ca";
-       certificates =
-         Prop.computed __resource_type __resource_id "certificates";
-       expires_on =
-         Prop.computed __resource_type __resource_id "expires_on";
-       id = Prop.computed __resource_type __resource_id "id";
-       issuer = Prop.computed __resource_type __resource_id "issuer";
-       name = Prop.computed __resource_type __resource_id "name";
-       private_key =
-         Prop.computed __resource_type __resource_id "private_key";
-       serial_number =
-         Prop.computed __resource_type __resource_id "serial_number";
-       signature =
-         Prop.computed __resource_type __resource_id "signature";
-       uploaded_on =
-         Prop.computed __resource_type __resource_id "uploaded_on";
+       account_id = Prop.computed __type __id "account_id";
+       ca = Prop.computed __type __id "ca";
+       certificates = Prop.computed __type __id "certificates";
+       expires_on = Prop.computed __type __id "expires_on";
+       id = Prop.computed __type __id "id";
+       issuer = Prop.computed __type __id "issuer";
+       name = Prop.computed __type __id "name";
+       private_key = Prop.computed __type __id "private_key";
+       serial_number = Prop.computed __type __id "serial_number";
+       signature = Prop.computed __type __id "signature";
+       uploaded_on = Prop.computed __type __id "uploaded_on";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_mtls_certificate
+        (cloudflare_mtls_certificate ?id ?name ?private_key
+           ~account_id ~ca ~certificates ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?private_key ~account_id ~ca
+    ~certificates __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?private_key ~account_id ~ca ~certificates __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

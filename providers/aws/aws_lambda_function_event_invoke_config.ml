@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type destination_config__on_failure = {
   destination : string prop;  (** destination *)
@@ -69,31 +67,38 @@ type t = {
   qualifier : string prop;
 }
 
-let register ?tf_module ?id ?maximum_event_age_in_seconds
-    ?maximum_retry_attempts ?qualifier ~function_name
-    ~destination_config __resource_id =
-  let __resource_type = "aws_lambda_function_event_invoke_config" in
-  let __resource =
-    aws_lambda_function_event_invoke_config ?id
-      ?maximum_event_age_in_seconds ?maximum_retry_attempts
-      ?qualifier ~function_name ~destination_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_lambda_function_event_invoke_config __resource);
-  let __resource_attributes =
+let make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
+    ?qualifier ~function_name ~destination_config __id =
+  let __type = "aws_lambda_function_event_invoke_config" in
+  let __attrs =
     ({
-       function_name =
-         Prop.computed __resource_type __resource_id "function_name";
-       id = Prop.computed __resource_type __resource_id "id";
+       function_name = Prop.computed __type __id "function_name";
+       id = Prop.computed __type __id "id";
        maximum_event_age_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "maximum_event_age_in_seconds";
+         Prop.computed __type __id "maximum_event_age_in_seconds";
        maximum_retry_attempts =
-         Prop.computed __resource_type __resource_id
-           "maximum_retry_attempts";
-       qualifier =
-         Prop.computed __resource_type __resource_id "qualifier";
+         Prop.computed __type __id "maximum_retry_attempts";
+       qualifier = Prop.computed __type __id "qualifier";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_lambda_function_event_invoke_config
+        (aws_lambda_function_event_invoke_config ?id
+           ?maximum_event_age_in_seconds ?maximum_retry_attempts
+           ?qualifier ~function_name ~destination_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?maximum_event_age_in_seconds
+    ?maximum_retry_attempts ?qualifier ~function_name
+    ~destination_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?maximum_event_age_in_seconds ?maximum_retry_attempts
+      ?qualifier ~function_name ~destination_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

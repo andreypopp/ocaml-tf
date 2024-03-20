@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -55,37 +53,44 @@ type t = {
   send_emails_to_subscription_owners : bool prop;
 }
 
-let register ?tf_module ?additional_email_recipients ?enabled ?id
+let make ?additional_email_recipients ?enabled ?id
     ?send_emails_to_subscription_owners ?timeouts
-    ~application_insights_id ~name __resource_id =
-  let __resource_type =
-    "azurerm_application_insights_smart_detection_rule"
-  in
-  let __resource =
-    azurerm_application_insights_smart_detection_rule
-      ?additional_email_recipients ?enabled ?id
-      ?send_emails_to_subscription_owners ?timeouts
-      ~application_insights_id ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_application_insights_smart_detection_rule
-       __resource);
-  let __resource_attributes =
+    ~application_insights_id ~name __id =
+  let __type = "azurerm_application_insights_smart_detection_rule" in
+  let __attrs =
     ({
        additional_email_recipients =
-         Prop.computed __resource_type __resource_id
-           "additional_email_recipients";
+         Prop.computed __type __id "additional_email_recipients";
        application_insights_id =
-         Prop.computed __resource_type __resource_id
-           "application_insights_id";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "application_insights_id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        send_emails_to_subscription_owners =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "send_emails_to_subscription_owners";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights_smart_detection_rule
+        (azurerm_application_insights_smart_detection_rule
+           ?additional_email_recipients ?enabled ?id
+           ?send_emails_to_subscription_owners ?timeouts
+           ~application_insights_id ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_email_recipients ?enabled ?id
+    ?send_emails_to_subscription_owners ?timeouts
+    ~application_insights_id ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_email_recipients ?enabled ?id
+      ?send_emails_to_subscription_owners ?timeouts
+      ~application_insights_id ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

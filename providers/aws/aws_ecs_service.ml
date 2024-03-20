@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type alarms = {
   alarm_names : string prop list;  (** alarm_names *)
@@ -361,6 +359,74 @@ type t = {
   wait_for_steady_state : bool prop;
 }
 
+let make ?cluster ?deployment_maximum_percent
+    ?deployment_minimum_healthy_percent ?desired_count
+    ?enable_ecs_managed_tags ?enable_execute_command
+    ?force_new_deployment ?health_check_grace_period_seconds
+    ?iam_role ?id ?launch_type ?platform_version ?propagate_tags
+    ?scheduling_strategy ?tags ?tags_all ?task_definition ?triggers
+    ?wait_for_steady_state ?timeouts ~name ~alarms
+    ~capacity_provider_strategy ~deployment_circuit_breaker
+    ~deployment_controller ~load_balancer ~network_configuration
+    ~ordered_placement_strategy ~placement_constraints
+    ~service_connect_configuration ~service_registries __id =
+  let __type = "aws_ecs_service" in
+  let __attrs =
+    ({
+       cluster = Prop.computed __type __id "cluster";
+       deployment_maximum_percent =
+         Prop.computed __type __id "deployment_maximum_percent";
+       deployment_minimum_healthy_percent =
+         Prop.computed __type __id
+           "deployment_minimum_healthy_percent";
+       desired_count = Prop.computed __type __id "desired_count";
+       enable_ecs_managed_tags =
+         Prop.computed __type __id "enable_ecs_managed_tags";
+       enable_execute_command =
+         Prop.computed __type __id "enable_execute_command";
+       force_new_deployment =
+         Prop.computed __type __id "force_new_deployment";
+       health_check_grace_period_seconds =
+         Prop.computed __type __id
+           "health_check_grace_period_seconds";
+       iam_role = Prop.computed __type __id "iam_role";
+       id = Prop.computed __type __id "id";
+       launch_type = Prop.computed __type __id "launch_type";
+       name = Prop.computed __type __id "name";
+       platform_version =
+         Prop.computed __type __id "platform_version";
+       propagate_tags = Prop.computed __type __id "propagate_tags";
+       scheduling_strategy =
+         Prop.computed __type __id "scheduling_strategy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       task_definition = Prop.computed __type __id "task_definition";
+       triggers = Prop.computed __type __id "triggers";
+       wait_for_steady_state =
+         Prop.computed __type __id "wait_for_steady_state";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ecs_service
+        (aws_ecs_service ?cluster ?deployment_maximum_percent
+           ?deployment_minimum_healthy_percent ?desired_count
+           ?enable_ecs_managed_tags ?enable_execute_command
+           ?force_new_deployment ?health_check_grace_period_seconds
+           ?iam_role ?id ?launch_type ?platform_version
+           ?propagate_tags ?scheduling_strategy ?tags ?tags_all
+           ?task_definition ?triggers ?wait_for_steady_state
+           ?timeouts ~name ~alarms ~capacity_provider_strategy
+           ~deployment_circuit_breaker ~deployment_controller
+           ~load_balancer ~network_configuration
+           ~ordered_placement_strategy ~placement_constraints
+           ~service_connect_configuration ~service_registries ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?cluster ?deployment_maximum_percent
     ?deployment_minimum_healthy_percent ?desired_count
     ?enable_ecs_managed_tags ?enable_execute_command
@@ -371,11 +437,9 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
     ~capacity_provider_strategy ~deployment_circuit_breaker
     ~deployment_controller ~load_balancer ~network_configuration
     ~ordered_placement_strategy ~placement_constraints
-    ~service_connect_configuration ~service_registries __resource_id
-    =
-  let __resource_type = "aws_ecs_service" in
-  let __resource =
-    aws_ecs_service ?cluster ?deployment_maximum_percent
+    ~service_connect_configuration ~service_registries __id =
+  let (r : _ Tf_core.resource) =
+    make ?cluster ?deployment_maximum_percent
       ?deployment_minimum_healthy_percent ?desired_count
       ?enable_ecs_managed_tags ?enable_execute_command
       ?force_new_deployment ?health_check_grace_period_seconds
@@ -385,60 +449,7 @@ let register ?tf_module ?cluster ?deployment_maximum_percent
       ~capacity_provider_strategy ~deployment_circuit_breaker
       ~deployment_controller ~load_balancer ~network_configuration
       ~ordered_placement_strategy ~placement_constraints
-      ~service_connect_configuration ~service_registries ()
+      ~service_connect_configuration ~service_registries __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ecs_service __resource);
-  let __resource_attributes =
-    ({
-       cluster =
-         Prop.computed __resource_type __resource_id "cluster";
-       deployment_maximum_percent =
-         Prop.computed __resource_type __resource_id
-           "deployment_maximum_percent";
-       deployment_minimum_healthy_percent =
-         Prop.computed __resource_type __resource_id
-           "deployment_minimum_healthy_percent";
-       desired_count =
-         Prop.computed __resource_type __resource_id "desired_count";
-       enable_ecs_managed_tags =
-         Prop.computed __resource_type __resource_id
-           "enable_ecs_managed_tags";
-       enable_execute_command =
-         Prop.computed __resource_type __resource_id
-           "enable_execute_command";
-       force_new_deployment =
-         Prop.computed __resource_type __resource_id
-           "force_new_deployment";
-       health_check_grace_period_seconds =
-         Prop.computed __resource_type __resource_id
-           "health_check_grace_period_seconds";
-       iam_role =
-         Prop.computed __resource_type __resource_id "iam_role";
-       id = Prop.computed __resource_type __resource_id "id";
-       launch_type =
-         Prop.computed __resource_type __resource_id "launch_type";
-       name = Prop.computed __resource_type __resource_id "name";
-       platform_version =
-         Prop.computed __resource_type __resource_id
-           "platform_version";
-       propagate_tags =
-         Prop.computed __resource_type __resource_id "propagate_tags";
-       scheduling_strategy =
-         Prop.computed __resource_type __resource_id
-           "scheduling_strategy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       task_definition =
-         Prop.computed __resource_type __resource_id
-           "task_definition";
-       triggers =
-         Prop.computed __resource_type __resource_id "triggers";
-       wait_for_steady_state =
-         Prop.computed __resource_type __resource_id
-           "wait_for_steady_state";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

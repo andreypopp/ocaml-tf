@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -69,51 +67,58 @@ type t = {
   storage_endpoint : string prop;
 }
 
+let make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
+    ?storage_account_access_key
+    ?storage_account_access_key_is_secondary
+    ?storage_account_subscription_id ?storage_endpoint ?timeouts
+    ~server_id __id =
+  let __type = "azurerm_mssql_server_extended_auditing_policy" in
+  let __attrs =
+    ({
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       log_monitoring_enabled =
+         Prop.computed __type __id "log_monitoring_enabled";
+       retention_in_days =
+         Prop.computed __type __id "retention_in_days";
+       server_id = Prop.computed __type __id "server_id";
+       storage_account_access_key =
+         Prop.computed __type __id "storage_account_access_key";
+       storage_account_access_key_is_secondary =
+         Prop.computed __type __id
+           "storage_account_access_key_is_secondary";
+       storage_account_subscription_id =
+         Prop.computed __type __id "storage_account_subscription_id";
+       storage_endpoint =
+         Prop.computed __type __id "storage_endpoint";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_server_extended_auditing_policy
+        (azurerm_mssql_server_extended_auditing_policy ?enabled ?id
+           ?log_monitoring_enabled ?retention_in_days
+           ?storage_account_access_key
+           ?storage_account_access_key_is_secondary
+           ?storage_account_subscription_id ?storage_endpoint
+           ?timeouts ~server_id ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?enabled ?id ?log_monitoring_enabled
     ?retention_in_days ?storage_account_access_key
     ?storage_account_access_key_is_secondary
     ?storage_account_subscription_id ?storage_endpoint ?timeouts
-    ~server_id __resource_id =
-  let __resource_type =
-    "azurerm_mssql_server_extended_auditing_policy"
-  in
-  let __resource =
-    azurerm_mssql_server_extended_auditing_policy ?enabled ?id
-      ?log_monitoring_enabled ?retention_in_days
+    ~server_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ?log_monitoring_enabled ?retention_in_days
       ?storage_account_access_key
       ?storage_account_access_key_is_secondary
       ?storage_account_subscription_id ?storage_endpoint ?timeouts
-      ~server_id ()
+      ~server_id __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_server_extended_auditing_policy
-       __resource);
-  let __resource_attributes =
-    ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       log_monitoring_enabled =
-         Prop.computed __resource_type __resource_id
-           "log_monitoring_enabled";
-       retention_in_days =
-         Prop.computed __resource_type __resource_id
-           "retention_in_days";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
-       storage_account_access_key =
-         Prop.computed __resource_type __resource_id
-           "storage_account_access_key";
-       storage_account_access_key_is_secondary =
-         Prop.computed __resource_type __resource_id
-           "storage_account_access_key_is_secondary";
-       storage_account_subscription_id =
-         Prop.computed __resource_type __resource_id
-           "storage_account_subscription_id";
-       storage_endpoint =
-         Prop.computed __resource_type __resource_id
-           "storage_endpoint";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -68,44 +66,49 @@ type t = {
   tenant_token : string prop;
 }
 
-let register ?tf_module ?api_token ?api_url ?environment_id
-    ?globally_enabled ?id ?timeouts ~connection_point ~name
-    ~spring_cloud_service_id ~tenant ~tenant_token __resource_id =
-  let __resource_type =
+let make ?api_token ?api_url ?environment_id ?globally_enabled ?id
+    ?timeouts ~connection_point ~name ~spring_cloud_service_id
+    ~tenant ~tenant_token __id =
+  let __type =
     "azurerm_spring_cloud_dynatrace_application_performance_monitoring"
   in
-  let __resource =
-    azurerm_spring_cloud_dynatrace_application_performance_monitoring
-      ?api_token ?api_url ?environment_id ?globally_enabled ?id
-      ?timeouts ~connection_point ~name ~spring_cloud_service_id
-      ~tenant ~tenant_token ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_dynatrace_application_performance_monitoring
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
-       api_token =
-         Prop.computed __resource_type __resource_id "api_token";
-       api_url =
-         Prop.computed __resource_type __resource_id "api_url";
+       api_token = Prop.computed __type __id "api_token";
+       api_url = Prop.computed __type __id "api_url";
        connection_point =
-         Prop.computed __resource_type __resource_id
-           "connection_point";
-       environment_id =
-         Prop.computed __resource_type __resource_id "environment_id";
+         Prop.computed __type __id "connection_point";
+       environment_id = Prop.computed __type __id "environment_id";
        globally_enabled =
-         Prop.computed __resource_type __resource_id
-           "globally_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "globally_enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        spring_cloud_service_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_service_id";
-       tenant = Prop.computed __resource_type __resource_id "tenant";
-       tenant_token =
-         Prop.computed __resource_type __resource_id "tenant_token";
+         Prop.computed __type __id "spring_cloud_service_id";
+       tenant = Prop.computed __type __id "tenant";
+       tenant_token = Prop.computed __type __id "tenant_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_dynatrace_application_performance_monitoring
+        (azurerm_spring_cloud_dynatrace_application_performance_monitoring
+           ?api_token ?api_url ?environment_id ?globally_enabled ?id
+           ?timeouts ~connection_point ~name ~spring_cloud_service_id
+           ~tenant ~tenant_token ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?api_token ?api_url ?environment_id
+    ?globally_enabled ?id ?timeouts ~connection_point ~name
+    ~spring_cloud_service_id ~tenant ~tenant_token __id =
+  let (r : _ Tf_core.resource) =
+    make ?api_token ?api_url ?environment_id ?globally_enabled ?id
+      ?timeouts ~connection_point ~name ~spring_cloud_service_id
+      ~tenant ~tenant_token __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

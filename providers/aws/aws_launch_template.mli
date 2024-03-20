@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -414,3 +414,47 @@ val register :
   tag_specifications:tag_specifications list ->
   string ->
   t
+
+val make :
+  ?default_version:float prop ->
+  ?description:string prop ->
+  ?disable_api_stop:bool prop ->
+  ?disable_api_termination:bool prop ->
+  ?ebs_optimized:string prop ->
+  ?id:string prop ->
+  ?image_id:string prop ->
+  ?instance_initiated_shutdown_behavior:string prop ->
+  ?instance_type:string prop ->
+  ?kernel_id:string prop ->
+  ?key_name:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?ram_disk_id:string prop ->
+  ?security_group_names:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?update_default_version:bool prop ->
+  ?user_data:string prop ->
+  ?vpc_security_group_ids:string prop list ->
+  block_device_mappings:block_device_mappings list ->
+  capacity_reservation_specification:
+    capacity_reservation_specification list ->
+  cpu_options:cpu_options list ->
+  credit_specification:credit_specification list ->
+  elastic_gpu_specifications:elastic_gpu_specifications list ->
+  elastic_inference_accelerator:elastic_inference_accelerator list ->
+  enclave_options:enclave_options list ->
+  hibernation_options:hibernation_options list ->
+  iam_instance_profile:iam_instance_profile list ->
+  instance_market_options:instance_market_options list ->
+  instance_requirements:instance_requirements list ->
+  license_specification:license_specification list ->
+  maintenance_options:maintenance_options list ->
+  metadata_options:metadata_options list ->
+  monitoring:monitoring list ->
+  network_interfaces:network_interfaces list ->
+  placement:placement list ->
+  private_dns_name_options:private_dns_name_options list ->
+  tag_specifications:tag_specifications list ->
+  string ->
+  t Tf_core.resource

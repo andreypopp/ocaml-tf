@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type links = {
   bandwidth_mhz : float prop;  (** bandwidth_mhz *)
@@ -78,35 +76,40 @@ type t = {
   two_line_elements : string list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location ~name ~norad_id
-    ~resource_group_name ~title_line ~two_line_elements ~links
-    __resource_id =
-  let __resource_type = "azurerm_orbital_spacecraft" in
-  let __resource =
-    azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location ~name
-      ~norad_id ~resource_group_name ~title_line ~two_line_elements
-      ~links ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_orbital_spacecraft __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~name ~norad_id
+    ~resource_group_name ~title_line ~two_line_elements ~links __id =
+  let __type = "azurerm_orbital_spacecraft" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       norad_id =
-         Prop.computed __resource_type __resource_id "norad_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       norad_id = Prop.computed __type __id "norad_id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       title_line =
-         Prop.computed __resource_type __resource_id "title_line";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       title_line = Prop.computed __type __id "title_line";
        two_line_elements =
-         Prop.computed __resource_type __resource_id
-           "two_line_elements";
+         Prop.computed __type __id "two_line_elements";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_orbital_spacecraft
+        (azurerm_orbital_spacecraft ?id ?tags ?timeouts ~location
+           ~name ~norad_id ~resource_group_name ~title_line
+           ~two_line_elements ~links ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location ~name ~norad_id
+    ~resource_group_name ~title_line ~two_line_elements ~links __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~name ~norad_id
+      ~resource_group_name ~title_line ~two_line_elements ~links __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

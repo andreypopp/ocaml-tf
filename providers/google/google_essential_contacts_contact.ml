@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,27 +49,38 @@ type t = {
   parent : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~email ~language_tag
-    ~notification_category_subscriptions ~parent __resource_id =
-  let __resource_type = "google_essential_contacts_contact" in
-  let __resource =
-    google_essential_contacts_contact ?id ?timeouts ~email
-      ~language_tag ~notification_category_subscriptions ~parent ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_essential_contacts_contact __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~email ~language_tag
+    ~notification_category_subscriptions ~parent __id =
+  let __type = "google_essential_contacts_contact" in
+  let __attrs =
     ({
-       email = Prop.computed __resource_type __resource_id "email";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_tag =
-         Prop.computed __resource_type __resource_id "language_tag";
-       name = Prop.computed __resource_type __resource_id "name";
+       email = Prop.computed __type __id "email";
+       id = Prop.computed __type __id "id";
+       language_tag = Prop.computed __type __id "language_tag";
+       name = Prop.computed __type __id "name";
        notification_category_subscriptions =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "notification_category_subscriptions";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       parent = Prop.computed __type __id "parent";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_essential_contacts_contact
+        (google_essential_contacts_contact ?id ?timeouts ~email
+           ~language_tag ~notification_category_subscriptions ~parent
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~email ~language_tag
+    ~notification_category_subscriptions ~parent __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~email ~language_tag
+      ~notification_category_subscriptions ~parent __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,13 @@ val register :
   sub_domain:sub_domain list ->
   string ->
   t
+
+val make :
+  ?enable_auto_sub_domain:bool prop ->
+  ?id:string prop ->
+  ?wait_for_verification:bool prop ->
+  app_id:string prop ->
+  domain_name:string prop ->
+  sub_domain:sub_domain list ->
+  string ->
+  t Tf_core.resource

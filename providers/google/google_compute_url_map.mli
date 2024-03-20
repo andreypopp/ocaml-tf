@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -944,3 +944,19 @@ val register :
   test:test list ->
   string ->
   t
+
+val make :
+  ?default_service:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  default_route_action:default_route_action list ->
+  default_url_redirect:default_url_redirect list ->
+  header_action:header_action list ->
+  host_rule:host_rule list ->
+  path_matcher:path_matcher list ->
+  test:test list ->
+  string ->
+  t Tf_core.resource

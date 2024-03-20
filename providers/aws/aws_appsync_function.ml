@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type runtime = {
   name : string prop;  (** name *)
@@ -100,44 +98,50 @@ type t = {
   response_mapping_template : string prop;
 }
 
-let register ?tf_module ?code ?description ?function_version ?id
-    ?max_batch_size ?request_mapping_template
-    ?response_mapping_template ~api_id ~data_source ~name ~runtime
-    ~sync_config __resource_id =
-  let __resource_type = "aws_appsync_function" in
-  let __resource =
-    aws_appsync_function ?code ?description ?function_version ?id
-      ?max_batch_size ?request_mapping_template
-      ?response_mapping_template ~api_id ~data_source ~name ~runtime
-      ~sync_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appsync_function __resource);
-  let __resource_attributes =
+let make ?code ?description ?function_version ?id ?max_batch_size
+    ?request_mapping_template ?response_mapping_template ~api_id
+    ~data_source ~name ~runtime ~sync_config __id =
+  let __type = "aws_appsync_function" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       code = Prop.computed __resource_type __resource_id "code";
-       data_source =
-         Prop.computed __resource_type __resource_id "data_source";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       function_id =
-         Prop.computed __resource_type __resource_id "function_id";
+       api_id = Prop.computed __type __id "api_id";
+       arn = Prop.computed __type __id "arn";
+       code = Prop.computed __type __id "code";
+       data_source = Prop.computed __type __id "data_source";
+       description = Prop.computed __type __id "description";
+       function_id = Prop.computed __type __id "function_id";
        function_version =
-         Prop.computed __resource_type __resource_id
-           "function_version";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_batch_size =
-         Prop.computed __resource_type __resource_id "max_batch_size";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "function_version";
+       id = Prop.computed __type __id "id";
+       max_batch_size = Prop.computed __type __id "max_batch_size";
+       name = Prop.computed __type __id "name";
        request_mapping_template =
-         Prop.computed __resource_type __resource_id
-           "request_mapping_template";
+         Prop.computed __type __id "request_mapping_template";
        response_mapping_template =
-         Prop.computed __resource_type __resource_id
-           "response_mapping_template";
+         Prop.computed __type __id "response_mapping_template";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appsync_function
+        (aws_appsync_function ?code ?description ?function_version
+           ?id ?max_batch_size ?request_mapping_template
+           ?response_mapping_template ~api_id ~data_source ~name
+           ~runtime ~sync_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?code ?description ?function_version ?id
+    ?max_batch_size ?request_mapping_template
+    ?response_mapping_template ~api_id ~data_source ~name ~runtime
+    ~sync_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?code ?description ?function_version ?id ?max_batch_size
+      ?request_mapping_template ?response_mapping_template ~api_id
+      ~data_source ~name ~runtime ~sync_config __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

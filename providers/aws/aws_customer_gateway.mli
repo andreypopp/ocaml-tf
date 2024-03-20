@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -46,3 +46,15 @@ val register :
   type_:string prop ->
   string ->
   t
+
+val make :
+  ?certificate_arn:string prop ->
+  ?device_name:string prop ->
+  ?id:string prop ->
+  ?ip_address:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  bgp_asn:string prop ->
+  type_:string prop ->
+  string ->
+  t Tf_core.resource

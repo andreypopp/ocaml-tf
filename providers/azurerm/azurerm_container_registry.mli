@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -142,3 +142,28 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?admin_enabled:bool prop ->
+  ?anonymous_pull_enabled:bool prop ->
+  ?data_endpoint_enabled:bool prop ->
+  ?encryption:encryption list ->
+  ?export_policy_enabled:bool prop ->
+  ?id:string prop ->
+  ?network_rule_bypass_option:string prop ->
+  ?network_rule_set:network_rule_set list ->
+  ?public_network_access_enabled:bool prop ->
+  ?quarantine_policy_enabled:bool prop ->
+  ?retention_policy:retention_policy list ->
+  ?tags:(string * string prop) list ->
+  ?trust_policy:trust_policy list ->
+  ?zone_redundancy_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  georeplications:georeplications list ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

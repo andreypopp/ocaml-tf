@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -79,3 +79,22 @@ val register :
   vlan:float prop ->
   string ->
   t
+
+val make :
+  ?amazon_address:string prop ->
+  ?bgp_auth_key:string prop ->
+  ?customer_address:string prop ->
+  ?id:string prop ->
+  ?mtu:float prop ->
+  ?sitelink_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  address_family:string prop ->
+  bgp_asn:float prop ->
+  connection_id:string prop ->
+  dx_gateway_id:string prop ->
+  name:string prop ->
+  vlan:float prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -52,46 +50,47 @@ type t = {
   transit_gateway_peering_attachment_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~core_network_id ~transit_gateway_arn __resource_id =
-  let __resource_type =
-    "aws_networkmanager_transit_gateway_peering"
-  in
-  let __resource =
-    aws_networkmanager_transit_gateway_peering ?id ?tags ?tags_all
-      ?timeouts ~core_network_id ~transit_gateway_arn ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_transit_gateway_peering __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~core_network_id
+    ~transit_gateway_arn __id =
+  let __type = "aws_networkmanager_transit_gateway_peering" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        core_network_arn =
-         Prop.computed __resource_type __resource_id
-           "core_network_arn";
-       core_network_id =
-         Prop.computed __resource_type __resource_id
-           "core_network_id";
-       edge_location =
-         Prop.computed __resource_type __resource_id "edge_location";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "core_network_arn";
+       core_network_id = Prop.computed __type __id "core_network_id";
+       edge_location = Prop.computed __type __id "edge_location";
+       id = Prop.computed __type __id "id";
        owner_account_id =
-         Prop.computed __resource_type __resource_id
-           "owner_account_id";
-       peering_type =
-         Prop.computed __resource_type __resource_id "peering_type";
-       resource_arn =
-         Prop.computed __resource_type __resource_id "resource_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "owner_account_id";
+       peering_type = Prop.computed __type __id "peering_type";
+       resource_arn = Prop.computed __type __id "resource_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
        transit_gateway_arn =
-         Prop.computed __resource_type __resource_id
-           "transit_gateway_arn";
+         Prop.computed __type __id "transit_gateway_arn";
        transit_gateway_peering_attachment_id =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "transit_gateway_peering_attachment_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_transit_gateway_peering
+        (aws_networkmanager_transit_gateway_peering ?id ?tags
+           ?tags_all ?timeouts ~core_network_id ~transit_gateway_arn
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~core_network_id ~transit_gateway_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~core_network_id
+      ~transit_gateway_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

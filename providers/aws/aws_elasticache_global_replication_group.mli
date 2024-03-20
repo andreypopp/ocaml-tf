@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -74,3 +74,17 @@ val register :
   primary_replication_group_id:string prop ->
   string ->
   t
+
+val make :
+  ?automatic_failover_enabled:bool prop ->
+  ?cache_node_type:string prop ->
+  ?engine_version:string prop ->
+  ?global_replication_group_description:string prop ->
+  ?id:string prop ->
+  ?num_node_groups:float prop ->
+  ?parameter_group_name:string prop ->
+  ?timeouts:timeouts ->
+  global_replication_group_id_suffix:string prop ->
+  primary_replication_group_id:string prop ->
+  string ->
+  t Tf_core.resource

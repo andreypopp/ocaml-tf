@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;  (** types *)
@@ -102,75 +100,78 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
+let make ?certificate_arn ?certificate_body ?certificate_chain
+    ?certificate_name ?certificate_private_key ?id
+    ?ownership_verification_certificate_arn ?regional_certificate_arn
+    ?regional_certificate_name ?security_policy ?tags ?tags_all
+    ~domain_name ~endpoint_configuration ~mutual_tls_authentication
+    __id =
+  let __type = "aws_api_gateway_domain_name" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       certificate_arn = Prop.computed __type __id "certificate_arn";
+       certificate_body =
+         Prop.computed __type __id "certificate_body";
+       certificate_chain =
+         Prop.computed __type __id "certificate_chain";
+       certificate_name =
+         Prop.computed __type __id "certificate_name";
+       certificate_private_key =
+         Prop.computed __type __id "certificate_private_key";
+       certificate_upload_date =
+         Prop.computed __type __id "certificate_upload_date";
+       cloudfront_domain_name =
+         Prop.computed __type __id "cloudfront_domain_name";
+       cloudfront_zone_id =
+         Prop.computed __type __id "cloudfront_zone_id";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       ownership_verification_certificate_arn =
+         Prop.computed __type __id
+           "ownership_verification_certificate_arn";
+       regional_certificate_arn =
+         Prop.computed __type __id "regional_certificate_arn";
+       regional_certificate_name =
+         Prop.computed __type __id "regional_certificate_name";
+       regional_domain_name =
+         Prop.computed __type __id "regional_domain_name";
+       regional_zone_id =
+         Prop.computed __type __id "regional_zone_id";
+       security_policy = Prop.computed __type __id "security_policy";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_api_gateway_domain_name
+        (aws_api_gateway_domain_name ?certificate_arn
+           ?certificate_body ?certificate_chain ?certificate_name
+           ?certificate_private_key ?id
+           ?ownership_verification_certificate_arn
+           ?regional_certificate_arn ?regional_certificate_name
+           ?security_policy ?tags ?tags_all ~domain_name
+           ~endpoint_configuration ~mutual_tls_authentication ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?certificate_arn ?certificate_body
     ?certificate_chain ?certificate_name ?certificate_private_key ?id
     ?ownership_verification_certificate_arn ?regional_certificate_arn
     ?regional_certificate_name ?security_policy ?tags ?tags_all
     ~domain_name ~endpoint_configuration ~mutual_tls_authentication
-    __resource_id =
-  let __resource_type = "aws_api_gateway_domain_name" in
-  let __resource =
-    aws_api_gateway_domain_name ?certificate_arn ?certificate_body
-      ?certificate_chain ?certificate_name ?certificate_private_key
-      ?id ?ownership_verification_certificate_arn
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_arn ?certificate_body ?certificate_chain
+      ?certificate_name ?certificate_private_key ?id
+      ?ownership_verification_certificate_arn
       ?regional_certificate_arn ?regional_certificate_name
       ?security_policy ?tags ?tags_all ~domain_name
-      ~endpoint_configuration ~mutual_tls_authentication ()
+      ~endpoint_configuration ~mutual_tls_authentication __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_api_gateway_domain_name __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "certificate_arn";
-       certificate_body =
-         Prop.computed __resource_type __resource_id
-           "certificate_body";
-       certificate_chain =
-         Prop.computed __resource_type __resource_id
-           "certificate_chain";
-       certificate_name =
-         Prop.computed __resource_type __resource_id
-           "certificate_name";
-       certificate_private_key =
-         Prop.computed __resource_type __resource_id
-           "certificate_private_key";
-       certificate_upload_date =
-         Prop.computed __resource_type __resource_id
-           "certificate_upload_date";
-       cloudfront_domain_name =
-         Prop.computed __resource_type __resource_id
-           "cloudfront_domain_name";
-       cloudfront_zone_id =
-         Prop.computed __resource_type __resource_id
-           "cloudfront_zone_id";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       ownership_verification_certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "ownership_verification_certificate_arn";
-       regional_certificate_arn =
-         Prop.computed __resource_type __resource_id
-           "regional_certificate_arn";
-       regional_certificate_name =
-         Prop.computed __resource_type __resource_id
-           "regional_certificate_name";
-       regional_domain_name =
-         Prop.computed __resource_type __resource_id
-           "regional_domain_name";
-       regional_zone_id =
-         Prop.computed __resource_type __resource_id
-           "regional_zone_id";
-       security_policy =
-         Prop.computed __resource_type __resource_id
-           "security_policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

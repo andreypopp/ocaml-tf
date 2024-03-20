@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -91,3 +91,27 @@ val register :
   namespace_id:string prop ->
   string ->
   t
+
+val make :
+  ?auto_delete_on_idle:string prop ->
+  ?dead_lettering_on_message_expiration:bool prop ->
+  ?default_message_ttl:string prop ->
+  ?duplicate_detection_history_time_window:string prop ->
+  ?enable_batched_operations:bool prop ->
+  ?enable_express:bool prop ->
+  ?enable_partitioning:bool prop ->
+  ?forward_dead_lettered_messages_to:string prop ->
+  ?forward_to:string prop ->
+  ?id:string prop ->
+  ?lock_duration:string prop ->
+  ?max_delivery_count:float prop ->
+  ?max_message_size_in_kilobytes:float prop ->
+  ?max_size_in_megabytes:float prop ->
+  ?requires_duplicate_detection:bool prop ->
+  ?requires_session:bool prop ->
+  ?status:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  namespace_id:string prop ->
+  string ->
+  t Tf_core.resource

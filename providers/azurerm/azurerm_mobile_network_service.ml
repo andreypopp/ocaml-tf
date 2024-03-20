@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type pcc_rule__qos_policy__guaranteed_bit_rate = {
   downlink : string prop;  (** downlink *)
@@ -178,31 +176,39 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~location
-    ~mobile_network_id ~name ~service_precedence ~pcc_rule
-    ~service_qos_policy __resource_id =
-  let __resource_type = "azurerm_mobile_network_service" in
-  let __resource =
-    azurerm_mobile_network_service ?id ?tags ?timeouts ~location
-      ~mobile_network_id ~name ~service_precedence ~pcc_rule
-      ~service_qos_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mobile_network_service __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~location ~mobile_network_id ~name
+    ~service_precedence ~pcc_rule ~service_qos_policy __id =
+  let __type = "azurerm_mobile_network_service" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        mobile_network_id =
-         Prop.computed __resource_type __resource_id
-           "mobile_network_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "mobile_network_id";
+       name = Prop.computed __type __id "name";
        service_precedence =
-         Prop.computed __resource_type __resource_id
-           "service_precedence";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "service_precedence";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mobile_network_service
+        (azurerm_mobile_network_service ?id ?tags ?timeouts ~location
+           ~mobile_network_id ~name ~service_precedence ~pcc_rule
+           ~service_qos_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~location
+    ~mobile_network_id ~name ~service_precedence ~pcc_rule
+    ~service_qos_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~location ~mobile_network_id ~name
+      ~service_precedence ~pcc_rule ~service_qos_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

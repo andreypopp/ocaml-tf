@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,37 +54,44 @@ type t = {
   sms_channel_auth_token : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~bot_name ~location
-    ~phone_number ~resource_group_name
-    ~sms_channel_account_security_id ~sms_channel_auth_token
-    __resource_id =
-  let __resource_type = "azurerm_bot_channel_sms" in
-  let __resource =
-    azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
-      ~phone_number ~resource_group_name
-      ~sms_channel_account_security_id ~sms_channel_auth_token ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_bot_channel_sms __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~bot_name ~location ~phone_number
+    ~resource_group_name ~sms_channel_account_security_id
+    ~sms_channel_auth_token __id =
+  let __type = "azurerm_bot_channel_sms" in
+  let __attrs =
     ({
-       bot_name =
-         Prop.computed __resource_type __resource_id "bot_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       phone_number =
-         Prop.computed __resource_type __resource_id "phone_number";
+       bot_name = Prop.computed __type __id "bot_name";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       phone_number = Prop.computed __type __id "phone_number";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        sms_channel_account_security_id =
-         Prop.computed __resource_type __resource_id
-           "sms_channel_account_security_id";
+         Prop.computed __type __id "sms_channel_account_security_id";
        sms_channel_auth_token =
-         Prop.computed __resource_type __resource_id
-           "sms_channel_auth_token";
+         Prop.computed __type __id "sms_channel_auth_token";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_bot_channel_sms
+        (azurerm_bot_channel_sms ?id ?timeouts ~bot_name ~location
+           ~phone_number ~resource_group_name
+           ~sms_channel_account_security_id ~sms_channel_auth_token
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~bot_name ~location
+    ~phone_number ~resource_group_name
+    ~sms_channel_account_security_id ~sms_channel_auth_token __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~bot_name ~location ~phone_number
+      ~resource_group_name ~sms_channel_account_security_id
+      ~sms_channel_auth_token __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

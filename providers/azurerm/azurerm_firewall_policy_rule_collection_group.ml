@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type application_rule_collection__rule__http_headers = {
   name : string prop;  (** name *)
@@ -230,31 +228,39 @@ type t = {
   priority : float prop;
 }
 
-let register ?tf_module ?id ?timeouts ~firewall_policy_id ~name
-    ~priority ~application_rule_collection ~nat_rule_collection
-    ~network_rule_collection __resource_id =
-  let __resource_type =
-    "azurerm_firewall_policy_rule_collection_group"
-  in
-  let __resource =
-    azurerm_firewall_policy_rule_collection_group ?id ?timeouts
-      ~firewall_policy_id ~name ~priority
-      ~application_rule_collection ~nat_rule_collection
-      ~network_rule_collection ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_firewall_policy_rule_collection_group
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~firewall_policy_id ~name ~priority
+    ~application_rule_collection ~nat_rule_collection
+    ~network_rule_collection __id =
+  let __type = "azurerm_firewall_policy_rule_collection_group" in
+  let __attrs =
     ({
        firewall_policy_id =
-         Prop.computed __resource_type __resource_id
-           "firewall_policy_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
+         Prop.computed __type __id "firewall_policy_id";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_firewall_policy_rule_collection_group
+        (azurerm_firewall_policy_rule_collection_group ?id ?timeouts
+           ~firewall_policy_id ~name ~priority
+           ~application_rule_collection ~nat_rule_collection
+           ~network_rule_collection ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~firewall_policy_id ~name
+    ~priority ~application_rule_collection ~nat_rule_collection
+    ~network_rule_collection __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~firewall_policy_id ~name ~priority
+      ~application_rule_collection ~nat_rule_collection
+      ~network_rule_collection __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

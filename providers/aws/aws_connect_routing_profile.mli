@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -67,3 +67,16 @@ val register :
   queue_configs:queue_configs list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  default_outbound_queue_id:string prop ->
+  description:string prop ->
+  instance_id:string prop ->
+  name:string prop ->
+  media_concurrencies:media_concurrencies list ->
+  queue_configs:queue_configs list ->
+  string ->
+  t Tf_core.resource

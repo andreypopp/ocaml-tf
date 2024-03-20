@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -69,3 +69,18 @@ val register :
   exclusions:exclusions list ->
   string ->
   t
+
+val make :
+  ?custom_writer_identity:string prop ->
+  ?description:string prop ->
+  ?disabled:bool prop ->
+  ?filter:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?unique_writer_identity:bool prop ->
+  destination:string prop ->
+  name:string prop ->
+  bigquery_options:bigquery_options list ->
+  exclusions:exclusions list ->
+  string ->
+  t Tf_core.resource

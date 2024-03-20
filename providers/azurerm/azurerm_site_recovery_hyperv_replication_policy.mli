@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   replication_interval_in_seconds:float prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  application_consistent_snapshot_frequency_in_hours:float prop ->
+  name:string prop ->
+  recovery_point_retention_in_hours:float prop ->
+  recovery_vault_id:string prop ->
+  replication_interval_in_seconds:float prop ->
+  string ->
+  t Tf_core.resource

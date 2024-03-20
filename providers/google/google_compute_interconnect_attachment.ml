@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -175,77 +173,73 @@ type t = {
   vlan_tag8021q : float prop;
 }
 
-let register ?tf_module ?admin_enabled ?bandwidth ?candidate_subnets
-    ?description ?edge_availability_domain ?encryption ?id
-    ?interconnect ?ipsec_internal_addresses ?mtu ?project ?region
-    ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router
-    __resource_id =
-  let __resource_type = "google_compute_interconnect_attachment" in
-  let __resource =
-    google_compute_interconnect_attachment ?admin_enabled ?bandwidth
-      ?candidate_subnets ?description ?edge_availability_domain
-      ?encryption ?id ?interconnect ?ipsec_internal_addresses ?mtu
-      ?project ?region ?stack_type ?type_ ?vlan_tag8021q ?timeouts
-      ~name ~router ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_interconnect_attachment __resource);
-  let __resource_attributes =
+let make ?admin_enabled ?bandwidth ?candidate_subnets ?description
+    ?edge_availability_domain ?encryption ?id ?interconnect
+    ?ipsec_internal_addresses ?mtu ?project ?region ?stack_type
+    ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id =
+  let __type = "google_compute_interconnect_attachment" in
+  let __attrs =
     ({
-       admin_enabled =
-         Prop.computed __resource_type __resource_id "admin_enabled";
-       bandwidth =
-         Prop.computed __resource_type __resource_id "bandwidth";
+       admin_enabled = Prop.computed __type __id "admin_enabled";
+       bandwidth = Prop.computed __type __id "bandwidth";
        candidate_subnets =
-         Prop.computed __resource_type __resource_id
-           "candidate_subnets";
+         Prop.computed __type __id "candidate_subnets";
        cloud_router_ip_address =
-         Prop.computed __resource_type __resource_id
-           "cloud_router_ip_address";
+         Prop.computed __type __id "cloud_router_ip_address";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
+         Prop.computed __type __id "creation_timestamp";
        customer_router_ip_address =
-         Prop.computed __resource_type __resource_id
-           "customer_router_ip_address";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "customer_router_ip_address";
+       description = Prop.computed __type __id "description";
        edge_availability_domain =
-         Prop.computed __resource_type __resource_id
-           "edge_availability_domain";
-       encryption =
-         Prop.computed __resource_type __resource_id "encryption";
+         Prop.computed __type __id "edge_availability_domain";
+       encryption = Prop.computed __type __id "encryption";
        google_reference_id =
-         Prop.computed __resource_type __resource_id
-           "google_reference_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       interconnect =
-         Prop.computed __resource_type __resource_id "interconnect";
+         Prop.computed __type __id "google_reference_id";
+       id = Prop.computed __type __id "id";
+       interconnect = Prop.computed __type __id "interconnect";
        ipsec_internal_addresses =
-         Prop.computed __resource_type __resource_id
-           "ipsec_internal_addresses";
-       mtu = Prop.computed __resource_type __resource_id "mtu";
-       name = Prop.computed __resource_type __resource_id "name";
-       pairing_key =
-         Prop.computed __resource_type __resource_id "pairing_key";
-       partner_asn =
-         Prop.computed __resource_type __resource_id "partner_asn";
+         Prop.computed __type __id "ipsec_internal_addresses";
+       mtu = Prop.computed __type __id "mtu";
+       name = Prop.computed __type __id "name";
+       pairing_key = Prop.computed __type __id "pairing_key";
+       partner_asn = Prop.computed __type __id "partner_asn";
        private_interconnect_info =
-         Prop.computed __resource_type __resource_id
-           "private_interconnect_info";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       router = Prop.computed __resource_type __resource_id "router";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       stack_type =
-         Prop.computed __resource_type __resource_id "stack_type";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       vlan_tag8021q =
-         Prop.computed __resource_type __resource_id "vlan_tag8021q";
+         Prop.computed __type __id "private_interconnect_info";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       router = Prop.computed __type __id "router";
+       self_link = Prop.computed __type __id "self_link";
+       stack_type = Prop.computed __type __id "stack_type";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
+       vlan_tag8021q = Prop.computed __type __id "vlan_tag8021q";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_interconnect_attachment
+        (google_compute_interconnect_attachment ?admin_enabled
+           ?bandwidth ?candidate_subnets ?description
+           ?edge_availability_domain ?encryption ?id ?interconnect
+           ?ipsec_internal_addresses ?mtu ?project ?region
+           ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?admin_enabled ?bandwidth ?candidate_subnets
+    ?description ?edge_availability_domain ?encryption ?id
+    ?interconnect ?ipsec_internal_addresses ?mtu ?project ?region
+    ?stack_type ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_enabled ?bandwidth ?candidate_subnets ?description
+      ?edge_availability_domain ?encryption ?id ?interconnect
+      ?ipsec_internal_addresses ?mtu ?project ?region ?stack_type
+      ?type_ ?vlan_tag8021q ?timeouts ~name ~router __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -132,3 +132,29 @@ val register :
   workflow_details:workflow_details list ->
   string ->
   t
+
+val make :
+  ?certificate:string prop ->
+  ?directory_id:string prop ->
+  ?domain:string prop ->
+  ?endpoint_type:string prop ->
+  ?force_destroy:bool prop ->
+  ?function_:string prop ->
+  ?host_key:string prop ->
+  ?id:string prop ->
+  ?identity_provider_type:string prop ->
+  ?invocation_role:string prop ->
+  ?logging_role:string prop ->
+  ?post_authentication_login_banner:string prop ->
+  ?pre_authentication_login_banner:string prop ->
+  ?protocols:string prop list ->
+  ?security_policy_name:string prop ->
+  ?structured_log_destinations:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?url:string prop ->
+  endpoint_details:endpoint_details list ->
+  protocol_details:protocol_details list ->
+  workflow_details:workflow_details list ->
+  string ->
+  t Tf_core.resource

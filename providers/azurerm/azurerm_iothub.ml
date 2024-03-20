@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cloud_to_device__feedback = {
   lock_duration : string prop option; [@option]  (** lock_duration *)
@@ -259,75 +257,78 @@ type t = {
   type_ : string prop;
 }
 
+let make ?endpoint ?enrichment ?event_hub_partition_count
+    ?event_hub_retention_in_days ?id ?local_authentication_enabled
+    ?min_tls_version ?public_network_access_enabled ?route ?tags
+    ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
+    ~fallback_route ~file_upload ~identity ~network_rule_set ~sku
+    __id =
+  let __type = "azurerm_iothub" in
+  let __attrs =
+    ({
+       endpoint = Prop.computed __type __id "endpoint";
+       enrichment = Prop.computed __type __id "enrichment";
+       event_hub_events_endpoint =
+         Prop.computed __type __id "event_hub_events_endpoint";
+       event_hub_events_namespace =
+         Prop.computed __type __id "event_hub_events_namespace";
+       event_hub_events_path =
+         Prop.computed __type __id "event_hub_events_path";
+       event_hub_operations_endpoint =
+         Prop.computed __type __id "event_hub_operations_endpoint";
+       event_hub_operations_path =
+         Prop.computed __type __id "event_hub_operations_path";
+       event_hub_partition_count =
+         Prop.computed __type __id "event_hub_partition_count";
+       event_hub_retention_in_days =
+         Prop.computed __type __id "event_hub_retention_in_days";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
+       local_authentication_enabled =
+         Prop.computed __type __id "local_authentication_enabled";
+       location = Prop.computed __type __id "location";
+       min_tls_version = Prop.computed __type __id "min_tls_version";
+       name = Prop.computed __type __id "name";
+       public_network_access_enabled =
+         Prop.computed __type __id "public_network_access_enabled";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       route = Prop.computed __type __id "route";
+       shared_access_policy =
+         Prop.computed __type __id "shared_access_policy";
+       tags = Prop.computed __type __id "tags";
+       type_ = Prop.computed __type __id "type";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub
+        (azurerm_iothub ?endpoint ?enrichment
+           ?event_hub_partition_count ?event_hub_retention_in_days
+           ?id ?local_authentication_enabled ?min_tls_version
+           ?public_network_access_enabled ?route ?tags ?timeouts
+           ~location ~name ~resource_group_name ~cloud_to_device
+           ~fallback_route ~file_upload ~identity ~network_rule_set
+           ~sku ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?endpoint ?enrichment
     ?event_hub_partition_count ?event_hub_retention_in_days ?id
     ?local_authentication_enabled ?min_tls_version
     ?public_network_access_enabled ?route ?tags ?timeouts ~location
     ~name ~resource_group_name ~cloud_to_device ~fallback_route
-    ~file_upload ~identity ~network_rule_set ~sku __resource_id =
-  let __resource_type = "azurerm_iothub" in
-  let __resource =
-    azurerm_iothub ?endpoint ?enrichment ?event_hub_partition_count
+    ~file_upload ~identity ~network_rule_set ~sku __id =
+  let (r : _ Tf_core.resource) =
+    make ?endpoint ?enrichment ?event_hub_partition_count
       ?event_hub_retention_in_days ?id ?local_authentication_enabled
       ?min_tls_version ?public_network_access_enabled ?route ?tags
       ?timeouts ~location ~name ~resource_group_name ~cloud_to_device
       ~fallback_route ~file_upload ~identity ~network_rule_set ~sku
-      ()
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub __resource);
-  let __resource_attributes =
-    ({
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       enrichment =
-         Prop.computed __resource_type __resource_id "enrichment";
-       event_hub_events_endpoint =
-         Prop.computed __resource_type __resource_id
-           "event_hub_events_endpoint";
-       event_hub_events_namespace =
-         Prop.computed __resource_type __resource_id
-           "event_hub_events_namespace";
-       event_hub_events_path =
-         Prop.computed __resource_type __resource_id
-           "event_hub_events_path";
-       event_hub_operations_endpoint =
-         Prop.computed __resource_type __resource_id
-           "event_hub_operations_endpoint";
-       event_hub_operations_path =
-         Prop.computed __resource_type __resource_id
-           "event_hub_operations_path";
-       event_hub_partition_count =
-         Prop.computed __resource_type __resource_id
-           "event_hub_partition_count";
-       event_hub_retention_in_days =
-         Prop.computed __resource_type __resource_id
-           "event_hub_retention_in_days";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
-       local_authentication_enabled =
-         Prop.computed __resource_type __resource_id
-           "local_authentication_enabled";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       min_tls_version =
-         Prop.computed __resource_type __resource_id
-           "min_tls_version";
-       name = Prop.computed __resource_type __resource_id "name";
-       public_network_access_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_network_access_enabled";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       route = Prop.computed __resource_type __resource_id "route";
-       shared_access_policy =
-         Prop.computed __resource_type __resource_id
-           "shared_access_policy";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       type_ = Prop.computed __resource_type __resource_id "type";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

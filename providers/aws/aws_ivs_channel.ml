@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -60,39 +58,45 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?authorized ?id ?latency_mode ?name
+let make ?authorized ?id ?latency_mode ?name
     ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
-    __resource_id =
-  let __resource_type = "aws_ivs_channel" in
-  let __resource =
-    aws_ivs_channel ?authorized ?id ?latency_mode ?name
-      ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ivs_channel __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "aws_ivs_channel" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       authorized =
-         Prop.computed __resource_type __resource_id "authorized";
-       id = Prop.computed __resource_type __resource_id "id";
-       ingest_endpoint =
-         Prop.computed __resource_type __resource_id
-           "ingest_endpoint";
-       latency_mode =
-         Prop.computed __resource_type __resource_id "latency_mode";
-       name = Prop.computed __resource_type __resource_id "name";
-       playback_url =
-         Prop.computed __resource_type __resource_id "playback_url";
+       arn = Prop.computed __type __id "arn";
+       authorized = Prop.computed __type __id "authorized";
+       id = Prop.computed __type __id "id";
+       ingest_endpoint = Prop.computed __type __id "ingest_endpoint";
+       latency_mode = Prop.computed __type __id "latency_mode";
+       name = Prop.computed __type __id "name";
+       playback_url = Prop.computed __type __id "playback_url";
        recording_configuration_arn =
-         Prop.computed __resource_type __resource_id
-           "recording_configuration_arn";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "recording_configuration_arn";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ivs_channel
+        (aws_ivs_channel ?authorized ?id ?latency_mode ?name
+           ?recording_configuration_arn ?tags ?tags_all ?type_
+           ?timeouts ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authorized ?id ?latency_mode ?name
+    ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?authorized ?id ?latency_mode ?name
+      ?recording_configuration_arn ?tags ?tags_all ?type_ ?timeouts
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

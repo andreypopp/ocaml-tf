@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
@@ -146,6 +144,75 @@ type t = {
   vpc_endpoint_dns_name : string prop;
 }
 
+let make ?access_based_enumeration ?admin_user_list
+    ?audit_destination_arn ?authentication ?bucket_region
+    ?case_sensitivity ?default_storage_class ?file_share_name
+    ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
+    ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
+    ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
+    ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
+    ~location_arn ~role_arn ~cache_attributes __id =
+  let __type = "aws_storagegateway_smb_file_share" in
+  let __attrs =
+    ({
+       access_based_enumeration =
+         Prop.computed __type __id "access_based_enumeration";
+       admin_user_list = Prop.computed __type __id "admin_user_list";
+       arn = Prop.computed __type __id "arn";
+       audit_destination_arn =
+         Prop.computed __type __id "audit_destination_arn";
+       authentication = Prop.computed __type __id "authentication";
+       bucket_region = Prop.computed __type __id "bucket_region";
+       case_sensitivity =
+         Prop.computed __type __id "case_sensitivity";
+       default_storage_class =
+         Prop.computed __type __id "default_storage_class";
+       file_share_name = Prop.computed __type __id "file_share_name";
+       fileshare_id = Prop.computed __type __id "fileshare_id";
+       gateway_arn = Prop.computed __type __id "gateway_arn";
+       guess_mime_type_enabled =
+         Prop.computed __type __id "guess_mime_type_enabled";
+       id = Prop.computed __type __id "id";
+       invalid_user_list =
+         Prop.computed __type __id "invalid_user_list";
+       kms_encrypted = Prop.computed __type __id "kms_encrypted";
+       kms_key_arn = Prop.computed __type __id "kms_key_arn";
+       location_arn = Prop.computed __type __id "location_arn";
+       notification_policy =
+         Prop.computed __type __id "notification_policy";
+       object_acl = Prop.computed __type __id "object_acl";
+       oplocks_enabled = Prop.computed __type __id "oplocks_enabled";
+       path = Prop.computed __type __id "path";
+       read_only = Prop.computed __type __id "read_only";
+       requester_pays = Prop.computed __type __id "requester_pays";
+       role_arn = Prop.computed __type __id "role_arn";
+       smb_acl_enabled = Prop.computed __type __id "smb_acl_enabled";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       valid_user_list = Prop.computed __type __id "valid_user_list";
+       vpc_endpoint_dns_name =
+         Prop.computed __type __id "vpc_endpoint_dns_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_storagegateway_smb_file_share
+        (aws_storagegateway_smb_file_share ?access_based_enumeration
+           ?admin_user_list ?audit_destination_arn ?authentication
+           ?bucket_region ?case_sensitivity ?default_storage_class
+           ?file_share_name ?guess_mime_type_enabled ?id
+           ?invalid_user_list ?kms_encrypted ?kms_key_arn
+           ?notification_policy ?object_acl ?oplocks_enabled
+           ?read_only ?requester_pays ?smb_acl_enabled ?tags
+           ?tags_all ?valid_user_list ?vpc_endpoint_dns_name
+           ?timeouts ~gateway_arn ~location_arn ~role_arn
+           ~cache_attributes ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?access_based_enumeration ?admin_user_list
     ?audit_destination_arn ?authentication ?bucket_region
     ?case_sensitivity ?default_storage_class ?file_share_name
@@ -153,91 +220,16 @@ let register ?tf_module ?access_based_enumeration ?admin_user_list
     ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
     ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
     ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
-    ~location_arn ~role_arn ~cache_attributes __resource_id =
-  let __resource_type = "aws_storagegateway_smb_file_share" in
-  let __resource =
-    aws_storagegateway_smb_file_share ?access_based_enumeration
-      ?admin_user_list ?audit_destination_arn ?authentication
-      ?bucket_region ?case_sensitivity ?default_storage_class
-      ?file_share_name ?guess_mime_type_enabled ?id
-      ?invalid_user_list ?kms_encrypted ?kms_key_arn
-      ?notification_policy ?object_acl ?oplocks_enabled ?read_only
-      ?requester_pays ?smb_acl_enabled ?tags ?tags_all
+    ~location_arn ~role_arn ~cache_attributes __id =
+  let (r : _ Tf_core.resource) =
+    make ?access_based_enumeration ?admin_user_list
+      ?audit_destination_arn ?authentication ?bucket_region
+      ?case_sensitivity ?default_storage_class ?file_share_name
+      ?guess_mime_type_enabled ?id ?invalid_user_list ?kms_encrypted
+      ?kms_key_arn ?notification_policy ?object_acl ?oplocks_enabled
+      ?read_only ?requester_pays ?smb_acl_enabled ?tags ?tags_all
       ?valid_user_list ?vpc_endpoint_dns_name ?timeouts ~gateway_arn
-      ~location_arn ~role_arn ~cache_attributes ()
+      ~location_arn ~role_arn ~cache_attributes __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_storagegateway_smb_file_share __resource);
-  let __resource_attributes =
-    ({
-       access_based_enumeration =
-         Prop.computed __resource_type __resource_id
-           "access_based_enumeration";
-       admin_user_list =
-         Prop.computed __resource_type __resource_id
-           "admin_user_list";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       audit_destination_arn =
-         Prop.computed __resource_type __resource_id
-           "audit_destination_arn";
-       authentication =
-         Prop.computed __resource_type __resource_id "authentication";
-       bucket_region =
-         Prop.computed __resource_type __resource_id "bucket_region";
-       case_sensitivity =
-         Prop.computed __resource_type __resource_id
-           "case_sensitivity";
-       default_storage_class =
-         Prop.computed __resource_type __resource_id
-           "default_storage_class";
-       file_share_name =
-         Prop.computed __resource_type __resource_id
-           "file_share_name";
-       fileshare_id =
-         Prop.computed __resource_type __resource_id "fileshare_id";
-       gateway_arn =
-         Prop.computed __resource_type __resource_id "gateway_arn";
-       guess_mime_type_enabled =
-         Prop.computed __resource_type __resource_id
-           "guess_mime_type_enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       invalid_user_list =
-         Prop.computed __resource_type __resource_id
-           "invalid_user_list";
-       kms_encrypted =
-         Prop.computed __resource_type __resource_id "kms_encrypted";
-       kms_key_arn =
-         Prop.computed __resource_type __resource_id "kms_key_arn";
-       location_arn =
-         Prop.computed __resource_type __resource_id "location_arn";
-       notification_policy =
-         Prop.computed __resource_type __resource_id
-           "notification_policy";
-       object_acl =
-         Prop.computed __resource_type __resource_id "object_acl";
-       oplocks_enabled =
-         Prop.computed __resource_type __resource_id
-           "oplocks_enabled";
-       path = Prop.computed __resource_type __resource_id "path";
-       read_only =
-         Prop.computed __resource_type __resource_id "read_only";
-       requester_pays =
-         Prop.computed __resource_type __resource_id "requester_pays";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
-       smb_acl_enabled =
-         Prop.computed __resource_type __resource_id
-           "smb_acl_enabled";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       valid_user_list =
-         Prop.computed __resource_type __resource_id
-           "valid_user_list";
-       vpc_endpoint_dns_name =
-         Prop.computed __resource_type __resource_id
-           "vpc_endpoint_dns_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

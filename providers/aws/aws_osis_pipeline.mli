@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -93,3 +93,17 @@ val register :
   vpc_options:vpc_options list ->
   string ->
   t
+
+val make :
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  max_units:float prop ->
+  min_units:float prop ->
+  pipeline_configuration_body:string prop ->
+  pipeline_name:string prop ->
+  buffer_options:buffer_options list ->
+  encryption_at_rest_options:encryption_at_rest_options list ->
+  log_publishing_options:log_publishing_options list ->
+  vpc_options:vpc_options list ->
+  string ->
+  t Tf_core.resource

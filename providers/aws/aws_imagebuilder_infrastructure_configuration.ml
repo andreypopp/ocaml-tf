@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type instance_metadata_options = {
   http_put_response_hop_limit : float prop option; [@option]
@@ -101,58 +99,59 @@ type t = {
   terminate_instance_on_failure : bool prop;
 }
 
+let make ?description ?id ?instance_types ?key_pair ?resource_tags
+    ?security_group_ids ?sns_topic_arn ?subnet_id ?tags ?tags_all
+    ?terminate_instance_on_failure ~instance_profile_name ~name
+    ~instance_metadata_options ~logging __id =
+  let __type = "aws_imagebuilder_infrastructure_configuration" in
+  let __attrs =
+    ({
+       arn = Prop.computed __type __id "arn";
+       date_created = Prop.computed __type __id "date_created";
+       date_updated = Prop.computed __type __id "date_updated";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       instance_profile_name =
+         Prop.computed __type __id "instance_profile_name";
+       instance_types = Prop.computed __type __id "instance_types";
+       key_pair = Prop.computed __type __id "key_pair";
+       name = Prop.computed __type __id "name";
+       resource_tags = Prop.computed __type __id "resource_tags";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       sns_topic_arn = Prop.computed __type __id "sns_topic_arn";
+       subnet_id = Prop.computed __type __id "subnet_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       terminate_instance_on_failure =
+         Prop.computed __type __id "terminate_instance_on_failure";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_imagebuilder_infrastructure_configuration
+        (aws_imagebuilder_infrastructure_configuration ?description
+           ?id ?instance_types ?key_pair ?resource_tags
+           ?security_group_ids ?sns_topic_arn ?subnet_id ?tags
+           ?tags_all ?terminate_instance_on_failure
+           ~instance_profile_name ~name ~instance_metadata_options
+           ~logging ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?description ?id ?instance_types ?key_pair
     ?resource_tags ?security_group_ids ?sns_topic_arn ?subnet_id
     ?tags ?tags_all ?terminate_instance_on_failure
     ~instance_profile_name ~name ~instance_metadata_options ~logging
-    __resource_id =
-  let __resource_type =
-    "aws_imagebuilder_infrastructure_configuration"
-  in
-  let __resource =
-    aws_imagebuilder_infrastructure_configuration ?description ?id
-      ?instance_types ?key_pair ?resource_tags ?security_group_ids
-      ?sns_topic_arn ?subnet_id ?tags ?tags_all
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?instance_types ?key_pair ?resource_tags
+      ?security_group_ids ?sns_topic_arn ?subnet_id ?tags ?tags_all
       ?terminate_instance_on_failure ~instance_profile_name ~name
-      ~instance_metadata_options ~logging ()
+      ~instance_metadata_options ~logging __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_imagebuilder_infrastructure_configuration
-       __resource);
-  let __resource_attributes =
-    ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       date_created =
-         Prop.computed __resource_type __resource_id "date_created";
-       date_updated =
-         Prop.computed __resource_type __resource_id "date_updated";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_profile_name =
-         Prop.computed __resource_type __resource_id
-           "instance_profile_name";
-       instance_types =
-         Prop.computed __resource_type __resource_id "instance_types";
-       key_pair =
-         Prop.computed __resource_type __resource_id "key_pair";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_tags =
-         Prop.computed __resource_type __resource_id "resource_tags";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       sns_topic_arn =
-         Prop.computed __resource_type __resource_id "sns_topic_arn";
-       subnet_id =
-         Prop.computed __resource_type __resource_id "subnet_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       terminate_instance_on_failure =
-         Prop.computed __resource_type __resource_id
-           "terminate_instance_on_failure";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ec2_local_gateway_route_table_vpc_association = {
   id : string prop option; [@option]  (** id *)
@@ -30,32 +28,37 @@ type t = {
   vpc_id : string prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all
-    ~local_gateway_route_table_id ~vpc_id __resource_id =
-  let __resource_type =
-    "aws_ec2_local_gateway_route_table_vpc_association"
-  in
-  let __resource =
-    aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
-      ?tags_all ~local_gateway_route_table_id ~vpc_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ec2_local_gateway_route_table_vpc_association
-       __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ~local_gateway_route_table_id ~vpc_id
+    __id =
+  let __type = "aws_ec2_local_gateway_route_table_vpc_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        local_gateway_id =
-         Prop.computed __resource_type __resource_id
-           "local_gateway_id";
+         Prop.computed __type __id "local_gateway_id";
        local_gateway_route_table_id =
-         Prop.computed __resource_type __resource_id
-           "local_gateway_route_table_id";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
+         Prop.computed __type __id "local_gateway_route_table_id";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       vpc_id = Prop.computed __type __id "vpc_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ec2_local_gateway_route_table_vpc_association
+        (aws_ec2_local_gateway_route_table_vpc_association ?id ?tags
+           ?tags_all ~local_gateway_route_table_id ~vpc_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all
+    ~local_gateway_route_table_id ~vpc_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ~local_gateway_route_table_id ~vpc_id
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

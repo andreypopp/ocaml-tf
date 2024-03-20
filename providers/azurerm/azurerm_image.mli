@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,18 @@ val register :
   os_disk:os_disk list ->
   string ->
   t
+
+val make :
+  ?hyper_v_generation:string prop ->
+  ?id:string prop ->
+  ?source_virtual_machine_id:string prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_resilient:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  data_disk:data_disk list ->
+  os_disk:os_disk list ->
+  string ->
+  t Tf_core.resource

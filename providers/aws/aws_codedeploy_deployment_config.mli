@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -70,3 +70,12 @@ val register :
   traffic_routing_config:traffic_routing_config list ->
   string ->
   t
+
+val make :
+  ?compute_platform:string prop ->
+  ?id:string prop ->
+  deployment_config_name:string prop ->
+  minimum_healthy_hosts:minimum_healthy_hosts list ->
+  traffic_routing_config:traffic_routing_config list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -34,22 +32,29 @@ type t = {
   id : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~api_id ~gateway_id
-    __resource_id =
-  let __resource_type = "azurerm_api_management_gateway_api" in
-  let __resource =
-    azurerm_api_management_gateway_api ?id ?timeouts ~api_id
-      ~gateway_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_api_management_gateway_api __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~api_id ~gateway_id __id =
+  let __type = "azurerm_api_management_gateway_api" in
+  let __attrs =
     ({
-       api_id = Prop.computed __resource_type __resource_id "api_id";
-       gateway_id =
-         Prop.computed __resource_type __resource_id "gateway_id";
-       id = Prop.computed __resource_type __resource_id "id";
+       api_id = Prop.computed __type __id "api_id";
+       gateway_id = Prop.computed __type __id "gateway_id";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_api_management_gateway_api
+        (azurerm_api_management_gateway_api ?id ?timeouts ~api_id
+           ~gateway_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~api_id ~gateway_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~api_id ~gateway_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

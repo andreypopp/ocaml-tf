@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -66,3 +66,18 @@ val register :
   sns_topic_arn:string prop ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?event_categories:string prop list ->
+  ?id:string prop ->
+  ?severity:string prop ->
+  ?source_ids:string prop list ->
+  ?source_type:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  sns_topic_arn:string prop ->
+  string ->
+  t Tf_core.resource

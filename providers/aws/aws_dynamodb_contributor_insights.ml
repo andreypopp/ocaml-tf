@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -32,23 +30,29 @@ type t = {
   table_name : string prop;
 }
 
-let register ?tf_module ?id ?index_name ?timeouts ~table_name
-    __resource_id =
-  let __resource_type = "aws_dynamodb_contributor_insights" in
-  let __resource =
-    aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
-      ~table_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_dynamodb_contributor_insights __resource);
-  let __resource_attributes =
+let make ?id ?index_name ?timeouts ~table_name __id =
+  let __type = "aws_dynamodb_contributor_insights" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       index_name =
-         Prop.computed __resource_type __resource_id "index_name";
-       table_name =
-         Prop.computed __resource_type __resource_id "table_name";
+       id = Prop.computed __type __id "id";
+       index_name = Prop.computed __type __id "index_name";
+       table_name = Prop.computed __type __id "table_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_dynamodb_contributor_insights
+        (aws_dynamodb_contributor_insights ?id ?index_name ?timeouts
+           ~table_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?index_name ?timeouts ~table_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?index_name ?timeouts ~table_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

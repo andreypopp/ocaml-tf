@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action = {
   type_ : string prop; [@key "type"]
@@ -48,25 +46,32 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?enabled ?id ~name ~zone_id ~action ~matcher
-    __resource_id =
-  let __resource_type = "cloudflare_email_routing_catch_all" in
-  let __resource =
-    cloudflare_email_routing_catch_all ?enabled ?id ~name ~zone_id
-      ~action ~matcher ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_email_routing_catch_all __resource);
-  let __resource_attributes =
+let make ?enabled ?id ~name ~zone_id ~action ~matcher __id =
+  let __type = "cloudflare_email_routing_catch_all" in
+  let __attrs =
     ({
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       tag = Prop.computed __resource_type __resource_id "tag";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+       enabled = Prop.computed __type __id "enabled";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       tag = Prop.computed __type __id "tag";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_email_routing_catch_all
+        (cloudflare_email_routing_catch_all ?enabled ?id ~name
+           ~zone_id ~action ~matcher ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?enabled ?id ~name ~zone_id ~action ~matcher
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?enabled ?id ~name ~zone_id ~action ~matcher __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

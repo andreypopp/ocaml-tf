@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -120,3 +120,21 @@ val register :
   replica:replica list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?local_auth_enabled:bool prop ->
+  ?public_network_access:string prop ->
+  ?purge_protection_enabled:bool prop ->
+  ?sku:string prop ->
+  ?soft_delete_retention_days:float prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  encryption:encryption list ->
+  identity:identity list ->
+  replica:replica list ->
+  string ->
+  t Tf_core.resource

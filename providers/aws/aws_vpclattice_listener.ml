@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type default_action__fixed_response = {
   status_code : float prop;  (** status_code *)
@@ -105,41 +103,43 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?port ?service_arn ?service_identifier
-    ?tags ?tags_all ?timeouts ~name ~protocol ~default_action
-    __resource_id =
-  let __resource_type = "aws_vpclattice_listener" in
-  let __resource =
-    aws_vpclattice_listener ?id ?port ?service_arn
-      ?service_identifier ?tags ?tags_all ?timeouts ~name ~protocol
-      ~default_action ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_listener __resource);
-  let __resource_attributes =
+let make ?id ?port ?service_arn ?service_identifier ?tags ?tags_all
+    ?timeouts ~name ~protocol ~default_action __id =
+  let __type = "aws_vpclattice_listener" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       created_at =
-         Prop.computed __resource_type __resource_id "created_at";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_updated_at =
-         Prop.computed __resource_type __resource_id
-           "last_updated_at";
-       listener_id =
-         Prop.computed __resource_type __resource_id "listener_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       port = Prop.computed __resource_type __resource_id "port";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       service_arn =
-         Prop.computed __resource_type __resource_id "service_arn";
+       arn = Prop.computed __type __id "arn";
+       created_at = Prop.computed __type __id "created_at";
+       id = Prop.computed __type __id "id";
+       last_updated_at = Prop.computed __type __id "last_updated_at";
+       listener_id = Prop.computed __type __id "listener_id";
+       name = Prop.computed __type __id "name";
+       port = Prop.computed __type __id "port";
+       protocol = Prop.computed __type __id "protocol";
+       service_arn = Prop.computed __type __id "service_arn";
        service_identifier =
-         Prop.computed __resource_type __resource_id
-           "service_identifier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "service_identifier";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_listener
+        (aws_vpclattice_listener ?id ?port ?service_arn
+           ?service_identifier ?tags ?tags_all ?timeouts ~name
+           ~protocol ~default_action ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?port ?service_arn ?service_identifier
+    ?tags ?tags_all ?timeouts ~name ~protocol ~default_action __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?port ?service_arn ?service_identifier ?tags ?tags_all
+      ?timeouts ~name ~protocol ~default_action __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

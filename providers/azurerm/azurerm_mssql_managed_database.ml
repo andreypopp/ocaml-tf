@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type long_term_retention_policy = {
   immutable_backups_enabled : bool prop option; [@option]
@@ -85,28 +83,40 @@ type t = {
   short_term_retention_days : float prop;
 }
 
-let register ?tf_module ?id ?short_term_retention_days ?timeouts
+let make ?id ?short_term_retention_days ?timeouts
     ~managed_instance_id ~name ~long_term_retention_policy
-    ~point_in_time_restore __resource_id =
-  let __resource_type = "azurerm_mssql_managed_database" in
-  let __resource =
-    azurerm_mssql_managed_database ?id ?short_term_retention_days
-      ?timeouts ~managed_instance_id ~name
-      ~long_term_retention_policy ~point_in_time_restore ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_mssql_managed_database __resource);
-  let __resource_attributes =
+    ~point_in_time_restore __id =
+  let __type = "azurerm_mssql_managed_database" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        managed_instance_id =
-         Prop.computed __resource_type __resource_id
-           "managed_instance_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "managed_instance_id";
+       name = Prop.computed __type __id "name";
        short_term_retention_days =
-         Prop.computed __resource_type __resource_id
-           "short_term_retention_days";
+         Prop.computed __type __id "short_term_retention_days";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_mssql_managed_database
+        (azurerm_mssql_managed_database ?id
+           ?short_term_retention_days ?timeouts ~managed_instance_id
+           ~name ~long_term_retention_policy ~point_in_time_restore
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?short_term_retention_days ?timeouts
+    ~managed_instance_id ~name ~long_term_retention_policy
+    ~point_in_time_restore __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?short_term_retention_days ?timeouts
+      ~managed_instance_id ~name ~long_term_retention_policy
+      ~point_in_time_restore __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

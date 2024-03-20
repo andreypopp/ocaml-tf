@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -488,3 +488,29 @@ val register :
   upgrade_policy:upgrade_policy list ->
   string ->
   t
+
+val make :
+  ?annotations:(string * string prop) list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  admin_cluster_membership:string prop ->
+  bare_metal_version:string prop ->
+  location:string prop ->
+  name:string prop ->
+  binary_authorization:binary_authorization list ->
+  cluster_operations:cluster_operations list ->
+  control_plane:control_plane list ->
+  load_balancer:load_balancer list ->
+  maintenance_config:maintenance_config list ->
+  network_config:network_config list ->
+  node_access_config:node_access_config list ->
+  node_config:node_config list ->
+  os_environment_config:os_environment_config list ->
+  proxy:proxy list ->
+  security_config:security_config list ->
+  storage:storage list ->
+  upgrade_policy:upgrade_policy list ->
+  string ->
+  t Tf_core.resource

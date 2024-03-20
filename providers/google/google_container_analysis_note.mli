@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,17 @@ val register :
   related_url:related_url list ->
   string ->
   t
+
+val make :
+  ?expiration_time:string prop ->
+  ?id:string prop ->
+  ?long_description:string prop ->
+  ?project:string prop ->
+  ?related_note_names:string prop list ->
+  ?short_description:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  attestation_authority:attestation_authority list ->
+  related_url:related_url list ->
+  string ->
+  t Tf_core.resource

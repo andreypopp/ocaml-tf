@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,34 +49,41 @@ type t = {
   volume_id : string prop;
 }
 
-let register ?tf_module ?force_detach ?id ?skip_destroy
+let make ?force_detach ?id ?skip_destroy
     ?stop_instance_before_detaching ?timeouts ~device_name
-    ~instance_id ~volume_id __resource_id =
-  let __resource_type = "aws_volume_attachment" in
-  let __resource =
-    aws_volume_attachment ?force_detach ?id ?skip_destroy
-      ?stop_instance_before_detaching ?timeouts ~device_name
-      ~instance_id ~volume_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_volume_attachment __resource);
-  let __resource_attributes =
+    ~instance_id ~volume_id __id =
+  let __type = "aws_volume_attachment" in
+  let __attrs =
     ({
-       device_name =
-         Prop.computed __resource_type __resource_id "device_name";
-       force_detach =
-         Prop.computed __resource_type __resource_id "force_detach";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_id =
-         Prop.computed __resource_type __resource_id "instance_id";
-       skip_destroy =
-         Prop.computed __resource_type __resource_id "skip_destroy";
+       device_name = Prop.computed __type __id "device_name";
+       force_detach = Prop.computed __type __id "force_detach";
+       id = Prop.computed __type __id "id";
+       instance_id = Prop.computed __type __id "instance_id";
+       skip_destroy = Prop.computed __type __id "skip_destroy";
        stop_instance_before_detaching =
-         Prop.computed __resource_type __resource_id
-           "stop_instance_before_detaching";
-       volume_id =
-         Prop.computed __resource_type __resource_id "volume_id";
+         Prop.computed __type __id "stop_instance_before_detaching";
+       volume_id = Prop.computed __type __id "volume_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_volume_attachment
+        (aws_volume_attachment ?force_detach ?id ?skip_destroy
+           ?stop_instance_before_detaching ?timeouts ~device_name
+           ~instance_id ~volume_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?force_detach ?id ?skip_destroy
+    ?stop_instance_before_detaching ?timeouts ~device_name
+    ~instance_id ~volume_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?force_detach ?id ?skip_destroy
+      ?stop_instance_before_detaching ?timeouts ~device_name
+      ~instance_id ~volume_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

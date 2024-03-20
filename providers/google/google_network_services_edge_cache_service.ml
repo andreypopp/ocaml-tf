@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type log_config = {
   enable : bool prop option; [@option]
@@ -787,55 +785,56 @@ type t = {
   terraform_labels : (string * string) list prop;
 }
 
-let register ?tf_module ?description ?disable_http2 ?disable_quic
+let make ?description ?disable_http2 ?disable_quic
     ?edge_security_policy ?edge_ssl_certificates ?id ?labels ?project
     ?require_tls ?ssl_policy ?timeouts ~name ~log_config ~routing
-    __resource_id =
-  let __resource_type =
-    "google_network_services_edge_cache_service"
-  in
-  let __resource =
-    google_network_services_edge_cache_service ?description
-      ?disable_http2 ?disable_quic ?edge_security_policy
-      ?edge_ssl_certificates ?id ?labels ?project ?require_tls
-      ?ssl_policy ?timeouts ~name ~log_config ~routing ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_services_edge_cache_service __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "google_network_services_edge_cache_service" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       disable_http2 =
-         Prop.computed __resource_type __resource_id "disable_http2";
-       disable_quic =
-         Prop.computed __resource_type __resource_id "disable_quic";
+       description = Prop.computed __type __id "description";
+       disable_http2 = Prop.computed __type __id "disable_http2";
+       disable_quic = Prop.computed __type __id "disable_quic";
        edge_security_policy =
-         Prop.computed __resource_type __resource_id
-           "edge_security_policy";
+         Prop.computed __type __id "edge_security_policy";
        edge_ssl_certificates =
-         Prop.computed __resource_type __resource_id
-           "edge_ssl_certificates";
+         Prop.computed __type __id "edge_ssl_certificates";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
-       id = Prop.computed __resource_type __resource_id "id";
-       ipv4_addresses =
-         Prop.computed __resource_type __resource_id "ipv4_addresses";
-       ipv6_addresses =
-         Prop.computed __resource_type __resource_id "ipv6_addresses";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       require_tls =
-         Prop.computed __resource_type __resource_id "require_tls";
-       ssl_policy =
-         Prop.computed __resource_type __resource_id "ssl_policy";
+         Prop.computed __type __id "effective_labels";
+       id = Prop.computed __type __id "id";
+       ipv4_addresses = Prop.computed __type __id "ipv4_addresses";
+       ipv6_addresses = Prop.computed __type __id "ipv6_addresses";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       require_tls = Prop.computed __type __id "require_tls";
+       ssl_policy = Prop.computed __type __id "ssl_policy";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
+         Prop.computed __type __id "terraform_labels";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_services_edge_cache_service
+        (google_network_services_edge_cache_service ?description
+           ?disable_http2 ?disable_quic ?edge_security_policy
+           ?edge_ssl_certificates ?id ?labels ?project ?require_tls
+           ?ssl_policy ?timeouts ~name ~log_config ~routing ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?disable_http2 ?disable_quic
+    ?edge_security_policy ?edge_ssl_certificates ?id ?labels ?project
+    ?require_tls ?ssl_policy ?timeouts ~name ~log_config ~routing
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?disable_http2 ?disable_quic
+      ?edge_security_policy ?edge_ssl_certificates ?id ?labels
+      ?project ?require_tls ?ssl_policy ?timeouts ~name ~log_config
+      ~routing __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

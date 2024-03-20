@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_cur_report_definition = {
   additional_artifacts : string prop list option; [@option]
@@ -60,49 +58,54 @@ type t = {
   time_unit : string prop;
 }
 
-let register ?tf_module ?additional_artifacts ?id
-    ?refresh_closed_reports ?report_versioning ?s3_prefix
-    ~additional_schema_elements ~compression ~format ~report_name
-    ~s3_bucket ~s3_region ~time_unit __resource_id =
-  let __resource_type = "aws_cur_report_definition" in
-  let __resource =
-    aws_cur_report_definition ?additional_artifacts ?id
-      ?refresh_closed_reports ?report_versioning ?s3_prefix
-      ~additional_schema_elements ~compression ~format ~report_name
-      ~s3_bucket ~s3_region ~time_unit ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cur_report_definition __resource);
-  let __resource_attributes =
+let make ?additional_artifacts ?id ?refresh_closed_reports
+    ?report_versioning ?s3_prefix ~additional_schema_elements
+    ~compression ~format ~report_name ~s3_bucket ~s3_region
+    ~time_unit __id =
+  let __type = "aws_cur_report_definition" in
+  let __attrs =
     ({
        additional_artifacts =
-         Prop.computed __resource_type __resource_id
-           "additional_artifacts";
+         Prop.computed __type __id "additional_artifacts";
        additional_schema_elements =
-         Prop.computed __resource_type __resource_id
-           "additional_schema_elements";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       compression =
-         Prop.computed __resource_type __resource_id "compression";
-       format = Prop.computed __resource_type __resource_id "format";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "additional_schema_elements";
+       arn = Prop.computed __type __id "arn";
+       compression = Prop.computed __type __id "compression";
+       format = Prop.computed __type __id "format";
+       id = Prop.computed __type __id "id";
        refresh_closed_reports =
-         Prop.computed __resource_type __resource_id
-           "refresh_closed_reports";
-       report_name =
-         Prop.computed __resource_type __resource_id "report_name";
+         Prop.computed __type __id "refresh_closed_reports";
+       report_name = Prop.computed __type __id "report_name";
        report_versioning =
-         Prop.computed __resource_type __resource_id
-           "report_versioning";
-       s3_bucket =
-         Prop.computed __resource_type __resource_id "s3_bucket";
-       s3_prefix =
-         Prop.computed __resource_type __resource_id "s3_prefix";
-       s3_region =
-         Prop.computed __resource_type __resource_id "s3_region";
-       time_unit =
-         Prop.computed __resource_type __resource_id "time_unit";
+         Prop.computed __type __id "report_versioning";
+       s3_bucket = Prop.computed __type __id "s3_bucket";
+       s3_prefix = Prop.computed __type __id "s3_prefix";
+       s3_region = Prop.computed __type __id "s3_region";
+       time_unit = Prop.computed __type __id "time_unit";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cur_report_definition
+        (aws_cur_report_definition ?additional_artifacts ?id
+           ?refresh_closed_reports ?report_versioning ?s3_prefix
+           ~additional_schema_elements ~compression ~format
+           ~report_name ~s3_bucket ~s3_region ~time_unit ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?additional_artifacts ?id
+    ?refresh_closed_reports ?report_versioning ?s3_prefix
+    ~additional_schema_elements ~compression ~format ~report_name
+    ~s3_bucket ~s3_region ~time_unit __id =
+  let (r : _ Tf_core.resource) =
+    make ?additional_artifacts ?id ?refresh_closed_reports
+      ?report_versioning ?s3_prefix ~additional_schema_elements
+      ~compression ~format ~report_name ~s3_bucket ~s3_region
+      ~time_unit __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

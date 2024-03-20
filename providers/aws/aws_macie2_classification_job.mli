@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -296,3 +296,20 @@ val register :
   schedule_frequency:schedule_frequency list ->
   string ->
   t
+
+val make :
+  ?custom_data_identifier_ids:string prop list ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?initial_run:bool prop ->
+  ?job_status:string prop ->
+  ?name:string prop ->
+  ?name_prefix:string prop ->
+  ?sampling_percentage:float prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  job_type:string prop ->
+  s3_job_definition:s3_job_definition list ->
+  schedule_frequency:schedule_frequency list ->
+  string ->
+  t Tf_core.resource

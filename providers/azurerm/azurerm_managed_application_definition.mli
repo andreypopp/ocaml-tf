@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -80,3 +80,21 @@ val register :
   authorization:authorization list ->
   string ->
   t
+
+val make :
+  ?create_ui_definition:string prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?main_template:string prop ->
+  ?package_enabled:bool prop ->
+  ?package_file_uri:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  display_name:string prop ->
+  location:string prop ->
+  lock_level:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  authorization:authorization list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type route = {
   address_prefixes : string prop list;  (** address_prefixes *)
@@ -83,50 +81,55 @@ type t = {
   virtual_wan_id : string prop;
 }
 
-let register ?tf_module ?address_prefix ?hub_routing_preference ?id
-    ?sku ?tags ?virtual_router_auto_scale_min_capacity
-    ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
-    ~route __resource_id =
-  let __resource_type = "azurerm_virtual_hub" in
-  let __resource =
-    azurerm_virtual_hub ?address_prefix ?hub_routing_preference ?id
-      ?sku ?tags ?virtual_router_auto_scale_min_capacity
-      ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
-      ~route ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_virtual_hub __resource);
-  let __resource_attributes =
+let make ?address_prefix ?hub_routing_preference ?id ?sku ?tags
+    ?virtual_router_auto_scale_min_capacity ?virtual_wan_id ?timeouts
+    ~location ~name ~resource_group_name ~route __id =
+  let __type = "azurerm_virtual_hub" in
+  let __attrs =
     ({
-       address_prefix =
-         Prop.computed __resource_type __resource_id "address_prefix";
+       address_prefix = Prop.computed __type __id "address_prefix";
        default_route_table_id =
-         Prop.computed __resource_type __resource_id
-           "default_route_table_id";
+         Prop.computed __type __id "default_route_table_id";
        hub_routing_preference =
-         Prop.computed __resource_type __resource_id
-           "hub_routing_preference";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "hub_routing_preference";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       sku = Prop.computed __resource_type __resource_id "sku";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       sku = Prop.computed __type __id "sku";
+       tags = Prop.computed __type __id "tags";
        virtual_router_asn =
-         Prop.computed __resource_type __resource_id
-           "virtual_router_asn";
+         Prop.computed __type __id "virtual_router_asn";
        virtual_router_auto_scale_min_capacity =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "virtual_router_auto_scale_min_capacity";
        virtual_router_ips =
-         Prop.computed __resource_type __resource_id
-           "virtual_router_ips";
-       virtual_wan_id =
-         Prop.computed __resource_type __resource_id "virtual_wan_id";
+         Prop.computed __type __id "virtual_router_ips";
+       virtual_wan_id = Prop.computed __type __id "virtual_wan_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_virtual_hub
+        (azurerm_virtual_hub ?address_prefix ?hub_routing_preference
+           ?id ?sku ?tags ?virtual_router_auto_scale_min_capacity
+           ?virtual_wan_id ?timeouts ~location ~name
+           ~resource_group_name ~route ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?address_prefix ?hub_routing_preference ?id
+    ?sku ?tags ?virtual_router_auto_scale_min_capacity
+    ?virtual_wan_id ?timeouts ~location ~name ~resource_group_name
+    ~route __id =
+  let (r : _ Tf_core.resource) =
+    make ?address_prefix ?hub_routing_preference ?id ?sku ?tags
+      ?virtual_router_auto_scale_min_capacity ?virtual_wan_id
+      ?timeouts ~location ~name ~resource_group_name ~route __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

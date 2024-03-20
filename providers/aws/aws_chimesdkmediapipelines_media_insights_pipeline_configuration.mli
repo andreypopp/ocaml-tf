@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -217,3 +217,14 @@ val register :
   real_time_alert_configuration:real_time_alert_configuration list ->
   string ->
   t
+
+val make :
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_access_role_arn:string prop ->
+  elements:elements list ->
+  real_time_alert_configuration:real_time_alert_configuration list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -74,46 +72,51 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?authentication_mode ?id ?max_batch_count
-    ?max_writer_count ?password ?user ?timeouts ~database ~name
-    ~resource_group_name ~server ~stream_analytics_job_name ~table
-    __resource_id =
-  let __resource_type = "azurerm_stream_analytics_output_mssql" in
-  let __resource =
-    azurerm_stream_analytics_output_mssql ?authentication_mode ?id
-      ?max_batch_count ?max_writer_count ?password ?user ?timeouts
-      ~database ~name ~resource_group_name ~server
-      ~stream_analytics_job_name ~table ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_stream_analytics_output_mssql __resource);
-  let __resource_attributes =
+let make ?authentication_mode ?id ?max_batch_count ?max_writer_count
+    ?password ?user ?timeouts ~database ~name ~resource_group_name
+    ~server ~stream_analytics_job_name ~table __id =
+  let __type = "azurerm_stream_analytics_output_mssql" in
+  let __attrs =
     ({
        authentication_mode =
-         Prop.computed __resource_type __resource_id
-           "authentication_mode";
-       database =
-         Prop.computed __resource_type __resource_id "database";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_batch_count =
-         Prop.computed __resource_type __resource_id
-           "max_batch_count";
+         Prop.computed __type __id "authentication_mode";
+       database = Prop.computed __type __id "database";
+       id = Prop.computed __type __id "id";
+       max_batch_count = Prop.computed __type __id "max_batch_count";
        max_writer_count =
-         Prop.computed __resource_type __resource_id
-           "max_writer_count";
-       name = Prop.computed __resource_type __resource_id "name";
-       password =
-         Prop.computed __resource_type __resource_id "password";
+         Prop.computed __type __id "max_writer_count";
+       name = Prop.computed __type __id "name";
+       password = Prop.computed __type __id "password";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server = Prop.computed __resource_type __resource_id "server";
+         Prop.computed __type __id "resource_group_name";
+       server = Prop.computed __type __id "server";
        stream_analytics_job_name =
-         Prop.computed __resource_type __resource_id
-           "stream_analytics_job_name";
-       table = Prop.computed __resource_type __resource_id "table";
-       user = Prop.computed __resource_type __resource_id "user";
+         Prop.computed __type __id "stream_analytics_job_name";
+       table = Prop.computed __type __id "table";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_stream_analytics_output_mssql
+        (azurerm_stream_analytics_output_mssql ?authentication_mode
+           ?id ?max_batch_count ?max_writer_count ?password ?user
+           ?timeouts ~database ~name ~resource_group_name ~server
+           ~stream_analytics_job_name ~table ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?authentication_mode ?id ?max_batch_count
+    ?max_writer_count ?password ?user ?timeouts ~database ~name
+    ~resource_group_name ~server ~stream_analytics_job_name ~table
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_mode ?id ?max_batch_count ?max_writer_count
+      ?password ?user ?timeouts ~database ~name ~resource_group_name
+      ~server ~stream_analytics_job_name ~table __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

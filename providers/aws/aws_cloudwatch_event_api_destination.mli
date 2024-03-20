@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -44,3 +44,14 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?invocation_rate_limit_per_second:float prop ->
+  connection_arn:string prop ->
+  http_method:string prop ->
+  invocation_endpoint:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -216,3 +216,16 @@ val register :
   space_sharing_settings:space_sharing_settings list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?space_display_name:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  domain_id:string prop ->
+  space_name:string prop ->
+  ownership_settings:ownership_settings list ->
+  space_settings:space_settings list ->
+  space_sharing_settings:space_sharing_settings list ->
+  string ->
+  t Tf_core.resource

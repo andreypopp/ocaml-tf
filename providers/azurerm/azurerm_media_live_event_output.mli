@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -63,3 +63,18 @@ val register :
   name:string prop ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?hls_fragments_per_ts_segment:float prop ->
+  ?id:string prop ->
+  ?manifest_name:string prop ->
+  ?output_snap_time_in_seconds:float prop ->
+  ?rewind_window_duration:string prop ->
+  ?timeouts:timeouts ->
+  archive_window_duration:string prop ->
+  asset_name:string prop ->
+  live_event_id:string prop ->
+  name:string prop ->
+  string ->
+  t Tf_core.resource

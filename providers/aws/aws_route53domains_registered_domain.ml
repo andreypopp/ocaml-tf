@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type admin_contact = {
   address_line_1 : string prop option; [@option]
@@ -269,67 +267,63 @@ type t = {
   whois_server : string prop;
 }
 
+let make ?admin_privacy ?auto_renew ?billing_privacy ?id
+    ?registrant_privacy ?tags ?tags_all ?tech_privacy ?transfer_lock
+    ?timeouts ~domain_name ~admin_contact ~billing_contact
+    ~name_server ~registrant_contact ~tech_contact __id =
+  let __type = "aws_route53domains_registered_domain" in
+  let __attrs =
+    ({
+       abuse_contact_email =
+         Prop.computed __type __id "abuse_contact_email";
+       abuse_contact_phone =
+         Prop.computed __type __id "abuse_contact_phone";
+       admin_privacy = Prop.computed __type __id "admin_privacy";
+       auto_renew = Prop.computed __type __id "auto_renew";
+       billing_privacy = Prop.computed __type __id "billing_privacy";
+       creation_date = Prop.computed __type __id "creation_date";
+       domain_name = Prop.computed __type __id "domain_name";
+       expiration_date = Prop.computed __type __id "expiration_date";
+       id = Prop.computed __type __id "id";
+       registrant_privacy =
+         Prop.computed __type __id "registrant_privacy";
+       registrar_name = Prop.computed __type __id "registrar_name";
+       registrar_url = Prop.computed __type __id "registrar_url";
+       reseller = Prop.computed __type __id "reseller";
+       status_list = Prop.computed __type __id "status_list";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       tech_privacy = Prop.computed __type __id "tech_privacy";
+       transfer_lock = Prop.computed __type __id "transfer_lock";
+       updated_date = Prop.computed __type __id "updated_date";
+       whois_server = Prop.computed __type __id "whois_server";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_route53domains_registered_domain
+        (aws_route53domains_registered_domain ?admin_privacy
+           ?auto_renew ?billing_privacy ?id ?registrant_privacy ?tags
+           ?tags_all ?tech_privacy ?transfer_lock ?timeouts
+           ~domain_name ~admin_contact ~billing_contact ~name_server
+           ~registrant_contact ~tech_contact ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?admin_privacy ?auto_renew ?billing_privacy
     ?id ?registrant_privacy ?tags ?tags_all ?tech_privacy
     ?transfer_lock ?timeouts ~domain_name ~admin_contact
     ~billing_contact ~name_server ~registrant_contact ~tech_contact
-    __resource_id =
-  let __resource_type = "aws_route53domains_registered_domain" in
-  let __resource =
-    aws_route53domains_registered_domain ?admin_privacy ?auto_renew
-      ?billing_privacy ?id ?registrant_privacy ?tags ?tags_all
-      ?tech_privacy ?transfer_lock ?timeouts ~domain_name
-      ~admin_contact ~billing_contact ~name_server
-      ~registrant_contact ~tech_contact ()
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?admin_privacy ?auto_renew ?billing_privacy ?id
+      ?registrant_privacy ?tags ?tags_all ?tech_privacy
+      ?transfer_lock ?timeouts ~domain_name ~admin_contact
+      ~billing_contact ~name_server ~registrant_contact ~tech_contact
+      __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_route53domains_registered_domain __resource);
-  let __resource_attributes =
-    ({
-       abuse_contact_email =
-         Prop.computed __resource_type __resource_id
-           "abuse_contact_email";
-       abuse_contact_phone =
-         Prop.computed __resource_type __resource_id
-           "abuse_contact_phone";
-       admin_privacy =
-         Prop.computed __resource_type __resource_id "admin_privacy";
-       auto_renew =
-         Prop.computed __resource_type __resource_id "auto_renew";
-       billing_privacy =
-         Prop.computed __resource_type __resource_id
-           "billing_privacy";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       expiration_date =
-         Prop.computed __resource_type __resource_id
-           "expiration_date";
-       id = Prop.computed __resource_type __resource_id "id";
-       registrant_privacy =
-         Prop.computed __resource_type __resource_id
-           "registrant_privacy";
-       registrar_name =
-         Prop.computed __resource_type __resource_id "registrar_name";
-       registrar_url =
-         Prop.computed __resource_type __resource_id "registrar_url";
-       reseller =
-         Prop.computed __resource_type __resource_id "reseller";
-       status_list =
-         Prop.computed __resource_type __resource_id "status_list";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       tech_privacy =
-         Prop.computed __resource_type __resource_id "tech_privacy";
-       transfer_lock =
-         Prop.computed __resource_type __resource_id "transfer_lock";
-       updated_date =
-         Prop.computed __resource_type __resource_id "updated_date";
-       whois_server =
-         Prop.computed __resource_type __resource_id "whois_server";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

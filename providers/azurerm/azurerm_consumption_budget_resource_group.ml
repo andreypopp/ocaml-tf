@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type filter__dimension = {
   name : string prop;  (** name *)
@@ -159,31 +157,37 @@ type t = {
   time_grain : string prop;
 }
 
-let register ?tf_module ?etag ?id ?time_grain ?timeouts ~amount ~name
-    ~resource_group_id ~filter ~notification ~time_period
-    __resource_id =
-  let __resource_type =
-    "azurerm_consumption_budget_resource_group"
-  in
-  let __resource =
-    azurerm_consumption_budget_resource_group ?etag ?id ?time_grain
-      ?timeouts ~amount ~name ~resource_group_id ~filter
-      ~notification ~time_period ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_consumption_budget_resource_group __resource);
-  let __resource_attributes =
+let make ?etag ?id ?time_grain ?timeouts ~amount ~name
+    ~resource_group_id ~filter ~notification ~time_period __id =
+  let __type = "azurerm_consumption_budget_resource_group" in
+  let __attrs =
     ({
-       amount = Prop.computed __resource_type __resource_id "amount";
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       amount = Prop.computed __type __id "amount";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_id =
-         Prop.computed __resource_type __resource_id
-           "resource_group_id";
-       time_grain =
-         Prop.computed __resource_type __resource_id "time_grain";
+         Prop.computed __type __id "resource_group_id";
+       time_grain = Prop.computed __type __id "time_grain";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_consumption_budget_resource_group
+        (azurerm_consumption_budget_resource_group ?etag ?id
+           ?time_grain ?timeouts ~amount ~name ~resource_group_id
+           ~filter ~notification ~time_period ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?etag ?id ?time_grain ?timeouts ~amount ~name
+    ~resource_group_id ~filter ~notification ~time_period __id =
+  let (r : _ Tf_core.resource) =
+    make ?etag ?id ?time_grain ?timeouts ~amount ~name
+      ~resource_group_id ~filter ~notification ~time_period __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

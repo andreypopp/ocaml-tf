@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -101,3 +101,29 @@ val register :
   username:string prop ->
   string ->
   t
+
+val make :
+  ?aes_encryption:bool prop ->
+  ?backup_operators:string prop list ->
+  ?description:string prop ->
+  ?encrypt_dc_connections:bool prop ->
+  ?id:string prop ->
+  ?kdc_hostname:string prop ->
+  ?kdc_ip:string prop ->
+  ?labels:(string * string prop) list ->
+  ?ldap_signing:bool prop ->
+  ?nfs_users_with_ldap:bool prop ->
+  ?organizational_unit:string prop ->
+  ?project:string prop ->
+  ?security_operators:string prop list ->
+  ?site:string prop ->
+  ?timeouts:timeouts ->
+  dns:string prop ->
+  domain:string prop ->
+  location:string prop ->
+  name:string prop ->
+  net_bios_prefix:string prop ->
+  password:string prop ->
+  username:string prop ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type deployment_targets = {
   organizational_unit_ids : string prop list option; [@option]
@@ -110,41 +108,47 @@ type t = {
   stack_set_name : string prop;
 }
 
-let register ?tf_module ?account_id ?call_as ?id ?parameter_overrides
-    ?region ?retain_stack ?timeouts ~stack_set_name
-    ~deployment_targets ~operation_preferences __resource_id =
-  let __resource_type = "aws_cloudformation_stack_set_instance" in
-  let __resource =
-    aws_cloudformation_stack_set_instance ?account_id ?call_as ?id
-      ?parameter_overrides ?region ?retain_stack ?timeouts
-      ~stack_set_name ~deployment_targets ~operation_preferences ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cloudformation_stack_set_instance __resource);
-  let __resource_attributes =
+let make ?account_id ?call_as ?id ?parameter_overrides ?region
+    ?retain_stack ?timeouts ~stack_set_name ~deployment_targets
+    ~operation_preferences __id =
+  let __type = "aws_cloudformation_stack_set_instance" in
+  let __attrs =
     ({
-       account_id =
-         Prop.computed __resource_type __resource_id "account_id";
-       call_as =
-         Prop.computed __resource_type __resource_id "call_as";
-       id = Prop.computed __resource_type __resource_id "id";
+       account_id = Prop.computed __type __id "account_id";
+       call_as = Prop.computed __type __id "call_as";
+       id = Prop.computed __type __id "id";
        organizational_unit_id =
-         Prop.computed __resource_type __resource_id
-           "organizational_unit_id";
+         Prop.computed __type __id "organizational_unit_id";
        parameter_overrides =
-         Prop.computed __resource_type __resource_id
-           "parameter_overrides";
-       region = Prop.computed __resource_type __resource_id "region";
-       retain_stack =
-         Prop.computed __resource_type __resource_id "retain_stack";
-       stack_id =
-         Prop.computed __resource_type __resource_id "stack_id";
+         Prop.computed __type __id "parameter_overrides";
+       region = Prop.computed __type __id "region";
+       retain_stack = Prop.computed __type __id "retain_stack";
+       stack_id = Prop.computed __type __id "stack_id";
        stack_instance_summaries =
-         Prop.computed __resource_type __resource_id
-           "stack_instance_summaries";
-       stack_set_name =
-         Prop.computed __resource_type __resource_id "stack_set_name";
+         Prop.computed __type __id "stack_instance_summaries";
+       stack_set_name = Prop.computed __type __id "stack_set_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudformation_stack_set_instance
+        (aws_cloudformation_stack_set_instance ?account_id ?call_as
+           ?id ?parameter_overrides ?region ?retain_stack ?timeouts
+           ~stack_set_name ~deployment_targets ~operation_preferences
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?account_id ?call_as ?id ?parameter_overrides
+    ?region ?retain_stack ?timeouts ~stack_set_name
+    ~deployment_targets ~operation_preferences __id =
+  let (r : _ Tf_core.resource) =
+    make ?account_id ?call_as ?id ?parameter_overrides ?region
+      ?retain_stack ?timeouts ~stack_set_name ~deployment_targets
+      ~operation_preferences __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type schedule_info = {
   schedule : string prop option; [@option]
@@ -365,42 +363,49 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?display_name ?id ?pipeline_sources ?project
-    ?region ?scheduler_service_account_email ?timeouts ~name ~state
-    ~type_ ~schedule_info ~workload __resource_id =
-  let __resource_type = "google_data_pipeline_pipeline" in
-  let __resource =
-    google_data_pipeline_pipeline ?display_name ?id ?pipeline_sources
-      ?project ?region ?scheduler_service_account_email ?timeouts
-      ~name ~state ~type_ ~schedule_info ~workload ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_data_pipeline_pipeline __resource);
-  let __resource_attributes =
+let make ?display_name ?id ?pipeline_sources ?project ?region
+    ?scheduler_service_account_email ?timeouts ~name ~state ~type_
+    ~schedule_info ~workload __id =
+  let __type = "google_data_pipeline_pipeline" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       job_count =
-         Prop.computed __resource_type __resource_id "job_count";
+       create_time = Prop.computed __type __id "create_time";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       job_count = Prop.computed __type __id "job_count";
        last_update_time =
-         Prop.computed __resource_type __resource_id
-           "last_update_time";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "last_update_time";
+       name = Prop.computed __type __id "name";
        pipeline_sources =
-         Prop.computed __resource_type __resource_id
-           "pipeline_sources";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "pipeline_sources";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        scheduler_service_account_email =
-         Prop.computed __resource_type __resource_id
-           "scheduler_service_account_email";
-       state = Prop.computed __resource_type __resource_id "state";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "scheduler_service_account_email";
+       state = Prop.computed __type __id "state";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_data_pipeline_pipeline
+        (google_data_pipeline_pipeline ?display_name ?id
+           ?pipeline_sources ?project ?region
+           ?scheduler_service_account_email ?timeouts ~name ~state
+           ~type_ ~schedule_info ~workload ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?display_name ?id ?pipeline_sources ?project
+    ?region ?scheduler_service_account_email ?timeouts ~name ~state
+    ~type_ ~schedule_info ~workload __id =
+  let (r : _ Tf_core.resource) =
+    make ?display_name ?id ?pipeline_sources ?project ?region
+      ?scheduler_service_account_email ?timeouts ~name ~state ~type_
+      ~schedule_info ~workload __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

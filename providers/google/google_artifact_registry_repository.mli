@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -229,3 +229,23 @@ val register :
   virtual_repository_config:virtual_repository_config list ->
   string ->
   t
+
+val make :
+  ?cleanup_policy_dry_run:bool prop ->
+  ?description:string prop ->
+  ?id:string prop ->
+  ?kms_key_name:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?mode:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  format:string prop ->
+  repository_id:string prop ->
+  cleanup_policies:cleanup_policies list ->
+  docker_config:docker_config list ->
+  maven_config:maven_config list ->
+  remote_repository_config:remote_repository_config list ->
+  virtual_repository_config:virtual_repository_config list ->
+  string ->
+  t Tf_core.resource

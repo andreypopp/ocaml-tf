@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -42,23 +40,30 @@ type t = {
   name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~identities ~name __resource_id
-    =
-  let __resource_type = "google_apigee_sync_authorization" in
-  let __resource =
-    google_apigee_sync_authorization ?id ?timeouts ~identities ~name
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_sync_authorization __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~identities ~name __id =
+  let __type = "google_apigee_sync_authorization" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       identities =
-         Prop.computed __resource_type __resource_id "identities";
-       name = Prop.computed __resource_type __resource_id "name";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       identities = Prop.computed __type __id "identities";
+       name = Prop.computed __type __id "name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_sync_authorization
+        (google_apigee_sync_authorization ?id ?timeouts ~identities
+           ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~identities ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~identities ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -165,3 +165,17 @@ val register :
   snapshot_schedule_policy:snapshot_schedule_policy list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?region:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  disk_consistency_group_policy:disk_consistency_group_policy list ->
+  group_placement_policy:group_placement_policy list ->
+  instance_schedule_policy:instance_schedule_policy list ->
+  snapshot_schedule_policy:snapshot_schedule_policy list ->
+  string ->
+  t Tf_core.resource

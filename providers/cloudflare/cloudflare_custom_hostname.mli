@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -87,3 +87,15 @@ val register :
   ssl:ssl list ->
   string ->
   t
+
+val make :
+  ?custom_metadata:(string * string prop) list ->
+  ?custom_origin_server:string prop ->
+  ?custom_origin_sni:string prop ->
+  ?id:string prop ->
+  ?wait_for_ssl_pending_validation:bool prop ->
+  hostname:string prop ->
+  zone_id:string prop ->
+  ssl:ssl list ->
+  string ->
+  t Tf_core.resource

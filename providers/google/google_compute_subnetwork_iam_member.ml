@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type condition = {
   description : string prop option; [@option]  (** description *)
@@ -42,27 +40,36 @@ type t = {
   subnetwork : string prop;
 }
 
-let register ?tf_module ?id ?project ?region ~member ~role
-    ~subnetwork ~condition __resource_id =
-  let __resource_type = "google_compute_subnetwork_iam_member" in
-  let __resource =
-    google_compute_subnetwork_iam_member ?id ?project ?region ~member
-      ~role ~subnetwork ~condition ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_subnetwork_iam_member __resource);
-  let __resource_attributes =
+let make ?id ?project ?region ~member ~role ~subnetwork ~condition
+    __id =
+  let __type = "google_compute_subnetwork_iam_member" in
+  let __attrs =
     ({
-       etag = Prop.computed __resource_type __resource_id "etag";
-       id = Prop.computed __resource_type __resource_id "id";
-       member = Prop.computed __resource_type __resource_id "member";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
-       role = Prop.computed __resource_type __resource_id "role";
-       subnetwork =
-         Prop.computed __resource_type __resource_id "subnetwork";
+       etag = Prop.computed __type __id "etag";
+       id = Prop.computed __type __id "id";
+       member = Prop.computed __type __id "member";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
+       role = Prop.computed __type __id "role";
+       subnetwork = Prop.computed __type __id "subnetwork";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_subnetwork_iam_member
+        (google_compute_subnetwork_iam_member ?id ?project ?region
+           ~member ~role ~subnetwork ~condition ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?project ?region ~member ~role
+    ~subnetwork ~condition __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?project ?region ~member ~role ~subnetwork ~condition
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

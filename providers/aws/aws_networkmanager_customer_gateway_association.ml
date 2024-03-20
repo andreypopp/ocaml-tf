@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -44,33 +42,37 @@ type t = {
   link_id : string prop;
 }
 
-let register ?tf_module ?id ?link_id ?timeouts ~customer_gateway_arn
-    ~device_id ~global_network_id __resource_id =
-  let __resource_type =
-    "aws_networkmanager_customer_gateway_association"
-  in
-  let __resource =
-    aws_networkmanager_customer_gateway_association ?id ?link_id
-      ?timeouts ~customer_gateway_arn ~device_id ~global_network_id
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_networkmanager_customer_gateway_association
-       __resource);
-  let __resource_attributes =
+let make ?id ?link_id ?timeouts ~customer_gateway_arn ~device_id
+    ~global_network_id __id =
+  let __type = "aws_networkmanager_customer_gateway_association" in
+  let __attrs =
     ({
        customer_gateway_arn =
-         Prop.computed __resource_type __resource_id
-           "customer_gateway_arn";
-       device_id =
-         Prop.computed __resource_type __resource_id "device_id";
+         Prop.computed __type __id "customer_gateway_arn";
+       device_id = Prop.computed __type __id "device_id";
        global_network_id =
-         Prop.computed __resource_type __resource_id
-           "global_network_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       link_id =
-         Prop.computed __resource_type __resource_id "link_id";
+         Prop.computed __type __id "global_network_id";
+       id = Prop.computed __type __id "id";
+       link_id = Prop.computed __type __id "link_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_networkmanager_customer_gateway_association
+        (aws_networkmanager_customer_gateway_association ?id ?link_id
+           ?timeouts ~customer_gateway_arn ~device_id
+           ~global_network_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?link_id ?timeouts ~customer_gateway_arn
+    ~device_id ~global_network_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?link_id ?timeouts ~customer_gateway_arn ~device_id
+      ~global_network_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

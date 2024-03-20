@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
@@ -56,27 +54,35 @@ type t = {
   value : float prop;
 }
 
-let register ?tf_module ?description ?global_default ?id
-    ?preemption_policy ~value ~metadata __resource_id =
-  let __resource_type = "kubernetes_priority_class_v1" in
-  let __resource =
-    kubernetes_priority_class_v1 ?description ?global_default ?id
-      ?preemption_policy ~value ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_kubernetes_priority_class_v1 __resource);
-  let __resource_attributes =
+let make ?description ?global_default ?id ?preemption_policy ~value
+    ~metadata __id =
+  let __type = "kubernetes_priority_class_v1" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       global_default =
-         Prop.computed __resource_type __resource_id "global_default";
-       id = Prop.computed __resource_type __resource_id "id";
+       description = Prop.computed __type __id "description";
+       global_default = Prop.computed __type __id "global_default";
+       id = Prop.computed __type __id "id";
        preemption_policy =
-         Prop.computed __resource_type __resource_id
-           "preemption_policy";
-       value = Prop.computed __resource_type __resource_id "value";
+         Prop.computed __type __id "preemption_policy";
+       value = Prop.computed __type __id "value";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_kubernetes_priority_class_v1
+        (kubernetes_priority_class_v1 ?description ?global_default
+           ?id ?preemption_policy ~value ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?global_default ?id
+    ?preemption_policy ~value ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?global_default ?id ?preemption_policy ~value
+      ~metadata __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -120,60 +118,59 @@ type t = {
   url_map : string prop;
 }
 
-let register ?tf_module ?certificate_manager_certificates
-    ?certificate_map ?description ?http_keep_alive_timeout_sec ?id
-    ?project ?proxy_bind ?quic_override ?server_tls_policy
-    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map
-    __resource_id =
-  let __resource_type = "google_compute_target_https_proxy" in
-  let __resource =
-    google_compute_target_https_proxy
-      ?certificate_manager_certificates ?certificate_map ?description
-      ?http_keep_alive_timeout_sec ?id ?project ?proxy_bind
-      ?quic_override ?server_tls_policy ?ssl_certificates ?ssl_policy
-      ?timeouts ~name ~url_map ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_compute_target_https_proxy __resource);
-  let __resource_attributes =
+let make ?certificate_manager_certificates ?certificate_map
+    ?description ?http_keep_alive_timeout_sec ?id ?project
+    ?proxy_bind ?quic_override ?server_tls_policy ?ssl_certificates
+    ?ssl_policy ?timeouts ~name ~url_map __id =
+  let __type = "google_compute_target_https_proxy" in
+  let __attrs =
     ({
        certificate_manager_certificates =
-         Prop.computed __resource_type __resource_id
-           "certificate_manager_certificates";
-       certificate_map =
-         Prop.computed __resource_type __resource_id
-           "certificate_map";
+         Prop.computed __type __id "certificate_manager_certificates";
+       certificate_map = Prop.computed __type __id "certificate_map";
        creation_timestamp =
-         Prop.computed __resource_type __resource_id
-           "creation_timestamp";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "creation_timestamp";
+       description = Prop.computed __type __id "description";
        http_keep_alive_timeout_sec =
-         Prop.computed __resource_type __resource_id
-           "http_keep_alive_timeout_sec";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       proxy_bind =
-         Prop.computed __resource_type __resource_id "proxy_bind";
-       proxy_id =
-         Prop.computed __resource_type __resource_id "proxy_id";
-       quic_override =
-         Prop.computed __resource_type __resource_id "quic_override";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+         Prop.computed __type __id "http_keep_alive_timeout_sec";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       proxy_bind = Prop.computed __type __id "proxy_bind";
+       proxy_id = Prop.computed __type __id "proxy_id";
+       quic_override = Prop.computed __type __id "quic_override";
+       self_link = Prop.computed __type __id "self_link";
        server_tls_policy =
-         Prop.computed __resource_type __resource_id
-           "server_tls_policy";
+         Prop.computed __type __id "server_tls_policy";
        ssl_certificates =
-         Prop.computed __resource_type __resource_id
-           "ssl_certificates";
-       ssl_policy =
-         Prop.computed __resource_type __resource_id "ssl_policy";
-       url_map =
-         Prop.computed __resource_type __resource_id "url_map";
+         Prop.computed __type __id "ssl_certificates";
+       ssl_policy = Prop.computed __type __id "ssl_policy";
+       url_map = Prop.computed __type __id "url_map";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_compute_target_https_proxy
+        (google_compute_target_https_proxy
+           ?certificate_manager_certificates ?certificate_map
+           ?description ?http_keep_alive_timeout_sec ?id ?project
+           ?proxy_bind ?quic_override ?server_tls_policy
+           ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?certificate_manager_certificates
+    ?certificate_map ?description ?http_keep_alive_timeout_sec ?id
+    ?project ?proxy_bind ?quic_override ?server_tls_policy
+    ?ssl_certificates ?ssl_policy ?timeouts ~name ~url_map __id =
+  let (r : _ Tf_core.resource) =
+    make ?certificate_manager_certificates ?certificate_map
+      ?description ?http_keep_alive_timeout_sec ?id ?project
+      ?proxy_bind ?quic_override ?server_tls_policy ?ssl_certificates
+      ?ssl_policy ?timeouts ~name ~url_map __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

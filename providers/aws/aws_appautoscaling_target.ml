@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_appautoscaling_target = {
   id : string prop option; [@option]  (** id *)
@@ -47,39 +45,43 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?role_arn ?tags ?tags_all ~max_capacity
-    ~min_capacity ~resource_id ~scalable_dimension ~service_namespace
-    __resource_id =
-  let __resource_type = "aws_appautoscaling_target" in
-  let __resource =
-    aws_appautoscaling_target ?id ?role_arn ?tags ?tags_all
-      ~max_capacity ~min_capacity ~resource_id ~scalable_dimension
-      ~service_namespace ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_appautoscaling_target __resource);
-  let __resource_attributes =
+let make ?id ?role_arn ?tags ?tags_all ~max_capacity ~min_capacity
+    ~resource_id ~scalable_dimension ~service_namespace __id =
+  let __type = "aws_appautoscaling_target" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
-       max_capacity =
-         Prop.computed __resource_type __resource_id "max_capacity";
-       min_capacity =
-         Prop.computed __resource_type __resource_id "min_capacity";
-       resource_id =
-         Prop.computed __resource_type __resource_id "resource_id";
-       role_arn =
-         Prop.computed __resource_type __resource_id "role_arn";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
+       max_capacity = Prop.computed __type __id "max_capacity";
+       min_capacity = Prop.computed __type __id "min_capacity";
+       resource_id = Prop.computed __type __id "resource_id";
+       role_arn = Prop.computed __type __id "role_arn";
        scalable_dimension =
-         Prop.computed __resource_type __resource_id
-           "scalable_dimension";
+         Prop.computed __type __id "scalable_dimension";
        service_namespace =
-         Prop.computed __resource_type __resource_id
-           "service_namespace";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "service_namespace";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_appautoscaling_target
+        (aws_appautoscaling_target ?id ?role_arn ?tags ?tags_all
+           ~max_capacity ~min_capacity ~resource_id
+           ~scalable_dimension ~service_namespace ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?role_arn ?tags ?tags_all ~max_capacity
+    ~min_capacity ~resource_id ~scalable_dimension ~service_namespace
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?role_arn ?tags ?tags_all ~max_capacity ~min_capacity
+      ~resource_id ~scalable_dimension ~service_namespace __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

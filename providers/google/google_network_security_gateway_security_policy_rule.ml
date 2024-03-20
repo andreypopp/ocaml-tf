@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -84,58 +82,58 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?application_matcher ?description ?id
-    ?project ?tls_inspection_enabled ?timeouts ~basic_profile
-    ~enabled ~gateway_security_policy ~location ~name ~priority
-    ~session_matcher __resource_id =
-  let __resource_type =
+let make ?application_matcher ?description ?id ?project
+    ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+    ~gateway_security_policy ~location ~name ~priority
+    ~session_matcher __id =
+  let __type =
     "google_network_security_gateway_security_policy_rule"
   in
-  let __resource =
-    google_network_security_gateway_security_policy_rule
-      ?application_matcher ?description ?id ?project
-      ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
-      ~gateway_security_policy ~location ~name ~priority
-      ~session_matcher ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_network_security_gateway_security_policy_rule
-       __resource);
-  let __resource_attributes =
+  let __attrs =
     ({
        application_matcher =
-         Prop.computed __resource_type __resource_id
-           "application_matcher";
-       basic_profile =
-         Prop.computed __resource_type __resource_id "basic_profile";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+         Prop.computed __type __id "application_matcher";
+       basic_profile = Prop.computed __type __id "basic_profile";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       enabled = Prop.computed __type __id "enabled";
        gateway_security_policy =
-         Prop.computed __resource_type __resource_id
-           "gateway_security_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
-       session_matcher =
-         Prop.computed __resource_type __resource_id
-           "session_matcher";
+         Prop.computed __type __id "gateway_security_policy";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
+       session_matcher = Prop.computed __type __id "session_matcher";
        tls_inspection_enabled =
-         Prop.computed __resource_type __resource_id
-           "tls_inspection_enabled";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "tls_inspection_enabled";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_network_security_gateway_security_policy_rule
+        (google_network_security_gateway_security_policy_rule
+           ?application_matcher ?description ?id ?project
+           ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+           ~gateway_security_policy ~location ~name ~priority
+           ~session_matcher ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?application_matcher ?description ?id
+    ?project ?tls_inspection_enabled ?timeouts ~basic_profile
+    ~enabled ~gateway_security_policy ~location ~name ~priority
+    ~session_matcher __id =
+  let (r : _ Tf_core.resource) =
+    make ?application_matcher ?description ?id ?project
+      ?tls_inspection_enabled ?timeouts ~basic_profile ~enabled
+      ~gateway_security_policy ~location ~name ~priority
+      ~session_matcher __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

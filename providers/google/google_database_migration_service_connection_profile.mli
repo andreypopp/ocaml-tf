@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -256,3 +256,19 @@ val register :
   postgresql:postgresql list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  connection_profile_id:string prop ->
+  alloydb:alloydb list ->
+  cloudsql:cloudsql list ->
+  mysql:mysql list ->
+  oracle:oracle list ->
+  postgresql:postgresql list ->
+  string ->
+  t Tf_core.resource

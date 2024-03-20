@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -47,3 +47,12 @@ val register :
   taint:taint list ->
   string ->
   t
+
+val make :
+  ?field_manager:string prop ->
+  ?force:bool prop ->
+  ?id:string prop ->
+  metadata:metadata list ->
+  taint:taint list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type soa_record = {
   email : string prop;  (** email *)
@@ -66,36 +64,44 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?timeouts ~name
-    ~resource_group_name ~soa_record __resource_id =
-  let __resource_type = "azurerm_private_dns_zone" in
-  let __resource =
-    azurerm_private_dns_zone ?id ?tags ?timeouts ~name
-      ~resource_group_name ~soa_record ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_private_dns_zone __resource);
-  let __resource_attributes =
+let make ?id ?tags ?timeouts ~name ~resource_group_name ~soa_record
+    __id =
+  let __type = "azurerm_private_dns_zone" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        max_number_of_record_sets =
-         Prop.computed __resource_type __resource_id
-           "max_number_of_record_sets";
+         Prop.computed __type __id "max_number_of_record_sets";
        max_number_of_virtual_network_links =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "max_number_of_virtual_network_links";
        max_number_of_virtual_network_links_with_registration =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "max_number_of_virtual_network_links_with_registration";
-       name = Prop.computed __resource_type __resource_id "name";
+       name = Prop.computed __type __id "name";
        number_of_record_sets =
-         Prop.computed __resource_type __resource_id
-           "number_of_record_sets";
+         Prop.computed __type __id "number_of_record_sets";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_private_dns_zone
+        (azurerm_private_dns_zone ?id ?tags ?timeouts ~name
+           ~resource_group_name ~soa_record ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?timeouts ~name
+    ~resource_group_name ~soa_record __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?timeouts ~name ~resource_group_name ~soa_record
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

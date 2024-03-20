@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -72,3 +72,20 @@ val register :
   stream_mode_details:stream_mode_details list ->
   string ->
   t
+
+val make :
+  ?arn:string prop ->
+  ?encryption_type:string prop ->
+  ?enforce_consumer_deletion:bool prop ->
+  ?id:string prop ->
+  ?kms_key_id:string prop ->
+  ?retention_period:float prop ->
+  ?shard_count:float prop ->
+  ?shard_level_metrics:string prop list ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  stream_mode_details:stream_mode_details list ->
+  string ->
+  t Tf_core.resource

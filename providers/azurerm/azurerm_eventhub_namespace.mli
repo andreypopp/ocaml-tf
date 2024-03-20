@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -117,3 +117,24 @@ val register :
   identity:identity list ->
   string ->
   t
+
+val make :
+  ?auto_inflate_enabled:bool prop ->
+  ?capacity:float prop ->
+  ?dedicated_cluster_id:string prop ->
+  ?id:string prop ->
+  ?local_authentication_enabled:bool prop ->
+  ?maximum_throughput_units:float prop ->
+  ?minimum_tls_version:string prop ->
+  ?network_rulesets:network_rulesets list ->
+  ?public_network_access_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?zone_redundant:bool prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku:string prop ->
+  identity:identity list ->
+  string ->
+  t Tf_core.resource

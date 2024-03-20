@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -51,36 +49,39 @@ type t = {
   virtual_ip : string prop;
 }
 
-let register ?tf_module ?id ?ssl_state ?thumbprint ?timeouts
-    ~app_service_name ~hostname ~resource_group_name __resource_id =
-  let __resource_type =
-    "azurerm_app_service_custom_hostname_binding"
-  in
-  let __resource =
-    azurerm_app_service_custom_hostname_binding ?id ?ssl_state
-      ?thumbprint ?timeouts ~app_service_name ~hostname
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_app_service_custom_hostname_binding __resource);
-  let __resource_attributes =
+let make ?id ?ssl_state ?thumbprint ?timeouts ~app_service_name
+    ~hostname ~resource_group_name __id =
+  let __type = "azurerm_app_service_custom_hostname_binding" in
+  let __attrs =
     ({
        app_service_name =
-         Prop.computed __resource_type __resource_id
-           "app_service_name";
-       hostname =
-         Prop.computed __resource_type __resource_id "hostname";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "app_service_name";
+       hostname = Prop.computed __type __id "hostname";
+       id = Prop.computed __type __id "id";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       ssl_state =
-         Prop.computed __resource_type __resource_id "ssl_state";
-       thumbprint =
-         Prop.computed __resource_type __resource_id "thumbprint";
-       virtual_ip =
-         Prop.computed __resource_type __resource_id "virtual_ip";
+         Prop.computed __type __id "resource_group_name";
+       ssl_state = Prop.computed __type __id "ssl_state";
+       thumbprint = Prop.computed __type __id "thumbprint";
+       virtual_ip = Prop.computed __type __id "virtual_ip";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_app_service_custom_hostname_binding
+        (azurerm_app_service_custom_hostname_binding ?id ?ssl_state
+           ?thumbprint ?timeouts ~app_service_name ~hostname
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?ssl_state ?thumbprint ?timeouts
+    ~app_service_name ~hostname ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?ssl_state ?thumbprint ?timeouts ~app_service_name
+      ~hostname ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

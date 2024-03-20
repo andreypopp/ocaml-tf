@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type predictive_scaling_configuration__metric_specification__customized_capacity_metric_specification__metric_data_queries__metric_stat__metric__dimensions = {
   name : string prop;  (** name *)
@@ -572,51 +570,59 @@ type t = {
   scaling_adjustment : float prop;
 }
 
+let make ?adjustment_type ?cooldown ?enabled
+    ?estimated_instance_warmup ?id ?metric_aggregation_type
+    ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
+    ~autoscaling_group_name ~name ~predictive_scaling_configuration
+    ~step_adjustment ~target_tracking_configuration __id =
+  let __type = "aws_autoscaling_policy" in
+  let __attrs =
+    ({
+       adjustment_type = Prop.computed __type __id "adjustment_type";
+       arn = Prop.computed __type __id "arn";
+       autoscaling_group_name =
+         Prop.computed __type __id "autoscaling_group_name";
+       cooldown = Prop.computed __type __id "cooldown";
+       enabled = Prop.computed __type __id "enabled";
+       estimated_instance_warmup =
+         Prop.computed __type __id "estimated_instance_warmup";
+       id = Prop.computed __type __id "id";
+       metric_aggregation_type =
+         Prop.computed __type __id "metric_aggregation_type";
+       min_adjustment_magnitude =
+         Prop.computed __type __id "min_adjustment_magnitude";
+       name = Prop.computed __type __id "name";
+       policy_type = Prop.computed __type __id "policy_type";
+       scaling_adjustment =
+         Prop.computed __type __id "scaling_adjustment";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_autoscaling_policy
+        (aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
+           ?estimated_instance_warmup ?id ?metric_aggregation_type
+           ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
+           ~autoscaling_group_name ~name
+           ~predictive_scaling_configuration ~step_adjustment
+           ~target_tracking_configuration ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?adjustment_type ?cooldown ?enabled
     ?estimated_instance_warmup ?id ?metric_aggregation_type
     ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
     ~autoscaling_group_name ~name ~predictive_scaling_configuration
-    ~step_adjustment ~target_tracking_configuration __resource_id =
-  let __resource_type = "aws_autoscaling_policy" in
-  let __resource =
-    aws_autoscaling_policy ?adjustment_type ?cooldown ?enabled
+    ~step_adjustment ~target_tracking_configuration __id =
+  let (r : _ Tf_core.resource) =
+    make ?adjustment_type ?cooldown ?enabled
       ?estimated_instance_warmup ?id ?metric_aggregation_type
       ?min_adjustment_magnitude ?policy_type ?scaling_adjustment
       ~autoscaling_group_name ~name ~predictive_scaling_configuration
-      ~step_adjustment ~target_tracking_configuration ()
+      ~step_adjustment ~target_tracking_configuration __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_autoscaling_policy __resource);
-  let __resource_attributes =
-    ({
-       adjustment_type =
-         Prop.computed __resource_type __resource_id
-           "adjustment_type";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       autoscaling_group_name =
-         Prop.computed __resource_type __resource_id
-           "autoscaling_group_name";
-       cooldown =
-         Prop.computed __resource_type __resource_id "cooldown";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       estimated_instance_warmup =
-         Prop.computed __resource_type __resource_id
-           "estimated_instance_warmup";
-       id = Prop.computed __resource_type __resource_id "id";
-       metric_aggregation_type =
-         Prop.computed __resource_type __resource_id
-           "metric_aggregation_type";
-       min_adjustment_magnitude =
-         Prop.computed __resource_type __resource_id
-           "min_adjustment_magnitude";
-       name = Prop.computed __resource_type __resource_id "name";
-       policy_type =
-         Prop.computed __resource_type __resource_id "policy_type";
-       scaling_adjustment =
-         Prop.computed __resource_type __resource_id
-           "scaling_adjustment";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type multi_select_observation = {
   name : string prop;  (** name *)
@@ -123,62 +121,60 @@ type t = {
   techniques : string list prop;
 }
 
-let register ?tf_module ?id ?timeouts ~built_in_rule_id ~display_name
-    ~enabled ~log_analytics_workspace_id ~mode
-    ~multi_select_observation ~prioritized_exclude_observation
-    ~single_select_observation ~threshold_observation __resource_id =
-  let __resource_type =
-    "azurerm_sentinel_alert_rule_anomaly_duplicate"
-  in
-  let __resource =
-    azurerm_sentinel_alert_rule_anomaly_duplicate ?id ?timeouts
-      ~built_in_rule_id ~display_name ~enabled
-      ~log_analytics_workspace_id ~mode ~multi_select_observation
-      ~prioritized_exclude_observation ~single_select_observation
-      ~threshold_observation ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~built_in_rule_id ~display_name ~enabled
+    ~log_analytics_workspace_id ~mode ~multi_select_observation
+    ~prioritized_exclude_observation ~single_select_observation
+    ~threshold_observation __id =
+  let __type = "azurerm_sentinel_alert_rule_anomaly_duplicate" in
+  let __attrs =
     ({
        anomaly_settings_version =
-         Prop.computed __resource_type __resource_id
-           "anomaly_settings_version";
-       anomaly_version =
-         Prop.computed __resource_type __resource_id
-           "anomaly_version";
+         Prop.computed __type __id "anomaly_settings_version";
+       anomaly_version = Prop.computed __type __id "anomaly_version";
        built_in_rule_id =
-         Prop.computed __resource_type __resource_id
-           "built_in_rule_id";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
-       frequency =
-         Prop.computed __resource_type __resource_id "frequency";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "built_in_rule_id";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       enabled = Prop.computed __type __id "enabled";
+       frequency = Prop.computed __type __id "frequency";
+       id = Prop.computed __type __id "id";
        is_default_settings =
-         Prop.computed __resource_type __resource_id
-           "is_default_settings";
+         Prop.computed __type __id "is_default_settings";
        log_analytics_workspace_id =
-         Prop.computed __resource_type __resource_id
-           "log_analytics_workspace_id";
-       mode = Prop.computed __resource_type __resource_id "mode";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "log_analytics_workspace_id";
+       mode = Prop.computed __type __id "mode";
+       name = Prop.computed __type __id "name";
        required_data_connector =
-         Prop.computed __resource_type __resource_id
-           "required_data_connector";
+         Prop.computed __type __id "required_data_connector";
        settings_definition_id =
-         Prop.computed __resource_type __resource_id
-           "settings_definition_id";
-       tactics =
-         Prop.computed __resource_type __resource_id "tactics";
-       techniques =
-         Prop.computed __resource_type __resource_id "techniques";
+         Prop.computed __type __id "settings_definition_id";
+       tactics = Prop.computed __type __id "tactics";
+       techniques = Prop.computed __type __id "techniques";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate
+        (azurerm_sentinel_alert_rule_anomaly_duplicate ?id ?timeouts
+           ~built_in_rule_id ~display_name ~enabled
+           ~log_analytics_workspace_id ~mode
+           ~multi_select_observation ~prioritized_exclude_observation
+           ~single_select_observation ~threshold_observation ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~built_in_rule_id ~display_name
+    ~enabled ~log_analytics_workspace_id ~mode
+    ~multi_select_observation ~prioritized_exclude_observation
+    ~single_select_observation ~threshold_observation __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~built_in_rule_id ~display_name ~enabled
+      ~log_analytics_workspace_id ~mode ~multi_select_observation
+      ~prioritized_exclude_observation ~single_select_observation
+      ~threshold_observation __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

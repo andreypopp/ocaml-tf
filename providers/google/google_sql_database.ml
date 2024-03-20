@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,33 +68,37 @@ type t = {
   self_link : string prop;
 }
 
-let register ?tf_module ?charset ?collation ?deletion_policy ?id
-    ?project ?timeouts ~instance ~name __resource_id =
-  let __resource_type = "google_sql_database" in
-  let __resource =
-    google_sql_database ?charset ?collation ?deletion_policy ?id
-      ?project ?timeouts ~instance ~name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_sql_database __resource);
-  let __resource_attributes =
+let make ?charset ?collation ?deletion_policy ?id ?project ?timeouts
+    ~instance ~name __id =
+  let __type = "google_sql_database" in
+  let __attrs =
     ({
-       charset =
-         Prop.computed __resource_type __resource_id "charset";
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       deletion_policy =
-         Prop.computed __resource_type __resource_id
-           "deletion_policy";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance =
-         Prop.computed __resource_type __resource_id "instance";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       self_link =
-         Prop.computed __resource_type __resource_id "self_link";
+       charset = Prop.computed __type __id "charset";
+       collation = Prop.computed __type __id "collation";
+       deletion_policy = Prop.computed __type __id "deletion_policy";
+       id = Prop.computed __type __id "id";
+       instance = Prop.computed __type __id "instance";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       self_link = Prop.computed __type __id "self_link";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_sql_database
+        (google_sql_database ?charset ?collation ?deletion_policy ?id
+           ?project ?timeouts ~instance ~name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?charset ?collation ?deletion_policy ?id
+    ?project ?timeouts ~instance ~name __id =
+  let (r : _ Tf_core.resource) =
+    make ?charset ?collation ?deletion_policy ?id ?project ?timeouts
+      ~instance ~name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

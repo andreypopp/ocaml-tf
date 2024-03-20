@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -55,3 +55,15 @@ val register :
   vault_id:string prop ->
   string ->
   t
+
+val make :
+  ?database_credential_key_vault_secret_id:string prop ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  backup_policy_id:string prop ->
+  database_id:string prop ->
+  location:string prop ->
+  name:string prop ->
+  vault_id:string prop ->
+  string ->
+  t Tf_core.resource

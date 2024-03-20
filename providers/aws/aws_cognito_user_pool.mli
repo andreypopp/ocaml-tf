@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -279,3 +279,34 @@ val register :
   verification_message_template:verification_message_template list ->
   string ->
   t
+
+val make :
+  ?alias_attributes:string prop list ->
+  ?auto_verified_attributes:string prop list ->
+  ?deletion_protection:string prop ->
+  ?email_verification_message:string prop ->
+  ?email_verification_subject:string prop ->
+  ?id:string prop ->
+  ?mfa_configuration:string prop ->
+  ?sms_authentication_message:string prop ->
+  ?sms_verification_message:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?username_attributes:string prop list ->
+  name:string prop ->
+  account_recovery_setting:account_recovery_setting list ->
+  admin_create_user_config:admin_create_user_config list ->
+  device_configuration:device_configuration list ->
+  email_configuration:email_configuration list ->
+  lambda_config:lambda_config list ->
+  password_policy:password_policy list ->
+  schema:schema list ->
+  sms_configuration:sms_configuration list ->
+  software_token_mfa_configuration:
+    software_token_mfa_configuration list ->
+  user_attribute_update_settings:user_attribute_update_settings list ->
+  user_pool_add_ons:user_pool_add_ons list ->
+  username_configuration:username_configuration list ->
+  verification_message_template:verification_message_template list ->
+  string ->
+  t Tf_core.resource

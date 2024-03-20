@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -71,3 +71,17 @@ val register :
   sso:sso list ->
   string ->
   t
+
+val make :
+  ?api_try_out_enabled:bool prop ->
+  ?gateway_ids:string prop list ->
+  ?https_only_enabled:bool prop ->
+  ?id:string prop ->
+  ?instance_count:float prop ->
+  ?public_network_access_enabled:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  spring_cloud_service_id:string prop ->
+  sso:sso list ->
+  string ->
+  t Tf_core.resource

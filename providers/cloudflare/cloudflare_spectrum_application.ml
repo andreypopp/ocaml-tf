@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type dns = {
   name : string prop;
@@ -114,41 +112,46 @@ type t = {
   zone_id : string prop;
 }
 
-let register ?tf_module ?argo_smart_routing ?id ?ip_firewall
-    ?origin_direct ?origin_port ?proxy_protocol ?tls ?traffic_type
-    ~protocol ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range
-    __resource_id =
-  let __resource_type = "cloudflare_spectrum_application" in
-  let __resource =
-    cloudflare_spectrum_application ?argo_smart_routing ?id
-      ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol ?tls
-      ?traffic_type ~protocol ~zone_id ~dns ~edge_ips ~origin_dns
-      ~origin_port_range ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_cloudflare_spectrum_application __resource);
-  let __resource_attributes =
+let make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
+    ?origin_port ?proxy_protocol ?tls ?traffic_type ~protocol
+    ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range __id =
+  let __type = "cloudflare_spectrum_application" in
+  let __attrs =
     ({
        argo_smart_routing =
-         Prop.computed __resource_type __resource_id
-           "argo_smart_routing";
-       id = Prop.computed __resource_type __resource_id "id";
-       ip_firewall =
-         Prop.computed __resource_type __resource_id "ip_firewall";
-       origin_direct =
-         Prop.computed __resource_type __resource_id "origin_direct";
-       origin_port =
-         Prop.computed __resource_type __resource_id "origin_port";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
-       proxy_protocol =
-         Prop.computed __resource_type __resource_id "proxy_protocol";
-       tls = Prop.computed __resource_type __resource_id "tls";
-       traffic_type =
-         Prop.computed __resource_type __resource_id "traffic_type";
-       zone_id =
-         Prop.computed __resource_type __resource_id "zone_id";
+         Prop.computed __type __id "argo_smart_routing";
+       id = Prop.computed __type __id "id";
+       ip_firewall = Prop.computed __type __id "ip_firewall";
+       origin_direct = Prop.computed __type __id "origin_direct";
+       origin_port = Prop.computed __type __id "origin_port";
+       protocol = Prop.computed __type __id "protocol";
+       proxy_protocol = Prop.computed __type __id "proxy_protocol";
+       tls = Prop.computed __type __id "tls";
+       traffic_type = Prop.computed __type __id "traffic_type";
+       zone_id = Prop.computed __type __id "zone_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_cloudflare_spectrum_application
+        (cloudflare_spectrum_application ?argo_smart_routing ?id
+           ?ip_firewall ?origin_direct ?origin_port ?proxy_protocol
+           ?tls ?traffic_type ~protocol ~zone_id ~dns ~edge_ips
+           ~origin_dns ~origin_port_range ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?argo_smart_routing ?id ?ip_firewall
+    ?origin_direct ?origin_port ?proxy_protocol ?tls ?traffic_type
+    ~protocol ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?argo_smart_routing ?id ?ip_firewall ?origin_direct
+      ?origin_port ?proxy_protocol ?tls ?traffic_type ~protocol
+      ~zone_id ~dns ~edge_ips ~origin_dns ~origin_port_range __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

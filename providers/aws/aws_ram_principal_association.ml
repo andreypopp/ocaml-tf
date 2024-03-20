@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ram_principal_association = {
   id : string prop option; [@option]  (** id *)
@@ -22,24 +20,30 @@ type t = {
   resource_share_arn : string prop;
 }
 
-let register ?tf_module ?id ~principal ~resource_share_arn
-    __resource_id =
-  let __resource_type = "aws_ram_principal_association" in
-  let __resource =
-    aws_ram_principal_association ?id ~principal ~resource_share_arn
-      ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ram_principal_association __resource);
-  let __resource_attributes =
+let make ?id ~principal ~resource_share_arn __id =
+  let __type = "aws_ram_principal_association" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       principal =
-         Prop.computed __resource_type __resource_id "principal";
+       id = Prop.computed __type __id "id";
+       principal = Prop.computed __type __id "principal";
        resource_share_arn =
-         Prop.computed __resource_type __resource_id
-           "resource_share_arn";
+         Prop.computed __type __id "resource_share_arn";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ram_principal_association
+        (aws_ram_principal_association ?id ~principal
+           ~resource_share_arn ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~principal ~resource_share_arn __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ~principal ~resource_share_arn __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

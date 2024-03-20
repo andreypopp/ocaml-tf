@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_iam_user_group_membership = {
   groups : string prop list;  (** groups *)
@@ -22,19 +20,26 @@ type t = {
   user : string prop;
 }
 
-let register ?tf_module ?id ~groups ~user __resource_id =
-  let __resource_type = "aws_iam_user_group_membership" in
-  let __resource =
-    aws_iam_user_group_membership ?id ~groups ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_user_group_membership __resource);
-  let __resource_attributes =
+let make ?id ~groups ~user __id =
+  let __type = "aws_iam_user_group_membership" in
+  let __attrs =
     ({
-       groups = Prop.computed __resource_type __resource_id "groups";
-       id = Prop.computed __resource_type __resource_id "id";
-       user = Prop.computed __resource_type __resource_id "user";
+       groups = Prop.computed __type __id "groups";
+       id = Prop.computed __type __id "id";
+       user = Prop.computed __type __id "user";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_user_group_membership
+        (aws_iam_user_group_membership ?id ~groups ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~groups ~user __id =
+  let (r : _ Tf_core.resource) = make ?id ~groups ~user __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

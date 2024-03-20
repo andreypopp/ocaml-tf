@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -61,3 +61,18 @@ val register :
   org_id:string prop ->
   string ->
   t
+
+val make :
+  ?consumer_accept_list:string prop list ->
+  ?description:string prop ->
+  ?disk_encryption_key_name:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?ip_range:string prop ->
+  ?peering_cidr_range:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  org_id:string prop ->
+  string ->
+  t Tf_core.resource

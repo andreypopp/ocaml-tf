@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type advanced_settings__dtmf_settings = {
   enabled : bool prop option; [@option]
@@ -1187,32 +1185,42 @@ type t = {
   transition_route_groups : string list prop;
 }
 
-let register ?tf_module ?id ?language_code ?parent
-    ?transition_route_groups ?timeouts ~display_name
-    ~advanced_settings ~entry_fulfillment ~event_handlers ~form
-    ~transition_routes __resource_id =
-  let __resource_type = "google_dialogflow_cx_page" in
-  let __resource =
-    google_dialogflow_cx_page ?id ?language_code ?parent
-      ?transition_route_groups ?timeouts ~display_name
-      ~advanced_settings ~entry_fulfillment ~event_handlers ~form
-      ~transition_routes ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_dialogflow_cx_page __resource);
-  let __resource_attributes =
+let make ?id ?language_code ?parent ?transition_route_groups
+    ?timeouts ~display_name ~advanced_settings ~entry_fulfillment
+    ~event_handlers ~form ~transition_routes __id =
+  let __type = "google_dialogflow_cx_page" in
+  let __attrs =
     ({
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       language_code =
-         Prop.computed __resource_type __resource_id "language_code";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       language_code = Prop.computed __type __id "language_code";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
        transition_route_groups =
-         Prop.computed __resource_type __resource_id
-           "transition_route_groups";
+         Prop.computed __type __id "transition_route_groups";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_dialogflow_cx_page
+        (google_dialogflow_cx_page ?id ?language_code ?parent
+           ?transition_route_groups ?timeouts ~display_name
+           ~advanced_settings ~entry_fulfillment ~event_handlers
+           ~form ~transition_routes ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?language_code ?parent
+    ?transition_route_groups ?timeouts ~display_name
+    ~advanced_settings ~entry_fulfillment ~event_handlers ~form
+    ~transition_routes __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?language_code ?parent ?transition_route_groups
+      ?timeouts ~display_name ~advanced_settings ~entry_fulfillment
+      ~event_handlers ~form ~transition_routes __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

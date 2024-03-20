@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -85,3 +85,17 @@ val register :
   logs:logs list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?monitoring_enabled:bool prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  elastic_cloud_email_address:string prop ->
+  location:string prop ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  sku_name:string prop ->
+  logs:logs list ->
+  string ->
+  t Tf_core.resource

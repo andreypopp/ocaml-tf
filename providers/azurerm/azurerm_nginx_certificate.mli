@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -52,3 +52,14 @@ val register :
   nginx_deployment_id:string prop ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  certificate_virtual_path:string prop ->
+  key_vault_secret_id:string prop ->
+  key_virtual_path:string prop ->
+  name:string prop ->
+  nginx_deployment_id:string prop ->
+  string ->
+  t Tf_core.resource

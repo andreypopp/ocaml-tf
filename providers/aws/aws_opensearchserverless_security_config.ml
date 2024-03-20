@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type saml_options = {
   group_attribute : string prop option; [@option]
@@ -42,25 +40,32 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?description ~name ~type_ ~saml_options
-    __resource_id =
-  let __resource_type = "aws_opensearchserverless_security_config" in
-  let __resource =
-    aws_opensearchserverless_security_config ?description ~name
-      ~type_ ~saml_options ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_opensearchserverless_security_config __resource);
-  let __resource_attributes =
+let make ?description ~name ~type_ ~saml_options __id =
+  let __type = "aws_opensearchserverless_security_config" in
+  let __attrs =
     ({
-       config_version =
-         Prop.computed __resource_type __resource_id "config_version";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       config_version = Prop.computed __type __id "config_version";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_opensearchserverless_security_config
+        (aws_opensearchserverless_security_config ?description ~name
+           ~type_ ~saml_options ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ~name ~type_ ~saml_options __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?description ~name ~type_ ~saml_options __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

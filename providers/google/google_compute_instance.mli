@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -317,3 +317,39 @@ val register :
   shielded_instance_config:shielded_instance_config list ->
   string ->
   t
+
+val make :
+  ?allow_stopping_for_update:bool prop ->
+  ?can_ip_forward:bool prop ->
+  ?deletion_protection:bool prop ->
+  ?description:string prop ->
+  ?desired_status:string prop ->
+  ?enable_display:bool prop ->
+  ?guest_accelerator:guest_accelerator list ->
+  ?hostname:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?metadata:(string * string prop) list ->
+  ?metadata_startup_script:string prop ->
+  ?min_cpu_platform:string prop ->
+  ?project:string prop ->
+  ?resource_policies:string prop list ->
+  ?tags:string prop list ->
+  ?zone:string prop ->
+  ?timeouts:timeouts ->
+  machine_type:string prop ->
+  name:string prop ->
+  advanced_machine_features:advanced_machine_features list ->
+  attached_disk:attached_disk list ->
+  boot_disk:boot_disk list ->
+  confidential_instance_config:confidential_instance_config list ->
+  network_interface:network_interface list ->
+  network_performance_config:network_performance_config list ->
+  params:params list ->
+  reservation_affinity:reservation_affinity list ->
+  scheduling:scheduling list ->
+  scratch_disk:scratch_disk list ->
+  service_account:service_account list ->
+  shielded_instance_config:shielded_instance_config list ->
+  string ->
+  t Tf_core.resource

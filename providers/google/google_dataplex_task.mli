@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -207,3 +207,20 @@ val register :
   trigger_spec:trigger_spec list ->
   string ->
   t
+
+val make :
+  ?description:string prop ->
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?lake:string prop ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?task_id:string prop ->
+  ?timeouts:timeouts ->
+  execution_spec:execution_spec list ->
+  notebook:notebook list ->
+  spark:spark list ->
+  trigger_spec:trigger_spec list ->
+  string ->
+  t Tf_core.resource

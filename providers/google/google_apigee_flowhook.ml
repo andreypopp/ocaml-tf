@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -56,32 +54,38 @@ type t = {
   sharedflow : string prop;
 }
 
-let register ?tf_module ?continue_on_error ?description ?id ?timeouts
-    ~environment ~flow_hook_point ~org_id ~sharedflow __resource_id =
-  let __resource_type = "google_apigee_flowhook" in
-  let __resource =
-    google_apigee_flowhook ?continue_on_error ?description ?id
-      ?timeouts ~environment ~flow_hook_point ~org_id ~sharedflow ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_apigee_flowhook __resource);
-  let __resource_attributes =
+let make ?continue_on_error ?description ?id ?timeouts ~environment
+    ~flow_hook_point ~org_id ~sharedflow __id =
+  let __type = "google_apigee_flowhook" in
+  let __attrs =
     ({
        continue_on_error =
-         Prop.computed __resource_type __resource_id
-           "continue_on_error";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       environment =
-         Prop.computed __resource_type __resource_id "environment";
-       flow_hook_point =
-         Prop.computed __resource_type __resource_id
-           "flow_hook_point";
-       id = Prop.computed __resource_type __resource_id "id";
-       org_id = Prop.computed __resource_type __resource_id "org_id";
-       sharedflow =
-         Prop.computed __resource_type __resource_id "sharedflow";
+         Prop.computed __type __id "continue_on_error";
+       description = Prop.computed __type __id "description";
+       environment = Prop.computed __type __id "environment";
+       flow_hook_point = Prop.computed __type __id "flow_hook_point";
+       id = Prop.computed __type __id "id";
+       org_id = Prop.computed __type __id "org_id";
+       sharedflow = Prop.computed __type __id "sharedflow";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_apigee_flowhook
+        (google_apigee_flowhook ?continue_on_error ?description ?id
+           ?timeouts ~environment ~flow_hook_point ~org_id
+           ~sharedflow ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?continue_on_error ?description ?id ?timeouts
+    ~environment ~flow_hook_point ~org_id ~sharedflow __id =
+  let (r : _ Tf_core.resource) =
+    make ?continue_on_error ?description ?id ?timeouts ~environment
+      ~flow_hook_point ~org_id ~sharedflow __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

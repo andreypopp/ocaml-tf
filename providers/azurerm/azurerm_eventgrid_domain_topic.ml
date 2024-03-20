@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -36,25 +34,32 @@ type t = {
   resource_group_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~domain_name ~name
-    ~resource_group_name __resource_id =
-  let __resource_type = "azurerm_eventgrid_domain_topic" in
-  let __resource =
-    azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name ~name
-      ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_eventgrid_domain_topic __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~domain_name ~name ~resource_group_name __id =
+  let __type = "azurerm_eventgrid_domain_topic" in
+  let __attrs =
     ({
-       domain_name =
-         Prop.computed __resource_type __resource_id "domain_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+       domain_name = Prop.computed __type __id "domain_name";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_eventgrid_domain_topic
+        (azurerm_eventgrid_domain_topic ?id ?timeouts ~domain_name
+           ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~domain_name ~name
+    ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~domain_name ~name ~resource_group_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

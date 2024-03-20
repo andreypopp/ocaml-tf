@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type audit_log_configuration = {
   audit_log_destination : string prop option; [@option]
@@ -175,6 +173,77 @@ type t = {
   weekly_maintenance_start_time : string prop;
 }
 
+let make ?active_directory_id ?aliases
+    ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
+    ?daily_automatic_backup_start_time ?deployment_type ?id
+    ?kms_key_id ?preferred_subnet_id ?security_group_ids
+    ?skip_final_backup ?storage_capacity ?storage_type ?tags
+    ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
+    ~throughput_capacity ~audit_log_configuration
+    ~disk_iops_configuration ~self_managed_active_directory __id =
+  let __type = "aws_fsx_windows_file_system" in
+  let __attrs =
+    ({
+       active_directory_id =
+         Prop.computed __type __id "active_directory_id";
+       aliases = Prop.computed __type __id "aliases";
+       arn = Prop.computed __type __id "arn";
+       automatic_backup_retention_days =
+         Prop.computed __type __id "automatic_backup_retention_days";
+       backup_id = Prop.computed __type __id "backup_id";
+       copy_tags_to_backups =
+         Prop.computed __type __id "copy_tags_to_backups";
+       daily_automatic_backup_start_time =
+         Prop.computed __type __id
+           "daily_automatic_backup_start_time";
+       deployment_type = Prop.computed __type __id "deployment_type";
+       dns_name = Prop.computed __type __id "dns_name";
+       id = Prop.computed __type __id "id";
+       kms_key_id = Prop.computed __type __id "kms_key_id";
+       network_interface_ids =
+         Prop.computed __type __id "network_interface_ids";
+       owner_id = Prop.computed __type __id "owner_id";
+       preferred_file_server_ip =
+         Prop.computed __type __id "preferred_file_server_ip";
+       preferred_subnet_id =
+         Prop.computed __type __id "preferred_subnet_id";
+       remote_administration_endpoint =
+         Prop.computed __type __id "remote_administration_endpoint";
+       security_group_ids =
+         Prop.computed __type __id "security_group_ids";
+       skip_final_backup =
+         Prop.computed __type __id "skip_final_backup";
+       storage_capacity =
+         Prop.computed __type __id "storage_capacity";
+       storage_type = Prop.computed __type __id "storage_type";
+       subnet_ids = Prop.computed __type __id "subnet_ids";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       throughput_capacity =
+         Prop.computed __type __id "throughput_capacity";
+       vpc_id = Prop.computed __type __id "vpc_id";
+       weekly_maintenance_start_time =
+         Prop.computed __type __id "weekly_maintenance_start_time";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_fsx_windows_file_system
+        (aws_fsx_windows_file_system ?active_directory_id ?aliases
+           ?automatic_backup_retention_days ?backup_id
+           ?copy_tags_to_backups ?daily_automatic_backup_start_time
+           ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
+           ?security_group_ids ?skip_final_backup ?storage_capacity
+           ?storage_type ?tags ?tags_all
+           ?weekly_maintenance_start_time ?timeouts ~subnet_ids
+           ~throughput_capacity ~audit_log_configuration
+           ~disk_iops_configuration ~self_managed_active_directory ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?active_directory_id ?aliases
     ?automatic_backup_retention_days ?backup_id ?copy_tags_to_backups
     ?daily_automatic_backup_start_time ?deployment_type ?id
@@ -182,11 +251,9 @@ let register ?tf_module ?active_directory_id ?aliases
     ?skip_final_backup ?storage_capacity ?storage_type ?tags
     ?tags_all ?weekly_maintenance_start_time ?timeouts ~subnet_ids
     ~throughput_capacity ~audit_log_configuration
-    ~disk_iops_configuration ~self_managed_active_directory
-    __resource_id =
-  let __resource_type = "aws_fsx_windows_file_system" in
-  let __resource =
-    aws_fsx_windows_file_system ?active_directory_id ?aliases
+    ~disk_iops_configuration ~self_managed_active_directory __id =
+  let (r : _ Tf_core.resource) =
+    make ?active_directory_id ?aliases
       ?automatic_backup_retention_days ?backup_id
       ?copy_tags_to_backups ?daily_automatic_backup_start_time
       ?deployment_type ?id ?kms_key_id ?preferred_subnet_id
@@ -194,75 +261,7 @@ let register ?tf_module ?active_directory_id ?aliases
       ?storage_type ?tags ?tags_all ?weekly_maintenance_start_time
       ?timeouts ~subnet_ids ~throughput_capacity
       ~audit_log_configuration ~disk_iops_configuration
-      ~self_managed_active_directory ()
+      ~self_managed_active_directory __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_fsx_windows_file_system __resource);
-  let __resource_attributes =
-    ({
-       active_directory_id =
-         Prop.computed __resource_type __resource_id
-           "active_directory_id";
-       aliases =
-         Prop.computed __resource_type __resource_id "aliases";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       automatic_backup_retention_days =
-         Prop.computed __resource_type __resource_id
-           "automatic_backup_retention_days";
-       backup_id =
-         Prop.computed __resource_type __resource_id "backup_id";
-       copy_tags_to_backups =
-         Prop.computed __resource_type __resource_id
-           "copy_tags_to_backups";
-       daily_automatic_backup_start_time =
-         Prop.computed __resource_type __resource_id
-           "daily_automatic_backup_start_time";
-       deployment_type =
-         Prop.computed __resource_type __resource_id
-           "deployment_type";
-       dns_name =
-         Prop.computed __resource_type __resource_id "dns_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       kms_key_id =
-         Prop.computed __resource_type __resource_id "kms_key_id";
-       network_interface_ids =
-         Prop.computed __resource_type __resource_id
-           "network_interface_ids";
-       owner_id =
-         Prop.computed __resource_type __resource_id "owner_id";
-       preferred_file_server_ip =
-         Prop.computed __resource_type __resource_id
-           "preferred_file_server_ip";
-       preferred_subnet_id =
-         Prop.computed __resource_type __resource_id
-           "preferred_subnet_id";
-       remote_administration_endpoint =
-         Prop.computed __resource_type __resource_id
-           "remote_administration_endpoint";
-       security_group_ids =
-         Prop.computed __resource_type __resource_id
-           "security_group_ids";
-       skip_final_backup =
-         Prop.computed __resource_type __resource_id
-           "skip_final_backup";
-       storage_capacity =
-         Prop.computed __resource_type __resource_id
-           "storage_capacity";
-       storage_type =
-         Prop.computed __resource_type __resource_id "storage_type";
-       subnet_ids =
-         Prop.computed __resource_type __resource_id "subnet_ids";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       throughput_capacity =
-         Prop.computed __resource_type __resource_id
-           "throughput_capacity";
-       vpc_id = Prop.computed __resource_type __resource_id "vpc_id";
-       weekly_maintenance_start_time =
-         Prop.computed __resource_type __resource_id
-           "weekly_maintenance_start_time";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

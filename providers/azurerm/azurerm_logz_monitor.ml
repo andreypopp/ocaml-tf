@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type plan = {
   billing_cycle : string prop;  (** billing_cycle *)
@@ -88,41 +86,45 @@ type t = {
   tags : (string * string) list prop;
 }
 
-let register ?tf_module ?company_name ?enabled ?enterprise_app_id ?id
-    ?tags ?timeouts ~location ~name ~resource_group_name ~plan ~user
-    __resource_id =
-  let __resource_type = "azurerm_logz_monitor" in
-  let __resource =
-    azurerm_logz_monitor ?company_name ?enabled ?enterprise_app_id
-      ?id ?tags ?timeouts ~location ~name ~resource_group_name ~plan
-      ~user ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_logz_monitor __resource);
-  let __resource_attributes =
+let make ?company_name ?enabled ?enterprise_app_id ?id ?tags
+    ?timeouts ~location ~name ~resource_group_name ~plan ~user __id =
+  let __type = "azurerm_logz_monitor" in
+  let __attrs =
     ({
-       company_name =
-         Prop.computed __resource_type __resource_id "company_name";
-       enabled =
-         Prop.computed __resource_type __resource_id "enabled";
+       company_name = Prop.computed __type __id "company_name";
+       enabled = Prop.computed __type __id "enabled";
        enterprise_app_id =
-         Prop.computed __resource_type __resource_id
-           "enterprise_app_id";
-       id = Prop.computed __resource_type __resource_id "id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
+         Prop.computed __type __id "enterprise_app_id";
+       id = Prop.computed __type __id "id";
+       location = Prop.computed __type __id "location";
        logz_organization_id =
-         Prop.computed __resource_type __resource_id
-           "logz_organization_id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "logz_organization_id";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
+         Prop.computed __type __id "resource_group_name";
        single_sign_on_url =
-         Prop.computed __resource_type __resource_id
-           "single_sign_on_url";
-       tags = Prop.computed __resource_type __resource_id "tags";
+         Prop.computed __type __id "single_sign_on_url";
+       tags = Prop.computed __type __id "tags";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_logz_monitor
+        (azurerm_logz_monitor ?company_name ?enabled
+           ?enterprise_app_id ?id ?tags ?timeouts ~location ~name
+           ~resource_group_name ~plan ~user ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?company_name ?enabled ?enterprise_app_id ?id
+    ?tags ?timeouts ~location ~name ~resource_group_name ~plan ~user
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?company_name ?enabled ?enterprise_app_id ?id ?tags
+      ?timeouts ~location ~name ~resource_group_name ~plan ~user __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

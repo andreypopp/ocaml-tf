@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -39,28 +37,32 @@ type t = {
   server_id : string prop;
 }
 
-let register ?tf_module ?charset ?collation ?id ?timeouts ~name
-    ~server_id __resource_id =
-  let __resource_type =
-    "azurerm_postgresql_flexible_server_database"
-  in
-  let __resource =
-    azurerm_postgresql_flexible_server_database ?charset ?collation
-      ?id ?timeouts ~name ~server_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_postgresql_flexible_server_database __resource);
-  let __resource_attributes =
+let make ?charset ?collation ?id ?timeouts ~name ~server_id __id =
+  let __type = "azurerm_postgresql_flexible_server_database" in
+  let __attrs =
     ({
-       charset =
-         Prop.computed __resource_type __resource_id "charset";
-       collation =
-         Prop.computed __resource_type __resource_id "collation";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       server_id =
-         Prop.computed __resource_type __resource_id "server_id";
+       charset = Prop.computed __type __id "charset";
+       collation = Prop.computed __type __id "collation";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       server_id = Prop.computed __type __id "server_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_postgresql_flexible_server_database
+        (azurerm_postgresql_flexible_server_database ?charset
+           ?collation ?id ?timeouts ~name ~server_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?charset ?collation ?id ?timeouts ~name
+    ~server_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?charset ?collation ?id ?timeouts ~name ~server_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

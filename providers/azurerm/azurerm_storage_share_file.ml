@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -66,41 +64,47 @@ type t = {
   storage_share_id : string prop;
 }
 
-let register ?tf_module ?content_disposition ?content_encoding
-    ?content_md5 ?content_type ?id ?metadata ?path ?source ?timeouts
-    ~name ~storage_share_id __resource_id =
-  let __resource_type = "azurerm_storage_share_file" in
-  let __resource =
-    azurerm_storage_share_file ?content_disposition ?content_encoding
-      ?content_md5 ?content_type ?id ?metadata ?path ?source
-      ?timeouts ~name ~storage_share_id ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_storage_share_file __resource);
-  let __resource_attributes =
+let make ?content_disposition ?content_encoding ?content_md5
+    ?content_type ?id ?metadata ?path ?source ?timeouts ~name
+    ~storage_share_id __id =
+  let __type = "azurerm_storage_share_file" in
+  let __attrs =
     ({
        content_disposition =
-         Prop.computed __resource_type __resource_id
-           "content_disposition";
+         Prop.computed __type __id "content_disposition";
        content_encoding =
-         Prop.computed __resource_type __resource_id
-           "content_encoding";
-       content_length =
-         Prop.computed __resource_type __resource_id "content_length";
-       content_md5 =
-         Prop.computed __resource_type __resource_id "content_md5";
-       content_type =
-         Prop.computed __resource_type __resource_id "content_type";
-       id = Prop.computed __resource_type __resource_id "id";
-       metadata =
-         Prop.computed __resource_type __resource_id "metadata";
-       name = Prop.computed __resource_type __resource_id "name";
-       path = Prop.computed __resource_type __resource_id "path";
-       source = Prop.computed __resource_type __resource_id "source";
+         Prop.computed __type __id "content_encoding";
+       content_length = Prop.computed __type __id "content_length";
+       content_md5 = Prop.computed __type __id "content_md5";
+       content_type = Prop.computed __type __id "content_type";
+       id = Prop.computed __type __id "id";
+       metadata = Prop.computed __type __id "metadata";
+       name = Prop.computed __type __id "name";
+       path = Prop.computed __type __id "path";
+       source = Prop.computed __type __id "source";
        storage_share_id =
-         Prop.computed __resource_type __resource_id
-           "storage_share_id";
+         Prop.computed __type __id "storage_share_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_storage_share_file
+        (azurerm_storage_share_file ?content_disposition
+           ?content_encoding ?content_md5 ?content_type ?id ?metadata
+           ?path ?source ?timeouts ~name ~storage_share_id ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?content_disposition ?content_encoding
+    ?content_md5 ?content_type ?id ?metadata ?path ?source ?timeouts
+    ~name ~storage_share_id __id =
+  let (r : _ Tf_core.resource) =
+    make ?content_disposition ?content_encoding ?content_md5
+      ?content_type ?id ?metadata ?path ?source ?timeouts ~name
+      ~storage_share_id __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

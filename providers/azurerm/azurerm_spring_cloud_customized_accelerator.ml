@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type git_repository__basic_auth = {
   password : string prop;  (** password *)
@@ -117,39 +115,45 @@ type t = {
   spring_cloud_accelerator_id : string prop;
 }
 
-let register ?tf_module ?accelerator_tags ?accelerator_type
-    ?description ?display_name ?icon_url ?id ?timeouts ~name
-    ~spring_cloud_accelerator_id ~git_repository __resource_id =
-  let __resource_type =
-    "azurerm_spring_cloud_customized_accelerator"
-  in
-  let __resource =
-    azurerm_spring_cloud_customized_accelerator ?accelerator_tags
-      ?accelerator_type ?description ?display_name ?icon_url ?id
-      ?timeouts ~name ~spring_cloud_accelerator_id ~git_repository ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_customized_accelerator __resource);
-  let __resource_attributes =
+let make ?accelerator_tags ?accelerator_type ?description
+    ?display_name ?icon_url ?id ?timeouts ~name
+    ~spring_cloud_accelerator_id ~git_repository __id =
+  let __type = "azurerm_spring_cloud_customized_accelerator" in
+  let __attrs =
     ({
        accelerator_tags =
-         Prop.computed __resource_type __resource_id
-           "accelerator_tags";
+         Prop.computed __type __id "accelerator_tags";
        accelerator_type =
-         Prop.computed __resource_type __resource_id
-           "accelerator_type";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       icon_url =
-         Prop.computed __resource_type __resource_id "icon_url";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "accelerator_type";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       icon_url = Prop.computed __type __id "icon_url";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
        spring_cloud_accelerator_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_accelerator_id";
+         Prop.computed __type __id "spring_cloud_accelerator_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_customized_accelerator
+        (azurerm_spring_cloud_customized_accelerator
+           ?accelerator_tags ?accelerator_type ?description
+           ?display_name ?icon_url ?id ?timeouts ~name
+           ~spring_cloud_accelerator_id ~git_repository ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?accelerator_tags ?accelerator_type
+    ?description ?display_name ?icon_url ?id ?timeouts ~name
+    ~spring_cloud_accelerator_id ~git_repository __id =
+  let (r : _ Tf_core.resource) =
+    make ?accelerator_tags ?accelerator_type ?description
+      ?display_name ?icon_url ?id ?timeouts ~name
+      ~spring_cloud_accelerator_id ~git_repository __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

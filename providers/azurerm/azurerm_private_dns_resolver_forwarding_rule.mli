@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -62,3 +62,15 @@ val register :
   target_dns_servers:target_dns_servers list ->
   string ->
   t
+
+val make :
+  ?enabled:bool prop ->
+  ?id:string prop ->
+  ?metadata:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  dns_forwarding_ruleset_id:string prop ->
+  domain_name:string prop ->
+  name:string prop ->
+  target_dns_servers:target_dns_servers list ->
+  string ->
+  t Tf_core.resource

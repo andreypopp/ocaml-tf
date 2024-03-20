@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type group_key = {
   id : string prop;
@@ -109,37 +107,42 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?description ?display_name ?id
-    ?initial_group_config ?timeouts ~labels ~parent ~group_key
-    __resource_id =
-  let __resource_type = "google_cloud_identity_group" in
-  let __resource =
-    google_cloud_identity_group ?description ?display_name ?id
-      ?initial_group_config ?timeouts ~labels ~parent ~group_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_cloud_identity_group __resource);
-  let __resource_attributes =
+let make ?description ?display_name ?id ?initial_group_config
+    ?timeouts ~labels ~parent ~group_key __id =
+  let __type = "google_cloud_identity_group" in
+  let __attrs =
     ({
        additional_group_keys =
-         Prop.computed __resource_type __resource_id
-           "additional_group_keys";
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "additional_group_keys";
+       create_time = Prop.computed __type __id "create_time";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
        initial_group_config =
-         Prop.computed __resource_type __resource_id
-           "initial_group_config";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       parent = Prop.computed __resource_type __resource_id "parent";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "initial_group_config";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       parent = Prop.computed __type __id "parent";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_cloud_identity_group
+        (google_cloud_identity_group ?description ?display_name ?id
+           ?initial_group_config ?timeouts ~labels ~parent ~group_key
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?display_name ?id
+    ?initial_group_config ?timeouts ~labels ~parent ~group_key __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?display_name ?id ?initial_group_config
+      ?timeouts ~labels ~parent ~group_key __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

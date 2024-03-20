@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -70,50 +68,52 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?cidr_blocks ?description ?id
-    ?ipv6_cidr_blocks ?prefix_list_ids ?self
-    ?source_security_group_id ?timeouts ~from_port ~protocol
-    ~security_group_id ~to_port ~type_ __resource_id =
-  let __resource_type = "aws_security_group_rule" in
-  let __resource =
-    aws_security_group_rule ?cidr_blocks ?description ?id
-      ?ipv6_cidr_blocks ?prefix_list_ids ?self
-      ?source_security_group_id ?timeouts ~from_port ~protocol
-      ~security_group_id ~to_port ~type_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_security_group_rule __resource);
-  let __resource_attributes =
+let make ?cidr_blocks ?description ?id ?ipv6_cidr_blocks
+    ?prefix_list_ids ?self ?source_security_group_id ?timeouts
+    ~from_port ~protocol ~security_group_id ~to_port ~type_ __id =
+  let __type = "aws_security_group_rule" in
+  let __attrs =
     ({
-       cidr_blocks =
-         Prop.computed __resource_type __resource_id "cidr_blocks";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       from_port =
-         Prop.computed __resource_type __resource_id "from_port";
-       id = Prop.computed __resource_type __resource_id "id";
+       cidr_blocks = Prop.computed __type __id "cidr_blocks";
+       description = Prop.computed __type __id "description";
+       from_port = Prop.computed __type __id "from_port";
+       id = Prop.computed __type __id "id";
        ipv6_cidr_blocks =
-         Prop.computed __resource_type __resource_id
-           "ipv6_cidr_blocks";
-       prefix_list_ids =
-         Prop.computed __resource_type __resource_id
-           "prefix_list_ids";
-       protocol =
-         Prop.computed __resource_type __resource_id "protocol";
+         Prop.computed __type __id "ipv6_cidr_blocks";
+       prefix_list_ids = Prop.computed __type __id "prefix_list_ids";
+       protocol = Prop.computed __type __id "protocol";
        security_group_id =
-         Prop.computed __resource_type __resource_id
-           "security_group_id";
+         Prop.computed __type __id "security_group_id";
        security_group_rule_id =
-         Prop.computed __resource_type __resource_id
-           "security_group_rule_id";
-       self = Prop.computed __resource_type __resource_id "self";
+         Prop.computed __type __id "security_group_rule_id";
+       self = Prop.computed __type __id "self";
        source_security_group_id =
-         Prop.computed __resource_type __resource_id
-           "source_security_group_id";
-       to_port =
-         Prop.computed __resource_type __resource_id "to_port";
-       type_ = Prop.computed __resource_type __resource_id "type";
+         Prop.computed __type __id "source_security_group_id";
+       to_port = Prop.computed __type __id "to_port";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_security_group_rule
+        (aws_security_group_rule ?cidr_blocks ?description ?id
+           ?ipv6_cidr_blocks ?prefix_list_ids ?self
+           ?source_security_group_id ?timeouts ~from_port ~protocol
+           ~security_group_id ~to_port ~type_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?cidr_blocks ?description ?id
+    ?ipv6_cidr_blocks ?prefix_list_ids ?self
+    ?source_security_group_id ?timeouts ~from_port ~protocol
+    ~security_group_id ~to_port ~type_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?cidr_blocks ?description ?id ?ipv6_cidr_blocks
+      ?prefix_list_ids ?self ?source_security_group_id ?timeouts
+      ~from_port ~protocol ~security_group_id ~to_port ~type_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type aws_ce_cost_allocation_tag = {
   id : string prop option; [@option]  (** id *)
@@ -23,21 +21,27 @@ type t = {
   type_ : string prop;
 }
 
-let register ?tf_module ?id ~status ~tag_key __resource_id =
-  let __resource_type = "aws_ce_cost_allocation_tag" in
-  let __resource =
-    aws_ce_cost_allocation_tag ?id ~status ~tag_key ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_ce_cost_allocation_tag __resource);
-  let __resource_attributes =
+let make ?id ~status ~tag_key __id =
+  let __type = "aws_ce_cost_allocation_tag" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
-       status = Prop.computed __resource_type __resource_id "status";
-       tag_key =
-         Prop.computed __resource_type __resource_id "tag_key";
-       type_ = Prop.computed __resource_type __resource_id "type";
+       id = Prop.computed __type __id "id";
+       status = Prop.computed __type __id "status";
+       tag_key = Prop.computed __type __id "tag_key";
+       type_ = Prop.computed __type __id "type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_ce_cost_allocation_tag
+        (aws_ce_cost_allocation_tag ?id ~status ~tag_key ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~status ~tag_key __id =
+  let (r : _ Tf_core.resource) = make ?id ~status ~tag_key __id in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

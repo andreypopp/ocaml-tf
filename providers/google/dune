@@ -1,6 +1,6 @@
 (library
  (name tf_google)
- (public_name tf.google)
+ (public_name tf_google)
  (modes native)
  (modules
   :standard

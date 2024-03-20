@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type action__fixed_response = {
   status_code : float prop;  (** status_code *)
@@ -164,36 +162,42 @@ type t = {
   tags_all : (string * string) list prop;
 }
 
-let register ?tf_module ?id ?tags ?tags_all ?timeouts
-    ~listener_identifier ~name ~priority ~service_identifier ~action
-    ~match_ __resource_id =
-  let __resource_type = "aws_vpclattice_listener_rule" in
-  let __resource =
-    aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
-      ~listener_identifier ~name ~priority ~service_identifier
-      ~action ~match_ ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_vpclattice_listener_rule __resource);
-  let __resource_attributes =
+let make ?id ?tags ?tags_all ?timeouts ~listener_identifier ~name
+    ~priority ~service_identifier ~action ~match_ __id =
+  let __type = "aws_vpclattice_listener_rule" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       arn = Prop.computed __type __id "arn";
+       id = Prop.computed __type __id "id";
        listener_identifier =
-         Prop.computed __resource_type __resource_id
-           "listener_identifier";
-       name = Prop.computed __resource_type __resource_id "name";
-       priority =
-         Prop.computed __resource_type __resource_id "priority";
-       rule_id =
-         Prop.computed __resource_type __resource_id "rule_id";
+         Prop.computed __type __id "listener_identifier";
+       name = Prop.computed __type __id "name";
+       priority = Prop.computed __type __id "priority";
+       rule_id = Prop.computed __type __id "rule_id";
        service_identifier =
-         Prop.computed __resource_type __resource_id
-           "service_identifier";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
+         Prop.computed __type __id "service_identifier";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_vpclattice_listener_rule
+        (aws_vpclattice_listener_rule ?id ?tags ?tags_all ?timeouts
+           ~listener_identifier ~name ~priority ~service_identifier
+           ~action ~match_ ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?tags ?tags_all ?timeouts
+    ~listener_identifier ~name ~priority ~service_identifier ~action
+    ~match_ __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?tags ?tags_all ?timeouts ~listener_identifier ~name
+      ~priority ~service_identifier ~action ~match_ __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

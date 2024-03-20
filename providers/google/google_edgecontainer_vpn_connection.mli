@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -84,3 +84,19 @@ val register :
   vpc_project:vpc_project list ->
   string ->
   t
+
+val make :
+  ?enable_high_availability:bool prop ->
+  ?id:string prop ->
+  ?labels:(string * string prop) list ->
+  ?nat_gateway_ip:string prop ->
+  ?project:string prop ->
+  ?router:string prop ->
+  ?vpc:string prop ->
+  ?timeouts:timeouts ->
+  cluster:string prop ->
+  location:string prop ->
+  name:string prop ->
+  vpc_project:vpc_project list ->
+  string ->
+  t Tf_core.resource

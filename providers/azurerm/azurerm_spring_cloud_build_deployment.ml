@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type quota = {
   cpu : string prop option; [@option]  (** cpu *)
@@ -74,40 +72,47 @@ type t = {
   spring_cloud_app_id : string prop;
 }
 
-let register ?tf_module ?addon_json
-    ?application_performance_monitoring_ids ?environment_variables
-    ?id ?instance_count ?timeouts ~build_result_id ~name
-    ~spring_cloud_app_id ~quota __resource_id =
-  let __resource_type = "azurerm_spring_cloud_build_deployment" in
-  let __resource =
-    azurerm_spring_cloud_build_deployment ?addon_json
-      ?application_performance_monitoring_ids ?environment_variables
-      ?id ?instance_count ?timeouts ~build_result_id ~name
-      ~spring_cloud_app_id ~quota ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_build_deployment __resource);
-  let __resource_attributes =
+let make ?addon_json ?application_performance_monitoring_ids
+    ?environment_variables ?id ?instance_count ?timeouts
+    ~build_result_id ~name ~spring_cloud_app_id ~quota __id =
+  let __type = "azurerm_spring_cloud_build_deployment" in
+  let __attrs =
     ({
-       addon_json =
-         Prop.computed __resource_type __resource_id "addon_json";
+       addon_json = Prop.computed __type __id "addon_json";
        application_performance_monitoring_ids =
-         Prop.computed __resource_type __resource_id
+         Prop.computed __type __id
            "application_performance_monitoring_ids";
-       build_result_id =
-         Prop.computed __resource_type __resource_id
-           "build_result_id";
+       build_result_id = Prop.computed __type __id "build_result_id";
        environment_variables =
-         Prop.computed __resource_type __resource_id
-           "environment_variables";
-       id = Prop.computed __resource_type __resource_id "id";
-       instance_count =
-         Prop.computed __resource_type __resource_id "instance_count";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "environment_variables";
+       id = Prop.computed __type __id "id";
+       instance_count = Prop.computed __type __id "instance_count";
+       name = Prop.computed __type __id "name";
        spring_cloud_app_id =
-         Prop.computed __resource_type __resource_id
-           "spring_cloud_app_id";
+         Prop.computed __type __id "spring_cloud_app_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_build_deployment
+        (azurerm_spring_cloud_build_deployment ?addon_json
+           ?application_performance_monitoring_ids
+           ?environment_variables ?id ?instance_count ?timeouts
+           ~build_result_id ~name ~spring_cloud_app_id ~quota ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?addon_json
+    ?application_performance_monitoring_ids ?environment_variables
+    ?id ?instance_count ?timeouts ~build_result_id ~name
+    ~spring_cloud_app_id ~quota __id =
+  let (r : _ Tf_core.resource) =
+    make ?addon_json ?application_performance_monitoring_ids
+      ?environment_variables ?id ?instance_count ?timeouts
+      ~build_result_id ~name ~spring_cloud_app_id ~quota __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

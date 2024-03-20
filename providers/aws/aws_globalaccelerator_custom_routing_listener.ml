@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type port_range = {
   from_port : float prop option; [@option]  (** from_port *)
@@ -41,25 +39,29 @@ let aws_globalaccelerator_custom_routing_listener ?id ?timeouts
 
 type t = { accelerator_arn : string prop; id : string prop }
 
-let register ?tf_module ?id ?timeouts ~accelerator_arn ~port_range
-    __resource_id =
-  let __resource_type =
-    "aws_globalaccelerator_custom_routing_listener"
-  in
-  let __resource =
-    aws_globalaccelerator_custom_routing_listener ?id ?timeouts
-      ~accelerator_arn ~port_range ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_globalaccelerator_custom_routing_listener
-       __resource);
-  let __resource_attributes =
+let make ?id ?timeouts ~accelerator_arn ~port_range __id =
+  let __type = "aws_globalaccelerator_custom_routing_listener" in
+  let __attrs =
     ({
-       accelerator_arn =
-         Prop.computed __resource_type __resource_id
-           "accelerator_arn";
-       id = Prop.computed __resource_type __resource_id "id";
+       accelerator_arn = Prop.computed __type __id "accelerator_arn";
+       id = Prop.computed __type __id "id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_globalaccelerator_custom_routing_listener
+        (aws_globalaccelerator_custom_routing_listener ?id ?timeouts
+           ~accelerator_arn ~port_range ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~accelerator_arn ~port_range
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~accelerator_arn ~port_range __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

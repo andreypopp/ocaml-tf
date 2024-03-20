@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -79,56 +77,59 @@ type t = {
   resource_group_name : string prop;
 }
 
+let make ?authentication_type ?batch_frequency_in_seconds
+    ?connection_string ?encoding ?endpoint_uri ?file_name_format ?id
+    ?identity_id ?max_chunk_size_in_bytes ?timeouts ~container_name
+    ~iothub_id ~name ~resource_group_name __id =
+  let __type = "azurerm_iothub_endpoint_storage_container" in
+  let __attrs =
+    ({
+       authentication_type =
+         Prop.computed __type __id "authentication_type";
+       batch_frequency_in_seconds =
+         Prop.computed __type __id "batch_frequency_in_seconds";
+       connection_string =
+         Prop.computed __type __id "connection_string";
+       container_name = Prop.computed __type __id "container_name";
+       encoding = Prop.computed __type __id "encoding";
+       endpoint_uri = Prop.computed __type __id "endpoint_uri";
+       file_name_format =
+         Prop.computed __type __id "file_name_format";
+       id = Prop.computed __type __id "id";
+       identity_id = Prop.computed __type __id "identity_id";
+       iothub_id = Prop.computed __type __id "iothub_id";
+       max_chunk_size_in_bytes =
+         Prop.computed __type __id "max_chunk_size_in_bytes";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_iothub_endpoint_storage_container
+        (azurerm_iothub_endpoint_storage_container
+           ?authentication_type ?batch_frequency_in_seconds
+           ?connection_string ?encoding ?endpoint_uri
+           ?file_name_format ?id ?identity_id
+           ?max_chunk_size_in_bytes ?timeouts ~container_name
+           ~iothub_id ~name ~resource_group_name ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?authentication_type
     ?batch_frequency_in_seconds ?connection_string ?encoding
     ?endpoint_uri ?file_name_format ?id ?identity_id
     ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
-    ~name ~resource_group_name __resource_id =
-  let __resource_type =
-    "azurerm_iothub_endpoint_storage_container"
+    ~name ~resource_group_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?authentication_type ?batch_frequency_in_seconds
+      ?connection_string ?encoding ?endpoint_uri ?file_name_format
+      ?id ?identity_id ?max_chunk_size_in_bytes ?timeouts
+      ~container_name ~iothub_id ~name ~resource_group_name __id
   in
-  let __resource =
-    azurerm_iothub_endpoint_storage_container ?authentication_type
-      ?batch_frequency_in_seconds ?connection_string ?encoding
-      ?endpoint_uri ?file_name_format ?id ?identity_id
-      ?max_chunk_size_in_bytes ?timeouts ~container_name ~iothub_id
-      ~name ~resource_group_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_iothub_endpoint_storage_container __resource);
-  let __resource_attributes =
-    ({
-       authentication_type =
-         Prop.computed __resource_type __resource_id
-           "authentication_type";
-       batch_frequency_in_seconds =
-         Prop.computed __resource_type __resource_id
-           "batch_frequency_in_seconds";
-       connection_string =
-         Prop.computed __resource_type __resource_id
-           "connection_string";
-       container_name =
-         Prop.computed __resource_type __resource_id "container_name";
-       encoding =
-         Prop.computed __resource_type __resource_id "encoding";
-       endpoint_uri =
-         Prop.computed __resource_type __resource_id "endpoint_uri";
-       file_name_format =
-         Prop.computed __resource_type __resource_id
-           "file_name_format";
-       id = Prop.computed __resource_type __resource_id "id";
-       identity_id =
-         Prop.computed __resource_type __resource_id "identity_id";
-       iothub_id =
-         Prop.computed __resource_type __resource_id "iothub_id";
-       max_chunk_size_in_bytes =
-         Prop.computed __resource_type __resource_id
-           "max_chunk_size_in_bytes";
-       name = Prop.computed __resource_type __resource_id "name";
-       resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type bigquery_options = {
   use_partitioned_tables : bool prop;
@@ -84,40 +82,46 @@ type t = {
   writer_identity : string prop;
 }
 
-let register ?tf_module ?custom_writer_identity ?description
-    ?disabled ?filter ?id ?project ?unique_writer_identity
-    ~destination ~name ~bigquery_options ~exclusions __resource_id =
-  let __resource_type = "google_logging_project_sink" in
-  let __resource =
-    google_logging_project_sink ?custom_writer_identity ?description
-      ?disabled ?filter ?id ?project ?unique_writer_identity
-      ~destination ~name ~bigquery_options ~exclusions ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_logging_project_sink __resource);
-  let __resource_attributes =
+let make ?custom_writer_identity ?description ?disabled ?filter ?id
+    ?project ?unique_writer_identity ~destination ~name
+    ~bigquery_options ~exclusions __id =
+  let __type = "google_logging_project_sink" in
+  let __attrs =
     ({
        custom_writer_identity =
-         Prop.computed __resource_type __resource_id
-           "custom_writer_identity";
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       destination =
-         Prop.computed __resource_type __resource_id "destination";
-       disabled =
-         Prop.computed __resource_type __resource_id "disabled";
-       filter = Prop.computed __resource_type __resource_id "filter";
-       id = Prop.computed __resource_type __resource_id "id";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
+         Prop.computed __type __id "custom_writer_identity";
+       description = Prop.computed __type __id "description";
+       destination = Prop.computed __type __id "destination";
+       disabled = Prop.computed __type __id "disabled";
+       filter = Prop.computed __type __id "filter";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
        unique_writer_identity =
-         Prop.computed __resource_type __resource_id
-           "unique_writer_identity";
-       writer_identity =
-         Prop.computed __resource_type __resource_id
-           "writer_identity";
+         Prop.computed __type __id "unique_writer_identity";
+       writer_identity = Prop.computed __type __id "writer_identity";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_logging_project_sink
+        (google_logging_project_sink ?custom_writer_identity
+           ?description ?disabled ?filter ?id ?project
+           ?unique_writer_identity ~destination ~name
+           ~bigquery_options ~exclusions ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?custom_writer_identity ?description
+    ?disabled ?filter ?id ?project ?unique_writer_identity
+    ~destination ~name ~bigquery_options ~exclusions __id =
+  let (r : _ Tf_core.resource) =
+    make ?custom_writer_identity ?description ?disabled ?filter ?id
+      ?project ?unique_writer_identity ~destination ~name
+      ~bigquery_options ~exclusions __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

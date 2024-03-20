@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type auto_shutdown = {
   disconnect_delay : string prop option; [@option]
@@ -219,35 +217,46 @@ type t = {
   title : string prop;
 }
 
-let register ?tf_module ?description ?id ?lab_plan_id ?tags ?timeouts
-    ~location ~name ~resource_group_name ~title ~auto_shutdown
+let make ?description ?id ?lab_plan_id ?tags ?timeouts ~location
+    ~name ~resource_group_name ~title ~auto_shutdown
     ~connection_setting ~network ~roster ~security ~virtual_machine
-    __resource_id =
-  let __resource_type = "azurerm_lab_service_lab" in
-  let __resource =
-    azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
-      ?timeouts ~location ~name ~resource_group_name ~title
-      ~auto_shutdown ~connection_setting ~network ~roster ~security
-      ~virtual_machine ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lab_service_lab __resource);
-  let __resource_attributes =
+    __id =
+  let __type = "azurerm_lab_service_lab" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       id = Prop.computed __resource_type __resource_id "id";
-       lab_plan_id =
-         Prop.computed __resource_type __resource_id "lab_plan_id";
-       location =
-         Prop.computed __resource_type __resource_id "location";
-       name = Prop.computed __resource_type __resource_id "name";
+       description = Prop.computed __type __id "description";
+       id = Prop.computed __type __id "id";
+       lab_plan_id = Prop.computed __type __id "lab_plan_id";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       title = Prop.computed __resource_type __resource_id "title";
+         Prop.computed __type __id "resource_group_name";
+       tags = Prop.computed __type __id "tags";
+       title = Prop.computed __type __id "title";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lab_service_lab
+        (azurerm_lab_service_lab ?description ?id ?lab_plan_id ?tags
+           ?timeouts ~location ~name ~resource_group_name ~title
+           ~auto_shutdown ~connection_setting ~network ~roster
+           ~security ~virtual_machine ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?id ?lab_plan_id ?tags ?timeouts
+    ~location ~name ~resource_group_name ~title ~auto_shutdown
+    ~connection_setting ~network ~roster ~security ~virtual_machine
+    __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?id ?lab_plan_id ?tags ?timeouts ~location
+      ~name ~resource_group_name ~title ~auto_shutdown
+      ~connection_setting ~network ~roster ~security ~virtual_machine
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

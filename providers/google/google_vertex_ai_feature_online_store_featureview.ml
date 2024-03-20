@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type big_query_source = {
   entity_id_columns : string prop list;
@@ -113,42 +111,47 @@ type t = {
   update_time : string prop;
 }
 
-let register ?tf_module ?id ?labels ?name ?project ?timeouts
-    ~feature_online_store ~region ~big_query_source
-    ~feature_registry_source ~sync_config __resource_id =
-  let __resource_type =
-    "google_vertex_ai_feature_online_store_featureview"
-  in
-  let __resource =
-    google_vertex_ai_feature_online_store_featureview ?id ?labels
-      ?name ?project ?timeouts ~feature_online_store ~region
-      ~big_query_source ~feature_registry_source ~sync_config ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_vertex_ai_feature_online_store_featureview
-       __resource);
-  let __resource_attributes =
+let make ?id ?labels ?name ?project ?timeouts ~feature_online_store
+    ~region ~big_query_source ~feature_registry_source ~sync_config
+    __id =
+  let __type = "google_vertex_ai_feature_online_store_featureview" in
+  let __attrs =
     ({
-       create_time =
-         Prop.computed __resource_type __resource_id "create_time";
+       create_time = Prop.computed __type __id "create_time";
        effective_labels =
-         Prop.computed __resource_type __resource_id
-           "effective_labels";
+         Prop.computed __type __id "effective_labels";
        feature_online_store =
-         Prop.computed __resource_type __resource_id
-           "feature_online_store";
-       id = Prop.computed __resource_type __resource_id "id";
-       labels = Prop.computed __resource_type __resource_id "labels";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       region = Prop.computed __resource_type __resource_id "region";
+         Prop.computed __type __id "feature_online_store";
+       id = Prop.computed __type __id "id";
+       labels = Prop.computed __type __id "labels";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       region = Prop.computed __type __id "region";
        terraform_labels =
-         Prop.computed __resource_type __resource_id
-           "terraform_labels";
-       update_time =
-         Prop.computed __resource_type __resource_id "update_time";
+         Prop.computed __type __id "terraform_labels";
+       update_time = Prop.computed __type __id "update_time";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_vertex_ai_feature_online_store_featureview
+        (google_vertex_ai_feature_online_store_featureview ?id
+           ?labels ?name ?project ?timeouts ~feature_online_store
+           ~region ~big_query_source ~feature_registry_source
+           ~sync_config ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?labels ?name ?project ?timeouts
+    ~feature_online_store ~region ~big_query_source
+    ~feature_registry_source ~sync_config __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?labels ?name ?project ?timeouts ~feature_online_store
+      ~region ~big_query_source ~feature_registry_source ~sync_config
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

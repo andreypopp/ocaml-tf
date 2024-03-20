@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -130,3 +130,22 @@ val register :
   source:source list ->
   string ->
   t
+
+val make :
+  ?error_blob_uri:string prop ->
+  ?id:string prop ->
+  ?output_blob_uri:string prop ->
+  ?run_as_password:string prop ->
+  ?run_as_user:string prop ->
+  ?tags:(string * string prop) list ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  name:string prop ->
+  virtual_machine_id:string prop ->
+  error_blob_managed_identity:error_blob_managed_identity list ->
+  output_blob_managed_identity:output_blob_managed_identity list ->
+  parameter:parameter list ->
+  protected_parameter:protected_parameter list ->
+  source:source list ->
+  string ->
+  t Tf_core.resource

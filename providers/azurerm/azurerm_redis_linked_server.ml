@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -53,39 +51,47 @@ type t = {
   target_redis_cache_name : string prop;
 }
 
-let register ?tf_module ?id ?timeouts ~linked_redis_cache_id
+let make ?id ?timeouts ~linked_redis_cache_id
     ~linked_redis_cache_location ~resource_group_name ~server_role
-    ~target_redis_cache_name __resource_id =
-  let __resource_type = "azurerm_redis_linked_server" in
-  let __resource =
-    azurerm_redis_linked_server ?id ?timeouts ~linked_redis_cache_id
-      ~linked_redis_cache_location ~resource_group_name ~server_role
-      ~target_redis_cache_name ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_redis_linked_server __resource);
-  let __resource_attributes =
+    ~target_redis_cache_name __id =
+  let __type = "azurerm_redis_linked_server" in
+  let __attrs =
     ({
        geo_replicated_primary_host_name =
-         Prop.computed __resource_type __resource_id
-           "geo_replicated_primary_host_name";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "geo_replicated_primary_host_name";
+       id = Prop.computed __type __id "id";
        linked_redis_cache_id =
-         Prop.computed __resource_type __resource_id
-           "linked_redis_cache_id";
+         Prop.computed __type __id "linked_redis_cache_id";
        linked_redis_cache_location =
-         Prop.computed __resource_type __resource_id
-           "linked_redis_cache_location";
-       name = Prop.computed __resource_type __resource_id "name";
+         Prop.computed __type __id "linked_redis_cache_location";
+       name = Prop.computed __type __id "name";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       server_role =
-         Prop.computed __resource_type __resource_id "server_role";
+         Prop.computed __type __id "resource_group_name";
+       server_role = Prop.computed __type __id "server_role";
        target_redis_cache_name =
-         Prop.computed __resource_type __resource_id
-           "target_redis_cache_name";
+         Prop.computed __type __id "target_redis_cache_name";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_redis_linked_server
+        (azurerm_redis_linked_server ?id ?timeouts
+           ~linked_redis_cache_id ~linked_redis_cache_location
+           ~resource_group_name ~server_role ~target_redis_cache_name
+           ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~linked_redis_cache_id
+    ~linked_redis_cache_location ~resource_group_name ~server_role
+    ~target_redis_cache_name __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~linked_redis_cache_id
+      ~linked_redis_cache_location ~resource_group_name ~server_role
+      ~target_redis_cache_name __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

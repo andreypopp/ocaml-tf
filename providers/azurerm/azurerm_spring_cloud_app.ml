@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type custom_persistent_disk = {
   mount_options : string prop list option; [@option]
@@ -142,42 +140,51 @@ type t = {
   url : string prop;
 }
 
-let register ?tf_module ?addon_json ?https_only ?id ?is_public
+let make ?addon_json ?https_only ?id ?is_public
     ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
     ~resource_group_name ~service_name ~custom_persistent_disk
-    ~identity ~ingress_settings ~persistent_disk __resource_id =
-  let __resource_type = "azurerm_spring_cloud_app" in
-  let __resource =
-    azurerm_spring_cloud_app ?addon_json ?https_only ?id ?is_public
-      ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
-      ~resource_group_name ~service_name ~custom_persistent_disk
-      ~identity ~ingress_settings ~persistent_disk ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_spring_cloud_app __resource);
-  let __resource_attributes =
+    ~identity ~ingress_settings ~persistent_disk __id =
+  let __type = "azurerm_spring_cloud_app" in
+  let __attrs =
     ({
-       addon_json =
-         Prop.computed __resource_type __resource_id "addon_json";
-       fqdn = Prop.computed __resource_type __resource_id "fqdn";
-       https_only =
-         Prop.computed __resource_type __resource_id "https_only";
-       id = Prop.computed __resource_type __resource_id "id";
-       is_public =
-         Prop.computed __resource_type __resource_id "is_public";
-       name = Prop.computed __resource_type __resource_id "name";
+       addon_json = Prop.computed __type __id "addon_json";
+       fqdn = Prop.computed __type __id "fqdn";
+       https_only = Prop.computed __type __id "https_only";
+       id = Prop.computed __type __id "id";
+       is_public = Prop.computed __type __id "is_public";
+       name = Prop.computed __type __id "name";
        public_endpoint_enabled =
-         Prop.computed __resource_type __resource_id
-           "public_endpoint_enabled";
+         Prop.computed __type __id "public_endpoint_enabled";
        resource_group_name =
-         Prop.computed __resource_type __resource_id
-           "resource_group_name";
-       service_name =
-         Prop.computed __resource_type __resource_id "service_name";
-       tls_enabled =
-         Prop.computed __resource_type __resource_id "tls_enabled";
-       url = Prop.computed __resource_type __resource_id "url";
+         Prop.computed __type __id "resource_group_name";
+       service_name = Prop.computed __type __id "service_name";
+       tls_enabled = Prop.computed __type __id "tls_enabled";
+       url = Prop.computed __type __id "url";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_spring_cloud_app
+        (azurerm_spring_cloud_app ?addon_json ?https_only ?id
+           ?is_public ?public_endpoint_enabled ?tls_enabled ?timeouts
+           ~name ~resource_group_name ~service_name
+           ~custom_persistent_disk ~identity ~ingress_settings
+           ~persistent_disk ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?addon_json ?https_only ?id ?is_public
+    ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
+    ~resource_group_name ~service_name ~custom_persistent_disk
+    ~identity ~ingress_settings ~persistent_disk __id =
+  let (r : _ Tf_core.resource) =
+    make ?addon_json ?https_only ?id ?is_public
+      ?public_endpoint_enabled ?tls_enabled ?timeouts ~name
+      ~resource_group_name ~service_name ~custom_persistent_disk
+      ~identity ~ingress_settings ~persistent_disk __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

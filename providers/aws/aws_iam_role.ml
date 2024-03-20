@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type inline_policy = {
   name : string prop option; [@option]  (** name *)
@@ -74,52 +72,57 @@ type t = {
   unique_id : string prop;
 }
 
-let register ?tf_module ?description ?force_detach_policies ?id
-    ?managed_policy_arns ?max_session_duration ?name ?name_prefix
-    ?path ?permissions_boundary ?tags ?tags_all ~assume_role_policy
-    ~inline_policy __resource_id =
-  let __resource_type = "aws_iam_role" in
-  let __resource =
-    aws_iam_role ?description ?force_detach_policies ?id
-      ?managed_policy_arns ?max_session_duration ?name ?name_prefix
-      ?path ?permissions_boundary ?tags ?tags_all ~assume_role_policy
-      ~inline_policy ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_iam_role __resource);
-  let __resource_attributes =
+let make ?description ?force_detach_policies ?id ?managed_policy_arns
+    ?max_session_duration ?name ?name_prefix ?path
+    ?permissions_boundary ?tags ?tags_all ~assume_role_policy
+    ~inline_policy __id =
+  let __type = "aws_iam_role" in
+  let __attrs =
     ({
-       arn = Prop.computed __resource_type __resource_id "arn";
+       arn = Prop.computed __type __id "arn";
        assume_role_policy =
-         Prop.computed __resource_type __resource_id
-           "assume_role_policy";
-       create_date =
-         Prop.computed __resource_type __resource_id "create_date";
-       description =
-         Prop.computed __resource_type __resource_id "description";
+         Prop.computed __type __id "assume_role_policy";
+       create_date = Prop.computed __type __id "create_date";
+       description = Prop.computed __type __id "description";
        force_detach_policies =
-         Prop.computed __resource_type __resource_id
-           "force_detach_policies";
-       id = Prop.computed __resource_type __resource_id "id";
+         Prop.computed __type __id "force_detach_policies";
+       id = Prop.computed __type __id "id";
        managed_policy_arns =
-         Prop.computed __resource_type __resource_id
-           "managed_policy_arns";
+         Prop.computed __type __id "managed_policy_arns";
        max_session_duration =
-         Prop.computed __resource_type __resource_id
-           "max_session_duration";
-       name = Prop.computed __resource_type __resource_id "name";
-       name_prefix =
-         Prop.computed __resource_type __resource_id "name_prefix";
-       path = Prop.computed __resource_type __resource_id "path";
+         Prop.computed __type __id "max_session_duration";
+       name = Prop.computed __type __id "name";
+       name_prefix = Prop.computed __type __id "name_prefix";
+       path = Prop.computed __type __id "path";
        permissions_boundary =
-         Prop.computed __resource_type __resource_id
-           "permissions_boundary";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       unique_id =
-         Prop.computed __resource_type __resource_id "unique_id";
+         Prop.computed __type __id "permissions_boundary";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       unique_id = Prop.computed __type __id "unique_id";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_iam_role
+        (aws_iam_role ?description ?force_detach_policies ?id
+           ?managed_policy_arns ?max_session_duration ?name
+           ?name_prefix ?path ?permissions_boundary ?tags ?tags_all
+           ~assume_role_policy ~inline_policy ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?description ?force_detach_policies ?id
+    ?managed_policy_arns ?max_session_duration ?name ?name_prefix
+    ?path ?permissions_boundary ?tags ?tags_all ~assume_role_policy
+    ~inline_policy __id =
+  let (r : _ Tf_core.resource) =
+    make ?description ?force_detach_policies ?id ?managed_policy_arns
+      ?max_session_duration ?name ?name_prefix ?path
+      ?permissions_boundary ?tags ?tags_all ~assume_role_policy
+      ~inline_policy __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

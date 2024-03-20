@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type account_recovery_setting__recovery_mechanism = {
   name : string prop;  (** name *)
@@ -447,6 +445,73 @@ type t = {
   username_attributes : string list prop;
 }
 
+let make ?alias_attributes ?auto_verified_attributes
+    ?deletion_protection ?email_verification_message
+    ?email_verification_subject ?id ?mfa_configuration
+    ?sms_authentication_message ?sms_verification_message ?tags
+    ?tags_all ?username_attributes ~name ~account_recovery_setting
+    ~admin_create_user_config ~device_configuration
+    ~email_configuration ~lambda_config ~password_policy ~schema
+    ~sms_configuration ~software_token_mfa_configuration
+    ~user_attribute_update_settings ~user_pool_add_ons
+    ~username_configuration ~verification_message_template __id =
+  let __type = "aws_cognito_user_pool" in
+  let __attrs =
+    ({
+       alias_attributes =
+         Prop.computed __type __id "alias_attributes";
+       arn = Prop.computed __type __id "arn";
+       auto_verified_attributes =
+         Prop.computed __type __id "auto_verified_attributes";
+       creation_date = Prop.computed __type __id "creation_date";
+       custom_domain = Prop.computed __type __id "custom_domain";
+       deletion_protection =
+         Prop.computed __type __id "deletion_protection";
+       domain = Prop.computed __type __id "domain";
+       email_verification_message =
+         Prop.computed __type __id "email_verification_message";
+       email_verification_subject =
+         Prop.computed __type __id "email_verification_subject";
+       endpoint = Prop.computed __type __id "endpoint";
+       estimated_number_of_users =
+         Prop.computed __type __id "estimated_number_of_users";
+       id = Prop.computed __type __id "id";
+       last_modified_date =
+         Prop.computed __type __id "last_modified_date";
+       mfa_configuration =
+         Prop.computed __type __id "mfa_configuration";
+       name = Prop.computed __type __id "name";
+       sms_authentication_message =
+         Prop.computed __type __id "sms_authentication_message";
+       sms_verification_message =
+         Prop.computed __type __id "sms_verification_message";
+       tags = Prop.computed __type __id "tags";
+       tags_all = Prop.computed __type __id "tags_all";
+       username_attributes =
+         Prop.computed __type __id "username_attributes";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cognito_user_pool
+        (aws_cognito_user_pool ?alias_attributes
+           ?auto_verified_attributes ?deletion_protection
+           ?email_verification_message ?email_verification_subject
+           ?id ?mfa_configuration ?sms_authentication_message
+           ?sms_verification_message ?tags ?tags_all
+           ?username_attributes ~name ~account_recovery_setting
+           ~admin_create_user_config ~device_configuration
+           ~email_configuration ~lambda_config ~password_policy
+           ~schema ~sms_configuration
+           ~software_token_mfa_configuration
+           ~user_attribute_update_settings ~user_pool_add_ons
+           ~username_configuration ~verification_message_template ());
+    attrs = __attrs;
+  }
+
 let register ?tf_module ?alias_attributes ?auto_verified_attributes
     ?deletion_protection ?email_verification_message
     ?email_verification_subject ?id ?mfa_configuration
@@ -456,11 +521,9 @@ let register ?tf_module ?alias_attributes ?auto_verified_attributes
     ~email_configuration ~lambda_config ~password_policy ~schema
     ~sms_configuration ~software_token_mfa_configuration
     ~user_attribute_update_settings ~user_pool_add_ons
-    ~username_configuration ~verification_message_template
-    __resource_id =
-  let __resource_type = "aws_cognito_user_pool" in
-  let __resource =
-    aws_cognito_user_pool ?alias_attributes ?auto_verified_attributes
+    ~username_configuration ~verification_message_template __id =
+  let (r : _ Tf_core.resource) =
+    make ?alias_attributes ?auto_verified_attributes
       ?deletion_protection ?email_verification_message
       ?email_verification_subject ?id ?mfa_configuration
       ?sms_authentication_message ?sms_verification_message ?tags
@@ -469,59 +532,7 @@ let register ?tf_module ?alias_attributes ?auto_verified_attributes
       ~email_configuration ~lambda_config ~password_policy ~schema
       ~sms_configuration ~software_token_mfa_configuration
       ~user_attribute_update_settings ~user_pool_add_ons
-      ~username_configuration ~verification_message_template ()
+      ~username_configuration ~verification_message_template __id
   in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_aws_cognito_user_pool __resource);
-  let __resource_attributes =
-    ({
-       alias_attributes =
-         Prop.computed __resource_type __resource_id
-           "alias_attributes";
-       arn = Prop.computed __resource_type __resource_id "arn";
-       auto_verified_attributes =
-         Prop.computed __resource_type __resource_id
-           "auto_verified_attributes";
-       creation_date =
-         Prop.computed __resource_type __resource_id "creation_date";
-       custom_domain =
-         Prop.computed __resource_type __resource_id "custom_domain";
-       deletion_protection =
-         Prop.computed __resource_type __resource_id
-           "deletion_protection";
-       domain = Prop.computed __resource_type __resource_id "domain";
-       email_verification_message =
-         Prop.computed __resource_type __resource_id
-           "email_verification_message";
-       email_verification_subject =
-         Prop.computed __resource_type __resource_id
-           "email_verification_subject";
-       endpoint =
-         Prop.computed __resource_type __resource_id "endpoint";
-       estimated_number_of_users =
-         Prop.computed __resource_type __resource_id
-           "estimated_number_of_users";
-       id = Prop.computed __resource_type __resource_id "id";
-       last_modified_date =
-         Prop.computed __resource_type __resource_id
-           "last_modified_date";
-       mfa_configuration =
-         Prop.computed __resource_type __resource_id
-           "mfa_configuration";
-       name = Prop.computed __resource_type __resource_id "name";
-       sms_authentication_message =
-         Prop.computed __resource_type __resource_id
-           "sms_authentication_message";
-       sms_verification_message =
-         Prop.computed __resource_type __resource_id
-           "sms_verification_message";
-       tags = Prop.computed __resource_type __resource_id "tags";
-       tags_all =
-         Prop.computed __resource_type __resource_id "tags_all";
-       username_attributes =
-         Prop.computed __resource_type __resource_id
-           "username_attributes";
-     }
-      : t)
-  in
-  __resource_attributes
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

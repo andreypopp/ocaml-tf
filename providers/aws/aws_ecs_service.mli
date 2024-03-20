@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -265,3 +265,38 @@ val register :
   service_registries:service_registries list ->
   string ->
   t
+
+val make :
+  ?cluster:string prop ->
+  ?deployment_maximum_percent:float prop ->
+  ?deployment_minimum_healthy_percent:float prop ->
+  ?desired_count:float prop ->
+  ?enable_ecs_managed_tags:bool prop ->
+  ?enable_execute_command:bool prop ->
+  ?force_new_deployment:bool prop ->
+  ?health_check_grace_period_seconds:float prop ->
+  ?iam_role:string prop ->
+  ?id:string prop ->
+  ?launch_type:string prop ->
+  ?platform_version:string prop ->
+  ?propagate_tags:string prop ->
+  ?scheduling_strategy:string prop ->
+  ?tags:(string * string prop) list ->
+  ?tags_all:(string * string prop) list ->
+  ?task_definition:string prop ->
+  ?triggers:(string * string prop) list ->
+  ?wait_for_steady_state:bool prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  alarms:alarms list ->
+  capacity_provider_strategy:capacity_provider_strategy list ->
+  deployment_circuit_breaker:deployment_circuit_breaker list ->
+  deployment_controller:deployment_controller list ->
+  load_balancer:load_balancer list ->
+  network_configuration:network_configuration list ->
+  ordered_placement_strategy:ordered_placement_strategy list ->
+  placement_constraints:placement_constraints list ->
+  service_connect_configuration:service_connect_configuration list ->
+  service_registries:service_registries list ->
+  string ->
+  t Tf_core.resource

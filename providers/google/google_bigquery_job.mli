@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -277,3 +277,18 @@ val register :
   query:query list ->
   string ->
   t
+
+val make :
+  ?id:string prop ->
+  ?job_timeout_ms:string prop ->
+  ?labels:(string * string prop) list ->
+  ?location:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  job_id:string prop ->
+  copy:copy list ->
+  extract:extract list ->
+  load:load list ->
+  query:query list ->
+  string ->
+  t Tf_core.resource

@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type labels = {
   description : string prop option; [@option]
@@ -117,39 +115,45 @@ type t = {
   value_type : string prop;
 }
 
-let register ?tf_module ?id ?launch_stage ?project ?unit ?timeouts
-    ~description ~display_name ~metric_kind ~type_ ~value_type
-    ~labels ~metadata __resource_id =
-  let __resource_type = "google_monitoring_metric_descriptor" in
-  let __resource =
-    google_monitoring_metric_descriptor ?id ?launch_stage ?project
-      ?unit ?timeouts ~description ~display_name ~metric_kind ~type_
-      ~value_type ~labels ~metadata ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_google_monitoring_metric_descriptor __resource);
-  let __resource_attributes =
+let make ?id ?launch_stage ?project ?unit ?timeouts ~description
+    ~display_name ~metric_kind ~type_ ~value_type ~labels ~metadata
+    __id =
+  let __type = "google_monitoring_metric_descriptor" in
+  let __attrs =
     ({
-       description =
-         Prop.computed __resource_type __resource_id "description";
-       display_name =
-         Prop.computed __resource_type __resource_id "display_name";
-       id = Prop.computed __resource_type __resource_id "id";
-       launch_stage =
-         Prop.computed __resource_type __resource_id "launch_stage";
-       metric_kind =
-         Prop.computed __resource_type __resource_id "metric_kind";
+       description = Prop.computed __type __id "description";
+       display_name = Prop.computed __type __id "display_name";
+       id = Prop.computed __type __id "id";
+       launch_stage = Prop.computed __type __id "launch_stage";
+       metric_kind = Prop.computed __type __id "metric_kind";
        monitored_resource_types =
-         Prop.computed __resource_type __resource_id
-           "monitored_resource_types";
-       name = Prop.computed __resource_type __resource_id "name";
-       project =
-         Prop.computed __resource_type __resource_id "project";
-       type_ = Prop.computed __resource_type __resource_id "type";
-       unit = Prop.computed __resource_type __resource_id "unit";
-       value_type =
-         Prop.computed __resource_type __resource_id "value_type";
+         Prop.computed __type __id "monitored_resource_types";
+       name = Prop.computed __type __id "name";
+       project = Prop.computed __type __id "project";
+       type_ = Prop.computed __type __id "type";
+       unit = Prop.computed __type __id "unit";
+       value_type = Prop.computed __type __id "value_type";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_google_monitoring_metric_descriptor
+        (google_monitoring_metric_descriptor ?id ?launch_stage
+           ?project ?unit ?timeouts ~description ~display_name
+           ~metric_kind ~type_ ~value_type ~labels ~metadata ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?launch_stage ?project ?unit ?timeouts
+    ~description ~display_name ~metric_kind ~type_ ~value_type
+    ~labels ~metadata __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?launch_stage ?project ?unit ?timeouts ~description
+      ~display_name ~metric_kind ~type_ ~value_type ~labels ~metadata
+      __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

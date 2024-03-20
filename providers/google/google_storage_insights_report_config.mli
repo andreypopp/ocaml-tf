@@ -1,6 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-open! Tf.Prelude
+open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
@@ -114,3 +114,15 @@ val register :
   object_metadata_report_options:object_metadata_report_options list ->
   string ->
   t
+
+val make :
+  ?display_name:string prop ->
+  ?id:string prop ->
+  ?project:string prop ->
+  ?timeouts:timeouts ->
+  location:string prop ->
+  csv_options:csv_options list ->
+  frequency_options:frequency_options list ->
+  object_metadata_report_options:object_metadata_report_options list ->
+  string ->
+  t Tf_core.resource

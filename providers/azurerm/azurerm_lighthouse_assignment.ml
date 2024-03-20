@@ -1,8 +1,6 @@
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
-[@@@ocaml.warning "-33-27-26"]
-
-open! Tf.Prelude
+open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]  (** create *)
@@ -38,24 +36,32 @@ type t = {
   scope : string prop;
 }
 
-let register ?tf_module ?id ?name ?timeouts ~lighthouse_definition_id
-    ~scope __resource_id =
-  let __resource_type = "azurerm_lighthouse_assignment" in
-  let __resource =
-    azurerm_lighthouse_assignment ?id ?name ?timeouts
-      ~lighthouse_definition_id ~scope ()
-  in
-  Resource.add ?tf_module ~type_:__resource_type ~id:__resource_id
-    (yojson_of_azurerm_lighthouse_assignment __resource);
-  let __resource_attributes =
+let make ?id ?name ?timeouts ~lighthouse_definition_id ~scope __id =
+  let __type = "azurerm_lighthouse_assignment" in
+  let __attrs =
     ({
-       id = Prop.computed __resource_type __resource_id "id";
+       id = Prop.computed __type __id "id";
        lighthouse_definition_id =
-         Prop.computed __resource_type __resource_id
-           "lighthouse_definition_id";
-       name = Prop.computed __resource_type __resource_id "name";
-       scope = Prop.computed __resource_type __resource_id "scope";
+         Prop.computed __type __id "lighthouse_definition_id";
+       name = Prop.computed __type __id "name";
+       scope = Prop.computed __type __id "scope";
      }
       : t)
   in
-  __resource_attributes
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_lighthouse_assignment
+        (azurerm_lighthouse_assignment ?id ?name ?timeouts
+           ~lighthouse_definition_id ~scope ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name ?timeouts ~lighthouse_definition_id
+    ~scope __id =
+  let (r : _ Tf_core.resource) =
+    make ?id ?name ?timeouts ~lighthouse_definition_id ~scope __id
+  in
+  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs
